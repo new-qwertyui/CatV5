@@ -317,7 +317,7 @@ end)
 run(function()
 	local noslow = {}
 	
-	noslow = vape.windoes.blatant.CreateOptionsButton({
+	noslow = vape.windows.blatant.CreateOptionsButton({
 		Name = "NoSlowdown",
 		Function = function(callback)
 			if callback then
