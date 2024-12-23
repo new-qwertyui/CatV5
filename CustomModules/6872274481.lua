@@ -9005,7 +9005,11 @@ run(function()
 	local ReachCorner = Instance.new("UICorner")
 	ReachCorner.CornerRadius = UDim.new(0, 4)
 	ReachCorner.Parent = ReachLabel
-end)
+end))
+
+for i,v in pairs(bedwars.CombatController.killSounds) do
+	bedwars.CombatController.killSounds[i] = "rbxassetid://8010610426"
+																																																																																																																																																																																																						end
 
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
