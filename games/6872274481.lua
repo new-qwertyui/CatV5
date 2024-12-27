@@ -2108,6 +2108,7 @@ run(function()
 	local ParticleColor1
 	local ParticleColor2
 	local ParticleSize
+	local FaceTarget
 	local Animation
 	local AnimationMode
 	local AnimationSpeed
@@ -2257,6 +2258,9 @@ run(function()
 
 								local actualRoot = v.Character.PrimaryPart
 								if actualRoot then
+									if FaceTarget.Enabled then
+										lplr.Character:SetPrimaryPartCFrame(CFrame.new(lplr.Character.PrimaryPart.Position, Vector3.new(v.RootPart.Position.X, lplr.Character.PrimaryPart.Position.Y, v.RootPart.Position.Z)))
+									end
 									local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
 									local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
 									bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
@@ -2487,6 +2491,9 @@ run(function()
 		end,
 		Darker = true,
 		Visible = false
+	})
+	FaceTarget = Killaura:CreateToggle({
+		Name = "Face Target"
 	})
 	Animation = Killaura:CreateToggle({
 		Name = 'Custom Animation',
