@@ -5537,7 +5537,6 @@ run(function()
 	
 	local function buyItem(item, currencytable)
 		if not id then return end
-		notif('AutoBuy', 'Bought '..bedwars.ItemMeta[item.itemType].displayName, 3)
 		bedwars.Client:Get('BedwarsPurchaseItem'):CallServerAsync({
 			shopItem = item,
 			shopId = id
@@ -5549,6 +5548,7 @@ run(function()
 					itemType = item.itemType
 				})
 				bedwars.BedwarsShopController.alreadyPurchasedMap[item.itemType] = true
+				notif('AutoBuy', 'Bought '..bedwars.ItemMeta[item.itemType].displayName, 3)
 			end
 		end)
 		currencytable[item.currency] -= item.price
