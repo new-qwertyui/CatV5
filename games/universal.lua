@@ -816,7 +816,7 @@ run(function()
 	end
 	
 	AimAssist = vape.Categories.Combat:CreateModule({
-		Name = 'AimAssist',
+		Name = 'Aim Assist',
 		Function = function(callback)
 			if CircleObject then
 				CircleObject.Visible = callback
@@ -969,7 +969,7 @@ run(function()
 	local CPS
 	
 	AutoClicker = vape.Categories.Combat:CreateModule({
-		Name = 'AutoClicker',
+		Name = 'Auto Clicker',
 		Function = function(callback)
 			if callback then
 				repeat
@@ -1191,7 +1191,7 @@ run(function()
 	Hooks.ViewportPointToRay = Hooks.ScreenPointToRay
 
 	SilentAim = vape.Categories.Combat:CreateModule({
-		Name = 'SilentAim',
+		Name = 'Silent Aim',
 		Function = function(callback)
 			if CircleObject then
 				CircleObject.Visible = callback and Mode.Value == 'Mouse'
@@ -1497,7 +1497,7 @@ run(function()
 	end
 	
 	TriggerBot = vape.Categories.Combat:CreateModule({
-		Name = 'TriggerBot',
+		Name = 'Trigger Bot',
 		Function = function(callback)
 			if callback then
 				repeat
@@ -1568,7 +1568,7 @@ run(function()
 	local part
 	
 	AntiFall = vape.Categories.Blatant:CreateModule({
-		Name = 'AntiFall',
+		Name = 'Anti Fall',
 		Function = function(callback)
 			if callback then
 				if Method.Value == 'Part' then 
@@ -2039,7 +2039,7 @@ run(function()
 	end
 	
 	HighJump = vape.Categories.Blatant:CreateModule({
-		Name = 'HighJump',
+		Name = 'High Jump',
 		Function = function(callback)
 			if callback then
 				if AutoDisable.Enabled then
@@ -2087,7 +2087,7 @@ run(function()
 	local modified = {}
 	
 	HitBoxes = vape.Categories.Blatant:CreateModule({
-		Name = 'HitBoxes',
+		Name = 'Hit Boxes',
 		Function = function(callback)
 			if callback then
 				repeat
@@ -2583,7 +2583,7 @@ run(function()
 	local AutoDisable
 	
 	LongJump = vape.Categories.Blatant:CreateModule({
-		Name = 'LongJump',
+		Name = 'Long Jump',
 		Function = function(callback)
 			if callback then
 				local exempt = tick() + 0.1
@@ -2657,7 +2657,7 @@ run(function()
 	end
 	
 	MouseTP = vape.Categories.Blatant:CreateModule({
-		Name = 'MouseTP',
+		Name = 'Mouse TP',
 		Function = function(callback)
 			if callback then
 				local position
@@ -3170,7 +3170,7 @@ run(function()
 	local AngularVelocity
 	
 	SpinBot = vape.Categories.Blatant:CreateModule({
-		Name = 'SpinBot',
+		Name = 'Spin Bot',
 		Function = function(callback)
 			if callback then
 				SpinBot:Clean(runService.PreSimulation:Connect(function()
@@ -3273,7 +3273,7 @@ run(function()
 	local module, old
 	
 	TargetStrafe = vape.Categories.Blatant:CreateModule({
-		Name = 'TargetStrafe',
+		Name = 'Target Strafe',
 		Function = function(callback)
 			if callback then
 				if not module then
@@ -4313,7 +4313,7 @@ run(function()
 	local chair
 	
 	GamingChair = vape.Categories.Render:CreateModule({
-		Name = 'GamingChair',
+		Name = 'Gaming Chair',
 		Function = function(callback)
 			if callback then
 				if vape.ThreadFix then
@@ -4801,7 +4801,7 @@ run(function()
 	}
 	
 	NameTags = vape.Categories.Render:CreateModule({
-		Name = 'NameTags',
+		Name = 'Name Tags',
 		Function = function(callback)
 			if callback then
 				methodused = DrawingToggle.Enabled and 'Drawing' or 'Normal'
@@ -5014,7 +5014,7 @@ run(function()
 	end
 	
 	PlayerModel = vape.Categories.Render:CreateModule({
-		Name = 'PlayerModel',
+		Name = 'Player Model',
 		Function = function(callback)
 			if callback then 
 				if Local.Enabled then 
@@ -5903,7 +5903,7 @@ run(function()
 	end
 	
 	AnimationPlayer = vape.Categories.Utility:CreateModule({
-		Name = 'AnimationPlayer',
+		Name = 'Animation Player',
 		Function = function(callback)
 			if callback then
 				animobject = Instance.new('Animation')
@@ -5967,7 +5967,7 @@ run(function()
 	local AntiRagdoll
 	
 	AntiRagdoll = vape.Categories.Utility:CreateModule({
-		Name = 'AntiRagdoll',
+		Name = 'Anti Ragdoll',
 		Function = function(callback)
 			if entitylib.isAlive then
 				entitylib.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, not callback)
@@ -5987,7 +5987,7 @@ run(function()
 	local Sort
 	
 	AutoRejoin = vape.Categories.Utility:CreateModule({
-		Name = 'AutoRejoin',
+		Name = 'Auto Rejoin',
 		Function = function(callback)
 			if callback then
 				local check
@@ -6084,7 +6084,7 @@ run(function()
 	local oldchat
 	
 	ChatSpammer = vape.Categories.Utility:CreateModule({
-		Name = 'ChatSpammer',
+		Name = 'Chat Spammer',
 		Function = function(callback)
 			if callback then
 				if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
@@ -6226,7 +6226,7 @@ run(function()
 	local Sort
 	
 	ServerHop = vape.Categories.Utility:CreateModule({
-		Name = 'ServerHop',
+		Name = 'Server Hop',
 		Function = function(callback)
 			if callback then
 				ServerHop:Toggle()
@@ -6320,7 +6320,7 @@ run(function()
 	end
 	
 	StaffDetector = vape.Categories.Utility:CreateModule({
-		Name = 'StaffDetector',
+		Name = 'Staff Detector',
 		Function = function(callback)
 			if callback then
 				if Group.Value == '' or Role.Value == '' then
@@ -6397,7 +6397,7 @@ run(function()
 	local connections = {}
 	
 	vape.Categories.World:CreateModule({
-		Name = 'Anti-AFK',
+		Name = 'Anti AFK',
 		Function = function(callback)
 			if callback then
 				for _, v in getconnections(lplr.Idled) do
@@ -6572,7 +6572,7 @@ run(function()
 	local module, old
 	
 	vape.Categories.World:CreateModule({
-		Name = 'SafeWalk',
+		Name = 'Safe Walk',
 		Function = function(callback)
 			if callback then
 				if not module then
@@ -6689,7 +6689,7 @@ run(function()
 	end
 	
 	MurderMystery = vape.Categories.Minigames:CreateModule({
-		Name = 'MurderMystery',
+		Name = 'Murder Mystery',
 		Function = function(callback)
 			if callback then
 				oldtargetable, oldgetcolor = entitylib.targetCheck, entitylib.getEntityColor
@@ -7885,7 +7885,7 @@ run(function()
 	local Mode
 	local jumps = 0
 	InfiniteJump = vape.Categories.Blatant:CreateModule({
-		Name = "InfiniteJump",
+		Name = "Infinite Jump",
 		Tooltip = "Allows you to jump infinitely.",
 		Function = function(callback: boolean)
 			if callback then

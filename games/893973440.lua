@@ -44,7 +44,7 @@ local function notif(...)
 	return vape:CreateNotification(...) 
 end
 
-for _, v in {'HitBoxes', 'AutoRejoin'} do
+for _, v in {'Auto Rejoin'} do
 	vape:Remove(v)
 end
 
@@ -96,11 +96,9 @@ task.spawn(function()
     local old
     old = hookmetamethod(game, "__namecall", function(self, ...)
         if getnamecallmethod() == "FireClient" and checkcaller() then
-			print("HEyyyyy")
             local args = {...}
             if args[2]:find("is frozen") and store.Beast == lplr then
                 store.PlayerFrozen:Fire()
-				print("hey")
             end
             return old(self, ...)
         end
@@ -476,7 +474,7 @@ run(function()
 	local AutoComputer
 	local Mode
 	AutoComputer = vape.Categories.Minigames:CreateModule({
-		Name = "AutoComputer",
+		Name = "Auto Computer",
 		Tooltip = "Automatically complete the computer minigame.",
 		Function = function(callback: boolean)
 			if callback then
@@ -529,7 +527,7 @@ end)
 run(function()
 	local NoSlowdown
 	NoSlowdown = vape.Categories.Blatant:CreateModule({
-		Name = "NoSlowdown",
+		Name = "No Slow",
 		Tooltip = "Removes the slowdown effect from some actions.",
 		Function = function(callback: boolean)
 			if callback then
@@ -551,7 +549,7 @@ end)
 run(function()
 	local GUIFixer
 	GUIFixer = vape.Legit:CreateModule({
-		Name = "GuiFixer",
+		Name = "Gui Fixer",
 		Tooltip = "Fixes the gui being invisible.",
 		Function = function(callback: boolean)
 			lplr.PlayerGui.ScreenGui.MenusTabFrame.Visible = true
@@ -616,9 +614,11 @@ end)
 
 run(function()
 	local AutoWin
+	local speedDelay
 	local SaveCaptured
 	local AutoRejoin
 	local AutoServerhop
+	local FastHack
 	local function getComputer()
 		if store.Status:find("FIND") then return nil end
 		for i, v in store.Map:GetChildren() do
@@ -779,13 +779,18 @@ run(function()
 		lplr.Character.HumanoidRootPart.CFrame = pos - Vector3.new(0, 5, 0)
 	end
 
+	local testVal = function()
+		return speedDelay.Value
+	end
+	
 	local function getSpeed(pos1, pos2, walkspeed)
 		local distance = (pos1 - pos2).magnitude
-		return distance / walkspeed
+		return (distance / walkspeed) * testVal()
 	end
+	
 
 	AutoWin = vape.Categories.Minigames:CreateModule({
-		Name = "AutoWin",
+		Name = "Auto Win",
 		Tooltip = "Automatically wins the game for you.",
 		Function = function(callback: boolean)
 			computers = 0
@@ -886,7 +891,7 @@ run(function()
 											if tweening then
 												jumpTick = 0
 											end
-											if jumpTick == 50 then
+											if jumpTick == 100 and FastHack.Enabled then
 												lplr.Character.HumanoidRootPart.CFrame += Vector3.new(0, 3, 0)
 												task.wait(0.01)
 												jumpTick = 0
@@ -960,6 +965,14 @@ run(function()
 			end
 		end
 	})
+	speedDelay = AutoWin:CreateSlider({
+		Name = "Speed Slowdown",
+		Max = 3,
+		Min = 0.1,
+		Default = 1,
+		Increment= 0.1
+	})
+	FastHack = AutoWin:CreateToggle({Name = "Fast Hack", Default = true})
 	SaveCaptured = AutoWin:CreateToggle({Name = "Save captured players", Default = true})
 	AutoRejoin = AutoWin:CreateToggle({Name = "Auto rejoin", Default = true})
 	AutoServerhop = AutoWin:CreateToggle({Name = "Auto ServerHop", Default = true})
@@ -968,7 +981,7 @@ end)
 run(function()
 	local AlwaysCrawl
 	AlwaysCrawl = vape.Categories.Blatant:CreateModule({
-		Name = "AlwaysCrawl",
+		Name = "Always Crawl",
 		Tooltip = "Always be able to crawl, even as beast.",
 		Function = function(callback: boolean)
 			if callback then
@@ -992,5 +1005,48 @@ run(function()
 				until not AlwaysCrawl.Enabled
 			end
 		end
+	})
+end)
+
+run(function()
+	local AntiBeast
+	local Method
+	local Range
+	local bNear = false
+	AntiBeast = vape.Categories.Utility:CreateModule({
+		Name = "Anti Beast",
+		Tooltip = "Prevents the beast from reaching you.",
+		Function = function(callback: boolean)
+			if callback then
+				repeat
+					task.wait()
+					if store.Beast ~= nil and store.Beast ~= lplr then
+						local mag = (lplr.Character.HumanoidRootPart.Position - store.Beast.Character.HumanoidRootPart.Position).magnitude
+						if mag <= Range.Value then
+							if Method.Value == "Slowdown" then
+								pcall(function() store.Beast.Character.BeastPowers.PowersEvent:FireServer("Jumped") end)
+							end
+							if Method.Value == "Alert" then
+								if not bNear then notif("Anti Beast", "The beast is near!", 5) end
+								bNear = true
+							end
+						end
+					else bNear = false
+					end
+				until not AntiBeast.Enabled
+			end
+		end
+	})
+	Method = AntiBeast:CreateDropdown({
+		Name = "Method",
+		List = {"Slowdown", "Alert"},
+		Default = "Slowdown"
+	})
+	Range = AntiBeast:CreateSlider({
+		Name = "Range",
+		Max = 60,
+		Min = 1,
+		Default = 25,
+		Increment = 1
 	})
 end)
