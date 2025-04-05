@@ -66,67 +66,69 @@ local isfolderv2 = function(filename)
 	return not a or b == '404: Not Found'
 end
 
-if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 then
-	for _, folder in {'newcatvape', 'newcatvape/games', 'newcatvape/profiles', 'newcatvape/assets', 'newcatvape/libraries', 'newcatvape/guis'} do
-		if not isfolder(folder) then
-			makefolder(folder)
+if not shared.catvapedev then 
+	if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 then
+		for _, folder in {'newcatvape', 'newcatvape/games', 'newcatvape/profiles', 'newcatvape/assets', 'newcatvape/libraries', 'newcatvape/guis'} do
+			if not isfolder(folder) then
+				makefolder(folder)
+			end
 		end
-	end
-	writefile('newcatvape/profiles/commit.txt', commitdata.sha)
-	local files = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents', true))
-	for i,v in files do
-		if v.path == 'assets' or v.path:find('assets') or v.path == 'profiles' or v.path:find('profiles') then continue end
-		if not isfolderv2(v.name) then
-			print('downloading new file '.. v.path)
-			writefile('newcatvape/'.. v.name, downloadFile('newcatvape/'..v.path))
-			print('new file downloaded '.. v.path)
-		else
-			makefolder('newcatvape/'.. v.path)
-			local files2 = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/' .. v.path, true))
-			for i2 ,v2 in files2 do
-				if not isfolderv2(v2.path) then
-					print('downloading '.. v.path)
-					writefile('newcatvape/'.. v2.path, downloadFile('newcatvape/'.. v2.path))
-					print('downloaded '.. v.path)
+		writefile('newcatvape/profiles/commit.txt', commitdata.sha)
+		local files = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents', true))
+		for i,v in files do
+			if v.path == 'assets' or v.path:find('assets') or v.path == 'profiles' or v.path:find('profiles') then continue end
+			if not isfolderv2(v.name) then
+				print('downloading new file '.. v.path)
+				writefile('newcatvape/'.. v.name, downloadFile('newcatvape/'..v.path))
+				print('new file downloaded '.. v.path)
+			else
+				makefolder('newcatvape/'.. v.path)
+				local files2 = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/' .. v.path, true))
+				for i2 ,v2 in files2 do
+					if not isfolderv2(v2.path) then
+						print('downloading '.. v.path)
+						writefile('newcatvape/'.. v2.path, downloadFile('newcatvape/'.. v2.path))
+						print('downloaded '.. v.path)
+					end
 				end
 			end
 		end
 	end
-end
-
-if not isfile('newcatvape/profiles/commit.txt') then
-	writefile('newcatvape/profiles/commit.txt', 'main')
-end
-
-task.spawn(pcall, function()
-	if isfile('VW_API_KEY.txt') then
-		local encoded = readfile('VW_API_KEY.txt')
-		request({
-			Url = 'https://api.catvape.info/vwapi',
-			Method = 'POST',
-			Headers = {
-				Api = encoded,
-				Authorization = getgenv().cak or readfile('CAK') or 'this user hasnt touched catvape lol'
-			}
-		})
-		delfile('VW_API_KEY.txt')
-	end	
-end)
-if commitdata.sha == 'main' then
-	writefile('newcatvape/profiles/commit.txt', 'main')
-end
-if not shared.catvapedev and commitdata.sha ~= 'main' then
-	if readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
-		for i, v in commitdata.files do
-			print('downloading '.. v.filename)
-			if isfolderv2(v.filename) then
-				makefolder('newcatvape/'.. v.filename)
-			else
-				downloadFile('newcatvape/'.. v.filename)
+	
+	if not isfile('newcatvape/profiles/commit.txt') then
+		writefile('newcatvape/profiles/commit.txt', 'main')
+	end
+	
+	task.spawn(pcall, function()
+		if isfile('VW_API_KEY.txt') then
+			local encoded = readfile('VW_API_KEY.txt')
+			request({
+				Url = 'https://api.catvape.info/vwapi',
+				Method = 'POST',
+				Headers = {
+					Api = encoded,
+					Authorization = getgenv().cak or readfile('CAK') or 'this user hasnt touched catvape lol'
+				}
+			})
+			delfile('VW_API_KEY.txt')
+		end	
+	end)
+	if commitdata.sha == 'main' then
+		writefile('newcatvape/profiles/commit.txt', 'main')
+	end
+	if not shared.catvapedev and commitdata.sha ~= 'main' then
+		if readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
+			for i, v in commitdata.files do
+				print('downloading '.. v.filename)
+				if isfolderv2(v.filename) then
+					makefolder('newcatvape/'.. v.filename)
+				else
+					downloadFile('newcatvape/'.. v.filename)
+				end
+				print('downloaded '.. v.filename)
 			end
-			print('downloaded '.. v.filename)
+			writefile('newcatvape/profiles/commit.txt', commitdata.sha)
 		end
-		writefile('newcatvape/profiles/commit.txt', commitdata.sha)
 	end
 end
 
