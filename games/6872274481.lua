@@ -2192,7 +2192,7 @@ run(function()
 								store.attackReach = (delta.Magnitude * 100) // 1 / 100
 								store.attackReachUpdate = tick() + 1
 								if not antihitting then
-									store.lastattack = tick() + (vape.Modules.AntiHit.Enabled and antihitregtime.Value or 0)
+									store.lastattack = tick() + (vape.Modules["Anti Hit"].Enabled and antihitregtime.Value or 0)
 								end
 								AttackRemote:FireServer({
 									weapon = sword.tool,
