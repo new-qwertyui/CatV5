@@ -33,7 +33,6 @@ bedwars = {
                 a.blockType = 'real'
                 function a:placeBlock() end
                 function a:disable() end
-                function a.placeBlock() end
                 return a 
             end
         },

@@ -99,6 +99,8 @@ local function finishLoading()
 			if shared.catvapedev then
 				teleportScript = 'shared.catvapedev = true\n'..teleportScript
 			end
+			teleportScript = 'shared.username = "'..username..'"\n'..teleportScript
+			teleportScript = 'shared.password = "'..password..'"\n'..teleportScript
 			vape:Save()
 			queue_on_teleport(teleportScript)
 		end

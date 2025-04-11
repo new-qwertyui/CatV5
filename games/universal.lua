@@ -7933,36 +7933,36 @@ run(function()
 				settings().Rendering.QualityLevel = 1
 				for i,v in pairs(game:GetDescendants()) do
 					runService.Heartbeat:Wait()
-					if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-						v.Material = "Plastic"
+					if v:IsA('Part') or v:IsA('UnionOperation') or v:IsA('MeshPart') or v:IsA('CornerWedgePart') or v:IsA('TrussPart') then
+						v.Material = 'Plastic'
 						v.Reflectance = 0
-					elseif v:IsA("Decal") then
+					elseif v:IsA('Decal') then
 						v.Transparency = 1
-					elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+					elseif v:IsA('ParticleEmitter') or v:IsA('Trail') then
 						v.Lifetime = NumberRange.new(0)
-					elseif v:IsA("Explosion") then
+					elseif v:IsA('Explosion') then
 						v.BlastPressure = 1
 						v.BlastRadius = 1
 					end
 				end
 				for i,v in pairs(lightingService:GetDescendants()) do
-					if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+					if v:IsA('BlurEffect') or v:IsA('SunRaysEffect') or v:IsA('ColorCorrectionEffect') or v:IsA('BloomEffect') or v:IsA('DepthOfFieldEffect') then
 						v.Enabled = false
 					end
 				end
 				FPSBoost:Clean(workspace.DescendantAdded:Connect(function(child)
 					task.spawn(function()
-						if child:IsA("Part") or child:IsA("UnionOperation") or child:IsA("MeshPart") or child:IsA("CornerWedgePart") or child:IsA("TrussPart") then
+						if child:IsA('Part') or child:IsA('UnionOperation') or child:IsA('MeshPart') or child:IsA('CornerWedgePart') or child:IsA('TrussPart') then
 							runService.Heartbeat:Wait()
-							child.Material = "Plastic"
+							child.Material = 'Plastic'
 							child.Reflectance = 0
-						elseif child:IsA("Decal") then
+						elseif child:IsA('Decal') then
 							runService.Heartbeat:Wait()
 							child.Transparency = 1
-						elseif child:IsA("ParticleEmitter") or child:IsA("Trail") then
+						elseif child:IsA('ParticleEmitter') or child:IsA('Trail') then
 							runService.Heartbeat:Wait()
 							child.Lifetime = NumberRange.new(0)
-						elseif child:IsA("Explosion") then
+						elseif child:IsA('Explosion') then
 							runService.Heartbeat:Wait()
 							child.BlastPressure = 1
 							child.BlastRadius = 1
@@ -7980,5 +7980,78 @@ run(function()
 				end))
 			end
 		end
+	})
+end)
+
+run(function()
+	local nofall = nil
+	local nofallinstant = nil
+	local nofallmode = nil
+
+	local nofalltick = tick()
+
+	local params = RaycastParams.new()
+
+	nofall = vape.Categories.Blatant:CreateModule({
+		Name = 'No Fall',
+		Function = function(call)
+			if call then
+				nofall:Clean(runService.PreSimulation:Connect(function(delta)
+					if entitylib.isAlive then
+						params.FilterDescendantsInstances = {lplr.Character}
+						local issafe = entitylib.character.AirTime and entitylib.character.AirTime > 1.5
+
+						local skyY = -35
+
+						local raycastSky = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, skyY, 0), params)
+						local raycastGround = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -10, 0), params)
+						if raycastSky and not raycastGround then
+							if nofallmode.Value == 'Velocity' then
+								if tick() > nofalltick and issafe then
+									task.spawn(function()
+										if (entitylib.character.RootPart.Position.Y - raycastSky.Position.Y) > 20 then
+											for i = 1, 6 do
+												local velo = entitylib.character.RootPart.Velocity
+												entitylib.character.RootPart.Velocity = Vector3.new(velo.X, nofallinstant.Enabled and 4 or -25, velo.Z)
+												if i == 6 and nofallinstant.Enabled then
+													local newray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -100, 0), params)
+													if newray then entitylib.character.RootPart.CFrame = CFrame.new(newray.Position.X, newray.Position.Y + 3, newray.Position.Z) end
+												end 
+												task.wait(.1)
+											end
+										end
+									end)
+								end
+								nofalltick = tick() + 0.5
+								entitylib.character.RootPart.AssemblyLinearVelocity += Vector3.new(0, delta * 52, 0)
+							else
+								if tick() > nofalltick then
+									nofalltick = tick() + 1
+									entitylib.character.RootPart.Anchored = true
+									entitylib.character.RootPart.Velocity = Vector3.zero
+									task.delay(0.3, function()
+										entitylib.character.RootPart.Velocity = Vector3.zero
+										if nofallinstant.Enabled then
+											entitylib.character.RootPart.CFrame = CFrame.new(raycastSky.Position.X, raycastSky.Position.Y + 3, raycastSky.Position.Z)
+										end
+										entitylib.character.RootPart.Anchored = false
+									end)
+								end
+							end
+						end
+ 					end
+				end))
+			end
+		end
+	})
+	nofallinstant = nofall:CreateToggle({
+		Name = 'Instant TP',
+		Tooltip = 'Automatically tps you to the ground after unfreezed',
+		Default = true
+	})
+	nofallmode = nofall:CreateDropdown({
+		Name = 'Mode',
+		List = {'Velocity', 'Freeze'},
+		Default = 'Velocity'
 	})
 end)

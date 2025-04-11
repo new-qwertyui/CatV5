@@ -335,7 +335,11 @@ local init: () -> table = function()
 		end
 		return assetfunction(path)
 	end	
-	getcustomasset = function(path)
+	getcustomasset = not inputService.TouchEnabled and assetfunction and function(path)
+		return downloadFile(path, assetfunction)
+	end or identifyexecutor():lower():find("delta") and assetfunction and function(path)
+		return downloadFile(path, assetfunction)
+	end or function(path)
 		return getcustomassets[path] or ''
 	end
 	
@@ -415,6 +419,12 @@ local init: () -> table = function()
 	do
 		local res = isfile('newcatvape/profiles/color.txt') and loadJson('newcatvape/profiles/color.txt')
 		if res then 
+			uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
+			uipallet.Text = res.Main and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
+			uipallet.Font = res.Font and Font.new(
+				res.Font:find('rbxasset') and res.Font
+				or string.format('rbxasset://fonts/families/%s.json', res.Font)
+			) or uipallet.Font
 			uipallet.FontSemiBold = Font.new(uipallet.Font.Family, Enum.FontWeight.SemiBold)
 		end
 		fontsize.Font = uipallet.Font
@@ -4859,7 +4869,7 @@ local init: () -> table = function()
 			if search.Text == '' then return end
 	
 			for i, v in self.Modules do
-				if i:lower():find(search.Text:lower()) then
+				if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
 					local button = v.Object:Clone()
 					button.Bind:Destroy()
 					button.MouseButton1Click:Connect(function()
@@ -5844,7 +5854,11 @@ local init: () -> table = function()
 				delfile('newcatvape/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
 			end
 			shared.vapereload = true
-			loadfile("newcatvape/init.lua")()
+			loadfile("newcatvape/init.lua")({
+				Username = username,
+				Password = password,
+				Developer = shared.catvapedev
+			})
 		end,
 		Tooltip = 'This will set your profile to the default settings of Vape'
 	})
@@ -5859,7 +5873,11 @@ local init: () -> table = function()
 		Name = 'Reinject',
 		Function = function()
 			shared.vapereload = true
-			loadfile("newcatvape/init.lua")()
+			loadfile("newcatvape/init.lua")({
+				Username = username,
+				Password = password,
+				Developer = shared.catvapedev
+			})
 		end,
 		Tooltip = 'Reloads vape for debugging purposes'
 	})
@@ -6003,7 +6021,7 @@ local init: () -> table = function()
 			Text = {210, 210, 210}
 		},
 		Purple = {
-			Main = {57, 29, 74},
+			Main = {157, 29, 74},
 			Text = {210, 210, 210}
 		}
 	}
@@ -6016,11 +6034,15 @@ local init: () -> table = function()
 		List = list,
 		Default = 'Dark',
 		Function = function(val, mouse)
-			if mouse then
+			if mouse and (not isfile('newcatvape/profiles/color.txt') and true or httpService:JSONDecode(readfile('newcatvape/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
 				writefile("newcatvape/profiles/color.txt", httpService:JSONEncode(colors[val]))
 				mainapi:Save()
 				shared.vapereload = true
-				loadfile("newcatvape/main.lua")()
+				loadfile("newcatvape/init.lua")({
+					Username = username,
+					Password = password,
+					Developer = shared.catvapedev
+				})
 			end
 		end
 	})
@@ -6220,11 +6242,13 @@ local init: () -> table = function()
 		Object = {Visible = {}}
 	}
 	local textguibackgroundtint = {Enabled = false}
+	local textguicornersidebar = {Enabled = false, Object = {Visible = false}}
 	local textguibackground = textgui:CreateToggle({
 		Name = 'Render background',
 		Function = function(callback)
 			textguibackgroundtransparency.Object.Visible = callback
 			textguibackgroundtint.Object.Visible = callback
+			textguicornersidebar.Object.Visible = callback
 			mainapi:UpdateTextGUI()
 		end
 	})
@@ -6239,6 +6263,14 @@ local init: () -> table = function()
 		end,
 		Darker = true,
 		Visible = false
+	})
+
+	textguicornersidebar = textgui:CreateToggle({
+		Name = 'Cornered Sidebar',
+		Tooltip = 'Makes ur sidebar rounded.',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
 	})
 	textguibackgroundtint = textgui:CreateToggle({
 		Name = 'Tint',
@@ -6570,18 +6602,23 @@ local init: () -> table = function()
 					task.wait()
 					if TOKEN ~= "" then
 						local data = Spotify:GetData(TOKEN)
+						if data.song then
 						
-						spotifyname.Text = data.song.name
-						spotifyartistname.Text = data.song.artist
-						tweenService:Create(spotifyprogress, TweenInfo.new(0.16, Enum.EasingStyle.Linear), {Size = UDim2.new(0, spotifyprogressbkg.Size.X.Offset / (data.playback.total / data.playback.current), 0, spotifyprogressbkg.Size.Y.Offset)}):Play()
-						
-						spotifyprogresstime.Text = Spotify:ConvertTime(data.playback.current)
-						
-						if song ~= data.song.name then
-							song = data.song.name
-							local path = "newcatvape/assets/trash/"..data.song.name, data.song.artist..".png"
-							writefile(path, game:HttpGet(data.song.cover))
-							spotifyshot.Image = getcustomasset(path)
+							spotifyname.Text = data.song.name
+							spotifyartistname.Text = data.song.artist
+							tweenService:Create(spotifyprogress, TweenInfo.new(0.16, Enum.EasingStyle.Linear), {Size = UDim2.new(0, spotifyprogressbkg.Size.X.Offset / (data.playback.total / data.playback.current), 0, spotifyprogressbkg.Size.Y.Offset)}):Play()
+							
+							spotifyprogresstime.Text = Spotify:ConvertTime(data.playback.current)
+							
+							if song ~= data.song.name then
+								song = data.song.name
+								local path = "newcatvape/assets/trash/"..data.song.name
+								path = path.." "..data.song.artist..".png"
+								print(path)
+								makefolder("newcatvape/assets/trash")
+								writefile(path, game:HttpGet(data.song.cover))
+								spotifyshot.Image = getcustomasset(path)
+							end
 						end
 					end
 				until (not enabled)
@@ -6691,6 +6728,8 @@ local init: () -> table = function()
 	local targetinfo
 	local targetinfoobj
 	local targetinfobcolor
+	local targetinfobkg
+	local targetinfofollow
 	targetinfoobj = mainapi:CreateOverlay({
 		Name = 'Target Info',
 		Icon = getcustomasset('newcatvape/assets/new/targetinfoicon.png'),
@@ -6701,15 +6740,21 @@ local init: () -> table = function()
 			if callback then
 				task.spawn(function()
 					repeat
-						targetinfo:UpdateInfo()
-						task.wait()
+						local target = targetinfo:UpdateInfo()
+						if targetinfofollow and targetinfofollow.Enabled and target then
+							local vec, screen = workspace.CurrentCamera:WorldToScreenPoint(target.Position)
+							if screen then
+								targetinfobkg.Parent.Parent.Position = UDim2.fromOffset(vec.X, vec.Y)
+							end
+						end
+						task.wait(0)
 					until not targetinfoobj.Button or not targetinfoobj.Button.Enabled
 				end)
 			end
 		end
 	})
 	
-	local targetinfobkg = Instance.new('Frame')
+	targetinfobkg = Instance.new('Frame')
 	targetinfobkg.Size = UDim2.fromOffset(240, 89)
 	targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
 	targetinfobkg.BackgroundTransparency = 0.5
@@ -6819,6 +6864,11 @@ local init: () -> table = function()
 		end,
 		Default = true
 	})
+	targetinfofollow = targetinfoobj:CreateToggle({
+		Name = 'Follow Player',
+		Function = function(callback) end,
+		Default = true
+	})
 	targetinfobackgroundtransparency = targetinfoobj:CreateSlider({
 		Name = 'Transparency',
 		Min = 0,
@@ -6909,28 +6959,30 @@ local init: () -> table = function()
 				end
 	
 				if v.Health ~= lasthealth or v.MaxHealth ~= lastmaxhealth then
-					local percent = math.max(v.Health / v.MaxHealth, 0)
-					tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
-					})
-					tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
-					})
-					if lasthealth > v.Health and self.LastTarget == v then
-						tween:Cancel(targetinfoshotflash)
-						targetinfoshotflash.BackgroundTransparency = 0.3
-						tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
-							BackgroundTransparency = 1
+					task.spawn(function()
+						local percent = math.max(v.Health / v.MaxHealth, 0)
+						tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
 						})
-					end
-					lasthealth = v.Health
-					lastmaxhealth = v.MaxHealth
+						tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+						})
+						if lasthealth > v.Health and self.LastTarget == v then
+							tween:Cancel(targetinfoshotflash)
+							targetinfoshotflash.BackgroundTransparency = 0.3
+							tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
+								BackgroundTransparency = 1
+							})
+						end
+						lasthealth = v.Health
+						lastmaxhealth = v.MaxHealth
+					end)
 				end
 	
 				if not v.Character then table.clear(v) end
 				self.LastTarget = v
 			end
-			return v
+			return v and v.Head
 		end
 	}
 	mainapi.Libraries.targetinfo = targetinfo
@@ -6995,11 +7047,30 @@ local init: () -> table = function()
 						holderline2.Name = 'Line'
 						holderline2.Position = UDim2.new()
 						holderline2.Parent = holderbackground
-						holdercolorline = Instance.new('Frame')
-						holdercolorline.Size = UDim2.new(0, 2, 1, 0)
-						holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
-						holdercolorline.BorderSizePixel = 0
-						holdercolorline.Parent = holderbackground
+						if textguicornersidebar.Enabled then
+							holderline.Visible = false
+	 	
+							holderbackground.Position = UDim2.fromOffset(-5, 0)
+	 
+							local cornerLine = Instance.new('ImageLabel', holderbackground)
+							cornerLine.ImageColor3 = Color3.fromRGB(47, 122, 229)
+							cornerLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+							cornerLine.Size = UDim2.new(0, 4, 0.9, 0)
+							cornerLine.AnchorPoint = Vector2.new(0, 0.5)
+							cornerLine.Image = 'rbxassetid://73104725656509'
+							cornerLine.BackgroundTransparency = 1
+							cornerLine.Position = UDim2.new(1, 0, 0.5, 0)
+							cornerLine.ZIndex = -1
+							cornerLine.BorderSizePixel = 0
+							cornerLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+							holdercolorline = cornerLine
+						else
+							holdercolorline = Instance.new('Frame')
+							holdercolorline.Size = UDim2.new(0, 2, 1, 0)
+							holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
+							holdercolorline.BorderSizePixel = 0	
+							holdercolorline.Parent = holderbackground
+						end
 					end
 					local holdertext = Instance.new('TextLabel')
 					holdertext.Position = UDim2.fromOffset(right and 3 or 6, 2)
@@ -7086,6 +7157,9 @@ local init: () -> table = function()
 				v.Text.TextColor3 = customcolor or (mainapi.GUIColor.Rainbow and Color3.fromHSV(mainapi:Color((hue - ((textguigradient and i + 2 or i) * 0.025)) % 1)) or VapeLogoGradient.Color.Keypoints[2].Value)
 				if v.Color then
 					v.Color.BackgroundColor3 = v.Text.TextColor3
+					if v.Color:IsA('ImageLabel') then
+						v.Color.ImageColor3 = v.Text.TextColor3
+					end
 				end
 				if textguibackgroundtint.Enabled and v.Background then
 					v.Background.BackgroundColor3 = color.Dark(v.Text.TextColor3, 0.75)

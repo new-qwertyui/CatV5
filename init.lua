@@ -1,7 +1,10 @@
 local license = ({...})[1] or {}
 
+getgenv().username = license.Username or shared.username
+getgenv().password = license.Password or shared.password
+
 getgenv().CAK = license.CAK or getgenv().CAK or ""
-shared.catvapedev = license.Developer or shared.catvapedev or nil
+getgenv().catvapedev = license.Developer or shared.catvapedev or false
 
 getgenv().void = function() end
 getgenv().request = request or http.request or function() end
@@ -48,6 +51,22 @@ local delfile = delfile or function(file)
 end
 
 local commitdata = getcommit()
+local function downloadFile2(path, func, bypass)
+	if not isfile(path) then
+		local suc, res = pcall(function()
+			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'..select(1, path:gsub('newcatvape/', '')), true)
+		end)
+		if not suc or res == '404: Not Found' then
+			error(res)
+		end
+		if path:find('.lua') then
+			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+		end
+		writefile(path, res)
+	end
+	return (func or readfile)(path)
+end
+
 local function downloadFile(path)
 	local suc, res = pcall(function()
 		return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..select(1, path:gsub('newcatvape/', '')), true)
@@ -66,7 +85,7 @@ local isfolderv2 = function(filename)
 	return not a or b == '404: Not Found'
 end
 
-if not shared.catvapedev then 
+if not getgenv().catvapedev then 
 	if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 then
 		for _, folder in {'newcatvape', 'newcatvape/games', 'newcatvape/profiles', 'newcatvape/assets', 'newcatvape/libraries', 'newcatvape/guis'} do
 			if not isfolder(folder) then
@@ -116,7 +135,7 @@ if not shared.catvapedev then
 	if commitdata.sha == 'main' then
 		writefile('newcatvape/profiles/commit.txt', 'main')
 	end
-	if not shared.catvapedev and commitdata.sha ~= 'main' then
+	if not getgenv().catvapedev and commitdata.sha ~= 'main' then
 		if readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
 			for i, v in commitdata.files do
 				print('downloading '.. v.filename)
@@ -134,4 +153,4 @@ end
 
 getgenv().used_init = true
 
-return loadstring(downloadFile('newcatvape/main.lua'), 'main')()
+return loadstring(downloadFile2('newcatvape/main.lua'), 'main')(license)
