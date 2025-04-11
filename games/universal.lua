@@ -7987,10 +7987,13 @@ run(function()
 	local nofall = nil
 	local nofallinstant = nil
 	local nofallmode = nil
+	local nofallgravmode = nil
 
 	local nofalltick = tick()
 
 	local params = RaycastParams.new()
+
+	local should = false
 
 	nofall = vape.Categories.Blatant:CreateModule({
 		Name = 'No Fall',
@@ -7999,48 +8002,33 @@ run(function()
 				nofall:Clean(runService.PreSimulation:Connect(function(delta)
 					if entitylib.isAlive then
 						params.FilterDescendantsInstances = {lplr.Character}
-						local issafe = entitylib.character.AirTime and entitylib.character.AirTime > 1.5
-
-						local skyY = -35
-
-						local raycastSky = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, skyY, 0), params)
-						local raycastGround = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -10, 0), params)
-						if raycastSky and not raycastGround then
-							if nofallmode.Value == 'Velocity' then
-								if tick() > nofalltick and issafe then
-									task.spawn(function()
-										if (entitylib.character.RootPart.Position.Y - raycastSky.Position.Y) > 20 then
-											for i = 1, 6 do
-												local velo = entitylib.character.RootPart.Velocity
-												entitylib.character.RootPart.Velocity = Vector3.new(velo.X, nofallinstant.Enabled and 4 or -25, velo.Z)
-												if i == 6 and nofallinstant.Enabled then
-													local newray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -100, 0), params)
-													if newray then entitylib.character.RootPart.CFrame = CFrame.new(newray.Position.X, newray.Position.Y + 3, newray.Position.Z) end
-												end 
-												task.wait(.1)
-											end
-										end
-									end)
+						if not workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -11, 0), params) and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -31, 0), params) then
+							if entitylib.character.RootPart.Velocity.Y < -80 and tick() > nofalltick then
+								nofalltick = tick() + 1
+								for __ = 1, 7 do
+									task.wait(.05)
+									entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, __, entitylib.character.RootPart.Velocity.Z)
 								end
-								nofalltick = tick() + 0.5
-								entitylib.character.RootPart.AssemblyLinearVelocity += Vector3.new(0, delta * 52, 0)
-							else
-								if tick() > nofalltick then
-									nofalltick = tick() + 1
-									entitylib.character.RootPart.Anchored = true
-									entitylib.character.RootPart.Velocity = Vector3.zero
-									task.delay(0.3, function()
-										entitylib.character.RootPart.Velocity = Vector3.zero
-										if nofallinstant.Enabled then
-											entitylib.character.RootPart.CFrame = CFrame.new(raycastSky.Position.X, raycastSky.Position.Y + 3, raycastSky.Position.Z)
-										end
-										entitylib.character.RootPart.Anchored = false
-									end)
+								if nofallinstant.Enabled then
+									local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), params)
+									if ray then
+										entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.Position.X, ray.Position.Y + entitylib.character.HipHeight, entitylib.character.RootPart.Position.Z), entitylib.character.RootPart.CFrame.LookVector)
+									end
+									return
+								end
+							end
+							if nofallmode.Value == 'Gravity' then
+								if nofallgravmode.Value == 'Workspace' then
+									workspace.Gravity = 140
+								else
+									entitylib.character.RootPart.AssemblyLinearVelocity += Vector3.new(0, delta * 70, 0)
 								end
 							end
 						end
  					end
 				end))
+			else
+				workspace.Gravity = 196
 			end
 		end
 	})
@@ -8051,7 +8039,17 @@ run(function()
 	})
 	nofallmode = nofall:CreateDropdown({
 		Name = 'Mode',
-		List = {'Velocity', 'Freeze'},
-		Default = 'Velocity'
+		List = {'Gravity', 'Freeze'},
+		Default = 'Gravity',
+		Function = function(val)
+			if nofallgravmode then
+				nofallgravmode.Object.Visible = val == 'Gravity'
+			end
+		end
+	})
+	nofallgravmode = nofall:CreateDropdown({
+		Name = 'Gravity Mode',
+		List = {'Velocity', 'Workspace'},
+		Default = 'Workspace'
 	})
 end)
