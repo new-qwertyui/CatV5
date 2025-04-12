@@ -65,6 +65,7 @@ local store = {
 		},
 		hotbar = {}
 	},
+	attackSpeed = .14,
 	inventories = {},
 	matchState = 1,
 	queueType = 'bedwars_test',
@@ -2004,6 +2005,7 @@ end)
 local Attacking
 local antihitting
 local antihitregtime
+local flylanding = false
 run(function()
 	local Killaura
 	local Targets
@@ -2226,9 +2228,9 @@ run(function()
 								bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 								store.attackReach = (delta.Magnitude * 100) // 1 / 100
 								store.attackReachUpdate = tick() + 1
-								if not antihitting then
-									store.lastattack = tick() + .14
-								end
+								pcall(function()
+									store.attackSpeed = meta.sword.attackSpeed
+								end)
 								AttackRemote:FireServer({
 									weapon = sword.tool,
 									chargedAttack = {chargeRatio = badexecutor and 0.999 or (meta.sword.chargedAttack and not meta.sword.chargedAttack.disableOnGrounded and 0.999 or 0)},
@@ -7971,9 +7973,10 @@ end;
 run(function()
 	local antihit = nil :: table
 	local antihitrange = nil :: table
-	local antihitgroundtime = nil :: table
-	local antihitincludenpc = nil :: table
+	local antihitairtime = nil :: table
 	local antihitsettings = nil :: table
+	local antihitgroundtime = nil :: table
+	local antihitautoair = nil :: table
 
 	local oldroot
 	local clone
@@ -8032,32 +8035,57 @@ run(function()
 		entitylib.character.Humanoid.HipHeight = 2
 	end
 
+	local rayCheck = RaycastParams.new()
+
+	local getY = function()
+		if oldroot and oldroot.Parent then
+			local lasty = -60
+			if not workspace:Raycast(oldroot.Position - Vector3.new(0, lasty, 0), Vector3.new(0, 5, 0), rayCheck) then
+				return lasty
+			end
+			for i = 1, 12 do
+				lasty -= 10
+				if not workspace:Raycast(oldroot.Position - Vector3.new(0, lasty, 0), Vector3.new(0, 5, 0), rayCheck) and not workspace:Raycast(oldroot.Position - Vector3.new(0, lasty, 0), Vector3.new(0, -5, 0), rayCheck) then
+					return lasty
+				end
+			end
+		end
+		return -100
+	end
+
+	local tpbackup = false
+
 	local lastantihitting = nil
+
+	local projectileHitting = false
 
 	antihit = vape.Categories.Blatant:CreateModule({
 		Name = 'Anti Hit',
 		Function = function(call)
 			if call then
 				antihit:Clean(runService.PreSimulation:Connect(function()
-					local cf = clone and clone.Parent and {clone.CFrame:GetComponents()} or {entitylib.character.HumanoidRootPart.CFrame:GetComponents()}
-					if store.KillauraTarget and not antihitting then
-						cf[2] = store.KillauraTarget.Character.PrimaryPart.CFrame.Y
-					end
-					if oldroot and oldroot.Parent then
-						oldroot.CFrame = antihitting and (tick() - entitylib.character.AirTime) < 2 and CFrame.new(clone.CFrame.X, oldroot.CFrame.Y, clone.CFrame.Z) or CFrame.new(unpack(cf)) + Vector3.new(0, 6, 0)
-						if not antihitting and lastantihitting then
-							lastantihitting = antihitting
-							for i = 1, 4 do
-								oldroot.Velocity = Vector3.zero
-								task.wait()
+					if entitylib.isAlive and not flylanding then
+						local cf = clone and clone.Parent and {clone.CFrame:GetComponents()} or {entitylib.character.HumanoidRootPart.CFrame:GetComponents()}
+						if store.KillauraTarget and not antihitting then
+							cf[2] = store.KillauraTarget.Character.PrimaryPart.CFrame.Y
+						end
+						if oldroot and oldroot.Parent then
+							oldroot.CFrame = antihitting and (tick() - entitylib.character.AirTime) < 2 and CFrame.new(clone.CFrame.X, oldroot.CFrame.Y, clone.CFrame.Z) or CFrame.new(unpack(cf)) + Vector3.new(0, 6, 0)
+							if not antihitting and lastantihitting then
+								lastantihitting = antihitting
+								for i = 1, 4 do
+									oldroot.Velocity = Vector3.zero
+									task.wait()
+								end
+							else
+								lastantihitting = antihitting
 							end
-						else
-							lastantihitting = antihitting
 						end
 					end
 				end))
 				repeat
-				  	if store.matchState == 0 or not store.lastattack then task.wait() continue end
+				  	if store.matchState == 0 or not entitylib.isAlive or flylanding then task.wait() continue end
+					rayCheck.FilterDescendantsInstances = {lplr.Character, AntiFallPart}
 					local plr = entitylib.AllPosition({
 						Range = antihitrange.Value,
 						Part = 'RootPart',
@@ -8065,21 +8093,28 @@ run(function()
 						NPCs = antihitsettings.NPCs.Enabled,
 						Limit = 1
 					})[1]
-					local hittable = tick() < store.lastattack
-					if entitylib.character.AirTime and plr and (tick() - entitylib.character.AirTime) < 2 then
+					if entitylib.character.AirTime and plr and (tick() - entitylib.character.AirTime) < 2 or projectileHitting then
 						createClone()
-						antihitting = hittable
-						if hittable then
-							oldroot.CFrame += Vector3.new(0, -60, 0)
+						if tpbackup then
+							tpbackup = false
+						else
+							tpbackup = true
+						end
+						antihitting = not tpbackup
+						projectileHitting = false
+						if not tpbackup then
+							oldroot.CFrame += Vector3.new(0, getY(), 0)
 						end
 					else
 						antihitting = false
 						destroyClone()
 					end
-					task.wait(antihitgroundtime.Value)
+					local delayv = antihitautoair.Enabled and (tpbackup and store.attackSpeed and 0.14) or (tpbackup and antihitairtime.Value or antihitgroundtime.Value) 
+					task.wait(delayv)
 				until not antihit.Enabled
 			else
 				destroyClone()
+				tpbackup = false
 			end
 		end
 	})
@@ -8087,26 +8122,38 @@ run(function()
 		Players = true, 
 		NPCs = false
 	})
+	antihitautoair = antihit:CreateToggle({
+		Name = 'Auto Predict',
+		Default = true,
+		Function = function(call)
+			if antihitairtime then
+				antihitairtime.Object.Visible = not call
+				antihitgroundtime.Object.Visible = not call
+			end
+		end
+	})
 	antihitrange = antihit:CreateSlider({
 		Name = 'Range',
 		Min = 1,
 		Max = 40,
 		Default = 25
 	})
-	antihitregtime = antihit:CreateSlider({
-		Name = 'Register Time',
-		Decimal = 10,
-		Min = 0.1,
-		Max = 1,
-		Default = 0.15
-	})
 	antihitgroundtime = antihit:CreateSlider({
 		Name = 'Ground Time',
-		Decimal = 10,
+		Decimal = 15,
+		Min = 0,
+		Max = 2,
+		Default = 0.14
+	})
+	antihitairtime = antihit:CreateSlider({
+		Name = 'Air Time',
+		Decimal = 15,
 		Min = 0,
 		Max = 2,
 		Default = 0.2
 	})
+	antihitgroundtime.Object.Visible = false
+	antihitairtime.Object.Visible = false
 end)
 
 run(function()
@@ -8379,4 +8426,166 @@ run(function()
         Decimal = 20,
         Default = 1.4,
     })
+end)
+
+run(function()
+	local infinitefly = nil
+	local verticalspeed = nil
+
+	local oldroot
+	local clone
+	local hip
+
+	local function createClone()
+		if entitylib.isAlive and entitylib.character.Humanoid.Health > 0 and (not oldroot or not oldroot.Parent) then
+			hip = entitylib.character.Humanoid.HipHeight
+			oldroot = entitylib.character.HumanoidRootPart
+			if not lplr.Character.Parent then return false end
+			lplr.Character.Parent = game
+			clone = oldroot:Clone()
+			clone.Parent = lplr.Character
+			oldroot.CanCollide = true
+			oldroot.Parent = gameCamera
+			bedwars.QueryUtil:setQueryIgnored(oldroot, true)
+			clone.CFrame = oldroot.CFrame
+			lplr.Character.PrimaryPart = clone
+			lplr.Character.Parent = workspace
+			for _, v in lplr.Character:GetDescendants() do
+				if v:IsA('Weld') or v:IsA('Motor6D') then
+					if v.Part0 == oldroot then v.Part0 = clone end
+					if v.Part1 == oldroot then v.Part1 = clone end
+				end
+			end
+			return true
+		end
+		return false
+	end
+	local flycon = nil
+
+	local function destroyClone()
+		if not oldroot or not oldroot.Parent or not entitylib.isAlive then return false end
+		lplr.Character.Parent = game
+		oldroot.Parent = lplr.Character
+		lplr.Character.PrimaryPart = oldroot
+		lplr.Character.Parent = workspace
+		for _, v in lplr.Character:GetDescendants() do
+			if v:IsA('Weld') or v:IsA('Motor6D') then
+				if v.Part0 == clone then v.Part0 = oldroot end
+				if v.Part1 == clone then v.Part1 = oldroot end
+			end
+		end
+		if clone then
+			clone:Destroy()
+			clone = nil
+		end
+		entitylib.character.Humanoid.HipHeight = hip or 2
+		oldroot.Transparency = 1
+		oldroot = nil
+	end
+
+	local rayCheck = RaycastParams.new()
+	rayCheck.RespectCanCollide = true
+
+	local flyTick = tick()
+
+	local noRay = false
+
+	local cansafeland = false
+
+	local flylandtick = tick()
+
+	local up = 0
+	local down = 0
+
+	infinitefly = vape.Categories.Blatant:CreateModule({
+		Name = 'Infinite Fly',
+		Tooltip = 'Allows you to hover in the air for eternity.',
+		Function = function(call)
+			if call then
+				rayCheck.FilterDescendantsInstances = {lplr.Character, AntiFallPart}
+				if not entitylib.isAlive or flylanding or not isnetworkowner(entitylib.character.RootPart) then
+					notif('InfiniteFly', 'Can\'t Fly at this position.', 10, 'alert')
+					return infinitefly:Toggle()
+				end
+				local a, b = pcall(createClone)
+				if not a then
+					return infinitefly:Toggle()
+				end
+				local currenty = entitylib.character.RootPart.Position.Y
+				infinitefly:Clean(inputService.InputBegan:Connect(function(input)
+					if not inputService:GetFocusedTextBox() then
+						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+							up = 1
+						elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+							down = -1
+						end
+					end
+				end))
+				infinitefly:Clean(inputService.InputEnded:Connect(function(input)
+					if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+						up = 0
+					elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+						down = 0
+					end
+				end))
+				flycon = runService.PreSimulation:Connect(function(dt) --> dont ask why i dont use clean
+					if not entitylib.isAlive or not clone or not clone.Parent then
+						flycon:Disconnect()
+						infinitefly:Toggle()
+						return
+					end
+					local mass = 1.5 + ((up + down) * verticalspeed.Value)
+					local moveDir = entitylib.character.Humanoid.MoveDirection
+					local velo = getSpeed()
+					local destination = (moveDir * math.max(20 - velo, 0) * dt)
+					clone.CFrame += destination
+					clone.AssemblyLinearVelocity = (moveDir * velo) + Vector3.new(0, mass, 0)
+					rayCheck.FilterDescendantsInstances = {lplr.Character, AntiFallPart}
+					if infinitefly.Enabled then
+						oldroot.CFrame = CFrame.new(clone.CFrame.X, oldroot.CFrame.Y, clone.CFrame.Z)
+					end
+					local airtime = noRay and 0 or (tick() - entitylib.character.AirTime)
+					if (airtime > 1.2 or workspace:Raycast(oldroot.Position, Vector3.new(0, -40, 0), rayCheck)) and oldroot  then
+						local ray = workspace:Raycast(oldroot.Position, Vector3.new(0, -1000, 0), rayCheck)
+						if ray then
+							oldroot.Velocity = Vector3.zero
+							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + (entitylib.character.HipHeight + (infinitefly.Enabled and 0 or 35)), oldroot.CFrame.Z)
+						else
+							noRay = true
+						end
+					elseif airtime < 0.7 and oldroot.CFrame.Y < (currenty - 100) and infinitefly.Enabled then
+						warn('tping up')
+						oldroot.CFrame += Vector3.new(0, currenty + 250, 0)
+						noRay = false
+					end
+				end)
+			else
+				notif('InfiniteFly', 'Attempting to land safely', 13, 'alert')
+				flylandtick = tick() + 1.5
+				flylanding = true
+				if not oldroot or not oldroot.Parent then
+					if flycon then
+						flycon:Disconnect()
+					end
+					destroyClone()
+					flylanding = false
+					return notif('InfiniteFly', 'Landed', 8, 'alert')
+				end
+				repeat task.wait() until tick() > flylandtick
+				flylanding = false
+				if flycon then
+					flycon:Disconnect()
+				end
+				destroyClone()
+				entitylib.character.RootPart.Velocity = Vector3.zero
+				notif('InfiniteFly', 'Landed', 8, 'alert')
+			end
+		end
+	})
+	verticalspeed = infinitefly:CreateSlider({
+		Name = 'Vertical Speed',
+		Min = 1,
+		Max = 150,
+		Default = 80
+	})
 end)
