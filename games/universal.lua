@@ -7999,29 +7999,35 @@ run(function()
 		Name = 'No Fall',
 		Function = function(call)
 			if call then
-				nofall:Clean(runService.PreSimulation:Connect(function(delta)
+				nofall:Clean(runService.PreSimulation:Connect(function()
 					if entitylib.isAlive then
+						if nofallmode.Value == 'State' and not workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -9, 0), params) then
+							return entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+						end
 						params.FilterDescendantsInstances = {lplr.Character}
-						if not workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -11, 0), params) and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -31, 0), params) then
-							if entitylib.character.RootPart.Velocity.Y < -80 and tick() > nofalltick then
-								nofalltick = tick() + 1
-								for __ = 1, 7 do
-									task.wait(.05)
-									entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, __, entitylib.character.RootPart.Velocity.Z)
-								end
-								if nofallinstant.Enabled then
-									local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), params)
-									if ray then
-										entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.Position.X, ray.Position.Y + entitylib.character.HipHeight, entitylib.character.RootPart.Position.Z), entitylib.character.RootPart.CFrame.LookVector)
+						if nofallmode.Value ~= 'State' and not workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -11, 0), params) and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -31, 0), params) then
+							if entitylib.character.RootPart.Velocity.Y < (nofallmode.Value == 'Freeze' and -80 or -70.5)  then
+								if tick() > nofalltick then
+									if nofallmode.Value == 'Freeze' then
+										nofalltick = tick() + 1
+										for __ = 1, 7 do
+											task.wait(.05)
+											entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, __, entitylib.character.RootPart.Velocity.Z)
+										end
+										if nofallinstant.Enabled then
+											local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), params)
+											if ray then
+												entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.Position.X, ray.Position.Y + entitylib.character.HipHeight, entitylib.character.RootPart.Position.Z), entitylib.character.RootPart.CFrame.LookVector)
+											end
+											return
+										end
+									else
+										if nofallgravmode.Value == 'Workspace' then
+											workspace.Gravity = 140
+										else
+											entitylib.character.RootPart.Velocity += Vector3.new(0, 50, 0)
+										end
 									end
-									return
-								end
-							end
-							if nofallmode.Value == 'Gravity' then
-								if nofallgravmode.Value == 'Workspace' then
-									workspace.Gravity = 140
-								else
-									entitylib.character.RootPart.AssemblyLinearVelocity += Vector3.new(0, delta * 70, 0)
 								end
 							end
 						end
@@ -8039,7 +8045,7 @@ run(function()
 	})
 	nofallmode = nofall:CreateDropdown({
 		Name = 'Mode',
-		List = {'Gravity', 'Freeze'},
+		List = {'Gravity', 'Freeze', 'State'},
 		Default = 'Gravity',
 		Function = function(val)
 			if nofallgravmode then
