@@ -260,6 +260,10 @@ local function getShieldAttribute(char)
 	return returned
 end
 
+local damagedata = {
+	lastHit = tick(),
+	Multi = 1,
+}
 local function getSpeed()
 	local multi, increase, modifiers = 0, true, bedwars.SprintController:getMovementStatusModifier():getModifiers()
 
@@ -291,6 +295,10 @@ local function getSpeed()
 	
 	if multi > 0 and increase then
 		multi += 0.16 + (0.02 * math.round(multi))
+	end
+	
+	if damagedata.lastHit > tick() then
+		multi += damagedata.Multi
 	end
 
 	return 20 * (multi + 1)
