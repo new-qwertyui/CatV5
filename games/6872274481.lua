@@ -8549,7 +8549,7 @@ run(function()
 						local ray = workspace:Raycast(clone.Position, Vector3.new(0, -1000, 0), rayCheck)
 						if ray then
 							oldroot.Velocity = Vector3.zero
-							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + entitylib.character.HipHeight, oldroot.CFrame.Z)
+							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + entitylib.character.HipHeight + (infinitefly.Enabled and 0 or 35), oldroot.CFrame.Z)
 							cansafeland = true
 						else
 							noRay = true
