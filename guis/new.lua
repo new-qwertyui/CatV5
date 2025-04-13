@@ -326,7 +326,7 @@ local init: () -> table = function()
 			end
 			writefile(path, res)
 		end
-		return (func or readfile)(isfile(path) and path or 'newcatvape/'..path)
+		return (func or readfile)(path)
 	end
 
 	customassetfunction = function(path)
