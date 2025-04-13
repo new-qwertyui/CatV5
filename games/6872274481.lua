@@ -803,48 +803,46 @@ run(function()
 	OldBreak = bedwars.BlockController.isBlockBreakable
 
 	local cache, blockhealthbar = {}, {blockHealth = -1, breakingBlockPosition = Vector3.zero}
-	if not badexecutor then
-		Client.Get = function(self, remoteName)
-			local call = OldGet(self, remoteName)
-	
-			if remoteName == remotes.AckKnockback then
-				return {
-					instance = call.instance,
-					SendToServer = function(_, knockback)
-						return call:SendToServer(knockback)
+	Client.Get = function(self, remoteName)
+		local call = OldGet(self, remoteName)
+
+		if remoteName == remotes.AckKnockback then
+			return {
+				instance = call.instance,
+				SendToServer = function(_, knockback)
+					return call:SendToServer(knockback)
+				end
+			}
+		elseif remoteName == remotes.AttackEntity then
+			return {
+				instance = call.instance,
+				SendToServer = function(_, attackTable, ...)
+					local suc, plr = pcall(function()
+						return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
+					end)
+
+					local selfpos = attackTable.validate.selfPosition.value
+					local targetpos = attackTable.validate.targetPosition.value
+					store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
+					store.attackReachUpdate = tick() + 1
+
+					if Reach.Enabled or HitBoxes.Enabled then
+						attackTable.validate.raycast = attackTable.validate.raycast or {}
+						attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
 					end
-				}
-			elseif remoteName == remotes.AttackEntity then
-				return {
-					instance = call.instance,
-					SendToServer = function(_, attackTable, ...)
-						local suc, plr = pcall(function()
-							return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
-						end)
-	
-						local selfpos = attackTable.validate.selfPosition.value
-						local targetpos = attackTable.validate.targetPosition.value
-						store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
-						store.attackReachUpdate = tick() + 1
-	
-						if Reach.Enabled or HitBoxes.Enabled then
-							attackTable.validate.raycast = attackTable.validate.raycast or {}
-							attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
-						end
-	
-						if suc and plr then
-							if not select(2, whitelist:get(plr)) then return end
-						end
-	
-						return call:SendToServer(attackTable, ...)
+
+					if suc and plr then
+						if not select(2, whitelist:get(plr)) then return end
 					end
-				}
-			elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
-				return {SendToServer = function() end}
-			end
-	
-			return call
+
+					return call:SendToServer(attackTable, ...)
+				end
+			}
+		elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
+			return {SendToServer = function() end}
 		end
+
+		return call
 	end
 
 	bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
@@ -2733,8 +2731,8 @@ run(function()
 	Value = LongJump:CreateSlider({
 		Name = 'Speed',
 		Min = 1,
-		Max = 38,
-		Default = 38,
+		Max = 31,
+		Default = 31,
 		Suffix = function(val) 
 			return val == 1 and 'stud' or 'studs' 
 		end
@@ -8548,10 +8546,11 @@ run(function()
 					end
 					local airtime = noRay and 0 or (tick() - entitylib.character.AirTime)
 					if (airtime > 1.2 or workspace:Raycast(oldroot.Position, Vector3.new(0, -40, 0), rayCheck)) and oldroot  then
-						local ray = workspace:Raycast(oldroot.Position, Vector3.new(0, -1000, 0), rayCheck)
+						local ray = workspace:Raycast(clone.Position, Vector3.new(0, -1000, 0), rayCheck)
 						if ray then
 							oldroot.Velocity = Vector3.zero
-							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + (entitylib.character.HipHeight + (infinitefly.Enabled and 0 or 35)), oldroot.CFrame.Z)
+							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + entitylib.character.HipHeight, oldroot.CFrame.Z)
+							cansafeland = true
 						else
 							noRay = true
 						end
@@ -8562,8 +8561,8 @@ run(function()
 					end
 				end)
 			else
-				notif('InfiniteFly', 'Attempting to land safely', 13, 'alert')
-				flylandtick = tick() + 1.5
+				notif('InfiniteFly', 'Waiting 0.7s to land', 3, 'alert')
+				flylandtick = tick() + 0.7
 				flylanding = true
 				if not oldroot or not oldroot.Parent then
 					if flycon then
@@ -8573,13 +8572,16 @@ run(function()
 					flylanding = false
 					return notif('InfiniteFly', 'Landed', 8, 'alert')
 				end
-				repeat task.wait() until tick() > flylandtick
+				repeat
+					if not oldroot or not oldroot.Parent then break end
+					oldroot.Velocity = Vector3.zero
+					task.wait()
+				until cansafeland and tick() > flylandtick
 				flylanding = false
 				if flycon then
 					flycon:Disconnect()
 				end
 				destroyClone()
-				entitylib.character.RootPart.Velocity = Vector3.zero
 				notif('InfiniteFly', 'Landed', 8, 'alert')
 			end
 		end
