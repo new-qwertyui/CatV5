@@ -1000,6 +1000,8 @@ run(function()
 						animation:Stop()
 						animation:Destroy()
 					end
+
+					table.clear(cache)
 				end
 			end)
 
