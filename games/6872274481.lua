@@ -7991,7 +7991,6 @@ run(function()
 			clone.Parent = lplr.Character
 			oldroot.Parent = gameCamera
 			bedwars.QueryUtil:setQueryIgnored(oldroot, true)
-			clone.CFrame = oldroot.CFrame
 			lplr.Character.PrimaryPart = clone
 			lplr.Character.Parent = workspace
 			for _, v in lplr.Character:GetDescendants() do
@@ -8085,7 +8084,7 @@ run(function()
 				end))
 				repeat
 				  	if store.matchState == 0 or not entitylib.isAlive or flylanding then task.wait() continue end
-					rayCheck.FilterDescendantsInstances = {lplr.Character, AntiFallPart}
+					rayCheck.FilterDescendantsInstances = {lplr.Character, store.antifallpart}
 					local plr = entitylib.AllPosition({
 						Range = antihitrange.Value,
 						Part = 'RootPart',
@@ -8446,8 +8445,8 @@ run(function()
 			clone.Parent = lplr.Character
 			oldroot.CanCollide = true
 			oldroot.Parent = gameCamera
+			Instance.new('Highlight', oldroot)
 			bedwars.QueryUtil:setQueryIgnored(oldroot, true)
-			clone.CFrame = oldroot.CFrame
 			lplr.Character.PrimaryPart = clone
 			lplr.Character.Parent = workspace
 			for _, v in lplr.Character:GetDescendants() do
@@ -8492,6 +8491,8 @@ run(function()
 
 	local cansafeland = false
 
+	local b = false
+
 	local flylandtick = tick()
 
 	local up = 0
@@ -8502,7 +8503,7 @@ run(function()
 		Tooltip = 'Allows you to hover in the air for eternity.',
 		Function = function(call)
 			if call then
-				rayCheck.FilterDescendantsInstances = {lplr.Character, AntiFallPart}
+				rayCheck.FilterDescendantsInstances = {lplr.Character, store.antifallpart}
 				if not entitylib.isAlive or flylanding or not isnetworkowner(entitylib.character.RootPart) then
 					notif('InfiniteFly', 'Can\'t Fly at this position.', 10, 'alert')
 					return infinitefly:Toggle()
@@ -8549,7 +8550,7 @@ run(function()
 						local ray = workspace:Raycast(clone.Position, Vector3.new(0, -1000, 0), rayCheck)
 						if ray then
 							oldroot.Velocity = Vector3.zero
-							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + entitylib.character.HipHeight + (infinitefly.Enabled and 0 or 35), oldroot.CFrame.Z)
+							oldroot.CFrame = CFrame.new(oldroot.CFrame.X, ray.Position.Y + (entitylib.character.HipHeight + (infinitefly.Enabled and 0 or 35)), oldroot.CFrame.Z)
 							cansafeland = true
 						else
 							noRay = true
@@ -8561,8 +8562,8 @@ run(function()
 					end
 				end)
 			else
-				notif('InfiniteFly', 'Waiting 0.7s to land', 3, 'alert')
-				flylandtick = tick() + 0.7
+				notif('InfiniteFly', 'Waiting 1.5s to land', 3, 'alert')
+				flylandtick = tick() + 1.5
 				flylanding = true
 				if not oldroot or not oldroot.Parent then
 					if flycon then
@@ -8572,16 +8573,13 @@ run(function()
 					flylanding = false
 					return notif('InfiniteFly', 'Landed', 8, 'alert')
 				end
-				repeat
-					if not oldroot or not oldroot.Parent then break end
-					oldroot.Velocity = Vector3.zero
-					task.wait()
-				until cansafeland and tick() > flylandtick
+				repeat task.wait() until cansafeland and tick() > flylandtick or tick() > flylandtick
 				flylanding = false
 				if flycon then
 					flycon:Disconnect()
 				end
 				destroyClone()
+				entitylib.character.RootPart.Velocity = Vector3.zero
 				notif('InfiniteFly', 'Landed', 8, 'alert')
 			end
 		end
