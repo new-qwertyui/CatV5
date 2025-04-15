@@ -87,7 +87,7 @@ end
 
 if not getgenv().catvapedev then 
 	if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 then
-		for _, folder in {'newcatvape', 'newcatvape/games', 'newcatvape/profiles', 'newcatvape/assets', 'newcatvape/libraries', 'newcatvape/guis'} do
+		for _, folder in {'newcatvape', 'newcatvape/games', 'newcatvape/profiles', 'newcatvape/assets', 'newcatvape/assets/new', 'newcatvape/assets/old', 'newcatvape/assets/rise', 'newcatvape/assets/sigma', 'newcatvape/libraries', 'newcatvape/guis'} do
 			if not isfolder(folder) then
 				makefolder(folder)
 			end
