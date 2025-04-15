@@ -1,4 +1,5 @@
 local badexecutor = false
+local isVelocity = getgenv and getgenv().getexecutor and getgenv().getexecutor():match("Velocity")
 local isAlive = function(self)
 	assert(self);
 	local suc, res = pcall(function()
@@ -30,9 +31,8 @@ local contextActionService = cloneref(game:GetService('ContextActionService'))
 local coreGui = cloneref(game:GetService('CoreGui'))
 local starterGui = cloneref(game:GetService('StarterGui'))
 
-local isnetworkowner = not inputService.TouchEnabled and isnetworkowner or function()
-	return true
-end
+local fakenetworkowner = function() return true end
+local isnetworkowner = isVelocity and fakenetworkowner or (not inputService.TouchEnabled and isnetworkowner or fakenetworkowner)
 
 local setfflag = setfflag or function(a, b) end;
 
