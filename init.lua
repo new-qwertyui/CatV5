@@ -19,6 +19,11 @@ if not success or commitdata == nil then
 	commitdata = {sha = 'main', files = {}}
 end
 
+if not isfile('newcatvapereset.txt') then
+	if isfolder('newcatvape') then delfolder('newcatvape') end
+	writefile('newcatvapereset.txt', 'true')
+end
+
 local downloader = Instance.new('TextLabel', Instance.new('ScreenGui', gethui()))
 downloader.Size = UDim2.new(1, 0, 0, 40)
 downloader.BackgroundTransparency = 1
