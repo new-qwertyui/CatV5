@@ -19,9 +19,9 @@ if not success or commitdata == nil then
 	commitdata = {sha = 'main', files = {}}
 end
 
-if not isfile('newcatvapereset.txt') then
+if not isfile('newcatvaperesetv2.txt') then
 	if isfolder('newcatvape') then delfolder('newcatvape') end
-	writefile('newcatvapereset.txt', 'true')
+	writefile('newcatvaperesetv2.txt', 'true')
 end
 
 local downloader = Instance.new('TextLabel', Instance.new('ScreenGui', gethui()))
@@ -48,7 +48,7 @@ end
 local function downloadFile(path: string) : string
 	if not developer or not isfile(`newcatvape/{path}`) then
         local suc, res = pcall(function()
-            return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..select(1, path:gsub('newcatvape/', '')), true)
+            return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..path:gsub('newcatvape/', ''):gsub(' ', '%%20'), true)
         end)
         if (not suc or res == '404: Not Found') then
             return 
