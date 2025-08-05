@@ -99,7 +99,7 @@ if not developer then
     end
 end
 
-writefile('newcatvapereset', 'True')
+writefile('eiqrhjqpr', 'True')
 
 downloader:Destroy()
 
