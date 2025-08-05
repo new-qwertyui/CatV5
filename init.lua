@@ -28,29 +28,16 @@ downloader.Text = 'Downloading newcatvape'
 downloader.TextColor3 = Color3.new(1, 1, 1)
 downloader.Font = Enum.Font.Arial
 
-local function downloadFile2(path: string) : string
-	if not isfile(path) or not developer then
-		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'.. commitdata.sha.. '/'.. path:gsub('newcatvape/', ''))
-		end)
-		if not suc or res == '404: Not Found' then
-			error(res)
-		end
-		writefile(path, res)
-	end
-	return readfile(path)
-end
-
 local function downloadFile(path: string) : string
 	if not developer or not isfile(`newcatvape/{path}`) then
-        local suc, res = pcall(function()
-            return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..path:gsub('newcatvape/', ''):gsub(' ', '%%20'), true)
-        end)
-        if (not suc or res == '404: Not Found') then
-            return 
-        end
-        writefile(path, res)
-    end
+        	local suc, res = pcall(function()
+            		return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..path:gsub('newcatvape/', ''):gsub(' ', '%%20'), true)
+        	end)
+        	if (not suc or res == '404: Not Found') then
+			return 
+        	end
+        	writefile(path, res)
+    	end
 	return readfile(path)
 end
 
@@ -84,14 +71,8 @@ local function yield(path: string) : ()
     end
 end
 
-if not developer and not isfile('eiqrhjqpr') then
-    pcall(delfolder, 'newcatvape')
-end
-
-writefile('eiqrhjqpr', 'true')
-
 if not developer then
-    local newuser = not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt')
+    local newuser = not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or not isfile('eiqrhjqpr')
     if newuser or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
         makefolder('newcatvape')   
 
@@ -130,4 +111,4 @@ if not isfolder('newcatvape/communication') then
 	makefolder('newcatvape/communication')
 end
 
-return loadstring(downloadFile2('newcatvape/main.lua'), 'main')(license)
+return loadstring(downloadFile('newcatvape/main.lua'), 'main')(license)
