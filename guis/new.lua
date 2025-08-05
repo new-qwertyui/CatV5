@@ -283,7 +283,7 @@ local init: () -> table = function()
 	end
 	
 	local function createMobileButton(buttonapi, position)
-		if not inputService.KeyboardEnabled then return end
+		if inputService.KeyboardEnabled then return end
 		local heldbutton = false
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(40, 40)
@@ -344,7 +344,7 @@ local init: () -> table = function()
 		end
 		return assetfunction(path)
 	end	
-	getcustomasset = not inputService.KeyboardEnabled and assetfunction and function(path)
+	getcustomasset = inputService.KeyboardEnabled and assetfunction and function(path)
 		return downloadFile(path, assetfunction)
 	end or identifyexecutor():lower():find("delta") and assetfunction and function(path)
 		return downloadFile(path, assetfunction)
@@ -3916,7 +3916,7 @@ local init: () -> table = function()
 			modulebutton.MouseButton2Click:Connect(function()
 				modulechildren.Visible = not modulechildren.Visible
 			end)
-			if inputService.KeyboardEnabled then
+			if not inputService.KeyboardEnabled then
 				local heldbutton = false
 				modulebutton.MouseButton1Down:Connect(function()
 					heldbutton = true
