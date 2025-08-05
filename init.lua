@@ -69,7 +69,7 @@ local function yield(path: string) : ()
         downloader.Text = 'You have exceeded the limit, Please try again in 30 mins!'
         repeat task.wait() until false
     end
-    downloader.Text = `{isfile('newcatvape/path') and 'Updating' or 'Downloading'} newcatvape/{path}`
+    downloader.Text = `{isfile('newcatvape/'.. path) and 'Updating' or 'Downloading'} newcatvape/{path}`
     if gitisfolder(path) then
         makefolder(`newcatvape/{path}`)
         local contents = request({
