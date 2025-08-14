@@ -84,40 +84,22 @@ local function yield(path: string) : ()
     end
 end
 
-if not developer and not isfile('eiqrhjqpr') then
-    pcall(delfolder, 'newcatvape')
-end
-
-writefile('eiqrhjqpr', 'true')
-
-if not developer then
-    local newuser = not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt')
-    if newuser or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
-        makefolder('newcatvape')   
-
-        local blacklist = {'assets', '.vscode', 'README.md'}
+if not developer and commitdata.sha ~= 'main' then
+    if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha or not isfile('newcatvapereset') then
+        makefolder('newcatvape')
         local contents = request({
             Url = `https://api.github.com/repos/new-qwertyui/CatV5/contents`,
             Method = 'GET'
         }) :: {Body: string, StatusCode: number}
-
-        if not newuser then
-            table.insert(blacklist, 'profiles')
-        end
-
         for _, v: table in httpService:JSONDecode(contents.Body) do
-            if not table.find(blacklist, v.path) then
+            if not table.find({'assets', '.vscode', 'README.md', 'translations'}, v.path) then
                 yield(v.path)
             end
         end
-        writefile(`newcatvape/profiles/commit.txt`, commitdata.sha)
-    end
-
-    if commitdata.sha == 'main' then
-		writefile('newcatvape/profiles/commit.txt', 'main')
     end
 end
 
+writefile('newcatvape/profiles/commit.txt', commitdata.sha)
 writefile('newcatvapereset', 'True')
 
 downloader:Destroy()

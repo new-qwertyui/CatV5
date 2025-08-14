@@ -1,0 +1,1 @@
+Afișează sănătatea dvs. în centrul ecranului.

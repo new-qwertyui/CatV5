@@ -1,0 +1,1 @@
+ปิดใช้งานการตรวจจับ getPropertyChangedSignal สำหรับการเคลื่อนไหว

@@ -1,0 +1,1 @@
+Dezactivează toate modulele activate în prezent
