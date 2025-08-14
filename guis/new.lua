@@ -207,7 +207,7 @@ local function translateTo(text, language)
 
 	local attempt = getText(language, text)
 
-	if attempt and attempt ~= '404: Not Found' then
+	if attempt and attempt ~= '404: Not Found' and attempt ~= '' then
 		warn('found using attempt', attempt)
 		pcall(writefile, `newcatvape/translations/{language}/{text}.txt`, attempt)
 		return attempt
