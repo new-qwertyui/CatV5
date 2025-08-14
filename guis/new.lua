@@ -178,6 +178,8 @@ local shorten = {
 }
 
 local old = isfile
+local isfile = function(file)
+	local suc, res = pcall(function()
 		return old(file)
 	end)
 	return suc and res or false
