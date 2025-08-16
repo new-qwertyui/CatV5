@@ -93,7 +93,7 @@ end
 if not isfile('newcatvape/profiles/gui.txt') then
 	writefile('newcatvape/profiles/gui.txt', 'new')
 end
-local gui = readfile('newcatvape/profiles/gui.txt')
+local gui = readfile('newcatvape/profiles/gui.txt') or 'new'
 
 if not isfolder('newcatvape/assets/'..gui) then
 	makefolder('newcatvape/assets/'..gui)
