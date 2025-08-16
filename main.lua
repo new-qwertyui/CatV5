@@ -93,7 +93,11 @@ end
 if not isfile('newcatvape/profiles/gui.txt') then
 	writefile('newcatvape/profiles/gui.txt', 'new')
 end
-local gui = readfile('newcatvape/profiles/gui.txt') or 'new'
+local gui = readfile('newcatvape/profiles/gui.txt')
+
+if gui == nil or gui == '' then
+	gui = 'new'
+end
 
 if not isfolder('newcatvape/assets/'..gui) then
 	makefolder('newcatvape/assets/'..gui)
