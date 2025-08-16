@@ -1,1 +1,0 @@
-Permite mai multe chei să fie legate de un modul (de exemplu, g + h)

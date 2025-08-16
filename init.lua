@@ -86,7 +86,7 @@ local function yield(path: string) : ()
 end
 
 if not developer and commitdata.sha ~= 'main' then
-    if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha or not isfile('newcatvapereset2') then
+    if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha or not isfile('newcatvapereset3') then
         makefolder('newcatvape')
         local contents = request({
             Url = `https://api.github.com/repos/new-qwertyui/CatV5/contents`,
@@ -101,7 +101,7 @@ if not developer and commitdata.sha ~= 'main' then
 end
 
 writefile('newcatvape/profiles/commit.txt', commitdata.sha)
-writefile('newcatvapereset2', 'True')
+writefile('newcatvapereset3', 'True')
 
 downloader:Destroy()
 

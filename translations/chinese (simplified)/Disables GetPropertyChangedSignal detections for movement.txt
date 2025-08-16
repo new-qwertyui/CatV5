@@ -1,1 +1,0 @@
-禁用移动的getPropertychangedSignal检测

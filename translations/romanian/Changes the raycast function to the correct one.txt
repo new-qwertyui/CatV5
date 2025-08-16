@@ -1,1 +1,0 @@
-Modifică funcția Raycast la cea corectă

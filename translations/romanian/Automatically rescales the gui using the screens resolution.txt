@@ -1,1 +1,0 @@
-Rescalarea automată GUI folosind rezoluția ecranelor

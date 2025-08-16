@@ -1,1 +1,0 @@
-Отключает обнаружения GetPropertyChangedSignal для движения

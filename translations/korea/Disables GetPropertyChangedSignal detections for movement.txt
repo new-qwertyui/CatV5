@@ -1,1 +1,0 @@
-이동에 대한 GetPropertyChangedSignal 탐지를 비활성화합니다

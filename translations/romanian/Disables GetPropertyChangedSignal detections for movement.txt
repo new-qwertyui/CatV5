@@ -1,1 +1,0 @@
-Dezactivează detectările GetPropertyChanged Signal pentru mișcare

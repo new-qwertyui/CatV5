@@ -1,1 +1,0 @@
-Previne încetinirea atunci când utilizați elemente.
