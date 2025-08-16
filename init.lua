@@ -1,4 +1,5 @@
 local license = ({...})[1] or {}
+warn('b')
 local developer = getgenv().catvapedev or license.Developer or false
 
 local cloneref = cloneref or function(ref) return ref end
@@ -15,7 +16,7 @@ local success, commitdata = pcall(function()
     end
 end)
 
-if not success or commitdata == nil then
+if not success or typeof(commitdata) ~= 'table' or commitdata.sha == nil then
 	commitdata = {sha = 'main', files = {}}
 end
 
@@ -85,14 +86,14 @@ local function yield(path: string) : ()
 end
 
 if not developer and commitdata.sha ~= 'main' then
-    if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha or not isfile('newcatvapereset') then
+    if not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha or not isfile('newcatvapereset2') then
         makefolder('newcatvape')
         local contents = request({
             Url = `https://api.github.com/repos/new-qwertyui/CatV5/contents`,
             Method = 'GET'
         }) :: {Body: string, StatusCode: number}
         for _, v: table in httpService:JSONDecode(contents.Body) do
-            if not table.find({'assets', '.vscode', 'README.md', 'translations'}, v.path) then
+            if not table.find({'assets', '.vscode', 'README.md'}, v.path) then
                 yield(v.path)
             end
         end
@@ -100,7 +101,7 @@ if not developer and commitdata.sha ~= 'main' then
 end
 
 writefile('newcatvape/profiles/commit.txt', commitdata.sha)
-writefile('newcatvapereset', 'True')
+writefile('newcatvapereset2', 'True')
 
 downloader:Destroy()
 

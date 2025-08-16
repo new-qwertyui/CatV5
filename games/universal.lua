@@ -222,11 +222,13 @@ if not isfunctionhooked(listfiles) then
 	vape:Clean({func = listfiles})
 end
 
---[[for i,v in listfiles('newcatvape/libraries/Weather') do
+for i,v in listfiles('newcatvape/libraries/Weather') do
 	warn(v)
 	local real = v:gsub('newcatvape/libraries/Weather/', ''):gsub('.lua', '')
-	weatherlib[real] = loadfile(v, real)()
-end]]
+	local func = loadstring(readfile(v))
+	warn(real)
+	weatherlib[real] = {}
+end
 
 local whitelist = {
 	alreadychecked = {},
@@ -245,7 +247,7 @@ local whitelist = {
 
 local downButton
 do
-    if inputService.TouchEnabled and lplr.PlayerGui:FindFirstChild('TouchGui') and lplr.PlayerGui.TouchGui:FindFirstChild('JumpButton') then
+    if inputService.TouchEnabled and lplr.PlayerGui:FindFirstChild('TouchGui') then
         downButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton:Clone()
         downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
         downButton.Name = 'DownButton'
@@ -276,6 +278,11 @@ vape.Libraries.auraanims = {
 		{CFrame = CFrame.new(-0.55, -0.59, -0.1) * CFrame.Angles(math.rad(-161), math.rad(54), math.rad(-6)), Time = 0.08},
 		{CFrame = CFrame.new(-0.62, -0.68, -0.07) * CFrame.Angles(math.rad(-167), math.rad(47), math.rad(-1)), Time = 0.03},
 		{CFrame = CFrame.new(-0.56, -0.86, 0.23) * CFrame.Angles(math.rad(-167), math.rad(49), math.rad(-1)), Time = 0.03}
+	},
+	Astral = {
+		{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
+		{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
+		{CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
 	},
 	Random = {},
 	['Horizontal Spin'] = {
@@ -1864,9 +1871,11 @@ run(function()
 							up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
 						end))
 					end)
-					Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
-						down = downButton.ImageRectOffset.X == 146 and 1 or 0
-					end))
+					pcall(function()
+						Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+							down = downButton.ImageRectOffset.X == 146 and 1 or 0
+						end))
+					end)
 				end
 			else
 				YLevel, OldYLevel = nil, nil
@@ -6952,10 +6961,11 @@ run(function()
 					point2.Parent = ent.HumanoidRootPart
 					trail.Parent = gameCamera
 				end))
-																																																																																																																																																																																				
-				pcall(createTrail)
-																																																																																																																																																																																					
+				
 				repeat
+					if not point or not point.Parent then
+						createTrail()
+					end
 					if entitylib.isAlive then
 						point.Parent = lplr.Character.PrimaryPart
 						point2.Parent = lplr.Character.PrimaryPart
@@ -8116,7 +8126,7 @@ run(function()
 	})
 end)
 
---[[run(function()
+run(function()
 	local weather
 	local oldatmosphere = {}
 	local oldclouds = {}
@@ -8280,4 +8290,4 @@ end)
 			end
 		end,
 	})
-end)]]
+end)

@@ -449,11 +449,11 @@ end
 
 getgenv().getItemFromChest = getItemFromChest
 
-local function switchItem(tool, delayTime)
+local function switchItem(tool, delayTime, bypass)
 	if getgenv().CancelSwitch > tick() and not table.find({'telepearl'}, tool.Name) then return end
 	delayTime = delayTime or 0.05
 	local check = lplr.Character and lplr.Character:FindFirstChild('HandInvItem') or nil
-	if check and check.Value ~= tool and tool.Parent ~= nil then
+	if (check and check.Value ~= tool or bypass) and tool.Parent ~= nil then
 		task.spawn(function()
 			bedwars.Client:Get(remotes.EquipItem):CallServerAsync({hand = tool})
 		end)
@@ -760,8 +760,10 @@ run(function()
 		task.wait()
 	until KnitInit
 
+
 	if not debug.getupvalue(Knit.Start, 1) then
 		repeat task.wait() until debug.getupvalue(Knit.Start, 1)
+		notif('Vape', 'Loading slowly may be caused by executing script too early, Reexecute again to load again instantly', 5, 'info')
 		task.wait(7)
 	end
 
@@ -874,7 +876,7 @@ run(function()
 		ConsumeItem = debug.getproto(Knit.Controllers.ConsumeController.onEnable, 1),
 		ConsumeSoul = Knit.Controllers.GrimReaperController.consumeSoul,
 		ConsumeTreeOrb = debug.getproto(Knit.Controllers.EldertreeController.createTreeOrbInteraction, 1),
-		DepositPinata = identifyexecutor() == 'Delta' and run or debug.getproto(debug.getproto(Knit.Controllers.PiggyBankController.KnitStart, 2), 5),
+		DepositPinata = debug.getproto(debug.getproto(Knit.Controllers.PiggyBankController.KnitStart, 2), 5),
 		DragonBreath = debug.getproto(Knit.Controllers.VoidDragonController.onKitLocalActivated, 5),
 		DragonEndFly = debug.getproto(Knit.Controllers.VoidDragonController.flapWings, 1),
 		DragonFly = Knit.Controllers.VoidDragonController.flapWings,
@@ -884,7 +886,7 @@ run(function()
 		GroundHit = Knit.Controllers.FallDamageController.KnitStart,
 		GuitarHeal = Knit.Controllers.GuitarController.performHeal,
 		HannahKill = debug.getproto(Knit.Controllers.HannahController.registerExecuteInteractions, 1),
-		HarvestCrop = identifyexecutor() == 'Delta' and run or debug.getproto(debug.getproto(Knit.Controllers.CropController.KnitStart, 4), 1),
+		HarvestCrop = debug.getproto(debug.getproto(Knit.Controllers.CropController.KnitStart, 4), 1),
 		KaliyahPunch = debug.getproto(Knit.Controllers.DragonSlayerController.onKitLocalActivated, 1),
 		MageSelect = debug.getproto(Knit.Controllers.MageController.registerTomeInteraction, 1),
 		MinerDig = debug.getproto(Knit.Controllers.MinerController.setupMinerPrompts, 1),
@@ -2236,7 +2238,10 @@ run(function()
 	local Swing
 	local GUI
 	local BoxSwingColor
+	local BoxAttackSpeed
+	local BoxAttackSpeedEnd
 	local BoxAttackColor
+	local BoxAttackTween
 	local ParticleTexture
 	local ParticleColor1
 	local ParticleColor2
@@ -2289,7 +2294,7 @@ run(function()
 					end)
 				end
 
-				if Animation.Enabled and not (identifyexecutor and table.find({'Argon', 'Delta'}, ({identifyexecutor()})[1])) then
+				if Animation.Enabled and not (identifyexecutor and table.find({'Argon'}, ({identifyexecutor()})[1])) then
 					local fake = {
 						Controllers = {
 							ViewmodelController = {
@@ -2347,11 +2352,12 @@ run(function()
 
 				local swingCooldown = tick()
 				local HitCount = 0
+				local BoxData = {}
 				repeat
 					local attacked, sword, meta = {}, getAttackData()
 					Attacking = false
 					store.KillauraTarget = nil
-					if sword then
+					if sword and not pingSpiking then
 						local plrs = entitylib.AllPosition({
 							Range = SwingRange.Value,
 							Wallcheck = Targets.Walls.Enabled or nil,
@@ -2374,13 +2380,14 @@ run(function()
 									task.wait()
 									break
 								end
-								if lplr.Character:FindFirstChild('HandInvItem') and lplr.Character.HandInvItem.Value ~= sword.tool then
-									task.spawn(switchItem, sword.tool, 0)
-								end
-
+								
 								local delta = (v.RootPart.Position - selfpos)
 								local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
 								if angle > (math.rad(AngleSlider.Value) / 2) then continue end
+
+								if lplr.Character:FindFirstChild('HandInvItem') and lplr.Character.HandInvItem.Value ~= sword.tool then
+									switchItem(sword.tool, 0)
+								end
 
 								table.insert(attacked, {
 									Entity = v,
@@ -2411,7 +2418,6 @@ run(function()
 									local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
 									local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
 									swingCooldown = tick()
-									bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 									store.attackReach = (delta.Magnitude * 100) // 1 / 100
 									store.attackReachUpdate = tick() + 1
 
@@ -2419,10 +2425,8 @@ run(function()
 										AnimDelay = tick()
 									end
 
-									store.attackSpeed = (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.11)
-
-									if (vape.Modules['Auto Dodge'].Enabled and AntiHitOnGround or not vape.Modules['Auto Dodge'].Enabled) and tick() > swingCooldown then
-										swingCooldown = tick() + (ProjectileAura.Enabled and 0.22 or 0.1)
+									if (vape.Modules['Auto Dodge'].Enabled and AntiHitOnGround or not vape.Modules['Auto Dodge'].Enabled) and (workspace:GetServerTimeNow() - bedwars.SwordController.lastAttack) >= 0.01 then
+										bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 										TargetTable[v.Character] = v.Humanoid.Health
 										AttackRemote:FireServer({
 											weapon = sword.tool,
@@ -2442,11 +2446,12 @@ run(function()
 									end
 
 									if #projectileCount > 0 then
-										if HitCount > (#projectileCount > 2 and 80 or #projectileCount > 1 and 100 or 120) then
+										local delay = (#projectileCount > 2 and 0.1 or #projectileCount > 1 and 0.05 or 0.03)
+										if HitCount > (#projectileCount > 2 and 20 or #projectileCount > 1 and 40 or 80) then
 											HitCount = 0
 											if ProjectileAura.Enabled and MultiAura.Enabled then
-												getgenv().canProj = tick() + 0.2
-												task.wait(0.02)
+												getgenv().canProj = tick() + 0.3
+												task.wait(delay)
 												break
 											end
 										end
@@ -2456,13 +2461,26 @@ run(function()
 						end
 					end
 
+					
 					for i, v in Boxes do
-						v.Adornee = attacked[i] and attacked[i].Entity.RootPart or nil
-						if v.Adornee then
-							v.Color3 = Color3.fromHSV(attacked[i].Check.Hue, attacked[i].Check.Sat, attacked[i].Check.Value)
+						--v.Adornee = attacked[i] and attacked[i].Entity.RootPart or nil
+						if BoxData[v] == nil and attacked[i] then
+							tweenService:Create(v, TweenInfo.new(BoxAttackSpeed.Value, Enum.EasingStyle[BoxAttackTween.Value]), {
+								Size = Vector3.new(5, 7, 5)
+							}):Play()
+						elseif BoxData[v] and not attacked[i] then
+							tweenService:Create(v, TweenInfo.new(BoxAttackSpeedEnd.Value, Enum.EasingStyle[BoxAttackTween.Value]), {
+								Size = Vector3.zero
+							}):Play()
+						end
+						BoxData[v] = attacked[i] or nil
+						if attacked[i] then
+							v.CFrame = attacked[i].Entity.RootPart.CFrame
+							v.Color = Color3.fromHSV(attacked[i].Check.Hue, attacked[i].Check.Sat, attacked[i].Check.Value)
 							v.Transparency = 1 - attacked[i].Check.Opacity
 						end
 					end
+
 
 					for i, v in Particles do
 						v.Position = attacked[i] and attacked[i].Entity.RootPart.Position or Vector3.new(9e9, 9e9, 9e9)
@@ -2480,7 +2498,7 @@ run(function()
 			else
 				store.KillauraTarget = nil
 				for _, v in Boxes do
-					v.Adornee = nil
+					
 				end
 				for _, v in Particles do
 					v.Parent = nil
@@ -2557,6 +2575,10 @@ run(function()
 	Mouse = Killaura:CreateToggle({Name = 'Require mouse down'})
 	Swing = Killaura:CreateToggle({Name = 'No Swing'})
 	GUI = Killaura:CreateToggle({Name = 'GUI check'})
+	MultiAura = Killaura:CreateToggle({
+		Name = 'Multi Aura',
+		Default = true
+	})
 	Killaura:CreateToggle({
 		Name = 'Show target',
 		Function = function(callback)
@@ -2564,13 +2586,13 @@ run(function()
 			BoxAttackColor.Object.Visible = callback
 			if callback then
 				for i = 1, 10 do
-					local box = Instance.new('BoxHandleAdornment')
-					box.Adornee = nil
-					box.AlwaysOnTop = true
-					box.Size = Vector3.new(3, 5, 3)
-					box.CFrame = CFrame.new(0, -0.5, 0)
-					box.ZIndex = 0
-					box.Parent = vape.gui
+					local box = Instance.new('Part')
+					box.Size = Vector3.zero
+					box.Parent = workspace
+					box.Material = Enum.Material.Neon
+					box.Anchored = true
+					box.CanCollide = false
+					box.CanQuery = false
 					Boxes[i] = box
 				end
 			else
@@ -2581,16 +2603,40 @@ run(function()
 			end
 		end
 	})
-	MultiAura = Killaura:CreateToggle({
-		Name = 'Multi Aura',
-		Default = true
+
+	local animlist = {}
+
+	for i,v in Enum.EasingStyle:GetEnumItems() do
+		local item = tostring(v):gsub('Enum.EasingStyle.', '')
+		table.insert(animlist, item)
+	end
+
+	BoxAttackTween = Killaura:CreateDropdown({
+		Name = 'Box Animation',
+		List = animlist,
+		Darker = true,
+		Default = 'Bounce'
+	})
+	BoxAttackSpeed = Killaura:CreateSlider({
+		Name = 'Start Animation Speed',
+		Min = 0,
+		Max = 10,
+		Default = 0.9,
+		Decimal = 30
+	})
+	BoxAttackSpeedEnd = Killaura:CreateSlider({
+		Name = 'End Animation Speed',
+		Min = 0,
+		Max = 10,
+		Default = 1.4,
+		Decimal = 30
 	})
 	BoxSwingColor = Killaura:CreateColorSlider({
 		Name = 'Target Color',
 		Darker = true,
 		DefaultHue = 0.6,
 		DefaultOpacity = 0.5,
-		Visible = false
+		Visible = false,
 	})
 	BoxAttackColor = Killaura:CreateColorSlider({
 		Name = 'Attack Color',
@@ -3065,7 +3111,7 @@ run(function()
 						end
 	
 						local newlook = CFrame.new(offsetpos, plr[TargetPart.Value].Position) * CFrame.new(projmeta.projectile == 'owl_projectile' and Vector3.zero or Vector3.new(bedwars.BowConstantsTable.RelX, bedwars.BowConstantsTable.RelY, bedwars.BowConstantsTable.RelZ))
-						local calc = prediction.SolveTrajectory(newlook.p, projSpeed, gravity, plr[TargetPart.Value].Position, projmeta.projectile == 'telepearl' and Vector3.zero or plr[TargetPart.Value].Velocity, playerGravity, plr.HipHeight, plr.Jumping and 42.6 or nil, rayCheck)
+						local calc = prediction.SolveTrajectory(newlook.p, Vector3.zero, projSpeed, gravity, plr[TargetPart.Value].Position, projmeta.projectile == 'telepearl' and Vector3.zero or plr[TargetPart.Value].Velocity, playerGravity, plr.HipHeight, plr.Jumping and 42.6 or nil, rayCheck, true)
 						if calc then
 							targetinfo.Targets[plr] = tick() + 1
 							return {
@@ -3127,13 +3173,13 @@ run(function()
 			if callback then
 				Speed:Clean(runService.PreSimulation:Connect(function(dt)
 					bedwars.StatefulEntityKnockbackController.lastImpulseTime = callback and math.huge or time()
-					if entitylib.isAlive and not Fly.Enabled and tick() > FlyLandTick and not LongJump.Enabled and isnetworkowner(entitylib.character.RootPart) and not pingSpiking then
+					if entitylib.isAlive and not Fly.Enabled and tick() > FlyLandTick and not LongJump.Enabled and isnetworkowner(entitylib.character.RootPart) then
 						local state = entitylib.character.Humanoid:GetState()
 						if state == Enum.HumanoidStateType.Climbing then return end
 	
 						local root, velo = entitylib.character.RootPart, getSpeed()
 						local moveDirection = AntiFallDirection or entitylib.character.Humanoid.MoveDirection
-						local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+						local destination = (moveDirection * math.max((pingSpiking and 15 or Value.Value) - velo, 0) * dt)
 	
 						if WallCheck.Enabled then
 							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
@@ -4570,7 +4616,7 @@ run(function()
 								sendMessage('Death', (killer.DisplayName or killer.Name), 'my gaming chair subscription expired :( | <obj>')
 							end
 						elseif killer == lplr and Toggles.Kill.Enabled then
-							sendMessage('Kill', (killed.DisplayName or killed.Name), 'get cat v5 bro | <obj>')
+							sendMessage('Kill', (killed.DisplayName or killed.Name), 'catvape is just simply better <obj>')
 						end
 					end
 				end))
@@ -4586,7 +4632,7 @@ run(function()
 					local myTeam = bedwars.Store:getState().Game.myTeam
 					if myTeam and myTeam.id == winstuff.winningTeamId or lplr.Neutral then
 						if Toggles.Win.Enabled then 
-							sendMessage('Win', nil, 'yall garbage') 
+							sendMessage('Win', nil, 'yall r so bad at ts game ong') 
 						end
 					end
 				end))
@@ -4753,6 +4799,7 @@ run(function()
 										end
 									end)
 								end)
+								task.wait(0.2)
 							end
 						end
 					end
@@ -4918,8 +4965,12 @@ run(function()
 	
 						if label then
 							amount = amount or 0
-							label.Text = amount..' <font color="rgb(170, 170, 170)">(Scaffold)</font>'
-							label.TextColor3 = Color3.fromHSV((amount / 128) / 2.8, 0.86, 1)
+							--[[label.Text = amount..' <font color="rgb(170, 170, 170)">(Scaffold)</font>'
+							label.TextColor3 = Color3.fromHSV((amount / 128) / 2.8, 0.86, 1)]]
+							label.Text = '        '.. amount
+							label.Icon.Image = bedwars.getIcon({
+								itemType = wool
+							}, true)
 						end
 	
 						if wool then
@@ -4978,22 +5029,33 @@ run(function()
 	})
 	LimitItem = Scaffold:CreateToggle({Name = 'Limit to items'})
 	Mouse = Scaffold:CreateToggle({Name = 'Require mouse down'})
-	Count = Scaffold:CreateToggle({
+	Scaffold:CreateToggle({
 		Name = 'Block Count',
 		Function = function(callback)
 			if callback then
 				label = Instance.new('TextLabel')
-				label.Size = UDim2.fromOffset(100, 20)
+				label.Size = UDim2.fromOffset(80, 40)
 				label.Position = UDim2.new(0.5, 6, 0.5, 60)
-				label.BackgroundTransparency = 1
+				label.BackgroundTransparency = 0.5
 				label.AnchorPoint = Vector2.new(0.5, 0)
-				label.Text = '0'
-				label.TextColor3 = Color3.new(0, 1, 0)
-				label.TextSize = 18
-				label.RichText = true
-				label.Font = Enum.Font.Arial
+				label.Text = '        0'
+				label.AutomaticSize = Enum.AutomaticSize.X
+				label.SizeConstraint = Enum.SizeConstraint.RelativeXX
+				label.BackgroundColor3 = Color3.new()
+				label.TextColor3 = Color3.new(1, 1, 1)
+				label.TextSize = 15
+				label.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Medium, Enum.FontStyle.Normal)
 				label.Visible = Scaffold.Enabled
 				label.Parent = vape.gui
+				
+				local icon = Instance.new('ImageLabel', label)
+				icon.AnchorPoint = Vector2.new(0.12, 0.5)
+				icon.BackgroundTransparency = 1
+				icon.Position = UDim2.fromScale(0.12, 0.5)
+				icon.Size = UDim2.fromOffset(25, 25)
+				icon.Name = 'Icon'
+
+				Instance.new('UICorner', label).CornerRadius = UDim.new(0, 4)
 			else
 				label:Destroy()
 				label = nil
@@ -5304,7 +5366,41 @@ run(function()
 						end
 					end
 				end
-				
+
+				Hotbar:Clean(lplr.PlayerGui.hotbar['1'].ItemsHotbar.ChildAdded:Connect(function(v)
+					if v.ClassName == 'Frame' then
+						task.wait(1)
+						
+						table.insert(Hotbars, v)
+
+						Hotbar:Clean(v['1']:GetPropertyChangedSignal('BackgroundColor3'):Connect(function()
+							v['1'].BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						end))
+
+						Hotbar:Clean(v['1']:GetPropertyChangedSignal('BackgroundTransparency'):Connect(function()
+							v['1'].BackgroundTransparency = Color.Opacity
+						end))
+
+						if NoMove.Enabled then
+							v['1'].Position = UDim2.fromScale()
+
+							Hotbar:Clean(v['1']:GetPropertyChangedSignal('Position'):Connect(function()
+								v['1'].Position = UDim2.fromScale()
+							end))
+						end
+
+						if NoBorder.Enabled then
+							v['1'].BorderSizePixel = (v['1'].BorderColor3 == Color3.fromRGB(114, 127, 172) and 0 or 1)
+
+							Hotbar:Clean(v['1']:GetPropertyChangedSignal('BorderColor3'):Connect(function()
+								v['1'].BorderSizePixel = (v['1'].BorderColor3 == Color3.fromRGB(114, 127, 172) and 0 or 1)
+							end))
+						end
+						
+						Update()
+					end
+				end))
+
 				Update()
 			else
 				table.clear(Hotbars)
@@ -5579,20 +5675,27 @@ run(function()
 	local function lootChest(chest)
 		chest = chest and chest.Value or nil
 		local chestitems = chest and chest:GetChildren() or {}
-		if #chestitems > 0 and (Delays[chest] == nil or Delays[chest] < tick()) then
-			Delays[chest] = tick() + 0.4
-			bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(chest)
-	
+		if #chestitems > 0 and (Delays[chest] == nil or Delays[chest] < tick()) and tick() > getgenv().cheststealTimeout then
+			local new = Delays[chest] == nil
+			if new and not pingSpiking then
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(chest)
+			end
+
+			Delays[chest] = tick() + 1
+		
 			for _, v in chestitems do
-				if v:IsA('Accessory') then
+				if v:IsA('Accessory') and tick() > getgenv().cheststealTimeout then
 					if pingSpiking then break end
+					task.wait(0.01)
 					task.spawn(pcall, function()
 						bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
 					end)
  				end
 			end	
 
-			bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
+			if new then
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
+			end
 		end
 	end
 	
@@ -5612,9 +5715,10 @@ run(function()
 							else
 								local localPosition = entitylib.character.RootPart.Position
 								for _, v in chests do
-									if (localPosition - v.Position).Magnitude <= Range.Value then
+									if (localPosition - v.Position).Magnitude <= Range.Value and not pingSpiking and tick() > getgenv().cheststealTimeout then
 										if pingSpiking then break end
 										lootChest(v:FindFirstChild('ChestFolderValue'))
+										task.wait(0.3)
 									end
 								end
 							end
@@ -8635,3 +8739,12 @@ loadfile('newcatvape/games/bedwars/modules.luau')();
 
 InfiniteFly = vape.Modules['Infinite Fly']
 ProjectileAura = vape.Modules['Projectile Aura']
+
+local namecall; namecall = hookmetamethod(game, '__namecall', function(self, ...)
+	local args = {...}
+    if getnamecallmethod() == 'FireServer' and tostring(self) == 'GroundHit' and vape.Modules['No Fall'].Enabled and args[3] then
+        args[1] = nil
+		args[3] = 1/1
+    end
+    return namecall(self, unpack(args))
+end)

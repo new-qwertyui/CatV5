@@ -189,28 +189,46 @@ local getText = function(language, text)
 	return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'.. 'translations/'.. language.. '/'.. text .. '.txt')
 end
 
+warn(usedLanguage)
+
+local jsons = {
+	decoded = isfile(`newcatvape/translations/{usedLanguage}.json`) and httpService:JSONDecode(readfile(`newcatvape/translations/{usedLanguage}.json`)) or {},
+	encoded = isfile(`newcatvape/translations/{usedLanguage}.json`) and readfile(`newcatvape/translations/{usedLanguage}.json`) or '{}'
+}
+    
+local function encodeTable(tab)
+	local str = '{\n'
+	local len = 0
+	for i,v in tab do
+		len += 1
+	end
+	local goal = 0
+	for i,v in tab do
+		goal += 1
+		if typeof(v) == 'string' then
+			local string = goal == len and '\n' or ',\n'
+			str = str.. `    "{tostring(i):gsub('\n', '\\n')}": "{tostring(v):gsub('\n', '\\n')}"{string}`
+		end
+	end
+	str = str .. '}'
+	return str
+end
+
 local function translateTo(text, language)
-	language = language or usedLanguage
-	language = language and language:lower()
+	language = usedLanguage
+	language = language:lower()
 	
 	if language == 'original' or typeof(text) ~= 'string' then
 		return text
 	end
 
-	if not isfolder(`newcatvape/translations/{language}`) then
-		makefolder(`newcatvape/translations/{language}`)
+	if not isfile(`newcatvape/translations/{language}.json`) then
+		writefile(`newcatvape/translations/{language}.json`, '{}')
 	end
 	
-	if isfile(`newcatvape/translations/{language}/{text}.txt`) then
-		return readfile(`newcatvape/translations/{language}/{text}.txt`)
-	end
-
-	local attempt = getText(language, text)
-
-	if attempt and attempt ~= '404: Not Found' and attempt ~= '' then
-		warn('found using attempt', attempt)
-		pcall(writefile, `newcatvape/translations/{language}/{text}.txt`, attempt)
-		return attempt
+	local json = jsons.decoded
+	if json[text] then
+		return json[text]
 	end
 
 	local success, res = pcall(function()
@@ -220,14 +238,19 @@ local function translateTo(text, language)
 	end)
 	
 	if success and res then
-		pcall(writefile, `newcatvape/translations/{language}/{text}.txt`, res[1][1][1])
+		json[text] = res[1][1][1]
+
+		jsons.encoded = encodeTable(json)
+		jsons.decoded = table.clone(json)
 	end
 
 	if not success then
 		return text
 	end
 
-	return isfile(`newcatvape/translations/{language}/{text}.txt`) and readfile(`newcatvape/translations/{language}/{text}.txt`) or res[1][1][1]
+	writefile(`newcatvape/translations/{language}.json`, jsons.encoded)
+
+	return json[text] or text
 end
 
 --warn('Translated from english to korea: Killaura -> '.. translateTo('Killaura', 'Chinese (Simplified)'))
