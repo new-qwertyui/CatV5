@@ -451,7 +451,7 @@ getgenv().getItemFromChest = getItemFromChest
 
 local function switchItem(tool, delayTime, bypass)
 	if getgenv().CancelSwitch > tick() and not table.find({'telepearl'}, tool.Name) then return end
-	delayTime = delayTime or 0.05
+	delayTime = delayTime or 0.1
 	local check = lplr.Character and lplr.Character:FindFirstChild('HandInvItem') or nil
 	if (check and check.Value ~= tool or bypass) and tool.Parent ~= nil then
 		task.spawn(function()

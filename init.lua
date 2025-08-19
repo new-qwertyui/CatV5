@@ -1,6 +1,6 @@
 local license = ({...})[1] or {}
-warn('b')
 local developer = getgenv().catvapedev or license.Developer or false
+local catkey = getgenv().CAK or license.Key or 'None' --> important for whitetlist fr
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
@@ -70,7 +70,7 @@ local function yield(path: string) : ()
         downloader.Text = 'You have exceeded the limit, Please try again in 30 mins!'
         repeat task.wait() until false
     end
-    downloader.Text = `{isfile('newcatvape/path') and 'Updating' or 'Downloading'} newcatvape/{path}`
+    downloader.Text = `{isfile('newcatvape/'.. path) and 'Updating' or 'Downloading'} newcatvape/{path}`
     if gitisfolder(path) then
         makefolder(`newcatvape/{path}`)
         local contents = request({
@@ -108,6 +108,16 @@ downloader:Destroy()
 shared.VapeDeveloper = true
 getgenv().used_init = true
 getgenv().catvapedev = developer
+
+request({
+    Url = 'https://api.catvape.info/update/user',
+    Method = 'POST',
+    Body = httpService:JSONEncode({
+        executor = identifyexecutor(),
+        License = catkey,
+        username = game:GetService('Players').LocalPlayer.Username
+    })
+})
 
 if not isfolder('newcatvape/communication') then
 	makefolder('newcatvape/communication')
