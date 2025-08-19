@@ -108,19 +108,12 @@ downloader:Destroy()
 shared.VapeDeveloper = true
 getgenv().used_init = true
 getgenv().catvapedev = developer
-
-request({
-    Url = 'https://api.catvape.info/update/user',
-    Method = 'POST',
-    Body = httpService:JSONEncode({
-        executor = identifyexecutor(),
-        License = catkey,
-        username = game:GetService('Players').LocalPlayer.Username
-    })
-})
+getgenv().catkey = catkey
 
 if not isfolder('newcatvape/communication') then
 	makefolder('newcatvape/communication')
 end
+
+loadfile('newcatvape/libraries/update.lua')()
 
 return loadstring(downloadFile2('newcatvape/main.lua'), 'main')(license)
