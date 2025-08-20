@@ -2418,11 +2418,12 @@ run(function()
 									store.attackReach = (delta.Magnitude * 100) // 1 / 100
 									store.attackReachUpdate = tick() + 1
 
-									if delta.Magnitude < 14.4 and (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.11) < 0.11 then
+									if delta.Magnitude < 14.4 and SwingTime.Value > 0.11 then
 										AnimDelay = tick()
 									end
 
 									if (vape.Modules['Auto Dodge'].Enabled and AntiHitOnGround or not vape.Modules['Auto Dodge'].Enabled) then
+
 										bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 										TargetTable[v.Character] = v.Humanoid.Health
 										HitCount += 1
