@@ -450,7 +450,7 @@ end
 getgenv().getItemFromChest = getItemFromChest
 
 local function switchItem(tool, delayTime, bypass)
-	if getgenv().CancelSwitch > tick() and not table.find({'telepearl'}, tool.Name) then return end
+	if getgenv().CancelSwitch > tick() and not table.find({'telepearl'}, tool.Name) or pingSpiking then return end
 	delayTime = delayTime or 0.1
 	local check = lplr.Character and lplr.Character:FindFirstChild('HandInvItem') or nil
 	if (check and check.Value ~= tool or bypass) and tool.Parent ~= nil then
@@ -1292,7 +1292,7 @@ run(function()
 				local root = (store.rootpart and store.rootpart.Parent) and store.rootpart or entitylib.character.RootPart
 
 				rayCheck.FilterDescendantsInstances = {lplr.Character, root}
-				entitylib.character.AirTime = entitylib.character.Humanoid.FloorMaterial ~= Enum.Material.Air and tick() or entitylib.character.AirTime--workspace:Raycast(root.Position, Vector3.new(0, -4, 0), rayCheck) ~= nil and tick() or entitylib.character.AirTime--
+				entitylib.character.AirTime = workspace:Raycast(root.Position, Vector3.new(0, -6, 0), rayCheck) ~= nil and tick() or entitylib.character.AirTime
 			end
 
 			for _, v in entitylib.List do
@@ -1351,6 +1351,30 @@ run(function()
 		storeChanged:disconnect()
 		storeChanged = nil
 	end)
+
+	local rayCheck = RaycastParams.new()
+	rayCheck.FilterType = Enum.RaycastFilterType.Exclude
+
+	vape:Clean(task.spawn(function()
+		repeat
+			if entitylib.isAlive and vape.Modules.Fly and vape.Modules['Long Jump'] and (vape.Modules.Fly.Enabled or vape.Modules['Infinite Jump'].Enabled or vape.Modules['Long Jump'].Enabled) then
+				rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+
+				local lasty = entitylib.character.RootPart.CFrame.Y
+				local lastvelo = entitylib.character.RootPart.AssemblyLinearVelocity
+				if (tick() - entitylib.character.AirTime) > 1.7 then
+					local ray = workspace:Blockcast(entitylib.character.RootPart.CFrame, Vector3.new(3, 3, 3), Vector3.new(0, -1000, 0), rayCheck)
+					if ray then
+						entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.CFrame.X, ray.Position.Y + 2, entitylib.character.RootPart.CFrame.Z), entitylib.character.RootPart.CFrame.LookVector)
+						task.wait(0.1)
+						entitylib.character.RootPart.CFrame += Vector3.new(0, lasty - entitylib.character.RootPart.CFrame.Y, 0)
+						entitylib.character.RootPart.AssemblyLinearVelocity = lastvelo
+					end
+				end
+			end
+			task.wait()
+		until false
+	end))
 
 	getgenv().store = store
 	getgenv().bedwars = bedwars
@@ -2009,34 +2033,6 @@ run(function()
 							end
 						end
 
-						if not flyAllowed then
-							if tpToggle then
-								local airleft = (tick() - entitylib.character.AirTime)
-								if airleft > 2 then
-									if not oldy then
-										local ray = workspace:Raycast(root.Position, Vector3.new(0, -1000, 0), rayCheck)
-										if ray and TP.Enabled then
-											tpToggle = false
-											oldy = root.Position.Y
-											tpTick = tick() + 0.07
-											root.CFrame = CFrame.lookAlong(Vector3.new(root.Position.X, ray.Position.Y + entitylib.character.HipHeight, root.Position.Z), root.CFrame.LookVector)
-										end
-									end
-								end
-							else
-								if oldy then
-									if tpTick < tick() then
-										local newpos = Vector3.new(root.Position.X, oldy, root.Position.Z)
-										root.CFrame = CFrame.lookAlong(newpos, root.CFrame.LookVector)
-										tpToggle = true
-										oldy = nil
-									else
-										mass = 0
-									end
-								end
-							end
-						end
-
 						root.CFrame += destination
 						root.AssemblyLinearVelocity = (moveDirection * velo) + Vector3.new(0, mass, 0)
 					end
@@ -2232,6 +2228,7 @@ run(function()
 	local AttackRange
 	local ChargeTime
 	local UpdateRate
+	local SwingTime
 	local AngleSlider
 	local MaxTargets
 	local Mouse
@@ -2398,9 +2395,10 @@ run(function()
 								if not Attacking then
 									Attacking = true
 									store.KillauraTarget = v
-									if not Swing.Enabled and AnimDelay < tick() and not LegitAura.Enabled then
-										AnimDelay = tick() + (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.11)
+									if not Swing.Enabled and AnimDelay < tick() and not LegitAura.Enabled and (tick() - swingCooldown) >= SwingTime.Value then
+										AnimDelay = tick() + (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or math.max(SwingTime.Value, 0.11))
 										bedwars.SwordController:playSwordEffect(meta, false)
+										swingCooldown = tick()
 										if meta.displayName:find(' Scythe') then
 											bedwars.ScytheController:playLocalAnimation()
 										end
@@ -2417,7 +2415,6 @@ run(function()
 								if actualRoot then
 									local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
 									local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
-									swingCooldown = tick()
 									store.attackReach = (delta.Magnitude * 100) // 1 / 100
 									store.attackReachUpdate = tick() + 1
 
@@ -2425,9 +2422,10 @@ run(function()
 										AnimDelay = tick()
 									end
 
-									if (vape.Modules['Auto Dodge'].Enabled and AntiHitOnGround or not vape.Modules['Auto Dodge'].Enabled) and (workspace:GetServerTimeNow() - bedwars.SwordController.lastAttack) >= 0.01 then
+									if (vape.Modules['Auto Dodge'].Enabled and AntiHitOnGround or not vape.Modules['Auto Dodge'].Enabled) then
 										bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 										TargetTable[v.Character] = v.Humanoid.Health
+										HitCount += 1
 										AttackRemote:FireServer({
 											weapon = sword.tool,
 											chargedAttack = {chargeRatio = 0},
@@ -2442,19 +2440,15 @@ run(function()
 												selfPosition = {value = pos}
 											}
 										})
-										HitCount += 1
 									end
+								end
+							end
 
-									if #projectileCount > 0 then
-										local delay = (#projectileCount > 2 and 0.1 or #projectileCount > 1 and 0.05 or 0.03)
-										if HitCount > (#projectileCount > 2 and 20 or #projectileCount > 1 and 40 or 80) then
-											HitCount = 0
-											if ProjectileAura.Enabled and MultiAura.Enabled then
-												getgenv().canProj = tick() + 0.3
-												task.wait(delay)
-												break
-											end
-										end
+							if #projectileCount > 0 then
+								if HitCount > (#projectileCount > 2 and 40 or #projectileCount > 1 and 80 or 120) then
+									HitCount = 0
+									if ProjectileAura.Enabled and MultiAura.Enabled then
+										getgenv().canProj = tick() + 0.4
 									end
 								end
 							end
@@ -2561,6 +2555,14 @@ run(function()
 		Max = 120,
 		Default = 60,
 		Suffix = 'hz'
+	})
+	SwingTime = Killaura:CreateSlider({
+		Name = 'Swing Delay',
+		Min = 0,
+		Max = 1,
+		Decimal = 20,
+		Default = 0,
+		Suffix = 's'
 	})
 	MaxTargets = Killaura:CreateSlider({
 		Name = 'Max targets',
@@ -5681,7 +5683,7 @@ run(function()
 				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(chest)
 			end
 
-			Delays[chest] = tick() + 1
+			Delays[chest] = tick() + 0.5
 		
 			for _, v in chestitems do
 				if v:IsA('Accessory') and tick() > getgenv().cheststealTimeout then
