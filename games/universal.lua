@@ -5614,6 +5614,8 @@ run(function()
 		return os.date('!%X', math.floor(os.clock() - value)) 
 	end)
 end)
+
+loadfile('newcatvape/libraries/update.lua')()
 	
 run(function()
 	local Tracers

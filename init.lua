@@ -119,6 +119,4 @@ if not isfolder('newcatvape/communication') then
 	makefolder('newcatvape/communication')
 end
 
-loadfile('newcatvape/libraries/update.lua')()
-
 return loadstring(downloadFile2('newcatvape/main.lua'), 'main')(license)
