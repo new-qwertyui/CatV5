@@ -2226,7 +2226,7 @@ run(function()
 	local Sort
 	local SwingRange
 	local AttackRange
-	local ChargeTime
+	local MountCheck
 	local UpdateRate
 	local SwingTime
 	local AngleSlider
@@ -2354,7 +2354,7 @@ run(function()
 					local attacked, sword, meta = {}, getAttackData()
 					Attacking = false
 					store.KillauraTarget = nil
-					if sword and not pingSpiking then
+					if sword and not pingSpiking and (MountCheck.Enabled and not lplr.Character:FindFirstChild('elk') or not MountCheck.Enabled) then
 						local plrs = entitylib.AllPosition({
 							Range = SwingRange.Value,
 							Wallcheck = Targets.Walls.Enabled or nil,
@@ -2581,6 +2581,10 @@ run(function()
 	GUI = Killaura:CreateToggle({Name = 'GUI check'})
 	MultiAura = Killaura:CreateToggle({
 		Name = 'Multi Aura',
+		Default = true
+	})
+	MountCheck = Killaura:CreateToggle({
+		Name = 'No Mount',
 		Default = true
 	})
 	Killaura:CreateToggle({
