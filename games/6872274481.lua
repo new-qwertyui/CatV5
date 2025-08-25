@@ -8743,6 +8743,26 @@ run(function()
 	})
 end)
 
+-- added it to 6872274481.lua cause im not spending a dollar on ts
+run(function()
+	local JadeDisabler
+
+	JadeDisabler = vape.Categories.Minigames:CreateModule({
+		Name = 'Jade Disabler',
+		Function = function(call)
+			if call then
+				task.spawn(function()
+					repeat
+						bedwars.AbilityController:useAbility('jade_hammer_jump')
+						task.wait(1)
+					until not JadeDisabler.Enabled
+				end)
+			end
+		end,
+		Tooltip = 'Allows more speed, use like 45-65. could use more idk.'
+	})
+end)
+
 loadfile('newcatvape/games/bedwars/modules.luau')();
 
 InfiniteFly = vape.Modules['Infinite Fly']
