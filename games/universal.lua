@@ -7267,10 +7267,14 @@ run(function()
 		if (not v:GetAttribute('Disguise')) and ((v:IsA('Accessory') and (not v:GetAttribute('InvItem')) and (not v:GetAttribute('ArmorSlot'))) or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') or v:IsA('BodyColors') or manual) then
 			repeat
 				task.wait()
-				v.Parent = replicatedStorage
-			until v.Parent == replicatedStorage
-			v:ClearAllChildren()
-			v:Destroy()
+				if v.Parent ~= nil then
+				    v.Parent = replicatedStorage
+				end
+			until v.Parent == replicatedStorage or not v.Parent
+			if v.Parent then
+    			v:ClearAllChildren()
+    			v:Destroy()
+    	end
 		end
 	end
 	
