@@ -1274,8 +1274,8 @@ run(function()
 	end))
 
 	vape:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
-		local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
-		local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+		local killer = deathTable.fromEntity and playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+		local killed = deathTable.entityInstance and playersService:GetPlayerFromCharacter(deathTable.entityInstance)
 		if not killed or not killer then return end
 
 		if killed ~= lplr and killer == lplr then
