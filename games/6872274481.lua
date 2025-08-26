@@ -8763,6 +8763,30 @@ run(function()
 	})
 end)
 
+run(function()
+	local KnockbackExploit
+	local SlamRemote = replicatedStorage.rbxts_include.node_modules['@rbxts'].net.out._NetManaged.JadeHammerSlam
+
+	KnockbackExploit = vape.Categories.Minigames:CreateModule({
+		Name = 'Knockback Exploit',
+		Function = function(call)
+			if call then
+				task.spawn(function()
+					repeat
+						SlamRemote:FireServer({
+							slamIndex = 9e9
+						})
+						task.wait(0.1)
+					until not KnockbackExploit.Enabled
+				end)
+			end
+		end,
+		Tooltip = '(DOESNT WORK WITH JADE DISABLER) Does more knockback to players and additionally does 15 damage'
+	})
+end)
+
+---
+
 loadfile('newcatvape/games/bedwars/modules.luau')();
 
 InfiniteFly = vape.Modules['Infinite Fly']
