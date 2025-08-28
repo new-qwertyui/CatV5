@@ -8745,26 +8745,8 @@ end)
 
 -- added it to 6872274481.lua cause im not spending a dollar on ts
 run(function()
-	local JadeDisabler
-
-	JadeDisabler = vape.Categories.Minigames:CreateModule({
-		Name = 'Jade Disabler',
-		Function = function(call)
-			if call then
-				task.spawn(function()
-					repeat
-						bedwars.AbilityController:useAbility('jade_hammer_jump')
-						task.wait(1)
-					until not JadeDisabler.Enabled
-				end)
-			end
-		end,
-		Tooltip = 'Allows more speed, use like 45-65. could use more idk.'
-	})
-end)
-
-run(function()
 	local KnockbackExploit
+	local Mode
 	local SlamRemote = replicatedStorage.rbxts_include.node_modules['@rbxts'].net.out._NetManaged.JadeHammerSlam
 
 	KnockbackExploit = vape.Categories.Minigames:CreateModule({
@@ -8774,7 +8756,7 @@ run(function()
 				task.spawn(function()
 					repeat
 						SlamRemote:FireServer({
-							slamIndex = 9e9
+							slamIndex = Mode.Value == 'Negative' and -9e9 or 9e9
 						})
 						task.wait(0.1)
 					until not KnockbackExploit.Enabled
@@ -8782,6 +8764,13 @@ run(function()
 			end
 		end,
 		Tooltip = '(DOESNT WORK WITH JADE DISABLER) Does more knockback to players and additionally does 15 damage'
+	})
+
+	Mode = KnockbackExploit:CreateDropdown({
+		Name = 'Knockback',
+		List = {'Positive', 'Negative'},
+		Default = 'Positive',
+		Function = function() end
 	})
 end)
 
