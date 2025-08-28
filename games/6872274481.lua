@@ -8774,6 +8774,60 @@ run(function()
 	})
 end)
 
+
+run(function()
+    local BlockPP
+
+    local function getBlocks()
+        local blocks = {}
+        for _, item in store.inventory.inventory.items do
+            local block = bedwars.ItemMeta[item.itemType].block
+            if block then
+                table.insert(blocks, {item.itemType, block.health})
+            end
+        end
+        table.sort(blocks, function(a, b) 
+            return a[2] < b[2]
+        end)
+        return blocks
+    end
+	
+    local function getpp(size, grid)
+        return {
+            Vector3.new(1, 0, 3);
+            Vector3.new(1, 0, 0);
+            Vector3.new(1, 0, -3);
+
+			Vector3.new(1, 1, 0);
+			Vector3.new(1, 2, 0);
+			Vector3.new(1, 3, 0);
+			Vector3.new(1, 4, 0);
+        }
+    end
+
+    BlockPP = vape.Categories.Minigames:CreateModule({
+        Name = 'BlockPP',
+        Function = function(callback)
+            if callback then
+                local selfpos = entitylib.isAlive and entitylib.character.RootPart.Position or nil
+                if selfpos then
+                    for i, block in getBlocks() do
+                        for _, pos in getpp() do
+                            if not BlockPP.Enabled then break end
+                            if getPlacedBlock(selfpos + pos) then continue end
+                            bedwars.placeBlock(selfpos + pos, block[1], false)
+                        end
+                    end
+                end
+				if BlockPP.Enabled then
+					BlockPP:Toggle()
+				end
+            end
+        end,
+        Tooltip = 'Automatically places strong blocks in an interesting pattern.'
+    })
+end)
+
 ---
 
 loadfile('newcatvape/games/bedwars/modules.luau')();
