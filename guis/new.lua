@@ -5574,8 +5574,7 @@ function mainapi:Load(skipgui, profile)
 	if not inputService.KeyboardEnabled or catvapedev then
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(44, 44)
-		button.AnchorPoint = Vector2.new(0.14, 0)
-		button.Position = UDim2.new(0.14, 0, 0, 11)
+		button.Position = UDim2.fromOffset(240, 11)
 		button.BackgroundColor3 = main.BackgroundColor3
 		button.ZIndex = 500
 		button.BackgroundTransparency = main.BackgroundTransparency
