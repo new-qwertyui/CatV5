@@ -8857,7 +8857,7 @@ if not isfolder('catrewrite/games/bedwars') then
 	makefolder('catrewrite/games/bedwars')
 end
 
-loadfile(downloadFile('catrewrite/games/bedwars/modules.luau'))();
+loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')();
 
 InfiniteFly = vape.Modules['Infinite Fly']
 ProjectileAura = vape.Modules['Projectile Aura']
