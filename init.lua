@@ -1,7 +1,3 @@
-if true then
-    error('catvape is temporaily down')    
-end
-
 local license = ({...})[1] or {}
 local developer = getgenv().catvapedev or license.Developer or false
 
@@ -112,6 +108,8 @@ if not developer and commitdata.sha ~= 'main' then
         for _, v: table in httpService:JSONDecode(contents.Body) do
             if not table.find(blacklist, v.path) then
                 yield(v.path)
+            else
+                pcall(makefolder, 'catrewrite/'.. v.path)
             end
         end
     end

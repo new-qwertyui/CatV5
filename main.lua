@@ -1,7 +1,6 @@
 repeat task.wait() until game:IsLoaded()
 if shared.vape then shared.vape:Uninject() end
 
-shared.VapeDeveloper = true
 getgenv().run = task.spawn
 
 if identifyexecutor then
@@ -61,14 +60,12 @@ local function finishLoading()
 		if (not teleportedServers) and (not shared.VapeIndependent) then
 			teleportedServers = true
 			local teleportScript = [[
-				shared.VapeDeveloper = true
 				loadfile('catrewrite/init.lua')({
 					Developer = false
 				})
 			]]
 			if getgenv().catvapedev then
 				teleportScript = [[
-					shared.VapeDeveloper = true
 					loadfile('catrewrite/init.lua')({
 						Developer = true
 					})
