@@ -10,7 +10,7 @@ local whitelistdata = setmetatable({
     whitelisted = {},
     selfrank = {
         lvl = 0,
-        rank = 'Developer'
+        rank = 'User'
     },
     players = {},
     lists = {

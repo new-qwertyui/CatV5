@@ -3,7 +3,7 @@ local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)
 		local suc, res = pcall(function()
-			return game:HttpGet("https://raw.githubusercontent.com/new-qwertyui/CatV5/"..readfile("newcatvape/profiles/commit.txt").."/"..select(1, path:gsub("newcatvape/", "")), true)
+			return game:HttpGet("https://raw.githubusercontent.com/new-qwertyui/CatV5/"..readfile("catrewrite/profiles/commit.txt").."/"..select(1, path:gsub("catrewrite/", "")), true)
 		end)
 		if not suc or res == "404: Not Found" then
 			error(res)
@@ -20,7 +20,7 @@ local cloneref = cloneref or function(obj)
 	return obj
 end
 local httpService = cloneref(game:GetService("HttpService"))
-local base64 = loadstring(downloadFile("newcatvape/libraries/base64.lua"), "base64")()
+local base64 = loadstring(downloadFile("catrewrite/libraries/base64.lua"), "base64")()
 
 local round = function(number)
     return tonumber(string.format("%.2f", number))

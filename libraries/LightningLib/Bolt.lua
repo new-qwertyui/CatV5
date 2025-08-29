@@ -25,7 +25,7 @@ BoltPart.Material = Enum.Material.Neon
 BoltPart.Color = Color3.new(1, 1, 1)
 BoltPart.Transparency = 1
 
-local PartCache = loadfile('newcatvape/libraries/LightningLib/PartCache.lua', 'PartCache.lua')()
+local PartCache = loadfile('catrewrite/libraries/LightningLib/PartCache.lua', 'PartCache.lua')()
 local LightningCache = PartCache.new(BoltPart, PARTS_IN_CACHE)
 LightningCache:SetCacheParent(parent)
 

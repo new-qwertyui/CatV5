@@ -486,170 +486,159 @@ local function predictComplexTarget(origin, targetPos, targetVelocity, projectil
 	return finalPrediction, predictionTime
 end
 
-function module.SolveTrajectory(origin, originVelocity, projectileSpeed, gravity, targetPos, targetVelocity, playerGravity, playerHeight, playerJump, params, bypass, previousVelocities)
-    -- Enhanced input validation
-    if not origin or not targetPos or not targetVelocity then
-        return nil
-    end
-    
-    originVelocity = originVelocity or Vector3.new(0, 0, 0)
-    projectileSpeed = projectileSpeed or 100
-    gravity = gravity or 196.2
-    playerGravity = playerGravity or 196.2
-    playerHeight = playerHeight or 5
-    
-	warn(typeof(targetVelocity), targetVelocity)
+function module.SolveTrajectory(
+	origin,
+	originVelocity,
+	projectileSpeed,
+	gravity,
+	targetPos,
+	targetVelocity,
+	playerGravity, -- unused (kept for API compat)
+	playerHeight,
+	playerJump,    -- unused (kept for API compat)
+	params,        -- unused
+	bypass,        -- optional: number ms ping override (or truthy to read Stats)
+	previousVelocities -- unused (kept for API compat)
+)
+	-- Basic validation
+	if not origin or not targetPos or not targetVelocity or not projectileSpeed or projectileSpeed <= 0 then
+		return nil
+	end
 
-    local disp = targetPos - origin
-    local distance = disp.Magnitude
-    local velocityMagnitude = targetVelocity.Magnitude
-    
-    -- Early exit for very close targets
-    if distance < 10 then
-        return targetPos
-    end
-    
-    -- Get ping for network compensation
-    local ping = 0
-    local success, stats = pcall(function()
-        return game:GetService('Stats'):FindFirstChild('PerformanceStats')
-    end)
-    if success and stats or bypass then
-        ping = bypass and 50 or tonumber(stats.Ping:GetValue())
-    end
-    
-    -- Enhanced movement pattern detection
-    local isJumping, jumpChanges = detectJumpingPattern(targetVelocity, previousVelocities)
-    local isStrafingTarget = isStrafing(targetVelocity, distance, isJumping)
-    
-    -- Special handling for very low velocity targets
-    if velocityMagnitude < 3 then
-        local simpleTime = distance / projectileSpeed
-        local simplePrediction = targetPos + targetVelocity * simpleTime
-        
-        if gravity > 0 then
-            local gravityDrop = 0.5 * gravity * simpleTime * simpleTime
-            simplePrediction = simplePrediction + Vector3.new(0, gravityDrop, 0)
-        end
-        
-        return simplePrediction
-    end
-    
-    -- Apply jump prediction adjustments and aim for middle of target
-    local adjustedTargetPos = targetPos
-    local adjustedVelocity = targetVelocity
-    
-    -- Aim for the middle of the target (half of player height up from feet)
-    adjustedTargetPos = adjustedTargetPos + Vector3.new(0, playerHeight / 2, 0)
-    
-    if playerJump then
-        adjustedTargetPos = adjustedTargetPos - Vector3.new(0, 1, 0) -- Slight adjustment for jumping
-    end
-    
-    -- Enhanced ground collision prediction for jumping targets
-    if playerGravity and playerGravity > 0 and (math.abs(targetVelocity.Y) > 0.01 or isJumping) and velocityMagnitude >= 5 then
-        local maxTime = distance / projectileSpeed + 2 -- Add some buffer time
-        local groundPos, groundTime = predictGroundCollision(
-            adjustedTargetPos, 
-            adjustedVelocity, 
-            playerGravity, 
-            playerHeight, 
-            params, 
-            maxTime,
-            isJumping
-        )
-        
-        if groundPos and groundTime < maxTime * 0.9 then -- Use if collision is reasonably soon
-            -- For jumping targets, blend ground prediction with current position
-            if isJumping then
-                local blendFactor = math.min(groundTime / (maxTime * 0.5), 1.0)
-                adjustedTargetPos = adjustedTargetPos:lerp(groundPos, blendFactor * 0.7)
-                -- Keep some vertical velocity for jumping targets
-                adjustedVelocity = Vector3.new(targetVelocity.X, targetVelocity.Y * 0.3, targetVelocity.Z)
-            else
-                adjustedTargetPos = groundPos
-                adjustedVelocity = Vector3.new(targetVelocity.X, 0, targetVelocity.Z)
-            end
-        end
-    end
-    
-    -- Use enhanced prediction method for complex movement patterns
-    local predictedPosition, predictionTime = predictComplexTarget(
-        origin, adjustedTargetPos, adjustedVelocity, projectileSpeed, gravity, distance, ping, isJumping, isStrafingTarget
-    )
-    
-    -- Try quartic solver for precise calculation with enhanced validation
-    local bestSolution = predictedPosition
-    
-    -- Use quartic solver less aggressively for jumping targets
-    local useQuartic = not isJumping or (distance < 100 and not isStrafingTarget)
-    
-    if useQuartic then
-        local relativeVelocity = adjustedVelocity - originVelocity
-        local p, q, r = relativeVelocity.X, relativeVelocity.Y, relativeVelocity.Z
-        local h, j, k = (adjustedTargetPos - origin).X, (adjustedTargetPos - origin).Y, (adjustedTargetPos - origin).Z
-        local l = -0.5 * gravity
-        
-        local solutions = module.solveQuartic(
-            l*l,
-            -2*q*l,
-            q*q - 2*j*l - projectileSpeed*projectileSpeed + p*p + r*r,
-            2*(j*q + h*p + k*r),
-            j*j + h*h + k*k
-        )
-        
-        if solutions and #solutions > 0 then
-            local maxTime = distance / projectileSpeed * (isJumping and 1.5 or 2) -- Shorter max time for jumping
-            local bestTime = nil
-            
-            for _, time in ipairs(solutions) do
-                if validateSolution(time, origin, adjustedTargetPos, relativeVelocity, gravity, projectileSpeed, maxTime, isJumping) then
-                    if not bestTime or (time > 0 and time < bestTime) then
-                        bestTime = time
-                    end
-                end
-            end
-            
-            -- Use quartic solution if it's reasonable
-            if bestTime and bestTime > 0 then
-                local quarticSolution = adjustedTargetPos + adjustedVelocity * bestTime
-                
-                -- Enhanced validation for jumping targets
-                local quarticDistance = (quarticSolution - origin).Magnitude
-                local maxReasonableDistance = distance * (isJumping and 1.8 or 2.5)
-                
-                if quarticDistance <= maxReasonableDistance then
-                    -- For jumping targets, blend quartic with predictive solution
-                    if isJumping then
-                        bestSolution = predictedPosition:lerp(quarticSolution, 0.6)
-                    else
-                        bestSolution = quarticSolution
-                    end
-                end
-            end
-        end
-    end
-    
-    -- Final validation and bounds checking
-    if bestSolution then
-        local finalDistance = (bestSolution - origin).Magnitude
-        
-        -- If prediction is unreasonably far, fall back to conservative estimate
-        local maxReasonableDistance = distance * (isJumping and 2.0 or 2.5)
-        
-        if finalDistance > maxReasonableDistance then
-            local conservativeTime = distance / projectileSpeed * (isJumping and 0.6 or 0.85)
-            bestSolution = targetPos + targetVelocity * conservativeTime
-            
-            if gravity > 0 then
-                local gravityFactor = isJumping and 0.5 or 1.0
-                local gravityDrop = 0.5 * gravity * conservativeTime * conservativeTime * gravityFactor
-                bestSolution = bestSolution + Vector3.new(0, gravityDrop, 0)
-            end
-        end
-    end
-    
-    return bestSolution
+	-- Defaults
+	originVelocity = originVelocity or Vector3.zero
+	playerHeight = playerHeight or 5
+	gravity = gravity or 196.2 -- Roblox default
+
+	if playerJump then
+		targetPos -= Vector3.new(0, playerHeight, 0)
+	else
+		targetPos += Vector3.new(0, 0.2, 0)
+	end
+
+	-- Try to get ping (ms) if not provided as a number in `bypass`
+	local pingMs = 0
+	if typeof(bypass) == "number" then
+		pingMs = bypass
+	elseif bypass then
+		local ok, stats = pcall(function()
+			return game:GetService("Stats"):FindFirstChild("PerformanceStats")
+		end)
+		if ok and stats and stats:FindFirstChild("Ping") then
+			local v = tonumber(stats.Ping:GetValue())
+			if v then pingMs = v end
+		end
+	end
+	local pingSec = pingMs / 1000
+
+	-- Build relative kinematics (aim for center mass)
+	local centerOffset = Vector3.new(0, playerHeight / 2, 0)
+	local r0 = (targetPos + centerOffset) - origin                -- initial relative position
+	local vRel = (targetVelocity or Vector3.zero) - originVelocity -- relative velocity (target - shooter)
+	local gVec = Vector3.new(0, -gravity, 0)
+
+	local distance = r0.Magnitude
+	if distance < 1e-6 then
+		return targetPos + centerOffset
+	end
+
+	-- *** Vertical velocity prediction improvements ***
+	if vRel.Y > 0 then
+		-- Jumping upward: smooth vertical velocity to avoid overshooting
+		vRel = Vector3.new(vRel.X, vRel.Y * 0.45, vRel.Z)
+	elseif vRel.Y < -15 then
+		-- Falling fast: bias upward slightly so shots aim at torso instead of feet
+		r0 = r0 + Vector3.new(0, playerHeight * 0.25, 0)
+	end
+
+	-- Initial time guess
+	local t = distance / math.max(projectileSpeed, 1e-6)
+	t = t + pingSec * 0.6
+
+	local losDir = r0.Unit
+	local vAlong = vRel:Dot(losDir)
+	if vAlong > 0 then
+		local recedeBoost = math.clamp(vAlong / (projectileSpeed + 1e-6), 0, 0.35)
+		t = t * (1.0 + recedeBoost)
+	else
+		local approachTrim = math.clamp(-vAlong / (projectileSpeed + 1e-6), 0, 0.15)
+		t = t * (1.0 - approachTrim * 0.25)
+	end
+
+	t = math.max(t, 1/240)
+	local tMax = math.max(0.1, distance / projectileSpeed * 3.0)
+
+	-- Newton-Raphson iteration
+	local s = projectileSpeed
+	local function f_and_df(time)
+		local A = r0 + vRel * time - 0.5 * gVec * (time * time)
+		local magA = A.Magnitude
+		local f = magA - s * time
+		local Aprime = vRel - gVec * time
+		local d
+		if magA > 1e-6 then
+			d = (A:Dot(Aprime)) / magA - s
+		else
+			d = -s
+		end
+		return f, d, A
+	end
+
+	local converged = false
+	for i = 1, 8 do
+		local f, df = f_and_df(t)
+		if math.abs(f) < 0.01 then
+			converged = true
+			break
+		end
+		if math.abs(df) < 1e-6 then break end
+		local tNext = t - f / df
+		if tNext <= 0 or tNext ~= tNext then break end
+		if tNext > tMax then tNext = (t + tMax) * 0.5 end
+		t = t * 0.2 + tNext * 0.8
+	end
+
+	if not converged then
+		local tLin = distance / s
+		t = math.clamp(tLin + pingSec * 0.5, 1/240, tMax)
+	end
+
+	local A = r0 + vRel * t - 0.5 * gVec * (t * t)
+	local aimPos = origin + A
+
+	-- Strafe guard
+	do
+		local vPerp = vRel - losDir * vRel:Dot(losDir)
+		local lateral = vPerp.Magnitude
+		if lateral > 10 and distance > 140 then
+			local horizPred = (targetPos + Vector3.new(vRel.X, 0, vRel.Z) * t)
+			local vertPredY = (targetPos.Y + playerHeight * 0.5) + (vRel.Y * t) - 0.5 * gravity * t * t
+			local strafeSafe = Vector3.new(horizPred.X, vertPredY, horizPred.Z)
+			local w = math.clamp((lateral / 60) * (t / 1.2), 0.0, 0.35)
+			aimPos = aimPos:Lerp(strafeSafe, w)
+		end
+	end
+
+	-- *** Blend with horizontal-only prediction if vertical is extreme ***
+	local verticalFactor = math.clamp(math.abs(vRel.Y) / gravity, 0, 1)
+	if verticalFactor > 0.2 then
+		local horizPred = origin + Vector3.new(aimPos.X - origin.X, r0.Y + playerHeight * 0.5, aimPos.Z - origin.Z)
+		aimPos = aimPos:Lerp(horizPred, verticalFactor * 0.5)
+	end
+
+	-- Overlead clamp
+	do
+		local aimDist = (aimPos - origin).Magnitude
+		local maxLeadFactor = (projectileSpeed < 150) and 1.85 or 1.55
+		local maxLead = distance * maxLeadFactor
+		if aimDist > maxLead then
+			local tCons = math.clamp(distance / s * 0.95 + pingSec * 0.35, 1/240, tMax)
+			local Acons = r0 + vRel * tCons - 0.5 * gVec * (tCons * tCons)
+			aimPos = origin + Acons
+		end
+	end
+
+	return aimPos
 end
 
 return module

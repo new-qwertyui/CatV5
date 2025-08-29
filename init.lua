@@ -1,6 +1,9 @@
+if true then
+    error('catvape is temporaily down')    
+end
+
 local license = ({...})[1] or {}
 local developer = getgenv().catvapedev or license.Developer or false
-local catkey = getgenv().CAK or license.Key or 'None' --> important for whitetlist fr
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
@@ -25,14 +28,14 @@ downloader.Size = UDim2.new(1, 0, -0.08, 0)
 downloader.BackgroundTransparency = 1
 downloader.TextStrokeTransparency = 0
 downloader.TextSize = 20
-downloader.Text = 'Downloading newcatvape'
+downloader.Text = 'Downloading catrewrite'
 downloader.TextColor3 = Color3.new(1, 1, 1)
 downloader.Font = Enum.Font.Arial
 
 local function downloadFile2(path: string) : string
 	if not isfile(path) or not developer then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'.. commitdata.sha.. '/'.. path:gsub('newcatvape/', ''))
+			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'.. commitdata.sha.. '/'.. path:gsub('catrewrite/', ''))
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -43,9 +46,9 @@ local function downloadFile2(path: string) : string
 end
 
 local function downloadFile(path: string) : string
-	if not developer or not isfile(`newcatvape/{path}`) then
+	if not developer or not isfile(`catrewrite/{path}`) then
         local suc, res = pcall(function()
-            return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..path:gsub('newcatvape/', ''):gsub(' ', '%%20'), true)
+            return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commitdata.sha..'/'..path:gsub('catrewrite/', ''):gsub(' ', '%%20'), true)
         end)
         if (not suc or res == '404: Not Found') then
             return 
@@ -58,7 +61,7 @@ end
 local function gitisfolder(path: string) : boolean
     local suc, body = pcall(function()
         return request({
-            Url = 'https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'.. commitdata.sha.. '/'.. path:gsub('newcatvape/', ''),
+            Url = 'https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'.. commitdata.sha.. '/'.. path:gsub('catrewrite/', ''),
             Method = 'GET'
         })
     end)
@@ -67,12 +70,12 @@ end
 
 local function yield(path: string) : ()
     if path == nil then
-        downloader.Text = 'You have exceeded the limit, Please try again in 30 mins!'
+        downloader.Text = 'Failed to install catvape, Rejoin and try again!'
         repeat task.wait() until false
     end
-    downloader.Text = `{isfile('newcatvape/'.. path) and 'Updating' or 'Downloading'} newcatvape/{path}`
+    downloader.Text = `{isfile('catrewrite/'.. path) and 'Updating' or 'Downloading'} catrewrite/{path}`
     if gitisfolder(path) then
-        makefolder(`newcatvape/{path}`)
+        makefolder(`catrewrite/{path}`)
         local contents = request({
             Url = `https://api.github.com/repos/new-qwertyui/CatV5/contents/{path}`,
             Method = 'GET'
@@ -81,17 +84,26 @@ local function yield(path: string) : ()
             yield(v.path)
         end
     else
-        downloadFile(`newcatvape/{path}`)
+        downloadFile(`catrewrite/{path}`)
     end
 end
 
 if not developer and commitdata.sha ~= 'main' then
-    local blacklist = {'assets', '.vscode', 'README.md'}
-    local newuser = not isfolder('newcatvape') or #listfiles('newcatvape') <= 6 or not isfolder('newcatvape/profiles') or not isfile('newcatvape/profiles/commit.txt') or not isfile('newcatvapereset3')
-    if newuser or readfile('newcatvape/profiles/commit.txt') ~= commitdata.sha then
-        makefolder('newcatvape')
-        if not newuser then
+    local newuser = not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt')
+    local blacklist = {'assets', '.vscode', 'README.md', 'games'}
+    if newuser or readfile('catrewrite/profiles/commit.txt') ~= commitdata.sha or not isfile('catrewritereset2') then
+        makefolder('catrewrite')
+        if newuser then
             table.insert(blacklist, 'profiles')
+            if not isfolder('catrewrite/profiles') then
+                makefolder('catrewrite/profiles')
+            end
+            if isfolder('newcatvape') and isfolder('newcatvape/profiles') then
+                for _, v: string in listfiles('newcatvape/profiles') do
+                    writefile(({v:gsub('newcatvape', 'catrewrite')})[1], readfile(v))
+                end
+                delfolder('newcatvape')
+            end
         end
         local contents = request({
             Url = `https://api.github.com/repos/new-qwertyui/CatV5/contents`,
@@ -105,18 +117,17 @@ if not developer and commitdata.sha ~= 'main' then
     end
 end
 
-writefile('newcatvape/profiles/commit.txt', commitdata.sha)
-writefile('newcatvapereset3', 'True')
+writefile('catrewrite/profiles/commit.txt', commitdata.sha)
+writefile('catrewritereset2', 'True')
 
 downloader:Destroy()
 
-shared.VapeDeveloper = true
+shared.VapeDeveloper = developer
 getgenv().used_init = true
 getgenv().catvapedev = developer
-getgenv().catkey = catkey
 
-if not isfolder('newcatvape/communication') then
-	makefolder('newcatvape/communication')
+if not isfolder('catrewrite/communication') then
+	makefolder('catrewrite/communication')
 end
 
-return loadstring(downloadFile2('newcatvape/main.lua'), 'main')(license)
+return loadstring(downloadFile2('catrewrite/main.lua'), 'main')(license)

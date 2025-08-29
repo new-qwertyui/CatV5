@@ -1,5 +1,5 @@
 --Adds sparks effect to a Lightning Bolt
-local LightningBolt = loadfile('newcatvape/libraries/LightningLib/Bolt.lua')()
+local LightningBolt = loadfile('catrewrite/libraries/LightningLib/Bolt.lua')()
 
 local ActiveSparks = {}
 

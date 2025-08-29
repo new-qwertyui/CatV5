@@ -192,7 +192,6 @@ entitylib.EntityPosition = function(entitysettings)
 	end
 	table.clear(entitysettings)
 end
-warn('new')
 entitylib.AllPosition = function(entitysettings)
 	local returned = {}
 	if entitylib.isAlive then

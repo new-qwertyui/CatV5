@@ -15,7 +15,7 @@ local run = function(func) func() end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'..select(1, path:gsub('newcatvape/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -67,7 +67,7 @@ local function addBlur(parent)
 	blur.Size = UDim2.new(1, 89, 1, 52)
 	blur.Position = UDim2.fromOffset(-48, -31)
 	blur.BackgroundTransparency = 1
-	blur.Image = getcustomasset('newcatvape/assets/new/blur.png')
+	blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
 	blur.ScaleType = Enum.ScaleType.Slice
 	blur.SliceCenter = Rect.new(52, 31, 261, 502)
 	blur.Parent = parent
@@ -202,9 +202,9 @@ local function updateVelocity()
 	end
 end
 
-local hash = loadstring(downloadFile('newcatvape/libraries/hash.lua'), 'hash')()
-local prediction = loadstring(downloadFile('newcatvape/libraries/prediction.lua'), 'prediction')()
-entitylib = loadstring(downloadFile('newcatvape/libraries/entity.lua'), 'entity')()
+local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
+local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
+entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
 
 local isfunctionhooked = isfunctionhooked or function() return true end
 
@@ -222,11 +222,9 @@ if not isfunctionhooked(listfiles) then
 	vape:Clean({func = listfiles})
 end
 
-for i,v in listfiles('newcatvape/libraries/Weather') do
-	warn(v)
-	local real = v:gsub('newcatvape/libraries/Weather/', ''):gsub('.lua', '')
+for i,v in listfiles('catrewrite/libraries/Weather') do
+	local real = v:gsub('catrewrite/libraries/Weather/', ''):gsub('.lua', '')
 	local func = loadstring(readfile(v))
-	warn(real)
 	weatherlib[real] = {}
 end
 
@@ -608,7 +606,7 @@ run(function()
 
 		if not first or whitelist.textdata ~= whitelist.olddata then
 			if not first then 
-				whitelist.olddata = isfile('newcatvape/profiles/whitelist.json') and readfile('newcatvape/profiles/whitelist.json') or nil 
+				whitelist.olddata = isfile('catrewrite/profiles/whitelist.json') and readfile('catrewrite/profiles/whitelist.json') or nil 
 			end
 			local suc, res = pcall(function()
 				return httpService:JSONDecode(whitelist.textdata)
@@ -651,7 +649,7 @@ run(function()
 				end
 				whitelist.olddata = whitelist.textdata
 				pcall(function()
-					writefile('newcatvape/profiles/whitelist.json', whitelist.textdata)
+					writefile('catrewrite/profiles/whitelist.json', whitelist.textdata)
 				end)
 			end
 
@@ -1823,6 +1821,9 @@ run(function()
 			end
 			frictionTable.Fly = callback and CustomProperties.Enabled or nil
 			updateVelocity()
+			if downButton and downButton.Parent then
+				downButton.Visible = callback
+			end
 			if callback then
 				Fly:Clean(runService.PreSimulation:Connect(function(dt)
 					if entitylib.isAlive then
@@ -3324,6 +3325,7 @@ end)
 	
 run(function()
 	local TargetStrafe
+	local TP
 	local Targets
 	local SearchRange
 	local StrafeRange
@@ -3345,61 +3347,123 @@ run(function()
 				
 				old = module.moveFunction
 				local flymod, ang, oldent = vape.Modules.Fly or {Enabled = false}
-				module.moveFunction = function(self, vec, face)
-					local wallcheck = Targets.Walls.Enabled
-					local ent = not inputService:IsKeyDown(Enum.KeyCode.S) and entitylib.EntityPosition({
-						Range = SearchRange.Value,
-						Wallcheck = wallcheck,
-						Part = 'RootPart',
-						Players = Targets.Players.Enabled,
-						NPCs = Targets.NPCs.Enabled
-					})
-	
-					if ent then
-						local root, targetPos = entitylib.character.RootPart, ent.RootPart.Position
-						rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, ent.Character}
-						rayCheck.CollisionGroup = root.CollisionGroup
-	
-						if flymod.Enabled or workspace:Raycast(targetPos, Vector3.new(0, -70, 0), rayCheck) then
-							local factor, localPosition = 0, root.Position
-							if ent ~= oldent then
-								ang = math.deg(select(2, CFrame.lookAt(targetPos, localPosition):ToEulerAnglesYXZ()))
-							end
-							local yFactor = math.abs(localPosition.Y - targetPos.Y) * (YFactor.Value / 100)
-							local entityPos = Vector3.new(targetPos.X, localPosition.Y, targetPos.Z)
-							local newPos = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (StrafeRange.Value - yFactor))
-							local startRay, endRay = entityPos, newPos
-	
-							if not wallcheck and workspace:Raycast(targetPos, (localPosition - targetPos), rayCheck) then
-								startRay, endRay = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (entityPos - localPosition).Magnitude), entityPos
-							end
-	
-							local ray = workspace:Blockcast(CFrame.new(startRay), Vector3.new(1, entitylib.character.HipHeight + (root.Size.Y / 2), 1), (endRay - startRay), rayCheck)
-							if (localPosition - newPos).Magnitude < 3 or ray then
-								factor = (8 - math.min((localPosition - newPos).Magnitude, 3))
-								if ray then
-									newPos = ray.Position + (ray.Normal * 1.5)
-									factor = (localPosition - newPos).Magnitude > 3 and 0 or factor
+				if TP.Enabled then
+					repeat
+						local vec = Vector3.zero
+						local wallcheck = Targets.Walls.Enabled
+						local ent = not inputService:IsKeyDown(Enum.KeyCode.S) and entitylib.EntityPosition({
+							Range = SearchRange.Value,
+							Wallcheck = wallcheck,
+							Part = 'RootPart',
+							Players = Targets.Players.Enabled,
+							NPCs = Targets.NPCs.Enabled
+						})
+		
+						if ent then
+							local root, targetPos = entitylib.character.RootPart, ent.RootPart.Position
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, ent.Character}
+							rayCheck.CollisionGroup = root.CollisionGroup
+		
+							if flymod.Enabled or workspace:Raycast(targetPos, Vector3.new(0, -70, 0), rayCheck) then
+								local factor, localPosition = 0, root.Position
+								if ent ~= oldent then
+									ang = math.deg(select(2, CFrame.lookAt(targetPos, localPosition):ToEulerAnglesYXZ()))
 								end
+								local yFactor = math.abs(localPosition.Y - targetPos.Y) * (YFactor.Value / 100)
+								local entityPos = Vector3.new(targetPos.X, localPosition.Y, targetPos.Z)
+								local newPos = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (StrafeRange.Value - yFactor))
+								local startRay, endRay = entityPos, newPos
+		
+								if not wallcheck and workspace:Raycast(targetPos, (localPosition - targetPos), rayCheck) then
+									startRay, endRay = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (entityPos - localPosition).Magnitude), entityPos
+								end
+		
+								local ray = workspace:Blockcast(CFrame.new(startRay), Vector3.new(1, entitylib.character.HipHeight + (root.Size.Y / 2), 1), (endRay - startRay), rayCheck)
+								if (localPosition - newPos).Magnitude < 3 or ray then
+									factor = (8 - math.min((localPosition - newPos).Magnitude, 3))
+									if ray then
+										newPos = ray.Position + (ray.Normal * 1.5)
+										factor = (localPosition - newPos).Magnitude > 3 and 0 or factor
+									end
+								end
+		
+								if not flymod.Enabled and not workspace:Raycast(newPos, Vector3.new(0, -70, 0), rayCheck) then
+									newPos = entityPos
+									factor = 40
+								end
+		
+								ang += factor % 360
+								vec = ((newPos - localPosition) * Vector3.new(1, 0, 1)).Unit
+								vec = vec == vec and vec or Vector3.zero
+								TargetStrafeVector = vec
+							else
+								ent = nil
 							end
-	
-							if not flymod.Enabled and not workspace:Raycast(newPos, Vector3.new(0, -70, 0), rayCheck) then
-								newPos = entityPos
-								factor = 40
-							end
-	
-							ang += factor % 360
-							vec = ((newPos - localPosition) * Vector3.new(1, 0, 1)).Unit
-							vec = vec == vec and vec or Vector3.zero
-							TargetStrafeVector = vec
-						else
-							ent = nil
 						end
+		
+						TargetStrafeVector = ent and vec or nil
+						oldent = ent
+
+						entitylib.character.RootPart.CFrame += (vec * 0.6)
+						task.wait()
+					until not TargetStrafe.Enabled
+				else
+					module.moveFunction = function(self, vec, face)
+						local wallcheck = Targets.Walls.Enabled
+						local ent = not inputService:IsKeyDown(Enum.KeyCode.S) and entitylib.EntityPosition({
+							Range = SearchRange.Value,
+							Wallcheck = wallcheck,
+							Part = 'RootPart',
+							Players = Targets.Players.Enabled,
+							NPCs = Targets.NPCs.Enabled
+						})
+		
+						if ent then
+							local root, targetPos = entitylib.character.RootPart, ent.RootPart.Position
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, ent.Character}
+							rayCheck.CollisionGroup = root.CollisionGroup
+		
+							if flymod.Enabled or workspace:Raycast(targetPos, Vector3.new(0, -70, 0), rayCheck) then
+								local factor, localPosition = 0, root.Position
+								if ent ~= oldent then
+									ang = math.deg(select(2, CFrame.lookAt(targetPos, localPosition):ToEulerAnglesYXZ()))
+								end
+								local yFactor = math.abs(localPosition.Y - targetPos.Y) * (YFactor.Value / 100)
+								local entityPos = Vector3.new(targetPos.X, localPosition.Y, targetPos.Z)
+								local newPos = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (StrafeRange.Value - yFactor))
+								local startRay, endRay = entityPos, newPos
+		
+								if not wallcheck and workspace:Raycast(targetPos, (localPosition - targetPos), rayCheck) then
+									startRay, endRay = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (entityPos - localPosition).Magnitude), entityPos
+								end
+		
+								local ray = workspace:Blockcast(CFrame.new(startRay), Vector3.new(1, entitylib.character.HipHeight + (root.Size.Y / 2), 1), (endRay - startRay), rayCheck)
+								if (localPosition - newPos).Magnitude < 3 or ray then
+									factor = (8 - math.min((localPosition - newPos).Magnitude, 3))
+									if ray then
+										newPos = ray.Position + (ray.Normal * 1.5)
+										factor = (localPosition - newPos).Magnitude > 3 and 0 or factor
+									end
+								end
+		
+								if not flymod.Enabled and not workspace:Raycast(newPos, Vector3.new(0, -70, 0), rayCheck) then
+									newPos = entityPos
+									factor = 40
+								end
+		
+								ang += factor % 360
+								vec = ((newPos - localPosition) * Vector3.new(1, 0, 1)).Unit
+								vec = vec == vec and vec or Vector3.zero
+								TargetStrafeVector = vec
+							else
+								ent = nil
+							end
+						end
+		
+						TargetStrafeVector = ent and vec or nil
+						oldent = ent
+						return old(self, vec, face)
 					end
-	
-					TargetStrafeVector = ent and vec or nil
-					oldent = ent
-					return old(self, vec, face)
 				end
 			else
 				if module and old then
@@ -3438,6 +3502,9 @@ run(function()
 		Max = 100,
 		Default = 100,
 		Suffix = '%'
+	})
+	TP = TargetStrafe:CreateToggle({
+		Name = 'Teleport'
 	})
 end)
 	
@@ -3495,7 +3562,7 @@ run(function()
 		EntityArrow.BackgroundTransparency = 1
 		EntityArrow.BorderSizePixel = 0
 		EntityArrow.Visible = false
-		EntityArrow.Image = getcustomasset('newcatvape/assets/new/arrowmodule.png')
+		EntityArrow.Image = getcustomasset('catrewrite/assets/new/arrowmodule.png')
 		EntityArrow.ImageColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
 		EntityArrow.Parent = Folder
 		Reference[ent] = EntityArrow
@@ -4185,6 +4252,8 @@ run(function()
 			end
 		end
 	}
+
+	loadfile('catrewrite/libraries/update.lua')()
 	
 	ESP = vape.Categories.Render:CreateModule({
 		Name = 'ESP',
@@ -5254,7 +5323,7 @@ run(function()
 	
 	Radar = vape:CreateOverlay({
 		Name = 'Radar',
-		Icon = getcustomasset('newcatvape/assets/new/radaricon.png'),
+		Icon = getcustomasset('catrewrite/assets/new/radaricon.png'),
 		Size = UDim2.fromOffset(14, 14),
 		Position = UDim2.fromOffset(12, 13),
 		Function = function(callback)
@@ -5471,7 +5540,7 @@ run(function()
 	
 	SessionInfo = vape:CreateOverlay({
 		Name = 'Session Info',
-		Icon = getcustomasset('newcatvape/assets/new/textguiicon.png'),
+		Icon = getcustomasset('catrewrite/assets/new/textguiicon.png'),
 		Size = UDim2.fromOffset(16, 12),
 		Position = UDim2.fromOffset(12, 14),
 		Function = function(callback)
@@ -5614,8 +5683,6 @@ run(function()
 		return os.date('!%X', math.floor(os.clock() - value)) 
 	end)
 end)
-
-loadfile('newcatvape/libraries/update.lua')()
 	
 run(function()
 	local Tracers
@@ -7267,14 +7334,10 @@ run(function()
 		if (not v:GetAttribute('Disguise')) and ((v:IsA('Accessory') and (not v:GetAttribute('InvItem')) and (not v:GetAttribute('ArmorSlot'))) or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') or v:IsA('BodyColors') or manual) then
 			repeat
 				task.wait()
-				if v.Parent ~= nil then
-				    v.Parent = replicatedStorage
-				end
-			until v.Parent == replicatedStorage or not v.Parent
-			if v.Parent then
-    			v:ClearAllChildren()
-    			v:Destroy()
-    	end
+				v.Parent = replicatedStorage
+			until v.Parent == replicatedStorage
+			v:ClearAllChildren()
+			v:Destroy()
 		end
 	end
 	
@@ -7458,6 +7521,8 @@ run(function()
 		Max = 120
 	})
 end)
+
+local fpsvar = 120
 	
 run(function()
 	--[[
@@ -7469,24 +7534,7 @@ run(function()
 	
 	FPS = vape.Legit:CreateModule({
 		Name = 'FPS',
-		Function = function(callback)
-			if callback then
-				local frames = {}
-				local startClock = os.clock()
-				local updateTick = tick()
-				FPS:Clean(runService.Heartbeat:Connect(function()
-					local updateClock = os.clock()
-					for i = #frames, 1, -1 do
-						frames[i + 1] = frames[i] >= updateClock - 1 and frames[i] or nil
-					end
-					frames[1] = updateClock
-					if updateTick < tick() then
-						updateTick = tick() + 1
-						label.Text = math.floor(os.clock() - startClock >= 1 and #frames or #frames / (os.clock() - startClock))..' FPS'
-					end
-				end))
-			end
-		end,
+		Function = function(callback) end,
 		Size = UDim2.fromOffset(100, 41),
 		Tooltip = 'Shows the current framerate'
 	})
@@ -7518,6 +7566,25 @@ run(function()
 	local corner = Instance.new('UICorner')
 	corner.CornerRadius = UDim.new(0, 4)
 	corner.Parent = label
+
+	local frames = {}
+	local startClock = os.clock()
+	local updateTick = tick()
+
+	vape:Clean(runService.PreSimulation:Connect(function()
+		local updateClock = os.clock()
+		for i = #frames, 1, -1 do
+			frames[i + 1] = frames[i] >= updateClock - 1 and frames[i] or nil
+		end
+		frames[1] = updateClock
+		if updateTick < tick() then
+			updateTick = tick() + 1
+			fpsvar = (os.clock() - startClock >= 1 and #frames or #frames / (os.clock() - startClock))
+			if FPS.Enabled then
+				label.Text = math.floor(fpsvar)..' FPS'
+			end
+		end
+	end))
 end)
 	
 run(function()
@@ -7965,13 +8032,11 @@ run(function()
 				jumps = 0
 				InfiniteJump:Clean(inputService.JumpRequest:Connect(function()
 					jumps += 1
-					if jumps > 1 then
-						if Mode.Value == "Jump" then
-							entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-						elseif Mode.Value == "Velocity" then
-							local power = math.sqrt(2 * workspace.Gravity * entitylib.character.Humanoid.JumpHeight)
-							entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, power, entitylib.character.RootPart.Velocity.Z)
-						end
+					if jumps > 1 and Mode.Value == "Velocity" then
+						local power = math.sqrt(2 * workspace.Gravity * entitylib.character.Humanoid.JumpHeight)
+						entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, power, entitylib.character.RootPart.Velocity.Z)
+					elseif Mode.Value == "Jump" then
+						entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 					end
 				end))
 				InfiniteJump:Clean(entitylib.character.Humanoid.StateChanged:Connect(function(old, new)
@@ -8079,7 +8144,7 @@ run(function()
 							return entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
 						end
 						params.FilterDescendantsInstances = {lplr.Character}
-						if nofallmode.Value ~= 'State' and entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -44, 0), params) and (canceltick > tick() or entitylib.character.RootPart.Velocity.Y < (nofallmode.Value == 'Freeze' and -75 or -25.5)) then
+						if nofallmode.Value ~= 'State' and entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -44, 0), params) and (canceltick > tick() or entitylib.character.RootPart.Velocity.Y < (nofallmode.Value == 'Freeze' and -50 or -25.5)) then
 							if tick() > nofalltick then
 								if nofallmode.Value == 'Freeze' then
 									nofalltick = tick() + 1
@@ -8098,7 +8163,7 @@ run(function()
 									if nofallgravmode.Value == 'Workspace' then
 										workspace.Gravity = 140
 									else
-										entitylib.character.RootPart.Velocity += Vector3.new(0, (entitylib.character.RootPart.Velocity.Y * -0.015), 0)
+										entitylib.character.RootPart.Velocity += Vector3.new(0, (-entitylib.character.RootPart.Velocity.Y * 0.02), 0)
 									end
 								end
 							end
@@ -8297,3 +8362,4 @@ run(function()
 		end,
 	})
 end)
+

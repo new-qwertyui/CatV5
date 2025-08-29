@@ -72,7 +72,7 @@ if not success or success and res == 'Down' then
 end
 task.spawn(function()
 	local suc, err = pcall(function()
-		--loadfile('newcatvape/libraries/whitelist.lua')()
+		--loadfile('catrewrite/libraries/whitelist.lua')()
 	end)
 	if not suc then
 		if shared.catvapedev then task.spawn(error, 'Cat Whitelist | '.. err)

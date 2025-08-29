@@ -1,5 +1,5 @@
-local LightningBolt = loadfile('newcatvape/libraries/LightningLib/Bolt.lua')()
-local LightningSparks = loadfile('newcatvape/libraries/LightningLib/Sparks/Init.lua')()
+local LightningBolt = loadfile('catrewrite/libraries/LightningLib/Bolt.lua')()
+local LightningSparks = loadfile('catrewrite/libraries/LightningLib/Sparks/Init.lua')()
 
 return {
 	CreateLightning = function(pos: Vector3)

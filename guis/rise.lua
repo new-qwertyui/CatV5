@@ -120,9 +120,9 @@ local themecolors = {
 }
 
 local getcustomassets = {
-	['newcatvape/assets/rise/slice.png'] = 'rbxasset://risesix/slice.png',
-	['newcatvape/assets/rise/blur.png'] = 'rbxasset://risesix/blur.png',
-	['newcatvape/assets/new/blur.png'] = 'rbxassetid://14898786664',
+	['catrewrite/assets/rise/slice.png'] = 'rbxasset://risesix/slice.png',
+	['catrewrite/assets/rise/blur.png'] = 'rbxasset://risesix/blur.png',
+	['catrewrite/assets/new/blur.png'] = 'rbxassetid://14898786664',
 }
 
 local isfile = isfile or function(file)
@@ -147,7 +147,7 @@ local function addBlur(parent)
 	blur.Size = UDim2.new(1, 42, 1, 42)
 	blur.Position = UDim2.fromOffset(-24, -15)
 	blur.BackgroundTransparency = 1
-	blur.Image = getcustomasset('newcatvape/assets/new/blur.png')
+	blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
 	blur.ScaleType = Enum.ScaleType.Slice
 	blur.SliceCenter = Rect.new(44, 38, 804, 595)
 	blur.Parent = parent
@@ -244,7 +244,7 @@ local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'..select(1, path:gsub('newcatvape/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -329,21 +329,21 @@ end
 
 local function writeFont()
 	if not assetfunction then return 'rbxasset://fonts/productsans.json' end
-	writefile('newcatvape/assets/rise/risefont.json', httpService:JSONEncode({
+	writefile('catrewrite/assets/rise/risefont.json', httpService:JSONEncode({
 		name = 'ProductSans',
 		faces = {
-			{style = 'normal', assetId = getcustomasset('newcatvape/assets/rise/SF-Pro-Rounded-Light.otf'), name = 'Light', weight = 300},
-			{style = 'normal', assetId = getcustomasset('newcatvape/assets/rise/SF-Pro-Rounded-Regular.otf'), name = 'Regular', weight = 400},
-			{style = 'normal', assetId = getcustomasset('newcatvape/assets/rise/SF-Pro-Rounded-Medium.otf'), name = 'Medium', weight = 500},
-			{style = 'normal', assetId = getcustomasset('newcatvape/assets/rise/Icon-1.ttf'), name = 'Icon1', weight = 600},
-			{style = 'normal', assetId = getcustomasset('newcatvape/assets/rise/Icon-3.ttf'), name = 'Icon3', weight = 800}
+			{style = 'normal', assetId = getcustomasset('catrewrite/assets/rise/SF-Pro-Rounded-Light.otf'), name = 'Light', weight = 300},
+			{style = 'normal', assetId = getcustomasset('catrewrite/assets/rise/SF-Pro-Rounded-Regular.otf'), name = 'Regular', weight = 400},
+			{style = 'normal', assetId = getcustomasset('catrewrite/assets/rise/SF-Pro-Rounded-Medium.otf'), name = 'Medium', weight = 500},
+			{style = 'normal', assetId = getcustomasset('catrewrite/assets/rise/Icon-1.ttf'), name = 'Icon1', weight = 600},
+			{style = 'normal', assetId = getcustomasset('catrewrite/assets/rise/Icon-3.ttf'), name = 'Icon3', weight = 800}
 		}
 	}))
-	return getcustomasset('newcatvape/assets/rise/risefont.json')
+	return getcustomasset('catrewrite/assets/rise/risefont.json')
 end
 
 if inputService.TouchEnabled then
-	writefile('newcatvape/profiles/gui.txt', 'new')
+	writefile('catrewrite/profiles/gui.txt', 'new')
 	return
 end
 
@@ -355,7 +355,7 @@ do
 	uipallet.FontIcon1 = Font.new(risefont, Enum.FontWeight.SemiBold)
 	uipallet.FontIcon3 = Font.new(risefont, Enum.FontWeight.ExtraBold)
 
-	local res = isfile('newcatvape/profiles/color.txt') and loadJson('newcatvape/profiles/color.txt')
+	local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
 	if res then
 		uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
 		uipallet.Text = res.Text and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
@@ -1198,8 +1198,8 @@ components = {
 					if ind then
 						if val ~= 'default' then
 							table.remove(mainapi.Profiles, ind)
-							if isfile('newcatvape/profiles/'..val..mainapi.Place..'.txt') and delfile then
-								delfile('newcatvape/profiles/'..val..mainapi.Place..'.txt')
+							if isfile('catrewrite/profiles/'..val..mainapi.Place..'.txt') and delfile then
+								delfile('catrewrite/profiles/'..val..mainapi.Place..'.txt')
 							end
 						end
 					else
@@ -2298,8 +2298,8 @@ function mainapi:Load(skipgui, profile)
 	local guidata = {}
 	local savecheck = true
 
-	if isfile('newcatvape/profiles/'..game.GameId..'.gui.txt') then
-		guidata = loadJson('newcatvape/profiles/'..game.GameId..'.gui.txt')
+	if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
+		guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
 		if not guidata then
 			guidata = {Categories = {}}
 			self:CreateNotification('Vape', 'Failed to load GUI settings.', 10, 'alert')
@@ -2328,8 +2328,8 @@ function mainapi:Load(skipgui, profile)
 	}}
 	--self.Categories.Profiles:ChangeValue()
 
-	if isfile('newcatvape/profiles/'..self.Profile..self.Place..'.txt') then
-		local savedata = loadJson('newcatvape/profiles/'..self.Profile..self.Place..'.txt')
+	if isfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt') then
+		local savedata = loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
 		if not savedata then
 			savedata = {
 				Categories = {},
@@ -2450,8 +2450,8 @@ function mainapi:Save(newprofile)
 		}
 	end
 
-	writefile('newcatvape/profiles/'..game.GameId..'.gui.txt', httpService:JSONEncode(guidata))
-	writefile('newcatvape/profiles/'..self.Profile..self.Place..'.txt', httpService:JSONEncode(savedata))
+	writefile('catrewrite/profiles/'..game.GameId..'.gui.txt', httpService:JSONEncode(guidata))
+	writefile('catrewrite/profiles/'..self.Profile..self.Place..'.txt', httpService:JSONEncode(savedata))
 end
 
 function mainapi:SaveOptions(object, savedoptions)
@@ -2840,12 +2840,12 @@ mainapi.Categories.Main:CreateDropdown({
 	List = {'rise', 'new', 'old'},
 	Function = function(val, mouse)
 		if mouse then
-			writefile('newcatvape/profiles/gui.txt', val)
+			writefile('catrewrite/profiles/gui.txt', val)
 			shared.vapereload = true
 			if shared.VapeDeveloper then
-				loadstring(readfile('newcatvape/loader.lua'), 'loader')()
+				loadstring(readfile('catrewrite/loader.lua'), 'loader')()
 			else
-				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/loader.lua', true))()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
 			end
 		end
 	end
@@ -2871,9 +2871,9 @@ mainapi.Categories.Main:CreateButton({
 	Function = function()
 		shared.vapereload = true
 		if shared.VapeDeveloper then
-			loadstring(readfile('newcatvape/loader.lua'), 'loader')()
+			loadstring(readfile('catrewrite/loader.lua'), 'loader')()
 		else
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/loader.lua', true))()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
 		end
 	end
 })
@@ -3229,7 +3229,7 @@ function mainapi:UpdateTextGUI(afterload)
 					holderline.Size = UDim2.fromOffset(2, 18)
 					holderline.Position = UDim2.new(1, 0, 0, 2)
 					holderline.BackgroundTransparency = 1
-					holderline.Image = getcustomasset('newcatvape/assets/rise/slice.png')
+					holderline.Image = getcustomasset('catrewrite/assets/rise/slice.png')
 					holderline.ImageColor3 = uipallet.MainColor
 					holderline.ZIndex = -1
 					holderline.Parent = holderbackground

@@ -15,7 +15,7 @@ end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function() 
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'..select(1, path:gsub('newcatvape/', '')), true) 
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true) 
 		end)
 		if not suc or res == '404: Not Found' then 
 			error(res) 
@@ -29,15 +29,15 @@ local function downloadFile(path, func)
 end
 
 vape.Place = 6872274481
-if isfile('newcatvape/games/'..vape.Place..'.lua') then
-	loadstring(readfile('newcatvape/games/'..vape.Place..'.lua'), 'bedwars')()
+if isfile('catrewrite/games/'..vape.Place..'.lua') then
+	loadstring(readfile('catrewrite/games/'..vape.Place..'.lua'), 'bedwars')()
 else
 	if not shared.VapeDeveloper then
 		local suc, res = pcall(function() 
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/games/'..vape.Place..'.lua', true) 
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..vape.Place..'.lua', true) 
 		end)
 		if suc and res ~= '404: Not Found' then
-			loadstring(downloadFile('newcatvape/games/'..vape.Place..'.lua'), 'bedwars')()
+			loadstring(downloadFile('catrewrite/games/'..vape.Place..'.lua'), 'bedwars')()
 		end
 	end
 end

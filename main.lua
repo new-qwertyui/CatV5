@@ -33,7 +33,7 @@ local playersService = cloneref(game:GetService('Players'))
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/'..select(1, path:gsub('newcatvape/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -62,14 +62,14 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.VapeDeveloper = true
-				loadfile('newcatvape/init.lua')({
+				loadfile('catrewrite/init.lua')({
 					Developer = false
 				})
 			]]
 			if getgenv().catvapedev then
 				teleportScript = [[
 					shared.VapeDeveloper = true
-					loadfile('newcatvape/init.lua')({
+					loadfile('catrewrite/init.lua')({
 						Developer = true
 					})
 				]]
@@ -86,38 +86,41 @@ local function finishLoading()
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
-			vape:CreateNotification('Cat', 'We have a discord server! If theres any problems, please report them here: discord.gg/pVEB6qJh33', 13, 'alert')
+			vape:CreateNotification('Cat', `Initialized as {catuser or 'Guest'}`, 8, 'alert')
+			vape:CreateNotification('Cat', 'We have a discord server! If theres any problems, please report them here: discord.gg/pVEB6qJh33', 8, 'alert')
 		end
 	end
 end
 
-if not isfile('newcatvape/profiles/gui.txt') then
-	writefile('newcatvape/profiles/gui.txt', 'new')
+if not isfile('catrewrite/profiles/gui.txt') then
+	writefile('catrewrite/profiles/gui.txt', 'new')
 end
-local gui = readfile('newcatvape/profiles/gui.txt')
+local gui = readfile('catrewrite/profiles/gui.txt')
 
 if gui == nil or gui == '' then
 	gui = 'new'
 end
 
-if not isfolder('newcatvape/assets/'..gui) then
-	makefolder('newcatvape/assets/'..gui)
+if not isfolder('catrewrite/assets/'..gui) then
+	makefolder('catrewrite/assets/'..gui)
 end
-vape = loadstring(downloadFile('newcatvape/guis/'..gui..'.lua'), 'gui')()
+vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 
 if not shared.VapeIndependent then
-	loadstring(downloadFile('newcatvape/games/universal.lua'), 'universal')()
-	if isfile('newcatvape/games/'..game.PlaceId..'.lua') then
-		loadstring(readfile('newcatvape/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
+	if isfile('catrewrite/games/'..game.PlaceId..'.lua') and shared.VapeDeveloper then
+		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
 		if not shared.VapeDeveloper then
 			local suc, res = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('newcatvape/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
 			end)
 			if suc and res ~= '404: Not Found' then
-				loadstring(downloadFile('newcatvape/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+				loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 			end
+		else
+			vape:CreateNotification('Cat', `PlaceId {game.PlaceId} doesn't exist in ur workspace`, 13, 'alert')
 		end
 	end
 	finishLoading()

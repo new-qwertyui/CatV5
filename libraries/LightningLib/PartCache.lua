@@ -20,7 +20,7 @@
 	
 	Look at the bottom of my thread for an API! https://devforum.roblox.com/t/partcache-for-all-your-quick-part-creation-needs/246641
 --]]
-local tab = loadfile('newcatvape/libraries/LightningLib/Table.lua', 'Table.lua')()
+local tab = loadfile('catrewrite/libraries/LightningLib/Table.lua', 'Table.lua')()
 
 -----------------------------------------------------------
 -------------------- MODULE DEFINITION --------------------

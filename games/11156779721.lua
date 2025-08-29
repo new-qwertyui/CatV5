@@ -670,7 +670,7 @@ run(function()
 			blur.Size = UDim2.new(1, 89, 1, 52)
 			blur.Position = UDim2.fromOffset(-48, -31)
 			blur.BackgroundTransparency = 1
-			blur.Image = getcustomasset('newcatvape/assets/new/blur.png')
+			blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
 			blur.ScaleType = Enum.ScaleType.Slice
 			blur.SliceCenter = Rect.new(52, 31, 261, 502)
 			blur.Parent = holder
