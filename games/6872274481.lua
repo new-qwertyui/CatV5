@@ -63,6 +63,19 @@ local getcustomasset = vape.Libraries.getcustomasset
 shared.vape.hackerTable = {}
 local downButton = vape.DownButton
 
+local function downloadFile(path, func)
+	if not isfile(path) then
+		local suc, res = pcall(function()
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+		end)
+		if not suc or res == '404: Not Found' then
+			error(res)
+		end
+		writefile(path, res)
+	end
+	return (func or readfile)(path)
+end
+
 local store = {
 	attackReach = 0,
 	attackReachUpdate = os.clock(),
@@ -8840,7 +8853,11 @@ run(function()
 	})
 end)
 
-loadfile('catrewrite/games/bedwars/modules.luau')();
+if not isfolder('catrewrite/games/bedwars') then
+	makefolder('catrewrite/games/bedwars')
+end
+
+loadfile(downloadFile('catrewrite/games/bedwars/modules.luau'))();
 
 InfiniteFly = vape.Modules['Infinite Fly']
 ProjectileAura = vape.Modules['Projectile Aura']
