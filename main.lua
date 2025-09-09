@@ -4,8 +4,10 @@ if shared.vape then shared.vape:Uninject() end
 getgenv().run = task.spawn
 
 if identifyexecutor then
-	if table.find({'Argon', 'Wave'}, ({identifyexecutor()})[1]) then
-		getgenv().setthreadidentity = nil
+	if not table.find({'AWP', 'Zenith', 'Nihon', 'Seliware', 'Nucleus'}, ({identifyexecutor()})[1]) then
+		getgenv().setthreadidentity = function(val)
+			return val
+		end
 	end
 end
 
