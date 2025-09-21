@@ -1670,7 +1670,9 @@ run(function()
 							end
 						end
 					elseif store.hand.toolType == 'sword' then
-						bedwars.SwordController:swingSwordAtMouse(0.25 + math.random() / 8)
+						if not shared.vape.Targetting then
+							bedwars.SwordController:swingSwordAtMouse(0.25 + math.random() / 8)
+						end
 					end
 				end
 	
@@ -3622,6 +3624,11 @@ run(function()
 	end
 	
 	local AutoKitFunctions = {
+		styx = function()
+			AutoKit:Clean(bedwars.Client:Get('StyxSpawnExitPortalFromServer'):Connect(function(data)
+				bedwars.Client:Get('StyxTryOpenExitPortalFromClient'):CallServer(data.exitPortalData.uuid)
+			end))
+		end,
 		battery = function()
 			repeat
 				if entitylib.isAlive then
@@ -8474,8 +8481,5 @@ end)
 
 loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')();
 
-task.spawn(function()
-	repeat task.wait() until vape.Modules['Infinite Fly']
-	InfiniteFly = vape.Modules['Infinite Fly']
-	ProjectileAura = vape.Modules['Projectile Aura'] 
-end)
+InfiniteFly = vape.Modules['Infinite Fly']
+ProjectileAura = vape.Modules['Projectile Aura'] 
