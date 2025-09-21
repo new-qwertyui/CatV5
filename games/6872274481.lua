@@ -8481,5 +8481,8 @@ end)
 
 loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')();
 
-InfiniteFly = vape.Modules['Infinite Fly']
-ProjectileAura = vape.Modules['Projectile Aura'] 
+task.spawn(function()
+	repeat task.wait() until vape.Modules['Infinite Fly']
+	InfiniteFly = vape.Modules['Infinite Fly']
+	ProjectileAura = vape.Modules['Projectile Aura'] 
+end)
