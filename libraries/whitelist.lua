@@ -352,7 +352,7 @@ task.spawn(function()
 
         textChatService.OnIncomingMessage = func
 
-        task.wait(5)
+        task.wait(15)
         for i,v in wlplrs do
             if not selfWhitelisted or response.WhitelistedUsers[tostring(v.UserId)].level < selfWhitelisted.level then
                 serv.TextChatService.TextChannels.RBXGeneral:SendAsync('', 'catv5')
