@@ -317,6 +317,8 @@ local function getNearGround(range)
 	return closest
 end
 
+getgenv().getNearGround = getNearGround
+
 local function getShieldAttribute(char)
 	local returned = 0
 	for name, val in char:GetAttributes() do
@@ -853,6 +855,7 @@ run(function()
 		end,
 		HudAliveCount = require(lplr.PlayerScripts.TS.controllers.global['top-bar'].ui.game['hud-alive-player-counts']).HudAlivePlayerCounts,
 		ItemMeta = debug.getupvalue(require(replicatedStorage.TS.item['item-meta']).getItemMeta, 1),
+		RecipeMeta = debug.getupvalue(require(replicatedStorage.TS.recipe['recipe-meta']).getRecipeMeta, 1),
 		KillEffectMeta = require(replicatedStorage.TS.locker['kill-effect']['kill-effect-meta']).KillEffectMeta,
 		KillFeedController = Flamework.resolveDependency('client/controllers/game/kill-feed/kill-feed-controller@KillFeedController'),
 		Knit = Knit,
@@ -1658,7 +1661,7 @@ run(function()
 			task.cancel(Thread)
 		end
 	
-		Thread = task.delay(1 / 7, function()
+		Thread = task.delay(1 / ((store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue()), function()
 			repeat
 				if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
 					local blockPlacer = bedwars.BlockPlacementController.blockPlacer
@@ -1670,9 +1673,7 @@ run(function()
 							end
 						end
 					elseif store.hand.toolType == 'sword' then
-						if not shared.vape.Targetting then
-							bedwars.SwordController:swingSwordAtMouse(0.25 + math.random() / 8)
-						end
+						bedwars.SwordController:swingSwordAtMouse(0.25 + math.random() / 8)
 					end
 				end
 	
@@ -2881,6 +2882,8 @@ end)
 	
 run(function()
 	local KitESP
+	local DistanceCheck
+	local Distance
 	local Background
 	local Color = {}
 	local Reference = {}
@@ -2907,6 +2910,9 @@ run(function()
 		billboard.AlwaysOnTop = true
 		billboard.ClipsDescendants = false
 		billboard.Adornee = v
+		if DistanceCheck.Enabled then
+			billboard.Enabled = (entitylib.character.RootPart.Position - v:GetPivot().Position).Magnitude <= Distance.Value
+		end
 		local blur = addBlur(billboard)
 		blur.Visible = Background.Enabled
 		local image = Instance.new('ImageLabel')
@@ -2916,8 +2922,15 @@ run(function()
 		image.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
 		image.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
 		image.BorderSizePixel = 0
-		image.Image = bedwars.getIcon({itemType = icon}, true)
 		image.Parent = billboard
+		local imgicon = image:Clone()
+		imgicon.Name = 'Icon'
+		imgicon.Parent = image
+		imgicon.ZIndex = 2
+		imgicon.BackgroundTransparency = 1
+		imgicon.Image = bedwars.getIcon({itemType = icon}, true)
+		imgicon.Size = UDim2.fromOffset(30, 30)
+
 		local uicorner = Instance.new('UICorner')
 		uicorner.CornerRadius = UDim.new(0, 4)
 		uicorner.Parent = image
@@ -2948,6 +2961,14 @@ run(function()
 				if kit then
 					addKit(kit[1], kit[2])
 				end
+				repeat
+					if entitylib.isAlive then
+						for piv, v in Reference do
+							v.Enabled = not DistanceCheck.Enabled or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+						end
+					end
+					task.wait()
+				until not KitESP.Enabled
 			else
 				Folder:ClearAllChildren()
 				table.clear(Reference)
@@ -2978,6 +2999,25 @@ run(function()
 		end,
 		Darker = true
 	})
+	DistanceCheck = KitESP:CreateToggle({
+		Name = 'Distance Check',
+		Function = function(call)
+			if Distance then
+				Distance.Object.Visible = call
+			end
+			for piv, v in Reference do
+				v.Enabled = not call or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+			end
+		end
+	})
+	Distance = KitESP:CreateSlider({
+		Name = 'Distance',
+		Min = 0,
+		Max = 256,
+		Default = 50,
+		Darker = true
+	})
+	Distance.Object.Visible = false
 end)
 	
 run(function()
@@ -3913,6 +3953,7 @@ run(function()
 				task.wait(0.1)
 			until not AutoKit.Enabled
 		end,
+		
 		blood_assassin = function()
 			AutoKit:Clean(vapeEvents.EntityDamageEvent.Event:Connect(function(damageTable)
 				if damageTable.fromEntity == lplr.Character and damageTable.entityInstance.Humanoid.Health < 30 then
@@ -3954,6 +3995,38 @@ run(function()
 					lastTarget = nil
 				end
 	
+				task.wait(0.1)
+			until not AutoKit.Enabled
+		end,
+		alchemist = function()
+			kitCollection('alchemist_ingedients', function(v)
+				bedwars.Client:Get('CollectCollectableEntity'):SendToServer({
+					id = v:GetAttribute('Id'),
+					collectableName = v.Name
+				})
+			end, 20, true)
+		end,
+		owl = function()
+			repeat
+				local liftReady = (workspace:GetServerTimeNow() - lplr:GetAttribute('OwlLiftReadyTime')) > 0
+				local healReady = (workspace:GetServerTimeNow() - lplr:GetAttribute('OwlHealReadyTime')) > 0
+				
+				if liftReady or healReady then
+					for _, v in collectionService:GetTagged('Owl') do
+						if v:GetAttribute('Owner') == lplr.UserId then
+							local plr = playersService:GetPlayerByUserId(v:GetAttribute('Target'))
+							if plr then
+								if liftReady and plr.Character.HumanoidRootPart.Velocity.Y < -70 then
+									bedwars.AbilityController:useAbility('OWL_LIFT')
+								end
+								if healReady and (plr.Character:GetAttribute('Health') / plr.Character:GetAttribute('MaxHealth')) <= 0.9 then
+									bedwars.AbilityController:useAbility('OWL_HEAL')
+								end
+							end
+							break
+						end
+					end
+				end
 				task.wait(0.1)
 			until not AutoKit.Enabled
 		end,
@@ -4598,7 +4671,7 @@ run(function()
 							end
 	
 							for i = Expand.Value, 1, -1 do
-								local currentpos = roundPos(root.Position - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0) + entitylib.character.Humanoid.MoveDirection * (i * 3))
+								local currentpos = roundPos(root.Position - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0))
 								if Diagonal.Enabled then
 									if math.abs(math.round(math.deg(math.atan2(-entitylib.character.Humanoid.MoveDirection.X, -entitylib.character.Humanoid.MoveDirection.Z)) / 45) * 45) % 90 == 45 then
 										local dt = (lastpos - currentpos)
