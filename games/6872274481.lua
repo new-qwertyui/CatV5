@@ -4008,7 +4008,7 @@ run(function()
 		end,
 		owl = function()
 			repeat
-				local liftReady = (workspace:GetServerTimeNow() - lplr:GetAttribute('OwlLiftReadyTime') or 0) > 0
+				local liftReady = (workspace:GetServerTimeNow() - (lplr:GetAttribute('OwlLiftReadyTime') or 0)) > 0
 				local healReady = (workspace:GetServerTimeNow() - (lplr:GetAttribute('OwlHealReadyTime') or 0)) > 0
 				
 				if liftReady or healReady then
