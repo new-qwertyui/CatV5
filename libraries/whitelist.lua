@@ -325,24 +325,30 @@ task.spawn(function()
             if blocks[func] then return message end
 
             local class = Instance.new('TextChatMessageProperties')
-            local properties = textChatService.ChatWindowConfiguration:DeriveNewMessageProperties()
-            message.ChatWindowMessageProperties = properties
 
             if message.TextSource then
                 local plr = serv.Players:GetPlayerByUserId(message.TextSource.UserId)
 
                 if plr then
                     chatSignals[plr]:Fire(message.Text, message.Metadata)
+                    local tagText = ''
+
+                    if plr:FindFirstChild('Tags') then
+                        for _, v in plr.Tags:GetChildren() do
+                            tagText = tagText.. v.Value.. ' '
+                        end
+                    end
+
                     if table.find(wlplrs, plr) then
                         local color = wldata[plr].tags[1].color
                         local tag = wldata[plr].tags[1].text
-                        class.PrefixText = '<font color="rgb('.. table.concat(color, ',') .. ')">['.. tag.. ']</font> '.. message.PrefixText
+                        class.PrefixText = tagText..'<font color="rgb('.. table.concat(color, ',') .. ')">['.. tag.. ']</font> '.. message.PrefixText
                     elseif table.find(hacks, plr) then
-                        class.PrefixText = '<font color="rgb(0, 0, 255)">[CAT USER]</font> '.. message.PrefixText
+                        class.PrefixText = tagText..'<font color="rgb(0, 0, 255)">[CAT USER]</font> '.. message.PrefixText
                     elseif plr == lplr and selfWhitelisted then
                         local color = selfWhitelisted.tags[1].color
                         local tag = selfWhitelisted.tags[1].text
-                        class.PrefixText = '<font color="rgb('.. table.concat(color, ',') .. ')">['.. tag.. ']</font> '.. message.PrefixText
+                        class.PrefixText = tagText..'<font color="rgb('.. table.concat(color, ',') .. ')">['.. tag.. ']</font> '.. message.PrefixText
                     end
                 end
             end
@@ -352,7 +358,7 @@ task.spawn(function()
 
         textChatService.OnIncomingMessage = func
 
-        task.wait(15)
+        task.wait(5)
         for i,v in wlplrs do
             if not selfWhitelisted or response.WhitelistedUsers[tostring(v.UserId)].level < selfWhitelisted.level then
                 serv.TextChatService.TextChannels.RBXGeneral:SendAsync('', 'catv5')
