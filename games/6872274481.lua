@@ -2276,7 +2276,7 @@ run(function()
 						createHitbox(ent)
 					end
 					repeat
-						local canQuery = store.hand.toolType == 'sword' and not bedwars.DaoController.chargingMaid
+						local canQuery = not Limit.Enabled or store.hand.toolType == 'sword' and not bedwars.DaoController.chargingMaid
 						for i,v in objects do
 							v.CanQuery = canQuery
 						end
