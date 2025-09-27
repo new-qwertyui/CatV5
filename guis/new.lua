@@ -3807,7 +3807,7 @@ function mainapi:CreateCategory(categorysettings)
 		modulebutton.BackgroundColor3 = uipallet.Main
 		modulebutton.BorderSizePixel = 0
 		modulebutton.AutoButtonColor = false
-		modulebutton.Text = '            '..translateTo(modulesettings.Name, usedLanguage)
+		modulebutton.Text = '            '..translateTo(modulesettings.Name:gsub(' ', ''), usedLanguage)
 		modulebutton.TextXAlignment = Enum.TextXAlignment.Left
 		modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		modulebutton.TextSize = 14
