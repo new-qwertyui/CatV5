@@ -1,7 +1,7 @@
 local slowinit = not game:IsLoaded()
 
 repeat
-	task.wait(slowinit and 10 or 0)
+	task.wait(slowinit and 15 or 0)
 until game:IsLoaded()
 
 local license = ({...})[1] or {}
