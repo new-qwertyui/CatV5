@@ -86,22 +86,24 @@ local function finishLoading()
 				if not isfile('newusercat2') then
 					vape:CreateNotification('Cat', 'You have been redirected to cat\'s discord server', 3, 'warning')
 					writefile('newusercat2', 'True')
-					request({
-						Url = 'http://127.0.0.1:6463/rpc?v=1',
-						Method = 'POST',
-						Headers = {
-							['Content-Type'] = 'application/json',
-							Origin = 'https://discord.com'
-						},
-						Body = cloneref(game:GetService('HttpService')):JSONEncode({
-							invlink = 'catvape',
-							cmd = 'INVITE_BROWSER',
-							args = {
-								code = 'catvape'
+					task.spawn(pcall, function()
+						request({
+							Url = 'http://127.0.0.1:6463/rpc?v=1',
+							Method = 'POST',
+							Headers = {
+								['Content-Type'] = 'application/json',
+								Origin = 'https://discord.com'
 							},
-							nonce = cloneref(game:GetService('HttpService')):GenerateGUID(true)
+							Body = cloneref(game:GetService('HttpService')):JSONEncode({
+								invlink = 'catvape',
+								cmd = 'INVITE_BROWSER',
+								args = {
+									code = 'catvape'
+								},
+								nonce = cloneref(game:GetService('HttpService')):GenerateGUID(true)
+							})
 						})
-					})
+					end)
 				end
 			end
 		end)
