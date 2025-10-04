@@ -787,6 +787,10 @@ run(function()
 end)
 entitylib.start()
 
+local canReq = pcall(function()
+	return require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
+end)
+
 run(function()
 	local KnitInit, Knit
 	repeat
@@ -804,10 +808,6 @@ run(function()
 	if debug and require and debug.getupvalue and not debug.getupvalue(Knit.Start, 1) then
 		repeat task.wait() until debug.getupvalue(Knit.Start, 1)
 	end
-
-	local canReq = pcall(function()
-		return require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
-	end)
 
 	local construct = {}
 
@@ -939,54 +939,58 @@ run(function()
 		return ind and tab[ind + 1] or ''
 	end
 
-	for i, v in remoteNames do
-		local remote = dumpRemote(debug.getconstants(v))
-		if remote == '' then
-			if not preDumped[i] or preDumped[i] == '' then
-				notif('Vape', 'Failed to grab remote ('..i..')', 10, 'alert')
+	if canReq then
+		for i, v in remoteNames do
+			local remote = dumpRemote(debug.getconstants(v))
+			if remote == '' then
+				if not preDumped[i] or preDumped[i] == '' then
+					notif('Vape', 'Failed to grab remote ('..i..')', 10, 'alert')
+				end
+				remote = preDumped[i]
 			end
-			remote = preDumped[i]
+			remotes[i] = remote
 		end
-		remotes[i] = remote
-	end
 	
-	repeat task.wait() until typeof(bedwars.BlockController.isBlockBreakable) == 'function'
+		repeat task.wait() until typeof(bedwars.BlockController.isBlockBreakable) == 'function'
+	end
 
 	OldBreak = bedwars.BlockController.isBlockBreakable
 
-	Client.Get = function(self, remoteName)
-		local call = OldGet(self, remoteName)
+	if canReq then
+		Client.Get = function(self, remoteName)
+			local call = OldGet(self, remoteName)
 
-		if remoteName == remotes.AttackEntity then
-			return {
-				instance = call.instance,
-				SendToServer = function(_, attackTable, ...)
-					local suc, plr = pcall(function()
-						return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
-					end)
+			if remoteName == remotes.AttackEntity then
+				return {
+					instance = call.instance,
+					SendToServer = function(_, attackTable, ...)
+						local suc, plr = pcall(function()
+							return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
+						end)
 
-					local selfpos = attackTable.validate.selfPosition.value
-					local targetpos = attackTable.validate.targetPosition.value
-					store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
-					store.attackReachUpdate = os.clock() + 1
+						local selfpos = attackTable.validate.selfPosition.value
+						local targetpos = attackTable.validate.targetPosition.value
+						store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
+						store.attackReachUpdate = os.clock() + 1
 
-					if Reach.Enabled or HitBoxes.Enabled then
-						attackTable.validate.raycast = attackTable.validate.raycast or {}
-						attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+						if Reach.Enabled or HitBoxes.Enabled then
+							attackTable.validate.raycast = attackTable.validate.raycast or {}
+							attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+						end
+
+						if suc and plr then
+							if not select(2, whitelist:get(plr)) then return end
+						end
+
+						return call:SendToServer(attackTable, ...)
 					end
+				}
+			elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
+				return {SendToServer = function() end}
+			end
 
-					if suc and plr then
-						if not select(2, whitelist:get(plr)) then return end
-					end
-
-					return call:SendToServer(attackTable, ...)
-				end
-			}
-		elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
-			return {SendToServer = function() end}
+			return call
 		end
-
-		return call
 	end
 
 	bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
@@ -1235,51 +1239,73 @@ run(function()
 		end)
 	end
 
-	vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)
-		vapeEvents.EntityDamageEvent:Fire({
-			entityInstance = ...,
-			damage = select(2, ...),
-			damageType = select(3, ...),
-			fromPosition = select(4, ...),
-			fromEntity = select(5, ...),
-			knockbackMultiplier = select(6, ...),
-			knockbackId = select(7, ...),
-			disableDamageHighlight = select(13, ...)
-		})
-	end))
+	if canReq then --> fuck nah aint adding allat
+		vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)
+			vapeEvents.EntityDamageEvent:Fire({
+				entityInstance = ...,
+				damage = select(2, ...),
+				damageType = select(3, ...),
+				fromPosition = select(4, ...),
+				fromEntity = select(5, ...),
+				knockbackMultiplier = select(6, ...),
+				knockbackId = select(7, ...),
+				disableDamageHighlight = select(13, ...)
+			})
+		end))
 
-	vape:Clean(bedwars.ZapNetworking.ProjectileLaunchZap.On(function(...)
-		vapeEvents.ProjectileLaunch:Fire({
-			raycastPosition = ...,
-			projectileType = select(3, ...),
-			fromPosition = select(2, ...),
-			fromEntity = select(7, ...),
-			id = select(4, ...),
-			projectileData = select(8, ...)
-		})
-	end))
+		vape:Clean(bedwars.ZapNetworking.ProjectileLaunchZap.On(function(...)
+			vapeEvents.ProjectileLaunch:Fire({
+				raycastPosition = ...,
+				projectileType = select(3, ...),
+				fromPosition = select(2, ...),
+				fromEntity = select(7, ...),
+				id = select(4, ...),
+				projectileData = select(8, ...)
+			})
+		end))
 
-	vape:Clean(bedwars.Client:Get('BloodAssassinUpdateAvailableContracts'):Connect(function(const)
-		notif('Vape', 'Contract updated', 8, 'warning')
-		store.contracts = const.contracts
-	end))
-
-	for _, event in {'PlaceBlockEvent', 'BreakBlockEvent'} do
-		vape:Clean(bedwars.ZapNetworking[event..'Zap'].On(function(...)
-			local data = {
-				blockRef = {
-					blockPosition = ...,
-				},
-				player = select(5, ...)
-			}
-			for i, v in cache do
-				if ((data.blockRef.blockPosition * 3) - v[1]).Magnitude <= 30 then
-					table.clear(v[3])
-					table.clear(v)
-					cache[i] = nil
+		for _, event in {'PlaceBlockEvent', 'BreakBlockEvent'} do
+			vape:Clean(bedwars.ZapNetworking[event..'Zap'].On(function(...)
+				local data = {
+					blockRef = {
+						blockPosition = ...,
+					},
+					player = select(5, ...)
+				}
+				for i, v in cache do
+					if ((data.blockRef.blockPosition * 3) - v[1]).Magnitude <= 30 then
+						table.clear(v[3])
+						table.clear(v)
+						cache[i] = nil
+					end
 				end
-			end
-			vapeEvents[event]:Fire(data)
+				vapeEvents[event]:Fire(data)
+			end))
+		end
+	else
+		vape:Clean(task.spawn(function()
+			local lastHP = 100
+			repeat
+				if entitylib.isAlive then
+					if entitylib.character.Humanoid.Health < lastHP then
+						vapeEvents.EntityDamageEvent:Fire({
+							entityInstance = lplr.Character,
+							damage = lastHP - entitylib.character.Humanoid.Health,
+							damageType = 'unknown',
+							fromPosition = entitylib.character.RootPart.Position,
+							fromEntity = lplr.Character,
+							knockbackMultiplier = {
+								horizontal = 0.5,
+								vertical = 1
+							},
+							knockbackId = httpService:GenerateGUID(true),
+							disableDamageHighlight = false
+						})
+					end
+					lastHP = entitylib.character.Humanoid.Health
+				end
+				task.wait()
+			until false
 		end))
 	end
 
@@ -1369,26 +1395,28 @@ run(function()
 		until vape.Loaded == nil
 	end)
 
-	if getthreadidentity and setthreadidentity then
-		local old = getthreadidentity()
-		setthreadidentity(2)
-
-		bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
-		bedwars.ShopItems = debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
-		bedwars.Shop.getShopItem('iron_sword', lplr)
-
-		setthreadidentity(old)
-		store.shopLoaded = true
-	else
-		task.spawn(function()
-			repeat
-				task.wait(0.1)
-			until vape.Loaded == nil or bedwars.AppController:isAppOpen('BedwarsItemShopApp')
+	if canReq then
+		if getthreadidentity and setthreadidentity then
+			local old = getthreadidentity()
+			setthreadidentity(2)
 
 			bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
 			bedwars.ShopItems = debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+			bedwars.Shop.getShopItem('iron_sword', lplr)
+
+			setthreadidentity(old)
 			store.shopLoaded = true
-		end)
+		else
+			task.spawn(function()
+				repeat
+					task.wait(0.1)
+				until vape.Loaded == nil or bedwars.AppController:isAppOpen('BedwarsItemShopApp')
+
+				bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
+				bedwars.ShopItems = debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+				store.shopLoaded = true
+			end)
+		end
 	end
 
 	vape:Clean(function()
@@ -1439,6 +1467,20 @@ run(function()
 
 	getgenv().store = store
 	getgenv().bedwars = bedwars
+
+	if not canReq then
+		local void = function() return '' end
+		getgenv().debug = {
+			setconstant = void,
+			getconstant = void,
+			setstack = void,
+			getstack = void,
+			setupvalue = void,
+			getupvalue = void,
+			getupvalues = void,
+			getconstants = void
+		}
+	end
 end)
 
 run(function()
@@ -1510,6 +1552,7 @@ run(function()
 	local Sort
 	local AimSpeed
 	local Distance
+	local AimView
 	local AngleSlider
 	local StrafeIncrease
 	local KillauraTarget
@@ -1529,6 +1572,8 @@ run(function()
 							NPCs = Targets.NPCs.Enabled,
 							Sort = sortmethods[Sort.Value]
 						}) or store.KillauraTarget
+
+						lplr.Character.Humanoid.AutoRotate = (not AimView.Enabled or not ent)				
 	
 						if ent then
 							local delta = (ent.RootPart.Position - entitylib.character.RootPart.Position)
@@ -1536,8 +1581,14 @@ run(function()
 							local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
 							if angle >= (math.rad(AngleSlider.Value) / 2) then return end
 							targetinfo.Targets[ent] = os.clock() + 1
-							gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, ent.RootPart.Position), (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0)) * dt)
+							if lplr.Character.Humanoid.AutoRotate then
+								gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, ent.RootPart.Position), (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0)) * dt)
+							else
+								entitylib.character.RootPart.CFrame = entitylib.character.RootPart.CFrame:Lerp(CFrame.lookAt(entitylib.character.RootPart.CFrame.p, Vector3.new(ent.RootPart.Position.X, entitylib.character.RootPart.Position.Y, ent.RootPart.Position.Z)), (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0)) * dt)
+							end
 						end
+					elseif entitylib.isAlive then
+						lplr.Character.Humanoid.AutoRotate = true
 					end
 				end))
 			end
@@ -1583,6 +1634,7 @@ run(function()
 		Name = 'Click Aim',
 		Default = true
 	})
+	AimView = AimAssist:CreateToggle({Name = 'Third person aim view'})
 	KillauraTarget = AimAssist:CreateToggle({
 		Name = 'Use killaura target'
 	})
@@ -4118,6 +4170,7 @@ end)
 	
 run(function()
 	local Scaffold
+	local Mounting
 	local Expand
 	local Tower
 	local Downwards
@@ -4212,22 +4265,20 @@ run(function()
 	
 						if label then
 							amount = amount or 0
-							--[[label.Text = amount..' <font color="rgb(170, 170, 170)">(Scaffold)</font>'
-							label.TextColor3 = Color3.fromHSV((amount / 128) / 2.8, 0.86, 1)]]
 							label.Text = '        '.. amount
 							label.Icon.Image = bedwars.getIcon({
 								itemType = wool
 							}, true)
 						end
 	
-						if wool then
+						if wool and (not Mounting.Enabled or not lplr.Character:FindFirstChild('elk')) then
 							local root = entitylib.character.RootPart
 							if Tower.Enabled and inputService:IsKeyDown(Enum.KeyCode.Space) and (not inputService:GetFocusedTextBox()) then
 								root.Velocity = Vector3.new(root.Velocity.X, 38, root.Velocity.Z)
 							end
 	
 							for i = Expand.Value, 1, -1 do
-								local currentpos = roundPos(root.Position - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0))
+								local currentpos = roundPos((root.Position + (lplr.Character.Humanoid.MoveDirection * (Expand.Value + 2))) - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0))
 								if Diagonal.Enabled then
 									if math.abs(math.round(math.deg(math.atan2(-entitylib.character.Humanoid.MoveDirection.X, -entitylib.character.Humanoid.MoveDirection.Z)) / 45) * 45) % 90 == 45 then
 										local dt = (lastpos - currentpos)
@@ -4261,6 +4312,10 @@ run(function()
 		Name = 'Expand',
 		Min = 1,
 		Max = 6
+	})
+	Mounting = Scaffold:CreateToggle({
+		Name = 'Mount Check',
+		Default = true
 	})
 	Tower = Scaffold:CreateToggle({
 		Name = 'Tower',
@@ -6597,6 +6652,7 @@ run(function()
 	local AutoAim
 	local AimSpeed	
 	local Range
+	local Cache
 	local UpdateRate
 	local Custom
 	local Bed
@@ -6726,7 +6782,7 @@ run(function()
 				if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
 	
 				hit += 1
-				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled)
+				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
 				if path then
 					local currentnode = target
 					if currentnode then
@@ -6894,6 +6950,7 @@ run(function()
 	Animation = Breaker:CreateToggle({Name = 'Animation'})
 	SelfBreak = Breaker:CreateToggle({Name = 'Self Break'})
 	WallCheck = Breaker:CreateToggle({Name = 'Wall Check'})
+	Cache = Breaker:CreateToggle({Name = 'Break through block'})
 	AutoTool = Breaker:CreateToggle({Name = 'Auto Tool'})
 	LimitItem = Breaker:CreateToggle({
 		Name = 'Limit to items',
@@ -6952,101 +7009,103 @@ run(function()
 	})
 end)
 	
-run(function()
-	local DamageIndicator
-	local FontOption
-	local Color
-	local Size
-	local Anchor
-	local Stroke
-	local suc, tab = pcall(function()
-		return debug.getupvalue(bedwars.DamageIndicator, 2)
-	end)
-	tab = suc and tab or {}
-	local oldvalues, oldfont = {}
-	
-	DamageIndicator = vape.Legit:CreateModule({
-		Name = 'Damage Indicator',
-		Function = function(callback)
-			if callback then
-				oldvalues = table.clone(tab)
-				oldfont = debug.getconstant(bedwars.DamageIndicator, 86)
-				debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[FontOption.Value])
-				debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
-				tab.strokeThickness = Stroke.Enabled and 1 or false
-				tab.textSize = Size.Value
-				tab.blowUpSize = Size.Value
-				tab.blowUpDuration = 0
-				tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
-				tab.blowUpCompleteDuration = 0
-				tab.anchoredDuration = Anchor.Value
-			else
-				for i, v in oldvalues do
-					tab[i] = v
+if not canReq then
+	run(function()
+		local DamageIndicator
+		local FontOption
+		local Color
+		local Size
+		local Anchor
+		local Stroke
+		local suc, tab = pcall(function()
+			return debug.getupvalue(bedwars.DamageIndicator, 2)
+		end)
+		tab = suc and tab or {}
+		local oldvalues, oldfont = {}
+		
+		DamageIndicator = vape.Legit:CreateModule({
+			Name = 'Damage Indicator',
+			Function = function(callback)
+				if callback then
+					oldvalues = table.clone(tab)
+					oldfont = debug.getconstant(bedwars.DamageIndicator, 86)
+					debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[FontOption.Value])
+					debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
+					tab.strokeThickness = Stroke.Enabled and 1 or false
+					tab.textSize = Size.Value
+					tab.blowUpSize = Size.Value
+					tab.blowUpDuration = 0
+					tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+					tab.blowUpCompleteDuration = 0
+					tab.anchoredDuration = Anchor.Value
+				else
+					for i, v in oldvalues do
+						tab[i] = v
+					end
+					debug.setconstant(bedwars.DamageIndicator, 86, oldfont)
+					debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
 				end
-				debug.setconstant(bedwars.DamageIndicator, 86, oldfont)
-				debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
-			end
-		end,
-		Tooltip = 'Customize the damage indicator'
-	})
-	local fontitems = {'GothamBlack'}
-	for _, v in Enum.Font:GetEnumItems() do
-		if v.Name ~= 'GothamBlack' then
-			table.insert(fontitems, v.Name)
-		end
-	end
-	FontOption = DamageIndicator:CreateDropdown({
-		Name = 'Font',
-		List = fontitems,
-		Function = function(val)
-			if DamageIndicator.Enabled then
-				debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[val])
+			end,
+			Tooltip = 'Customize the damage indicator'
+		})
+		local fontitems = {'GothamBlack'}
+		for _, v in Enum.Font:GetEnumItems() do
+			if v.Name ~= 'GothamBlack' then
+				table.insert(fontitems, v.Name)
 			end
 		end
-	})
-	Color = DamageIndicator:CreateColorSlider({
-		Name = 'Color',
-		DefaultHue = 0,
-		Function = function(hue, sat, val)
-			if DamageIndicator.Enabled then
-				tab.baseColor = Color3.fromHSV(hue, sat, val)
+		FontOption = DamageIndicator:CreateDropdown({
+			Name = 'Font',
+			List = fontitems,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[val])
+				end
 			end
-		end
-	})
-	Size = DamageIndicator:CreateSlider({
-		Name = 'Size',
-		Min = 1,
-		Max = 32,
-		Default = 32,
-		Function = function(val)
-			if DamageIndicator.Enabled then
-				tab.textSize = val
-				tab.blowUpSize = val
+		})
+		Color = DamageIndicator:CreateColorSlider({
+			Name = 'Color',
+			DefaultHue = 0,
+			Function = function(hue, sat, val)
+				if DamageIndicator.Enabled then
+					tab.baseColor = Color3.fromHSV(hue, sat, val)
+				end
 			end
-		end
-	})
-	Anchor = DamageIndicator:CreateSlider({
-		Name = 'Anchor',
-		Min = 0,
-		Max = 1,
-		Decimal = 10,
-		Function = function(val)
-			if DamageIndicator.Enabled then
-				tab.anchoredDuration = val
+		})
+		Size = DamageIndicator:CreateSlider({
+			Name = 'Size',
+			Min = 1,
+			Max = 32,
+			Default = 32,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.textSize = val
+					tab.blowUpSize = val
+				end
 			end
-		end
-	})
-	Stroke = DamageIndicator:CreateToggle({
-		Name = 'Stroke',
-		Function = function(callback)
-			if DamageIndicator.Enabled then
-				debug.setconstant(bedwars.DamageIndicator, 119, callback and 'Thickness' or 'Enabled')
-				tab.strokeThickness = callback and 1 or false
+		})
+		Anchor = DamageIndicator:CreateSlider({
+			Name = 'Anchor',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.anchoredDuration = val
+				end
 			end
-		end
-	})
-end)
+		})
+		Stroke = DamageIndicator:CreateToggle({
+			Name = 'Stroke',
+			Function = function(callback)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 119, callback and 'Thickness' or 'Enabled')
+					tab.strokeThickness = callback and 1 or false
+				end
+			end
+		})
+	end)
+end
 	
 run(function()
 	local FOV
@@ -7200,113 +7259,99 @@ run(function()
 	})
 end)
 	
-run(function()
-	vape.Legit:CreateModule({
-		Name = 'Hit Fix',
-		Function = function(callback)
-			if table.find({'Zenith', 'Potassium'}, ({identifyexecutor()})[1]) then
-				debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
-			else
-				debug.getupvalues(bedwars.SwordController.swingSwordAtMouse)[4] = callback and bedwars.QueryUtil or workspace
-				--debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
+if canReq then
+	run(function()
+		local Interface
+		local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+		local HotbarHealthbar = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar['hotbar-healthbar']).HotbarHealthbar
+		local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+		local old, new = {}, {}
+		
+		vape:Clean(function()
+			for _, v in new do
+				table.clear(v)
 			end
-			debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
-		end,
-		Tooltip = 'Changes the raycast function to the correct one'
-	})
-end)
-	
-run(function()
-	local Interface
-	local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
-	local HotbarHealthbar = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar['hotbar-healthbar']).HotbarHealthbar
-	local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
-	local old, new = {}, {}
-	
-	vape:Clean(function()
-		for _, v in new do
-			table.clear(v)
-		end
-		for _, v in old do
-			table.clear(v)
-		end
-		table.clear(new)
-		table.clear(old)
-	end)
-	
-	local function modifyconstant(func, ind, val)
-		if not func then return end
-		if not old[func] then old[func] = {} end
-		if not new[func] then new[func] = {} end
-		if not old[func][ind] then
-			old[func][ind] = debug.getconstant(func, ind)
-		end
-		if typeof(old[func][ind]) ~= typeof(val) then return end
-		new[func][ind] = val
-	
-		if Interface.Enabled then
-			if val then
-				debug.setconstant(func, ind, val)
-			else
-				debug.setconstant(func, ind, old[func][ind])
-				old[func][ind] = nil
+			for _, v in old do
+				table.clear(v)
 			end
-		end
-	end
-	
-	Interface = vape.Legit:CreateModule({
-		Name = 'Interface',
-		Function = function(callback)
-			for i, v in (callback and new or old) do
-				for i2, v2 in v do
-					debug.setconstant(i, i2, v2)
-				end
+			table.clear(new)
+			table.clear(old)
+		end)
+		
+		local function modifyconstant(func, ind, val)
+			if not func then return end
+			if not old[func] then old[func] = {} end
+			if not new[func] then new[func] = {} end
+			if not old[func][ind] then
+				old[func][ind] = debug.getconstant(func, ind)
 			end
-		end,
-		Tooltip = 'Customize bedwars UI'
-	})
-	local fontitems = {'LuckiestGuy'}
-	for _, v in Enum.Font:GetEnumItems() do
-		if v.Name ~= 'LuckiestGuy' then
-			table.insert(fontitems, v.Name)
-		end
-	end
-	Interface:CreateDropdown({
-		Name = 'Health Font',
-		List = fontitems,
-		Function = function(val)
-			modifyconstant(HotbarHealthbar.render, 77, val)
-		end
-	})
-	Interface:CreateColorSlider({
-		Name = 'Health Color',
-		Function = function(hue, sat, val)
-			modifyconstant(HotbarHealthbar.render, 16, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+			if typeof(old[func][ind]) ~= typeof(val) then return end
+			new[func][ind] = val
+		
 			if Interface.Enabled then
-				local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
-				hotbar = hotbar and hotbar:FindFirstChild('HealthbarProgressWrapper', true)
-				if hotbar then
-					hotbar['1'].BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				if val then
+					debug.setconstant(func, ind, val)
+				else
+					debug.setconstant(func, ind, old[func][ind])
+					old[func][ind] = nil
 				end
 			end
 		end
-	})
-	Interface:CreateColorSlider({
-		Name = 'Hotbar Color',
-		DefaultOpacity = 0.8,
-		Function = function(hue, sat, val, opacity)
-			local func = oldinvrender or HotbarOpenInventory.render
-			modifyconstant(debug.getupvalue(HotbarApp, 23).render, 51, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
-			modifyconstant(debug.getupvalue(HotbarApp, 23).render, 58, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
-			modifyconstant(debug.getupvalue(HotbarApp, 23).render, 54, 1 - opacity)
-			modifyconstant(debug.getupvalue(HotbarApp, 23).render, 55, math.clamp(1.2 - opacity, 0, 1))
-			modifyconstant(func, 31, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
-			modifyconstant(func, 32, math.clamp(1.2 - opacity, 0, 1))
-			modifyconstant(func, 34, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+		
+		Interface = vape.Legit:CreateModule({
+			Name = 'Interface',
+			Function = function(callback)
+				for i, v in (callback and new or old) do
+					for i2, v2 in v do
+						debug.setconstant(i, i2, v2)
+					end
+				end
+			end,
+			Tooltip = 'Customize bedwars UI'
+		})
+		local fontitems = {'LuckiestGuy'}
+		for _, v in Enum.Font:GetEnumItems() do
+			if v.Name ~= 'LuckiestGuy' then
+				table.insert(fontitems, v.Name)
+			end
 		end
-	})
-end)
-	
+		Interface:CreateDropdown({
+			Name = 'Health Font',
+			List = fontitems,
+			Function = function(val)
+				modifyconstant(HotbarHealthbar.render, 77, val)
+			end
+		})
+		Interface:CreateColorSlider({
+			Name = 'Health Color',
+			Function = function(hue, sat, val)
+				modifyconstant(HotbarHealthbar.render, 16, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+				if Interface.Enabled then
+					local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
+					hotbar = hotbar and hotbar:FindFirstChild('HealthbarProgressWrapper', true)
+					if hotbar then
+						hotbar['1'].BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					end
+				end
+			end
+		})
+		Interface:CreateColorSlider({
+			Name = 'Hotbar Color',
+			DefaultOpacity = 0.8,
+			Function = function(hue, sat, val, opacity)
+				local func = oldinvrender or HotbarOpenInventory.render
+				modifyconstant(debug.getupvalue(HotbarApp, 23).render, 51, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+				modifyconstant(debug.getupvalue(HotbarApp, 23).render, 58, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+				modifyconstant(debug.getupvalue(HotbarApp, 23).render, 54, 1 - opacity)
+				modifyconstant(debug.getupvalue(HotbarApp, 23).render, 55, math.clamp(1.2 - opacity, 0, 1))
+				modifyconstant(func, 31, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+				modifyconstant(func, 32, math.clamp(1.2 - opacity, 0, 1))
+				modifyconstant(func, 34, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+			end
+		})
+	end)
+end
+
 run(function()
 	local KillEffect
 	local Mode
@@ -7946,158 +7991,160 @@ run(function()
 	})
 end)
 
-run(function()
-	local UICleanup
-	local OpenInv
-	local KillFeed
-	local OldTabList
-	local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
-	local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
-	local old, new = {}, {}
-	local oldkillfeed
-	
-	vape:Clean(function()
-		for _, v in new do
-			table.clear(v)
+if canReq then
+	run(function()
+		local UICleanup
+		local OpenInv
+		local KillFeed
+		local OldTabList
+		local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+		local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+		local old, new = {}, {}
+		local oldkillfeed
+		
+		vape:Clean(function()
+			for _, v in new do
+				table.clear(v)
+			end
+			for _, v in old do
+				table.clear(v)
+			end
+			table.clear(new)
+			table.clear(old)
+		end)
+		
+		local function modifyconstant(func, ind, val)
+			if not old[func] then old[func] = {} end
+			if not new[func] then new[func] = {} end
+			if not old[func][ind] then
+				local typing = type(old[func][ind])
+				if typing == 'function' or typing == 'userdata' then return end
+				old[func][ind] = debug.getconstant(func, ind)
+			end
+			if typeof(old[func][ind]) ~= typeof(val) and val ~= nil then return end
+		
+			new[func][ind] = val
+			if UICleanup.Enabled then
+				if val then
+					debug.setconstant(func, ind, val)
+				else
+					debug.setconstant(func, ind, old[func][ind])
+					old[func][ind] = nil
+				end
+			end
 		end
-		for _, v in old do
-			table.clear(v)
-		end
-		table.clear(new)
-		table.clear(old)
+		
+		UICleanup = vape.Legit:CreateModule({
+			Name = 'UI Cleanup',
+			Function = function(callback)
+				for i, v in (callback and new or old) do
+					for i2, v2 in v do
+						debug.setconstant(i, i2, v2)
+					end
+				end
+				if callback then
+					if OpenInv.Enabled then
+						oldinvrender = HotbarOpenInventory.render
+						HotbarOpenInventory.render = function()
+							return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+						end
+					end
+		
+					if KillFeed.Enabled then
+						oldkillfeed = bedwars.KillFeedController.addToKillFeed
+						bedwars.KillFeedController.addToKillFeed = function() end
+					end
+		
+					if OldTabList.Enabled then
+						starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+					end
+				else
+					if oldinvrender then
+						HotbarOpenInventory.render = oldinvrender
+						oldinvrender = nil
+					end
+		
+					if KillFeed.Enabled then
+						bedwars.KillFeedController.addToKillFeed = oldkillfeed
+						oldkillfeed = nil
+					end
+		
+					if OldTabList.Enabled then
+						starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+					end
+				end
+			end,
+			Tooltip = 'Cleans up the UI for kits & main'
+		})
+		UICleanup:CreateToggle({
+			Name = 'Resize Health',
+			Function = function(callback)
+				modifyconstant(HotbarApp, 60, callback and 1 or nil)
+				modifyconstant(debug.getupvalue(HotbarApp, 15).render, 30, callback and 1 or nil)
+				modifyconstant(debug.getupvalue(HotbarApp, 23).tweenPosition, 16, callback and 0 or nil)
+			end,
+			Default = true
+		})
+		UICleanup:CreateToggle({
+			Name = 'No Hotbar Numbers',
+			Function = function(callback)
+				local func = oldinvrender or HotbarOpenInventory.render
+				modifyconstant(debug.getupvalue(HotbarApp, 23).render, 90, callback and 0 or nil)
+				modifyconstant(func, 71, callback and 0 or nil)
+			end,
+			Default = true
+		})
+		OpenInv = UICleanup:CreateToggle({
+			Name = 'No Inventory Button',
+			Function = function(callback)
+				modifyconstant(HotbarApp, 78, callback and 0 or nil)
+				if UICleanup.Enabled then
+					if callback then
+						oldinvrender = HotbarOpenInventory.render
+						HotbarOpenInventory.render = function()
+							return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+						end
+					else
+						HotbarOpenInventory.render = oldinvrender
+						oldinvrender = nil
+					end
+				end
+			end,
+			Default = true
+		})
+		KillFeed = UICleanup:CreateToggle({
+			Name = 'No Kill Feed',
+			Function = function(callback)
+				if UICleanup.Enabled then
+					if callback then
+						oldkillfeed = bedwars.KillFeedController.addToKillFeed
+						bedwars.KillFeedController.addToKillFeed = function() end
+					else
+						bedwars.KillFeedController.addToKillFeed = oldkillfeed
+						oldkillfeed = nil
+					end
+				end
+			end,
+			Default = true
+		})
+		OldTabList = UICleanup:CreateToggle({
+			Name = 'Old Player List',
+			Function = function(callback)
+				if UICleanup.Enabled then
+					starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, callback)
+				end
+			end,
+			Default = true
+		})
+		UICleanup:CreateToggle({
+			Name = 'Fix Queue Card',
+			Function = function(callback)
+				modifyconstant(bedwars.QueueCard.render, 15, callback and 0.1 or nil)
+			end,
+			Default = true
+		})
 	end)
-	
-	local function modifyconstant(func, ind, val)
-		if not old[func] then old[func] = {} end
-		if not new[func] then new[func] = {} end
-		if not old[func][ind] then
-			local typing = type(old[func][ind])
-			if typing == 'function' or typing == 'userdata' then return end
-			old[func][ind] = debug.getconstant(func, ind)
-		end
-		if typeof(old[func][ind]) ~= typeof(val) and val ~= nil then return end
-	
-		new[func][ind] = val
-		if UICleanup.Enabled then
-			if val then
-				debug.setconstant(func, ind, val)
-			else
-				debug.setconstant(func, ind, old[func][ind])
-				old[func][ind] = nil
-			end
-		end
-	end
-	
-	UICleanup = vape.Legit:CreateModule({
-		Name = 'UI Cleanup',
-		Function = function(callback)
-			for i, v in (callback and new or old) do
-				for i2, v2 in v do
-					debug.setconstant(i, i2, v2)
-				end
-			end
-			if callback then
-				if OpenInv.Enabled then
-					oldinvrender = HotbarOpenInventory.render
-					HotbarOpenInventory.render = function()
-						return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
-					end
-				end
-	
-				if KillFeed.Enabled then
-					oldkillfeed = bedwars.KillFeedController.addToKillFeed
-					bedwars.KillFeedController.addToKillFeed = function() end
-				end
-	
-				if OldTabList.Enabled then
-					starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
-				end
-			else
-				if oldinvrender then
-					HotbarOpenInventory.render = oldinvrender
-					oldinvrender = nil
-				end
-	
-				if KillFeed.Enabled then
-					bedwars.KillFeedController.addToKillFeed = oldkillfeed
-					oldkillfeed = nil
-				end
-	
-				if OldTabList.Enabled then
-					starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-				end
-			end
-		end,
-		Tooltip = 'Cleans up the UI for kits & main'
-	})
-	UICleanup:CreateToggle({
-		Name = 'Resize Health',
-		Function = function(callback)
-			modifyconstant(HotbarApp, 60, callback and 1 or nil)
-			modifyconstant(debug.getupvalue(HotbarApp, 15).render, 30, callback and 1 or nil)
-			modifyconstant(debug.getupvalue(HotbarApp, 23).tweenPosition, 16, callback and 0 or nil)
-		end,
-		Default = true
-	})
-	UICleanup:CreateToggle({
-		Name = 'No Hotbar Numbers',
-		Function = function(callback)
-			local func = oldinvrender or HotbarOpenInventory.render
-			modifyconstant(debug.getupvalue(HotbarApp, 23).render, 90, callback and 0 or nil)
-			modifyconstant(func, 71, callback and 0 or nil)
-		end,
-		Default = true
-	})
-	OpenInv = UICleanup:CreateToggle({
-		Name = 'No Inventory Button',
-		Function = function(callback)
-			modifyconstant(HotbarApp, 78, callback and 0 or nil)
-			if UICleanup.Enabled then
-				if callback then
-					oldinvrender = HotbarOpenInventory.render
-					HotbarOpenInventory.render = function()
-						return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
-					end
-				else
-					HotbarOpenInventory.render = oldinvrender
-					oldinvrender = nil
-				end
-			end
-		end,
-		Default = true
-	})
-	KillFeed = UICleanup:CreateToggle({
-		Name = 'No Kill Feed',
-		Function = function(callback)
-			if UICleanup.Enabled then
-				if callback then
-					oldkillfeed = bedwars.KillFeedController.addToKillFeed
-					bedwars.KillFeedController.addToKillFeed = function() end
-				else
-					bedwars.KillFeedController.addToKillFeed = oldkillfeed
-					oldkillfeed = nil
-				end
-			end
-		end,
-		Default = true
-	})
-	OldTabList = UICleanup:CreateToggle({
-		Name = 'Old Player List',
-		Function = function(callback)
-			if UICleanup.Enabled then
-				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, callback)
-			end
-		end,
-		Default = true
-	})
-	UICleanup:CreateToggle({
-		Name = 'Fix Queue Card',
-		Function = function(callback)
-			modifyconstant(bedwars.QueueCard.render, 15, callback and 0.1 or nil)
-		end,
-		Default = true
-	})
-end)
+end
 
 loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')();
 

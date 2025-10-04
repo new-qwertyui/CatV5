@@ -25,7 +25,7 @@ end
 local playersService = cloneref(game:GetService('Players'))
 
 local function downloadFile(path, func)
-	if not isfile(path) then
+	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
@@ -79,9 +79,30 @@ local function finishLoading()
 		if not vape.Categories then return end
 		pcall(function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
-				vape:CreateNotification('Cat', `Initialized as {(catuser or 'Guest')}`, 8, 'alert')
-				vape:CreateNotification('Cat', 'We have a discord server! If theres any problems, please report them here: discord.gg/pVEB6qJh33', 13, 'alert')
+				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
+				task.wait(3.5)
+				vape:CreateNotification('Cat', `Initialized as {(catuser or 'Guest')} with role {catrole or 'Basic'}`, 2.5, 'info')
+				task.wait(1)
+				if not isfile('newusercat2') then
+					vape:CreateNotification('Cat', 'You have been redirected to cat\'s discord server', 3, 'warning')
+					writefile('newusercat2', 'True')
+					request({
+						Url = 'http://127.0.0.1:6463/rpc?v=1',
+						Method = 'POST',
+						Headers = {
+							['Content-Type'] = 'application/json',
+							Origin = 'https://discord.com'
+						},
+						Body = cloneref(game:GetService('HttpService')):JSONEncode({
+							invlink = 'catvape',
+							cmd = 'INVITE_BROWSER',
+							args = {
+								code = 'catvape'
+							},
+							nonce = cloneref(game:GetService('HttpService')):GenerateGUID(true)
+						})
+					})
+				end
 			end
 		end)
 	end

@@ -1,8 +1,8 @@
-local slowinit = not game:IsLoaded()
-
 repeat
-	task.wait(slowinit and 15 or 0)
+	task.wait()
 until game:IsLoaded()
+
+print('fr')
 
 local license = ({...})[1] or {}
 local developer = getgenv().catvapedev or license.Developer or false
