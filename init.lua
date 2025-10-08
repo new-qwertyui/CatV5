@@ -2,6 +2,8 @@ repeat
 	task.wait()
 until game:IsLoaded()
 
+task.wait(6)
+
 print('fr')
 
 local license = ({...})[1] or {}
