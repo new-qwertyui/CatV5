@@ -792,6 +792,8 @@ local canReq = pcall(function()
 	return require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 end)
 
+warn('??? game loaded')
+
 run(function()
 	repeat task.wait() until lplr:GetAttribute('PlayerConnected') or not vape
 	
