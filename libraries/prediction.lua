@@ -188,11 +188,20 @@ end
 
 function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, targetVelocity, playerGravity, playerHeight, playerJump, params, walking, ping)
 	local latency = (typeof(ping) == "number") and ping or 0
+	latency += 0.06 -- server comms
 
     local disp = targetPos - origin
     local p, q, r = targetVelocity.X, (targetVelocity.Y > 0 and targetVelocity.Y < 4) and (0) or (targetVelocity.Y < 0 and targetVelocity.Y > -4) and 0 or targetVelocity.Y, targetVelocity.Z
     local h, j, k = disp.X, disp.Y, disp.Z
     local l = -0.5 * gravity
+
+	if q > 20 and q < 40 then
+		targetPos -= Vector3.new(0, 2, 0)
+	end
+
+	if q > 1 then
+		q += 4
+	end
 
     if math.abs(q) > 0.01 and playerGravity and playerGravity > 0 then
         local estTime = (disp.Magnitude / projectileSpeed)

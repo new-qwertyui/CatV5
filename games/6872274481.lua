@@ -1,4 +1,5 @@
 local run = function(func)
+	task.wait()
 	func()
 end
 local cloneref = cloneref or function(obj)
@@ -792,6 +793,8 @@ local canReq = pcall(function()
 end)
 
 run(function()
+	repeat task.wait() until lplr:GetAttribute('PlayerConnected') or not vape
+	
 	local KnitInit, Knit
 	repeat
 		KnitInit, Knit = pcall(function()
@@ -925,7 +928,9 @@ run(function()
 	
 	local preDumped = {
 		SummonerClawAttack = 'SummonerClawAttackRequest',
-		EquipItem = 'SetInvItem'
+		EquipItem = 'SetInvItem',
+		HarvestCrop = 'CropHarvest',
+		DepositPinata = 'DepositCoins'
 	}
 
 	local function dumpRemote(tab)
@@ -1309,6 +1314,11 @@ run(function()
 		end))
 	end
 
+	vape:Clean(bedwars.Client:Get('BloodAssassinUpdateAvailableContracts'):Connect(function(con)
+		store.contracts = con.contracts
+		notif('Vape', 'Contract updated', 6, 'info')
+	end))
+
 	store.blocks = collection('block', gui)
 	store.shop = collection({'BedwarsItemShop', 'TeamUpgradeShopkeeper'}, gui, function(tab, obj)
 		table.insert(tab, {
@@ -1563,7 +1573,7 @@ run(function()
 		Function = function(callback)
 			if callback then
 				AimAssist:Clean(runService.Heartbeat:Connect(function(dt)
-					if entitylib.isAlive and store.hand.toolType == 'sword' and ((not ClickAim.Enabled) or (os.clock() - bedwars.SwordController.lastSwing) < 0.4) then
+					if entitylib.isAlive and lplr.Character:FindFirstChildOfClass('Humanoid') and store.hand.toolType == 'sword' and ((not ClickAim.Enabled) or (os.clock() - bedwars.SwordController.lastSwing) < 0.4) then
 						local ent = not KillauraTarget.Enabled and entitylib.EntityPosition({
 							Range = Distance.Value,
 							Part = 'RootPart',
@@ -1587,7 +1597,7 @@ run(function()
 								entitylib.character.RootPart.CFrame = entitylib.character.RootPart.CFrame:Lerp(CFrame.lookAt(entitylib.character.RootPart.CFrame.p, Vector3.new(ent.RootPart.Position.X, entitylib.character.RootPart.Position.Y, ent.RootPart.Position.Z)), (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0)) * dt)
 							end
 						end
-					elseif entitylib.isAlive then
+					elseif entitylib.isAlive and lplr.Character:FindFirstChildOfClass('Humanoid') then
 						lplr.Character.Humanoid.AutoRotate = true
 					end
 				end))
@@ -1936,17 +1946,47 @@ run(function()
 	local Velocity
 	local Horizontal
 	local Vertical
+	local Air
+	local Ground
+	local Mode
 	local Chance
 	local TargetCheck
 	local rand, old = Random.new()
 	
+	local TakeKnockback = Instance.new('BindableEvent')
+
 	Velocity = vape.Categories.Combat:CreateModule({
 		Name = 'Velocity',
+		Premium = true,
 		Function = function(callback)
 			if callback then
 				old = bedwars.KnockbackUtil.applyKnockback
+
+				Velocity:Clean(TakeKnockback.Event:Connect(function(root, mass, dir, knockback, ...)
+					local args = {...}
+
+					local air, ground
+
+					task.delay(Air:GetRandomValue() / 1000, function()
+						local clone = table.clone(knockback)
+						clone.horizontal = ground and 0.1 or 0
+						air = true
+						old(root, mass, dir, clone, unpack(args))
+					end)
+					task.delay(Ground:GetRandomValue() / 1000, function()
+						local clone = table.clone(knockback)
+						clone.vertical = air and 0.1 or 0
+						ground = true
+						old(root, mass, dir, clone, unpack(args))
+					end)
+				end))
+
 				bedwars.KnockbackUtil.applyKnockback = function(root, mass, dir, knockback, ...)
-					if rand:NextNumber(0, 100) > Chance.Value then return end
+					local chance = rand:NextNumber(0, 100)
+					if Mode.Value == 'Normal' then
+						if chance > Chance.Value then return end
+					end
+					
 					local check = (not TargetCheck.Enabled) or entitylib.EntityPosition({
 						Range = 50,
 						Part = 'RootPart',
@@ -1955,9 +1995,15 @@ run(function()
 	
 					if check then
 						knockback = knockback or {}
-						if Horizontal.Value == 0 and Vertical.Value == 0 then return end
-						knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
-						knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+						if Mode.Value == 'Lag' then
+							if chance < Chance.Value then
+								return TakeKnockback:Fire(root, mass, dir, knockback, ...)
+							end
+						else
+							if Horizontal.Value == 0 and Vertical.Value == 0 then return end
+							knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
+							knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+						end
 					end
 					
 					return old(root, mass, dir, knockback, ...)
@@ -1973,6 +2019,7 @@ run(function()
 		Min = 0,
 		Max = 100,
 		Default = 0,
+		Darker = true,
 		Suffix = '%'
 	})
 	Vertical = Velocity:CreateSlider({
@@ -1980,8 +2027,40 @@ run(function()
 		Min = 0,
 		Max = 100,
 		Default = 0,
+		Darker = true,
 		Suffix = '%'
 	})
+	Air = Velocity:CreateTwoSlider({
+		Name = 'Air delay',
+		Min = 0,
+		Max = 500,
+		Darker = true,
+		DefaultMin = 50,
+		DefaultMax = 150
+	})
+	Ground = Velocity:CreateTwoSlider({
+		Name = 'Ground delay',
+		Min = 0,
+		Max = 500,
+		Darker = true,
+		DefaultMin = 200,
+		DefaultMax = 250
+	})
+	Mode = Velocity:CreateDropdown({
+		Name = 'Mode',
+		Default = 'Normal',
+		List = {'Lag', 'Normal'},
+		Function = function(val)
+			Vertical.Object.Visible = val == 'Normal'
+			Horizontal.Object.Visible = val == 'Normal'
+			Air.Object.Visible = val == 'Lag'
+			Ground.Object.Visible = val == 'Lag'
+		end
+	})
+	Vertical.Object.Visible = Mode.Value == 'Normal'
+	Horizontal.Object.Visible = Mode.Value == 'Normal'
+	Air.Object.Visible = Mode.Value == 'Lag'
+	Ground.Object.Visible = Mode.Value == 'Lag'
 	Chance = Velocity:CreateSlider({
 		Name = 'Chance',
 		Min = 0,
@@ -2659,21 +2738,27 @@ run(function()
 end)
 	
 run(function()
+	local SilentAim
 	local TargetPart
 	local Targets
 	local FOV
 	local OtherProjectiles
+	local Blacklist
+
 	local rayCheck = RaycastParams.new()
 	rayCheck.FilterType = Enum.RaycastFilterType.Include
 	rayCheck.FilterDescendantsInstances = {workspace:FindFirstChild('Map')}
 	local old
 	
-	local ProjectileAimbot = vape.Categories.Blatant:CreateModule({
+	local ProjectileAimbot; ProjectileAimbot = vape.Categories.Blatant:CreateModule({
 		Name = 'Projectile Aimbot',
 		Function = function(callback)
 			if callback then
+				local newpos = nil
+				local canshoot = os.clock()
+				
 				old = bedwars.ProjectileController.calculateImportantLaunchValues
-				bedwars.ProjectileController.calculateImportantLaunchValues = function(...)
+				bedwars.ProjectileController.calculateImportantLaunchValues = function(...)	
 					local self, projmeta, worldmeta, origin, shootpos = ...
 					local plr = entitylib.EntityMouse({
 						Part = 'RootPart',
@@ -2691,6 +2776,10 @@ run(function()
 						end
 	
 						if (not OtherProjectiles.Enabled) and not projmeta.projectile:find('arrow') then
+							return old(...)
+						end
+
+						if table.find(Blacklist.ListEnabled, projmeta.projectile) then
 							return old(...)
 						end
 	
@@ -2722,6 +2811,11 @@ run(function()
 						local calc = prediction.SolveTrajectory(newlook.p, projSpeed, gravity, plr[TargetPart.Value].Position, projmeta.projectile == 'telepearl' and Vector3.zero or plr[TargetPart.Value].Velocity, playerGravity, plr.HipHeight, plr.Jumping and 42.6 or nil, rayCheck, plr.Humanoid.MoveDirection ~= Vector3.zero, lplr:GetNetworkPing())
 						if calc then
 							targetinfo.Targets[plr] = os.clock() + 1
+							if not SilentAim.Enabled then
+								newpos = calc - Vector3.new(0, 4, 0)
+								canshoot = os.clock() + 0.1
+								return old(...)
+							end
 							return {
 								initialVelocity = CFrame.new(newlook.Position, calc).LookVector * projSpeed,
 								positionFrom = offsetpos,
@@ -2734,6 +2828,23 @@ run(function()
 	
 					return old(...)
 				end
+
+				ProjectileAimbot:Clean(runService.PreRender:Connect(function(delta)
+					if canshoot > os.clock() and newpos and mousemoverel and not SilentAim.Enabled and entitylib.EntityMouse({
+						Part = 'RootPart',
+						Range = FOV.Value,
+						Players = Targets.Players.Enabled,
+						NPCs = Targets.NPCs.Enabled,
+						Wallcheck = Targets.Walls.Enabled
+					}) then
+						local pos, vis = workspace.CurrentCamera:WorldToViewportPoint(newpos)
+
+						if vis and isrbxactive() then
+							pos = (Vector2.new(pos.X, pos.Y) - game.UserInputService:GetMouseLocation()) * (100 * delta / 3)
+							mousemoverel(pos.X, pos.Y)
+						end
+					end
+				end))
 			else
 				bedwars.ProjectileController.calculateImportantLaunchValues = old
 			end
@@ -2754,9 +2865,20 @@ run(function()
 		Max = 1000,
 		Default = 1000
 	})
+	SilentAim = ProjectileAimbot:CreateToggle({Name = 'Silent aim', Default = true})
 	OtherProjectiles = ProjectileAimbot:CreateToggle({
 		Name = 'Other Projectiles',
-		Default = true
+		Default = true,
+		Function = function(call)
+			if Blacklist then
+				Blacklist.Object.Visible = call
+			end
+		end
+	})
+	Blacklist = ProjectileAimbot:CreateTextList({
+		Name = 'Blacklist',
+		Darker = true,
+		Default = {'telepearl'}
 	})
 end)
 	
@@ -4816,6 +4938,7 @@ end)
 	
 run(function()
 	local AutoSuffocate
+	local MaxSolutions
 	local Range
 	local LimitItem
 	
@@ -4850,7 +4973,7 @@ run(function()
 								end
 							end
 	
-							if #needPlaced < 3 then
+							if #needPlaced < MaxSolutions.Value then
 								table.insert(needPlaced, fixPosition(ent.Head.Position))
 								table.insert(needPlaced, fixPosition(ent.RootPart.Position - Vector3.new(0, 1, 0)))
 	
@@ -4869,6 +4992,12 @@ run(function()
 			end
 		end,
 		Tooltip = 'Places blocks on nearby confined entities'
+	})
+	MaxSolutions = AutoSuffocate:CreateSlider({
+		Name = 'Max Solutions',
+		Min = 1,
+		Max = 6,
+		Default = 4
 	})
 	Range = AutoSuffocate:CreateSlider({
 		Name = 'Range',
@@ -4927,72 +5056,6 @@ run(function()
 			end
 		end,
 		Tooltip = 'Automatically selects the correct tool'
-	})
-end)
-	
-run(function()
-	local BedProtector
-	
-	local function getBedNear()
-		local localPosition = entitylib.isAlive and entitylib.character.RootPart.Position or Vector3.zero
-		for _, v in collectionService:GetTagged('bed') do
-			if (localPosition - v.Position).Magnitude < 20 and v:GetAttribute('Team'..(lplr:GetAttribute('Team') or -1)..'NoBreak') then
-				return v
-			end
-		end
-	end
-	
-	local function getBlocks()
-		local blocks = {}
-		for _, item in store.inventory.inventory.items do
-			local block = bedwars.ItemMeta[item.itemType].block
-			if block then
-				table.insert(blocks, {item.itemType, block.health})
-			end
-		end
-		table.sort(blocks, function(a, b) 
-			return a[2] > b[2]
-		end)
-		return blocks
-	end
-	
-	local function getPyramid(size, grid)
-		local positions = {}
-		for h = size, 0, -1 do
-			for w = h, 0, -1 do
-				table.insert(positions, Vector3.new(w, (size - h), ((h + 1) - w)) * grid)
-				table.insert(positions, Vector3.new(w * -1, (size - h), ((h + 1) - w)) * grid)
-				table.insert(positions, Vector3.new(w, (size - h), (h - w) * -1) * grid)
-				table.insert(positions, Vector3.new(w * -1, (size - h), (h - w) * -1) * grid)
-			end
-		end
-		return positions
-	end
-	
-	BedProtector = vape.Categories.World:CreateModule({
-		Name = 'Bed Protector',
-		Function = function(callback)
-			if callback then
-				local bed = getBedNear()
-				bed = bed and bed.Position or nil
-				if bed then
-					for i, block in getBlocks() do
-						for _, pos in getPyramid(i, 3) do
-							if not BedProtector.Enabled then break end
-							if getPlacedBlock(bed + pos) then continue end
-							bedwars.placeBlock(bed + pos, block[1], false)
-						end
-					end
-					if BedProtector.Enabled then 
-						BedProtector:Toggle() 
-					end
-				else
-					notif('BedProtector', 'Unable to locate bed', 5)
-					BedProtector:Toggle()
-				end
-			end
-		end,
-		Tooltip = 'Automatically places strong blocks around the bed.'
 	})
 end)
 	
@@ -6398,6 +6461,11 @@ run(function()
 				end
 	
 				AutoHotbar:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(sortCallback))
+
+				repeat
+					task.spawn(sortCallback)
+					task.wait(1)
+				until not AutoHotbar.Enabled
 			end
 		end,
 		Tooltip = 'Automatically arranges hotbar to your liking.'
@@ -8145,8 +8213,6 @@ if canReq then
 		})
 	end)
 end
-
-loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')();
 
 task.spawn(function()
 	repeat task.wait() until vape.Modules['Infinite Fly']
