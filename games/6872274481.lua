@@ -821,7 +821,6 @@ run(function()
 	local Flamework = canReq and require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework or construct.Flamework
 	local InventoryUtil = canReq and require(replicatedStorage.TS.inventory['inventory-util']).InventoryUtil or {}
 	local Client = canReq and require(replicatedStorage.TS.remotes).default.Client or construct.controllers.Client
-	repeat task.wait() until not canReq or typeof(Client.Get) == 'function'
 	local OldGet, OldBreak = Client.Get
 
 	bedwars = not canReq and construct.controllers or setmetatable({
@@ -955,8 +954,6 @@ run(function()
 			end
 			remotes[i] = remote
 		end
-	
-		repeat task.wait() until typeof(bedwars.BlockController.isBlockBreakable) == 'function'
 	end
 
 	OldBreak = bedwars.BlockController.isBlockBreakable
