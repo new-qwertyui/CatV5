@@ -794,9 +794,7 @@ end)
 
 warn('??? game loaded')
 
-run(function()
-	repeat task.wait() until lplr:GetAttribute('PlayerConnected') or not vape
-	
+run(function()	
 	local KnitInit, Knit
 	repeat
 		KnitInit, Knit = pcall(function()
