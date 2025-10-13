@@ -11,7 +11,7 @@ local isfile = isfile or function(file)
 	end)
 	return suc and res ~= nil and res ~= ''
 end
-local run = function(func) task.wait() func() end
+local run = function(func) func() end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
@@ -8205,5 +8205,3 @@ run(function()
 		Default = 'Workspace'
 	})
 end)
-
-loadstring(downloadFile('catrewrite/libraries/update.lua'), 'update.lua')()
