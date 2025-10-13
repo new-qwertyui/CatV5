@@ -1,199 +1,29 @@
-local initted = game:IsLoaded()
-
 repeat
 	task.wait()
 until game:IsLoaded()
 
-if not initted then
-	task.wait(5)
-end
-
-if shared.vape then
-	shared.vape:Uninject()
-end
+print('fr')
 
 local license = ({...})[1] or {}
 local developer = getgenv().catvapedev or license.Developer or false
 local closet = getgenv().closet or license.Closet or false
 
-getgenv().username = license.Username
-getgenv().password = license.Password
-getgenv().catuser = getgenv().username
+if license.User then
+    getgenv().catuser = license.User
+end
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
-local tweenService = game:GetService('TweenService')
 
-local gui : ScreenGui = Instance.new('ScreenGui', gethui())
-gui.Enabled = not closet
-
-local stages = {
-	UDim2.new(0, 50, 1, 0),
-	UDim2.new(0, 100, 1, 0),
-	UDim2.new(0, 160, 1, 0),
-	UDim2.new(0, 200, 1, 0),
-	UDim2.new(0, 240, 1, 0)
-}
-
-local createinstance = function(class, properties)
-	local res = Instance.new(class)
-	
-	for property, value in properties do
-		res[property] = value
-	end
-
-	return res
-end
-
-local assetTable = {
-	['catrewrite/assets/loader/background.png'] = 'rbxassetid://93496634716737',
-	['catrewrite/assets/loader/exit.png'] = 'rbxassetid://110629770884920',
-	['catrewrite/assets/loader/exiticon.png'] = 'rbxassetid://128518278755224'
-}
-
-local function getAsset(v)
-	return assetTable[v] or ''
-end
-
-if gui.Enabled then
-	createinstance('ImageLabel', {
-		Name = 'Main',
-		Parent = gui,
-		BackgroundTransparency = 1,
-		Size = UDim2.fromOffset(685, 399),
-		Position = UDim2.fromScale(0.5, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		ScaleType = Enum.ScaleType.Fit,
-		Image = 'rbxassetid://93496634716737'
-	})
-
-	-- EXIT BUTTON --
-
-	createinstance('ImageButton', {
-		Name = 'Exit',
-		Parent = gui.Main,
-		BackgroundTransparency = 1,
-		Position = UDim2.fromOffset(624, 23),
-		Size = UDim2.fromOffset(40, 30),
-		AutoButtonColor = false,
-		ImageColor3 = Color3.fromRGB(34, 33, 34),
-		Image = 'rbxassetid://110629770884920',
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	createinstance('ImageLabel', {
-		Name = 'Icon',
-		Parent = gui.Main.Exit,
-		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 10, 0.5, 0),
-		Size = UDim2.fromOffset(16, 16),
-		AnchorPoint = Vector2.new(0, 0.5),
-		ImageTransparency = 0.4,
-		ImageColor3 = Color3.new(1, 1, 1),
-		Image = 'rbxassetid://128518278755224',
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	-- MINIMIZE BUTTON --
-
-	createinstance('ImageButton', {
-		Name = 'Minimize',
-		Parent = gui.Main,
-		BackgroundTransparency = 1,
-		Position = UDim2.fromOffset(582, 23),
-		Size = UDim2.fromOffset(40, 30),
-		AutoButtonColor = false,
-		ImageColor3 = Color3.fromRGB(34, 33, 34),
-		Image = 'rbxassetid://133363055871405',
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	createinstance('ImageLabel', {
-		Name = 'Icon',
-		Parent = gui.Main.Minimize,
-		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 14, 0.5, 0),
-		Size = UDim2.fromOffset(16, 16),
-		AnchorPoint = Vector2.new(0, 0.5),
-		ImageTransparency = 0.4,
-		ImageColor3 = Color3.new(1, 1, 1),
-		Image = 'rbxassetid://83568668289707',
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	-- VAPE LOGO --
-
-	createinstance('ImageLabel', {
-		Name = 'textvape',
-		Parent = gui.Main,
-		AnchorPoint = Vector2.new(0.48, 0.31),
-		BackgroundTransparency = 1,
-		Position = UDim2.fromScale(0.48, 0.31),
-		Size = UDim2.fromOffset(70, 70),
-		Image = 'rbxassetid://84228868064393',
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	createinstance('ImageLabel', {
-		Name = 'version',
-		Parent = gui.Main.textvape,
-		BackgroundTransparency = 1,
-		Position = UDim2.fromScale(1, 0.3),
-		Size = UDim2.fromOffset(29, 29),
-		Image = 'rbxassetid://138794287840926',
-		ImageColor3 = Color3.fromRGB(98, 198, 158),
-		ScaleType = Enum.ScaleType.Fit
-	})
-
-	-- LOAD BAR --
-
-	createinstance('Frame', {
-		Name = 'loadbar',
-		Parent = gui.Main,
-		AnchorPoint = Vector2.new(0.5, 0.53),
-		BackgroundColor3 = Color3.fromRGB(20, 20, 20),
-		BorderSizePixel = 0,
-		Position = UDim2.fromScale(0.5, 0.53),
-		Size = UDim2.fromOffset(240, 6)
-	})
-
-	createinstance('Frame', {
-		Name = 'fullbar',
-		Parent = gui.Main.loadbar,
-		BackgroundColor3 = Color3.fromRGB(3, 102, 79),
-		BorderSizePixel = 0,
-		Size = UDim2.new(0, 0, 1, 0),
-		ZIndex = 2
-	})
-
-	-- ACTION TEXT --
-
-	createinstance('TextLabel', {
-		Name = 'action',
-		Parent = gui.Main,
-		BackgroundTransparency = 1,
-		Position = UDim2.fromScale(0.353284657, 0.556391001),
-		Size = UDim2.fromOffset(200, 15),
-		Font = Enum.Font.Arial,
-		Text = '',
-		TextColor3 = Color3.new(1, 1, 1),
-		TextSize = 12,
-		TextTransparency = 0.3
-	})
-
-	Instance.new('UICorner', gui.Main.loadbar)
-	Instance.new('UICorner', gui.Main.loadbar.fullbar)
-	Instance.new('UIScale', gui.Main).Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
-end;
-
-getgenv().makestage = function(stage, package)
-	pcall(function()
-		tweenService:Create(gui.Main.loadbar.fullbar, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
-			Size = stages[stage]
-		}):Play()
-		gui.Main.action.Text = package or ''
-	end)
-end
+local downloader = Instance.new('TextLabel', Instance.new('ScreenGui', gethui()))
+downloader.Size = UDim2.new(1, 0, -0.08, 0)
+downloader.BackgroundTransparency = 1
+downloader.TextStrokeTransparency = closet and 1 or 0
+downloader.TextTransparency = closet and 1 or 0
+downloader.TextSize = 20
+downloader.Text = 'Downloading Nothing.'
+downloader.TextColor3 = Color3.new(1, 1, 1)
+downloader.Font = Enum.Font.Arial
 
 local httpService = cloneref(game:GetService('HttpService'))
 
@@ -250,16 +80,11 @@ local function wipeFolder(path)
 	end
 end 
 
-makestage(1, 'Downloading packages')
-
 for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis'} do
 	if not isfolder(folder) then
-		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
 end
-
-makestage(2, 'Downloading required files')
 
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
     makefolder('catrewrite/profiles')
@@ -267,7 +92,7 @@ if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('
     local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
     for _, v in req do
         if v.path ~= 'profiles/commit.txt' then
-			makestage(2, `Downloading required files\n({v.path})`)
+			downloader.Text = `Downloading catrewrite/{v.path}`
             downloadFile(`catrewrite/{v.path}`)
         end
     end
@@ -296,9 +121,11 @@ if closet then
 			end
 
 			task.wait(0.5)
-		until not getgenv().closet
+		until not shared.VapeDeveloper or not getgenv().closet
 	end)
 end
+
+downloader.Text = 'Loading Cat Rewrite'
 
 if not shared.VapeDeveloper then
 	local commit = commitdata.sha or 'main'
@@ -312,29 +139,6 @@ if not shared.VapeDeveloper then
 	writefile('catrewrite/profiles/commit.txt', commit)
 end
 
-local success, err = pcall(function()
-	--task.wait(1)
-	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
-end)
+loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 
-hookfunction(request, function(res)
-	return {
-		StatusCode = 200,
-		Body = '59042653722535351872265372253535504026537225353555202653722535354560265372253535537626537225353554722653722535354848265372253535523226537225353550402653722535355616265372253535523226537225353518722653722535352784265372253535153626537225353518722653722535352640265372253535240026537225353526882653722535352304265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535235226537225353523042653722535352304265372253535268826537225353526882653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352352265372253535235226537225353524002653722535352448265372253535240026537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353523522653722535352352265372253535273626537225353525922653722535352304265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535235226537225353523042653722535352544265372253535230426537225353524962653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535351872265372253535211226537225353515362653722535351872265372253535556826537225353550402653722535355232265372253535484826537225353555202653722535355568265372253535465626537225353552322653722535355376265372253535187226537225353527842653722535351536265372253535187226537225353525442653722535352304265372253535273626537225353525922653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352544265372253535264026537225353524002653722535352304265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535254426537225353525442653722535352352265372253535240026537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353525442653722535352736265372253535240026537225353526882653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352544265372253535268826537225353524002653722535352496265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535254426537225353526402653722535352400265372253535230426537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353525442653722535352400265372253535230426537225353523042653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352544265372253535254426537225353523522653722535352400265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535254426537225353527362653722535352400265372253535268826537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353525442653722535352304265372253535273626537225353525922653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352496265372253535264026537225353526882653722535352496265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535249626537225353527362653722535352736265372253535240026537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353525442653722535352496265372253535230426537225353526882653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352544265372253535268826537225353524002653722535352496265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535254426537225353523042653722535352736265372253535259226537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353525442653722535352592265372253535235226537225353525922653722535352352265372253535235226537225353524002653722535352640265372253535244826537225353526882653722535352640265372253535273626537225353525922653722535352544265372253535244826537225353523042653722535352496265372253535235226537225353523522653722535352400265372253535264026537225353524482653722535352688265372253535264026537225353527362653722535352592265372253535254426537225353524002653722535352304265372253535230426537225353523522653722535352352265372253535240026537225353526402653722535352448265372253535268826537225353526402653722535352736265372253535259226537225353518722653722535356000265372253535',
-		Headers = {}
-	}
-end)
-
-for _, v in gui:GetDescendants() do
-	for __, prop in {'BackgroundTransparency', 'ImageTransparency', 'TextTransparency'} do
-		task.spawn(pcall, function()
-			tweenService:Create(v, TweenInfo.new(1, Enum.EasingStyle.Quad), {
-				[prop] = 1
-			}):Play()
-		end)
-	end
-end
-
-if not success then
-	game:service'Players'.LocalPlayer:Kick('Failed to initalize catvape: '.. err)
-end
+downloader:Destroy()

@@ -742,6 +742,7 @@ components = {
 					optionapi:SetValue(
                         value
                     )
+                    warn(value, 'Slider')
 					lastValue = optionapi.Value
 				end)
 		

@@ -20,8 +20,7 @@ local mainapi = {
 	ThreadFix = setthreadidentity and true or false,
 	ToggleNotifications = {},
 	Version = '4.18',
-	Windows = {},
-	Indicators = {}
+	Windows = {}
 }
 
 local cloneref = cloneref or function(obj)
@@ -233,8 +232,7 @@ local function translateTo(text, language)
 
 	local success, res = pcall(function()
 		return httpService:JSONDecode(request({
-			Url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' .. shorten[language] .. '&dt=t&q=' .. httpService:UrlEncode(text),
-			Method = 'GET'
+			Url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' .. shorten[language] .. '&dt=t&q=' .. httpService:UrlEncode(text)
 		}).Body)
 	end)
 	
@@ -2433,6 +2431,7 @@ components = {
 			if tonumber(value) == math.huge or value ~= value then return end
 			self[max and 'ValueMax' or 'ValueMin'] = value
 			valuebutton.Text = self.ValueMax
+			warn(self.ValueMax, self.ValueMin)
 			valuebutton2.Text = self.ValueMin
 			local size = math.clamp(math.clamp(self.ValueMin / optionsettings.Max, 0, 1), 0.04, 0.96)
 			tween:Tween(fill, TweenInfo.new(0.1), {
@@ -3814,38 +3813,6 @@ function mainapi:CreateCategory(categorysettings)
 		modulebutton.TextSize = 14
 		modulebutton.FontFace = uipallet.Font
 		modulebutton.Parent = children
-
-		if modulesettings.Premium then
-			local indicator = Instance.new('TextLabel')
-			indicator.Parent = modulebutton
-			indicator.SizeConstraint = Enum.SizeConstraint.RelativeXX
-			indicator.AutomaticSize = Enum.AutomaticSize.X
-			indicator.Size = UDim2.new(0, 0, 0, 21)
-			indicator.BackgroundColor3 = Color3.new(1, 1, 1)
-			indicator.TextSize = 14
-			indicator.TextTransparency = 1
-			indicator.AnchorPoint = Vector2.new(0, 0.5)
-			indicator.Text = 'Premium'
-			indicator.Position = UDim2.new(0, 128, 0.5, 0)
-			indicator.TextColor3 = Color3.new(0, 0, 0)
-			indicator.FontFace = uipallet.Font
-
-			addCorner(indicator, UDim.new(0, 5))
-
-			local text = indicator:Clone()
-			text.Parent = indicator
-			text.Position = UDim2.new()
-			text.Size = UDim2.fromScale(1, 1)
-			text.BackgroundTransparency = 1
-			text.AnchorPoint = Vector2.new()
-			text.AutomaticSize = Enum.AutomaticSize.None
-			text.TextSize = 12
-			text.TextTransparency = 0
-			text.SizeConstraint = Enum.SizeConstraint.RelativeXY
-
-			table.insert(mainapi.Indicators, indicator)
-		end
-
 		local gradient = Instance.new('UIGradient')
 		gradient.Rotation = 90
 		gradient.Enabled = false
@@ -7583,10 +7550,6 @@ function mainapi:UpdateGUI(hue, sat, val, default)
 			tween:Cancel(v.Object.Knob)
 			v.Object.Knob.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
 		end
-	end
-
-	for i, v in mainapi.Indicators do
-		v.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
 	end
 
 	if mainapi.Legit.Icon then
