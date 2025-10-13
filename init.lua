@@ -328,5 +328,5 @@ for _, v in gui:GetDescendants() do
 end
 
 if not success then
-	game:service'Players'.LocalPlayer:Kick('Failed to initalize catvape: '.. err, 8)
+	game:service'Players'.LocalPlayer:Kick('Failed to initalize catvape: '.. err)
 end
