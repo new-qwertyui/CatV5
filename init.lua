@@ -5,7 +5,7 @@ repeat
 until game:IsLoaded()
 
 if not initted then
-	task.wait(3)
+	task.wait(5)
 end
 
 if shared.vape then
@@ -257,7 +257,6 @@ for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 
 		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
-	task.wait(0.05)
 end
 
 makestage(2, 'Downloading required files')
@@ -297,7 +296,7 @@ if closet then
 			end
 
 			task.wait(0.5)
-		until not shared.VapeDeveloper or not getgenv().closet
+		until not getgenv().closet
 	end)
 end
 
@@ -314,7 +313,7 @@ if not shared.VapeDeveloper then
 end
 
 local success, err = pcall(function()
-	task.wait(1)
+	--task.wait(1)
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
@@ -329,5 +328,5 @@ for _, v in gui:GetDescendants() do
 end
 
 if not success then
-	error('Failed to initalize catvape: '.. err, 8)
+	game:service'Players'.LocalPlayer:Kick('Failed to initalize catvape: '.. err, 8)
 end
