@@ -1,5 +1,21 @@
-local LightningBolt = loadfile('catrewrite/libraries/LightningLib/Bolt.lua')()
-local LightningSparks = loadfile('catrewrite/libraries/LightningLib/Sparks/Init.lua')()
+local function downloadFile(path, func)
+	if not isfile(path) or not shared.VapeDeveloper then
+		local suc, res = pcall(function()
+			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+		end)
+		if not suc or res == '404: Not Found' then
+			error(res)
+		end
+		if path:find('.lua') then
+			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+		end
+		writefile(path, res)
+	end
+	return (func or readfile)(path)
+end
+
+local LightningBolt = loadstring(downloadFile('catrewrite/libraries/LightningLib/Bolt.lua'))()
+local LightningSparks = loadstring(downloadFile('catrewrite/libraries/LightningLib/Sparks/Init.lua'))()
 
 return {
 	CreateLightning = function(pos: Vector3)

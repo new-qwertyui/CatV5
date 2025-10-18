@@ -11,7 +11,7 @@ local isfile = isfile or function(file)
 	end)
 	return suc and res ~= nil and res ~= ''
 end
-local run = function(func) func() end
+local run = function(func) task.wait() func() end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
@@ -209,21 +209,9 @@ local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
 local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
 entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
 
-local isfunctionhooked = isfunctionhooked or function() return true end
-
-if not isfunctionhooked(listfiles) then
-	local old; old = hookfunction(listfiles, function(ffs)
-		ffs = old(ffs)
-
-		local list = {};
-		for i,v in ffs do
-			list[i] = v:gsub('\\', '/')
-		end
-		return list
-	end)
-
-	vape:Clean({func = listfiles})
-end
+weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
+weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()
+weatherlib.Snow = loadstring(downloadFile('catrewrite/libraries/Weather/Snow.lua'), 'Lightning')()
 
 local whitelist = {
 	alreadychecked = {},
@@ -6535,7 +6523,7 @@ run(function()
 	local connections = {}
 	
 	vape.Categories.World:CreateModule({
-		Name = 'Anti AFK',
+		Name = 'Anti-AFK',
 		Function = function(callback)
 			if callback then
 				for _, v in getconnections(lplr.Idled) do
@@ -7000,6 +6988,174 @@ run(function()
 			end
 		end
 	end
+end)
+
+run(function()
+	local weather
+	local oldatmosphere = {}
+	local oldclouds = {}
+	local thundertick = tick()
+	local weathermode = nil
+	local snowYLevel
+
+	local thunderSounds = {}
+
+	for i,v in {'rbxassetid://6734393210', 'rbxassetid://18650085493'} do
+		local sound = Instance.new('Sound', soundService)
+		sound.SoundId = v
+		table.insert(thunderSounds, sound)
+	end
+
+	local lightning = game:GetObjects('rbxassetid://71302811326216')[1]
+	lightning:PivotTo(CFrame.new())
+	lightning.Parent = replicatedStorage
+
+	for _, v in lightning:GetChildren() do
+		local PointLight = Instance.new('PointLight', v)
+		PointLight.Brightness = 20
+		PointLight.Range = 35
+		PointLight.Shadows = true
+	end
+
+	local function createThunder(pos)
+		weatherlib.Lightning.CreateLightning(pos)
+
+		local old = lightingService.Brightness
+		local b = tweenService:Create(lightingService, TweenInfo.new(0.1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+			Brightness = Random.new():NextInteger(90, 100)
+		})
+		b:Play()
+		b.Completed:Wait()
+		local sound = thunderSounds[math.random(1, #thunderSounds)]
+		sound.Volume = Random.new():NextNumber(0.7, 1.5)
+		sound:Play()
+		
+		task.wait(0.14)
+		tweenService:Create(lightingService, TweenInfo.new(0.3, Enum.EasingStyle.Sine), {
+			Brightness = old
+		}):Play()
+	end
+
+	local function getrandompos(currpos)
+		local randomizedvec = Vector3.new(Random.new():NextInteger(19, math.random(23, 47)), 0, Random.new():NextInteger(18, math.random(22, 45)))
+
+		local ray = workspace:Raycast(currpos + randomizedvec, Vector3.new(0, -50000, 0))
+
+		if ray then
+			return CFrame.new(ray.Position)
+		else
+			local vec = currpos + randomizedvec
+			return CFrame.new(vec)
+		end
+	end
+
+	local rand = Random.new()
+
+	weather = vape.Categories.Render:CreateModule({
+		Name = 'Weather',
+		Function = function(call)
+			if call then
+				thundertick = tick() + math.random(1, 2)
+				if weathermode.Value == 'Rain' or weathermode.Value == 'Thunderstorm' then
+					weatherlib.Rain:Enable()
+				elseif weathermode.Value == 'Snow' then
+					weatherlib.Snow:Enable(snowYLevel.Value)
+				end
+				if not workspace.Terrain:FindFirstChildOfClass('Clouds') then
+					local clouds = Instance.new('Clouds', workspace.Terrain)
+					clouds.Cover = 1
+					clouds.Density = 1
+					clouds.Color = Color3.fromRGB(12, 13, 16)
+					weather:Clean(clouds)
+				end
+				if not lightingService:FindFirstChildOfClass('Atmosphere') then
+					local atmosphere = Instance.new('Atmosphere', lightingService)
+					weather:Clean(atmosphere)
+				else
+					local a = lightingService:FindFirstChildOfClass('Atmosphere')
+					oldatmosphere.Density = a.Density
+					oldatmosphere.Offset = a.Offset
+					oldatmosphere.Glare = a.Glare
+					oldatmosphere.Haze = a.Haze
+					oldatmosphere.Color = a.Color
+					oldatmosphere.Decay = a.Decay
+				end
+				repeat
+					local atmosphere = lightingService:FindFirstChildOfClass('Atmosphere')
+					if weathermode.Value == 'Rain' or weathermode.Value == 'Thunderstorm' or weathermode.Value == "Snow" then
+						if atmosphere then
+							if weathermode.Value == 'Rain' then
+								atmosphere.Density = 0.65
+								atmosphere.Offset = 0.25
+								atmosphere.Glare = 0
+								atmosphere.Haze = 0
+							elseif weathermode.Value == "Snow" then
+								atmosphere.Density = 0.7
+								atmosphere.Offset = 0.75
+								atmosphere.Color = Color3.fromRGB(142, 142, 142)
+								atmosphere.Decay = Color3.fromRGB(142, 142, 142)
+								atmosphere.Glare = 0.5
+								atmosphere.Haze = 0.5
+							elseif weathermode.Value == 'Thunderstorm' then
+								atmosphere.Density = 0.8
+								atmosphere.Offset = 0.2
+								atmosphere.Glare = 0.1
+								atmosphere.Color = Color3.fromRGB(121, 124, 160)
+								atmosphere.Decay = Color3.fromRGB(37, 38, 49)
+								atmosphere.Haze = 9
+							end
+						end
+						if weathermode.Value == 'Thunderstorm' and tick() > thundertick then
+							thundertick = tick() + rand:NextNumber(7, 25)
+							local pivot = getrandompos(lplr.Character.PrimaryPart.Position)
+							createThunder(pivot)
+						end
+						if entitylib.isAlive then
+							local vector = lplr.Character.Humanoid.MoveDirection
+							vector *= -0.1
+							weatherlib.Rain:SetDirection(vector.Magnitude >= 0.1 and Vector3.new(1, 0 ,0) or Vector3.zero, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+						end
+					end
+					task.wait()
+				until not weather.Enabled
+			else
+				weatherlib.Rain:Disable()
+				weatherlib.Snow:Disable()
+				local atmosphere = lightingService:FindFirstChildOfClass('Atmosphere')
+				if atmosphere then
+					for i,v in oldatmosphere do
+						atmosphere[i] = v
+					end
+				end
+				table.clear(oldatmosphere)
+			end
+		end,
+		ExtraText = function()
+			return weathermode.Value
+		end
+	})
+	weathermode = weather:CreateDropdown({
+		Name = 'Mode',
+		List = {'Rain', 'Snow', 'Thunderstorm'},
+		Function = function()
+			if weather.Enabled then
+				weather:Toggle()
+				weather:Toggle()
+			end
+		end
+	})
+	snowYLevel = weather:CreateSlider({
+		Name = 'Snow Y Level',
+		Min = 0,
+		Max = 256,
+		Default = 60,
+		Function = function()
+			if weather.Enabled then
+				weather:Toggle()
+				weather:Toggle()
+			end
+		end,
+	})
 end)
 	
 run(function()

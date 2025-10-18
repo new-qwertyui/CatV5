@@ -25,7 +25,23 @@ BoltPart.Material = Enum.Material.Neon
 BoltPart.Color = Color3.new(1, 1, 1)
 BoltPart.Transparency = 1
 
-local PartCache = loadfile('catrewrite/libraries/LightningLib/PartCache.lua', 'PartCache.lua')()
+local function downloadFile(path, func)
+	if not isfile(path) or not shared.VapeDeveloper then
+		local suc, res = pcall(function()
+			return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+		end)
+		if not suc or res == '404: Not Found' then
+			error(res)
+		end
+		if path:find('.lua') then
+			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+		end
+		writefile(path, res)
+	end
+	return (func or readfile)(path)
+end
+
+local PartCache = loadstring(downloadFile('catrewrite/libraries/LightningLib/PartCache.lua'), 'PartCache.lua')()
 local LightningCache = PartCache.new(BoltPart, PARTS_IN_CACHE)
 LightningCache:SetCacheParent(parent)
 

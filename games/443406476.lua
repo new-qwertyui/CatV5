@@ -49,7 +49,6 @@ end
 
 run(function()
     local function addEntity(ent)
-        warn('added!')
         entitylib.addEntity(ent, nil, function()
             return true
         end)
