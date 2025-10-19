@@ -13,7 +13,7 @@ if loadonscreen then
 			suc = pcall(function()
 				return require(game.ReplicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 			end)
-			task.wait(0.5)
+			task.wait()
 		until suc
 	end
 end
@@ -267,7 +267,7 @@ for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 
 		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
-	task.wait(0.05)
+	task.wait()
 end
 
 makestage(2, 'Downloading required files')
@@ -306,7 +306,7 @@ if closet then
 				v:Disable()
 			end
 
-			task.wait(0.5)
+			task.wait()
 		until not getgenv().closet
 	end)
 end
