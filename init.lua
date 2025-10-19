@@ -1,8 +1,22 @@
-local initted = game:IsLoaded()
-
+local loadonscreen = not game:IsLoaded()
+print(loadonscreen)
 repeat
 	task.wait()
 until game:IsLoaded()
+
+if loadonscreen then
+	task.wait(5)
+	if game.GameId == 2619619496 then
+		local suc;
+
+		repeat
+			suc = pcall(function()
+				return require(game.ReplicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
+			end)
+			task.wait(0.5)
+		until suc
+	end
+end
 
 if shared.vape then
 	shared.vape:Uninject()
