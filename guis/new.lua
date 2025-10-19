@@ -6647,6 +6647,105 @@ VapeLabelSorter.SortOrder = Enum.SortOrder.LayoutOrder
 VapeLabelSorter.Parent = VapeLabelHolder
 
 --[[
+	Image Display
+]]
+
+local imagepath
+local sizeX, sizeY, scale
+local image = Instance.new("ImageLabel")
+local video = Instance.new("VideoFrame")
+video.Looped = true
+video.BackgroundTransparency = 1
+image.BackgroundTransparency = 1
+
+local function handleImage(path)
+	local ye
+	if path:find("://") then
+		local foldpath = "catrewrite/assets/image/"..math.random(1,50000)
+		writefile(foldpath, game:HttpGet(path))
+		ye = getcustomasset(foldpath)
+	else
+		ye = getcustomasset(path)
+	end
+
+	image.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+	video.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+	local isVideo = path:find("webm") or path:find("mp4") or path:find("gif")
+	image.Visible = not isVisible
+	video.Visible = isVideo
+
+	print(ye)
+	if isVideo then
+		video.Video = ye
+		video:Play()
+	else
+		image.Image = ye
+	end
+end
+
+local imageobj = mainapi:CreateOverlay({
+	Name = "Image Display",
+	Icon = getcustomasset("catrewrite/assets/new/targetnpc1.png"),
+	Size = UDim2.fromOffset(14, 14),
+	Position = UDim2.fromOffset(12, 12),
+	CategorySize = 279,
+	Function = function(callback: boolean)
+		if callback then
+			if handleImage(imagepath.Value) then
+				handleImage(imagepath.Value)
+			end
+		end
+	end
+})
+image.Parent = imageobj.Children
+video.Parent = imageobj.Children
+
+imagepath = imageobj:CreateTextBox({
+	Name = "Image path",
+	Placeholder = "File path (workspace) or link to image",
+	Function = function(b)
+		if b then
+			handleImage(imagepath.Value)
+		end
+	end
+})
+
+sizeX = imageobj:CreateSlider({
+	Name = "X",
+	Min = 0,
+	Max = 1920,
+	Default = 500,
+	Function = function(v)
+		if v then
+			handleImage(imagepath.Value)
+		end
+	end
+})
+sizeY = imageobj:CreateSlider({
+	Name = "Y",
+	Min = 0,
+	Max = 1080,
+	Default = 500,
+	Function = function(v)
+		if v then
+			handleImage(imagepath.Value)
+		end
+	end
+})
+scale = imageobj:CreateSlider({
+	Name = "Scale",
+	Min = 0,
+	Max = 1,
+	Default = 0.5,
+	Decimal = 10,
+	Function = function(v)
+		if v then
+			handleImage(imagepath.Value)
+		end
+	end
+})
+					
+--[[
 	Spotify Display
 ]]
 
