@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local mainapi = {
 	Categories = {},
 	GUIColor = {
@@ -34,6 +35,7 @@ local textService = cloneref(game:GetService('TextService'))
 local guiService = cloneref(game:GetService('GuiService'))
 local runService = cloneref(game:GetService('RunService'))
 local httpService = cloneref(game:GetService('HttpService'))
+local textChatService = cloneref(game:GetService("TextChatService"))
 
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
@@ -6753,6 +6755,7 @@ local spotify
 local spotifyobj
 local spotifybcolor
 local spotifyrefreshtoken
+local spotifyannounce
 
 local spotifybkg = Instance.new('Frame')
 spotifybkg.Size = UDim2.fromOffset(279, 78)
@@ -6888,6 +6891,14 @@ spotifyobj = mainapi:CreateOverlay({
 			end))
 			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
 				mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
+				if spotifyannounce.Enabled then
+				    local msg = "I'm listening to "..name.." by "..artist.."!"
+				    if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+            			textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
+            		else
+            			replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
+            		end
+				end
 			end))
 			local song = ""
 			repeat
@@ -7011,6 +7022,10 @@ spotifybcolor = spotifyobj:CreateColorSlider({
 	end,
 	Darker = true,
 	Visible = false
+})
+spotifyannounce = spotifyobj:CreateToggle({
+    Name = "Announce Song",
+    Visible = true
 })
 
 --[[
