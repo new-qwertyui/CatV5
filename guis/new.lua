@@ -6893,7 +6893,7 @@ spotifyobj = mainapi:CreateOverlay({
 			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
 				mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
 				if spotifyannounce.Enabled then
-				    local msg = "I'm listening to "..name.." by "..artist.."!"
+				    local msg = "I'm listening to "..name.." - "..artist
 				    if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
             			textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
             		else
