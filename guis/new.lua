@@ -36,7 +36,7 @@ local guiService = cloneref(game:GetService('GuiService'))
 local runService = cloneref(game:GetService('RunService'))
 local httpService = cloneref(game:GetService('HttpService'))
 local textChatService = cloneref(game:GetService("TextChatService"))
-local replicatedStorage = cloneref(clone:GetService("ReplicatedStorage"))
+local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
