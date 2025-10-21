@@ -1,11 +1,10 @@
 local loadonscreen = not game:IsLoaded()
-print(loadonscreen)
 repeat
 	task.wait()
 until game:IsLoaded()
 
 if loadonscreen then
-	task.wait(1)
+	task.wait(5)
 	if game.GameId == 2619619496 then
 		local suc;
 
