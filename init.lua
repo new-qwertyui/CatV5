@@ -262,7 +262,7 @@ end
 
 makestage(1, 'Downloading packages')
 
-if not isfile('catvapereset9') and isfolder('catrewrite') and isfolder('catrewrite/profiles') then
+if not closet and not isfile('catvapereset9') and isfolder('catrewrite') and isfolder('catrewrite/profiles') then
 	--pcall(delfile, 'catrewrite/‎profiles/2619619496.gui.txt‎')
 	writefile('catrewrite/‎profiles/2619619496.gui.txt‎', game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/profiles/2619619496.gui.txt'))
 end
