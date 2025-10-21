@@ -340,3 +340,6 @@ end
 if not success then
 	error('Failed to initalize catvape: '.. err, 8)
 end
+
+repeat task.wait() until shared.vape
+if not closet then loadstring(downloadFile('catrewrite/libraries/announcements.lua'), 'main')() end
