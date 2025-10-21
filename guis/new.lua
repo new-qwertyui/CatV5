@@ -6192,6 +6192,9 @@ local colors = {
 		Main = {220, 220, 220},
 		Text = {60, 60, 60}
 	},
+	Custom = {
+	    
+	},
 	Amoled = {
 		Main = {0, 0, 0},
 		Text = {230, 230, 230}
@@ -6217,7 +6220,7 @@ local colors = {
 		Text = {210, 210, 210}
 	},
 	Purple = {
-		Main = {157, 29, 74},
+		Main = {168, 52, 235},
 		Text = {210, 210, 210}
 	}
 }
@@ -6230,6 +6233,7 @@ guipane:CreateDropdown({
 	List = list,
 	Default = 'Dark',
 	Function = function(val, mouse)
+	    if val == "Custom" then return end
 		if mouse and (not isfile('catrewrite/profiles/color.txt') and true or httpService:JSONDecode(readfile('catrewrite/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
 			writefile("catrewrite/profiles/color.txt", httpService:JSONEncode(colors[val]))
 			mainapi:Save()
@@ -6893,7 +6897,7 @@ spotifyobj = mainapi:CreateOverlay({
 			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
 				mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
 				if spotifyannounce.Enabled then
-				    local msg = "I'm listening to "..name.." - "..artist
+				    local msg = "I'm listening to "..name.." by "..artist.."!"
 				    if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
             			textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
             		else
