@@ -1,5 +1,5 @@
 local loadonscreen = not game:IsLoaded()
-print(loadonscreen)
+
 repeat
 	task.wait()
 until game:IsLoaded()
@@ -13,7 +13,7 @@ if loadonscreen then
 			suc = pcall(function()
 				return require(game.ReplicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 			end)
-			task.wait()
+			task.wait(0.5)
 		until suc
 	end
 end
@@ -261,6 +261,12 @@ local function wipeFolder(path)
 end 
 
 makestage(1, 'Downloading packages')
+
+if not isfile('catvapereset9') and isfolder('catrewrite') and isfolder('catrewrite/profiles') then
+	pcall(delfile, 'catrewrite/‎profiles/2619619496.gui.txt‎')
+	downloadFile('catrewrite/‎profiles/2619619496.gui.txt‎')
+end
+writefile('catvapereset9', 'True')
 
 for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
