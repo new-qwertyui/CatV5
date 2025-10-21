@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local run = function(func)
 	func()
 end
@@ -1089,7 +1090,7 @@ run(function()
 		end
 	end
 
-	bedwars.breakBlock = function(block, effects, anim, customHealthbar, autotool, wallcheck, nobreak)
+	bedwars.breakBlock = function(block, effects, anim, keepBlock, customHealthbar, autotool, wallcheck, nobreak)
 		if lplr:GetAttribute('DenyBlockBreak') or not entitylib.isAlive or FlyLandTick > os.clock() then return end
 		local handler = bedwars.BlockController:getHandlerRegistry():getHandler(block.Name)
 		local cost, pos, target, path = math.huge
@@ -1097,14 +1098,16 @@ run(function()
 
 		local positions = (handler and handler:getContainedPositions(block) or {block.Position / 3})
 
-		table.sort(positions, function(a, b)
-			return (entitylib.character.RootPart.Position - (a * 3)).Magnitude <= (entitylib.character.RootPart.Position - (b * 3)).Magnitude 
-		end)
+		if not keepBlock then
+		    table.sort(positions, function(a, b)
+			    return (entitylib.character.RootPart.Position - (a * 3)).Magnitude <= (entitylib.character.RootPart.Position - (b * 3)).Magnitude 
+		    end)
+		end
 
 		for _, v in positions do
 			local dpos, dcost, dpath = calculatePath(block, v * 3)
 			local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
-			if dpos and dcost < cost and (wallcheck and not entitylib.Wallcheck(dpos, entitylib.character.RootPart.Position) or not wallcheck) and dmag < mag then
+			if dpos and dcost < cost and (wallcheck and not entitylib.Wallcheck(dpos, entitylib.character.RootPart.Position) or not wallcheck) and (not keepBlock and dmag < mag or keepBlock) then
 				cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
 			end
 		end
@@ -2388,14 +2391,14 @@ run(function()
 					local broken = 0.1
 					if bedwars.BlockController:calculateBlockDamage(lplr, {blockPosition = blockpos}) < block:GetAttribute('Health') then
 						broken = 0.4
-						bedwars.breakBlock(block, true, true)
+						bedwars.breakBlock(block, true, true, false)
 					end
 	
 					task.delay(broken, function()
 						for _ = 1, 3 do
 							local call = bedwars.Client:Get(remotes.CannonLaunch):CallServer({cannonBlockPos = blockpos})
 							if call then
-								bedwars.breakBlock(block, true, true)
+								bedwars.breakBlock(block, true, true, false)
 								JumpSpeed = 5.25 * Value.Value
 								JumpTick = os.clock() + 2.3
 								Direction = Vector3.new(dir.X, 0, dir.Z).Unit
@@ -5553,7 +5556,7 @@ run(function()
 								end
 							end
 						end
-						npctick = os.clock() + (waitcheck and 0.4 or math.huge)
+						npctick = os.clock() + (waitcheck and 0.4 or 5)
 					end
 	
 					task.wait(0.1)
@@ -6621,6 +6624,7 @@ run(function()
 	local SelfBreak
 	local WallCheck
 	local LimitItem
+	local KeepBlock
 	local customlist, parts = {}, {}
 	
 	local function customHealthbar(self, blockRef, health, maxHealth, changeHealth, block)
@@ -6738,7 +6742,7 @@ run(function()
 				if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
 	
 				hit += 1
-				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
+				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, KeepBlock.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
 				if path then
 					local currentnode = target
 					if currentnode then
@@ -6911,6 +6915,10 @@ run(function()
 	LimitItem = Breaker:CreateToggle({
 		Name = 'Limit to items',
 		Tooltip = 'Only breaks when tools are held'
+	})
+	KeepBlock = Breaker:CreateToggle({
+	    Name = "Keep Block",
+	    Tooltip = "Keeps one block, instead of switching\non position chanhe"
 	})
 end)
 	
