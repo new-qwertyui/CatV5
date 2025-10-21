@@ -1,11 +1,11 @@
 local loadonscreen = not game:IsLoaded()
-
+print(loadonscreen)
 repeat
 	task.wait()
 until game:IsLoaded()
 
 if loadonscreen then
-	task.wait(5)
+	task.wait(1)
 	if game.GameId == 2619619496 then
 		local suc;
 
@@ -29,6 +29,7 @@ local closet = getgenv().closet or license.Closet or false
 getgenv().username = username or license.Username
 getgenv().password = password or license.Password
 getgenv().catuser = getgenv().username
+getgenv().localized = license.Local
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
@@ -261,12 +262,6 @@ local function wipeFolder(path)
 end 
 
 makestage(1, 'Downloading packages')
-
-if not isfile('catvapereset9') and isfolder('catrewrite') and isfolder('catrewrite/profiles') then
-	pcall(delfile, 'catrewrite/‎profiles/2619619496.gui.txt‎')
-	downloadFile('catrewrite/‎profiles/2619619496.gui.txt‎')
-end
-writefile('catvapereset9', 'True')
 
 for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
