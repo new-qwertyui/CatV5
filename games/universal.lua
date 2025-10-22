@@ -1,4 +1,3 @@
---This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
@@ -233,10 +232,11 @@ local whitelist = {
 local downButton
 do
     if inputService.TouchEnabled then
-        downButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton:Clone()
+        local jump = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+        downButton = jump:Clone()
         downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
         downButton.Name = 'DownButton'
-        downButton.Position = UDim2.new(1, -190, 1, -90)
+        downButton.Position = UDim2.fromScale(jump.Position.X.Scale - 0.08, jump.Position.Y.Scale)
         downButton.Visible = false
         downButton.ImageRectOffset = Vector2.new(0, 146)
         downButton.Image = 'rbxassetid://116011397928605'
@@ -1862,7 +1862,7 @@ run(function()
 					end)
 					pcall(function()
 						Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
-							down = downButton.ImageRectOffset.X == 146 and 1 or 0
+							down = downButton.ImageRectOffset.X == 146 and -1 or 0
 						end))
 					end)
 				end

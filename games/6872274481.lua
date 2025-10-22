@@ -2177,7 +2177,7 @@ run(function()
 						end))
 					end)
 					Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
-						down = downButton.ImageRectOffset.X == 146 and 1 or 0
+						down = downButton.ImageRectOffset.X == 146 and -1 or 0
 					end))
 				end
 			else
