@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
@@ -231,7 +232,7 @@ local whitelist = {
 
 local downButton
 do
-    if lplr.PlayerGui:FindFirstChild('TouchGui') and lplr.PlayerGui.TouchGui:FindFirstChild('TouchControlFrame') and lplr.PlayerGui.TouchGui:FindFirstChild('JumpButton') then
+    if inputService.TouchEnabled then
         downButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton:Clone()
         downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
         downButton.Name = 'DownButton'
