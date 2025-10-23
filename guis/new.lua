@@ -6131,6 +6131,11 @@ mainapi.Scale = guipane:CreateToggle({
 	end,
 	Tooltip = 'Automatically rescales the gui using the screens resolution'
 })
+mainapi.Announce = guipane:CreateToggle({
+    Name = "Global announcements at top",
+    Tooltip = "Instead of sending to chat, sends all\nglonal announcements to the top\nof the screen",
+    Default = true
+})
 scaleslider = guipane:CreateSlider({
 	Name = 'Scale',
 	Min = 0.1,
