@@ -57,7 +57,7 @@ function Announcements:Announce(user: string, msg: string, duration: number, col
 		announcement.TextWrapped = true
 		announcement.TextTransparency = 1
 		announcement.TextColor3 = Color3.new(1, 1, 1)
-		announcement.Text = string.format("<font color='rgb(%d,%d,%d)'>%s</font>: %s", color.R * 255, color.G * 255, color.B * 255, user, msg)
+		announcement.Text = string.format("<font color='rgb(%d,%d,%d)'>%s:</font> %s", color.R * 255, color.G * 255, color.B * 255, user, msg)
 		local baseScale = math.clamp(ViewportSize.Y / 800, 0.6, 1.4)
 		announcement.Size = UDim2.new(1, 0, 0, 50 * baseScale)
 		local textConstraint = Instance.new("UITextSizeConstraint", announcement)
