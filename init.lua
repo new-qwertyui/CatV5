@@ -347,5 +347,8 @@ if not success then
 	error('Failed to initalize catvape: '.. err, 8)
 end
 
+if isfile("catrewrite/libraries/announcements.lua") then
+    delfile("catrewrite/libraries/announcements.lua")
+end
 repeat task.wait() until shared.vape
 if not closet then loadstring(downloadFile('catrewrite/libraries/announcements.lua'), 'main')() end
