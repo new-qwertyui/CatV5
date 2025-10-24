@@ -231,7 +231,7 @@ local whitelist = {
 
 local downButton
 do
-    if inputService.TouchEnabled then
+    pcall(function() if inputService.TouchEnabled then
         local jump = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
         downButton = jump:Clone()
         downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
@@ -249,7 +249,7 @@ do
         end))
         
         vape:Clean(downButton)
-    end
+    end end)
 end
 
 vape.Libraries.entity = entitylib
