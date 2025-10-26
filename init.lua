@@ -11,7 +11,7 @@ if loadonscreen then
 
 		repeat
 			suc = pcall(function()
-				return require(game.ReplicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
+				return require(game:GetService('ReplicatedStorage')['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 			end)
 			task.wait(0.5)
 		until suc
@@ -262,18 +262,12 @@ end
 
 makestage(1, 'Downloading packages')
 
-if not closet and not isfile('catvapereset9') and isfolder('catrewrite') and isfolder('catrewrite/profiles') then
-	--pcall(delfile, 'catrewrite/‎profiles/2619619496.gui.txt‎')
-	writefile('catrewrite/‎profiles/2619619496.gui.txt‎', game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/profiles/2619619496.gui.txt'))
-end
-writefile('catvapereset9', 'True')
-
 for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
 		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
-	task.wait()
+	task.wait(0.05)
 end
 
 makestage(2, 'Downloading required files')
@@ -312,7 +306,7 @@ if closet then
 				v:Disable()
 			end
 
-			task.wait()
+			task.wait(1)
 		until not getgenv().closet
 	end)
 end
@@ -345,10 +339,6 @@ end
 
 if not success then
 	error('Failed to initalize catvape: '.. err, 8)
+elseif not closet then
+	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'annc.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 end
-
-if isfile("catrewrite/libraries/announcements.lua") then
-    delfile("catrewrite/libraries/announcements.lua")
-end
-repeat task.wait() until shared.vape
-if not closet then loadstring(downloadFile('catrewrite/libraries/announcements.lua'), 'main')() end

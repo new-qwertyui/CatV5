@@ -231,9 +231,9 @@ local whitelist = {
 
 local downButton
 do
-    pcall(function() if inputService.TouchEnabled then
+    if lplr.PlayerGui:FindFirstChild('TouchGui') and lplr.PlayerGui.TouchGui:FindFirstChild('TouchControlFrame') and lplr.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild('JumpButton') then
         local jump = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
-        downButton = jump:Clone()
+		downButton = jump:Clone()
         downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
         downButton.Name = 'DownButton'
         downButton.Position = UDim2.fromScale(jump.Position.X.Scale - 0.08, jump.Position.Y.Scale)
@@ -249,7 +249,7 @@ do
         end))
         
         vape:Clean(downButton)
-    end end)
+    end
 end
 
 vape.Libraries.entity = entitylib
@@ -1860,11 +1860,11 @@ run(function()
 							up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
 						end))
 					end)
-					pcall(function()
+					if downButton then
 						Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
 							down = downButton.ImageRectOffset.X == 146 and -1 or 0
 						end))
-					end)
+					end
 				end
 			else
 				YLevel, OldYLevel = nil, nil
@@ -6991,7 +6991,7 @@ run(function()
 	end
 end)
 
-run(function()
+pcall(function()
 	local weather
 	local oldatmosphere = {}
 	local oldclouds = {}

@@ -791,8 +791,6 @@ local canReq = pcall(function()
 	return require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 end)
 
-warn('??? game loaded')
-
 run(function()	
 	local KnitInit, Knit
 	repeat
@@ -962,6 +960,7 @@ run(function()
 			local call = OldGet(self, remoteName)
 
 			if remoteName == remotes.AttackEntity then
+				warn('called')
 				return {
 					instance = call.instance,
 					SendToServer = function(_, attackTable, ...)
@@ -1028,7 +1027,12 @@ run(function()
 		Pathfinding using a luau version of dijkstra's algorithm
 		Source: https://stackoverflow.com/questions/39355587/speeding-up-dijkstras-algorithm-to-solve-a-3d-maze
 	]]
-	local function calculatePath(target, blockpos)
+		
+	local function calculatePath(target, blockpos, lmao)
+		if lmao and cache[blockpos] > os.clock() then
+			return cache[blockpos][1], cache[blockpos][2], cache[blockpos][3], cache[blockpos][4]
+		end
+
 		local visited, unvisited, distances, air, path = {}, {{0, blockpos}}, {[blockpos] = 0}, {}, {}
 
 		for _ = 1, 10000 do
@@ -1073,11 +1077,8 @@ run(function()
 				pos,
 				cost,
 				path,
-				os.clock() + 0.1
+				os.clock() + 0.5
 			}
-			delay(0.3, function()
-				cache[blockpos] = nil
-			end)
 			return pos, cost, path
 		end
 	end
@@ -1089,7 +1090,7 @@ run(function()
 		end
 	end
 
-	bedwars.breakBlock = function(block, effects, anim, keepBlock, customHealthbar, autotool, wallcheck, nobreak)
+	bedwars.breakBlock = function(block, effects, anim, customHealthbar, autotool, wallcheck, nobreak, calcs)
 		if lplr:GetAttribute('DenyBlockBreak') or not entitylib.isAlive or FlyLandTick > os.clock() then return end
 		local handler = bedwars.BlockController:getHandlerRegistry():getHandler(block.Name)
 		local cost, pos, target, path = math.huge
@@ -1097,16 +1098,14 @@ run(function()
 
 		local positions = (handler and handler:getContainedPositions(block) or {block.Position / 3})
 
-		if not keepBlock then
-		    table.sort(positions, function(a, b)
-			    return (entitylib.character.RootPart.Position - (a * 3)).Magnitude <= (entitylib.character.RootPart.Position - (b * 3)).Magnitude 
-		    end)
-		end
+		table.sort(positions, function(a, b)
+			return (entitylib.character.RootPart.Position - (a * 3)).Magnitude >= (entitylib.character.RootPart.Position - (b * 3)).Magnitude 
+		end)
 
 		for _, v in positions do
-			local dpos, dcost, dpath = calculatePath(block, v * 3)
+			local dpos, dcost, dpath = calculatePath(block, v * 3, calcs)
 			local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
-			if dpos and dcost < cost and (wallcheck and not entitylib.Wallcheck(dpos, entitylib.character.RootPart.Position) or not wallcheck) and (not keepBlock and dmag < mag or keepBlock) then
+			if dpos and dcost < cost and dmag < mag then
 				cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
 			end
 		end
@@ -2176,9 +2175,11 @@ run(function()
 							up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
 						end))
 					end)
-					Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
-						down = downButton.ImageRectOffset.X == 146 and -1 or 0
-					end))
+					if downButton then
+						Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+							down = downButton.ImageRectOffset.X == 146 and -1 or 0
+						end))
+					end
 				end
 			else
 				bedwars.BalloonController.deflateBalloon = old
@@ -2390,14 +2391,14 @@ run(function()
 					local broken = 0.1
 					if bedwars.BlockController:calculateBlockDamage(lplr, {blockPosition = blockpos}) < block:GetAttribute('Health') then
 						broken = 0.4
-						bedwars.breakBlock(block, true, true, false)
+						bedwars.breakBlock(block, true, true)
 					end
 	
 					task.delay(broken, function()
 						for _ = 1, 3 do
 							local call = bedwars.Client:Get(remotes.CannonLaunch):CallServer({cannonBlockPos = blockpos})
 							if call then
-								bedwars.breakBlock(block, true, true, false)
+								bedwars.breakBlock(block, true, true)
 								JumpSpeed = 5.25 * Value.Value
 								JumpTick = os.clock() + 2.3
 								Direction = Vector3.new(dir.X, 0, dir.Z).Unit
@@ -3743,7 +3744,7 @@ run(function()
 						rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
 						rayCheck.CollisionGroup = root.CollisionGroup
 	
-						if pearl and root.Velocity.Y < -86 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
+						if pearl and root.Velocity.Y < -60 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
 							if not check then
 								check = true
 								local ground = getNearGround(20)
@@ -5555,7 +5556,7 @@ run(function()
 								end
 							end
 						end
-						npctick = os.clock() + (waitcheck and 0.4 or 5)
+						npctick = os.clock() + (waitcheck and 0.4 or math.huge)
 					end
 	
 					task.wait(0.1)
@@ -6741,7 +6742,7 @@ run(function()
 				if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
 	
 				hit += 1
-				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, KeepBlock.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
+				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled, nil, KeepBlock.Enabled)
 				if path then
 					local currentnode = target
 					if currentnode then
@@ -6916,8 +6917,8 @@ run(function()
 		Tooltip = 'Only breaks when tools are held'
 	})
 	KeepBlock = Breaker:CreateToggle({
-	    Name = "Keep Block",
-	    Tooltip = "Keeps one block, instead of switching\non position chanhe"
+	    Name = 'Keep Block',
+	    Tooltip = 'Keeps one block, instead of switching\non position change'
 	})
 end)
 	
@@ -7951,34 +7952,6 @@ run(function()
 			end
 		end,
 		Default = true
-	})
-end)
-
-run(function()
-	local TPAura
-
-	TPAura = vape.Categories.Blatant:CreateModule({
-		Name = 'TP Aura',
-		Function = function(call)
-			if call then
-				repeat
-					if entitylib.isAlive then
-						local plrs = entitylib.AllPosition({
-							Range = 5000,
-							Part = 'RootPart',
-							Players = true,
-							Limit = 100
-						})
-						
-						for i,v in plrs do
-							v.RootPart.CFrame = entitylib.character.RootPart.CFrame
-						end
-					end
-					task.wait()
-				until not TPAura.Enabled
-			end
-		end,
-		Tooltip = 'Allows you to attack from infinite range'
 	})
 end)
 

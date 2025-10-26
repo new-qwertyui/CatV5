@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local mainapi = {
 	Categories = {},
 	GUIColor = {
@@ -19,7 +20,7 @@ local mainapi = {
 	Scale = {Value = 1},
 	ThreadFix = setthreadidentity and true or false,
 	ToggleNotifications = {},
-	Version = '4.2.78',
+	Version = 'DEV BUILD',
 	Windows = {},
 	Indicators = {}
 }
@@ -6131,11 +6132,6 @@ mainapi.Scale = guipane:CreateToggle({
 	end,
 	Tooltip = 'Automatically rescales the gui using the screens resolution'
 })
-mainapi.Announce = guipane:CreateToggle({
-    Name = "Global announcements at top",
-    Tooltip = "Instead of sending to chat, sends all\nglonal announcements to the top\nof the screen",
-    Default = true
-})
 scaleslider = guipane:CreateSlider({
 	Name = 'Scale',
 	Min = 0.1,
@@ -6196,9 +6192,6 @@ local colors = {
 		Main = {220, 220, 220},
 		Text = {60, 60, 60}
 	},
-	Custom = {
-	    
-	},
 	Amoled = {
 		Main = {0, 0, 0},
 		Text = {230, 230, 230}
@@ -6224,7 +6217,7 @@ local colors = {
 		Text = {210, 210, 210}
 	},
 	Purple = {
-		Main = {96, 36, 143},
+		Main = {157, 29, 74},
 		Text = {210, 210, 210}
 	}
 }
@@ -6237,7 +6230,6 @@ guipane:CreateDropdown({
 	List = list,
 	Default = 'Dark',
 	Function = function(val, mouse)
-	    if val == "Custom" then return end
 		if mouse and (not isfile('catrewrite/profiles/color.txt') and true or httpService:JSONDecode(readfile('catrewrite/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
 			writefile("catrewrite/profiles/color.txt", httpService:JSONEncode(colors[val]))
 			mainapi:Save()
@@ -6899,7 +6891,7 @@ spotifyobj = mainapi:CreateOverlay({
 				end
 			end))
 			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
-				mainapi:CreateNotification("Now Playing", translateTo(name.." - "..artist), 10)
+				mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
 				if spotifyannounce.Enabled then
 				    local msg = "I'm listening to "..name.." - "..artist
 				    if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
