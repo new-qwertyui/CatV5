@@ -7973,6 +7973,7 @@ run(function()
 						for i,v in plrs do
 							v.RootPart.CFrame = entitylib.character.RootPart.CFrame
 						end
+					end
 					task.wait()
 				until not TPAura.Enabled
 			end
