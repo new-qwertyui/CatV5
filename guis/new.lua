@@ -1,4 +1,3 @@
---This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local mainapi = {
 	Categories = {},
 	GUIColor = {
@@ -6217,7 +6216,7 @@ local colors = {
 		Text = {210, 210, 210}
 	},
 	Purple = {
-		Main = {157, 29, 74},
+		Main = {96,36,143},
 		Text = {210, 210, 210}
 	}
 }
