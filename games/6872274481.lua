@@ -7954,6 +7954,33 @@ run(function()
 	})
 end)
 
+run(function()
+	local TPAura
+
+	TPAura = vape.Categories.Blatant:CreateModule({
+		Name = 'TP Aura',
+		Function = function(call)
+			if call then
+				repeat
+					if entitylib.isAlive then
+						local plrs = entitylib.AllPosition({
+							Range = 5000,
+							Part = 'RootPart',
+							Players = true,
+							Limit = 100
+						})
+						
+						for i,v in plrs do
+							v.RootPart.CFrame = entitylib.character.RootPart.CFrame
+						end
+					task.wait()
+				until not TPAura.Enabled
+			end
+		end,
+		Tooltip = 'Allows you to attack from infinite range'
+	})
+end)
+
 if canReq then
 	run(function()
 		local UICleanup
