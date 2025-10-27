@@ -1,3 +1,5 @@
+print('ran')
+
 local run = function(func) func() end
 local cloneref = cloneref or function(obj) return obj end
 
@@ -15,6 +17,13 @@ local function notif(...)
 	return vape:CreateNotification(...)
 end
 
+print('variable loaded')
+
+local getupvalue = debug.getupvalue
+local require = require
+
+local KnitInit, Knit
+
 run(function()
 	local function dumpRemote(tab)
 		local ind = table.find(tab, 'Client')
@@ -23,8 +32,13 @@ run(function()
 
 	local KnitInit, Knit
 	repeat
-		KnitInit, Knit = pcall(function() return debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 9) end)
-		if KnitInit then break end
+		KnitInit, Knit = pcall(function() 
+			local real = require(lplr.PlayerScripts.TS.knit)
+			return debug.getupvalue(
+				require(lplr.PlayerScripts.TS.knit).setup, 9
+			) 
+		end)
+		if KnitInit then break else warn('error', Knit) end
 		task.wait()
 	until KnitInit
 	if not debug.getupvalue(Knit.Start, 1) then
@@ -55,11 +69,15 @@ run(function()
 	end)
 end)
 
-for _, v in vape.Modules do
+print('run loaded')
+
+for i,v in vape.Modules do
 	if v.Category == 'Combat' or v.Category == 'Minigames' then
 		vape:Remove(i)
 	end
 end
+
+print('module removed')
 
 run(function()
 	local Sprint
@@ -180,3 +198,5 @@ run(function()
 	})
 end)
 	
+
+print('modules loaded')

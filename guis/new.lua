@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 local mainapi = {
 	Categories = {},
 	GUIColor = {
@@ -5479,10 +5480,16 @@ function mainapi:Load(skipgui, profile)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
+	if getgenv().assexecutorhurtsmybutt then
+		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)')
+	end
 	local guidata = {}
 	local savecheck = true
 
 	if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
+		if assexecutorhurtsmybutt then
+			task.wait(0.1)
+		end
 		guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
 		if not guidata then
 			guidata = {Categories = {}}
@@ -5538,6 +5545,9 @@ function mainapi:Load(skipgui, profile)
 		end
 
 		for i, v in savedata.Categories do
+			if assexecutorhurtsmybutt then
+				task.wait(0.05)
+			end
 			local object = self.Categories[i]
 			if not object then continue end
 			if object.Options and v.Options then
@@ -5561,6 +5571,9 @@ function mainapi:Load(skipgui, profile)
 		end
 
 		for i, v in savedata.Modules do
+			if assexecutorhurtsmybutt then
+				task.wait()
+			end
 			local object = self.Modules[i]
 			if not object then continue end
 			if object.Options and v.Options then

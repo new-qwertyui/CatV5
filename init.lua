@@ -4,20 +4,6 @@ repeat
 	task.wait()
 until game:IsLoaded()
 
-if loadonscreen then
-	task.wait(5)
-	if game.GameId == 2619619496 then
-		local suc;
-
-		repeat
-			suc = pcall(function()
-				return require(game:GetService('ReplicatedStorage')['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
-			end)
-			task.wait(0.5)
-		until suc
-	end
-end
-
 if shared.vape then
 	shared.vape:Uninject()
 end
@@ -275,19 +261,23 @@ makestage(2, 'Downloading required files')
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
     makefolder('catrewrite/profiles')
     writefile('catrewrite/profiles/commit.txt', commitdata.sha)
-    local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
-    for _, v in req do
-        if v.path ~= 'profiles/commit.txt' then
-			makestage(2, `Downloading required files\n({v.path})`)
-            downloadFile(`catrewrite/{v.path}`)
-        end
-    end
-    task.spawn(function()
-        local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/translations'))
-        for _, v in req do
-            downloadFile(`catrewrite/{v.path}`)
-        end
-    end)
+	if table.find({'Macsploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+		getgenv().assexecutorhurtsmybutt = true
+	else
+ 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
+		for _, v in req do
+			if v.path ~= 'profiles/commit.txt' then
+				makestage(2, `Downloading required files\n({v.path})`)
+				downloadFile(`catrewrite/{v.path}`)
+			end
+		end
+		task.spawn(function()
+			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/translations'))
+			for _, v in req do
+				downloadFile(`catrewrite/{v.path}`)
+			end
+		end)
+	end
 end
 
 shared.VapeDeveloper = developer
@@ -340,5 +330,5 @@ end
 if not success then
 	error('Failed to initalize catvape: '.. err, 8)
 elseif not closet then
-	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'annc.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+	loadstring(downloadFile('catrewrite/libraries/announcements.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 end
