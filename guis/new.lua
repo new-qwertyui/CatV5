@@ -5481,7 +5481,7 @@ function mainapi:Load(skipgui, profile)
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
 	if getgenv().assexecutorhurtsmybutt then
-		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)')
+		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
 	end
 	local guidata = {}
 	local savecheck = true
