@@ -5546,7 +5546,7 @@ function mainapi:Load(skipgui, profile)
 
 		for i, v in savedata.Categories do
 			if assexecutorhurtsmybutt then
-				task.wait(0.05)
+				task.wait()
 			end
 			local object = self.Categories[i]
 			if not object then continue end
