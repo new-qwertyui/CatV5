@@ -5480,6 +5480,7 @@ function mainapi:Load(skipgui, profile)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
+	warn(assexecutorhurtsmybutt)
 	if getgenv().assexecutorhurtsmybutt then
 		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
 	end
