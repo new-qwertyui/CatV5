@@ -16,6 +16,8 @@ getgenv().username = username or license.Username
 getgenv().password = password or license.Password
 getgenv().catuser = getgenv().username
 
+getgenv().task_spawn = task.spawn
+
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
 local tweenService = game:GetService('TweenService')
