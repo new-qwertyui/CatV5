@@ -16,8 +16,6 @@ getgenv().username = username or license.Username
 getgenv().password = password or license.Password
 getgenv().catuser = getgenv().username
 
-getgenv().task_spawn = task.spawn
-
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
 local tweenService = game:GetService('TweenService')
@@ -260,12 +258,16 @@ end
 
 makestage(2, 'Downloading required files')
 
+if table.find({'Macsploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+	getgenv().assexecutorhurtsmybutt = true
+else
+	warn('BRO', identifyexecutor())
+end
+
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
     makefolder('catrewrite/profiles')
     writefile('catrewrite/profiles/commit.txt', commitdata.sha)
-	if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
-		shared.assexecutorhurtsmybutt = true
-	else
+	if not assexecutorhurtsmybutt then
  		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
 		for _, v in req do
 			if v.path ~= 'profiles/commit.txt' then
@@ -280,13 +282,6 @@ if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('
 			end
 		end)
 	end
-end
-
-warn(({identifyexecutor()})[1])
-if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
-	shared.assexecutorhurtsmybutt = true
-else
-	print("AAAAAAAAAAA")
 end
 
 shared.VapeDeveloper = developer
