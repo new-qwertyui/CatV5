@@ -278,7 +278,7 @@ if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
 	getgenv().assexecutorhurtsmybutt = true
 	print('woah ittt works cognmratts')
 else
-	warn('BRO', identifyexecutor())
+	warn('IT doesn twowrk', ({identifyexecutor()})[1]:lower())
 end
 
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
