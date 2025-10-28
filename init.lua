@@ -276,6 +276,7 @@ makestage(2, 'Downloading required files')
 
 if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
 	getgenv().assexecutorhurtsmybutt = true
+	getgenv().setfflag = nil
 end
 
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
