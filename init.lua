@@ -261,7 +261,7 @@ makestage(2, 'Downloading required files')
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
     makefolder('catrewrite/profiles')
     writefile('catrewrite/profiles/commit.txt', commitdata.sha)
-	if table.find({'Macsploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+	if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
 		getgenv().assexecutorhurtsmybutt = true
 	else
  		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
