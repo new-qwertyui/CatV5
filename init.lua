@@ -274,8 +274,9 @@ end
 
 makestage(2, 'Downloading required files')
 
-if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
 	getgenv().assexecutorhurtsmybutt = true
+	print('woah ittt works cognmratts')
 else
 	warn('BRO', identifyexecutor())
 end
