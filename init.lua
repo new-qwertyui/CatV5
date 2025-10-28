@@ -264,7 +264,6 @@ if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('
     makefolder('catrewrite/profiles')
     writefile('catrewrite/profiles/commit.txt', commitdata.sha)
 	if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
-		warn('macsploit alert')
 		shared.assexecutorhurtsmybutt = true
 	else
  		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
@@ -281,6 +280,10 @@ if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('
 			end
 		end)
 	end
+end
+
+if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+	shared.assexecutorhurtsmybutt = true
 end
 
 shared.VapeDeveloper = developer
