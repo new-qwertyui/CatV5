@@ -5480,15 +5480,15 @@ function mainapi:Load(skipgui, profile)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
-	warn(assexecutorhurtsmybutt)
-	if getgenv().assexecutorhurtsmybutt then
+	warn(shared.assexecutorhurtsmybutt, 'dude i hate macsploit and hydrogen')
+	if shared.assexecutorhurtsmybutt then
 		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
 	end
 	local guidata = {}
 	local savecheck = true
 
 	if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
-		if assexecutorhurtsmybutt then
+		if shared.assexecutorhurtsmybutt then
 			task.wait(0.1)
 		end
 		guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
@@ -5546,7 +5546,7 @@ function mainapi:Load(skipgui, profile)
 		end
 
 		for i, v in savedata.Categories do
-			if assexecutorhurtsmybutt then
+			if shared.assexecutorhurtsmybutt then
 				task.wait()
 			end
 			local object = self.Categories[i]
@@ -5572,7 +5572,7 @@ function mainapi:Load(skipgui, profile)
 		end
 
 		for i, v in savedata.Modules do
-			if assexecutorhurtsmybutt then
+			if shared.assexecutorhurtsmybutt then
 				task.wait()
 			end
 			local object = self.Modules[i]
