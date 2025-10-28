@@ -77,7 +77,7 @@ local function finishLoading()
 	if not shared.vapereload then
 		if not vape.Categories then return end
 		makestage(5, 'Finished!')
-		task_spawn(pcall, function()
+		task.spawn(pcall, function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
