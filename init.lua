@@ -282,9 +282,11 @@ if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('
 	end
 end
 
-warn('({identifyexecutor()})[1]')
+warn(({identifyexecutor()})[1])
 if table.find({'MacSploit', 'Hydrogen'}, ({identifyexecutor()})[1]) then
 	shared.assexecutorhurtsmybutt = true
+else
+	print("AAAAAAAAAAA")
 end
 
 shared.VapeDeveloper = developer
