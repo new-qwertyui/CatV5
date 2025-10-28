@@ -51,6 +51,22 @@ local function getAsset(v)
 	return assetTable[v] or ''
 end
 
+if closet then
+	task.spawn(function()
+		repeat
+			for _, v in getconnections(game:GetService('LogService').MessageOut) do
+				v:Disable()
+			end
+
+			for _, v in getconnections(game:GetService('ScriptContext').Error) do
+				v:Disable()
+			end
+
+			task.wait(1)
+		until not getgenv().closet
+	end)
+end
+
 if gui.Enabled then
 	createinstance('ImageLabel', {
 		Name = 'Main',
@@ -288,22 +304,6 @@ shared.VapeDeveloper = developer
 getgenv().used_init = true
 getgenv().catvapedev = developer
 getgenv().closet = closet
-
-if closet then
-	task.spawn(function()
-		repeat
-			for _, v in getconnections(game:GetService('LogService').MessageOut) do
-				v:Disable()
-			end
-
-			for _, v in getconnections(game:GetService('ScriptContext').Error) do
-				v:Disable()
-			end
-
-			task.wait(1)
-		until not getgenv().closet
-	end)
-end
 
 if not shared.VapeDeveloper then
 	local commit = commitdata.sha or 'main'
