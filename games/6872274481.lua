@@ -849,26 +849,6 @@ run(function()
 						return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
 					end)
 
-					if attackTable.validate.selfPosition.value == Vector3.new(0/0, 0/0, 0/0) then
-						local selfpos = entitylib.character.RootPart.Position
-						local delta = (plr.HumanoidRootPart.Position - selfpos)
-						
-						local dir = CFrame.lookAt(selfpos, plr.HumanoidRootPart.Position.Position).LookVector
-                        local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
-
-						attackTable.validate.selfPosition.value = pos
-						attackTable.validate.targetPosition.value = plr.HumanoidRootPart.Position
-
-						attackTable.validate.raycast = {
-							raycast = {
-								cameraPosition = {value = pos},
-								cursorDirection = {value = dir}
-							},
-							targetPosition = {value = plr.HumanoidRootPart.Position},
-							selfPosition = {value = pos}
-						}
-					end
-					
 					local selfpos = attackTable.validate.selfPosition.value
 					local targetpos = attackTable.validate.targetPosition.value
 					store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
@@ -924,15 +904,20 @@ run(function()
 	end
 
 	--[[
-		Pathfinding using a luau version of dijkstra's algorithm
+		Pathfinding using a luau version of dijkstra's algorithm, Modified by selunar
 		Source: https://stackoverflow.com/questions/39355587/speeding-up-dijkstras-algorithm-to-solve-a-3d-maze
 	]]
-	local function calculatePath(target, blockpos)
+
+	local function canSeePosition(pos)
+		return ({gameCamera:WorldToViewportPoint(pos)})[2]
+	end
+
+	local function calculatePath(target, blockpos, wallcheck)
 		if cache[blockpos] then
 			return unpack(cache[blockpos])
 		end
 		local visited, unvisited, distances, air, path = {}, {{0, blockpos}}, {[blockpos] = 0}, {}, {}
-
+		
 		for _ = 1, 10000 do
 			local _, node = next(unvisited)
 			if not node then break end
@@ -952,7 +937,9 @@ run(function()
 				end
 
 				local curdist = getBlockHits(block, side) + node[1]
-				if curdist < (distances[side] or math.huge) then
+				local lol = canSeePosition(node[2])
+				warn(lol)
+				if curdist < (distances[side] or math.huge) and lol then
 					table.insert(unvisited, {curdist, side})
 					distances[side] = curdist
 					path[side] = node[2]
@@ -1304,6 +1291,38 @@ run(function()
 		notif('Vape', 'Contract updated', 6, 'info')
 	end))
 
+	local rayCheck = RaycastParams.new()
+	rayCheck.FilterType = Enum.RaycastFilterType.Exclude
+	rayCheck.RespectCanCollide = true
+
+	vape:Clean(task.spawn(function()
+		local items = collection('ItemDrop', vape)
+
+		repeat
+			if vape.Loaded and entitylib.isAlive and (vape.Modules.Fly.Enabled or vape.Modules['Infinite Jump'].Enabled or vape.Modules['Long Jump'].Enabled) then
+				local excludes = items
+				table.insert(excludes, gameCamera)
+				table.insert(excludes, lplr.Character)
+								
+				rayCheck.FilterDescendantsInstances = excludes
+				rayCheck.CollisionGroup = entitylib.character.RootPart.CollisionGroup
+
+				local lasty = entitylib.character.RootPart.CFrame.Y
+				local lastvelo = entitylib.character.RootPart.AssemblyLinearVelocity
+				if (os.clock() - entitylib.character.AirTime) > 1.7 then
+					local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), rayCheck)
+					if ray then
+						entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.CFrame.X, ray.Position.Y + 1, entitylib.character.RootPart.CFrame.Z), entitylib.character.RootPart.CFrame.LookVector)
+						task.wait(0.1)
+						entitylib.character.RootPart.CFrame += Vector3.new(0, lasty - entitylib.character.RootPart.CFrame.Y, 0)
+						entitylib.character.RootPart.AssemblyLinearVelocity = lastvelo
+					end
+				end
+			end
+			task.wait()
+		until false
+	end))
+
 	getgenv().remotes = remotes
 	getgenv().bedwars = bedwars
 	getgenv().store = store
@@ -1312,89 +1331,134 @@ end)
 for _, v in {'Anti Ragdoll', 'Trigger Bot', 'Silent Aim', 'Auto Rejoin', 'Rejoin', 'Disabler', 'Timer', 'Server Hop', 'Mouse TP', 'Murder Mystery'} do
 	vape:Remove(v)
 end
+
 run(function()
-	local AimAssist
-	local Targets
-	local Sort
-	local AimSpeed
-	local Distance
-	local AngleSlider
-	local StrafeIncrease
-	local KillauraTarget
-	local ClickAim
-	
-	AimAssist = vape.Categories.Combat:CreateModule({
-		Name = 'Aim Assist',
-		Function = function(callback)
-			if callback then
-				AimAssist:Clean(runService.Heartbeat:Connect(function(dt)
-					if entitylib.isAlive and store.hand.toolType == 'sword' and ((not ClickAim.Enabled) or (tick() - bedwars.SwordController.lastSwing) < 0.4) then
-						local ent = not KillauraTarget.Enabled and entitylib.EntityPosition({
-							Range = Distance.Value,
-							Part = 'RootPart',
-							Wallcheck = Targets.Walls.Enabled,
-							Players = Targets.Players.Enabled,
-							NPCs = Targets.NPCs.Enabled,
-							Sort = sortmethods[Sort.Value]
-						}) or store.KillauraTarget
-	
-						if ent then
-							local delta = (ent.RootPart.Position - entitylib.character.RootPart.Position)
-							local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
-							local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
-							if angle >= (math.rad(AngleSlider.Value) / 2) then return end
-							targetinfo.Targets[ent] = tick() + 1
-							gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, ent.RootPart.Position), (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0)) * dt)
-						end
-					end
-				end))
-			end
-		end,
-		Tooltip = 'Smoothly aims to closest valid target with sword'
+    local AimAssist
+	local Third
+    local Targets
+    local Sort
+    local AimSpeed
+    local Distance
+    local AngleSlider
+    local StrafeIncrease
+    local KillauraTarget
+    local ClickAim
+    local Shake
+
+    AimAssist = vape.Categories.Combat:CreateModule({
+        Name = 'Aim Assist',
+        Function = function(callback)
+            if callback then
+                AimAssist:Clean(runService.Heartbeat:Connect(function(dt)
+                    if entitylib.isAlive and store.hand.toolType == 'sword' and ((not ClickAim.Enabled) or (tick() - bedwars.SwordController.lastSwing) < 0.4) then
+                        local ent = not KillauraTarget.Enabled and entitylib.EntityPosition({
+                            Range = Distance.Value,
+                            Part = 'RootPart',
+                            Wallcheck = Targets.Walls.Enabled,
+                            Players = Targets.Players.Enabled,
+                            NPCs = Targets.NPCs.Enabled,
+                            Sort = sortmethods[Sort.Value]
+                        }) or store.KillauraTarget
+
+                        if ent then
+                            local delta = (ent.RootPart.Position - entitylib.character.RootPart.Position)
+                            local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
+                            local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
+                            if angle >= (math.rad(AngleSlider.Value) / 2) then return end
+                            
+                            targetinfo.Targets[ent] = tick() + 1
+                            local rng = Random.new()
+                                
+                            local targetPos = ent.RootPart.Position
+                            
+                            local shake = Vector3.new(
+                                (rng:NextNumber() - 0.5) * Shake.Value * 0.1,
+                                (rng:NextNumber() - 0.5) * Shake.Value * 0.1,
+                                (rng:NextNumber() - 0.5) * Shake.Value * 0.1
+                            )
+                            targetPos += shake
+
+							local speed = (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0))
+							if Third.Enabled then
+								entitylib.character.RootPart.CFrame = entitylib.character.RootPart.CFrame:Lerp(
+									CFrame.lookAt(entitylib.character.RootPart.CFrame.p, 
+									Vector3.new(ent.RootPart.Position.X, entitylib.character.RootPart.Position.Y, ent.RootPart.Position.Z)), speed * dt) -- w format
+							else
+								gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, targetPos), speed * dt)
+							end
+                        end
+                    end
+                end))
+            end
+        end,
+        Tooltip = 'Smoothly aims to closest valid target with sword'
+    })
+
+    Targets = AimAssist:CreateTargets({
+        Players = true,
+        Walls = true
+    })
+
+    local methods = {'Damage', 'Distance'}
+    for i in sortmethods do
+        if not table.find(methods, i) then
+            table.insert(methods, i)
+        end
+    end
+
+    Sort = AimAssist:CreateDropdown({
+        Name = 'Target Mode',
+        List = methods
+    })
+
+    AimSpeed = AimAssist:CreateSlider({
+        Name = 'Aim Speed',
+        Min = 1,
+        Max = 20,
+        Default = 6
+    })
+
+    Distance = AimAssist:CreateSlider({
+        Name = 'Distance',
+        Min = 1,
+        Max = 30,
+        Default = 30,
+        Suffx = function(val)
+            return val == 1 and 'stud' or 'studs'
+        end
+    })
+
+    AngleSlider = AimAssist:CreateSlider({
+        Name = 'Max angle',
+        Min = 1,
+        Max = 360,
+        Default = 70
+    })
+
+    Shake = AimAssist:CreateSlider({
+        Name = 'Shake',
+        Min = 0,
+        Max = 100,
+        Default = 0,
+        Tooltip = 'Adds random jitter to simulate human aim lmfao xd'
+    })
+
+    ClickAim = AimAssist:CreateToggle({
+        Name = 'Click Aim',
+        Default = true
+    })
+
+    KillauraTarget = AimAssist:CreateToggle({
+        Name = 'Use killaura target'
+    })
+
+	Third = AimAssist:CreateToggle({
+		Name = 'Third person aim'
 	})
-	Targets = AimAssist:CreateTargets({
-		Players = true,
-		Walls = true
-	})
-	local methods = {'Damage', 'Distance'}
-	for i in sortmethods do
-		if not table.find(methods, i) then
-			table.insert(methods, i)
-		end
-	end
-	Sort = AimAssist:CreateDropdown({
-		Name = 'Target Mode',
-		List = methods
-	})
-	AimSpeed = AimAssist:CreateSlider({
-		Name = 'Aim Speed',
-		Min = 1,
-		Max = 20,
-		Default = 6
-	})
-	Distance = AimAssist:CreateSlider({
-		Name = 'Distance',
-		Min = 1,
-		Max = 30,
-		Default = 30,
-		Suffx = function(val)
-			return val == 1 and 'stud' or 'studs'
-		end
-	})
-	AngleSlider = AimAssist:CreateSlider({
-		Name = 'Max angle',
-		Min = 1,
-		Max = 360,
-		Default = 70
-	})
-	ClickAim = AimAssist:CreateToggle({
-		Name = 'Click Aim',
-		Default = true
-	})
-	KillauraTarget = AimAssist:CreateToggle({
-		Name = 'Use killaura target'
-	})
-	StrafeIncrease = AimAssist:CreateToggle({Name = 'Strafe increase'})
+
+    StrafeIncrease = AimAssist:CreateToggle({
+        Name = 'Strafe increase'
+    })
 end)
 	
 --[[run(function()
@@ -1465,7 +1529,7 @@ run(function()
 			task.cancel(Thread)
 		end
 	
-		Thread = task.delay(1 / 7, function()
+		Thread = task.delay(1 / (store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue(), function()
 			repeat
 				if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
 					local blockPlacer = bedwars.BlockPlacementController.blockPlacer
@@ -1690,17 +1754,46 @@ run(function()
 	local Velocity
 	local Horizontal
 	local Vertical
+	local Air
+	local Ground
+	local Mode
 	local Chance
 	local TargetCheck
 	local rand, old = Random.new()
 	
+	local TakeKnockback = Instance.new('BindableEvent')
+
 	Velocity = vape.Categories.Combat:CreateModule({
 		Name = 'Velocity',
 		Function = function(callback)
 			if callback then
 				old = bedwars.KnockbackUtil.applyKnockback
+
+				Velocity:Clean(TakeKnockback.Event:Connect(function(root, mass, dir, knockback, ...)
+					local args = {...}
+
+					local air, ground
+
+					task.delay(Air:GetRandomValue() / 1000, function()
+						local clone = table.clone(knockback)
+						clone.horizontal = ground and 0.1 or 0
+						air = true
+						old(root, mass, dir, clone, unpack(args))
+					end)
+					task.delay(Ground:GetRandomValue() / 1000, function()
+						local clone = table.clone(knockback)
+						clone.vertical = air and 0.1 or 0
+						ground = true
+						old(root, mass, dir, clone, unpack(args))
+					end)
+				end))
+
 				bedwars.KnockbackUtil.applyKnockback = function(root, mass, dir, knockback, ...)
-					if rand:NextNumber(0, 100) > Chance.Value then return end
+					local chance = rand:NextNumber(0, 100)
+					if Mode.Value == 'Normal' then
+						if chance > Chance.Value then return end
+					end
+					
 					local check = (not TargetCheck.Enabled) or entitylib.EntityPosition({
 						Range = 50,
 						Part = 'RootPart',
@@ -1709,9 +1802,15 @@ run(function()
 	
 					if check then
 						knockback = knockback or {}
-						if Horizontal.Value == 0 and Vertical.Value == 0 then return end
-						knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
-						knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+						if Mode.Value == 'Lag' then
+							if chance < Chance.Value then
+								return TakeKnockback:Fire(root, mass, dir, knockback, ...)
+							end
+						else
+							if Horizontal.Value == 0 and Vertical.Value == 0 then return end
+							knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
+							knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+						end
 					end
 					
 					return old(root, mass, dir, knockback, ...)
@@ -1720,13 +1819,17 @@ run(function()
 				bedwars.KnockbackUtil.applyKnockback = old
 			end
 		end,
-		Tooltip = 'Reduces knockback taken'
+		Tooltip = 'Reduces knockback taken',
+		ExtraText = function()
+			return Mode.Value
+		end
 	})
 	Horizontal = Velocity:CreateSlider({
 		Name = 'Horizontal',
 		Min = 0,
 		Max = 100,
 		Default = 0,
+		Darker = true,
 		Suffix = '%'
 	})
 	Vertical = Velocity:CreateSlider({
@@ -1734,8 +1837,40 @@ run(function()
 		Min = 0,
 		Max = 100,
 		Default = 0,
+		Darker = true,
 		Suffix = '%'
 	})
+	Air = Velocity:CreateTwoSlider({
+		Name = 'Air delay',
+		Min = 0,
+		Max = 500,
+		Darker = true,
+		DefaultMin = 50,
+		DefaultMax = 150
+	})
+	Ground = Velocity:CreateTwoSlider({
+		Name = 'Ground delay',
+		Min = 0,
+		Max = 500,
+		Darker = true,
+		DefaultMin = 200,
+		DefaultMax = 250
+	})
+	Mode = Velocity:CreateDropdown({
+		Name = 'Mode',
+		Default = 'Normal',
+		List = {'Lag', 'Normal'},
+		Function = function(val)
+			Vertical.Object.Visible = val == 'Normal'
+			Horizontal.Object.Visible = val == 'Normal'
+			Air.Object.Visible = val == 'Lag'
+			Ground.Object.Visible = val == 'Lag'
+		end
+	})
+	Vertical.Object.Visible = Mode.Value == 'Normal'
+	Horizontal.Object.Visible = Mode.Value == 'Normal'
+	Air.Object.Visible = Mode.Value == 'Lag'
+	Ground.Object.Visible = Mode.Value == 'Lag'
 	Chance = Velocity:CreateSlider({
 		Name = 'Chance',
 		Min = 0,
@@ -2840,10 +2975,10 @@ run(function() -- CATVAPE FEATURE
 		imgicon.ZIndex = 2
 		imgicon.BackgroundTransparency = 1
 		imgicon.Image = bedwars.getIcon({itemType = icon}, true)
-		imgicon.Size = UDim2.fromOffset(30, 30)
+		imgicon.Size = UDim2.fromOffset(29, 29)
 
 		local uicorner = Instance.new('UICorner')
-		uicorner.CornerRadius = UDim.new(0, 4)
+		uicorner.CornerRadius = UDim.new(0, 6)
 		uicorner.Parent = image
 		Reference[v] = billboard
 	end
@@ -3397,7 +3532,7 @@ run(function()
 				alreadygot[item.Name] = true
 				v.Enabled = true
 				local blockimage = Instance.new('ImageLabel')
-				blockimage.Size = UDim2.fromOffset(32, 32)
+				blockimage.Size = UDim2.fromOffset(31, 31)
 				blockimage.BackgroundTransparency = 1
 				blockimage.Image = bedwars.getIcon({itemType = item.Name}, true)
 				blockimage.Parent = v.Frame
@@ -3435,7 +3570,7 @@ run(function()
 		end)
 		layout.Parent = frame
 		local corner = Instance.new('UICorner')
-		corner.CornerRadius = UDim.new(0, 4)
+		corner.CornerRadius = UDim.new(0, 6)
 		corner.Parent = frame
 		Reference[v] = billboard
 		StorageESP:Clean(chest.ChildAdded:Connect(function(item)
@@ -3999,6 +4134,7 @@ end)
 	
 run(function()
 	local Scaffold
+	local Mounting
 	local Expand
 	local Tower
 	local Downwards
@@ -4079,7 +4215,7 @@ run(function()
 	
 			if callback then
 				repeat
-					if entitylib.isAlive then
+					if entitylib.isAlive and (not Mounting.Enabled or not lplr.Character:FindFirstChild('elk')) then
 						local wool, amount = getScaffoldBlock()
 	
 						if Mouse.Enabled then
@@ -4148,6 +4284,7 @@ run(function()
 		Name = 'Diagonal',
 		Default = true
 	})
+	Mounting = Scaffold:CreateToggle({Name = 'Mount Check'})
 	LimitItem = Scaffold:CreateToggle({Name = 'Limit to items'})
 	Mouse = Scaffold:CreateToggle({Name = 'Require mouse down'})
 	Count = Scaffold:CreateToggle({
@@ -4386,85 +4523,160 @@ run(function()
 end)
 	
 run(function()
-	vape.Categories.World:CreateModule({
-		Name = 'Anti-AFK',
-		Function = function(callback)
-			if callback then
-				for _, v in getconnections(lplr.Idled) do
-					v:Disconnect()
-				end
-	
-				for _, v in getconnections(runService.Heartbeat) do
-					if type(v.Function) == 'function' and table.find(debug.getconstants(v.Function), remotes.AfkStatus) then
-						v:Disconnect()
-					end
-				end
-	
-				bedwars.Client:Get(remotes.AfkStatus):SendToServer({
-					afk = false
-				})
-			end
-		end,
-		Tooltip = 'Lets you stay ingame without getting kicked'
-	})
-end)
-	
-run(function()
 	local AutoSuffocate
+	local Solutions
 	local Range
 	local LimitItem
-	
+	local Prediction
+	local SmartSpread
+
 	local function fixPosition(pos)
 		return bedwars.BlockController:getBlockPosition(pos) * 3
 	end
-	
+
+	local function isOpen(pos)
+		return not getPlacedBlock(pos)
+	end
+
+	local function hasAdjacent(pos)
+		local offsets = {
+			Vector3.new(3, 0, 0),
+			Vector3.new(-3, 0, 0),
+			Vector3.new(0, 0, 3),
+			Vector3.new(0, 0, -3),
+			Vector3.new(0, -3, 0)
+		}
+		for _, off in offsets do
+			if not isOpen(pos + off) then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function buildSupportPath(targetPos, item, maxLength)
+		local start = fixPosition(targetPos - Vector3.new(0, 3, 0))
+		local bestAnchor = nil
+		local found = false
+
+		for y = 0, 12, 3 do
+			for x = -9, 9, 3 do
+				for z = -9, 9, 3 do
+					local check = start + Vector3.new(x, -y, z)
+					if not isOpen(check) then
+						bestAnchor = check
+						found = true
+						break
+					end
+				end
+				if found then break end
+			end
+			if found then break end
+		end
+
+		if not bestAnchor then return false end
+
+		local dir = (targetPos - bestAnchor).Unit
+		local step = dir * 3
+		local current = bestAnchor
+		local placed = 0
+
+		while (current - targetPos).Magnitude > 3 and placed < maxLength do
+			current += step
+			local pos = fixPosition(current)
+			if isOpen(pos) and hasAdjacent(pos) then
+				task.spawn(bedwars.placeBlock, pos, item)
+				placed += 1
+			end
+			task.wait()
+		end
+
+		return true
+	end
+
 	AutoSuffocate = vape.Categories.World:CreateModule({
 		Name = 'Auto Suffocate',
 		Function = function(callback)
 			if callback then
 				repeat
 					local item = store.hand.toolType == 'block' and store.hand.tool.Name or not LimitItem.Enabled and getWool()
-	
 					if item then
 						local plrs = entitylib.AllPosition({
 							Part = 'RootPart',
 							Range = Range.Value,
 							Players = true
 						})
-	
+
 						for _, ent in plrs do
+							if not ent or not ent.RootPart then continue end
+
+							local velocity = ent.RootPart.Velocity or Vector3.zero
+							local predicted = ent.RootPart.Position + velocity * Prediction.Value
+							local center = fixPosition(predicted)
+							local insidePos = center
+							local topPos = fixPosition(predicted + Vector3.new(0, 3, 0))
+
+							if not hasAdjacent(center) then
+								buildSupportPath(center, item, 10)
+							end
+
 							local needPlaced = {}
-	
-							for _, side in Enum.NormalId:GetEnumItems() do
-								side = Vector3.fromNormalId(side)
-								if side.Y ~= 0 then continue end
-	
-								side = fixPosition(ent.RootPart.Position + side * 2)
-								if not getPlacedBlock(side) then
-									table.insert(needPlaced, side)
+							local placed = 0
+
+							local sideOffsets = {
+								Vector3.new(3, 0, 0),
+								Vector3.new(-3, 0, 0),
+								Vector3.new(0, 0, 3),
+								Vector3.new(0, 0, -3)
+							}
+							local cornerOffsets = {
+								Vector3.new(3, 0, 3),
+								Vector3.new(-3, 0, 3),
+								Vector3.new(3, 0, -3),
+								Vector3.new(-3, 0, -3)
+							}
+
+							if SmartSpread.Enabled then
+								for _, off in cornerOffsets do
+									local pos = center + off
+									if isOpen(pos) and hasAdjacent(pos) then
+										table.insert(needPlaced, pos)
+									end
 								end
 							end
-	
-							if #needPlaced < 3 then
-								table.insert(needPlaced, fixPosition(ent.Head.Position))
-								table.insert(needPlaced, fixPosition(ent.RootPart.Position - Vector3.new(0, 1, 0)))
-	
-								for _, pos in needPlaced do
-									if not getPlacedBlock(pos) then
-										task.spawn(bedwars.placeBlock, pos, item)
-										break
-									end
+
+							for _, off in sideOffsets do
+								local pos = center + off
+								if isOpen(pos) and hasAdjacent(pos) then
+									table.insert(needPlaced, pos)
+								end
+							end
+
+							if isOpen(topPos) and hasAdjacent(topPos) then
+								table.insert(needPlaced, topPos)
+							end
+
+							if not isOpen(insidePos) or not hasAdjacent(insidePos) then
+							else
+								table.insert(needPlaced, insidePos)
+							end
+
+							for _, pos in needPlaced do
+								if placed >= Solutions.Value then break end
+								if isOpen(pos) then
+									task.spawn(bedwars.placeBlock, pos, item)
+									placed += 1
 								end
 							end
 						end
 					end
-	
 					task.wait(0.09)
 				until not AutoSuffocate.Enabled
 			end
 		end,
-		Tooltip = 'Places blocks on nearby confined entities'
+		Tooltip = 'Builds support blocks if needed, then creates adaptive suffocation cages around players'
 	})
+
 	Range = AutoSuffocate:CreateSlider({
 		Name = 'Range',
 		Min = 1,
@@ -4474,12 +4686,36 @@ run(function()
 			return val == 1 and 'stud' or 'studs'
 		end
 	})
+
+	Solutions = AutoSuffocate:CreateSlider({
+		Name = 'Solutions',
+		Min = 1,
+		Max = 10,
+		Default = 6
+	})
+
+	Prediction = AutoSuffocate:CreateSlider({
+		Name = 'Prediction',
+		Min = 0,
+		Max = 1,
+		Suffix = 's',
+		Default = 0.7,
+		Decimal = 5,
+		Tooltip = 'Predict player movement forward in seconds'
+	})
+
+	SmartSpread = AutoSuffocate:CreateToggle({
+		Name = 'Smart Spread',
+		Default = true,
+		Tooltip = 'Places corners first and builds support if air placement needed'
+	})
+
 	LimitItem = AutoSuffocate:CreateToggle({
 		Name = 'Limit to Items',
 		Default = true
 	})
 end)
-	
+
 run(function()
 	local AutoTool
 	local old, event
@@ -6218,7 +6454,7 @@ run(function()
 	
 		for _, block in alreadygot do
 			local blockimage = Instance.new('ImageLabel')
-			blockimage.Size = UDim2.fromOffset(32, 32)
+			blockimage.Size = UDim2.fromOffset(29, 29)
 			blockimage.BackgroundTransparency = 1
 			blockimage.Image = bedwars.getIcon({itemType = block}, true)
 			blockimage.Parent = v.Frame
@@ -6251,7 +6487,7 @@ run(function()
 		end)
 		layout.Parent = frame
 		local corner = Instance.new('UICorner')
-		corner.CornerRadius = UDim.new(0, 4)
+		corner.CornerRadius = UDim.new(0, 6)
 		corner.Parent = frame
 		Reference[v] = billboard
 		refreshAdornee(billboard)
