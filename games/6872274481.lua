@@ -849,6 +849,26 @@ run(function()
 						return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
 					end)
 
+					if attackTable.validate.selfPosition == Vector3.new(0/0, 0/0, 0/0) then
+						local selfpos = entitylib.character.RootPart.Position
+						local delta = (plr.HumanoidRootPart.Position - selfpos)
+						
+						local dir = CFrame.lookAt(selfpos, plr.HumanoidRootPart.Position.Position).LookVector
+                        local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
+
+						attackTable.validate.selfPosition = pos
+						attackTable.validate.targetPosition = plr.HumanoidRootPart.Position
+
+						attackTable.validate.raycast = {
+							raycast = {
+								cameraPosition = {value = pos},
+								cursorDirection = {value = dir}
+							},
+							targetPosition = {value = plr.HumanoidRootPart.Position},
+							selfPosition = {value = pos}
+						}
+					end
+					
 					local selfpos = attackTable.validate.selfPosition.value
 					local targetpos = attackTable.validate.targetPosition.value
 					store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
