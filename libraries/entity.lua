@@ -1,3 +1,4 @@
+
 local entitylib = {
 	isAlive = false,
 	character = {},

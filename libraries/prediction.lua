@@ -187,9 +187,6 @@ function module.solveQuartic(c0, c1, c2, c3, c4)
 end
 
 function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, targetVelocity, playerGravity, playerHeight, playerJump, params, walking, ping)
-	local latency = (typeof(ping) == "number") and ping or 0
-	latency += 0.06 -- server comms
-
     local disp = targetPos - origin
     local p, q, r = targetVelocity.X, (targetVelocity.Y > 0 and targetVelocity.Y < 4) and (0) or (targetVelocity.Y < 0 and targetVelocity.Y > -4) and 0 or targetVelocity.Y, targetVelocity.Z
     local h, j, k = disp.X, disp.Y, disp.Z
@@ -243,7 +240,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
 
         if bestT then
-            local futurePos = targetPos + targetVelocity * (bestT + latency)
+            local futurePos = targetPos + targetVelocity * (bestT)
 			local futureYPos = targetPos + targetVelocity * bestT
 
             local disp2 = futurePos - origin
@@ -257,7 +254,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
     elseif gravity == 0 then
         local t = (disp.Magnitude / projectileSpeed) 
-        local futurePos = targetPos + targetVelocity * (t + latency)
+        local futurePos = targetPos + targetVelocity * (t)
 		local futureYPos = targetPos + targetVelocity * t
 
         local disp2 = futurePos - origin

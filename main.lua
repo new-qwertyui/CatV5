@@ -29,7 +29,7 @@ local function downloadFile(path, func)
 			error(res)
 		end
 		if path:find('.lua') then
-			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+			res = '\n'..res
 		end
 		writefile(path, res)
 	end
@@ -57,11 +57,17 @@ local function finishLoading()
 			if getgenv().catvapedev then
 				teleportScript = 'getgenv().catvapedev = true\n'.. [[
 					shared.vapereload = true
-					loadfile('catrewrite/init.lua')()
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')()
 				]]
 			end
 			if shared.VapeDeveloper then
 				teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
+			end
+			if getgenv().username then
+				teleportScript = `getgenv().username = {getgenv().username}\n`.. teleportScript
+			end
+			if getgenv().password then
+				teleportScript = `getgenv().username = {getgenv().password}\n`.. teleportScript
 			end
 			if getgenv().closet then
 				teleportScript = 'getgenv().closet = true\n'.. teleportScript

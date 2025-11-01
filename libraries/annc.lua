@@ -118,4 +118,3 @@ task.spawn(function()
 		end
 	until not shared.vape
 end)
-print("global announcements loaded")

@@ -1,3 +1,4 @@
+
 local vape = shared.vape
 local loadstring = function(...)
 	local res, err = loadstring(...)
@@ -21,7 +22,7 @@ local function downloadFile(path, func)
 			error(res) 
 		end
 		if path:find('.lua') then 
-			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res 
+			res = '\n'..res 
 		end
 		writefile(path, res)
 	end

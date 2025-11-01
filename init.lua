@@ -8,6 +8,10 @@ if shared.vape then
 	shared.vape:Uninject()
 end
 
+if loadonscreen then
+    task.wait(8)
+end
+
 local license = ({...})[1] or {}
 local developer = getgenv().catvapedev or license.Developer or false
 local closet = getgenv().closet or license.Closet or false
@@ -333,5 +337,5 @@ end
 if not success then
 	error('Failed to initalize catvape: '.. err, 8)
 elseif not closet then
-	loadstring(downloadFile('catrewrite/libraries/announcements.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 end

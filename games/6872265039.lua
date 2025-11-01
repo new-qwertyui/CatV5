@@ -1,5 +1,3 @@
-print('ran')
-
 local run = function(func) func() end
 local cloneref = cloneref or function(obj) return obj end
 
@@ -16,8 +14,6 @@ local bedwars = {}
 local function notif(...)
 	return vape:CreateNotification(...)
 end
-
-print('variable loaded')
 
 local getupvalue = debug.getupvalue
 local require = require
@@ -69,15 +65,11 @@ run(function()
 	end)
 end)
 
-print('run loaded')
-
 for i,v in vape.Modules do
 	if v.Category == 'Combat' or v.Category == 'Minigames' then
 		vape:Remove(i)
 	end
 end
-
-print('module removed')
 
 run(function()
 	local Sprint
