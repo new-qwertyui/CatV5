@@ -67,7 +67,7 @@ local function finishLoading()
 				teleportScript = `getgenv().username = {getgenv().username}\n`.. teleportScript
 			end
 			if getgenv().password then
-				teleportScript = `getgenv().username = {getgenv().password}\n`.. teleportScript
+				teleportScript = `getgenv().password = {getgenv().password}\n`.. teleportScript
 			end
 			if getgenv().closet then
 				teleportScript = 'getgenv().closet = true\n'.. teleportScript
