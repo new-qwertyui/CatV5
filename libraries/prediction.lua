@@ -188,16 +188,22 @@ end
 
 function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, targetVelocity, playerGravity, playerHeight, playerJump, params, walking, ping)
     local disp = targetPos - origin
-    local p, q, r = targetVelocity.X, (targetVelocity.Y > 0 and targetVelocity.Y < 4) and (0) or (targetVelocity.Y < 0 and targetVelocity.Y > -4) and 0 or targetVelocity.Y, targetVelocity.Z
+    local p, q, r = targetVelocity.X, targetVelocity.Y, targetVelocity.Z
     local h, j, k = disp.X, disp.Y, disp.Z
     local l = -0.5 * gravity
 
-	if q > 20 and q < 40 then
-		targetPos -= Vector3.new(0, 2, 0)
+	if ping and ping > 0.1 then
+		ping = ping / 4
+	elseif not ping then
+		ping = 0
 	end
 
-	if q > 1 then
-		q += 4
+	warn('lol',ping)
+
+	if q > 0 and q < 50 then
+		q = 1
+	elseif q < -1 and q > -50 then
+		q = -q
 	end
 
     if math.abs(q) > 0.01 and playerGravity and playerGravity > 0 then
@@ -240,7 +246,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
 
         if bestT then
-            local futurePos = targetPos + targetVelocity * (bestT)
+            local futurePos = targetPos + targetVelocity * (bestT + ping)
 			local futureYPos = targetPos + targetVelocity * bestT
 
             local disp2 = futurePos - origin
@@ -254,7 +260,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
     elseif gravity == 0 then
         local t = (disp.Magnitude / projectileSpeed) 
-        local futurePos = targetPos + targetVelocity * (t)
+        local futurePos = targetPos + targetVelocity * (t + ping)
 		local futureYPos = targetPos + targetVelocity * t
 
         local disp2 = futurePos - origin

@@ -93,7 +93,7 @@ entitylib.getUpdateConnections = function(ent)
 end
 
 entitylib.isVulnerable = function(ent)
-	return ent.Health > 0 and not ent.Character.FindFirstChildWhichIsA(ent.Character, 'ForceField')
+	return ent.Health > 0 and (not ent.Character.FindFirstChildWhichIsA(ent.Character, 'ForceField') or game.GameId == 7534782259)
 end
 
 entitylib.getEntityColor = function(ent)

@@ -1,15 +1,16 @@
+
 local loadonscreen = not game:IsLoaded()
 
 repeat
 	task.wait()
 until game:IsLoaded()
 
-if shared.vape then
-	shared.vape:Uninject()
+if loadonscreen then
+    task.wait(0.5)
 end
 
-if loadonscreen then
-    task.wait(8)
+if shared.vape then
+	shared.vape:Uninject()
 end
 
 local license = ({...})[1] or {}
@@ -25,7 +26,7 @@ local gethui = gethui or function() return game:GetService('Players').LocalPlaye
 local tweenService = game:GetService('TweenService')
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
-gui.Enabled = not closet
+gui.Enabled = if developer then true else false
 
 local stages = {
 	UDim2.new(0, 50, 1, 0),
@@ -43,16 +44,6 @@ local createinstance = function(class, properties)
 	end
 
 	return res
-end
-
-local assetTable = {
-	['catrewrite/assets/loader/background.png'] = 'rbxassetid://93496634716737',
-	['catrewrite/assets/loader/exit.png'] = 'rbxassetid://110629770884920',
-	['catrewrite/assets/loader/exiticon.png'] = 'rbxassetid://128518278755224'
-}
-
-local function getAsset(v)
-	return assetTable[v] or ''
 end
 
 if closet then
@@ -226,7 +217,16 @@ if not success or typeof(commitdata) ~= 'table' or commitdata.sha == nil then
 	commitdata = {sha = 'main', files = {}}
 end
 
-writefile('catreset', 'True')
+if not isfile('catreset67') and not closet and isfolder('catrewrite') and not developer then
+	for _, v in listfiles('catrewrite') do
+		if not v:find('assets') then
+			pcall(delfile, v)
+			pcall(delfolder, v)
+		end
+	end
+end
+
+writefile('catreset67', 'True')
 
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
@@ -273,7 +273,6 @@ for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 
 		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
-	task.wait(0.05)
 end
 
 makestage(2, 'Downloading required files')

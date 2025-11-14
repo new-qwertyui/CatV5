@@ -91,6 +91,7 @@ run(function()
                 end
             end
             team = team:sub(0, 1):upper().. team:sub(2, #team):lower()
+            warn('bed broken!', team)
             vapeEvents.BedwarsBedBreak:Fire({
                 brokenBedTeam = {
                     id = team

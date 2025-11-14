@@ -57,7 +57,7 @@ local function finishLoading()
 			if getgenv().catvapedev then
 				teleportScript = 'getgenv().catvapedev = true\n'.. [[
 					shared.vapereload = true
-					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')()
+					loadstring(readfile('catrewrite/init.lua'), 'init.lua')()
 				]]
 			end
 			if shared.VapeDeveloper then
@@ -126,6 +126,11 @@ end
 if not isfolder('catrewrite/assets/'..gui) then
 	makefolder('catrewrite/assets/'..gui)
 end
+
+if shared.vape then
+	shared.vape:Uninject()
+end
+
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 

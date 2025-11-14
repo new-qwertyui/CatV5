@@ -19,7 +19,7 @@ local mainapi = {
 	Scale = {Value = 1},
 	ThreadFix = setthreadidentity and true or false,
 	ToggleNotifications = {},
-	Version = 'DEV BUILD',
+	Version = 'v4.500',
 	Windows = {},
 	Indicators = {}
 }
@@ -2683,9 +2683,7 @@ function mainapi:CreateGUI()
 	settingsversion.Size = UDim2.new(1, 0, 0, 16)
 	settingsversion.Position = UDim2.new(0, 0, 1, -16)
 	settingsversion.BackgroundTransparency = 1
-	settingsversion.Text = 'Vape '..mainapi.Version..' '..(
-		isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt'):sub(1, 6) or ''
-	)..' '
+	settingsversion.Text = 'Cat Vape '..mainapi.Version
 	settingsversion.TextColor3 = color.Dark(uipallet.Text, 0.43)
 	settingsversion.TextXAlignment = Enum.TextXAlignment.Right
 	settingsversion.TextSize = 10
@@ -5929,6 +5927,11 @@ mainapi:CreateCategory({
 	Name = 'Minigames',
 	Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
 	Size = UDim2.fromOffset(19, 12)
+})
+mainapi:CreateCategory({
+	Name = 'Catvape',
+	Icon = getcustomasset('catrewrite/assets/new/targetnpc2.png'),
+	Size = UDim2.fromOffset(14, 14)
 })
 mainapi.Categories.Main:CreateDivider('misc')
 
