@@ -26,7 +26,7 @@ local gethui = gethui or function() return game:GetService('Players').LocalPlaye
 local tweenService = game:GetService('TweenService')
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
-gui.Enabled = if developer then true else false
+gui.Enabled = not closet
 
 local stages = {
 	UDim2.new(0, 50, 1, 0),
