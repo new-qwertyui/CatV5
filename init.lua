@@ -6,7 +6,7 @@ repeat
 until game:IsLoaded()
 
 if loadonscreen then
-    task.wait(0.5)
+    task.wait(2)
 end
 
 if shared.vape then
@@ -314,6 +314,12 @@ if not shared.VapeDeveloper then
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
 		wipeFolder('catrewrite/libraries')
+
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
+		for _, v in req do
+			makestage(2, `Downloading required files\n({v.path})`)
+			downloadFile(`catrewrite/{v.path}`)
+		end
 	end
     writefile('catrewrite/cheaters.json', '{}')
 	writefile('catrewrite/profiles/commit.txt', commit)

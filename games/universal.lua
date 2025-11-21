@@ -1,3 +1,8407 @@
--- This file was protected using Luraph Obfuscator v14.4.2 [https://lura.ph/]
+loadstring([[
+	getgenv().LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(func) return func end
+	getgenv().LPH_JIT = LPH_JIT or function(func) return func end
+    getgenv().LPH_JIT_MAX = LPH_JIT_MAX or function(func) return func end
+]])()
 
-return({gm=function(P,P,d,f)f=(1);P=d[1][0X27]();return P,f;end,B=string.sub,Vo=function(P,d,f)(f)[1052]=0X11+(P.co((P.a[0X6]+f[0X4619]>=f[10054]and P.a[2]or f[3751])+f[0X7670],f[0X1Df2],f[0x64a9]));d=(-27+((P.Jo((P.wo((P.Oo(P.a[1],f[0x6C0],P.a[4]))))))==f[0X1922]and f[15976]or f[26100]));(f)[22897]=d;return d;end,Go=function(P,d,f,D)f[12][6.0]=P.z;f[12][11.0]=(P._.band);if not(not d[21997])then D=(d[0X55ed]);else D=P:po(d,D);end;return D;end,so=bit32.countrz,e=function(P,d,f,D)for E=1.0,d do P:f(E,D,f);end;end,h=bit32.countlz,T=function(P,P,d)P=(d[27571]);return P;end,F=function(...)(...)[...]=nil;end,P=function(P,d,f)(d)[0X5c0E]=-4153467156+((P.zo((P.lo(P.a[0X5],(d[27004]))),(d[0X697C])))+P.a[5]-d[0x697c]);f=-0X2b9a647a+((P.Ko(f+P.a[7]<P.a[0X5]and d[23633]or P.a[4],P.a[0X6],P.a[3]))>P.a[0X3]and P.a[0X7]or P.a[0X1]);(d)[13995]=f;return f;end,bm=function(P,P)return{P[0X1][39]/0xaD};end,Cm=function(P,P,d,f)if f~=226.0 then d=P[3]();else d=P[1][36]();end;return d;end,Em=function(P,P,d)for f=0X6,0x3D,14 do if f>6.0 then(d[1][12])[0X3]=(P);break;else if not(f<20.0)then else(d[0X1][0xc])[2]=(d[0X1][0XA]);end;end;end;end,O=bit32.rshift,Hm=function(P,d,f,D,E)if d==48 then if f==48.0 then D=E[0X1][30]()==1.0;else D=E[1][0X29]();end;else if d~=0X7A then else P:Zm();return 54448,D;end;end;return nil,D;end,b=function(P,d,f)d=1345194922+((P.lo(f[0x723A],(1)))+P.a[0X7]-P.a[0X5]+d);f[0X5c51]=d;return d;end,n=bit32.rrotate,D=function(P,P,d,f)f[11][P]=d(P);end,lo=bit32.lrotate,Tm=function(P)return{};end,io=function(P,d,f,D)if not(D>0.0)then(f[0Xc])[8.0]=(P._.bnot);if not(not d[0X5971])then D=(d[0x5971]);else D=P:Vo(D,d);end;else if D>=101.0 then(f[12])[9.0]=P.K;if not d[15976]then(d)[0xEA7]=(124+((P.bo((P.Oo(P.a[5],d[10054],d[0X2418])),(d[27004])))-d[7434]-d[16805]));(d)[15322]=-5242670+(P.Ko((P.lo(d[0X723A],(d[25769])))+d[23566]-d[0X03415],d[17945]));D=-4290510847+(P.zo((d[0X723a]-d[22679]<=d[0X6cCC]and d[22679]or d[0X55Ed])-d[26100],(d[7434])));d[15976]=D;else D=P:Bo(d,D);end;else P:_o(f);return 0XE832,D;end;end;return nil,D;end,Q=function(P,d,f,D)local E;D[0XC]=({});D[0xD]=4503599627370496;D[0Xe]=nil;(D)[0Xf]=(nil);D[0X0010]=(nil);f=0x59;while true do E,f=P:t(f,d,D);if E~=25998 then else break;end;end;D[17]=function(P,d,E)local q={D};E=(E or 1.0);P=P or#d;if not((P-E+1.0)>7997.0)then return q[0X1][3](d,E,P);else return q[1][0Xf](d,P,E);end;end;return f;end,l=nil,wm=function(P,d,f,D,E,q,S,_,p,Q,C)local j;if E==0X0 then if q[0x1][0X23]then P:Ym(D,_,d,S,q);else for D=0X4a,0X91,21 do j,C=P:Jm(d,Q,S,f,C,D,q);if j==40362 then break;else if j==nil then else return{P.J(j)},C;end;end;end;end;else if E==7 then local D=(0xB);repeat if D>11.0 then p[d]=S;break;else if D<110.0 then D=(110);if q[1][0Xf]~=Q then else if not(q[3])then else local D=(0X77);repeat j,D=P:sm(D,_,q);if j==nil then else return{P.J(j)},C;end;until false;end;end;end;end;until false;elseif E==0x1 then p[d]=d+S;else if E==0X4 then P:Xm(S,p,d);else if E~=2 then else local P,D=#q[1][40],(0X9);while true do if D<84.0 then(q[1][0X28])[P+1.0]=(f);D=0X54;else if D>9.0 then(q[1][40])[P+2.0]=d;break;end;end;end;(q[1][0X28])[P+3.0]=(S);end;end;end;end;return 45390,C;end,Nm=function(P,P,d,f)(f)[P]=(d);end,w=function(P,d,f,D,E)f=({});(D)[1]=(nil);d=nil;(D)[0x2]=nil;D[0X3]=(nil);E=(45);while true do if not(E<=40.0)then E=P:X(f,E,D);elseif not(E>26.0)then D[0x3]=unpack;break;else d=P.A;if not f[0X5C51]then E=P:b(E,f);else E=(f[0X5c51]);end;end;end;(D)[4]=select;(D)[0x5]=P.p;return f,d,E;end,Oo=bit32.bor,jm=function(P,d)(d)[0x2c]=(function()local f,D,E,q,S=({d,d[0X20],d[33],d[34],d[0XB]});E,S,q=P:Lm(f,S,E,q);local d,_,p,Q,C,j,Y,e;C,d,_,j,p,Y,D,Q,e=P:Vm(Y,E,d,Q,C,q,e,p,_,j,f);if D==nil then else return P.J(D);end;S=0X17;repeat D,S=P:Im(p,E,j,S);if D==34910 then break;end;until false;for q=1.0,d do local S,L,F,h,s,X,r,O,m;r,m,S,h,L,X,F,s,O=P:cm(h,F,L,r,s,f,O,S,X,m);X,s,m,h,D,r,O=P:dm(s,C,j,p,e,h,S,r,f,m,E,O,q,X,Y,F,d,L,_,Q);if D==nil then else return P.J(D);end;end;return E;end);end,xo=function(P,d,f,D)f=function(...)return(...)[...];end;if not d[25769]then d[26100]=(-4216824514+(((P.bo(P.a[3],(d[0X697C])))-d[0X5897]<P.a[5]and P.a[0X8]or d[27852])-d[22679]));d[0X58C3]=(-3563428433+(P.Jo((P.a[0X6]-d[0X4B1f]>=d[5903]and d[0x5c51]or d[13333])+P.a[7])));D=-9+((P.co((P.bo(d[0X7670]+d[30320],(d[23566]))),d[0x41Bb]))+d[0X5c0e]);(d)[0X64A9]=D;else D=P:Fo(d,D);end;return D,f;end,rm=function(P,d,f,D,E)local q,S;for _=0X38,0X84,0X4c do if not(_<132.0)then(q)[S+1.0]=D;else S,q=P:Qm(S,d,q,f);end;end;q[S+2.0]=E;q[S+3.0]=11.0;end,mo=string.gsub,nm=function(P,P,d)P=d%0X8;return P;end,mm=function(P,P,d,f)f[P+1.0]=d;end,s=function(P,d,f)f=-0X002B9a64Cf+((P.co(P.a[0X3],P.a[0X9],P.a[2]))-P.a[0X2]+P.a[9]<P.a[9]and P.a[7]or P.a[0x005]);(d)[0X697c]=(f);return f;end,Jo=bit32.bnot,q=function(P,P,d)P=91;d=({});return P,d;end,Qm=function(P,P,d,f,D)f=D[1][10][d];P=#f;return P,f;end,V=tostring,Rm=function(P,P,d,f)f=function(...)return(...)();end;d=P();return f,d;end,Jm=function(P,d,f,D,E,q,S,_)local p;if S~=95.0 then p,q=P:hm(f,_,q,D);if p~=nil then return{P.J(p)},q;end;else P:Om(_,D,E,d);return 0X9DAa,q;end;return nil,q;end,C=function(P,P,d)d[0Xa]=P[0X1][0X26]();end,ao=function(P,d,f,D,E,q,S,_,p)local Q;E=(nil);S=nil;D=(21);repeat E,S,Q,D,p=P:Lo(d,p,D,S,f,E);if Q~=0x4fa0 then else break;end;until false;_=({});f[12][13.0]=P.so;q=nil;D=122;return _,E,D,S,p,q;end,A=string.char,em=function(P,P,d)local f;for D=0X31,152,41 do if D>49.0 then if not(D>=131.0)then(P[0X1])[10]=nil;else P[1][40]=(nil);break;end;else f=d[P[1][0X26]()];end;end;for d=0x34,0x79,0X19 do if d==0X4D then return{f};else if d~=0x34 then else(P[1])[0X1C]=(nil);end;end;end;return nil;end,R=function(P,P)return{P};end,G=table,um=function(P,P,d,f,D)if d>199.0 then return f,{f},D;elseif d<288.0 and d>110.0 then(P[0X1])[6]=(D);else if not(d<199.0)then else f,D=P[1][2]('<d',P[1][22],P[0X1][0X6]);end;end;return f,nil,D;end,K=bit32.lrotate,po=function(P,d,f)f=-4294964120+(P.Oo((P.Jo((P.zo(d[27571],(d[0X5C0E])))+d[10054]))));(d)[21997]=(f);return f;end,Dm=function(P,P,d,f,D)local E=#D[1][40];(D[1][0X28])[E+1.0]=(f);(D[1][40])[E+2.0]=P;D[1][0X28][E+3.0]=(d);end,u=function(P,d,f,D,E)if f==37.0 then if d[17]~=d[0X0C]then for q=0.0,255.0,1 do P:D(q,E,d);end;end;if not D[5903]then D[0X1922]=(-2707093688+(P.Jo((P.Ko((P.bo(D[13995],(D[23566]))),P.a[7]))~=D[0X7670]and P.a[2]or P.a[0X6])));(D)[17945]=-0X4e+((P.so(P.a[0X6]+D[0X036AB]-D[13333]))+D[0X7670]);f=(-0X24+((P.Oo((P.ho(P.a[0x2],(D[23566])))-D[13333]))>D[23566]and D[0x3415]or D[27004]));D[5903]=f;else f=D[0X170F];end;elseif f==64.0 then f=P:j(d,f,D);else if f~=31.0 then else(d)[0X17]=P.I;(d)[24]=function(P)local D={d};(D[1])[0X16]=(P);D[0X1][6]=1.0;end;return 0X9536,f;end;end;return nil,f;end,ho=bit32.lshift,_m=function(P,P,d,f,D,E)if P==118 then(f)[9.0]=d;elseif P==157 then(f)[11.0]=E;else if P~=79 then else f[5.0]=D;end;end;end,co=bit32.band,fm=function(P,d,f)local D,E,q=(0X33);while true do q,E,D=P:Mm(f,q,D);if E==3373 then break;end;end;D=f[1][0X1e]()~=0.0;local S;d=(nil);for _=79,319,60 do if _==0Xc7 then S=(f[0X1][0X26]()-0X669B);elseif _==319 then P:ym(f,S);elseif _==139 then for p=1.0,q,1 do local q,Q;for C=41,317,92 do if C==317 then P:Sm(p,D,q,f);elseif C==225 then elseif C==133 then Q=f[0X1][30]();if not(Q<=207.0)then q=P:Cm(f,q,Q);else for p=0X30,133,74 do E,q=P:Hm(p,Q,q,f);if E~=0X00D4B0 then else break;end;end;end;else if C~=41 then else q=P.l;end;end;end;end;else if _==0X103 then d=f[2](S);else if _==0X4F then P:qm(D,f);end;end;end;end;for E=1.0,S do(d)[E]=f[1][44]();end;for E=1.0,#f[0X1][40],3.0 do(f[0X1][40][E])[f[1][0X28][E+1.0]]=d[f[0X1][0X28][E+2.0]];end;if D then P:Em(d,f);end;return d;end,H=function(P,d,f)d=(-43+(P.co(f[30884]+f[19422]-f[0X6BB3]==P.a[5]and d or f[13995])));(f)[0X6C0]=d;return d;end,y=function(P,d,f,D,E)local q;if D>93.0 then q=P:R(f);return f,{P.J(q)},d;else if D<93.0 then f,d=E[0X1][2]("<i\56",E[1][0X16],E[0X1][6]);else if not(D>21.0 and D<165.0)then else P:M(E,d);end;end;end;return f,nil,d;end,o=function(P,d,f,D)d[0x1C]=P.l;if not(not f[27571])then D=P:T(D,f);else f[0X3D76]=0X18+(P.lo((P.bo((P.zo(D,(f[27004]))),(f[0X5C0E])))+f[0x170f],(f[30884])));(f)[0X165D]=(4198345281+(P.a[1]-f[0X5c51]-P.a[0X9]-f[30884]-P.a[0X1]));D=(31+((P.ho(f[0X170f]+P.a[0X6],(f[0x5C0e])))-P.a[0X3]<P.a[0X4]and D or D));(f)[27571]=(D);end;return D;end,hm=function(P,P,d,f,D)if d[5]~=D then else(d[0x1])[31],f=d[1][0X25],(P);return{D},f;end;return nil,f;end,Fm=function(P,P,d)d=(P/2.0);return d;end,qm=function(P,P,d)d[0X1][0x23]=P;end,zo=bit32.rrotate,xm=function(P,d,f,D,E)if E>59.0 and E<94.0 then E=P:am(E);elseif E>76.0 then d=P:Fm(f,d);return 48704,E,d,f;else if not(E<76.0)then else f=D[0X3]();E=94;end;end;return nil,E,d,f;end,Xo=string.match,c=table.create,E=function(P,P,d,f)(P)[d]=(f);end,x=string.byte,i=pcall,Bm=function(P)return{-(-0Xd4)};end,Yo=setmetatable,Pm=function(P,P,d,f,D)local E=(d[0X1][10][P]);P=#E;E[P+1.0]=f;for d=118,322,0X70 do if d==230 then E[P+3.0]=8.0;break;else if d~=118 then else E[P+2.0]=D;end;end;end;end,im=function(P,P,d,f)d[2.0]=(P);f=10;return f;end,Xm=function(P,P,d,f)(d)[f]=(f-P);end,p=string.pack,am=function(P,P)P=0X3b;return P;end,j=function(P,d,f,D)d[22]=(function(E)local q=({d,d[5]});E=q[1][0X10](E,'z','!!\33!!');return q[1][0X10](E,'\46\46.\46.',q[1][14]({},{__index=function(E,S)local _,p,Q,C,j=q[0X1][0X1](S,1.0,5.0);local Y=(j-33.0)+(C-33.0)*85.0+(Q-33.0)*7225.0+(p-33.0)*614125.0+(_-33.0)*5.2200625E7;p=q[2](">I\52",Y);E[S]=(p);return p;end}));end)(d[0X8]([=[LPH?L6i#CcNRclF>G\u!Ee=]z!&-^b!Gg!^:sT/Rf`D-Rz!7([liW&rY!!"]u5gKRGF*1sF#64`(zcN-V`!I)ik8SQKO6/hkEz+@+6S7;:'K@a><lF`(]2Bl@n8!E[SK:MJ,VH>1\,@qj6i>0d4mcN.b+!?f\h<mLe8cN/::!GB^Z;U5MR?X[JUiW&rY!.^3R5gKL3C#T*mz5X<Wr@F"sRcN\90D.7'scN6FIcNdruF`);;HHuY%C"WIdz!!(=P?XInnF*)G:DJ.8rDpJGYcN7`ncN-tj!`j$pzzcN\H4EbTE(fa.WYz!7(^XC!QfLcN.e,##'/[@;oo+!Cu,Lzi,:m6!rr<$ziW&rY!!!#g5gKXU@rc:&FO("dBeTS6!_mCT!ci#.#QOi)zcN/.@"TSN&zfd-Uuz!7([AiW&rY!+7&;5gKIJcNI^&FCic(FDl5BEbTE(cN-nh!b#fh"a"0^Ch:ooFD9&%FjC5.@<?!mcN-S_!_d=fz!!)LQcN.k8"98E%zcN-ee!G'LW7*bmRcNSK8;++UIz!!!QqiW&rY!!!!j5gKL8C!Qj"C!QulF)to5FQ*9#zE'V_NGA5A);eaPYB[6]GcN7oscN\N0E+*6lcN-Ya!CP0;Bl8!'EcfV.A(_4iz!!(=Q3[c:b.k+[`%16Ce#BFj'FCB9&cN/(Gz!!!!acN-\b!cD_u#'+cuBkDJ5"*.slcN6sXcN/+5!H-lsz!:W;#!FOgdz!'*=(z!!"i@f`;'Qz!7([kcN/"2#%MRh@psK*"CGMIES9.Jz!!)!Y!2.3[=6r6!"*8TocNmlb@rH6p@<Bg"B5M(!@qaj%z!!kjL!!(sIeOnddiW&sD#fP]M6-faB?XmM\CsV_g$6UH6+<VdL+>#0L>7(][+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL/jL^20.JM*/hSb//hS7h+<VdL/hSb-/1N;$,:+[%5V<Bd+<VdL+<VdL+<VdL+<VdL+<VdL-n6>^+=o/o,:+W_-9sg]5UId*-nd5,0.84s,9nKZ,9nTb0.JG&/1r%f+<VdX0/"_#/d`^D+<VdL+<VdL+<VdL+<VdL+>52e/gWbJ5X7S"5X6VH+<W9b-9sg]-71&d-71uC5X7S"-6jog/1rP-/hSb//h//45X6_M+<W3[/d`^D+<VdL+<VdL+<VdL+<VdV0-Dko5X7S"5X7Ra+<W'Y/0H&X.OZVj5X7S"5UId*.P*1p+<VdL+<VdL+<VdL/hAJ#,:+`f5X6YG+<W-b$6UH6+<VdL+<VdL+<VdL+<rE[00hcf5X7Ra+=\]d+=nid0.ne/,:+Z`5X7R]-mh2E5X7S"5X7S"5X6PD/1rP-/hS\.-9sg]5X7S"5U[a-,mkb;+<VdL+<VdL+<VdL+<r!O,="LZ5X6eP5U@O*,:+rq-nHu%0.JM+0.JM*/2&D$5X7S"5X7S"5X7S",sX^\5X7S"5X6PH,="LZ5X7R]/g)GI+<VdL+<VdL+<VdL+<W<[+=9?=5X7S"5X6_D5U.C$-712h5X7S",;1B/5X7Rf,pb/p,sX^\5X7S",qhMK-7CDf+=o&p/hSb!+=\[&5X6P:.LI:@+<VdL+<VdL+<VmO+>,!+5X7S"5X7S"5X6kK-m_,D5X7RZ/g)8Z+=nj)5U/NZ-7U,j-9sg]5X6YI/gEVH5X6tL5X6VD5X7R]-nd,"-7g8m/.*LB+<VdL+<VdT0-DA[-pT++-7(!(5X6YL/0HK/,:GfB5X6kC+<VdL+<VdO5X6tR-9rn#00hcf5X6kH,:,T?5X7R_+<VdL+=]WA5X7R]/0uSp+>+!D+<VdL+<Vd[+<Vm^/0dDF5UI^(0/"P85X6tF,sX^\-9sg]-nZVb+<W3^5X6_M.PE7o+=09<.NfiV,sX^\5X7R\+<VdL+<VdT5X6YE.P<>+,pk5O+<VdL+<VdL+>5B$5X6YI+<W'Z5X6PF+<Vd[5VF62.OIDG5X6P@5X6V?,q(/f5UIs'00hcf5X7R]/g)B(5X6P@5X7R],pbfA5X7S"-7geu.R5X3$6UH6+<VdL+=/<d-9rdu/g`hK5U.C)5X7S",pklB5UJ-:+<VdX0.85%.P)\b/h\P:5X7S"5X7S"5V+B3-n[/!5X6PD-9sg]-mL,m/hSb--6k!*0+&gE+<VdL+<Woq/g_nf/g`hK5UIs'+<Vd[-9sg]5X7S"5X7S"5X7S"5UJ`],;1Gk5X7S"5X7S"5X6YI+<W't5X7S"5X7S"5X7Rf/3lHc5X6PH-7T?F+<VdL+<VdR-7gGh+>+uj+<VdL00hcf-nZVb/1<bK5X7R]0.8J,0/"Ou+>5',5X7S"5X7S"5X7S"5X6_?+=nj)5X7S"5X7R]/0H?+5UIs65U\8m+<VdL+<VdL/gVtl5U[a.5X7S"-m1!)5X7S"5VF6&+<VdV,sX^\5X7S"-8$i7-6Oia/0HPl5X7S"5X6P:/gDhl-8-np5X7S".NfiV.R66G0.J:u$6UH6+<VdL+<W9`0.nJ75X7S"5X6kC+<W-\5X6VJ/1*VI-7CDf+<VdX-m_,)-9sg]5X7S"5X6_M.P)\b00hcf5X7S"5X6YI+<VdL+<Vsq5X7Re/d`^D+<VdL+<Wp!+>+s*5X7S"5X7R_+<VdL+<VdZ+<VdT5X7S"5X7S"-m0WT+<VdL/h/7q-9sg]5X7S"5X7S"5UIm1+<W9i/h0+4+<Vd[5X6V</h[PS+<VdL+<VdL+@%D!/g`hK5X7S"-8$D`+<VdL+<VdL+<VdZ0.&qL5UnB55X7S"5X7R]/0HJn.P*1p+<VdZ/1N%p-nZf25U.Bt5Umm!/3lHH+=n`E+<VdL+<VdL+<VdL-7g8m5X7S"5X6eA+<VdL+<VdL+<VdL+<VdL+<VdZ,="LZ5X7S"5UnB45X7S"5U\0K5X7S"5UIU),q(Ag+<VdL+>,!+,p4``$6UH6+<VdL+<VdL+<Vd[+=]WA5X7RZ+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdQ5UJ*7,75P9+<VdL+<VdL+<VdL-n$2j-9sg]5Umm!+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL,=!S./0bKE+<VdL+<VdL+<VdL+<W9`/g)\l5X7Rc+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+=KK%/hA4S+<VdL+<VdL+<VdL+<VdL+<Vm]+>+s*5Umm05X6tF+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W=&-8$ht$6UH6+<VdL+<VdL+<VdL+<VdL+>,;i+<s,t/g)H*-7g\m/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vd[5X6kQ0+&gE+<VdL+<VdL+<VdL+<VdL+<VdL.OZD^,=!P-+>+cb5X7S"5UA'7+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL00hcR/h.2N+<VdL+<VdL+<VdL+<VdL+<VdL+<Vd[0-DA`5UJ$).R66a5X7S"5U[a'5UA'9+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<s-:/0H>J+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VmY+>,!+5U.m(-pU$_5UJ*55X7S"5X7S",q^;i0.n@i+<VdL+<VdL+<VdL+<VdL.P<>".P<&55V+$2$6UH6+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+@%D!/gWbJ5U@s(/2&+u5X7S"5X7S"5X6kQ,sX^\5X6V</g`hK5Umm$5UJ*9-9s%3.Ng$&5UJ*+.LI:@+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>4i[.OIDG5X6VH+<VdV-mh2E5X6YK+<s-:5X7Ra+<s-:5U@O$5X6eA/1r%f+>5uF5X6eA-jh(>+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vdl,;()k,="LZ5X7R]-nHtn+<VdL+<VdL+<VdL+<VdL+<VdL+>,2p-m^3*5X7S"-8$o!$6UH6+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W!Z/g)8Z/h\M95X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5U\6--n#EF+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+=n`j.P;hd+<VdL+>,8t/1`>'/1`>)/hSb!+<VdL+<VdL+=o/j$47mu+<VdL+<Xrq/M.;:+<VdL+<VdLcNIT^Ch:or?XI>XG0^D&Df9H'@;aBqEaa05ATZ6$?XIVkcN7]mcN\H%Ch7*ucNI]cDIh(4+ED%8F`M@BF(KH*ASuZ>Ap&!$FD5Z2-n[,).3NYBFEMVA+=2(W/hSb*+D#G$/0K"FFDYT2@<>peCh5#A+Bp$9F!=m44Wl@0/g,Qn+F>5<?YOCgAU#=\+D58-An>k'-n$]#/h&4lI46TfcNI`k@<0Zp9\BsWz!!(\uUK@<m!!!#F$tj-nD.RftFCAWpA`<[i!!!#oO$M"p?XIbjGL$D2@:O(,!7(^!5L0UWDf0]7@V'T+$>aWhA92j5Bl7S0!EJ+Z!5N_,,j.JHl.H%:zcN76`cO"f6Ebf`8@:Nlp#%(_ZH#R?@"D2@cABtEd?ZU@!iW&rYTS0)\6/hkE!&,8jE'`I`!'lMZ?fjZ##@ChPDId='iW&rYYRHNY6/hkE!!"2PLI'5jCia9(Ap!#4z!,t6M!@,nnB45XgiW&rY5b(2L6-fRDcNRZ_D/WtE!!%NR?lRT]iW&rY!!!!q5iMbDz'L:XX!!#JiEjS-lz!!"]?iW&t/;a53_6.lGBz!!)!Y!.Z_#8aJb&z!!)N'c[/f5F`JTuF^ZD(DK]`7Df0E'DKI"3De3u4DJsV>F*2G@DfTqBCi<`m+E)9CCi<`mF*)G:DJ(LCFD,6+AS,k$AKZ8:FWb+5AKZ,5@:F%a+EVNEF`V+:9QbAaE+gV?+=BiZ87,+f?WBp'5tk9I;^W])@:O=r0&cj2!!!#sT0VB9!!#j<]#?tpz!!"]<iW&rY!!!"l6/hkE!4WZ=U-[HRRq:+Ls8W,F"DqRhB[6onDfor>EdH%:B4Z0sASu\E%KHJ/ziW&tos8W,V6-fa[E+<<mCsN8rEcQ)=cN\K:E+Ns"iW&t/l`urA6/hkE_#$*-i'GZoF(KH*ASu\E(]XO9zcNS8t@;Kc+!_[7e!!!":S9igRcN.2.!!!"oH+hQjiW&rY!!!!V5gKXT@<Z?qFO(>%?Ys@r@<>peCh;9.z!!!#F!AVn'DIn'7iW&rY!!#Qb5gKRTH#R?JYlFb(zcN)r)!._(S#1c)d%!-!%D.RftFCAWpA^:]j?Z'G!Bl7HmGiA]'TX^11i'H?&z!'``p$tF3nFCf]=?Z^R4A^:QmDfT]'FO(+t?Ysq%ZHWCM"9jbc.@C2Jzg\V'Q"doZ#!!SJk"_!B'h$BPR!!Ro["\](O"Y1lN,u#rp*<68:#R**i4XDui73shq9dM\$<@'O,>pVB4AL.<[q#ppb"`58C"[rSk2$F.a4U($N!!UIK"UIh&9fc!;78*kB"]dbikQ4a9"U.UP"W]K)2'"RY4XC(3OTG\p"_@iq"`5PD"a)+L"aqZs"b-\+*=W`a*<j4`.if'6<ZM@J!WWBQ"Z?Ni,skl@"Z?Nq,rPpD,le*r"]coQi!1bQ,o%[/M?+_l,m>#e"YBm9"Z7#g"XO=H/Hm.Q"Z7;#"\/_j/Hm.Q"Z7;Y"[+.W"e#H\!!UaQ"Y1T&'il=YL]K"H%2AjHT`PBU"[s^q"\g:$"]ZiK"lo[f<\4KJ#?*K3,qCQ),uul,O9ING/N$Q\"X!dKOTG\e*<iYL.if'6<ZM@Z"TS^r!<irZ73r?g,u%>b9hdl!<@%VKVZ?rZ"Z7;Y"[+.i"[s_F9dM)d<<]$#?r\LQ<a>m%#@LhC,s;E#,u?H&"]dbikQ4a9"U.UP"W]K)2'"RY4XC(3X8rK**<kp7.if'6<ZM@b!rrLk!X1Ic4XDui73tV22$I#D"m?!f"XaIFhuXWF/d2C^@0Kp?2?dY<4U#C+4U"7X:c/C[<]pWM!`^fU"\gQP*<68=!X1(p%2Dna"jd9#*=W`a*<iYN.if'6!!Skp"][,X"\gQP*B"'Y*<68m!<lLE"fMYV*=W`a*<iqW!!Tn6"Z?NY,rPp,,s;E#*DeTs"XaKK"$KX9"U+l0T*,<U"Z7<!4XDC4"[s_2"Z6Ha4U($N9Ed!O.jZbn!!Th6"XF6a%9`oM"]cWIp]O;;"Uut&,o'H$"h4^d*=W_`"l'+^.if'6<ZM>l.if'6<ZM@""TS_U!X/Q("98E%!5\L6!!Nr<!!NZ4+.WQ5$AAj""U,&\'a4b'"Vh1@"WmmJ#6K;oD0Z;=!=/Z*!!(^K!rrM@!<iH,\H)j6"gJ(33!CTK9dKrX9e?Mp<])JE"98TC"^)!</PQZX%64Rq%4;;r4Zrrp,t.t@%8@98'hoDH2-L/("XaJ8"!o;u^^Mdp"\/_j*<d0P,m>Sq/M5$I-Nt>E!!OGJ9aq78=9Sj;9aq7@9bdgP!!Q=*34/pT*T[t8!"Ju/!!)?]!rrMp!<iH,klCqhp]_0Z/\(qE""aKV5m:`R$KV;j*%dibO95pl"fVM+2?aO)!!UIF"V)hA*B"'I4TGXW"V)h9*B"'I2#mg5!<j86##.f:*F8FE2?aOQ2?agi2?b+,!!P:b3\:e((AJ(s4ZYG89`P>r"TS^7"U5DN3<04Q"YC^U!u1e>/-R=7"U-7WQj"KX"crg4!!P:b/I@L@%0-PJ"Z?N9,q9'%/HY\O%4qYV"r0!g/N'=)!!QF-3\:du(AJ(k2'X,1p]`V[%5g$I*CTr3F9MXE!rr<$!5SF5&Hr=A,R&c#%4i4t"WImS"TS]2"YIt&bmibL!!!B,!!!#Nq?$^$JH5oS"aL7leJsP\V$\gY"U+l0W<!/\"]\8`<<WOj<<XHE"XaII"XO<t"X5ND"_'>7"\Lp'"d/mT,R(IS9`P=t"TS]Z"VCnA"X'07"V!<ua92qpQidL,2&2J`'fH4A'dj1;!A,Z&J,qM-"]#:["]\8l"U.m+"YU#Z$?^=lD2eQn5t+M9!>,;3!!'D'!rrKB"[*kP*@:sc!@7^LJH5p#%0Zo0'a4b!"W\%""lKS2!!NB,9Ec.79cXBH2?bB9<\5']!_`b<"[X45"TS],"\g9H*B"'Q%9>>$p]:F!%g;q:q#pprAHaAT"U/H;"d&ok9hbd;:'Ceq!!RoS"\h\p,u+UI9dU$X*<67*"^fLdeK<Ta-3Y8M!!P(\-3[O(!!S2\"X6s."#V9.O97Wm"doH]!!Skn"\hu#,u+UI<<*1b"X6[&!u3-dCc)1raTMcA2$GQi"[*;=7@46)"IK?e/N<n[2#md\"\h,`2,-LC4Z3I<%3ef>"XO;="^N\["T\ci"[s_64Tu!i726q>9a*sD"]Z"4>o!,9!!NB,,R(1KAQ]12,pifa!>PS<hZ3mT2$G:$"U-a`"k3PV2?eM72?ed8D,k]^"Z?O,9e$;MF\Qu^9f<0'4Z3It!C^"2"U+l0OT>VcFThqCFTkJt"asAN"]5FtFTkJt"asr?"bctW!!Pao,%Zi<*DLAS9f</t'fH5D*E?q["TS]t"Z?O<!F8]J"U.VC"\et#j8fEYFTkJt"as*'"bctg<HSHK!!Skn"\ih;9f</t*B"(L2-"Js"TS],"X7fF"%>q,"\glYI5NndK`O>:FThpK"hXm?9f3)#:'CeY!!S\j"\hu#,u+UI<<*2X!X/Q(!rr<$!7UcH!!PXl!!P@d!!Sbk"V&]k`=.G0.kM26!!S2["WSNd"XaJ@"XQZY'a5id1(?t^"V"N:%0]fB'a4R@!<lO>*<faQ"U-7WYR:m?"T\d*"UtW="UtV_"dfH.!!P:b!!Nc7$7>ul!!O/B!!<B:'aXj?!!)$T!rrLe!X/Q-M#mh\"b?^Y%P97i.Kou--O&-+,s<gh,u#rp'`\Do!<k@b4V]=JJ.+k?"Z6G`"X+%-"[*;B"b6VB9Ed9W!!OGJ,;h?/"qE4:2,,q3'`\D*"X>TNn-VlI"Vip!4WPmRTE7O^"X+%-"Z7SR"fMel9Ed!O!!Q%"9Ed9W,;h@:!tHn72,,q3'`\D5"\fF0"\f^8%4;=H"W[RH0*P%W*mG)3('"F?N<(=/zh"h*Q"W7ID"VCo&Kc$p*Ka[qb!<lX1%0]cI"ipd?*<clP"W7Is%2BU9"VhIr"U,Vk'cd`a'a;AX9cXBH.hs'6<YYeB"&0d>%4`/6%9=2I\-2j9.0WEd"Uuss*=Z$a"gA&/*<k@+!!OML9cXBH.hs'6<YYf5"98U!"Y1<.%8@Q@'c[r'"X4\K"Vh"@7g/ku":5ML+Vbk84TGH^!7q/P!!V<s"TS_Z('S%K"U-dfV#rk="g%l<!!NB,2?gJj`;qj0"6]mt28o[5!Y#,5&HtCq!sS32!!P@d29c6=!Y%*m-+*h_[0*N3[0&;""0_e828oY?%6Y`.""aKV9EbD"JKG%WjTLhX]cSu2'\*>o!>qXFjT5#[2?h&$75b=o!keYD"iUNH29c2I%2?b_blXj\!!T&("]k9t-!1-NaX%*`blZ]&Ym^U9fa7m1"cs5%!]C4q!keV<"iUNH2?h>,N<'"_!<k@beH2iS-O#k@h#\r-i!\WJ4U'(3,m+=i!X1Ca"jI*&"haub).<^!!X1Ich#`iC2?i1D[/p=3+U(lb!X/`c"iUO32?h>,[/p=3)$OFPh#[`o`<+QkW<iP.Ba%oK`<$3$"jI+6!]C54!jr)<"jI)P2:VcD"q:mk!keZc!]C54!_#!Nh#atc!!T/!"Z?P'!`_,^blY9S2?hV4]`J0;U]CW!"ecn>'#b'g$De&'o`>:K:'Cgo!WWDo#6d!h]`YqK2?h&%[0&5h"jI,L"T\c\"hb!=$bZY1#mC;4aThu-"oSKc2?ed:2)YVt"8)]q"T\d1"dK/n4WXJ&,sV>0"doDl"kb+(;hY>P!gNd:m/htDPlUjg\K1o%"dfJD!]Ad8VumJdjT:5C%5mMSVu[?.o`?G4"BPI&-!2tr!rW2n!^H>Z"b@<e"jmMX*jl("!mLd)"gnE^!^X3qL^^g-!!TVJ"^_E:"]N)9[/u$`-3_d@]`J0;JH5o]OT>WF!rrMX'a6h(!X5PF!!Nr<9>ptW!fR3]"XsU5"iUO32?h>,XTDo7`<$3#blX7:%0-Po"TS_b*X+e,!X6[c!!SK,"UjDng]@WZ"jnFr-O#S6]`J0;\KM+V"mH$k!NcHX"6^1P"gnGd!B(+p",-gW"X+$nXTPL)XTJWT#-A!0"#^=:"0DY*"l'+^@0O%@"Y6\W[0+q\408U="+UXW"[iM@"h=`s!WWDG('R%\!X/`^J-L]0fF8aY!sKDt"jI(-!ud.$"W[RH+U)3V"U/'5eH,nZh#[``!!Q=*2?h>,N<:O3O9:IE-O%j!PliB;Qj'#_7t^u(!sMj3K`_KMO91+<r;nMJ!eg`A!A!O=K`dS@2?f'B2)YW'"8r9$"]5F]"cWVd!^_kK"U-E9",-iB!B(+H"$JOGSHHh42?foZm/d7k!<k@bXTOOb=Tt&m,le+J)$Mmg",I-j9EgCX"\H3,K`d;:2?f'B*B"(d"8r9YSHFZP%5nBd".]Kr"cWU1!!Skn"Z?P7!hBBf"U3EX!!VNh"^_E:"Z<+Y+:ULLV#plYV#qhL4rpI%"Z?O\"2+^n"g%l$1^+&j!rrK*"Y^+V"5+)k"l04`@bh+A!h]ZD"dfJT!_;JYeH,m]^B=_j!WWDg"9i-9"U+l0R1'6W"m#fV!_rn&jT5Dc\H)k7o`?Gl#64pq$jANmeH2!;2?hn<]`MUGeH,n3h#\].9@X+"!kB*I"jm\]-O#S6eH.*%fEL(4-O#k@jT5Dc!<l!P(tAZk?NgT:2?hV4]`Lq4"k<YS"\](uo`FL^PlX,B!X5hG!!Sc("Z=O,+:Tj?"3gqU!rrN)"9g[ejT<*r#6c.8![*"$"n_pSr;uHh%0-P<"Y^,A!fR@AK`_kq:E9W+!]1&ao`>*s/-T)I![XKB!!TV9"]j^d,rbl.`!-Al"dp5#!WWDm!<lK"!sJiU"cri:![e0("l05-"dfJT!WWD7!<lm8Plh1J"e>aL"#^=Z"8r:0"e>`!2?foZ[/p=3OT>Vo"cWTf2?f?JK`a4:SHJ6\!!Q=*<M]d$"Z?O\"181g"g%lt"#^=j"-!B_"f)/&,R$5_"#^=B",-h8"dK2G!WWC?"Z?O\"181g"g%ll"#^=j".]Mo"`+?4JJ6Q8"Z?Od"-!C@"gnGt"')0""U+l09Eec,"U-7WQj)"A2;J>$!Y#,5!<k@:!g!ZC!]B'@ciOY6m/i(K%9E-'-'/71r;n9)*VBL,!rW0bo`><h!WWD'%L!40%L(Aa!!TV2"U_L="k<YS"e5l&=p9T]"\OIMa9Re98qd?)"b6qPK`^09i!N)1!ltVV$317o!X22M!oO6<$VH*Si!%1/8qd?)"cs,m"mH'l2+?^6%9`p0"Z9<T!=^nlJ-QN@AS;N1D=@`=-O#S6FT;SZ"Z>BB^]=mCjT4HDD)L\]5RgZZ!UTo)!!Sbk"Z<soO9#eJ`<"<i%9(4H`;sg4"U3-O+Ku7XeH%P`!FQ@8h#Z=4D#a`U"XaJ8"+<%\!Up.";hY7+!Gs]R!Up4$!!Tn7"Z<+W0F^sW!Mog626?n`#7WPu!O)\9!!SSf"Y^+V!iZPbo`9RF%9)p#o`8nT"[`.g!!Vur"\OIMi!"oB8qd?)"kX2TK`^09i!_K&!oO(g!!Qd78qd?)"gA8)K`^09\-ko_!oO7W$NL?h!sM;N!oO7G$qc3Ti!$Ur8qd?)"eZ;sK`^09p^KiL!oO7'$VH*Si!#b]8qd?)"kX.^"cNHc23e6A!Y$CY)P$pf"f2:6!B(+`!n@<<XTAY01^+&j!WWDj!<jbY"U-b(kQ),M21P`;2*KRp%0-Qj"9hs4PlV%GSH5Ae%9&euSH3R-"l'._%cmcR!pp%im/eT\$T$lGm/lAN5NMqMk6M%k=Tr.9"U-7WQj)"A2;J>4"q=Vp![ZJ$<p]r7O9>Oe!<kOO!p'LF!`n[i-.iG4jT=NFm/g>U![ZJ$!!S#V"TS_-#mC^5".9;r!!Us^"XF7d[0&;jXTPs5!!Tn8"\nXk"[,Ta"n_os"k3_[$`*sW"9ec/(Bl]#`<)S3:'Cg?!WWDG$O%j\R0*$_!!T_:"XE+1o`@Z/m/m4f80d3tK`ci0%fHJ-!eg_$r;qZThuaIC",-jM!Wok:K`d#22?gJiK`_;Y_#acAhug@gjT7L)!jr*s!Z'\rm/lYV!!R0B2?iaT4Z3KB!n@<0"bd'G!WWB)"[*n!!ZaMu!X6sX!!U[R"Y7OnblYQ[-3_L!V#gW#;$B*'V#hZ@"gnC8=p;S@"Z=7#^]k6*blYre%0-Q*"Z?O\!^/EC!h]Q'273MD#7UY:<!<7*rrrWS"kWnT!_`db!X0qTW!2hq9EjMZ"^qSj!X2Wd![ZJ(!!NB,3opG!!o3oeh#cC6L^GL5Qj)RQ8&l%g!X1b>XTJ_b"gnHg!\+?W[0$C4_$gJT]`PAA"TS_P"pGQt)ta6.'OM"I"^2(h!sM;V"'F1[8rWqO"crjZN<>gU3$\ZRPlk1nSHB$QV$"d@%3u+O!NcGSV$!h%SHCbRV$"C32?g2bblT^*"gnFd"f2<["Z?O<".]Kg"U0S^!!S;j"Z<sqO9Drn28o[M#.4Ojbl]r5"#\U2W!0R28WX%f"4[K2eH8p]"%eRV`<4Wm!!NB,2:Vf%"185&O9<`0eH7]5eH8f0"l09o"#^>E".]Mo"VCo<eH5sY!!T/&"]a(T"U-dfeH8f0"l0:""#^>E".]NoeH5sY2?hV5<Ak$:"3gp+"m#iW!rrL0"Z?OD".]Kg"U0kf!!V6b"TS_R#mF7]"8r:d!@@ur"bd$Y"oef2'YOS(!p9sl"oeT,*5qu]!X1m/!mh04!!SDb"^_E:"\mMK"XQC`!X6=H!!W0!"[B*k"lomg"Yg/gV#nI:"TS_:#R+9%![Tf+"fDk7'YORm!p9sl"cNHc2?gJj75b=_"0DZ6"gnF928'*R"q=55"2+g/"98VL#R*rq!X1GV"U4Q#!!SSt"TS^g"U-d^!g!KV!]C49"$JOGN<@-$2?f?Jm/f0LSHJfl!!NB,=TsK],rPp\"!'9'N<B+\23e9""q<G\"1SL,!a,\\"!mpNF9PCh!X0kieH48&"Z>*;L]\(d"]5G(jT6`i"?PWGh#cC6@bh+A!jDu(eH4P.k61hhBa#jf^^]r<9EjMZ"XaJP$1.df"l04`!!Q=*2<=mi":[6U!iQ;4<qQM?O9>Oe!<lO&![XKA3rK-Q!qcV'"ml?p!!R0B!!U+F"[DY]"kO:c"f)>+2?foYSH;Oi"f28#"lopm,IIU'!l,-E\-LOceH.W4[0"k[!!VEg"U^1q"k<YS"m6<u<Q,"C"XF6Y]`L(q`<*^S:'Cg?!]@pun-'7YblT!s2?hV44TGX_"Z?P'!`_,^blYQ[2:VaN%0-QB"[*mf!YmTso`@9Nr;m-C4WX1s'gL4M"ZZPd.0WH%!X0#r*Rt3+2?i1D4\b;F"Vh"@>Qk*2\H2q!jT5U]!WWCd!X1Ic[/rcT"hau>!au8?!X1Hp!gj0$'X\"U!qZWr"iLTK2?h&$SH;Oi"iUNC"cici$AT)peH,^Se-6(6N<=D7'SQXK"3^fH"X+%-"bd%I2?f'Br;pC2K`_JY"Zuqg"k3b\9Ej5R"]j^d-!1Z5!o3q>!b0seh#`rP-O#k@jT5Dc5m8V>\.&<;9Ejeb"]k9t-.iG&"T\d-r;n:D"ZQZ3jT6e5p^HNk!!RHJ8"UFE!X1IcK`dkI:'CfT!rrMS"9g[eK`dkI:'CfT!rrMS!X2p7"U-.T;PaF?"`g^H,R(a[[/pd@]`J?;"T\ck]`JB(%fcdJ!<lg6"U-"?%<^S4!!T_5"]j^d-.iG&"fDb45D91ChZj,bPR7R(FhIji!]C4)]`KCk!gj.>2?eNB!\LJ[i!"N/"ge^B!!!9)!!!#Sq?$^$+U%iL)$MAkQj#&A"`X\q"U-J(*<cU2*<d#T"_e-9-*88K('L!.,o$sc"skQ*,qUDK%4s.E/M/85/Hm!l"X+$s"crg<!!O_R-3YbK!!OVO!!O/B"IK?='bC'D,pcM:,n1!E"YC_tQj#>^3]/K@+t]/c/J%U\/M.5S/L:Ic"XP`#"T\cf/L;tu"U-IX!EfL)!!!#:q?$^$+U%iL)$L!D&Hs6+"k<pm$n_\e"\fF0"XaK;$Pafg"UtG8-NsJO.?OW8zaSGu="ZZ_d"Yg0Wobb@Pr=Ar4+U(Rl"V!Tu/IaiH*<dAk"U.U0"U/'5'a7;P"U.UH"V!dE"U+l0-NsJR+U(<6!Q>'MzOS]+["k`t]!!UaP"Z?N!,le+:!sK%2!<k=\"c36`;C)J]!!O/B7$%Kj'`\D'"U^q+"XO-P#mF/m#-A0=*+&jQ"YKr^"]coYE"j<=YlXn/7g1dS,o$C`(Bm>5,o&<A'dWh`JH?!^"U,&f"ViTh"mH$k9iV?32?dA$2?dYd9EeE"*`Z2d'3-&Q?nEs1!!NB,4&mSW#U39I"B>MR#$"Y]"XR.K"XaI3"XPa$/Ie?X-O'8L2&nao"XaJ@"[rCp8Hhg7"Vip!/JTW:Qj#>p"dfHV3!CTS4"Vb/#U1k!">'\*"t_D,"agJD-T)&T"dfH>*%_U'-O$FS2#md\"\2W?"XOT]"Z7$V!t@sF"U-df,o'hl*<fIi%CcEQ*@67;!!T8$"TS^-"Y3:^>n^3a>uP$7793t/+=g/t>lY$j"X6tA#!Gmb<=Ml4<CHlk<!?2h4UiT0Qj#WO9hc&s"[iMp,n64G'HJKL!!URJ"TSN4zf_YaN"VCn<"UP>4"T\cQ<<WP0"^M9SQidM'8alpiAP-7<!cT:W"U/I/TE/>08mR5SW!=FN"_C8m!aT@;"h=d?8mSA&?m+Y="_C9h!F97:"c3Hf+P7)+AP&6u?"G,a"_@Z;JHc9M?.]JA#>/9p#f$I5?.]F="TS_J#6c6S%0^<7J-'"f,R%@_!!QL/8^INEAK^1C"_C8]%:*NF"k`n[8mU?Zp];Rg%0^<7fE>Jk8mTLEYQ[X)cjBIQ!!RHJ&7#GC8`0_WAP-7T"Gd7S?/Q!u!D6Y%%O_;\R/mI6#R+csA]Opa8Z2_sAH2n="U.Jj$!h+7?-ir""!GYn"_C8e$=.48?-!J:"X'HH"_C:#$!h+7?/Q%)"A2t`"F*OEYR7lE!!SJf"\N(Q!QYF:?2+c:"%ljl$GZiG"a:+mJ.;`o8b`<lAP-7t#f$U9?-ik5!<<;4!<l)$a9]!T+OCN#AP'*/?"F!>!<jUm%0^<7O9&Wu8mS)"a8mFQ#mFm3BO,1A?2+Nc!_Qac".098kQD'#8WX<cAH2nE!X0^N"pJR0huR+p+OC5pAH2n@!X20Z#@1n5?)S7["sB9?"_C9p!F98/?'#BV"TS_E!<l)$:nRta?'kYS#"i1:"0_eu?*FO#"A2th#G;8n?2+Z/!rrN!!X0\P"_BQ&kQYTiL]^po8mTdI^]FK>A-F(]"_BQ&kR(lmL^.3s!!UjQ"\GWs?"Ghr"_C7J?"F!>6j6/4"C5S2?/PeZ"A2se$d\nS"d]8o2._jSAP&g$?"HW6Qj8-D+Lh^]AH2n-!<l)$QjE0`8mR5_^]t\6"C5:5"igZJ8mSq9YQ@F&QjN6`+Q*\4AH2nh!X0^6!sN6nA]P!c8aljgAKZL0"_@Z;Gm,>S!sN7-&7&j>?-!5+"A2sM"[F19"_BQ&L^@Vm"nr$$8Z2\rAKV6^AMn%t$tTDBX9&Pt?,-`U"X*:C"_C9p"^P[>"d]5n8Uq%OAP-7t%A3qu?'#=G+:&-^2.btUAH2nh!X2rE&qpFI"onZ*"onW'!64j;!!NZ4.Kotr,o$Re=p5oM<[@q-#:g60*EFHikQ37L,ooo)%35EP%g;q:(Blga&?Q2F(B=LW)%$?D!!)ci!rrN#!<iH,nGre?"j$j0!!PXl7.:S8!A+9TR/mI="dfHF-O#S6*<67O"X>lfQj"7e"$JdI"W%=e2*I$'(6AV]4TGZM!X0f+4cfaq"U.%)^^ERW%NRu,$p@$B.Kou="Mb=,/J%U\4Zs324ZrcK6j6&A"$Iqp4TuW%"]#:["YCH:"dfHN-O%j%4TGYJ!<l1,"U.4%"U.U8"U.4-"U-7WQj"L),m=_X"^D3h"Z7#B"fMkn-O#kI75tGs/PS)+%5nAQ'dj0X!_#cd2$FMX"Z8/82$Gi;"XsU7"XPH>,pg&+%OED19e?MX!!S#V"[nFS-S5<%#mD$>"6BTd'h",c2^JG-Ig%;*"[)hd&I&48!!'n4!rrK:"TS]4"V],m]bRp\'a5$M>m25P9dKrH1*%A=!!OGJ!!?a8aT2YI!!!#Cq?$^$@0HW7=ToW_"XR2$%3RS5*A'u;"Vip!2'jCL"YEY)'b)Vr"YC&:%s>i-<[A1t.Kou%,o$Re2'%b\%9"8^*BtPJ1]R[q"TSQG!rr<$!5\L6!!Nr<!!NZ4<TO8#(#9$>%0Zo;"U,>f"U,&0"WmmJ"<A4#)%loL!!'S,!rrM8!X/Q-YlY)9"U,&W"dfHN9g&X`69PJU-O#k@77W1:2$H]S"V"13"U.4u"U+l03<`,g"U.5("U.V;"U.$mD%0<I"U-DV>qH$[i<9BZAH`6#"_A-><<WP#>m1Z;"T\d$AH`6(AH`63D$:(C"T\ci"`4]F>m1B^<F%1N<<Wh+>m1B3"T\cn>m1C+AH`6#"_A-><<WP#>m1Z;"_Rud"dfH&9bdg8659Y--O#k@*Cis9"[[V@"[@D=OTPRe.0V5EI4\09"U.58"U.VK"Vh"@6j3PoR0!P#`>6],]`SV("9f57"k`t]$4-kn!!V<^"XaJ8"'$]Pci[Q$"dfI)!!NB,7u77H"\j+C"[[>8"\jCK'gd<P"]Kht/LCY.!IXqO&HuMF"U+l0KE26NI0C'SK`M>l6A5FD"\jsW"Vh"@!<kUiN<'JbI0BcS"cNKd$4-l9!!Qm:9m$US6?NG85BR.*!<<;9!<lg6"U+l0M#miTI0C?PI0BcS"XsU<"cWNl!sO)V.s67l!!NB,!!S#V"Y4_D/PU?k*DLqc'gd<P"\j[O"U+l0!<kUiK`MWZFThpR"V#k["T\d$K`M>l6A5FD"\jsW"U+l0S,id#7g1aM"W%=B"igZJ4Tui8)[urS?NgT:9aq789bdgH659Y-9cXB@!!Pao=p6J]-O#S62(&RS"$J"8Qj#oKKE3q6!!=eVN<'@d!!!#Lq?$^$Gm+0OE<T904WP4G7@=/V"ebr#?NgT:9dKrX:'CeI/d2C^7qj7Q9e?MP<](>r""ZS="]-cS"XaJ@"Z68`49ZH'%0]o=*<du?"U+u3*<deoQj"c9"]kjReJ6mRh$49'"XO-P0*PBF%HmjC"U.<u._KE&R"srkm2`=nAaJJB]TdQu2G_jfEp*.p8;6CpK\_%1j4r][r$^>pB)'\:=Dj++]9h#3*u'I60)k#u)27$BrjI7O'+e;V4_kdJf\$O<j#\W:^Z%;TPm#(cz!!#'qceSV@D:"%EQ^5E?oVOH*\-!V@qj?G4P#j.^?rjKs)!3`Ye/qsp?d+lk0)P*:6mB:NoSB.L#$15.3*'T`E1Oo87p^dCe]/VEno)0+`b6^k)WQ(\kGCjHM6Yk'dC#G5$qQ2=KQFI;E'H+8Jn";5qpi!1<K0/TAWW_4Ia/cSbngqY"9r,?Hti&=$gXQP:e_S)@&'-Kf_?!Cc?$`r8;G@)g0,DlZ#4$Y[EC$C*&ner[/<kDPb7'hp`2_?a+I%5?5n^eEia>I>41rlL2#'dFY2F+#r,1NiW&rY!!!!5^u>=oz3PaVSz!%>YBz!.\"`cO8SF\uAKU`TGJDMW+U9z!!)!Yz!&VL;!n>`Zz!!":[S]q08!!Ec3zz!!'/f!!!K/!!!B,!!!B,!!!$"!!!?+zz!!!'#!!!'#!!!'#!!!'#!!"JK!!"GJ!!!l:z!!(OF"'YqC"^;.="\o4)%5%ef"^;-2"XkAp"\Kdh-lF$/"\Ke;(b#Ul*FT*\"g.k0"V"=*%2)kK(BkBS"U.7Q"Uug_&/ACQ-Nse+%-7li$!RQ6"XkAp"\Ke##T4Wd"\KdX81=]G*WH-DA-Dr5z!5&(0s8W-!s8W*("UtV9]=],5.0));if not(not D[30884])then f=D[30884];else f=P:d(f,D);end;return f;end,sm=function(P,d,f,D)local E;if d>106.0 then d=0x006a;D[0X1][13]=(-f);else if d<119.0 then E=P:bm(D);return{P.J(E)},d;end;end;return nil,d;end,wo=bit32.countlz,S=function(P,P)P=P*128.0;return P;end,r=function(P,d,f)d=-4198345015+((P.co((P.ho(P.a[0X7],(f[23566])))+P.a[0X003],P.a[0X6],f[0X697C]))+P.a[0X9]);(f)[30320]=(d);return d;end,Lo=function(P,d,f,D,E,q,S)if not(D>=112.0)then f=(function()local _,p,Q=({q,q[0x20],q[34]});Q=P:fm(Q,_);p=P:em(_,Q);if p~=nil then return P.J(p);end;end);if not d[0x1df2]then D=(108+(P.co((P.wo(d[0X165d]))+d[29242]~=d[0x6cCc]and d[0x7670]or d[0x001922],D,P.a[0X05])));(d)[0X1dF2]=(D);else D=d[7666];end;else S,E=P:Rm(f,E,S);return S,E,0x4fa0,D,f;end;return S,E,nil,D,f;end,I=coroutine.yield,Om=function(P,P,d,f,D)f[D]=P[0x1][0xa][d];end,zm=function(P,P,d,f)P=(f-d)/0X8;return P;end,Mm=function(P,P,d,f)if f>93.0 then d=P[1][0X26]()-68256;f=(93);elseif f<93.0 then(P[1])[0X1c]={};f=(0x76);else if f<118.0 and f>51.0 then P[0x1][0Xa]=P[2](d);return d,0XD2d,f;end;end;return d,nil,f;end,_o=function(P,d)(d[12])[7.0]=P.m;d[0Xc][16.0]=P.Y.unpack;end,Lm=function(P,d,f,D,E)D=(nil);E=(nil);f=1;while true do if f<91.0 then D=({nil,nil,nil,nil,P.l,nil,nil,nil,nil,P.l,nil});f=108;else if f<108.0 and f>1.0 then P:C(d,D);break;else if f>91.0 then f,E=P:q(f,E);end;end;end;end;local q,S=(d[0X1][38]());for _=0X43,0xc1,118 do if not(_>67.0)then S=d[2](q);(D)[0X1]=(S);else P:e(q,S,d);break;end;end;return D,f,E;end,om=function(P,d,f)local D;if f==175 then while true do D=P:Tm();return{P.J(D)};end;else if f==0X69 then if-d[2]then(d[1])[17]=(d[1][0X001D]);end;end;end;return nil;end,Im=function(P,d,f,D,E)if E==23.0 then E=P:im(D,f,E);else f[8.0]=(d);return 0X885E,E;end;return nil,E;end,k=function(P,P,d)if d[1][0X1D]~=d[0X001][15]then(d[0x1])[6]=(d[1][6]+1.0);return{P};end;return nil;end,d=function(P,d,f)d=-0X4D+(P.Oo((f[0X7670]~=P.a[5]and P.a[0X7]or P.a[0X2])+f[0X1922]==f[0x697c]and f[0x005C0e]or f[13333],f[6434],d));f[0X78A4]=d;return d;end,a={55789,1587873563,2073381470,1287812415,2076733604,3530162729,731538665,4216824689,4198345118},v=function(P,d,f,D)d[0x19]=(error);(d)[26]=setfenv;d[27]=(P.g.wrap);d[28]=nil;(d)[29]=nil;(d)[30]=nil;D=(16);repeat if D>16.0 and D<66.0 then(d)[0X1D]=(9007199254740992);if not f[9240]then D=(-2102005236+(P.zo((P.ho(f[23633]-f[27571],(f[0x5C0e])))+P.a[2],(f[30884]))));(f)[9240]=D;else D=(f[0x2418]);end;elseif D<47.0 then D=P:o(d,f,D);else if D>47.0 then(d)[30]=function()local f,E,q={d};for d=57,0X4c,19 do if not(d>57.0)then q=f[1][1](f[1][22],f[1][0X6],f[1][0X006]);else E=P:k(q,f);if E~=nil then return P.J(E);end;end;end;end;break;end;end;until false;return D;end,Z=function(P,d,f)(d)[0X68e1]=0X44+(P.wo(d[30884]-P.a[7]+d[22679]-d[17945]));f=16+(P.lo((P.co((P.so((P.wo(d[15734])))),d[22679],d[5903])),(d[0x5C0e])));d[0X1D0A]=f;return f;end,ym=function(P,P,d)P[0X1][0x28]=P[0X2](d*3.0);end,Io=function(P,d,f,D,E,q,S,_,p)if _>=118.0 then(q[0Xc])[14.0]=P.h;if not S[0x50CB]then _=-1207959459+(P.lo((P.wo((P.bo((P.bo(P.a[3],(S[1052]))),(S[15976]))))),(S[27004])));(S)[0X50CB]=(_);else _=(S[20683]);end;else D=q[0x2B](D,p)(E,P.F,f,d,q[36],q[30],q[33],P.a,q[24],q[0X2B]);if not(not S[0X6fae])then _=(S[28590]);else S[29493]=0X7b954a7C+((P.ho(S[0X55Ed],(S[0x3e68])))-S[17945]-P.a[3]-S[0X4B1F]);_=0X6+((P.wo((P.ho((P.co(P.a[0X7])),(S[0x3e68])))))+S[7434]);S[0X6fAE]=(_);end;end;return D,_;end,Ym=function(P,d,f,D,E,q)local S=(q[0X1][0XA][E]);E=(#S);if q[0X1][0X26]==f then else for f=0X4D,209,0x42 do if not(f<=77.0)then if f~=209.0 then(S)[E+2.0]=D;else S[E+3.0]=2.0;end;else P:mm(E,d,S);end;end;end;end,g=coroutine,bo=bit32.rshift,_=bit32,Bo=function(P,P,d)d=(P[0X3E68]);return d;end,Ao=function(P,d,f,D)d[0Xc][12.0]=P.n;if not(not f[0x2746])then D=f[10054];else D=(-6+((P.ho((P.ho((P.zo(f[23633],(f[0X64a9]))),(f[0X0064a9]))),(f[0X1d0A])))+f[0X41bB]));f[10054]=(D);end;return D;end,J=unpack,Gm=function(P,P,d)(P)[3]=d[1][0X26]();end,Wm=function(P,d)local f,D,E;for q=0X6E,0X16b,89 do D,f,E=P:um(d,q,D,E);if f==nil then else return{P.J(f)};end;end;return nil;end,X=function(P,d,f,D)if not(f>=103.0)then(D)[1]=P.x;if not d[0x723a]then f=(-2804920095+((P.co(P.a[7]+P.a[8]>P.a[0x9]and P.a[0x7]or P.a[0X5]))+P.a[3]));(d)[0X0723A]=f;else f=(d[0X723a]);end;else(D)[2]=P.no;if not(not d[27004])then f=d[0X697C];else f=P:s(d,f);end;end;return f;end,Sm=function(P,P,d,f,D)if not(d)then(D[1][0xa])[P]=(f);else(D[0X1][0xa])[P]=({[0.0]=f});end;end,N=function(P,d,f,D)D[0X6]=1.0;D[0X7]=P.G.move;D[8]=P.B;(D)[9]=nil;D[0X0A]=nil;f=(0X50);repeat if not(f<=80.0)then(D)[10]=(nil);break;else(D)[0X9]=(getfenv);if not(not d[0X36ab])then f=d[0X36Ab];else f=P:P(d,f);end;end;until false;(D)[0Xb]={};return f;end,Fo=function(P,P,d)d=(P[25769]);return d;end,z=bit32.bor,cm=function(P,d,f,D,E,q,S,_,p,Q,C)local j;p=nil;D=(nil);local Y=(42);while true do j,D,p,Y=P:lm(p,S,D,Y);if j~=47153 then else break;end;end;f=D%8;d=(nil);q=nil;Q=(nil);E=(nil);_=(nil);C=nil;return E,C,p,d,D,Q,f,q,_;end,m=bit32.bxor,pm=function(P,d)local f;while d[0X1][0X27]do f=P:Am(d);return{P.J(f)};end;return nil;end,tm=function(P,P,d,f,D)local E;for q=0X7e,0XCa,0X21 do if not(q<=126.0)then if q==192.0 then(D[1][40])[E+3.0]=(f);break;else D[1][0x28][E+1.0]=(P);(D[1][0X28])[E+2.0]=(d);end;else E=(#D[0X1][0X28]);end;end;end,go=function(P,P,d,f)return{P[0X2b](d,f)};end,f=function(P,d,f,D)local E=f[0X1][0X26]();if not(f[0X1][0X1c][E])then local q=(E/4.0);local S={[0X1]=q-q%1.0,[2]=E%4.0};for q=106,0X107,34 do if q==0X8C then P:E(D,d,S);break;else if q==106 then(f[0X1][0X01c])[E]=S;end;end;end;else D[d]=(f[0X1][28][E]);end;end,Am=function(P,P)return{P[0X1][41]};end,Zm=function(P)end,km=function(P,d)local f;for D=0X69,175,70 do f=P:om(d,D);if f~=nil then return{P.J(f)};end;end;return nil;end,Km=function(P,P,d,f,D,E)f=(E-d)/8;P=D%8;return P,f;end,dm=function(P,d,f,D,E,q,S,_,p,Q,C,j,Y,e,L,F,h,s,X,r,O)local m,M;for t=86,0x74,6 do if t==0X56 then S=Q[1][39]();elseif t==0X62 then L=P:nm(L,d);elseif t==116 then M=P:zm(M,L,d);elseif t==104 then Y,p=P:Km(Y,h,p,S,X);elseif t==92 then d=Q[0X1][39]();else if t==0x6e then C=((S-Y)/8);end;end;end;if Q[1][0X1E]~=Q[0X1][0X25]then else return L,d,C,S,{88},p,Y;end;for X=0X26,494,0X5f do if X==418 then m,L=P:wm(e,D,j,h,Q,p,s,f,C,L);if m==45390 then break;else if m==nil then else return L,d,C,S,{P.J(m)},p,Y;end;end;else if X==0X85 then(f)[e]=p;elseif X==323 then(q)[e]=M;else if X==228 then(O)[e]=C;else if X~=0X26 then else r[e]=_;end;end;end;end;end;for f=0X2f,0Xc6,34 do if f>47.0 then if L==0X0 then if Q[1][35]then P:Pm(M,Q,j,e);else(E)[e]=Q[0x1][0Xa][M];end;elseif L==0X7 then P:Nm(e,M,q);elseif L==0X1 then(q)[e]=e+M;elseif L==4 then q[e]=(e-M);elseif L==0X2 then P:tm(E,e,M,Q);end;break;elseif Y==0x0 then if not(Q[0X1][35])then F[e]=(Q[0X1][0XA][C]);else P:rm(C,Q,j,e);end;elseif Y==0X7 then O[e]=(C);elseif Y==1 then O[e]=e+C;elseif Y==0X04 then(O)[e]=(e-C);else if Y~=0X2 then else P:Dm(e,C,F,Q);end;end;end;return L,d,C,S,nil,p,Y;end,Um=function(P,d,f,D,E)local q;(D)[0X1f]=type;D[0X20]=P.c;D[33]=function()local S,_=({D});local p,Q=S[1][2]('<I4',S[0X1][22],S[0x1][6]);local C=(0X6a);while true do if C<106.0 then _=P:U(p);return P.J(_);else if C>65.0 then C=(0X0041);S[0x1][0X6]=(Q);end;end;end;end;(D)[34]=function()local S,_,p,Q={D};for C=21,0Xaf,0X48 do p,_,Q=P:y(Q,p,C,S);if _==nil then else return P.J(_);end;end;end;D[35]=P.l;D[36]=nil;(D)[0X25]=(nil);D[38]=nil;(D)[39]=nil;(D)[40]=nil;(D)[0x29]=(nil);(D)[0X2a]=(nil);(D)[0X2B]=nil;D[44]=nil;E=(0x2E);repeat q,E=P:vm(d,E,D);if q==59727 then break;end;until false;f=nil;return E,f;end,U=function(P,P)return{P};end,Y=string,Po=(function(P)local d,f,D,E,q={};D,E,q=P:w(E,D,d,q);q=P:N(D,q,d);q=P:Q(D,q,d);q=P:W(q,D,d,E);q=P:v(d,D,q);E=nil;q,E=P:Um(D,E,d,q);local S,_,p,Q;p,S,q,_,E,Q=P:ao(D,d,q,S,Q,_,p,E);repeat if q<122.0 and q>60.0 then d[12][10.0]=P.ho;break;else if q>107.0 then q,Q=P:xo(D,Q,q);elseif q<60.0 then q=P:Ao(d,D,q);else if q<107.0 and q>17.0 then q=P:Go(D,d,q);end;end;end;until false;q=(0x65);repeat f,q=P:io(D,d,q);if f~=59442 then else break;end;until false;(d[0Xc])[15.0]=P.O;q=(118);while true do if not(q>24.0)then f=P:go(d,_,p);return P.J(f);else _,q=P:Io(S,Q,_,E,d,D,q,p);end;end;end),no=string.unpack,L=function()return function()local P=function(...)local d,f=loadstring(...);if f and vape then vape:CreateNotification('Vap\101','Failed to load : '..f,30,'alert');end;return d;end;local d=isfile or function(f)local D,E=pcall(function()return readfile(f);end);return D and E~=nil and E~='';end;local f=function(D)task.wait();D();end;local function D(E,q)if not d(E)then local S,_=pcall(function()return game:HttpGet("\104ttps://ra\119.gi\116\104u\98usercont\101\110t.co\109\47qwer\116yu\105\45is\45back/Cat\086\53/"..readfile("c\97trewri\116e/p\114o\102ile\115\47com\109it\46txt").."/"..select(1,E:gsub("catrewr\105te\47","")),true);end);if not S or _=="40\52\58 N\111t Foun\100"then error(_);end;if E:find('.lua')then _='\10'.._;end;writefile(E,_);end;return(q or readfile)(E);end;local E=queue_on_teleport or function()end;local q=cloneref or function(S)return S;end;local S=q(game:GetService('Pla\121\101r\115'));local _=q(game:GetService('R\101plic\97ted\83torage'));local p=q(game:GetService('\82unService'));local Q=q(game:GetService("\85serIn\112\117tServi\99e"));local C=q(game:GetService("\84weenService"));local j=q(game:GetService("L\105\103h\116i\110g"));local Y=q(game:GetService('Ma\114k\101tplac\101S\101rvice'));local e=q(game:GetService("Telep\111rtServ\105ce"));local L=q(game:GetService('HttpServ\105ce'));local F=q(game:GetService('GuiSer\118i\99e'));local h=q(game:GetService('Gr\111up\83erv\105ce'));local s=q(game:GetService('Text\67h\97tS\101\114vi\99e'));local X=q(game:GetService("\67ontext\65c\116ionSe\114vice"));local r=q(game:GetService('Core\71\117i'));local O=workspace.CurrentCamera or workspace:FindFirstChildWhichIsA("C\97\109\101ra");local m=S.LocalPlayer;local M=getcustomasset;shared.vape.hackerTable={};local t=shared.vape;local n=t.Libraries.tween;local x=t.Libraries.targetinfo;local c=t.Libraries.getfontsize;local b=t.Libraries.getcustomasset;local A,a,G;local H={Enabled=false};local U={Enabled=false};local function v(Z)local K=Instance.new('Im\97geLab\101l');K.Name='Blu\114';K.Size=UDim2.new(1,89,1,52);K.Position=UDim2.fromOffset(-48.0,-31.0);K.BackgroundTransparency=1;K.Image=b("catrewri\116\101/\97ss\101ts\47new\47blu\114.png");K.ScaleType=Enum.ScaleType.Slice;K.SliceCenter=Rect.new(52,31,261,502);K.Parent=Z;return K;end;local function Z(K)local W,l;local R,R,R,R,B,V,N,N,N,w,w,w=O.CFrame:GetComponents();if N<1 and N>-1.0 then W=w;l=V;else W=R;l=-B*math.sign(N);end;K=Vector3.new((W*K.X+l*K.Z),0,(W*K.Z-l*K.X))/math.sqrt(W*W+l*l);return K.Unit==K.Unit and K.Unit or Vector3.zero;end;local function K(W,l)if t.Categories.Friends.Options['Use friends'].Enabled then local R=table.find(t.Categories.Friends.ListEnabled,W.Name)and true;if l then R=R and t.Categories.Friends.Options['Recolo\114\32vis\117\97ls'].Enabled;end;return R;end;return nil;end;local function W(l)return table.find(t.Categories.Targets.ListEnabled,l.Name)and true;end;local function l()local R=(Q:GetMouseLocation()-F:GetGuiInset());for B,B in m.PlayerGui:GetGuiObjectsAtPosition(R.X,R.Y)do local V=B:FindFirstAncestorOfClass("Sc\114ee\110\71u\105");if B.Active and B.Visible and V and V.Enabled then return false;end;end;for B,B in r:GetGuiObjectsAtPosition(R.X,R.Y)do local R=B:FindFirstAncestorOfClass("Scr\101\101nG\117i");if B.Active and B.Visible and R and R.Enabled then return false;end;end;return(not t.gui.ScaledGui.ClickGui.Visible)and(not Q:GetFocusedTextBox());end;local function R(B)local V=0;for N in B do V+=1;end;return V;end;local function B()return m.Character and m.Character:FindFirstChildWhichIsA('To\111\108',true)or nil;end;local function V(...)return t:CreateNotification(...);end;local function N(w)w=w:gsub('<br\37\115\42/>','\n');return(w:gsub("\60[^<>]->",''));end;local w,T,z={},{},false;local g,o=tick();local function k(I,u)w=shared.vapeserverhoplist and shared.vapeserverhoplist:split("/")or{};if not table.find(w,game.JobId)then table.insert(w,game.JobId);end;if not I then V("Vap\101","S\101a\114ch\105n\103\32f\111r an \97vailable ser\118e\114.",2);end;local J,y=pcall(function()return g<tick()and game:HttpGet("ht\116ps:/\47gam\101s\46r\111bl\111\120.\99\111m\47v1/games\47"..game.PlaceId.."/s\101\114vers/P\117blic\63so\114tOrder="..(u=='\65\115ce\110d\105ng'and 1 or 2).."&excludeFullGames\61true&\108\105mit=100"..(I and'&cu\114so\114='..I or""))or o;end);local I=J and L:JSONDecode(y)or nil;if I and I.data then for J,J in I.data do if tonumber(J.playing)<S.MaxPlayers and not table.find(w,J.id)and not table.find(T,J.id)then g,o=tick()+60,y;table.insert(T,J.id);V('Vap\101',"Found! \84\101l\101po\114\116ing.",5);e:TeleportToPlaceInstance(game.PlaceId,J.id);return;end;end;if I.nextPageCursor then k(I.nextPageCursor,u);else V('\86a\112e',"\70ailed to\32f\105nd an av\97ilable \115\101\114\118er.",5,"\119a\114ning");end;else V("\86\97pe",'Fail\101d to g\114\97\98 \115erver\115\46\32('..(I and I.errors[1].message or'\110o\32\100ata')..')',5,'\119\97rning');end;end;t:Clean(m.OnTeleport:Connect(function()if not z then z=true;E("s\104a\114ed.vapeserverhopl\105\115t\32\61\32'"..table.concat(w,'/').."'\10s\104are\100.vapeserverh\111\112p\114\101v\105\111\117\115\32= \39"..game.JobId..'\'');end;end));local w,T,z,g={},{},{};getgenv().frictionTable=w;local function o()if R(w)>0 then if g.isAlive then for I,I in g.character.Character:GetChildren()do if I:IsA('Ba\115e\80art')and I.Name~='Huma\110oidRoo\116Part'and not T[I]then T[I]=I.CustomPhysicalProperties or"\110o\110e";I.CustomPhysicalProperties=PhysicalProperties.new(0.0001,0.2,0.5,1,1);end;end;end;else for I,u in T do I.CustomPhysicalProperties=u~='no\110e'and u or nil;end;table.clear(T);end;end;getgenv().updateVelocity=o;local T=P(D('catrewri\116e/librarie\115\47ha\115\104\46lua'),"ha\115h")();local I=P(D("c\97trewrit\101/libr\97ries/p\114\101d\105c\116ion.lua"),'pred\105c\116ion')();g=P(D('\99atrewri\116\101\47\108ibrar\105es\47\101\110tity\46l\117a'),"ent\105ty")();z.Lightning=P(D('ca\116rewri\116e\47libr\97ri\101s/We\97the\114\47Light\110\105n\103.lua'),'Li\103ht\110ing')();z.Rain=P(D("catr\101writ\101/li\98\114a\114\105es/Weath\101\114/Rain.\108u\97"),'L\105g\104tn\105ng')();z.Snow=P(D('c\97trewrite/libraries/\87e\97\116\104er/Snow\46lua'),'\76\105ghtnin\103')();local P={alreadychecked={},customtags={},data={WhitelistedUsers={}},hashes=setmetatable({},{__index=function(D,D)return T and T.sha512(D..'S\101l\102Re\112o\114t')or"";end}),hooked=false,loaded=false,localprio=0,ignores={},said={}};local D;do if m.PlayerGui:FindFirstChild('\84o\117chGu\105')and m.PlayerGui.TouchGui:FindFirstChild("Tou\99hCon\116rol\70\114ame")and m.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild('JumpBu\116\116o\110')then local u=m.PlayerGui.TouchGui.TouchControlFrame.JumpButton;D=u:Clone();D.Parent=m.PlayerGui.TouchGui.TouchControlFrame;D.Name="\68ownB\117tt\111n";D.Position=UDim2.fromScale(u.Position.X.Scale-0.08,u.Position.Y.Scale);D.Visible=false;D.ImageRectOffset=Vector2.new(0,146);D.Image='rbxassetid://11\054011\05197928\05405';t:Clean(D.MouseButton1Down:Connect(function()D.ImageRectOffset=Vector2.new(146,146);end));t:Clean(D.MouseButton1Up:Connect(function()D.ImageRectOffset=Vector2.new(0,146);end));t:Clean(D);end;end;t.Libraries.entity=g;t.Libraries.whitelist=P;t.Libraries.prediction=I;t.Libraries.hash=T;t.DownButton=D;t.Libraries.auraanims={Normal={{CFrame=CFrame.new(-0.17,-0.14,-0.12)*CFrame.Angles(math.rad(-53.0),math.rad(50),math.rad(-64.0)),Time=0.1},{CFrame=CFrame.new(-0.55,-0.59,-0.1)*CFrame.Angles(math.rad(-161.0),math.rad(54),math.rad(-6.0)),Time=0.08},{CFrame=CFrame.new(-0.62,-0.68,-0.07)*CFrame.Angles(math.rad(-167.0),math.rad(47),math.rad(-1.0)),Time=0.03},{CFrame=CFrame.new(-0.56,-0.86,0.23)*CFrame.Angles(math.rad(-167.0),math.rad(49),math.rad(-1.0)),Time=0.03}},Astral={{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0.1},{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0.15},{CFrame=CFrame.new(0.95,-1.06,-2.25)*CFrame.Angles(math.rad(-179.0),math.rad(61),math.rad(80)),Time=0.15}},Random={},['H\111\114izo\110tal\32Sp\105n']={{CFrame=CFrame.Angles(math.rad(-10.0),math.rad(-90.0),math.rad(-80.0)),Time=0.12},{CFrame=CFrame.Angles(math.rad(-10.0),math.rad(180),math.rad(-80.0)),Time=0.12},{CFrame=CFrame.Angles(math.rad(-10.0),math.rad(90),math.rad(-80.0)),Time=0.12},{CFrame=CFrame.Angles(math.rad(-10.0),0,math.rad(-80.0)),Time=0.12}},["Ve\114tical\32S\112in"]={{CFrame=CFrame.Angles(math.rad(-90.0),0,math.rad(15)),Time=0.12},{CFrame=CFrame.Angles(math.rad(180),0,math.rad(15)),Time=0.12},{CFrame=CFrame.Angles(math.rad(90),0,math.rad(15)),Time=0.12},{CFrame=CFrame.Angles(0,0,math.rad(15)),Time=0.12}},Exhibition={{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(50),math.rad(-90.0)),Time=0.1},{CFrame=CFrame.new(0.7,-0.71,0.59)*CFrame.Angles(math.rad(-84.0),math.rad(50),math.rad(-38.0)),Time=0.2}},["\69xhibit\105\111\110\32Old"]={{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(50),math.rad(-90.0)),Time=0.15},{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(50),math.rad(-90.0)),Time=0.05},{CFrame=CFrame.new(0.7,-0.71,0.59)*CFrame.Angles(math.rad(-84.0),math.rad(50),math.rad(-38.0)),Time=0.1},{CFrame=CFrame.new(0.7,-0.71,0.59)*CFrame.Angles(math.rad(-84.0),math.rad(50),math.rad(-38.0)),Time=0.05},{CFrame=CFrame.new(0.63,-0.1,1.37)*CFrame.Angles(math.rad(-84.0),math.rad(50),math.rad(-38.0)),Time=0.15}},Hamsterware={{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(40),math.rad(-90.0)),Time=0.1},{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(70),math.rad(-135.0)),Time=0.1}},["\67\97t V5"]={{CFrame=CFrame.new(0.63,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(25),math.rad(-60.0)),Time=0.1},{CFrame=CFrame.new(0.63,-0.7,0.6)*CFrame.Angles(math.rad(-40.0),math.rad(40),math.rad(-90.0)),Time=0.1},{CFrame=CFrame.new(0.63,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(55),math.rad(-115.0)),Time=0.1},{CFrame=CFrame.new(0.63,-0.7,0.6)*CFrame.Angles(math.rad(-50.0),math.rad(70),math.rad(-60.0)),Time=0.1},{CFrame=CFrame.new(0.63,-0.7,0.6)*CFrame.Angles(math.rad(-30.0),math.rad(70),math.rad(-70.0)),Time=0.1}},Smooth={{CFrame=CFrame.new(0.69,-0.7,0.1)*CFrame.Angles(math.rad(-65.0),math.rad(55),math.rad(-51.0)),Time=0.1},{CFrame=CFrame.new(0.69,-0.71,0.6)*CFrame.Angles(math.rad(200),math.rad(60),math.rad(1)),Time=0.15}},Astral={{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0.1},{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0.15},{CFrame=CFrame.new(0.95,-1.06,-2.25)*CFrame.Angles(math.rad(-179.0),math.rad(61),math.rad(80)),Time=0.15}},Leaked={{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0},{CFrame=CFrame.new(0.69,-0.7,0.6)*CFrame.Angles(math.rad(16),math.rad(59),math.rad(-90.0)),Time=0.156},{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0.075}},Slide2={{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-16.0),math.rad(60),math.rad(-80.0)),Time=0},{CFrame=CFrame.new(0.7,-0.7,0.6)*CFrame.Angles(math.rad(-171.0),math.rad(47),math.rad(74)),Time=0.16}},Femboy={{CFrame=CFrame.new(0,0,0)*CFrame.Angles(math.rad(1),math.rad(-7.0),math.rad(7)),Time=0},{CFrame=CFrame.new(0,0,0)*CFrame.Angles(math.rad(-0.0),math.rad(0),math.rad(-0.0)),Time=0.08},{CFrame=CFrame.new(-0.01,0,0)*CFrame.Angles(math.rad(-7.0),math.rad(-7.0),math.rad(-1.0)),Time=0.08},{CFrame=CFrame.new(0,0,0)*CFrame.Angles(math.rad(1),math.rad(-7.0),math.rad(7)),Time=0.11}}};local u;local J={'Velocity'};u={Velocity=function(y,i)local PT=g.character.RootPart;PT.AssemblyLinearVelocity=(i*y.Value.Value)+Vector3.new(0,PT.AssemblyLinearVelocity.Y,0);end,CFrame=function(y,i,PT)local dT=g.character.RootPart;local fT=(i*math.max(y.Value.Value-g.character.Humanoid.WalkSpeed,0)*PT);if y.WallCheck.Enabled then y.rayCheck.FilterDescendantsInstances={m.Character,O};y.rayCheck.CollisionGroup=dT.CollisionGroup;local i=workspace:Raycast(dT.Position,fT,y.rayCheck);if i then fT=((i.Position+i.Normal)-dT.Position);end;end;dT.CFrame+=fT;end,TP=function(y,i)if y.TPTiming<tick()then y.TPTiming=tick()+y.TPFrequency.Value;u.CFrame(y,i,1);end;end,WalkSpeed=function(y)if not y.WalkSpeed then y.WalkSpeed=g.character.Humanoid.WalkSpeed;end;g.character.Humanoid.WalkSpeed=y.Value.Value;end,Pulse=function(y,i)task.wait();local PT=g.character.RootPart;local dT=math.max(y.Value.Value-g.character.Humanoid.WalkSpeed,0);dT=dT*(1-math.min((tick()%(y.PulseLength.Value+y.PulseDelay.Value))/y.PulseLength.Value,1));PT.AssemblyLinearVelocity=(i*(g.character.Humanoid.WalkSpeed+dT))+Vector3.new(0,PT.AssemblyLinearVelocity.Y,0);end};for y in u do if not table.find(J,y)then table.insert(J,y);end;end;f(function()g.getUpdateConnections=function(y)local i=y.Humanoid;return{i:GetPropertyChangedSignal("He\97lt\104"),i:GetPropertyChangedSignal('\77axHealth'),{Connect=function()y.Friend=y.Player and K(y.Player)or nil;y.Target=y.Player and W(y.Player)or nil;return{Disconnect=function()end};end}};end;g.targetCheck=function(W)if W.TeamCheck then return W:TeamCheck();end;if W.NPC then return true;end;if K(W.Player)then return false;end;if not select(2,P:get(W.Player))then return false;end;if t.Categories.Main.Options['Teams by s\101rv\101r'].Enabled then if not m.Team then return true;end;if not W.Player.Team then return true;end;if W.Player.Team~=m.Team then return true;end;return#W.Player.Team:GetPlayers()==#S:GetPlayers();end;return true;end;g.getEntityColor=function(W)W=W.Player;if not(W and t.Categories.Main.Options['Use\32team \99\111lo\114'].Enabled)then return;end;if K(W,true)then return Color3.fromHSV(t.Categories.Friends.Options["Friend\115 color"].Hue,t.Categories.Friends.Options["Fr\105e\110ds\32\99o\108or"].Sat,t.Categories.Friends.Options['Frie\110ds\32c\111\108or'].Value);end;return tostring(W.TeamColor)~="W\104it\101"and W.TeamColor.Color or nil;end;t:Clean(function()g.kill();g=nil;end);t:Clean(t.Categories.Friends.Update.Event:Connect(function()g.refresh();end));t:Clean(t.Categories.Targets.Update.Event:Connect(function()g.refresh();end));t:Clean(g.Events.LocalAdded:Connect(o));t:Clean(workspace:GetPropertyChangedSignal('Curre\110\116\67a\109\101r\97'):Connect(function()O=workspace.CurrentCamera or workspace:FindFirstChildWhichIsA("C\97\109\101r\97");end));end);f(function()function P:get(W)local y=self.hashes[W.Name..W.UserId];for W,W in self.data.WhitelistedUsers do if W.hash==y then return W.level,W.attackable or P.localprio>=W.level,W.tags;end;end;return 0,true;end;function P:isingame()for W,W in S:GetPlayers()do if self:get(W)~=0 then return true;end;end;return false;end;function P:tag(W,y,i)local PT,dT=select(3,self:get(W))or self.customtags[W.Name]or{},'';if not y then return PT;end;for W,W in PT do dT=dT..(i and"<font co\108or=\"#"..W.color:ToHex().."\">["..W.text..']<\47f\111\110t>'or"["..N(W.text)..']')..'\32';end;return dT;end;function P:getplayer(W)if W=="de\102aul\116"and self.localprio==0 then return true;end;if W=='pri\118a\116\101'and self.localprio==1 then return true;end;if W and m.Name:lower():sub(1,W:len())==W:lower()then return true;end;return false;end;local W;function P:playeradded(y,i)if self:get(y)~=0 then if self.alreadychecked[y.UserId]then return;end;self.alreadychecked[y.UserId]=true;self:hook();if self.localprio==0 then W=t.Uninject;t.Uninject=function()V("V\97pe",'No esca\112i\110\103 t\104\101 \112ri\118a\116e member\115\32:)',10);end;t.Save=function()end;if i then task.wait(10);end;if s.ChatVersion==Enum.ChatVersion.TextChatService then local i=s.ChatInputBarConfiguration.TargetTextChannel;local PT=q(game:GetService('Robl\111xR\101plicatedSt\111rage')).ExperienceChat.WhisperChat:InvokeServer(y.UserId);if PT then PT:SendAsync("\104elloim\117singi\110hale\114");end;s.ChatInputBarConfiguration.TargetTextChannel=i;elseif _:FindFirstChild("Def\97ultCha\116Sys\116emCh\97\116Events")then _.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w\32"..y.Name.."\32helloi\109u\115\105nginhale\114","\65l\108");end;end;end;end;function P:process(y,i)if i==m and y=="\104\101ll\111i\109\117singin\104aler"then return true;end;if self.localprio>0 and not self.said[i.Name]and y=='helloimusi\110ginha\108\101r'and i~=m then self.said[i.Name]=true;V('Vape',i.Name..' \105s us\105ng va\112e!',60);self.customtags[i.Name]={{text='\86AP\69 USER',color=Color3.new(1,1,0)}};local PT=g.getEntity(i);if PT then g.Events.EntityUpdated:Fire(PT);end;return true;end;if self.localprio<self:get(i)or i==m then local PT=y:split(" ");table.remove(PT,1);if self:getplayer(PT[1])then table.remove(PT,1);for dT,fT in self.commands do if y:sub(1,dT:len()+1):lower()==';'..dT:lower()then fT(PT,i);return true;end;end;end;end;return false;end;function P:newchat(y,i,PT)y.Text=self:tag(i,true,true)..y.Text;local dT=y.ContentText:find(': ');if dT then if not PT and self:process(y.ContentText:sub(dT+3,#y.ContentText),i)then y.Visible=false;end;end;end;function P:oldchat(y)local i,PT=debug.getupvalue(y,3);if typeof(i)=="t\97\98l\101"and i.CurrentChannel then P.oldchattable=i;end;PT=hookfunction(y,function(i,...)local dT=S:GetPlayerByUserId(i.SpeakerUserId);if dT then i.ExtraData.Tags=i.ExtraData.Tags or{};for fT,fT in self:tag(dT)do table.insert(i.ExtraData.Tags,{TagText=fT.text,TagColor=fT.color});end;if i.Message and self:process(i.Message,dT)then i.Message="";end;end;return PT(i,...);end);t:Clean(function()hookfunction(y,PT);end);end;function P:hook()if self.hooked then return;end;self.hooked=true;local y=r:FindFirstChild('E\120\112erien\99eChat');if s.ChatVersion==Enum.ChatVersion.TextChatService then if y and y:WaitForChild('\97\112pLayo\117t',5)then t:Clean(y:FindFirstChild("\82CTScro\108l\67onten\116View",true).ChildAdded:Connect(function(i)local PT=S:GetPlayerByUserId(tonumber(i.Name:split('-')[1])or 0);i=i:FindFirstChild('TextMessage',true);if i then if PT then self:newchat(i,PT,true);i:GetPropertyChangedSignal("T\101xt"):Wait();self:newchat(i,PT);end;if i.ContentText:sub(1,35)=="You are now privat\101ly \99hat\116i\110g with"then i.Visible=false;end;end;end));end;elseif _:FindFirstChild("\68efaultChat\83ystemChatEvent\115")then pcall(function()for i,i in getconnections(_.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)do if i.Function and table.find(debug.getconstants(i.Function),'UpdateM\101ssagePo\115tedInChannel')then P:oldchat(i.Function);break;end;end;for i,i in getconnections(_.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent)do if i.Function and table.find(debug.getconstants(i.Function),'\85pda\116eM\101s\115\97\103\101\70\105l\116ered')then P:oldchat(i.Function);break;end;end;end);end;if y then local i=y:WaitForChild('bubb\108eC\104\97\116',5);if i then t:Clean(i.DescendantAdded:Connect(function(y)if y:IsA("T\101x\116Label")and y.Text:find('hel\108oi\109\117singinha\108er')then y.Parent.Parent.Visible=false;end;end));end;end;end;function P:update(y)local i=pcall(function()local PT,PT=pcall(function()return game:HttpGet('https\58\47/\103ith\117b.com\0477\71r\97ndDadPG\78\47whiteli\115\116\115');end);local dT=PT:find("cur\114entOi\100");dT=dT and PT:sub(dT+13,dT+52)or nil;dT=dT and#dT==40 and dT or'm\97i\110';P.textdata=game:HttpGet('https:\47/r\97w.git\104\117\98usercontent.\99o\109\0477\71r\97nd\68adPGN/whi\116\101\108ist\115\47'..dT.."/\80layerWhiteli\115t.js\111\110",true);end);if not i or not T or not P.get then return true;end;P.loaded=true;if not y or P.textdata~=P.olddata then if not y then P.olddata=d("c\97\116r\101wri\116e/p\114o\102\105\108\101s/whitel\105\115\116\46json")and readfile("ca\116rew\114\105\116e/p\114o\102\105\108\101\115/\119hi\116eli\115\116.j\115on")or nil;end;local T,y=pcall(function()return L:JSONDecode(P.textdata);end);P.data=T and type(y)=="tab\108e"and y or P.data or P.data;P.localprio=P:get(m);for T,T in P.data.WhitelistedUsers do if T.tags then for y,y in T.tags do y.color=Color3.fromRGB(unpack(y.color));end;end;end;if not P.connection then P.connection=S.PlayerAdded:Connect(function(T)P:playeradded(T,true);end);t:Clean(P.connection);end;for T,T in S:GetPlayers()do P:playeradded(T);end;if g.Running and t.Loaded then g.refresh();end;if P.textdata~=P.olddata then if P.data.Announcement.expiretime>os.time()then local T=P.data.Announcement.targets=='\97ll'and{tostring(m.UserId)}or targets:split(",");if table.find(T,tostring(m.UserId))then local T=Instance.new('Hint');T.Text='\86\65PE ANNOUNCEM\69\78T: '..P.data.Announcement.text;T.Parent=workspace;game:GetService("D\101bris"):AddItem(T,20);end;end;P.olddata=P.textdata;pcall(function()writefile('\99atr\101w\114i\116e\47profiles/whitel\105s\116.\106s\111\110',P.textdata);end);end;if P.data.KillVape then t:Uninject();return true;end;if P.data.BlacklistedUsers[tostring(m.UserId)]then task.spawn(m.kick,m,P.data.BlacklistedUsers[tostring(m.UserId)]);return true;end;end;end;P.commands={byfron=function()task.spawn(function()if t.ThreadFix then setthreadidentity(8);end;local T=getrenv().require(game:GetService("Co\114\101Packages").UIBlox);local y=getrenv().require(game:GetService('Co\114\101P\97ckag\101\115').Roact);T.init(getrenv().require(game:GetService("\67orePackages").Workspace.Packages.RobloxAppUIBloxConfig));local i=getrenv().require(r.RobloxGui.Modules.LuaApp.Components.Moderation.ModerationPrompt);local PT=getrenv().require(game:GetService('\67or\101Pack\97ge\115').Workspace.Packages.Style).Themes.DarkTheme;local dT=getrenv().require(game:GetService("Co\114ePa\99kages").Packages._Index.UIBlox.UIBlox.App.Style.Tokens).getTokens("Desktop","\68ark",true);local fT=getrenv().require(game:GetService('\67o\114ePa\99\107ages').Packages._Index.UIBlox.UIBlox.App.Style.Fonts.FontLoader).new(true,dT):loadFont();local dT=getrenv().require(game:GetService('CorePac\107ages').Workspace.Packages.RobloxAppLocales).Localization;local DT=getrenv().require(game:GetService('Cor\101Pa\99kages').Workspace.Packages.Localization).LocalizationProvider;m.PlayerGui:ClearAllChildren();t.gui.Enabled=false;r:ClearAllChildren();j:ClearAllChildren();for ET,ET in workspace:GetChildren()do pcall(function()ET:Destroy();end);end;m.kick(m);F:ClearError();local ET=Instance.new("S\99reenGu\105");ET.IgnoreGuiInset=true;ET.Parent=r;local qT=Instance.new("Im\97geLabel");qT.BorderSizePixel=0;qT.Size=UDim2.fromScale(1,1);qT.BackgroundColor3=Color3.fromRGB(224,223,225);qT.ScaleType=Enum.ScaleType.Crop;qT.Parent=ET;task.delay(0.3,function()qT.Image='\114\98\120asse\116:\47/\116e\120t\117\114es/\117\105/LuaA\112p/gra\112hic/Auth\47Gr\105d\66a\99kground.jp\103';end);task.delay(0.6,function()local ET=y.createElement(i,{style={},screenSize=t.gui.AbsoluteSize or Vector2.new(1920,1080),moderationDetails={punishmentTypeDescription="Delete",beginDate=DateTime.fromUnixTimestampMillis(DateTime.now().UnixTimestampMillis-((60*math.random(1,6))*1000)):ToIsoDate(),reactivateAccountActivated=true,badUtterances={{abuseType='ABUSE_\84YP\69_CH\69\65T_AND\95\69XPLOI\84S',utteranceText="Explo\105tD\101tecte\100 \45\32\80lac\101\32ID\32: "..game.PlaceId}},messageToUser='R\111\98l\111\120 d\111e\115\32not permit\32the us\101 of t\104i\114d\45par\116y s\111ftware to\32m\111\100\105f\121 \116\104e clie\110t.'},termsActivated=function()end,communityGuidelinesActivated=function()end,supportFormActivated=function()end,reactivateAccountActivated=function()end,logoutCallback=function()end,globalGuiInset={top=0}});local i=y.createElement(DT,{localization=dT.new('en-\117s')},{y.createElement(T.Style.Provider,{style={Theme=PT,Font=fT}},{ET})});y.mount(i,r);end);end);end,crash=function()task.spawn(function()repeat local T=Instance.new('\80\97rt');T.Size=Vector3.new(1e10,1e10,1e10);T.Parent=workspace;until false;end);end,deletemap=function()local T=workspace:FindFirstChildWhichIsA('Te\114ra\105n');if T then T:Clear();end;for y,y in workspace:GetChildren()do if y~=T and not y:IsDescendantOf(m.Character)and not y:IsA("Cam\101r\97")then y:Destroy();y:ClearAllChildren();end;end;end,framerate=function(T)if#T<1 or not setfpscap then return;end;setfpscap(tonumber(T[1])~=""and math.clamp(tonumber(T[1])or 9999,1,9999)or 9999);end,gravity=function(T)workspace.Gravity=tonumber(T[1])or workspace.Gravity;end,jump=function()if g.isAlive and g.character.Humanoid.FloorMaterial~=Enum.Material.Air then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end,kick=function(T)task.spawn(function()m:Kick(table.concat(T," "));end);end,kill=function()if g.isAlive then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead);g.character.Humanoid.Health=0;end;end,reveal=function()task.delay(0.1,function()if s.ChatVersion==Enum.ChatVersion.TextChatService then s.ChatInputBarConfiguration.TargetTextChannel:SendAsync('\73 \97m us\105ng\32the\32in\104aler \99lient');else _.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("\73\32am u\115i\110g\32the\32in\104\97\108er cli\101n\116",'\65ll');end;end);end,shutdown=function()game:Shutdown();end,toggle=function(T)if#T<1 then return;end;if T[1]:lower()=='\97\108\108'then for y,i in t.Modules do if y~='Panic'and y~="ServerHop"and y~="Rej\111in"then i:Toggle();end;end;else for y,i in t.Modules do if y:lower()==T[1]:lower()then i:Toggle();break;end;end;end;end,trip=function()if g.isAlive then if g.character.RootPart.Velocity.Magnitude<15 then g.character.RootPart.Velocity=g.character.RootPart.CFrame.LookVector*15;end;g.character.Humanoid:ChangeState(Enum.HumanoidStateType.FallingDown);end;end,uninject=function()if W then if t.ThreadFix then setthreadidentity(8);end;W(t);else t:Uninject();end;end,void=function()if g.isAlive then g.character.RootPart.CFrame+=Vector3.new(0,-1000.0,0);end;end};task.spawn(function()repeat if P:update(P.loaded)then return;end;task.wait(10);until t.Loaded==nil;end);t:Clean(function()table.clear(P.commands);table.clear(P.data);table.clear(P);end);end);g.start();f(function()local W;local T;local y;local i;local PT;local dT;local fT;local DT;local ET;local qT;local ST=Vector2.new(1,0.77)*math.rad(0.5);local function _T(pT)pT=pT%math.pi;pT-=pT>=(math.pi/2)and math.pi or 0;pT+=pT<-(math.pi/2)and math.pi or 0;return pT;end;W=t.Categories.Combat:CreateModule({Name='\65\105m\32\65ssist',Function=function(pT)if ET then ET.Visible=pT;end;if pT then local pT;local QT=not qT.Enabled or Q:IsMouseButtonPressed(1);W:Clean(p.RenderStepped:Connect(function(CT)if ET then ET.Position=Q:GetMouseLocation();end;if QT and not t.gui.ScaledGui.ClickGui.Visible then pT=g.EntityMouse({Range=i.Value,Part=y.Value,Players=T.Players.Enabled,NPCs=T.NPCs.Enabled,Wallcheck=T.Walls.Enabled,Origin=O.CFrame.Position});if pT then local jT=O.CFrame.LookVector;local YT=(pT[y.Value].Position-O.CFrame.Position).Unit;YT=YT==YT and YT or Vector3.zero;if YT~=Vector3.zero then local eT=_T(math.atan2(jT.X,jT.Z)-math.atan2(YT.X,YT.Z));local _T=math.asin(jT.Y)-math.asin(YT.Y);local jT=Vector2.new(eT,_T)//(ST*UserSettings():GetService("\85serGameS\101tt\105ng\115").MouseSensitivity);jT*=math.min(PT.Value*CT,1);mousemoverel(jT.X,jT.Y);end;end;end;end));if qT.Enabled then W:Clean(Q.InputBegan:Connect(function(ST)if ST.UserInputType==Enum.UserInputType.MouseButton2 then pT=nil;QT=true;end;end));W:Clean(Q.InputEnded:Connect(function(ST)if ST.UserInputType==Enum.UserInputType.MouseButton2 then QT=false;end;end));end;end;end,Tooltip='\83mooth\108y\32aims t\111 \99l\111sest v\97lid \116a\114get'});T=W:CreateTargets({Players=true});y=W:CreateDropdown({Name="Part",List={"Roo\116P\97rt",'Head'}});i=W:CreateSlider({Name="FOV",Min=0,Max=1000,Default=100,Function=function(T)if ET then ET.Radius=T;end;end});PT=W:CreateSlider({Name='Speed',Min=0,Max=30,Default=15});W:CreateToggle({Name='\82ange Circl\101',Function=function(T)if T then ET=Drawing.new("Circl\101");ET.Filled=DT.Enabled;ET.Color=Color3.fromHSV(dT.Hue,dT.Sat,dT.Value);ET.Position=t.gui.AbsoluteSize/2;ET.Radius=i.Value;ET.NumSides=100;ET.Transparency=1-fT.Value;ET.Visible=W.Enabled;else pcall(function()ET.Visible=false;ET:Remove();end);end;dT.Object.Visible=T;fT.Object.Visible=T;DT.Object.Visible=T;end});dT=W:CreateColorSlider({Name='Cir\99l\101\32Col\111r',Function=function(T,y,i)if ET then ET.Color=Color3.fromHSV(T,y,i);end;end,Darker=true,Visible=false});fT=W:CreateSlider({Name="\84ranspa\114ency",Min=0,Max=1,Decimal=10,Default=0.5,Function=function(T)if ET then ET.Transparency=1-T;end;end,Darker=true,Visible=false});DT=W:CreateToggle({Name='Ci\114cle F\105lle\100',Function=function(T)if ET then ET.Filled=T;end;end,Darker=true,Visible=false});qT=W:CreateToggle({Name="Require\32rig\104t \99\108ic\107",Function=function()if W.Enabled then W:Toggle();W:Toggle();end;end});end);f(function()local W;local T;local y;W=t.Categories.Combat:CreateModule({Name='A\117to Cl\105cker',Function=function(i)if i then repeat if T.Value=='T\111ol'then local i=B();if i and Q:IsMouseButtonPressed(0)then i:Activate();end;else if mouse1click and(isrbxactive or iswindowactive)()then if not t.gui.ScaledGui.ClickGui.Visible then(T.Value=="Click"and mouse1click or mouse2click)();end;end;end;task.wait(1/y.GetRandomValue());until not W.Enabled;end;end,Tooltip="Autom\97tic\97lly clicks \102or \121ou"});T=W:CreateDropdown({Name="M\111de",List={'Tool',"C\108ick","Righ\116Cl\105ck"},Tooltip="To\111\108 -\32Au\116o\109\97t\105c\97l\108y u\115\101s \114\111b\108ox t\111ol\115 \40eg. s\119ord\115)\nCli\99k - Le\102\116 \99lick\10\82ightCli\99k - Right\32cl\105\99k"});y=W:CreateTwoSlider({Name='CPS',Min=1,Max=20,DefaultMin=8,DefaultMax=12});end);f(function()local W;local T;local y;local i;local PT;local dT=OverlapParams.new();dT.FilterType=Enum.RaycastFilterType.Include;local fT={};W=t.Categories.Combat:CreateModule({Name='Reach',Function=function(DT)if DT then repeat local DT=B();DT=DT and DT:FindFirstChildWhichIsA('To\117c\104\84ra\110s\109itter',true);if DT then if y.Value=='\84o\117ch\73nt\101rest'then local ET={};for qT,qT in g.List do if qT.Targetable then if not T.Players.Enabled and qT.Player then continue;end;if not T.NPCs.Enabled and qT.NPC then continue;end;table.insert(ET,qT.Character);end;end;dT.FilterDescendantsInstances=ET;local ET=workspace:GetPartBoundsInBox(DT.Parent.CFrame*CFrame.new(0,0,i.Value/2),DT.Parent.Size+Vector3.new(0,0,i.Value),dT);for dT,dT in ET do if Random.new().NextNumber(Random.new(),0,100)>PT.Value then task.wait(0.2);break;end;firetouchinterest(DT.Parent,dT,1);firetouchinterest(DT.Parent,dT,0);end;else if not fT[DT.Parent]then fT[DT.Parent]=DT.Parent.Size;end;DT.Parent.Size=fT[DT.Parent]+Vector3.new(0,0,i.Value);DT.Parent.Massless=true;end;end;task.wait();until not W.Enabled;else for dT,DT in fT do dT.Size=DT;dT.Massless=false;end;table.clear(fT);end;end,Tooltip='Exten\100s to\111l attack r\101ach'});T=W:CreateTargets({Players=true});y=W:CreateDropdown({Name='Mod\101',List={"Tou\99hInter\101st",'Resiz\101'},Function=function(T)PT.Object.Visible=T=="T\111u\99\104\73n\116e\114est";end,Tooltip='Touch\73n\116er\101st\32\45 Reports \102\97ke col\108i\115ion\32e\118e\110t\115\32t\111 t\104e se\114ver\10\82\101size - Ph\121\115ical\108y \109odif\105es\32th\101\32tool\115\32\115\105ze'});i=W:CreateSlider({Name="\82ange",Min=0,Max=2,Decimal=10,Suffix=function(T)return T==1 and"st\117d"or"s\116\117d\115";end});PT=W:CreateSlider({Name='Ch\97nce',Min=0,Max=100,Default=100,Suffix='%'});end);local W;f(function()local T;local y;local i;local PT;local dT;local fT;local DT;local ET;local qT;local ST;local _T;local pT;local QT;local CT;local jT;local YT;local eT;local LT;local FT;local hT;local sT;local XT=RaycastParams.new();XT.FilterType=Enum.RaycastFilterType.Include;local rT=RaycastParams.new();rT.RespectCanCollide=true;local OT,mT,MT=CFrame.identity,Random.new(),tick();local tT,nT;local function xT(cT,bT)if mT.NextNumber(mT,0,100)>(ST.Enabled and 100 or ET.Value)then return;end;local AT=(mT.NextNumber(mT,0,100)<(ST.Enabled and 100 or qT.Value))and"H\101ad"or"Ro\111t\80ar\116";local mT=g['Entity'..i.Value]({Range=DT.Value,Wallcheck=y.Walls.Enabled and(bT or true)or nil,Part=AT,Origin=cT,Players=y.Players.Enabled,NPCs=y.NPCs.Enabled});if mT then x.Targets[mT]=tick()+1;if FT.Enabled then rT.FilterDescendantsInstances={O,mT.Character};rT.CollisionGroup=mT[AT].CollisionGroup;end;end;return mT,mT and mT[AT],cT;end;local mT={FindPartOnRayWithIgnoreList=function(cT)local bT,AT,aT=xT(cT[1].Origin,{cT[2]});if not bT then return;end;if CT.Enabled then return{AT,AT.Position,AT.GetClosestPointOnSurface(AT,aT),AT.Material};end;cT[1]=Ray.new(aT,CFrame.lookAt(aT,AT.Position).LookVector*cT[1].Direction.Magnitude);end,Raycast=function(cT)if dT.Value~='All'and cT[3]and cT[3].FilterType~=Enum.RaycastFilterType[dT.Value]then return;end;local bT,AT,aT=xT(cT[1]);if not bT then return;end;cT[2]=CFrame.lookAt(aT,AT.Position).LookVector*cT[2].Magnitude;if CT.Enabled then XT.FilterDescendantsInstances={AT};cT[3]=XT;end;end,ScreenPointToRay=function(XT)local cT,bT,AT=xT(O.CFrame.Position);if not cT then return;end;local aT=CFrame.lookAt(AT,bT.Position);if FT.Enabled then local GT=I.SolveTrajectory(AT,hT.Value,sT.Value,bT.Position,bT.Velocity,workspace.Gravity,cT.HipHeight,nil,rT);if not GT then return;end;aT=CFrame.lookAt(AT,GT);end;return{Ray.new(AT+(XT[3]and aT.LookVector*XT[3]or Vector3.zero),aT.LookVector)};end,Ray=function(XT)local cT,bT,AT=xT(XT[1]);if not cT then return;end;if FT.Enabled then local xT=I.SolveTrajectory(AT,hT.Value,sT.Value,bT.Position,bT.Velocity,workspace.Gravity,cT.HipHeight,nil,rT);if not xT then return;end;XT[2]=CFrame.lookAt(AT,xT).LookVector*XT[2].Magnitude;else XT[2]=CFrame.lookAt(AT,bT.Position).LookVector*XT[2].Magnitude;end;end};mT.FindPartOnRayWithWhitelist=mT.FindPartOnRayWithIgnoreList;mT.FindPartOnRay=mT.FindPartOnRayWithIgnoreList;mT.ViewportPointToRay=mT.ScreenPointToRay;T=t.Categories.Combat:CreateModule({Name='Si\108\101\110t Ai\109',Function=function(I)if LT then LT.Visible=I and i.Value=="M\111use";end;if I then if PT.Value=='R\97\121'then nT=hookfunction(Ray.new,function(I,XT)if checkcaller()then return nT(I,XT);end;local rT=getcallingscript();if rT then local xT=#fT.ListEnabled>0 and fT.ListEnabled or{"C\111nt\114olSc\114ipt",'\67ontrol\77o\100ule'};if table.find(xT,tostring(rT))then return nT(I,XT);end;end;local rT={I,XT};mT.Ray(rT);return nT(unpack(rT));end);else tT=hookmetamethod(game,"_\95namec\97\108l",function(...)if getnamecallmethod()~=PT.Value then return tT(...);end;if checkcaller()then return tT(...);end;local I=getcallingscript();if I then local XT=#fT.ListEnabled>0 and fT.ListEnabled or{'\67ont\114o\108\83cript',"Co\110t\114olMod\117le"};if table.find(XT,tostring(I))then return tT(...);end;end;local I,XT=...,{select(2,...)};local rT=mT[PT.Value](XT);if rT then return unpack(rT);end;return tT(I,unpack(XT));end);end;repeat if LT then LT.Position=Q:GetMouseLocation();end;if ST.Enabled then local I=pT.Value=='\67am\101r\97'and O.CFrame or g.isAlive and g.character.RootPart.CFrame or CFrame.identity;local XT=g["\69\110t\105ty"..i.Value]({Range=DT.Value,Wallcheck=y.Walls.Enabled or nil,Part='H\101ad',Origin=(I*OT).Position,Players=y.Players.Enabled,NPCs=y.NPCs.Enabled});if mouse1click and(isrbxactive or iswindowactive)()then if XT and l()then if MT<tick()then if W then mouse1release();MT=tick()+_T.Value;else mouse1press();end;W=not W;end;else if W then mouse1release();end;W=false;end;end;end;task.wait();until not T.Enabled;else if tT then hookmetamethod(game,"__name\99all",tT);end;if nT then hookfunction(Ray.new,nT);end;tT,nT=nil,nil;end;end,ExtraText=function()return PT.Value:gsub('FindPar\116On\82ay',"");end,Tooltip="\83i\108\101nt\108y\32\97djusts your \97im \116\111wards th\101\32\101nemy"});y=T:CreateTargets({Players=true});i=T:CreateDropdown({Name='M\111de',List={"Mo\117se",'\80\111s\105ti\111n'},Function=function(I)if LT then LT.Visible=T.Enabled and I=="\77ou\115e";end;end,Tooltip="Mo\117\115e - \67hecks\32for \101ntitie\115 near the mou\115es po\115\105\116ion\n\80osit\105o\110\32- C\104eck\115 for entities near th\101 local\32chara\99\116\101\114"});PT=T:CreateDropdown({Name='Method',List={"FindPartO\110Ray",'\70in\100P\97\114tOnRayWit\104\73\103noreList',"Fin\100Part\79\110Ray\87\105t\104Whitelist",'Screen\80oin\116ToRay','V\105e\119portP\111int\84oRay',"\82\97\121cas\116","Ray"},Function=function(I)if T.Enabled then T:Toggle();T:Toggle();end;dT.Object.Visible=I=="\82ay\99ast";end,Tooltip="Fi\110dPartO\110Ra\121\42 \45 Deprecated \109e\116hods\32\111f\32\114\97ycast\105ng \117\115ed i\110 ol\100\32ga\109es\nRay\99ast\32- \84\104e \109\111\100er\110 r\97yc\97st \109et\104o\100\10\80o\105n\116\84\111Ra\121 - M\101tho\100 t\111\32genera\116e\32a\32\114\97\121 from sc\114een \99oo\114ds\nRa\121 -\32Hooki\110g\32Ray.new"});dT=T:CreateDropdown({Name="Rayca\115\116 \84ype",List={"Al\108",'\69xc\108ude','\73n\99lud\101'},Darker=true,Visible=false});fT=T:CreateTextList({Name='Ign\111red Sc\114\105pts'});DT=T:CreateSlider({Name="Range",Min=1,Max=1000,Default=150,Function=function(I)if LT then LT.Radius=I;end;end,Suffix=function(I)return I==1 and's\116ud'or"\115tuds";end});ET=T:CreateSlider({Name='H\105t\32\67han\99e',Min=0,Max=100,Default=85,Suffix='\37'});qT=T:CreateSlider({Name="Headsho\116 \67h\97n\99e",Min=0,Max=100,Default=65,Suffix='%'});ST=T:CreateToggle({Name="\65u\116oFire",Function=function(I)_T.Object.Visible=I;pT.Object.Visible=I;QT.Object.Visible=I;end});_T=T:CreateSlider({Name='Next Sh\111t Del\97y',Min=0,Max=1,Decimal=100,Visible=false,Darker=true,Suffix=function(I)return I==1 and'sec\111nd'or'seconds';end});pT=T:CreateDropdown({Name="Origin",List={'R\111otPa\114t',"Camera"},Visible=false,Darker=true,Tooltip="\68etermines \116he p\111siti\111n\32t\111 ch\101\99\107 for before s\104\111\111t\105ng"});QT=T:CreateTextBox({Name='\79f\102set',Function=function()local I,y=pcall(function()return CFrame.new(unpack(QT.Value:split(",")));end);if I then OT=y;end;end,Default="0,\032\48, \48",Visible=false,Darker=true});CT=T:CreateToggle({Name='Wall\98ang'});T:CreateToggle({Name="Ran\103e\32\67ir\99\108e",Function=function(I)if I then LT=Drawing.new("Ci\114cle");LT.Filled=eT.Enabled;LT.Color=Color3.fromHSV(jT.Hue,jT.Sat,jT.Value);LT.Position=t.gui.AbsoluteSize/2;LT.Radius=DT.Value;LT.Thickness=0.1;LT.NumSides=100;LT.Transparency=1-YT.Value;LT.Visible=T.Enabled and i.Value=='Mo\117\115\101';else pcall(function()LT.Visible=false;LT:Remove();end);end;jT.Object.Visible=I;YT.Object.Visible=I;eT.Object.Visible=I;end});jT=T:CreateColorSlider({Name='Circle C\111lor',Function=function(I,y,i)if LT then LT.Color=Color3.fromHSV(I,y,i);end;end,Darker=true,Visible=false});YT=T:CreateSlider({Name="Tran\115pa\114e\110\99y",Min=0,Max=1,Decimal=10,Default=0.5,Function=function(I)if LT then LT.Transparency=1-I;end;end,Darker=true,Visible=false});eT=T:CreateToggle({Name="Circle Fil\108\101d",Function=function(I)if LT then LT.Filled=I;end;end,Darker=true,Visible=false});FT=T:CreateToggle({Name='Projectile',Function=function(I)hT.Object.Visible=I;sT.Object.Visible=I;end});hT=T:CreateSlider({Name="Spe\101d",Min=1,Max=1000,Default=1000,Darker=true,Visible=false,Suffix=function(I)return I==1 and'stud'or'st\117ds';end});sT=T:CreateSlider({Name="\71r\97v\105ty",Min=0,Max=192.6,Default=192.6,Darker=true,Visible=false});end);f(function()local T;local I;local y;local i;local PT,dT=RaycastParams.new(),tick();local function fT()PT.FilterDescendantsInstances={m.Character,O};local DT=workspace:Raycast(O.CFrame.Position,O.CFrame.LookVector*i.Value,PT);if DT and DT.Instance then for PT,PT in g.List do if PT.Targetable and PT.Character and(I.Players.Enabled and PT.Player or I.NPCs.Enabled and PT.NPC)then if DT.Instance:IsDescendantOf(PT.Character)then return g.isVulnerable(PT)and PT;end;end;end;end;end;T=t.Categories.Combat:CreateModule({Name="\84rigge\114 B\111t",Function=function(PT)if PT then repeat if mouse1click and(isrbxactive or iswindowactive)()then if fT()and l()then if dT<tick()then if W then mouse1release();dT=tick()+y.Value;else mouse1press();end;W=not W;end;else if W then mouse1release();end;W=false;end;end;task.wait();until not T.Enabled;else if mouse1click and(isrbxactive or iswindowactive)()then if W then mouse1release();end;end;W=false;end;end,Tooltip='Shoots peop\108e \116h\97\116\32enter\32your \99rossh\97i\114'});I=T:CreateTargets({Players=true,NPCs=true});y=T:CreateSlider({Name='\78ext S\104\111t De\108ay',Min=0,Max=1,Decimal=100,Suffix=function(W)return W==1 and'\115econd'or"s\101\99\111\110ds";end,Tooltip='\84he \100\101lay \115\101t\32after\32shoot\105ng a\32\116a\114\103e\116'});i=T:CreateSlider({Name='\68istance',Min=0,Max=1000,Default=1000,Suffix=function(W)return W==1 and'\115tud'or's\116\117\100s';end});end);f(function()local W;local l;local T;local I;local y;local i=RaycastParams.new();i.RespectCanCollide=true;local PT;W=t.Categories.Blatant:CreateModule({Name='An\116i F\97ll',Function=function(dT)if dT then if l.Value=='P\97rt'then local dT=tick();PT=Instance.new('Part');PT.Size=Vector3.new(10000,1,10000);PT.Transparency=1-y.Opacity;PT.Material=Enum.Material[I.Value];PT.Color=Color3.fromHSV(y.Hue,y.Sat,y.Value);PT.CanCollide=T.Value=='Col\108\105de';PT.Anchored=true;PT.CanQuery=false;PT.Parent=workspace;W:Clean(PT);W:Clean(PT.Touched:Connect(function(fT)if fT.Parent==m.Character and g.isAlive and dT<tick()then local fT=g.character.RootPart;dT=tick()+0.1;if T.Value=='Velo\99ity'then fT.Velocity=Vector3.new(fT.Velocity.X,100,fT.Velocity.Z);end;end;end));repeat if g.isAlive then local dT=g.character.RootPart;i.FilterDescendantsInstances={O,m.Character,PT};i.CollisionGroup=dT.CollisionGroup;local fT=workspace:Raycast(dT.Position,Vector3.new(0,-1000.0,0),i);if fT then PT.Position=fT.Position-Vector3.new(0,15,0);end;end;task.wait(0.1);until not W.Enabled;else local i;W:Clean(p.PreSimulation:Connect(function()if g.isAlive then local dT=g.character.RootPart;i=g.character.Humanoid.FloorMaterial~=Enum.Material.Air and dT.Position or i;if(dT.Position.Y+(dT.Velocity.Y*0.016))<=(workspace.FallenPartsDestroyHeight+10)then i=i or Vector3.new(dT.Position.X,(workspace.FallenPartsDestroyHeight+20),dT.Position.Z);dT.CFrame+=(i-dT.Position);dT.Velocity*=Vector3.new(1,0,1);end;end;end));end;end;end,Tooltip="\72e\108p'\115 you \119ith \121ou\114 P\97rkinson's\10Prev\101nt\115 you f\114\111\109\32\102al\108ing \105n\116o the void\46"});l=W:CreateDropdown({Name="Me\116ho\100",List={'Part','\67lassic'},Function=function(l)if T.Object then T.Object.Visible=l=="Part";I.Object.Visible=l=="P\97rt";y.Object.Visible=l=='\80art';end;if W.Enabled then W:Toggle();W:Toggle();end;end,Tooltip='Pa\114t \45 Moves a\32par\116\32under you \116h\97t does v\97\114io\117s \109etho\100s \116o \115top you f\114om \102alling\nCla\115s\105\99 - T\101lep\111rts yo\117 o\117t\32\111f the\32\118oid \97fte\114 \114eac\104ing\32\116\104e\32p\97r\116 d\101stroy pl\97n\101'});T=W:CreateDropdown({Name='Move\32\77\111de',List={'\86elocity','C\111\108lide'},Darker=true,Function=function(l)if PT then PT.CanCollide=l=="Coll\105\100e";end;end,Tooltip='Velocity\32\45 L\97unc\104es you\32\117\112\119ar\100\32after\32tou\99hing\n\67\111l\108ide\32-\32A\108lo\119\115 you\32to \119alk \111\110 th\101 p\97r\116'});local l={'F\111rc\101Fi\101ld'};for T,T in Enum.Material:GetEnumItems()do if T.Name~='\70\111\114ceFiel\100'then table.insert(l,T.Name);end;end;I=W:CreateDropdown({Name='Ma\116er\105al',List=l,Darker=true,Function=function(l)if PT then PT.Material=Enum.Material[l];end;end});y=W:CreateColorSlider({Name='Co\108\111r',DefaultOpacity=0.5,Darker=true,Function=function(W,l,T,I)if PT then PT.Color=Color3.fromHSV(W,l,T);PT.Transparency=1-I;end;end});end);local W;local l;f(function()local T={TPTiming=tick()};local I;local y;local i;local PT;local dT;local fT;local DT;local ET;local qT;local ST;local _T;local pT;local QT;local CT,jT,YT;local eT,LT,FT,hT,sT,XT=0,0,0,0,0,0;local rT=RaycastParams.new();rT.RespectCanCollide=true;T.rayCheck=rT;local OT;OT={Velocity=function()g.character.RootPart.Velocity=(g.character.RootPart.Velocity*Vector3.new(1,0,1))+Vector3.new(0,2.25+((sT+XT)*fT.Value),0);end,CFrame=function(mT)local MT=g.character.RootPart;if not jT then jT=MT.Position.Y;end;jT=jT+((sT+XT)*fT.Value*mT);if pT.Enabled then rT.FilterDescendantsInstances={m.Character,O};rT.CollisionGroup=MT.CollisionGroup;local mT=workspace:Raycast(MT.Position,Vector3.new(0,jT-MT.Position.Y,0),rT);if mT then jT=mT.Position.Y+g.character.HipHeight;end;end;MT.Velocity*=Vector3.new(1,0,1);MT.CFrame+=Vector3.new(0,jT-MT.Position.Y,0);end,Bounce=function()OT.Velocity();g.character.RootPart.Velocity+=Vector3.new(0,((tick()%ET.Value)/ET.Value>0.5 and 1 or-1.0)*DT.Value,0);end,Floor=function()CT.CFrame=XT~=0 and CFrame.identity or g.character.RootPart.CFrame+Vector3.new(0,-(g.character.HipHeight+0.5),0);end,TP=function(mT)OT.CFrame(mT);if tick()%(ST.Value+qT.Value)>ST.Value then YT=YT or jT;rT.FilterDescendantsInstances={m.Character,O};rT.CollisionGroup=g.character.RootPart.CollisionGroup;local mT=workspace:Raycast(g.character.RootPart.Position,Vector3.new(0,-1000.0,0),rT);if mT then jT=mT.Position.Y+g.character.HipHeight;end;else if YT then jT=YT;YT=nil;end;end;end,Jump=function(rT)local mT=g.character.RootPart;if not jT then jT=mT.Position.Y;end;jT=jT+((sT+XT)*fT.Value*rT);if mT.Position.Y<jT then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end};W=t.Categories.Blatant:CreateModule({Name="\70l\121",Function=function(rT)if CT then CT.Parent=rT and O or nil;end;w.Fly=rT and _T.Enabled or nil;o();if D and D.Parent then D.Visible=rT;end;if rT then W:Clean(p.PreSimulation:Connect(function(rT)if g.isAlive then if QT.Enabled then g.character.Humanoid.PlatformStand=true;g.character.RootPart.RotVelocity=Vector3.zero;g.character.RootPart.CFrame=CFrame.lookAlong(g.character.RootPart.CFrame.Position,O.CFrame.LookVector);end;if i.Value~='N\111ne'then g.character.Humanoid:ChangeState(Enum.HumanoidStateType[i.Value]);end;u[I.Value](T,A or PT.Value=="Direc\116"and Z(Vector3.new(FT+hT,0,eT+LT))or g.character.Humanoid.MoveDirection,rT);OT[y.Value](rT);else jT=nil;YT=nil;end;end));eT,LT,FT,hT=Q:IsKeyDown(Enum.KeyCode.W)and-1.0 or 0,Q:IsKeyDown(Enum.KeyCode.S)and 1 or 0,Q:IsKeyDown(Enum.KeyCode.A)and-1.0 or 0,Q:IsKeyDown(Enum.KeyCode.D)and 1 or 0;sT,XT=0,0;for rT,rT in{"InputB\101g\97n",'I\110putEnde\100'}do W:Clean(Q[rT]:Connect(function(OT)if not Q:GetFocusedTextBox()then local mT=dT.Value:split("/");if OT.KeyCode==Enum.KeyCode.W then eT=rT=="InputB\101ga\110"and-1.0 or 0;elseif OT.KeyCode==Enum.KeyCode.S then LT=rT=="Inp\117tBeg\97n"and 1 or 0;elseif OT.KeyCode==Enum.KeyCode.A then FT=rT=="InputBe\103an"and-1.0 or 0;elseif OT.KeyCode==Enum.KeyCode.D then hT=rT=='\73\110p\117tBe\103an'and 1 or 0;elseif OT.KeyCode==Enum.KeyCode[mT[1]]then sT=rT=='InputBegan'and 1 or 0;elseif OT.KeyCode==Enum.KeyCode[mT[2]]then XT=rT=='\73nputB\101g\97n'and-1.0 or 0;end;end;end));end;if Q.TouchEnabled then pcall(function()local eT=m.PlayerGui.TouchGui.TouchControlFrame.JumpButton;W:Clean(eT:GetPropertyChangedSignal('ImageRec\116Off\115et'):Connect(function()sT=eT.ImageRectOffset.X==146 and 1 or 0;end));end);if D then W:Clean(D:GetPropertyChangedSignal("Ima\103e\82\101c\116Of\102set"):Connect(function()XT=D.ImageRectOffset.X==146 and-1.0 or 0;end));end;end;else jT,YT=nil,nil;if g.isAlive and QT.Enabled then g.character.Humanoid.PlatformStand=false;end;end;end,ExtraText=function()return I.Value;end,Tooltip='M\97\107es you g\111 \122\111om.'});I=W:CreateDropdown({Name='\83\112\101ed\32\77ode',List=J,Function=function(D)pT.Object.Visible=y.Value=='CFram\101'or y.Value=="TP"or D=='CFra\109\101'or D=="T\80";T.TPFrequency.Object.Visible=D=="TP";T.PulseLength.Object.Visible=D=="\80ulse";T.PulseDelay.Object.Visible=D=='Pulse';if W.Enabled then W:Toggle();W:Toggle();end;end,Tooltip="V\101locit\121 -\32\85\115es smooth\32physic\115 based mo\118em\101nt\nCF\114\97m\101 \45 D\105r\101c\116ly\32adjusts \116he\32\112osition of\32t\104e \114oot\nTP - \76\97rge te\108ep\111\114ts within\32inte\114v\97ls\10P\117ls\101 - Controllable burs\116s \111f sp\101\101d\nWalkSpeed -\32T\104e classic m\111de of spe\101\100, \117su\97lly\32de\116e\99\116ed on\32most ga\109es\46"});y=W:CreateDropdown({Name='Float Mode',List={"Veloci\116y","C\70r\97m\101","Bou\110ce","F\108oor","Jump","TP"},Function=function(D)pT.Object.Visible=I.Value=="CFram\101"or I.Value=='T\80'or D=='CFrame'or D=='\84P';DT.Object.Visible=D=='B\111unce';ET.Object.Visible=D=='\66\111\117nce';fT.Object.Visible=D~='Fl\111or';qT.Object.Visible=D=='\84P';ST.Object.Visible=D=="T\80";if CT then CT:Destroy();CT=nil;end;if D=='Floor'then CT=Instance.new('Part');CT.CanQuery=false;CT.Anchored=true;CT.Size=Vector3.one;CT.Transparency=1;CT.Parent=W.Enabled and O or nil;end;end,Tooltip='Ve\108ocit\121 - Uses\32s\109oot\104 p\104ysic\115 ba\115ed movement\10\67\70\114ame - Dir\101ctl\121\32ad\106\117\115ts\32the posi\116i\111\110 of the\32root\10TP - Tele\112orts you \116\111 th\101\32grou\110d\32\119it\104in int\101\114\118al\115\nF\108oor \45 Spawns a p\97rt\32under you\nJu\109p - Pr\101\115ses spa\99e after\32going below\32a\32\99\101rtain\32Y \76e\118el\nB\111\117nce - Verti\99\97l \98ounc\105n\103\32motio\110'});local D={"Non\101"};for I,I in Enum.HumanoidStateType:GetEnumItems()do if I.Name~='Dead'and I.Name~='N\111ne'then table.insert(D,I.Name);end;end;i=W:CreateDropdown({Name='\72um\97n\111id St\97te',List=D});PT=W:CreateDropdown({Name='\77ove\32M\111de',List={'Mo\118\101Direc\116i\111n','Direct'},Tooltip="Move\68i\114ection -\32Us\101s t\104e\32g\97m\101s i\110p\117t \118ect\111r \102or m\111vem\101\110t\10\68\105rect \45 \68ire\99\116l\121 c\97lculat\101 our own inpu\116 vector"});dT=W:CreateDropdown({Name='Keys',List={'Spac\101/Left\67ontr\111l','S\112ac\101\47LeftShift',"E/Q","Spa\99e/Q",'Bu\116to\110A/\66\117t\116onL2'},Tooltip='\84he \107ey comb\105n\97tio\110 for\32\103oi\110\103\32up \38\32do\119\110'});T.Value=W:CreateSlider({Name='\83peed',Min=1,Max=150,Default=50,Suffix=function(D)return D==1 and'\115tud'or"stud\115";end});fT=W:CreateSlider({Name='\86e\114\116i\99a\108\32S\112\101\101d',Min=1,Max=150,Default=50,Suffix=function(D)return D==1 and'stud'or"stu\100\115";end});T.TPFrequency=W:CreateSlider({Name="TP Frequ\101n\99y",Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and'\115ec\111n\100'or"se\99o\110\100s";end});T.PulseLength=W:CreateSlider({Name="P\117ls\101 L\101\110gth",Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and"second"or'se\99o\110ds';end});T.PulseDelay=W:CreateSlider({Name='\80\117lse D\101lay',Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and"second"or"seconds";end});DT=W:CreateSlider({Name='B\111unc\101\32Length',Min=0,Max=30,Darker=true,Visible=false,Suffix=function(D)return D==1 and'stud'or'studs';end});ET=W:CreateSlider({Name='Bo\117nce Delay',Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and's\101cond'or'seco\110d\115';end});qT=W:CreateSlider({Name='Grou\110d',Min=0,Max=1,Decimal=10,Default=0.1,Darker=true,Visible=false,Suffix=function(D)return D==1 and"s\101cond"or"\115eco\110ds";end});ST=W:CreateSlider({Name="Air",Min=0,Max=5,Decimal=10,Default=2,Darker=true,Visible=false,Suffix=function(D)return D==1 and'second'or"s\101conds";end});pT=W:CreateToggle({Name="Wall\32\67he\99k",Default=true,Darker=true,Visible=false});T.WallCheck=pT;QT=W:CreateToggle({Name="Platfor\109\83t\97n\100",Function=function(D)if W.Enabled then g.character.Humanoid.PlatformStand=D;end;end,Tooltip='F\111rces the\32cha\114a\99ter \116o lo\111k\32i\110front\32of\32the came\114a'});_T=W:CreateToggle({Name="Cus\116om Pr\111\112e\114tie\115",Function=function()if W.Enabled then W:Toggle();W:Toggle();end;end,Default=true});end);f(function()local D;local T;local I;local y;local function i()local PT=g.isAlive and g.character.Humanoid:GetState()or nil;if T.Value=="\86e\108oc\105\116\121"then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);g.character.RootPart.Velocity=Vector3.new(g.character.RootPart.Velocity.X,I.Value,g.character.RootPart.Velocity.Z);else local PT=math.max(I.Value-g.character.Humanoid.JumpHeight,0);repeat g.character.RootPart.CFrame+=Vector3.new(0,PT*0.016,0);PT=PT-(workspace.Gravity*0.016);if T.Value=='C\70r\97me'then task.wait();end;until PT<=0;end;end;D=t.Categories.Blatant:CreateModule({Name='High Ju\109\112',Function=function(PT)if PT then if y.Enabled then i();D:Toggle();else D:Clean(p.RenderStepped:Connect(function()if not Q:GetFocusedTextBox()and Q:IsKeyDown(Enum.KeyCode.Space)then i();end;end));end;end;end,ExtraText=function()return T.Value;end,Tooltip="\76et\115 you \106ump\32\104\105g\104er"});T=D:CreateDropdown({Name="Mod\101",List={"\86eloc\105ty","CFra\109e",'Instant'},Tooltip="Veloc\105ty - Use\115\32\115mooth\32\109ove\109ent to \98\111\111\115\116 \121\111u up\119\97rd\n\67Fr\97\109e - Dire\99tly\32\97d\106us\116s\32the position upw\97rd\10Ins\116ant - Telepo\114\116s \121ou to\32\116he \112\101ak of the j\117mp"});I=D:CreateSlider({Name="Velocit\121",Min=1,Max=150,Default=50,Suffix=function(T)return T==1 and'\115\116ud'or"s\116u\100s";end});y=D:CreateToggle({Name="A\117t\111\32\68isa\98le",Default=true});end);f(function()local D;local T;local I;local y;local i={};D=t.Categories.Blatant:CreateModule({Name="H\105t B\111xe\115",Function=function(PT)if PT then repeat for PT,PT in g.List do if PT.Targetable then if not T.Players.Enabled and PT.Player then continue;end;if not T.NPCs.Enabled and PT.NPC then continue;end;local dT=PT[I.Value];if not i[dT]then i[dT]=dT.Size;end;dT.Size=i[dT]+Vector3.new(y.Value,y.Value,y.Value);end;end;task.wait();until not D.Enabled;else for PT,dT in i do PT.Size=dT;end;table.clear(i);end;end,Tooltip='E\120pan\100s\32en\116i\116\105\101s\32hitbox\101\115'});T=D:CreateTargets({Players=true});I=D:CreateDropdown({Name='\80ar\116',List={'R\111\111tPa\114t','He\97\100'}});y=D:CreateSlider({Name="Expa\110d a\109ount",Min=0,Max=2,Decimal=10,Suffix=function(D)return D==1 and"\115t\117d"or"studs";end});end);f(function()local D;local T,I,y,i;local i;local PT=true;local function dT()if g.isAlive and g.character.Humanoid.Health>0 then y=g.character.Humanoid.HipHeight;I=g.character.HumanoidRootPart;if not m.Character.Parent then return false;end;m.Character.Parent=_;T=I:Clone();T.Parent=m.Character;I.Parent=O;T.CFrame=I.CFrame;m.Character.PrimaryPart=T;g.character.HumanoidRootPart=T;g.character.RootPart=T;m.Character.Parent=workspace;for fT,fT in m.Character:GetDescendants()do if fT:IsA("We\108\100")or fT:IsA("\77o\116or6D")then if fT.Part0==I then fT.Part0=T;end;if fT.Part1==I then fT.Part1=T;end;end;end;return true;end;return false;end;local function fT()if not I or not I:IsDescendantOf(workspace)or not g.isAlive then return false;end;m.Character.Parent=_;I.Parent=m.Character;m.Character.PrimaryPart=I;g.character.HumanoidRootPart=I;g.character.RootPart=I;m.Character.Parent=workspace;I.CanCollide=true;for DT,DT in m.Character:GetDescendants()do if DT:IsA("\87el\100")or DT:IsA("Mot\111\114\54D")then if DT.Part0==T then DT.Part0=I;end;if DT.Part1==T then DT.Part1=I;end;end;end;local DT=T.CFrame;if T then T:Destroy();T=nil;end;I.CFrame=DT;I=nil;g.character.Humanoid.HipHeight=y or 2;end;local function y()if g.isAlive then local DT=Instance.new('A\110imation');DT.AnimationId="\104t\116p://w\119w.rob\108ox.co\109/\97sset/\63i\100=185373633\0571";i=g.character.Humanoid.Animator:LoadAnimation(DT);i.Priority=Enum.AnimationPriority.Action4;i:Play(0,1,0);DT:Destroy();i.Stopped:Connect(function()if D.Enabled then y();end;end);task.delay(0,function()i.TimePosition=0.77;task.delay(1,function()i:AdjustSpeed(math.huge);end);end);end;end;D=t.Categories.Blatant:CreateModule({Name='I\110vi\115\105\98le',Function=function(DT)if DT then if not PT then V('Invisible',"Br\111ken s\116ate d\101\116e\99ted",3,"al\101rt");D:Toggle();return;end;success=dT();if not success then D:Toggle();return;end;y();D:Clean(p.PreSimulation:Connect(function(y)if g.isAlive and I then local y=g.character.RootPart;local dT=y.CFrame-Vector3.new(0,g.character.Humanoid.HipHeight+(y.Size.Y/2)-1,0);if isnetworkowner and not isnetworkowner(I)then y.CFrame=I.CFrame;y.Velocity=I.Velocity;return;end;I.CFrame=dT*CFrame.Angles(math.rad(180),0,0);I.Velocity=y.Velocity;I.CanCollide=false;end;end));D:Clean(g.Events.LocalAdded:Connect(function(y)local dT=y.Humanoid:WaitForChild("Animator",1);if dT and D.Enabled then I=nil;D:Toggle();D:Toggle();end;end));else if i then i:Stop();i:Destroy();end;if success and T and I and PT then PT=true;if I and T then fT();end;end;end;end,Tooltip='Turns \121o\117 invi\115\105ble.'});end);shared.vape.Attacking=false;f(function()local D;local T;local I;local y;local i;local PT;local dT;local fT;local DT;local ET;local qT;local ST;local _T;local pT;local QT;local CT;local jT=OverlapParams.new();jT.FilterType=Enum.RaycastFilterType.Include;local YT,eT,LT={},{},tick();local function FT()if fT.Enabled then if not Q:IsMouseButtonPressed(0)then return false;end;end;local hT=B();return hT and hT:FindFirstChildWhichIsA('Tou\99hT\114\97n\115mitter',true)or nil,hT;end;D=t.Categories.Blatant:CreateModule({Name='Killau\114a',Function=function(B)if B then repeat local B,hT=FT();local FT={};if B then local sT=g.AllPosition({Range=y.Value,Wallcheck=T.Walls.Enabled or nil,Part='Ro\111\116Part',Players=T.Players.Enabled,NPCs=T.NPCs.Enabled,Limit=dT.Value});if#sT>0 then local XT=g.character.RootPart.Position;local rT=g.character.RootPart.CFrame.LookVector*Vector3.new(1,0,1);for OT,OT in sT do local sT=(OT.RootPart.Position-XT);local XT=math.acos(rT:Dot((sT*Vector3.new(1,0,1)).Unit));if XT>(math.rad(PT.Value)/2)then continue;end;table.insert(FT,{Entity=OT,Check=sT.Magnitude>i.Value and ET or qT});x.Targets[OT]=tick()+1;if LT<tick()then LT=tick()+(1/I.GetRandomValue());hT:Activate();end;if DT.Enabled and hT.GripUp.X==0 then break;end;if sT.Magnitude>i.Value then continue;end;jT.FilterDescendantsInstances={OT.Character};for x,x in workspace:GetPartBoundsInBox(OT.RootPart.CFrame,Vector3.new(4,4,4),jT)do shared.vape.Attacking=true;firetouchinterest(B.Parent,x,1);firetouchinterest(B.Parent,x,0);end;end;else shared.vape.Attacking=false;end;end;for x,B in eT do B.Adornee=FT[x]and FT[x].Entity.RootPart or nil;if B.Adornee then B.Color3=Color3.fromHSV(FT[x].Check.Hue,FT[x].Check.Sat,FT[x].Check.Value);B.Transparency=1-FT[x].Check.Opacity;end;end;for x,B in YT do B.Position=FT[x]and FT[x].Entity.RootPart.Position or Vector3.new(9e9,9e9,9e9);B.Parent=FT[x]and O or nil;end;if CT.Enabled and FT[1]then local x=FT[1].Entity.RootPart.Position*Vector3.new(1,0,1);g.character.RootPart.CFrame=CFrame.lookAt(g.character.RootPart.Position,Vector3.new(x.X,g.character.RootPart.Position.Y,x.Z));end;task.wait();until not D.Enabled;else for x,x in eT do x.Adornee=nil;end;for x,x in YT do x.Parent=nil;end;shared.vape.Attacking=false;end;end,Tooltip="Attack \112\108aye\114s aroun\100\32you\nwi\116hou\116\32\97i\109ing \97t them\46"});T=D:CreateTargets({Players=true});I=D:CreateTwoSlider({Name="At\116acks p\101r Sec\111n\100",Min=1,Max=20,DefaultMin=12,DefaultMax=12});y=D:CreateSlider({Name="\83w\105n\103\32range",Min=1,Max=30,Default=13,Suffix=function(x)return x==1 and'stud'or'studs';end});i=D:CreateSlider({Name="A\116\116a\99\107\32ra\110ge",Min=1,Max=30,Default=13,Suffix=function(x)return x==1 and"stud"or's\116ud\115';end});PT=D:CreateSlider({Name="Max\32an\103le",Min=1,Max=360,Default=90});dT=D:CreateSlider({Name='M\97x\32ta\114gets',Min=1,Max=10,Default=10});fT=D:CreateToggle({Name="R\101\113uire\32mo\117se \100own"});DT=D:CreateToggle({Name="\83word \108unge onl\121"});D:CreateToggle({Name="\83how \116arget",Function=function(x)ET.Object.Visible=x;qT.Object.Visible=x;if x then for x=1,10 do local B=Instance.new("B\111x\72andl\101Ad\111rnmen\116");B.Adornee=nil;B.AlwaysOnTop=true;B.Size=Vector3.new(3,5,3);B.CFrame=CFrame.new(0,-0.5,0);B.ZIndex=0;B.Parent=t.gui;eT[x]=B;end;else for x,x in eT do x:Destroy();end;table.clear(eT);end;end});ET=D:CreateColorSlider({Name='Ta\114get Color',Darker=true,DefaultHue=0.6,DefaultOpacity=0.5,Visible=false});qT=D:CreateColorSlider({Name='Att\97c\107\32Color',Darker=true,DefaultOpacity=0.5,Visible=false});D:CreateToggle({Name='\84arge\116\32pa\114ti\99les',Function=function(x)ST.Object.Visible=x;_T.Object.Visible=x;pT.Object.Visible=x;QT.Object.Visible=x;if x then for x=1,10 do local B=Instance.new('Par\116');B.Size=Vector3.new(2,4,2);B.Anchored=true;B.CanCollide=false;B.Transparency=1;B.CanQuery=false;B.Parent=D.Enabled and O or nil;local T=Instance.new('Part\105cl\101E\109itter');T.Brightness=1.5;T.Size=NumberSequence.new(QT.Value);T.Shape=Enum.ParticleEmitterShape.Sphere;T.Texture=ST.Value;T.Transparency=NumberSequence.new(0);T.Lifetime=NumberRange.new(0.4);T.Speed=NumberRange.new(16);T.Rate=128;T.Drag=16;T.ShapePartial=1;T.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(_T.Hue,_T.Sat,_T.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(pT.Hue,pT.Sat,pT.Value))});T.Parent=B;YT[x]=B;end;else for x,x in YT do x:Destroy();end;table.clear(YT);end;end});ST=D:CreateTextBox({Name="Text\117re",Default="\114b\120ass\101\116i\100://1473\054\05049\051\052\55",Function=function()for x,x in YT do x.ParticleEmitter.Texture=ST.Value;end;end,Darker=true,Visible=false});_T=D:CreateColorSlider({Name="Color Beg\105n",Function=function(x,B,T)for I,I in YT do I.ParticleEmitter.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(x,B,T)),ColorSequenceKeypoint.new(1,Color3.fromHSV(pT.Hue,pT.Sat,pT.Value))});end;end,Darker=true,Visible=false});pT=D:CreateColorSlider({Name="Col\111r End",Function=function(x,B,T)for I,I in YT do I.ParticleEmitter.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(_T.Hue,_T.Sat,_T.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(x,B,T))});end;end,Darker=true,Visible=false});QT=D:CreateSlider({Name='Si\122e',Min=0,Max=1,Default=0.2,Decimal=100,Function=function(x)for B,B in YT do B.ParticleEmitter.Size=NumberSequence.new(x);end;end,Darker=true,Visible=false});CT=D:CreateToggle({Name='Face\32\116ar\103et'});end);f(function()local D;local x;local B;l=t.Categories.Blatant:CreateModule({Name='Long\32J\117mp',Function=function(T)if T then local T=tick()+0.1;l:Clean(p.PreSimulation:Connect(function(I)if g.isAlive then if g.character.Humanoid.FloorMaterial~=Enum.Material.Air then if T<tick()and B.Enabled then if l.Enabled then l:Toggle();end;else g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end;local T=g.character.RootPart;if D.Value=='\86elocity'then T.AssemblyLinearVelocity=(g.character.Humanoid.MoveDirection*x.Value)+Vector3.new(0,T.AssemblyLinearVelocity.Y,0);else T.CFrame+=(g.character.Humanoid.MoveDirection*x.Value*I);end;end;end));end;end,ExtraText=function()return D.Value;end,Tooltip="Le\116\115 \121ou\32jump \102arthe\114"});D=l:CreateDropdown({Name="M\111d\101",List={'Velo\99ity','C\70rame'},Tooltip='Veloc\105t\121\32- Use\115\32\115mooth p\104ysic\115 base\100 movement\nCF\114\97me\32- Dire\99tl\121 adjusts\32the pos\105tion\32of\32t\104e roo\116'});x=l:CreateSlider({Name='Sp\101\101d',Min=1,Max=150,Default=50,Suffix=function(D)return D==1 and"stu\100"or'\115t\117d\115';end});B=l:CreateToggle({Name='A\117to \68i\115able',Default=true});end);f(function()local D;local x;local B;local T;local I;local y=RaycastParams.new();y.RespectCanCollide=true;local function i()local PT,dT,fT=nil,math.huge,Q:GetMouseLocation();for DT,DT in G:GetChildren()do local ET,qT=O:WorldToViewportPoint(DT.StudsOffsetWorldSpace);if not qT then continue;end;local qT=(fT-Vector2.new(ET.x,ET.y)).Magnitude;if qT<dT then PT,dT=DT,qT;end;end;return PT;end;D=t.Categories.Blatant:CreateModule({Name='M\111use TP',Function=function(PT)if PT then local PT;if x.Value=='Mouse'then local dT=q(m:GetMouse()).UnitRay;y.FilterDescendantsInstances={m.Character,O};dT=workspace:Raycast(dT.Origin,dT.Direction*10000,y);PT=dT and dT.Position+Vector3.new(0,g.character.HipHeight or 2,0);elseif x.Value=="Waypoint"then local y=i();PT=y and y.StudsOffsetWorldSpace;else local y=g.EntityMouse({Range=math.huge,Part='Ro\111t\80art',Players=true});PT=y and y.RootPart.Position;end;if not PT then V("\77o\117seT\80","No posi\116ion found.",5);D:Toggle();return;end;if B.Value=="N\111\114\109al"then if g.isAlive then g.character.RootPart.CFrame=CFrame.lookAlong(PT,g.character.RootPart.CFrame.LookVector);end;D:Toggle();else D:Clean(p.Heartbeat:Connect(function()if g.isAlive then g.character.RootPart.Velocity=Vector3.zero;end;end));repeat if g.isAlive then local y=CFrame.lookAt(g.character.RootPart.Position,PT).LookVector*math.min((g.character.RootPart.Position-PT).Magnitude,T.Value);g.character.RootPart.CFrame+=y;if(g.character.RootPart.Position-PT).Magnitude<3 and D.Enabled then D:Toggle();end;elseif D.Enabled then D:Toggle();V('Mou\115eTP',"\67hara\99t\101\114 \109\105ssing",5,"w\97r\110ing");end;task.wait(I.Value);until not D.Enabled;end;end;end,Tooltip='Telep\111rt\115 to a sel\101cted p\111sit\105o\110\46'});x=D:CreateDropdown({Name="Mode",List={"\77ou\115\101",'Playe\114','\87\97ypo\105nt'}});B=D:CreateDropdown({Name="Move\109en\116",List={"N\111rmal","Lerp"},Function=function(x)T.Object.Visible=x=='L\101rp';I.Object.Visible=x=="\76erp";end});T=D:CreateSlider({Name='\76eng\116h',Min=0,Max=150,Darker=true,Visible=false,Suffix=function(x)return x==1 and'\115tud'or'st\117ds';end});I=D:CreateSlider({Name='Del\97y',Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and's\101cond'or'secon\100\115';end});end);f(function()local D;local x={Object={}};local B=RaycastParams.new();B.RespectCanCollide=true;local T=OverlapParams.new();T.MaxParts=9e9;local I,y={};local i;local function PT(dT)local fT,DT,ET=dT.Instance.CFrame,0,Enum.NormalId.Top;for qT,qT in Enum.NormalId:GetEnumItems()do local ST=fT:VectorToWorldSpace(Vector3.fromNormalId(qT)):Dot(dT.Normal);if ST>DT then DT,ET=ST,qT;end;end;return Vector3.fromNormalId(ET).X~=0 and"X"or"Z";end;local dT={Part=function()local fT={O,m.Character};for DT,DT in g.List do table.insert(fT,DT.Character);end;T.FilterDescendantsInstances=fT;local fT=workspace:GetPartBoundsInBox(g.character.RootPart.CFrame+Vector3.new(0,1,0),g.character.RootPart.Size+Vector3.new(1,g.character.HipHeight,1),T);for DT,DT in fT do if DT.CanCollide and(not H.Enabled or a)then I[DT]=true;DT.CanCollide=false;end;end;for DT in I do if not table.find(fT,DT)then I[DT]=nil;DT.CanCollide=true;end;end;end,Character=function()for fT,fT in m.Character:GetDescendants()do if fT:IsA('Bas\101Part')and fT.CanCollide and(not H.Enabled or a)then I[fT]=true;fT.CanCollide=H.Enabled and not a;end;end;end,TP=function()local fT={O,m.Character};for DT,DT in g.List do table.insert(fT,DT.Character);end;B.FilterDescendantsInstances=fT;T.FilterDescendantsInstances=fT;local fT=workspace:Raycast(g.character.Head.CFrame.Position,g.character.Humanoid.MoveDirection*1.1,B);if fT and(not H.Enabled or a)then local B=PT(fT);if fT.Instance.Size[B]<=x.Value then local PT=g.character.RootPart.CFrame+(fT.Normal*(-(fT.Instance.Size[B])-(g.character.RootPart.Size.X/1.5)));if#workspace:GetPartBoundsInBox(PT,Vector3.one,T)<=0 then g.character.RootPart.CFrame=PT;end;end;end;end,FFlag=function()if i then return;end;setfflag('Asse\109bl\121ExtentsE\120\112ansionS\116u\100H\117ndredth','-\049\048\048\048\48');y=true;end};U=t.Categories.Blatant:CreateModule({Name='Phase',Function=function(B)if B then U:Clean(p.Stepped:Connect(function()if g.isAlive then dT[D.Value]();end;end));if D.Value=="FFlag"then U:Clean(m.OnTeleport:Connect(function()i=true;setfflag("As\115emb\108y\69xtent\115E\120pans\105onStu\100\72undreth","\0510");end));end;else if y then setfflag('AssemblyExtentsExpa\110s\105onStudHundredt\104','30');end;for B in I do B.CanCollide=true;end;table.clear(I);y=nil;end;end,Tooltip='L\101t\115 y\111u\32Phas\101/\67l\105\112 t\104roug\104\32w\97l\108s. \40Hold \115hift \116\111 use\32Ph\97s\101 ove\114 \115pide\114)'});D=U:CreateDropdown({Name="Mo\100e",List={'\80art','C\104\97racte\114','TP','FFl\97\103'},Function=function(D)x.Object.Visible=D=='T\80';if y then setfflag('Assem\98lyE\120ten\116sExp\97\110si\111nStudHun\100re\100th',"3\48");end;for D in I do D.CanCollide=true;end;table.clear(I);y=nil;end,Tooltip="\80\97r\116 - Mod\105fi\101s\32p\97rts\32col\108\105\115\105\111n s\116at\117\115 ar\111und\32you\10C\104ar\97c\116e\114 - Modifies \116h\101 local collisio\110 status of \116h\101 char\97cte\114\10T\80 - Tel\101ports y\111\117 pa\115t \112a\114ts\nFFlag\32\45\32Direc\116ly adj\117s\116s\32all physi\99s col\108\105si\111\110s"});x=U:CreateSlider({Name='Wall\32Size',Min=1,Max=20,Default=5,Suffix=function(D)return D==1 and"\115\116ud"or"\115tud\115";end,Darker=true,Visible=false});end);f(function()local D;local x;local B;local T;local I;local y;local i;local PT,dT,fT,DT=0,0,0,0;D=t.Categories.Blatant:CreateModule({Name='Sp\101ed',Function=function(ET)w.Speed=ET and CustomProperties.Enabled or nil;o();if ET then D:Clean(p.PreSimulation:Connect(function(w)if g.isAlive and not W.Enabled and not l.Enabled then local W=g.character.Humanoid:GetState();if W==Enum.HumanoidStateType.Climbing then return;end;local W=A or B.MoveMethod.Value=='\68ir\101c\116'and Z(Vector3.new(fT+DT,0,PT+dT))or g.character.Humanoid.MoveDirection;u[x.Value](B,W,w);if T.Enabled and g.character.Humanoid.FloorMaterial~=Enum.Material.Air and W~=Vector3.zero and(I.Enabled and shared.vape.Attacking or not I.Enabled)then if y.Enabled then local Z=g.character.RootPart.Velocity*Vector3.new(1,0,1);g.character.RootPart.Velocity=Vector3.new(Z.X,i.Value,Z.Z);else g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end;end;end));PT,dT,fT,DT=Q:IsKeyDown(Enum.KeyCode.W)and-1.0 or 0,Q:IsKeyDown(Enum.KeyCode.S)and 1 or 0,Q:IsKeyDown(Enum.KeyCode.A)and-1.0 or 0,Q:IsKeyDown(Enum.KeyCode.D)and 1 or 0;for Z,Z in{'Inpu\116\66\101ga\110',"\73np\117tEnd\101\100"}do D:Clean(Q[Z]:Connect(function(W)if not Q:GetFocusedTextBox()then if W.KeyCode==Enum.KeyCode.W then PT=Z=='Inpu\116\66egan'and-1.0 or 0;elseif W.KeyCode==Enum.KeyCode.S then dT=Z=='Inpu\116Began'and 1 or 0;elseif W.KeyCode==Enum.KeyCode.A then fT=Z=="In\112u\116\66egan"and-1.0 or 0;elseif W.KeyCode==Enum.KeyCode.D then DT=Z=="In\112utB\101g\97n"and 1 or 0;end;end;end));end;else if B.WalkSpeed and g.isAlive then g.character.Humanoid.WalkSpeed=B.WalkSpeed;end;B.WalkSpeed=nil;end;end,ExtraText=function()return x.Value;end,Tooltip="\73ncre\97se\115 your \109ovement \119\105th v\97riou\115 met\104ods."});x=D:CreateDropdown({Name="Mode",List=J,Function=function(x)B.WallCheck.Object.Visible=x=='CFrame'or x=='TP';B.TPFrequency.Object.Visible=x=='\84P';B.PulseLength.Object.Visible=x=='Pulse';B.PulseDelay.Object.Visible=x=="P\117l\115e";if D.Enabled then D:Toggle();D:Toggle();end;end,Tooltip='V\101lo\99i\116y - Uses s\109ooth physics ba\115ed mov\101ment\10\67Frame\32-\32Dir\101ct\108\121\32adj\117s\116s \116\104e pos\105tion \111f\32the\32\114oot\10TP\32-\32Large\32\116\101le\112\111r\116s wit\104\105n \105\110\116er\118al\115\10P\117lse - \67ontroll\97\98\108e burst\115 \111f \115\112\101\101d\nWalkS\112\101ed\32- The clas\115ic \109ode \111f s\112ee\100, usuall\121 detec\116\101d \111\110 mo\115t game\115.'});B={MoveMethod=D:CreateDropdown({Name="\77ove Mode",List={'Mov\101Direc\116i\111n','\68ir\101ct'},Tooltip="Mo\118e\68ir\101ction - Use\115 the games input\32\118\101c\116or for move\109ent\nD\105r\101c\116\32-\32Dir\101ctly\32ca\108culat\101 o\117\114 \111wn \105n\112ut vec\116or"}),Value=D:CreateSlider({Name="\83p\101ed",Min=1,Max=150,Default=50,Suffix=function(x)return x==1 and'stu\100'or'studs';end}),TPFrequency=D:CreateSlider({Name="T\80\32Fr\101\113\117\101\110c\121",Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(x)return x==1 and"\115econd"or'\115e\99\111n\100\115';end}),PulseLength=D:CreateSlider({Name="Pul\115e Len\103th",Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(x)return x==1 and"se\99ond"or'secon\100s';end}),PulseDelay=D:CreateSlider({Name="P\117l\115e D\101lay",Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(x)return x==1 and"\115e\99on\100"or"se\99onds";end}),WallCheck=D:CreateToggle({Name="W\97\108\108 C\104eck",Default=true,Darker=true,Visible=false}),TPTiming=tick(),rayCheck=RaycastParams.new()};B.rayCheck.RespectCanCollide=true;CustomProperties=D:CreateToggle({Name="Custom Pr\111pert\105es",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true});T=D:CreateToggle({Name="Auto\74ump",Function=function(x)y.Object.Visible=x;I.Object.Visible=x;end});I=D:CreateToggle({Name="On\108\121 Killaur\97",Tooltip='Only jum\112\32\119\104en Kill\97ur\97 is\32\97t\116acking.',Darker=true,Visible=false});y=D:CreateToggle({Name='Cus\116o\109 Jump',Function=function(x)i.Object.Visible=x;end,Tooltip='Al\108ows\32y\111u\32t\111\32adjust t\104\101 jump\32\112ow\101r',Darker=true,Visible=false});i=D:CreateSlider({Name='\74\117mp\32Po\119\101r',Min=1,Max=50,Default=30,Darker=true,Visible=false});end);f(function()local D;local x;local Z;local W=RaycastParams.new();W.RespectCanCollide=true;local l,B;H=t.Categories.Blatant:CreateModule({Name="\83pi\100\101r",Function=function(w)if w then if B then B.Parent=O;end;H:Clean(p.PreSimulation:Connect(function(w)if g.isAlive and isnetworkowner(g.character.RootPart)then local T=g.character.RootPart;local o={O,m.Character,B};for I,I in g.List do table.insert(o,I.Character);end;a=Q:IsKeyDown(Enum.KeyCode.LeftShift);W.FilterDescendantsInstances=o;W.CollisionGroup=T.CollisionGroup;if D.Value~='P\97rt'then local o=g.character.Humanoid.MoveDirection*2.5;local I=workspace:Raycast(T.Position-Vector3.new(0,g.character.HipHeight-0.5,0),o,W);if l and not I then T.Velocity=Vector3.new(T.Velocity.X,0,T.Velocity.Z);end;l=I;if l and I.Normal.Y==0 then if not U.Enabled or not a then if Z.Enabled then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Climbing);end;g.character.RootPart.Velocity*=Vector3.new(1,0,1);if D.Value=="CFra\109e"then g.character.RootPart.CFrame+=Vector3.new(0,x.Value*w,0);else g.character.RootPart.Velocity+=Vector3.new(0,x.Value,0);end;end;end;else local l=workspace:Raycast(T.Position-Vector3.new(0,g.character.HipHeight-0.5,0),g.character.RootPart.CFrame.LookVector*2,W);if l and(not U.Enabled or not a)then B.Position=l.Position-l.Normal*0.9 or Vector3.zero;else B.Position=Vector3.zero;end;end;end;end));else if B then B.Parent=nil;end;a=false;end;end,Tooltip='\76ets you\32clim\98 up w\97lls. \40\72old \115hif\116\32\116o \117se Pha\115e ove\114\32s\112i\100er)'});D=H:CreateDropdown({Name='\77\111de',List={"\86elocit\121",'CFram\101',"\80a\114t"},Function=function(D)x.Object.Visible=D~='P\97rt';Z.Object.Visible=D~='Part';if B then B:Destroy();B=nil;end;if D=="P\97rt"then B=Instance.new('Trus\115Part');B.Size=Vector3.new(2,2,2);B.Transparency=1;B.Anchored=true;B.Parent=H.Enabled and O or nil;end;end,Tooltip='Velocity - \85\115\101s\32s\109ooth moveme\110\116 to \98oo\115t yo\117 \117pwar\100\n\67\70r\97me - Direc\116\108y adjus\116s the po\115iti\111n\32\117pwa\114\100\10\80\97rt - Pos\105t\105o\110\115 \97 \99li\109babl\101 pa\114t infront o\102\32yo\117'});x=H:CreateSlider({Name='S\112\101e\100',Min=0,Max=100,Default=30,Darker=true,Suffix=function(D)return D==1 and"stu\100"or"studs";end});Z=H:CreateToggle({Name="Climb S\116a\116\101",Darker=true});end);f(function()local D;local x;local a;local H;local U;local Z;local W;D=t.Categories.Blatant:CreateModule({Name='Sp\105\110 Bot',Function=function(l)if l then D:Clean(p.PreSimulation:Connect(function()if g.isAlive then if x.Value=="\82otVelocit\121"then local l=g.character.RootPart.RotVelocity;g.character.Humanoid.AutoRotate=false;g.character.RootPart.RotVelocity=Vector3.new(a.Enabled and Z.Value or l.X,H.Enabled and Z.Value or l.Y,U.Enabled and Z.Value or l.Z);elseif x.Value=='C\70ra\109e'then local l=math.rad((tick()*(20*Z.Value))%360);local B,w,T=g.character.RootPart.CFrame:ToOrientation();g.character.RootPart.CFrame=CFrame.new(g.character.RootPart.Position)*CFrame.Angles(a.Enabled and l or B,H.Enabled and l or w,U.Enabled and l or T);elseif W then W.Parent=g.isAlive and g.character.RootPart;W.MaxTorque=Vector3.new(a.Enabled and math.huge or 0,H.Enabled and math.huge or 0,U.Enabled and math.huge or 0);W.AngularVelocity=Vector3.new(Z.Value,Z.Value,Z.Value);end;end;end));else if g.isAlive and x.Value=="Ro\116Ve\108oc\105ty"then g.character.Humanoid.AutoRotate=true;end;if W then W.Parent=nil;end;end;end,Tooltip='Makes y\111u\114 c\104aract\101r spin\32around in \99i\114cles \40d\111es not wor\107 in fi\114s\116 pe\114\115on)'});x=D:CreateDropdown({Name="\77ode",List={"C\70\114ame",'Rot\86\101\108oci\116y',"Body\77o\118\101r"},Function=function(x)if W then W:Destroy();W=nil;end;W=x=='\66odyMo\118\101\114'and Instance.new('BodyA\110\103ularVel\111c\105ty')or nil;end});Z=D:CreateSlider({Name='Speed',Min=1,Max=100,Default=40});a=D:CreateToggle({Name="S\112i\110 \88"});H=D:CreateToggle({Name='\83p\105n Y',Default=true});U=D:CreateToggle({Name='Sp\105n\32Z'});end);f(function()local D;local x=q(workspace:FindFirstChildWhichIsA('Ter\114ain'));local q=Region3.new(Vector3.zero,Vector3.zero);D=t.Categories.Blatant:CreateModule({Name='S\119im',Function=function(a)if a then D:Clean(p.PreSimulation:Connect(function(D)if g.isAlive then local D=g.character.RootPart;local a=g.character.Humanoid.MoveDirection~=Vector3.zero;local H=D.Velocity;local H=Q:IsKeyDown(Enum.KeyCode.Space);if x then local U=(a or H)and Vector3.new(6,6,6)or Vector3.new(2,1,2);local a=D.Position-Vector3.new(0,1,0);local D=Region3.new(a-U,a+U):ExpandToGrid(4);x:ReplaceMaterial(q,4,Enum.Material.Water,Enum.Material.Air);x:FillRegion(D,4,Enum.Material.Water);q=D;end;end;end));else if x and q then x:ReplaceMaterial(q,4,Enum.Material.Water,Enum.Material.Air);end;end;end,Tooltip="Let\115 \121ou sw\105m\32midair"});end);f(function()local D;local q;local x;local a;local H;local U;local Z=RaycastParams.new();Z.RespectCanCollide=true;local W,l;D=t.Categories.Blatant:CreateModule({Name='\84arget S\116\114afe',Function=function(B)if B then if not W then local B=pcall(function()W=require(m.PlayerScripts.PlayerModule).controls;end);if not B then W={};end;end;l=W.moveFunction;local B,w,T=t.Modules.Fly or{Enabled=false};if q.Enabled then repeat local o=Vector3.zero;local I=x.Walls.Enabled;local u=not Q:IsKeyDown(Enum.KeyCode.S)and g.EntityPosition({Range=a.Value,Wallcheck=I,Part='\82\111otPar\116',Players=x.Players.Enabled,NPCs=x.NPCs.Enabled});if u then local J,y=g.character.RootPart,u.RootPart.Position;Z.FilterDescendantsInstances={m.Character,O,u.Character};Z.CollisionGroup=J.CollisionGroup;if B.Enabled or workspace:Raycast(y,Vector3.new(0,-70.0,0),Z)then local i,PT=0,J.Position;if u~=T then w=math.deg(select(2,CFrame.lookAt(y,PT):ToEulerAnglesYXZ()));end;local dT=math.abs(PT.Y-y.Y)*(U.Value/100);local fT=Vector3.new(y.X,PT.Y,y.Z);local DT=fT+(CFrame.Angles(0,math.rad(w),0).LookVector*(H.Value-dT));local dT,ET=fT,DT;if not I and workspace:Raycast(y,(PT-y),Z)then dT,ET=fT+(CFrame.Angles(0,math.rad(w),0).LookVector*(fT-PT).Magnitude),fT;end;local I=workspace:Blockcast(CFrame.new(dT),Vector3.new(1,g.character.HipHeight+(J.Size.Y/2),1),(ET-dT),Z);if(PT-DT).Magnitude<3 or I then i=(8-math.min((PT-DT).Magnitude,3));if I then DT=I.Position+(I.Normal*1.5);i=(PT-DT).Magnitude>3 and 0 or i;end;end;if not B.Enabled and not workspace:Raycast(DT,Vector3.new(0,-70.0,0),Z)then DT=fT;i=40;end;w+=i%360;o=((DT-PT)*Vector3.new(1,0,1)).Unit;o=o==o and o or Vector3.zero;A=o;else u=nil;end;end;A=u and o or nil;T=u;g.character.RootPart.CFrame+=(o*0.6);task.wait();until not D.Enabled;else W.moveFunction=function(o,I,u)local J=x.Walls.Enabled;local y=not Q:IsKeyDown(Enum.KeyCode.S)and g.EntityPosition({Range=a.Value,Wallcheck=J,Part='R\111otPart',Players=x.Players.Enabled,NPCs=x.NPCs.Enabled});if y then local i,PT=g.character.RootPart,y.RootPart.Position;Z.FilterDescendantsInstances={m.Character,O,y.Character};Z.CollisionGroup=i.CollisionGroup;if B.Enabled or workspace:Raycast(PT,Vector3.new(0,-70.0,0),Z)then local dT,fT=0,i.Position;if y~=T then w=math.deg(select(2,CFrame.lookAt(PT,fT):ToEulerAnglesYXZ()));end;local DT=math.abs(fT.Y-PT.Y)*(U.Value/100);local ET=Vector3.new(PT.X,fT.Y,PT.Z);local qT=ET+(CFrame.Angles(0,math.rad(w),0).LookVector*(H.Value-DT));local DT,ST=ET,qT;if not J and workspace:Raycast(PT,(fT-PT),Z)then DT,ST=ET+(CFrame.Angles(0,math.rad(w),0).LookVector*(ET-fT).Magnitude),ET;end;local J=workspace:Blockcast(CFrame.new(DT),Vector3.new(1,g.character.HipHeight+(i.Size.Y/2),1),(ST-DT),Z);if(fT-qT).Magnitude<3 or J then dT=(8-math.min((fT-qT).Magnitude,3));if J then qT=J.Position+(J.Normal*1.5);dT=(fT-qT).Magnitude>3 and 0 or dT;end;end;if not B.Enabled and not workspace:Raycast(qT,Vector3.new(0,-70.0,0),Z)then qT=ET;dT=40;end;w+=dT%360;I=((qT-fT)*Vector3.new(1,0,1)).Unit;I=I==I and I or Vector3.zero;A=I;else y=nil;end;end;A=y and I or nil;T=y;return l(o,I,u);end;end;else if W and l then W.moveFunction=l;end;A=nil;end;end,Tooltip="A\117tom\97tically \115t\114a\102e\115 ar\111u\110d\32th\101 \111ppone\110t"});x=D:CreateTargets({Players=true,Walls=true});a=D:CreateSlider({Name="Search \82ange",Min=1,Max=30,Default=24,Suffix=function(x)return x==1 and'stud'or"st\117ds";end});H=D:CreateSlider({Name='Straf\101 Ra\110\103\101',Min=1,Max=30,Default=18,Suffix=function(x)return x==1 and'stud'or'stud\115';end});U=D:CreateSlider({Name='Y Factor',Min=0,Max=100,Default=100,Suffix='%'});q=D:CreateToggle({Name='Tel\101p\111rt'});end);f(function()local D;local q;D=t.Categories.Blatant:CreateModule({Name="\84imer",Function=function(x)if x then setfflag("Si\109Ena\98leStepPhys\105cs",'\84\114ue');setfflag('\83\105mEn\97bleSt\101pPhysicsS\101\108ec\116\105ve','T\114\117e');D:Clean(p.RenderStepped:Connect(function(x)if q.Value>1 then p:Pause();workspace:StepPhysics(x*(q.Value-1),{g.character.RootPart});p:Run();end;end));end;end,Tooltip="Ch\97nge the ga\109e spe\101\100\46"});q=D:CreateSlider({Name="V\97lue",Min=1,Max=3,Decimal=10});end);f(function()local D;local q;local x;local A;local a;local H;local U={};local Z=Instance.new('Folder');Z.Parent=t.gui;local function W(l)if not q.Players.Enabled and l.Player then return;end;if not q.NPCs.Enabled and l.NPC then return;end;if A.Enabled and(not l.Targetable)and(not l.Friend)and(not l.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local B=Instance.new('Imag\101L\97b\101l');B.Size=UDim2.fromOffset(256,256);B.Position=UDim2.fromScale(0.5,0.5);B.AnchorPoint=Vector2.new(0.5,0.5);B.BackgroundTransparency=1;B.BorderSizePixel=0;B.Visible=false;B.Image=b("ca\116rewrite/asse\116\115/n\101w\47\97\114rowmodule.\112ng");B.ImageColor3=g.getEntityColor(l)or Color3.fromHSV(x.Hue,x.Sat,x.Value);B.Parent=Z;U[l]=B;end;local function Z(l)local B=U[l];if B then if t.ThreadFix then setthreadidentity(8);end;U[l]=nil;B:Destroy();end;end;local function l(B,w,T)local o=Color3.fromHSV(B,w,T);for B,w in U do w.ImageColor3=g.getEntityColor(B)or o;end;end;local function B()for w,T in U do if a.Enabled then local o=g.isAlive and(g.character.RootPart.Position-w.RootPart.Position).Magnitude or math.huge;if o<H.ValueMin or o>H.ValueMax then T.Visible=false;continue;end;end;local o,o=O:WorldToScreenPoint(w.RootPart.Position);T.Visible=not o;if o then continue;end;local o=(O.CFrame:PointToObjectSpace(w.RootPart.Position)*Vector3.new(1,0,1)).Unit;T.Rotation=math.deg(math.atan2(o.Z,o.X));end;end;D=t.Categories.Render:CreateModule({Name='Arrow\115',Function=function(w)if w then D:Clean(g.Events.EntityRemoved:Connect(Z));for w,w in g.List do if U[w]then Z(w);end;W(w);end;D:Clean(g.Events.EntityAdded:Connect(function(w)if U[w]then Z(w);end;W(w);end));D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()l(x.Hue,x.Sat,x.Value);end));D:Clean(p.RenderStepped:Connect(B));else for W in U do Z(W);end;end;end,Tooltip='Draws arr\111ws \111n sc\114e\101n when en\116it\105es\10are \111\117t of \121o\117r fi\101\108d of v\105\101w.'});q=D:CreateTargets({Players=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});x=D:CreateColorSlider({Name='P\108ayer C\111\108o\114',Function=function(q,x,U)if D.Enabled then l(q,x,U);end;end});A=D:CreateToggle({Name='Pr\105\111r\105ty\32Onl\121',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Tooltip="H\105des teammate\115 \38 n\111\110 targe\116\97ble\32e\110titi\101s"});a=D:CreateToggle({Name="Distance \67hec\107",Function=function(q)H.Object.Visible=q;end});H=D:CreateTwoSlider({Name="Pl\97\121\101r\32Distan\99e",Min=0,Max=256,DefaultMin=0,DefaultMax=64,Darker=true,Visible=false});end);f(function()local D;local q;local x;local A;local a;local H;local U;local Z;local W;local l={};local B=Instance.new("Fol\100er");B.Parent=t.gui;local function w(T)if not q.Players.Enabled and T.Player then return;end;if not q.NPCs.Enabled and T.NPC then return;end;if Z.Enabled and(not T.Targetable)and(not T.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;if x.Value=="H\105ghli\103ht"then local o=Instance.new("H\105\103hli\103ht");o.Adornee=T.Character;o.DepthMode=Enum.HighlightDepthMode[W.Enabled and"Alwa\121sO\110To\112"or'Occ\108ud\101\100'];o.FillColor=g.getEntityColor(T)or Color3.fromHSV(A.Hue,A.Sat,A.Value);o.OutlineColor=Color3.fromHSV(a.Hue,a.Sat,a.Value);o.FillTransparency=H.Value;o.OutlineTransparency=U.Value;o.Parent=B;l[T]=o;else local o={};for I,I in T.Character:GetChildren()do if I:IsA("B\97sePart")and(T.NPC or I.Name:find('\65\114m')or I.Name:find('L\101g')or I.Name:find("H\97\110d")or I.Name:find('F\101et')or I.Name:find("Torso")or I.Name=="He\97\100")then local u=Instance.new(I.Name=='\72\101a\100'and"Sphe\114\101\72and\108eA\100or\110ment"or'B\111xHa\110d\108\101\65dornment');if I.Name=="H\101\97d"then u.Radius=0.75;else u.Size=I.Size;end;u.AlwaysOnTop=W.Enabled;u.Adornee=I;u.ZIndex=0;u.Transparency=H.Value;u.Color3=g.getEntityColor(T)or Color3.fromHSV(A.Hue,A.Sat,A.Value);u.Parent=B;table.insert(o,u);end;end;l[T]=o;end;end;local function B(T)if l[T]then if t.ThreadFix then setthreadidentity(8);end;if type(l[T])=='ta\98le'then for o,o in l[T]do o:Destroy();end;table.clear(l[T]);else l[T]:Destroy();end;l[T]=nil;end;end;D=t.Categories.Render:CreateModule({Name="Cham\115",Function=function(T)if T then D:Clean(g.Events.EntityRemoved:Connect(B));D:Clean(g.Events.EntityAdded:Connect(function(T)if l[T]then B(T);end;w(T);end));D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()for T,o in l do local I=g.getEntityColor(T)or Color3.fromHSV(A.Hue,A.Sat,A.Value);if type(o)=="table"then for T,T in o do T.Color3=I;end;else o.FillColor=I;end;end;end));for T,T in g.List do if l[T]then B(T);end;w(T);end;else for w in l do B(w);end;end;end,Tooltip='R\101\110\100\101r p\108a\121ers \116\104r\111\117\103h wal\108s'});q=D:CreateTargets({Players=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});x=D:CreateDropdown({Name="M\111de",List={"\72ig\104li\103ht","Bo\120\72an\100les"},Function=function(q)a.Object.Visible=q=="H\105g\104l\105g\104\116";U.Object.Visible=q=='Highl\105ght';if D.Enabled then D:Toggle();D:Toggle();end;end});A=D:CreateColorSlider({Name='\67\111lo\114',Function=function(q,x,A)for B,w in l do local T=g.getEntityColor(B)or Color3.fromHSV(q,x,A);if type(w)=="table"then for q,q in w do q.Color3=T;end;else w.FillColor=T;end;end;end});a=D:CreateColorSlider({Name='\79utli\110e Color',DefaultSat=0,Function=function(q,x,A)for a,B in l do if type(B)~='t\97ble'then B.OutlineColor=g.getEntityColor(a)or Color3.fromHSV(q,x,A);end;end;end,Darker=true});H=D:CreateSlider({Name="Tr\97nspare\110c\121",Min=0,Max=1,Default=0.5,Function=function(q)for x,x in l do if type(x)=="\116\97ble"then for A,A in x do A.Transparency=q;end;else x.FillTransparency=q;end;end;end,Decimal=10});U=D:CreateSlider({Name='\79\117tl\105\110e\32Transp\97\114\101ncy',Min=0,Max=1,Default=0.5,Function=function(q)for x,x in l do if type(x)~='\116able'then x.OutlineTransparency=q;end;end;end,Decimal=10,Darker=true});W=D:CreateToggle({Name="\82\101nd\101r Wa\108\108s",Function=function(q)for x,x in l do if type(x)=='t\97ble'then for A,A in x do A.AlwaysOnTop=q;end;else x.DepthMode=Enum.HighlightDepthMode[q and'Alw\97\121sOn\84\111p'or'Oc\99l\117ded'];end;end;end,Default=true});Z=D:CreateToggle({Name="P\114i\111rit\121\32On\108y",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Tooltip='Hides\32team\109ate\115 & \110on\32targetab\108\101 en\116ities'});end);f(function()local D;local q;local x;local A;local a;local H;local U;local Z;local W;local l;local B;local w;local T;local o={};local I;local function u(J)local y=O:WorldToViewportPoint(O.CFrame:pointToWorldSpace(O.CFrame:PointToObjectSpace(J)));return Vector2.new(y.X,y.Y);end;local J={Drawing2D=function(y)if not q.Players.Enabled and y.Player then return;end;if not q.NPCs.Enabled and y.NPC then return;end;if B.Enabled and(not y.Targetable)and(not y.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local i={};i.Main=Drawing.new('\83\113ua\114e');i.Main.Transparency=a.Enabled and 1 or 0;i.Main.ZIndex=2;i.Main.Filled=false;i.Main.Thickness=1;i.Main.Color=g.getEntityColor(y)or Color3.fromHSV(x.Hue,x.Sat,x.Value);if a.Enabled then i.Border=Drawing.new('\83\113uare');i.Border.Transparency=0.35;i.Border.ZIndex=1;i.Border.Thickness=1;i.Border.Filled=false;i.Border.Color=Color3.new();i.Border2=Drawing.new("\83quar\101");i.Border2.Transparency=0.35;i.Border2.ZIndex=1;i.Border2.Thickness=1;i.Border2.Filled=H.Enabled;i.Border2.Color=Color3.new();end;if U.Enabled then i.HealthLine=Drawing.new('L\105ne');i.HealthLine.Thickness=1;i.HealthLine.ZIndex=2;i.HealthLine.Color=Color3.fromHSV(math.clamp(y.Health/y.MaxHealth,0,1)/2.5,0.89,0.75);i.HealthBorder=Drawing.new("Line");i.HealthBorder.Thickness=3;i.HealthBorder.Transparency=0.35;i.HealthBorder.ZIndex=1;i.HealthBorder.Color=Color3.new();end;if Z.Enabled then if l.Enabled then i.TextBKG=Drawing.new('\83qu\97r\101');i.TextBKG.Transparency=0.35;i.TextBKG.ZIndex=0;i.TextBKG.Thickness=1;i.TextBKG.Filled=true;i.TextBKG.Color=Color3.new();end;i.Drop=Drawing.new('Tex\116');i.Drop.Color=Color3.new();i.Drop.Text=y.Player and P:tag(y.Player,true)..(W.Enabled and y.Player.DisplayName or y.Player.Name)or y.Character.Name;i.Drop.ZIndex=1;i.Drop.Center=true;i.Drop.Size=22;i.Text=Drawing.new('\84ex\116');i.Text.Text=i.Drop.Text;i.Text.ZIndex=2;i.Text.Color=i.Main.Color;i.Text.Center=true;i.Text.Size=22;end;o[y]=i;end,Drawing3D=function(y)if not q.Players.Enabled and y.Player then return;end;if not q.NPCs.Enabled and y.NPC then return;end;if B.Enabled and(not y.Targetable)and(not y.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local i={};i.Line1=Drawing.new("Li\110e");i.Line2=Drawing.new('Lin\101');i.Line3=Drawing.new("Line");i.Line4=Drawing.new("Line");i.Line5=Drawing.new('Line');i.Line6=Drawing.new("Lin\101");i.Line7=Drawing.new("\76\105ne");i.Line8=Drawing.new('Line');i.Line9=Drawing.new("L\105ne");i.Line10=Drawing.new('Line');i.Line11=Drawing.new('\76ine');i.Line12=Drawing.new("Li\110\101");local PT=g.getEntityColor(y)or Color3.fromHSV(x.Hue,x.Sat,x.Value);for dT,dT in i do dT.Thickness=1;dT.Color=PT;end;o[y]=i;end,DrawingSkeleton=function(y)if not q.Players.Enabled and y.Player then return;end;if not q.NPCs.Enabled and y.NPC then return;end;if B.Enabled and(not y.Targetable)and(not y.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local i={};i.Head=Drawing.new("Line");i.HeadFacing=Drawing.new('Line');i.Torso=Drawing.new('\76i\110e');i.UpperTorso=Drawing.new('Line');i.LowerTorso=Drawing.new('\76in\101');i.LeftArm=Drawing.new("Lin\101");i.RightArm=Drawing.new('Li\110e');i.LeftLeg=Drawing.new('\76ine');i.RightLeg=Drawing.new('\76\105ne');local PT=g.getEntityColor(y)or Color3.fromHSV(x.Hue,x.Sat,x.Value);for dT,dT in i do dT.Thickness=2;dT.Color=PT;end;o[y]=i;end};local y={Drawing2D=function(i)local PT=o[i];if PT then if t.ThreadFix then setthreadidentity(8);end;o[i]=nil;for i,i in PT do pcall(function()i.Visible=false;i:Remove();end);end;end;end};y.Drawing3D=y.Drawing2D;y.DrawingSkeleton=y.Drawing2D;local i={Drawing2D=function(PT)local dT=o[PT];if dT then if t.ThreadFix then setthreadidentity(8);end;if dT.HealthLine then dT.HealthLine.Color=Color3.fromHSV(math.clamp(PT.Health/PT.MaxHealth,0,1)/2.5,0.89,0.75);end;if dT.Text then dT.Text.Text=PT.Player and P:tag(PT.Player,true)..(W.Enabled and PT.Player.DisplayName or PT.Player.Name)or PT.Character.Name;dT.Drop.Text=dT.Text.Text;end;end;end};local PT={Drawing2D=function(dT,fT,DT)local ET=Color3.fromHSV(dT,fT,DT);for dT,fT in o do fT.Main.Color=g.getEntityColor(dT)or ET;if fT.Text then fT.Text.Color=fT.Main.Color;end;end;end,Drawing3D=function(dT,fT,DT)local ET=Color3.fromHSV(dT,fT,DT);for dT,fT in o do local DT=g.getEntityColor(dT)or ET;for dT,dT in fT do dT.Color=DT;end;end;end};PT.DrawingSkeleton=PT.Drawing3D;local dT={Drawing2D=function()for fT,DT in o do if w.Enabled then local ET=g.isAlive and(g.character.RootPart.Position-fT.RootPart.Position).Magnitude or math.huge;if ET<T.ValueMin or ET>T.ValueMax then for ET,ET in DT do ET.Visible=false;end;continue;end;end;local ET=fT.RootPart.Position;if table.find(shared.vape.hackerTable,fT.Player)and g.isAlive then ET=Vector3.new(ET.X,g.character.RootPart.Position.Y,ET.Z);end;local qT,ST=O:WorldToViewportPoint(ET-Vector3.new(0,0.5,0));for _T,_T in DT do _T.Visible=ST;end;if not ST then continue;end;local ST=O:WorldToViewportPoint((CFrame.lookAlong(ET-Vector3.new(0,0.5,0),O.CFrame.LookVector)*CFrame.new(2,fT.HipHeight,0)).p);local _T=O:WorldToViewportPoint((CFrame.lookAlong(ET-Vector3.new(0,0.5,0),O.CFrame.LookVector)*CFrame.new(-2.0,-fT.HipHeight-1,0)).p);local ET,pT=ST.X-_T.X,ST.Y-_T.Y;local ST,_T=(qT.X-ET/2),(qT.Y-pT/2);DT.Main.Position=Vector2.new(ST,_T)//1;DT.Main.Size=Vector2.new(ET,pT)//1;if DT.Border then DT.Border.Position=Vector2.new(ST-1,_T+1)//1;DT.Border.Size=Vector2.new(ET+2,pT-2)//1;DT.Border2.Position=Vector2.new(ST+1,_T-1)//1;DT.Border2.Size=Vector2.new(ET-2,pT+2)//1;end;if DT.HealthLine then local qT=pT*math.clamp(fT.Health/fT.MaxHealth,0,1);DT.HealthLine.Visible=fT.Health>0;DT.HealthLine.From=Vector2.new(ST-6,_T+(pT-(pT-qT)))//1;DT.HealthLine.To=Vector2.new(ST-6,_T)//1;DT.HealthBorder.From=Vector2.new(ST-6,_T+1)//1;DT.HealthBorder.To=Vector2.new(ST-6,(_T+pT)-1)//1;end;if DT.Text then DT.Text.Position=Vector2.new(ST+(ET/2)+4,_T+(pT-28))//1;DT.Drop.Position=DT.Text.Position+Vector2.new(0.5,0.5);if DT.TextBKG then DT.TextBKG.Size=DT.Text.TextBounds+Vector2.new(8,4);DT.TextBKG.Position=DT.Text.Position-Vector2.new(4+(DT.Text.TextBounds.X/2),0);end;end;end;end,Drawing3D=function()for fT,DT in o do if w.Enabled then local ET=g.isAlive and(g.character.RootPart.Position-fT.RootPart.Position).Magnitude or math.huge;if ET<T.ValueMin or ET>T.ValueMax then for ET,ET in DT do ET.Visible=false;end;continue;end;end;local ET=fT.RootPart.Position;if table.find(shared.vape.hackerTable,fT.Player)and g.isAlive then ET=Vector3.new(ET.X,g.character.RootPart.Position.Y,ET.Z);end;local qT,qT=O:WorldToViewportPoint(ET);for ST,ST in DT do ST.Visible=qT;end;if not qT then continue;end;local qT=u(ET+Vector3.new(1.5,fT.HipHeight,1.5));local ST=u(ET+Vector3.new(1.5,-fT.HipHeight,1.5));local _T=u(ET+Vector3.new(-1.5,fT.HipHeight,1.5));local pT=u(ET+Vector3.new(-1.5,-fT.HipHeight,1.5));local QT=u(ET+Vector3.new(1.5,fT.HipHeight,-1.5));local CT=u(ET+Vector3.new(1.5,-fT.HipHeight,-1.5));local jT=u(ET+Vector3.new(-1.5,fT.HipHeight,-1.5));local YT=u(ET+Vector3.new(-1.5,-fT.HipHeight,-1.5));DT.Line1.From=qT;DT.Line1.To=ST;DT.Line2.From=_T;DT.Line2.To=pT;DT.Line3.From=QT;DT.Line3.To=CT;DT.Line4.From=jT;DT.Line4.To=YT;DT.Line5.From=qT;DT.Line5.To=_T;DT.Line6.From=qT;DT.Line6.To=QT;DT.Line7.From=QT;DT.Line7.To=jT;DT.Line8.From=jT;DT.Line8.To=_T;DT.Line9.From=ST;DT.Line9.To=pT;DT.Line10.From=ST;DT.Line10.To=CT;DT.Line11.From=CT;DT.Line11.To=YT;DT.Line12.From=YT;DT.Line12.To=pT;end;end,DrawingSkeleton=function()for fT,DT in o do if w.Enabled then local ET=g.isAlive and(g.character.RootPart.Position-fT.RootPart.Position).Magnitude or math.huge;if ET<T.ValueMin or ET>T.ValueMax then for ET,ET in DT do ET.Visible=false;end;continue;end;end;local ET,ET=O:WorldToViewportPoint(fT.RootPart.Position);for qT,qT in DT do qT.Visible=ET;end;if not ET then continue;end;local ET=fT.Humanoid.RigType==Enum.HumanoidRigType.R6;pcall(function()local qT=ET and CFrame.new(0,-0.8,0)or CFrame.identity;local ST=u((fT.Head.CFrame).p);local _T=u((fT.Head.CFrame*CFrame.new(0,0,-0.5)).p);local pT=u((fT.Character[(ET and"T\111rso"or'\85pper\84ors\111')].CFrame*CFrame.new(-1.5,0.8,0)).p);local QT=u((fT.Character[(ET and"\84\111rs\111"or"Upper\84orso")].CFrame*CFrame.new(1.5,0.8,0)).p);local CT=u((fT.Character[(ET and"T\111\114so"or"Up\112erTorso")].CFrame*CFrame.new(0,0.8,0)).p);local jT=u((fT.Character[(ET and'To\114\115o'or'\85\112\112er\84\111rso')].CFrame*CFrame.new(0,-0.8,0)).p);local YT=u((fT.Character[(ET and'To\114so'or'\85p\112\101\114T\111rs\111')].CFrame*CFrame.new(-0.5,-0.8,0)).p);local eT=u((fT.Character[(ET and'To\114so'or"Up\112erTor\115o")].CFrame*CFrame.new(0.5,-0.8,0)).p);local LT=u((fT.Character[(ET and'Left A\114\109'or"Lef\116Hand")].CFrame*qT).p);local FT=u((fT.Character[(ET and"Right \65r\109"or'\82ightHan\100')].CFrame*qT).p);local hT=u((fT.Character[(ET and'L\101\102t\32Leg'or'Le\102\116Foo\116')].CFrame*qT).p);local sT=u((fT.Character[(ET and'Ri\103ht \76eg'or"\82i\103\104t\70oot")].CFrame*qT).p);DT.Head.From=CT;DT.Head.To=ST;DT.HeadFacing.From=ST;DT.HeadFacing.To=_T;DT.UpperTorso.From=pT;DT.UpperTorso.To=QT;DT.Torso.From=CT;DT.Torso.To=jT;DT.LowerTorso.From=YT;DT.LowerTorso.To=eT;DT.LeftArm.From=pT;DT.LeftArm.To=LT;DT.RightArm.From=QT;DT.RightArm.To=FT;DT.LeftLeg.From=YT;DT.LeftLeg.To=hT;DT.RightLeg.From=eT;DT.RightLeg.To=sT;end);end;end};D=t.Categories.Render:CreateModule({Name='ESP',Function=function(u)if u then I="\68rawin\103"..A.Value;if y[I]then D:Clean(g.Events.EntityRemoved:Connect(y[I]));end;if J[I]then for u,u in g.List do if o[u]then y[I](u);end;J[I](u);end;D:Clean(g.Events.EntityAdded:Connect(function(u)if o[u]then y[I](u);end;J[I](u);end));end;if i[I]then D:Clean(g.Events.EntityUpdated:Connect(i[I]));for u,u in g.List do i[I](u);end;end;if PT[I]then D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()PT[I](x.Hue,x.Sat,x.Value);end));end;if dT[I]then D:Clean(p.RenderStepped:Connect(dT[I]));end;else if y[I]then for u in o do y[I](u);end;end;end;end,Tooltip="Extra Senso\114y Percep\116ion\nRe\110der\115 an \69\83P \111n player\115."});q=D:CreateTargets({Players=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});A=D:CreateDropdown({Name='\77ode',List={"2D",'3D',"\83kel\101\116on"},Function=function(q)if D.Enabled then D:Toggle();D:Toggle();end;a.Object.Visible=(q=='2\68');H.Object.Visible=(q=='2D');U.Object.Visible=(q=='2D');Z.Object.Visible=(q=="2D");W.Object.Visible=Z.Object.Visible and Z.Enabled;l.Object.Visible=Z.Object.Visible and Z.Enabled;end});x=D:CreateColorSlider({Name="\80lay\101\114 \67\111lor",Function=function(q,x,A)if D.Enabled and PT[I]then PT[I](q,x,A);end;end});a=D:CreateToggle({Name='Bo\117\110ding Bo\120',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Darker=true});H=D:CreateToggle({Name="Fill\101\100",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Darker=true});U=D:CreateToggle({Name="Health B\97r",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Darker=true});Z=D:CreateToggle({Name='\78ame',Function=function(q)if D.Enabled then D:Toggle();D:Toggle();end;W.Object.Visible=q;l.Object.Visible=q;end,Darker=true});W=D:CreateToggle({Name='Use\32Di\115\112layn\97me',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Darker=true});l=D:CreateToggle({Name='Show B\97\99kgrou\110d',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Darker=true});B=D:CreateToggle({Name='\80rior\105ty\32\79nly',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Tooltip="Hides\32\116eam\109ate\115 & \110\111\110 t\97rget\97bl\101 e\110\116i\116ies"});w=D:CreateToggle({Name='\68\105\115\116a\110ce\32Check',Function=function(q)T.Object.Visible=q;end});T=D:CreateTwoSlider({Name="\80\108\97\121er\32Dis\116\97n\99e",Min=0,Max=256,DefaultMin=0,DefaultMax=64,Darker=true,Visible=false});end);f(function()local D={Enabled=false};local q;local x={Vector3.new(-0.8,-0.6,-0.18),Vector3.new(0.1,-0.6,-0.88),Vector3.new(0,-0.6,0.7)};local A;local a;local a;local H;local U;local Z;D=t.Categories.Render:CreateModule({Name="G\97\109in\103 Chair",Function=function(W)if W then if t.ThreadFix then setthreadidentity(8);end;Z=Instance.new('Mes\104Pa\114t');Z.Color=Color3.fromRGB(21,21,21);Z.Size=Vector3.new(2.16,3.6,2.3)/Vector3.new(12.37,20.636,13.071);Z.CanCollide=false;Z.Massless=true;Z.MeshId='rb\120a\115\115\101tid:/\047\049\050\0577\050961089';Z.Material=Enum.Material.SmoothPlastic;Z.Parent=workspace;a=Instance.new("Sou\110d");a.Volume=0.4;a.Looped=true;a.Parent=workspace;H=Instance.new("Sound");H.Volume=0.4;H.Looped=true;H.Parent=workspace;local W=Instance.new('W\101ldCon\115tr\97i\110t');W.Part0=Z;W.Parent=Z;if g.isAlive then Z.CFrame=g.character.RootPart.CFrame*CFrame.Angles(0,math.rad(-90.0),0);W.Part1=g.character.RootPart;end;A=Instance.new('Hi\103\104l\105ght');A.FillTransparency=1;A.OutlineColor=Color3.fromHSV(q.Hue,q.Sat,q.Value);A.DepthMode=Enum.HighlightDepthMode.Occluded;A.OutlineTransparency=0.2;A.Parent=Z;local l=Instance.new('M\101shP\97rt');l.Color=Z.Color;l.Size=Vector3.new(1.39,1.345,2.75)/Vector3.new(97.13,136.216,234.031);l.CFrame=Z.CFrame*CFrame.new(-0.169,-1.129,-0.013);l.MeshId='rbxasse\116\105d://1297\050673898';l.CanCollide=false;l.Parent=Z;local B=Instance.new("W\101\108dConstra\105nt");B.Part0=l;B.Part1=Z;B.Parent=Z;local l=Instance.new('Mes\104P\97\114\116');l.Color=Z.Color;l.Name='Legs';l.Size=Vector3.new(1.8,1.2,1.8)/Vector3.new(10.432,8.105,9.488);l.CFrame=Z.CFrame*CFrame.new(0.047,-2.324,0);l.MeshId="rb\120assetid:/\047\0493003181\0540\54";l.CanCollide=false;l.Parent=Z;local B=Instance.new('M\101shPa\114\116');B.Color=Z.Color;B.Name='Fan';B.Size=Vector3.zero;B.CFrame=Z.CFrame*CFrame.new(0,-1.873,0);B.MeshId='r\98xasse\116\105\100://130\048497\055292';B.CanCollide=false;B.Parent=Z;local w={};for T,T in x do local x=Instance.new("A\116tac\104men\116");x.Position=T;x.Parent=l;local o=Instance.new('Att\97\99hme\110t');o.Position=T+Vector3.new(0,0,0.18);o.Parent=l;local T=Instance.new('\84rail');T.Texture="h\116tp:/\47w\119\119.ro\98lox.co\109/as\115e\116/?id=1300\0531\054\056530";T.TextureMode=Enum.TextureMode.Static;T.Transparency=NumberSequence.new(0.5);T.Color=ColorSequence.new(Color3.new(0.5,0.5,0.5));T.Attachment0=x;T.Attachment1=o;T.Lifetime=20;T.MaxLength=60;T.MinLength=0.1;T.Parent=l;table.insert(w,T);end;D:Clean(Z);D:Clean(a);D:Clean(H);U={Stop=function()end};local x=false;local T=false;repeat if g.isAlive and g.character.Humanoid.Health>0 then if not U.IsPlaying then local o=Instance.new('Anima\116i\111n');o.AnimationId=g.character.Humanoid.RigType==Enum.HumanoidRigType.R15 and"\104\116\116\112://ww\119.\114oblox\46com\47\97ss\101t/?id=25062817\0483"or'\104ttp\58/\47\119ww\46roblox.com\47asset/?id=1781\051\048\05796';U=g.character.Humanoid:LoadAnimation(o);U.Priority=Enum.AnimationPriority.Movement;U.Looped=true;U:Play();end;Z.CFrame=g.character.RootPart.CFrame*CFrame.Angles(0,math.rad(-90.0),0);W.Part1=g.character.RootPart;l.Velocity=Vector3.zero;l.CFrame=Z.CFrame*CFrame.new(0.047,-2.324,0);B.Velocity=Vector3.zero;B.CFrame=Z.CFrame*CFrame.new(0.047,-1.873,0)*CFrame.Angles(0,math.rad(tick()*180%360),math.rad(180));local W=g.character.Humanoid:GetState()==Enum.HumanoidStateType.Running and g.character.Humanoid.MoveDirection~=Vector3.zero;local o=t.Modules.Fly and t.Modules.Fly.Enabled or t.Modules.LongJump and t.Modules.LongJump.Enabled or t.Modules.InfiniteFly and t.Modules.InfiniteFly.Enabled;if a.TimePosition>1.9 then a.TimePosition=0.2;end;a.PlaybackSpeed=(g.character.RootPart.Velocity*Vector3.new(1,0,1)).Magnitude/16;for I,I in w do I.Enabled=not o and W;I.Color=ColorSequence.new(a.PlaybackSpeed>1.5 and Color3.new(1,0.5,0)or Color3.new());end;if W~=x then if a.IsPlaying then if not W then a:Stop();end;else if not o and W then a:Play();end;end;x=W;end;if o~=T then if o then if a.IsPlaying then a:Stop();end;if not H.IsPlaying then H:Play();end;n=C:Create(l,TweenInfo.new(0.15),{Size=Vector3.zero});n.Completed:Connect(function(x)if x==Enum.PlaybackState.Completed then B.Transparency=0;l.Transparency=1;n=C:Create(B,TweenInfo.new(0.15),{Size=Vector3.new(1.534,0.328,1.537)/Vector3.new(791.138,168.824,792.027)});n:Play();end;end);n:Play();else if H.IsPlaying then H:Stop();end;if not a.IsPlaying and W then a:Play();end;n=C:Create(B,TweenInfo.new(0.15),{Size=Vector3.zero});n.Completed:Connect(function(x)if x==Enum.PlaybackState.Completed then B.Transparency=1;l.Transparency=0;n=C:Create(l,TweenInfo.new(0.15),{Size=Vector3.new(1.8,1.2,1.8)/Vector3.new(10.432,8.105,9.488)});n:Play();end;end);n:Play();end;T=o;end;else Z.Anchored=true;l.Anchored=true;B.Anchored=true;repeat task.wait();until g.isAlive and g.character.Humanoid.Health>0;Z.Anchored=false;l.Anchored=false;B.Anchored=false;U:Stop();end;task.wait();until not D.Enabled;else if U then U:Stop();end;end;end,Tooltip='S\105t\32\105\110\32the\32b\101st\32g\97min\103\32cha\105r known t\111 mankind\46'});q=D:CreateColorSlider({Name="C\111l\111r",Function=function(D,q,n)if A then A.OutlineColor=Color3.fromHSV(D,q,n);end;end});end);f(function()local D;D=t.Categories.Render:CreateModule({Name='\72eal\116h',Function=function(q)if q then local q=Instance.new('TextLabel');q.Size=UDim2.fromOffset(100,20);q.Position=UDim2.new(0.5,6,0.5,30);q.AnchorPoint=Vector2.new(0.5,0);q.BackgroundTransparency=1;q.Text="100 \226\157\164\239\184\143";q.TextSize=18;q.Font=Enum.Font.Arial;q.Parent=t.gui;D:Clean(q);repeat q.Text=g.isAlive and math.round(g.character.Humanoid.Health).." \226\157\164\239\184\143"or'';q.TextColor3=g.isAlive and Color3.fromHSV((g.character.Humanoid.Health/g.character.Humanoid.MaxHealth)/2.8,0.86,1)or Color3.new();task.wait();until not D.Enabled;end;end,Tooltip="Displays y\111ur\32\104\101a\108\116h in \116he center o\102 y\111\117\114 sc\114e\101n."});end);f(function()local D;local q;local n;local x;local A;local a;local H;local U;local Z;local W;local l;local B;local w;local T,o,I={},{},{};local u=Instance.new("Folder");u.Parent=t.gui;local J;local y={Normal=function(i)if not q.Players.Enabled and i.Player then return;end;if not q.NPCs.Enabled and i.NPC then return;end;if l.Enabled and(not i.Targetable)and(not i.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;T[i]=i.Player and P:tag(i.Player,true,true)..(A.Enabled and i.Player.DisplayName or i.Player.Name)or i.Character.Name;if a.Enabled then local PT=Color3.fromHSV(math.clamp(i.Health/i.MaxHealth,0,1)/2.5,0.89,0.75);T[i]=T[i].." \60f\111nt c\111lor=\34rg\98("..tostring(math.floor(PT.R*255))..','..tostring(math.floor(PT.G*255))..','..tostring(math.floor(PT.B*255))..')"\62'..math.round(i.Health)..'<\47f\111nt>';end;if H.Enabled then T[i]="<fo\110t\32colo\114=\"rgb(85, 25\53, 85)\"\62[</f\111nt><font\32colo\114=\34rgb(25\53, 255,\032\05055)\34>%s</f\111n\116><\102ont \99olor=\"rgb(\0565, 255\44 8\53)\">]</fon\116\62 "..T[i];end;local PT=Instance.new("\84ext\76abel");PT.TextSize=14*Z.Value;PT.FontFace=W.Value;local dT=c(N(T[i]),PT.TextSize,PT.FontFace,Vector2.new(100000,100000));PT.Name=i.Player and i.Player.Name or i.Character.Name;PT.Size=UDim2.fromOffset(dT.X+8,dT.Y+7);PT.AnchorPoint=Vector2.new(0.5,1);PT.BackgroundColor3=Color3.new();PT.BackgroundTransparency=x.Value;PT.BorderSizePixel=0;PT.Visible=false;PT.Text=T[i];PT.TextColor3=g.getEntityColor(i)or Color3.fromHSV(n.Hue,n.Sat,n.Value);PT.RichText=true;PT.Parent=u;I[i]=PT;end,Drawing=function(u)if not q.Players.Enabled and u.Player then return;end;if not q.NPCs.Enabled and u.NPC then return;end;if l.Enabled and(not u.Targetable)and(not u.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local i={};i.BG=Drawing.new('S\113u\97\114\101');i.BG.Filled=true;i.BG.Transparency=1-x.Value;i.BG.Color=Color3.new();i.BG.ZIndex=1;i.Text=Drawing.new('\84ex\116');i.Text.Size=15*Z.Value;i.Text.Font=0;i.Text.ZIndex=2;T[u]=u.Player and P:tag(u.Player,true)..(A.Enabled and u.Player.DisplayName or u.Player.Name)or u.Character.Name;if a.Enabled then T[u]=T[u]..'\32'..math.round(u.Health);end;if H.Enabled then T[u]="[%s]\32"..T[u];end;i.Text.Text=T[u];i.Text.Color=g.getEntityColor(u)or Color3.fromHSV(n.Hue,n.Sat,n.Value);i.BG.Size=Vector2.new(i.Text.TextBounds.X+8,i.Text.TextBounds.Y+7);I[u]=i;end};local u={Normal=function(i)local PT=I[i];if PT then if t.ThreadFix then setthreadidentity(8);end;I[i]=nil;T[i]=nil;o[i]=nil;PT:Destroy();end;end,Drawing=function(i)local PT=I[i];if PT then if t.ThreadFix then setthreadidentity(8);end;I[i]=nil;T[i]=nil;o[i]=nil;for i,i in PT do pcall(function()i.Visible=false;i:Remove();end);end;end;end};local i={Normal=function(PT)local dT=I[PT];if dT then if t.ThreadFix then setthreadidentity(8);end;o[PT]=nil;T[PT]=PT.Player and P:tag(PT.Player,true,true)..(A.Enabled and PT.Player.DisplayName or PT.Player.Name)or PT.Character.Name;if a.Enabled then local fT=Color3.fromHSV(math.clamp(PT.Health/PT.MaxHealth,0,1)/2.5,0.89,0.75);T[PT]=T[PT]..' <font\32c\111lor="rg\98('..tostring(math.floor(fT.R*255))..','..tostring(math.floor(fT.G*255))..','..tostring(math.floor(fT.B*255))..")\">"..math.round(PT.Health).."\60/\102o\110t\62";end;if H.Enabled then T[PT]='<font co\108\111r=\34\114\103b\0408\53, \05055, 85)">\91\60\47\102ont>\60f\111nt co\108o\114\61"rgb(2\0535, 2\0535\44 \05055\41">%\115</\102o\110t><fon\116 color="rgb(85,\0322\0535, 85)"\62]</f\111nt\62 '..T[PT];end;local fT=c(N(T[PT]),dT.TextSize,dT.FontFace,Vector2.new(100000,100000));dT.Size=UDim2.fromOffset(fT.X+8,fT.Y+7);dT.Text=T[PT];end;end,Drawing=function(PT)local dT=I[PT];if dT then if t.ThreadFix then setthreadidentity(8);end;o[PT]=nil;T[PT]=PT.Player and P:tag(PT.Player,true)..(A.Enabled and PT.Player.DisplayName or PT.Player.Name)or PT.Character.Name;if a.Enabled then T[PT]=T[PT]..' '..math.round(PT.Health);end;if H.Enabled then T[PT]="[%\115] "..T[PT];dT.Text.Text=g.isAlive and string.format(T[PT],math.floor((g.character.RootPart.Position-PT.RootPart.Position).Magnitude))or T[PT];else dT.Text.Text=T[PT];end;dT.BG.Size=Vector2.new(dT.Text.TextBounds.X+8,dT.Text.TextBounds.Y+7);dT.Text.Color=g.getEntityColor(PT)or Color3.fromHSV(n.Hue,n.Sat,n.Value);end;end};local PT={Normal=function(dT,fT,DT)local ET=Color3.fromHSV(dT,fT,DT);for dT,fT in I do fT.TextColor3=g.getEntityColor(dT)or ET;end;end,Drawing=function(dT,fT,DT)local ET=Color3.fromHSV(dT,fT,DT);for dT,fT in I do fT.Text.Color=g.getEntityColor(dT)or ET;end;end};local dT={Normal=function()for fT,DT in I do if B.Enabled then local ET=g.isAlive and(g.character.RootPart.Position-fT.RootPart.Position).Magnitude or math.huge;if ET<w.ValueMin or ET>w.ValueMax then DT.Visible=false;continue;end;end;local ET,qT=O:WorldToViewportPoint(fT.RootPart.Position+Vector3.new(0,fT.HipHeight+1,0));DT.Visible=qT;if not qT then continue;end;if H.Enabled and g.isAlive then local qT=math.floor((g.character.RootPart.Position-fT.RootPart.Position).Magnitude);if o[fT]~=qT then DT.Text=string.format(T[fT],qT);local ST=c(N(DT.Text),DT.TextSize,DT.FontFace,Vector2.new(100000,100000));DT.Size=UDim2.fromOffset(ST.X+8,ST.Y+7);o[fT]=qT;end;end;DT.Position=UDim2.fromOffset(ET.X,ET.Y);end;end,Drawing=function()for fT,DT in I do if B.Enabled then local ET=g.isAlive and(g.character.RootPart.Position-fT.RootPart.Position).Magnitude or math.huge;if ET<w.ValueMin or ET>w.ValueMax then DT.Text.Visible=false;DT.BG.Visible=false;continue;end;end;local ET,qT=O:WorldToScreenPoint(fT.RootPart.Position+Vector3.new(0,fT.HipHeight+1,0));DT.Text.Visible=qT;DT.BG.Visible=qT;if not qT then continue;end;if H.Enabled and g.isAlive then local qT=math.floor((g.character.RootPart.Position-fT.RootPart.Position).Magnitude);if o[fT]~=qT then DT.Text.Text=string.format(T[fT],qT);DT.BG.Size=Vector2.new(DT.Text.TextBounds.X+8,DT.Text.TextBounds.Y+7);o[fT]=qT;end;end;DT.BG.Position=Vector2.new(ET.X-(DT.BG.Size.X/2),ET.Y+(DT.BG.Size.Y/2));DT.Text.Position=DT.BG.Position+Vector2.new(4,2.5);end;end};D=t.Categories.Render:CreateModule({Name="Na\109e\32T\97gs",Function=function(T)if T then J=U.Enabled and'\68ra\119ing'or"\78\111rm\97\108";if u[J]then D:Clean(g.Events.EntityRemoved:Connect(u[J]));end;if y[J]then for T,T in g.List do if I[T]then u[J](T);end;y[J](T);end;D:Clean(g.Events.EntityAdded:Connect(function(T)if I[T]then u[J](T);end;y[J](T);end));end;if i[J]then D:Clean(g.Events.EntityUpdated:Connect(i[J]));for T,T in g.List do i[J](T);end;end;if PT[J]then D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()PT[J](n.Hue,n.Sat,n.Value);end));end;if dT[J]then D:Clean(p.RenderStepped:Connect(dT[J]));end;else if u[J]then for T in I do u[J](T);end;end;end;end,Tooltip='Rend\101r\115 \110am\101tags \111\110\32entitie\115 thro\117\103h walls.'});q=D:CreateTargets({Players=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});W=D:CreateFont({Name='F\111nt',Blacklist="\65rial",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});n=D:CreateColorSlider({Name="Player\32Color",Function=function(q,n,W)if D.Enabled and PT[J]then PT[J](q,n,W);end;end});Z=D:CreateSlider({Name="Scale",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=1,Min=0.1,Max=1.5,Decimal=10});x=D:CreateSlider({Name="Tra\110s\112a\114e\110\99y",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=0.5,Min=0,Max=1,Decimal=10});a=D:CreateToggle({Name='\72ealth',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});H=D:CreateToggle({Name="D\105st\97\110ce",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});A=D:CreateToggle({Name="Use Disp\108aynam\101",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true});l=D:CreateToggle({Name="Pr\105\111rity O\110ly",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Tooltip='H\105d\101\115 tea\109\109a\116e\115 \38 no\110 \116a\114\103e\116a\98le e\110t\105\116ie\115'});U=D:CreateToggle({Name="Drawi\110g",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});B=D:CreateToggle({Name='Distan\99\101 Check',Function=function(q)w.Object.Visible=q;end});w=D:CreateTwoSlider({Name="P\108\97\121\101\114 Di\115t\97\110ce",Min=0,Max=256,DefaultMin=0,DefaultMax=64,Darker=true,Visible=false});end);f(function()local D;local q;local n;local x;local A;local a;local H={};local U={};local function Z(W)local l=W.Humanoid;local B="UpperTor\115o";if l.RigType==Enum.HumanoidRigType.R6 or W.Character:FindFirstChild("T\111rso")then B='To\114\115\111';end;return W.Character[B];end;local function W(l)if t.ThreadFix then setthreadidentity(8);end;local B=Z(l);local Z=l.RootPart;local l=Instance.new("\80art");l.Size=Vector3.new(3,3,3);l.CFrame=Z.CFrame*CFrame.Angles(math.rad(H[1].Value),math.rad(H[2].Value),math.rad(H[3].Value));l.CanCollide=false;l.CanQuery=false;l.Massless=true;l.Parent=workspace;local w=Instance.new('S\112ecialMes\104');w.MeshId=A.Value;w.TextureId=a.Value;w.Scale=Vector3.one*q.Value;w.Parent=l;local w=Instance.new('W\101ld\67onstraint');w.Part0=l;w.Part1=B;w.Parent=l;U[Z]=l;end;local function Z(l)if U[l.RootPart]then U[l.RootPart]:Destroy();U[l.RootPart]=nil;end;end;D=t.Categories.Render:CreateModule({Name='\80layer\32M\111del',Function=function(l)if l then if n.Enabled then D:Clean(g.Events.LocalAdded:Connect(W));D:Clean(g.Events.LocalRemoved:Connect(Z));if g.isAlive then task.spawn(W,g.character);end;end;D:Clean(g.Events.EntityAdded:Connect(function(l)W(l);pcall(function()if x.Enabled then for B,B in l.Character:GetChildren()do if B:FindFirstChild("Humano\105\100")~=nil then if B.Humanoid~=nil and(B.HumanoidRootPart~=nil and B.Humanoid~=nil and B.Humanoid.Health~=0)then if B:IsA('M\101\115hPart')then B.Transparency=1;elseif B:IsA('Ac\99e\115\115ory')and not B.Name:find("\115\119ord")and not B.Name:find("block")and not B.Name:find('pic\107axe')and not B.Name:find('bow')and not B.Name:find('a\120e')and not B.Name:find("f\105reb\97ll")and not B.Name:find("cannon")and not B.Name:find("\115hear\115")then B.Handle.Transparency=1;end;end;end;end;end;end);end));D:Clean(g.Events.EntityRemoved:Connect(Z));for Z,Z in g.List do task.spawn(function()W(Z);pcall(function()if x.Enabled then for W,W in Z.Character:GetChildren()do if(W.HumanoidRootPart~=nil and W.Humanoid.Health~=0)then if W:IsA('MeshPa\114t')then W.Transparency=1;elseif W:IsA('Accessory')and not W.Name:find('swor\100')and not W.Name:find('\98lock')and not W.Name:find('picka\120e')and not W.Name:find('bow')and not W.Name:find('\97xe')and not W.Name:find('\102\105reball')and not W.Name:find("\99anno\110")and not W.Name:find("shears")then W.Handle.Transparency=1;end;end;end;end;end);end);end;else for Z,Z in U do Z:Destroy();end;table.clear(U);if x.Enabled then for Z,Z in pairs(game.Players:GetChildren())do for W,W in pairs(Z.Character:GetChildren())do if W:IsA("M\101shPart")then W.Transparency=0;elseif W:IsA("\80art")and W.Name~='Human\111idRootPar\116'then W.Transparency=0;elseif W:IsA('Access\111ry')then W.Handle.Transparency=0;end;end;end;end;end;end,Tooltip="Ch\97nge t\104\101 \112layer m\111dels to \97\32\77\101s\104"});q=D:CreateSlider({Name="Sc\97l\101",Min=0,Max=2,Default=1,Decimal=100,Function=function(q)for Z,Z in U do Z.Mesh.Scale=Vector3.one*q;end;end});for q,q in{"\82\111\116ation X","Rota\116\105\111n \89","\82otatio\110\32Z"}do table.insert(H,D:CreateSlider({Name=q,Min=0,Max=360,Function=function(q)for q,Z in U do Z.WeldConstraint.Enabled=false;Z.CFrame=q.CFrame*CFrame.Angles(math.rad(H[1].Value),math.rad(H[2].Value),math.rad(H[3].Value));Z.WeldConstraint.Enabled=true;end;end}));end;n=D:CreateToggle({Name='Local',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});x=D:CreateToggle({Name='In\118isible',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});A=D:CreateTextBox({Name='Mesh',Placeholder='mesh id',Function=function()for q,q in U do q.Mesh.MeshId=A.Value;end;end});a=D:CreateTextBox({Name='Texture',Placeholder="text\117r\101\32\105d",Function=function()for D,D in U do D.Mesh.TextureId=a.Value;end;end});end);f(function()local D;local q;local n;local x;local A;local a={};local H;local function U(Z)if not q.Players.Enabled and Z.Player then return;end;if not q.NPCs.Enabled and Z.NPC then return;end;if(not Z.Targetable)and(not Z.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local W=Instance.new('Fram\101');W.Size=UDim2.fromOffset(4,4);W.AnchorPoint=Vector2.new(0.5,0.5);W.BackgroundColor3=g.getEntityColor(Z)or Color3.fromHSV(x.Hue,x.Sat,x.Value);W.Parent=H;local l=Instance.new('UICo\114n\101r');l.CornerRadius=UDim.new(n.Value=='Ci\114\99l\101s'and 1 or 0,0);l.Parent=W;local l=Instance.new('U\73Str\111\107e');l.Color=Color3.new();l.Thickness=1;l.Transparency=0.8;l.Parent=W;a[Z]=W;end;local function Z(W)local l=a[W];if l then if t.ThreadFix then setthreadidentity(8);end;a[W]=nil;l:Destroy();end;end;D=t:CreateOverlay({Name="Radar",Icon=b('\99atrewrite/\97\115s\101ts\47new/ra\100ar\105co\110.png'),Size=UDim2.fromOffset(14,14),Position=UDim2.fromOffset(12,13),Function=function(W)if W then D:Clean(g.Events.EntityRemoved:Connect(Z));for W,W in g.List do if a[W]then Z(W);end;U(W);end;D:Clean(g.Events.EntityAdded:Connect(function(W)if a[W]then Z(W);end;U(W);end));D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()for U,W in a do W.BackgroundColor3=g.getEntityColor(U)or Color3.fromHSV(x.Hue,x.Sat,x.Value);end;end));D:Clean(p.RenderStepped:Connect(function()for U,W in a do if g.isAlive then local l=CFrame.lookAlong(g.character.RootPart.Position,O.CFrame.LookVector*Vector3.new(1,0,1)):PointToObjectSpace(U.RootPart.Position);W.Position=UDim2.fromOffset(A.Enabled and math.clamp(108+l.X,2,214)or 108+l.X,A.Enabled and math.clamp(108+l.Z,8,214)or 108+l.Z);end;end;end));else for U in a do Z(U);end;end;end});q=D:CreateTargets({Players=true,Function=function()if D.Button.Enabled then D.Button:Toggle();D.Button:Toggle();end;end});n=D:CreateDropdown({Name='D\111\116 \83tyle',List={'\67ircl\101\115','Squares'},Function=function(q)for n,n in a do n.UICorner.CornerRadius=UDim.new(q=="Circ\108es"and 1 or 0,0);end;end});x=D:CreateColorSlider({Name='Pl\97yer Color',Function=function(q,n,x)for U,Z in a do Z.BackgroundColor3=g.getEntityColor(U)or Color3.fromHSV(q,n,x);end;end});H=Instance.new("Fram\101");H.Size=UDim2.fromOffset(216,216);H.Position=UDim2.fromOffset(2,2);H.BackgroundColor3=Color3.new();H.BackgroundTransparency=0.5;H.ClipsDescendants=true;H.Parent=D.Children;local q=Instance.new('U\73Corner');q.CornerRadius=UDim.new(0,8);q.Parent=H;local q=Instance.new('UI\83tr\111\107\101');q.Thickness=2;q.Color=Color3.new();q.Transparency=0.4;q.Parent=H;local n=Instance.new("F\114ame");n.Size=UDim2.new(0,2,1,0);n.Position=UDim2.fromScale(0.5,0.5);n.AnchorPoint=Vector2.new(0.5,0.5);n.ZIndex=0;n.BackgroundColor3=Color3.new(1,1,1);n.BackgroundTransparency=0.5;n.BorderSizePixel=0;n.Parent=H;local x=n:Clone();x.Size=UDim2.new(1,0,0,2);x.Parent=H;local a=Instance.new("\70rame");a.Size=UDim2.new(1,-6.0,0,4);a.Position=UDim2.fromOffset(3,0);a.BackgroundColor3=Color3.fromHSV(0.44,1,1);a.Parent=H;local U=Instance.new("\85IC\111r\110er");U.CornerRadius=UDim.new(0,8);U.Parent=a;D:CreateColorSlider({Name="B\97\114 Col\111r",Function=function(U,Z,W)a.BackgroundColor3=Color3.fromHSV(U,Z,W);end});D:CreateToggle({Name="S\104\111w Background",Default=true,Function=function(U)H.BackgroundTransparency=U and 0.5 or 1;a.BackgroundTransparency=U and 0 or 1;q.Transparency=U and 0.4 or 1;end});D:CreateToggle({Name='S\104\111w Cross',Default=true,Function=function(q)n.BackgroundTransparency=q and 0.5 or 1;x.BackgroundTransparency=q and 0.5 or 1;end});A=D:CreateToggle({Name="\67la\109p Radar",Default=true});end);f(function()local D;local q;local n;local x;local A={};local a=Instance.new("Fo\108der");a.Parent=t.gui;local function H(U)if not table.find(q.ListEnabled,U.Name)then return;end;if U:IsA("B\97sePar\116")or U:IsA('M\111de\108')then local Z=Instance.new('Bo\120Ha\110d\108\101Adorn\109ent');Z.AlwaysOnTop=true;Z.Adornee=U;Z.Size=U:IsA('Mo\100el')and U:GetExtentsSize()or U.Size;Z.ZIndex=0;Z.Transparency=x.Value;Z.Color3=Color3.fromHSV(n.Hue,n.Sat,n.Value);Z.Parent=a;A[U]=Z;end;end;D=t.Categories.Render:CreateModule({Name='Se\97rc\104',Function=function(U)if U then D:Clean(workspace.DescendantAdded:Connect(H));D:Clean(workspace.DescendantRemoving:Connect(function(U)if A[U]then A[U]:Destroy();A[U]=nil;end;end));for U,U in workspace:GetDescendants()do H(U);end;else a:ClearAllChildren();table.clear(A);end;end,Tooltip='\68ra\119s\32\98ox \97\114ou\110d \115e\108ecte\100 part\115\nAd\100 parts in \83\101ar\99\104 frame'});q=D:CreateTextList({Name="P\97rt\115",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});n=D:CreateColorSlider({Name="\67olo\114",Function=function(q,n,a)for H,H in A do H.Color3=Color3.fromHSV(q,n,a);end;end});x=D:CreateSlider({Name="T\114an\115p\97\114e\110cy",Min=0,Max=1,Function=function(D)for q,q in A do q.Transparency=D;end;end,Decimal=10});end);f(function()local D;local q;local n;local x;local A;local a={};local H;local U;local Z;D=t:CreateOverlay({Name="Se\115\115i\111n Info",Icon=b('catr\101wr\105te/as\115\101ts/n\101\119\47\116e\120tguiicon.\112ng'),Size=UDim2.fromOffset(16,12),Position=UDim2.fromOffset(12,14),Function=function(W)if W then local W;D:Clean(S.LocalPlayer.OnTeleport:Connect(function()if not W then W=true;E("sh\97\114ed.vapesess\105oni\110fo \61 \39"..L:JSONEncode(t.Libraries.sessioninfo.Objects).."'");end;end));if shared.vapesessioninfo then for E,W in L:JSONDecode(shared.vapesessioninfo)do if t.Libraries.sessioninfo.Objects[E]and W.Saved then t.Libraries.sessioninfo.Objects[E].Value=W.Value;end;end;end;repeat if t.Libraries.sessioninfo then local E={''};if A.Enabled then E[1]=a.Enabled and"\60b\62Session \73n\102o</\98>\10<f\111nt\32size=\"4\"\62 </\102o\110t\62"or'<b>\83e\115s\105on Info</\98>';end;for W,l in t.Libraries.sessioninfo.Objects do E[l.Index]=W..': '..l.Function(l.Value);end;if not A.Enabled then table.remove(E,1);end;U.Text=table.concat(E,'\10');U.FontFace=q.Value;U.TextSize=n.Value;local E=c(N(U.Text),U.TextSize,U.FontFace);H.Size=UDim2.fromOffset(E.X+16,E.Y+(A.Enabled and a.Enabled and 4 or 16));end;task.wait(1);until not D.Button or not D.Button.Enabled;end;end});q=D:CreateFont({Name="Font",Blacklist="Ari\97\108"});D:CreateColorSlider({Name="\66ack\103round Colo\114",DefaultValue=0,DefaultOpacity=0.5,Function=function(E,q,W,l)H.BackgroundColor3=Color3.fromHSV(E,q,W);H.BackgroundTransparency=1-l;end});x=D:CreateColorSlider({Name="\66order\32\67\111lor",Function=function(E,q,W,l)Z.Color=Color3.fromHSV(E,q,W);Z.Transparency=1-l;end,Darker=true,Visible=false});n=D:CreateSlider({Name="Tex\116 \83i\122\101",Min=1,Max=30,Default=16});A=D:CreateToggle({Name='Ti\116\108\101',Function=function(E)if a.Object then a.Object.Visible=E;end;end,Default=true});a=D:CreateToggle({Name="Offs\101t",Default=true,Darker=true});D:CreateToggle({Name='Bo\114der',Function=function(E)Z.Enabled=E;x.Object.Visible=E;end});H=Instance.new("Fra\109\101");H.BackgroundColor3=Color3.new();H.BackgroundTransparency=0.5;H.Parent=D.Children;t:Clean(D.Children:GetPropertyChangedSignal('Absolu\116\101Positio\110'):Connect(function()if t.ThreadFix then setthreadidentity(8);end;local E=D.Children.AbsolutePosition.X>(t.gui.AbsoluteSize.X/2);H.Position=UDim2.fromScale(E and 1 or 0,0);H.AnchorPoint=Vector2.new(E and 1 or 0,0);end));local D=Instance.new('\85ICorne\114');D.CornerRadius=UDim.new(0,5);D.Parent=H;U=Instance.new("Te\120\116Label");U.Size=UDim2.new(1,-16.0,1,-16.0);U.Position=UDim2.fromOffset(8,8);U.BackgroundTransparency=1;U.TextXAlignment=Enum.TextXAlignment.Left;U.TextYAlignment=Enum.TextYAlignment.Top;U.TextSize=16;U.TextColor3=Color3.new(1,1,1);U.TextStrokeColor3=Color3.new();U.TextStrokeTransparency=0.8;U.Font=Enum.Font.Arial;U.RichText=true;U.Parent=H;Z=Instance.new('\85I\83\116r\111k\101');Z.Enabled=false;Z.Color=Color3.fromHSV(0.44,1,1);Z.Parent=H;v(H);t.Libraries.sessioninfo={Objects={},AddItem=function(D,E,q,n,x)n,x=n or function(A)return A;end,x==nil or x;D.Objects[E]={Function=n,Saved=x,Value=q or 0,Index=R(D.Objects)+2};return{Increment=function(q,q)D.Objects[E].Value+=(q or 1);end};end};t.Libraries.sessioninfo:AddItem('T\105\109e Pl\97y\101d',os.clock(),function(D)return os.date('\33%X',math.floor(os.clock()-D));end);end);f(function()local D;local E;local q;local n;local x;local A;local a;local H;local U;local v;local Z;local W={};local function l(R)if not E.Players.Enabled and R.Player then return;end;if not E.NPCs.Enabled and R.NPC then return;end;if a.Enabled and(not R.Targetable)and(not R.Friend)then return;end;if t.ThreadFix then setthreadidentity(8);end;local B=Drawing.new('\76ine');B.Thickness=1;B.Transparency=1-n.Value;B.Color=g.getEntityColor(R)or Color3.fromHSV(q.Hue,q.Sat,q.Value);W[R]=B;end;local function R(B)local w=W[B];if w then if t.ThreadFix then setthreadidentity(8);end;W[B]=nil;pcall(function()w.Visible=false;w:Remove();end);end;end;local function B(w,T,o)if H.Enabled then return;end;local I=Color3.fromHSV(w,T,o);for w,T in W do T.Color=g.getEntityColor(w)or I;end;end;local function w()local T=t.gui.AbsoluteSize;local o=x.Value=='Mouse'and Q:GetMouseLocation()or Vector2.new(T.X/2,(x.Value=="Mi\100\100le"and T.Y/2 or T.Y));for T,I in W do local u=g.isAlive and(g.character.RootPart.Position-T.RootPart.Position).Magnitude;if U.Enabled and u then if u<v.ValueMin or u>v.ValueMax then I.Visible=false;continue;end;end;local J=T[A.Value=="To\114so"and'\82oot\80art'or"Head"].Position;local T,y=O:WorldToViewportPoint(J);if not y and Z.Enabled then local i=O.CFrame:PointToObjectSpace(J);i=CFrame.Angles(0,0,(math.atan2(i.Y,i.X)+math.pi)):VectorToWorldSpace((CFrame.Angles(0,math.rad(89.9),0):VectorToWorldSpace(Vector3.new(0,0,-1.0))));T=O:WorldToViewportPoint(O.CFrame:pointToWorldSpace(i));y=true;end;local J=Vector2.new(T.X,T.Y);I.Visible=y;I.From=o;I.To=J;if H.Enabled and u then I.Color=Color3.fromHSV(math.min((u/128)/2.8,0.4),0.89,0.75);end;end;end;D=t.Categories.Render:CreateModule({Name='Tra\99ers',Function=function(T)if T then D:Clean(g.Events.EntityRemoved:Connect(R));for T,T in g.List do if W[T]then R(T);end;l(T);end;D:Clean(g.Events.EntityAdded:Connect(function(T)if W[T]then R(T);end;l(T);end));D:Clean(t.Categories.Friends.ColorUpdate.Event:Connect(function()B(q.Hue,q.Sat,q.Value);end));D:Clean(p.RenderStepped:Connect(w));else for l in W do R(l);end;end;end,Tooltip="Renders tra\99ers on p\108ayers."});E=D:CreateTargets({Players=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});x=D:CreateDropdown({Name='\83\116\97\114t \80os\105tion',List={"Midd\108\101","B\111ttom",'\77ou\115e'},Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});A=D:CreateDropdown({Name="\69n\100 Pos\105\116ion",List={'Head','\84orso'},Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});q=D:CreateColorSlider({Name="Playe\114 \67olo\114",Function=function(E,q,x)if D.Enabled and ColorFuncs then ColorFuncs(E,q,x);end;end});n=D:CreateSlider({Name="\84ransparen\99y",Min=0,Max=1,Function=function(E)for q,q in W do q.Transparency=1-E;end;end,Decimal=10});H=D:CreateToggle({Name='Col\111\114 by\32distan\99e',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});U=D:CreateToggle({Name='Di\115ta\110ce Check',Function=function(E)v.Object.Visible=E;end});v=D:CreateTwoSlider({Name="P\108ay\101r\32Distanc\101",Min=0,Max=256,DefaultMin=0,DefaultMax=64,Darker=true,Visible=false});Z=D:CreateToggle({Name='Behind',Default=true});a=D:CreateToggle({Name='Pr\105orit\121\32On\108y',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=true,Tooltip="Hi\100\101s\32t\101ammat\101s &\32non tar\103e\116a\98l\101 enti\116\105e\115"});end);f(function()local D;local E;local q;local n;local x;local A;G=Instance.new('\70\111lder');G.Parent=t.gui;D=t.Categories.Render:CreateModule({Name='\87\97yp\111i\110ts',Function=function(a)if a then for a,a in q.ListEnabled do local H=a:split("/");local a=c(N(H[2]),14*x.Value,E.Value,Vector2.new(100000,100000));local c=Instance.new('\66illboardGu\105');c.Size=UDim2.fromOffset(a.X+8,a.Y+7);c.StudsOffsetWorldSpace=Vector3.new(unpack(H[1]:split("\44")));c.AlwaysOnTop=true;c.Parent=G;local a=Instance.new("\84extLab\101l");a.BackgroundColor3=Color3.new();a.BorderSizePixel=0;a.Visible=true;a.RichText=true;a.FontFace=E.Value;a.TextSize=14*x.Value;a.BackgroundTransparency=A.Value;a.Size=c.Size;a.Text=H[2];a.TextColor3=Color3.fromHSV(n.Hue,n.Sat,n.Value);a.Parent=c;end;else G:ClearAllChildren();end;end,Tooltip='Mark \99er\116\97\105n s\112ot\115 \119it\104\32a\32visual\32indi\99ator'});E=D:CreateFont({Name='\70on\116',Blacklist='\65\114ial',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});q=D:CreateTextList({Name="P\111\105\110ts",Placeholder="x, y\44\32\122/na\109e",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});local E;D:CreateButton({Name='A\100d cur\114ent\32p\111sition',Function=function()if g.isAlive then local c=g.character.RootPart.Position//1;q:ChangeValue(c.X..","..c.Y..'\44'..c.Z.."/"..E.Value==''and"Wa\121po\105\110t "..(#q.List+1)or E.Value);end;end});E=D:CreateTextBox({Name='Wayp\111\105nt na\109e',Placeholder="pos \110ame",Function=void});n=D:CreateColorSlider({Name='Color',Function=function(E,q,n)for c,c in G:GetChildren()do c.TextLabel.TextColor3=Color3.fromHSV(E,q,n);end;end});x=D:CreateSlider({Name='S\99ale',Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=1,Min=0.1,Max=1.5,Decimal=10});A=D:CreateSlider({Name="T\114ans\112arency",Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end,Default=0.5,Min=0,Max=1,Decimal=10});end);f(function()local D;local E;local q;local n;local x,c;local function A(a)local G=x;if G then x=nil;G:Stop();end;local G,H=pcall(function()x=a.Humanoid.Animator:LoadAnimation(c);end);if G then local a=x;x.Priority=Enum.AnimationPriority[q.Value];x:Play();x:AdjustSpeed(n.Value);D:Clean(x.Stopped:Connect(function()if a==x then x:Play();end;end));else V('A\110\105ma\116io\110Pl\97\121e\114',"f\97iled to loa\100 anim : "..(H or'\105nvalid a\110imation\32i\100'),5,"wa\114n\105n\103");end;end;D=t.Categories.Utility:CreateModule({Name='A\110im\97tion \80\108a\121er',Function=function(a)if a then c=Instance.new("Anim\97tion");local a,G=pcall(function()return string.match(game:GetObjects("rbxas\115eti\100:\47/"..E.Value)[1].AnimationId,'%?\105d=(%\100+)');end);c.AnimationId="rbxa\115s\101ti\100://"..(a and G or E.Value);if g.isAlive then A(g.character);end;D:Clean(g.Events.LocalAdded:Connect(A));D:Clean(c);else if x then x:Stop();end;end;end,Tooltip='Pl\97y\115 \97\32s\112ecific animation\32\111\102 your choosing\32at a cer\116ai\110 \115peed'});E=D:CreateTextBox({Name="Animatio\110",Placeholder='anim (num o\110ly)',Function=function(E)if E and D.Enabled then D:Toggle();D:Toggle();end;end});local E={"Act\105on4"};for c,c in Enum.AnimationPriority:GetEnumItems()do if c.Name~="Action4"then table.insert(E,c.Name);end;end;q=D:CreateDropdown({Name="Pr\105o\114ity",List=E,Function=function(E)if x then x.Priority=Enum.AnimationPriority[E];end;end});n=D:CreateSlider({Name="\83p\101ed",Function=function(D)if x then x:AdjustSpeed(D);end;end,Min=0.1,Max=2,Decimal=10});end);f(function()local D;D=t.Categories.Utility:CreateModule({Name="A\110\116i\32Ragd\111ll",Function=function(E)if g.isAlive then g.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,not E);end;if E then D:Clean(g.Events.LocalAdded:Connect(function(D)D.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false);end));end;end,Tooltip="\80rev\101n\116s you\32f\114om\32ge\116ti\110g\32knocked d\111wn\32in a ragdoll\32\115tate"});end);f(function()local D;local E;D=t.Categories.Utility:CreateModule({Name="Au\116o Rej\111in",Function=function(q)if q then local q;D:Clean(F.ErrorMessageChanged:Connect(function(n)if(not q or F:GetErrorCode()~=Enum.ConnectionError.DisconnectLuaKick)and F:GetErrorCode()~=Enum.ConnectionError.DisconnectConnectionLost and not n:lower():find('ban')then q=true;k(nil,E.Value);end;end));end;end,Tooltip="\65utoma\116i\99ally\32\114ej\111i\110s int\111 \97 new serv\101r i\102 you \103e\116\32dis\99onn\101cte\100 \47\32ki\99ked"});E=D:CreateDropdown({Name="Sort",List={'D\101s\99\101nding',"Ascending"},Tooltip='\68escendin\103\32\45 \80re\102e\114s full \115er\118ers\10Asc\101nding - Pr\101f\101rs empty\32servers'});end);f(function()local D;local E;local q;local F;local n,x;D=t.Categories.Utility:CreateModule({Name="Blink",Function=function(c)if c then local c;D:Clean(m.OnTeleport:Connect(function()setfflag("S2P\104\121s\105csSenderR\97\116e",'\0495');setfflag("\68ataS\101\110\100erRate","6\48");c=true;end));repeat local A,a='0',E.Value=='A\108\108'and'-1'or"60";if q.Enabled and tick()%(F.Value+0.1)>F.Value then A,a='15',"60";end;if A~=n or a~=x then setfflag('\0832Ph\121sic\115Sen\100erRate',A);setfflag("\68at\97\83\101nd\101\114R\97\116e",a);n,x=A,x;end;task.wait(0.03);until(not D.Enabled and not c);else if setfflag then setfflag("S\50PhysicsSe\110d\101rRa\116e",'\049\53');setfflag('D\97\116aS\101nder\82ate','60');end;n,x=nil,nil;end;end,Tooltip="Chokes pac\107\101ts until d\105sa\98\108ed."});E=D:CreateDropdown({Name='Type',List={"M\111ve\109\101nt Only",'A\108\108'},Tooltip='\77ov\101me\110t Only - Only chok\101s \109ov\101m\101nt\32p\97c\107et\115\10\65l\108 - \67ho\107\101s r\101\109otes & mo\118eme\110t'});q=D:CreateToggle({Name='Auto\32send',Function=function(E)F.Object.Visible=E;end,Tooltip="Au\116o\109\97tic\97lly send packets in inte\114va\108s"});F=D:CreateSlider({Name='\83end threshold',Min=0,Max=1,Decimal=100,Darker=true,Visible=false,Suffix=function(D)return D==1 and'\115e\99ond'or"se\99\111nds";end});end);f(function()local D;local E;local q;local F;local n;local x;D=t.Categories.Utility:CreateModule({Name='C\104\97t\32Spammer',Function=function(c)if c then if s.ChatVersion==Enum.ChatVersion.TextChatService then if n.Enabled and r:FindFirstChild('Exp\101rie\110c\101Cha\116')then D:Clean(r.ExperienceChat:FindFirstChild("RCTSc\114ollConten\116V\105e\119",true).ChildAdded:Connect(function(r)if r.Name:sub(1,2)=="0\45"and r.ContentText=="You mus\116 wait before s\101\110di\110g ano\116her \109essage."then r.Visible=false;end;end));end;elseif _:FindFirstChild("Defaul\116Cha\116SystemChat\69ve\110\116s")then if n.Enabled then x=hookfunction(getconnections(_.DefaultChatSystemChatEvents.OnNewSystemMessage.OnClientEvent)[1].Function,function(r,...)if r.Message:find('ChatFlo\111dDe\116ector')then return;end;return x(r,...);end);end;else V('Cha\116Spammer','un\115upp\111rted \99hat',5,'\119a\114n\105ng');D:Toggle();return;end;local r=1;repeat local c=(#E.ListEnabled>0 and E.ListEnabled[math.random(1,#E.ListEnabled)]or'v\120pe on t\111p');if q.Value=='Order'and#E.ListEnabled>0 then c=E.ListEnabled[r]or E.ListEnabled[1];r=(r%#E.ListEnabled)+1;end;if s.ChatVersion==Enum.ChatVersion.TextChatService then s.ChatInputBarConfiguration.TargetTextChannel:SendAsync(c);else _.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(c,"\65ll");end;task.wait(F.Value);until not D.Enabled;else if x then hookfunction(getconnections(_.DefaultChatSystemChatEvents.OnNewSystemMessage.OnClientEvent)[1].Function,x);end;end;end,Tooltip='A\117tomati\99ally t\121\112es in ch\97t'});E=D:CreateTextList({Name="Lin\101s"});q=D:CreateDropdown({Name='M\111de',List={"\82a\110do\109",'Or\100er'}});F=D:CreateSlider({Name="Delay",Min=0.1,Max=10,Default=1,Decimal=10,Suffix=function(E)return E==1 and"\115\101\99ond"or'second\115';end});n=D:CreateToggle({Name="H\105\100e Flood Mess\97\103\101",Default=true,Function=function()if D.Enabled then D:Toggle();D:Toggle();end;end});end);f(function()local D;local function E(q)for F,F in getconnections(q.RootPart:GetPropertyChangedSignal("CFra\109e"))do hookfunction(F.Function,function()end);end;for F,F in getconnections(q.RootPart:GetPropertyChangedSignal("Velocity"))do hookfunction(F.Function,function()end);end;end;D=t.Categories.Utility:CreateModule({Name="\68\105sa\98le\114",Function=function(q)if q then D:Clean(g.Events.LocalAdded:Connect(E));if g.isAlive then E(g.character);end;end;end,Tooltip='Di\115\97\98les \71etPro\112ert\121Changed\83ig\110al d\101\116ections \102\111r mo\118e\109ent'});end);f(function()t.Categories.Utility:CreateModule({Name="\80\97n\105\99",Function=function(D)if D then for D,D in t.Modules do if D.Enabled then D:Toggle();end;end;end;end,Tooltip='D\105\115ables\32all currently e\110abled\32module\115'});end);f(function()local D;D=t.Categories.Utility:CreateModule({Name="Rejoi\110",Function=function(E)if E then V("\82ejoin","\82e\106o\105\110\105n\103...",5);D:Toggle();if S.NumPlayers>1 then e:TeleportToPlaceInstance(game.PlaceId,game.JobId);else e:Teleport(game.PlaceId);end;end;end,Tooltip="Rej\111ins \116he \115\101rver"});end);f(function()local D;local E;D=t.Categories.Utility:CreateModule({Name="Server H\111\112",Function=function(q)if q then D:Toggle();k(nil,E.Value);end;end,Tooltip="Teleports \105nto a\32uni\113\117\101\32s\101\114\118er"});E=D:CreateDropdown({Name="Sort",List={'Desc\101\110din\103','\65s\99end\105\110g'},Tooltip="\68\101sce\110din\103 - Pre\102ers full\32serve\114s\n\65sce\110din\103 -\32Prefers empty s\101rvers"});D:CreateButton({Name="Re\106oin\32\80revious \83e\114ver",Function=function()V("S\101rverHo\112",shared.vapeserverhopprevious and"Rejoining \112\114e\118io\117s server..."or'Can\110ot \102in\100\32previ\111us ser\118\101r',5);if shared.vapeserverhopprevious then e:TeleportToPlaceInstance(game.PlaceId,shared.vapeserverhopprevious);end;end});end);f(function()local D;local E;local q;local e;local F;local s;local function r(n,x)local c,A;for a=1,3 do c,A=pcall(function()return n:GetRankInGroup(x);end);if c then break;end;end;return c and A or 0;end;local function n(x)local c=math.huge;for A,A in x do local x=A.Name:lower();if(x:find('adm\105n')or x:find("\109od")or x:find("dev"))and A.Rank<c then c=A.Rank;end;end;return c;end;local function x(c)if not t.Loaded then repeat task.wait();until t.Loaded;end;local A=table.find(e.ListEnabled,tostring(c.UserId));if A or r(c,tonumber(F.Value)or 0)>=(tonumber(s.Value)or 1)then V('Sta\102fDetecto\114',"Staff\32Detecte\100 ("..(A and"black\108\105st\101d_\117\115er"or"staff_\114\111le")..'\41:\32'..c.Name,60,"\97l\101\114t");P.customtags[c.Name]={{text="\71AME STAFF",color=Color3.new(1,0,0)}};if E.Value=='Un\105nj\101c\116'then task.spawn(function()t:Uninject();end);game:GetService('Star\116e\114G\117i'):SetCore('Send\78\111tif\105c\97ti\111\110',{Title='Staf\102Detec\116o\114',Text='S\116aff\32De\116\101ct\101d\10'..c.Name,Duration=60});elseif E.Value=='\83\101\114\118er\72op'then k();elseif E.Value=="Profile"then t.Save=function()end;if t.Profile~=q.Value then t.Profile=q.Value;t:Load(true,q.Value);end;elseif E.Value=="A\117\116oConfig"then t.Save=function()end;for P,P in t.Modules do if P.Enabled then P:Toggle();end;end;end;end;end;D=t.Categories.Utility:CreateModule({Name="\83taff \68\101tecto\114",Function=function(P)if P then if F.Value==""or s.Value==''then local P={Creator={CreatorTargetId=tonumber(F.Value)}};if F.Value==''then P=Y:GetProductInfo(game.PlaceId);if P.Creator.CreatorType~="G\114\111u\112"then local r=P.Description:split('\10');for c,c in r do local r,r=c:find("\114ob\108\111x.com\47g\114oups/");if r then local A=c:find('/',r+1);P={Creator={CreatorType="Group",CreatorTargetId=c:sub(r+1,A-1)}};end;end;end;if P.Creator.CreatorType~="Group"then V("S\116\97\102\102Detector","Automatic\32\83e\116up\32Fai\108e\100\32(\110o grou\112\32de\116\101cted\41",60,'\119a\114nin\103');return;end;end;local r=h:GetGroupInfoAsync(P.Creator.CreatorTargetId);F:SetValue(P.Creator.CreatorTargetId);s:SetValue(n(r.Roles));end;if F.Value==''or s.Value==""then return;end;D:Clean(S.PlayerAdded:Connect(x));for P,P in S:GetPlayers()do task.spawn(x,P);end;end;end,Tooltip="Det\101\99ts p\101op\108e wi\116h \97 staff \114a\110k ingame"});E=D:CreateDropdown({Name="\77\111d\101",List={'Un\105nject','Serv\101rHo\112','Profile',"AutoC\111n\102ig",'\78otify'},Function=function(P)if q.Object then q.Object.Visible=P=="\80rofil\101";end;end});q=D:CreateTextBox({Name='\80rof\105le',Default="\100\101f\97ul\116",Darker=true,Visible=false});e=D:CreateTextList({Name="Users",Placeholder='pla\121er\32(use\114id)'});F=D:CreateTextBox({Name="\71roup",Placeholder="G\114ou\112 I\100"});s=D:CreateTextBox({Name='R\111le',Placeholder='Role\32\82an\107'});end);f(function()local P={};t.Categories.World:CreateModule({Name='An\116\105-\65FK',Function=function(D)if D then for D,D in getconnections(m.Idled)do table.insert(P,D);D:Disable();end;else for D,D in P do D:Enable();end;table.clear(P);end;end,Tooltip="Le\116s you stay i\110game w\105t\104\111u\116 getti\110\103 kicked"});end);f(function()local P;local D;local E,q,e=L:GenerateGUID(false);P=t.Categories.World:CreateModule({Name='F\114ee\99am',Function=function(L)if L then repeat task.wait(0.1);for L,L in getconnections(O:GetPropertyChangedSignal("Ca\109eraType"))do if L.Function then q=debug.getupvalue(L.Function,1);end;end;until q or not P.Enabled;if q and q.activeCameraController and P.Enabled then e=q.activeCameraController.GetSubjectPosition;local L=e(q.activeCameraController)or Vector3.zero;q.activeCameraController.GetSubjectPosition=function()return L;end;P:Clean(p.PreSimulation:Connect(function(F)if not Q:GetFocusedTextBox()then local h=(Q:IsKeyDown(Enum.KeyCode.W)and-1.0 or 0)+(Q:IsKeyDown(Enum.KeyCode.S)and 1 or 0);local s=(Q:IsKeyDown(Enum.KeyCode.A)and-1.0 or 0)+(Q:IsKeyDown(Enum.KeyCode.D)and 1 or 0);local r=(Q:IsKeyDown(Enum.KeyCode.Q)and-1.0 or 0)+(Q:IsKeyDown(Enum.KeyCode.E)and 1 or 0);F=F*(Q:IsKeyDown(Enum.KeyCode.LeftShift)and 0.25 or 1);L=(CFrame.lookAlong(L,O.CFrame.LookVector)*CFrame.new(Vector3.new(s,r,h)*(D.Value*F))).Position;end;end));X:BindActionAtPriority("F\114\101ecamKeyboar\100"..E,function()return Enum.ContextActionResult.Sink;end,false,Enum.ContextActionPriority.High.Value,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.E,Enum.KeyCode.Q,Enum.KeyCode.Up,Enum.KeyCode.Down);end;else pcall(function()X:UnbindAction("Fr\101\101ca\109Ke\121boa\114\100"..E);end);if q and e then q.activeCameraController.GetSubjectPosition=e;q=nil;e=nil;end;end;end,Tooltip='Lets you\32fly a\110d\32\99l\105\112 th\114o\117gh \119al\108\115 freely\10wi\116\104ou\116 moving yo\117r \112l\97\121er\32ser\118er\45s\105ded.'});D=P:CreateSlider({Name="Spe\101\100",Min=1,Max=150,Default=50,Suffix=function(P)return P==1 and's\116ud'or"studs";end});end);f(function()local P;local D;local E;local q,e=false;P=t.Categories.World:CreateModule({Name='Gra\118i\116\121',Function=function(L)if L then if D.Value=="Wo\114ks\112ace"then e=workspace.Gravity;workspace.Gravity=E.Value;P:Clean(workspace:GetPropertyChangedSignal("Gravity"):Connect(function()if q then return;end;q=true;e=workspace.Gravity;workspace.Gravity=E.Value;q=false;end));else P:Clean(p.PreSimulation:Connect(function(L)if g.isAlive and g.character.Humanoid.FloorMaterial==Enum.Material.Air then g.character.RootPart.AssemblyLinearVelocity+=Vector3.new(0,L*(workspace.Gravity-E.Value),0);end;end));end;else if e then workspace.Gravity=e;e=nil;end;end;end,Tooltip="Chang\101s the rate you f\97l\108"});D=P:CreateDropdown({Name='Mode',List={"Wor\107sp\97c\101","\86eloc\105ty"},Tooltip='Wo\114ks\112ac\101 -\32Adjusts the g\114a\118i\116y for the entir\101\32\103ame\nVe\108oc\105\116\121 -\32Adjust\115 the l\111ca\108 \112lay\101rs gr\97v\105ty'});E=P:CreateSlider({Name='Grav\105ty',Min=0,Max=192,Function=function(E)if P.Enabled and D.Value=="W\111r\107\115p\97ce"then q=true;workspace.Gravity=E;q=false;end;end,Default=192});end);f(function()local P;P=t.Categories.World:CreateModule({Name="Pa\114k\111ur",Function=function(D)if D then local D;P:Clean(p.RenderStepped:Connect(function()if g.isAlive then local P=g.character.Humanoid.FloorMaterial;if P==Enum.Material.Air and D~=Enum.Material.Air then g.character.Humanoid.Jump=true;end;D=P;end;end));end;end,Tooltip='Auto\109atic\97lly\32\106ump\115 after reach\105ng the edg\101'});end);f(function()local P=RaycastParams.new();P.RespectCanCollide=true;local D,E;t.Categories.World:CreateModule({Name='Safe Walk',Function=function(q)if q then if not D then local q=pcall(function()D=require(m.PlayerScripts.PlayerModule).controls;end);if not q then D={};end;end;E=D.moveFunction;D.moveFunction=function(q,e,L)if g.isAlive then P.FilterDescendantsInstances={m.Character,O};local F=g.character.RootPart;local h=F.Position+e;local s=workspace:Raycast(h,Vector3.new(0,-15.0,0),P);if not s then local s=workspace:Blockcast(F.CFrame,Vector3.new(3,1,3),Vector3.new(0,-(g.character.HipHeight+1),0),P);if s then e=(s.Instance:GetClosestPointOnSurface(h)-F.Position)*Vector3.new(1,0,1);end;end;end;return E(q,e,L);end;else if D and E then D.moveFunction=E;end;end;end,Tooltip="Prev\101\110t\115 \121ou from wal\107in\103 o\102f \116\104e\32edge\32of part\115"});end);f(function()local P;local D;local E={};local function q(e)if e:IsA("Base\80art")and not table.find(D.ListEnabled,e.Name)then E[e]=true;e.LocalTransparencyModifier=0.5;end;end;P=t.Categories.World:CreateModule({Name='\88r\97y',Function=function(e)if e then P:Clean(workspace.DescendantAdded:Connect(q));for e,e in workspace:GetDescendants()do q(e);end;else for q in E do q.LocalTransparencyModifier=0;end;table.clear(E);end;end,Tooltip="Rende\114s \119hi\116elisted parts \116h\114ough wal\108s\46"});D=P:CreateTextList({Name="Part",Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});end);f(function()local P;local D,E,q,e;local function L(F,h)if F:IsA('\84\111\111l')then local s=F:FindFirstChild("IsGun")and'she\114if\102'or F:FindFirstChild("\75nifeServer")and'm\117r\100erer'or nil;s=s or F.Name:lower():find("k\110if\101")and'murdere\114'or F.Name:lower():find("gun")and"sh\101riff"or nil;if s=='murdere\114'and h~=D then D=h;if h.Character then g.refresh();end;elseif s=='\115\104eriff'and h~=E then E=h;if h.Character then g.refresh();end;end;end;end;local function F(h)P:Clean(h.DescendantAdded:Connect(function(s)L(s,h);end));local s=h:FindFirstChildWhichIsA('Bac\107p\97c\107');if s then for X,X in s:GetChildren()do L(X,h);end;end;if h.Character then for s,s in h.Character:GetChildren()do L(s,h);end;end;end;P=t.Categories.Minigames:CreateModule({Name='Murder\32\77ystery',Function=function(L)if L then q,e=g.targetCheck,g.getEntityColor;g.getEntityColor=function(L)L=L.Player;if not(L and t.Categories.Main.Options["Use\32t\101am \99\111lo\114"].Enabled)then return;end;if K(L,true)then return Color3.fromHSV(t.Categories.Friends.Options['\70\114ien\100s color'].Hue,t.Categories.Friends.Options['Fri\101nds \99olor'].Sat,t.Categories.Friends.Options['F\114ie\110ds\32colo\114'].Value);end;return D==L and Color3.new(1,0.3,0.3)or E==L and Color3.new(0,0.5,1)or nil;end;g.targetCheck=function(L)if L.Player and K(L.Player)then return false;end;if D==m then return true;end;return D==L.Player or E==L.Player;end;for D,D in S:GetPlayers()do F(D);end;P:Clean(S.PlayerAdded:Connect(F));g.refresh();else g.getEntityColor=e;g.targetCheck=q;g.refresh();end;end,Tooltip='Aut\111ma\116i\99 \109urd\101\114 mystery\32teamin\103 base\100 \111\110 equi\112ped \114oblox \116o\111ls.'});end);f(function()local P;local D={};local E,q={},{};local e={Sky={SkyboxUp='Te\120\116',SkyboxDn='Text',SkyboxLf='T\101\120t',SkyboxRt='\84e\120t',SkyboxFt="Te\120t",SkyboxBk='\84\101\120\116',SunTextureId="Te\120t",SunAngularSize='Number',MoonTextureId='\84ext',MoonAngularSize='\78um\98er',StarCount="Nu\109ber"},Atmosphere={Color='\67\111\108or',Decay="\67olo\114",Density='Numb\101r',Offset='Num\98er',Glare='\78umb\101r',Haze="N\117mb\101r"},BloomEffect={Intensity='Num\98er',Size='Number',Threshold='N\117mber'},DepthOfFieldEffect={FarIntensity="\78u\109ber",FocusDistance="Number",InFocusRadius='\78umber',NearIntensity="Num\98\101r"},SunRaysEffect={Intensity='Number',Spread='Num\98e\114'},ColorCorrectionEffect={TintColor='Color',Saturation="Num\98\101\114",Contrast='N\117\109b\101r',Brightness='Numb\101r'}};local function L(F)if not table.find(E,F)then local h=D[F.ClassName];if h and h.Toggle.Enabled then table.insert(q,F);F.Parent=_;end;end;end;P=t.Legit:CreateModule({Name='\65tmos\112here',Function=function(F)if F then for F,F in j:GetChildren()do L(F);end;P:Clean(j.ChildAdded:Connect(function(F)task.defer(L,F);end));for L,F in D do if F.Toggle.Enabled then local h=Instance.new(L);for s,X in F.Objects do if X.Type=="\67\111l\111\114\83lider"then h[s]=Color3.fromHSV(X.Hue,X.Sat,X.Value);else h[s]=e[L][s]~="Numbe\114"and X.Value or tonumber(X.Value)or 0;end;end;h.Parent=j;table.insert(E,h);end;end;else for L,L in E do L:Destroy();end;for L,L in q do L.Parent=j;end;table.clear(E);table.clear(q);end;end,Tooltip="Cust\111m li\103\104ting\32\111bj\101\99ts"});for E,q in e do D[E]={Objects={}};D[E].Toggle=P:CreateToggle({Name=E,Function=function(e)if P.Enabled then P:Toggle();P:Toggle();end;for L,L in D[E].Objects do L.Object.Visible=e;end;end});for e,L in q do if L=="Text"or L=="Number"then D[E].Objects[e]=P:CreateTextBox({Name=e,Function=function(q)if P.Enabled and q then P:Toggle();P:Toggle();end;end,Darker=true,Default=L=='Nu\109ber'and"0"or nil,Visible=false});elseif L=="Co\108or"then D[E].Objects[e]=P:CreateColorSlider({Name=e,Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end,Darker=true,Visible=false});end;end;end;end);pcall(function()local P;local D={};local E={};local E=tick();local q=nil;local e;local L={};for F,F in{"\114bxassetid:/\047673\052\051\057\051210",'rbx\97\115s\101tid:\47\0471\0566500\0565493'}do local h=Instance.new('Sound',soundService);h.SoundId=F;table.insert(L,h);end;local F=game:GetObjects("rb\120a\115setid\58//7130\050\05611\05126216")[1];F:PivotTo(CFrame.new());F.Parent=_;for h,h in F:GetChildren()do local F=Instance.new("PointLi\103ht",h);F.Brightness=20;F.Range=35;F.Shadows=true;end;local function F(h)z.Lightning.CreateLightning(h);local h=j.Brightness;local s=C:Create(j,TweenInfo.new(0.1,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{Brightness=Random.new():NextInteger(90,100)});s:Play();s.Completed:Wait();local s=L[math.random(1,#L)];s.Volume=Random.new():NextNumber(0.7,1.5);s:Play();task.wait(0.14);C:Create(j,TweenInfo.new(0.3,Enum.EasingStyle.Sine),{Brightness=h}):Play();end;local function L(h)local s=Vector3.new(Random.new():NextInteger(19,math.random(23,47)),0,Random.new():NextInteger(18,math.random(22,45)));local X=workspace:Raycast(h+s,Vector3.new(0,-50000.0,0));if X then return CFrame.new(X.Position);else local X=h+s;return CFrame.new(X);end;end;local h=Random.new();P=t.Categories.Render:CreateModule({Name='\87\101ather',Function=function(s)if s then E=tick()+math.random(1,2);if q.Value=="R\97in"or q.Value=='\84hun\100erstorm'then z.Rain:Enable();elseif q.Value=='S\110ow'then z.Snow:Enable(e.Value);end;if not workspace.Terrain:FindFirstChildOfClass('\67louds')then local s=Instance.new("\67lou\100\115",workspace.Terrain);s.Cover=1;s.Density=1;s.Color=Color3.fromRGB(12,13,16);P:Clean(s);end;if not j:FindFirstChildOfClass('At\109osphe\114e')then local s=Instance.new('Atmosp\104ere',j);P:Clean(s);else local s=j:FindFirstChildOfClass("Atmos\112\104ere");D.Density=s.Density;D.Offset=s.Offset;D.Glare=s.Glare;D.Haze=s.Haze;D.Color=s.Color;D.Decay=s.Decay;end;repeat local s=j:FindFirstChildOfClass("\65tmos\112here");if q.Value=="\82ain"or q.Value=="Thu\110de\114storm"or q.Value=='Sno\119'then if s then if q.Value=="Rai\110"then s.Density=0.65;s.Offset=0.25;s.Glare=0;s.Haze=0;elseif q.Value=='\83now'then s.Density=0.7;s.Offset=0.75;s.Color=Color3.fromRGB(142,142,142);s.Decay=Color3.fromRGB(142,142,142);s.Glare=0.5;s.Haze=0.5;elseif q.Value=='Thu\110d\101r\115t\111rm'then s.Density=0.8;s.Offset=0.2;s.Glare=0.1;s.Color=Color3.fromRGB(121,124,160);s.Decay=Color3.fromRGB(37,38,49);s.Haze=9;end;end;if q.Value=='\84hun\100ersto\114m'and tick()>E then E=tick()+h:NextNumber(7,25);local E=L(m.Character.PrimaryPart.Position);F(E);end;if g.isAlive then local E=m.Character.Humanoid.MoveDirection;E*=-0.1;z.Rain:SetDirection(E.Magnitude>=0.1 and Vector3.new(1,0,0)or Vector3.zero,TweenInfo.new(0.3,Enum.EasingStyle.Back,Enum.EasingDirection.Out));end;end;task.wait();until not P.Enabled;else z.Rain:Disable();z.Snow:Disable();local E=j:FindFirstChildOfClass('A\116\109o\115\112he\114\101');if E then for L,F in D do E[L]=F;end;end;table.clear(D);end;end,ExtraText=function()return q.Value;end});q=P:CreateDropdown({Name='Mod\101',List={'Ra\105n','Snow',"Th\117ndersto\114m"},Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});e=P:CreateSlider({Name="\83now \89\32Lev\101l",Min=0,Max=256,Default=60,Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});end);f(function()local P;local D;local E;local q;local e;local L;local F,h,s;local function X()h=Instance.new('Attach\109ent');h.Position=Vector3.new(0,q.Value-2.7,0);s=Instance.new('Attac\104m\101n\116');s.Position=Vector3.new(0,-q.Value-2.7,0);F=Instance.new("T\114ail");F.Texture=D.Value==''and"ht\116p:\47/\119\119\119.r\111\98lox.com/\97sset/?\105d=\049\0521\0546\05781368"or D.Value;F.TextureMode=Enum.TextureMode.Static;F.Color=ColorSequence.new(Color3.fromHSV(e.Hue,e.Sat,e.Value),Color3.fromHSV(L.Hue,L.Sat,L.Value));F.Lifetime=E.Value;F.Attachment0=h;F.Attachment1=s;F.FaceCamera=true;end;P=t.Legit:CreateModule({Name="B\114e\97dcru\109b\115",Function=function(r)if r then pcall(X);P:Clean(F);P:Clean(h);P:Clean(s);P:Clean(g.Events.LocalAdded:Connect(function(r)h.Parent=r.HumanoidRootPart;s.Parent=r.HumanoidRootPart;F.Parent=O;end));repeat if not h or not h.Parent then X();end;if g.isAlive then h.Parent=m.Character.PrimaryPart;s.Parent=m.Character.PrimaryPart;end;task.wait();until not P.Enabled;if g.isAlive then F.Parent=O;end;else F=nil;h=nil;s=nil;end;end,Tooltip="Sho\119\115 a trail \98\101h\105nd y\111\117r c\104\97r\97c\116er"});D=P:CreateTextBox({Name='Tex\116ur\101',Placeholder='Te\120tu\114e Id',Function=function(X)if X and F then F.Texture=D.Value==""and'http://\119\119\119.ro\98lox.\99o\109\47a\115set/\63id\0611\052166981368'or D.Value;end;end});e=P:CreateColorSlider({Name="Fade In",Function=function(D,X,r)if F then F.Color=ColorSequence.new(Color3.fromHSV(D,X,r),Color3.fromHSV(L.Hue,L.Sat,L.Value));end;end});L=P:CreateColorSlider({Name="Fade\32Out",Function=function(D,L,X)if F then F.Color=ColorSequence.new(Color3.fromHSV(e.Hue,e.Sat,e.Value),Color3.fromHSV(D,L,X));end;end});E=P:CreateSlider({Name="Li\102et\105\109e",Min=1,Max=5,Default=3,Decimal=10,Function=function(D)if F then F.Lifetime=D;end;end,Suffix=function(D)return D==1 and"sec\111n\100"or"se\99onds";end});q=P:CreateSlider({Name="\84h\105ck\110ess",Min=0,Max=2,Default=0.1,Decimal=100,Function=function(P)if h then h.Position=Vector3.new(0,P-2.7,0);end;if s then s.Position=Vector3.new(0,-P-2.7,0);end;end,Suffix=function(P)return P==1 and"\115\116ud"or"studs";end});end);f(function()local P;local D;local E,q;local function e(L)if q then q:Destroy();end;E.Parent=O;q=Instance.new('Motor6D');q.MaxVelocity=0.08;q.Part0=E;q.Part1=L.Character:FindFirstChild('\85\112perTo\114so')or L.RootPart;q.C0=CFrame.new(0,2,0)*CFrame.Angles(0,math.rad(-90.0),0);q.C1=CFrame.new(0,q.Part1.Size.Y/2,0.45)*CFrame.Angles(0,math.rad(90),0);q.Parent=E;end;P=t.Legit:CreateModule({Name="C\97p\101",Function=function(L)if L then E=Instance.new("P\97\114t");E.Size=Vector3.new(2,4,0.1);E.CanCollide=false;E.CanQuery=false;E.Massless=true;E.Transparency=0;E.Material=Enum.Material.SmoothPlastic;E.Color=Color3.new();E.CastShadow=false;E.Parent=O;local L=Instance.new('Sur\102aceGu\105');L.SizingMode=Enum.SurfaceGuiSizingMode.PixelsPerStud;L.Adornee=E;L.Parent=E;if D.Value:find('.webm')then local F=Instance.new('\86i\100\101\111Frame');F.Video=b(D.Value);F.Size=UDim2.fromScale(1,1);F.BackgroundTransparency=1;F.Looped=true;F.Parent=L;F:Play();else local F=Instance.new("Ima\103\101\76\97\98el");F.Image=D.Value~=""and(D.Value:find('r\98\120\97\115se\116')and D.Value or M(D.Value))or"rb\120asse\116\105d:/\047\04946\05179581\0514";F.Size=UDim2.fromScale(1,1);F.BackgroundTransparency=1;F.Parent=L;end;P:Clean(E);P:Clean(g.Events.LocalAdded:Connect(e));if g.isAlive then e(g.character);end;repeat if q and g.isAlive then local e=math.min(g.character.RootPart.Velocity.Magnitude,90);q.DesiredAngle=math.rad(6)+math.rad(e)+(e>1 and math.abs(math.cos(tick()*5))/3 or 0);end;L.Enabled=(O.CFrame.Position-O.Focus.Position).Magnitude>0.6;E.Transparency=(O.CFrame.Position-O.Focus.Position).Magnitude>0.6 and 0 or 1;task.wait();until not P.Enabled;else E=nil;q=nil;end;end,Tooltip='\65dd\'s a cap\101 to\32your character'});D=P:CreateTextBox({Name="Te\120ture"});end);f(function()local P;local D;local E;local q;P=t.Legit:CreateModule({Name="C\104i\110a Hat",Function=function(e)if e then if t.ThreadFix then setthreadidentity(8);end;q=Instance.new('Me\115hPart');q.Size=Vector3.new(3,0.7,3);q.Name="C\104inaH\97t";q.Material=Enum.Material[D.Value];q.Color=Color3.fromHSV(E.Hue,E.Sat,E.Value);q.CanCollide=false;q.CanQuery=false;q.Massless=true;q.MeshId='h\116tp://w\119w.ro\98lox.co\109/a\115set/?id=1\0557\056999';q.Transparency=1-E.Opacity;q.Parent=O;q.CFrame=g.isAlive and g.character.Head.CFrame+Vector3.new(0,1,0)or CFrame.identity;local e=Instance.new('\87e\108\100C\111nstr\97i\110t');e.Part0=q;e.Part1=g.isAlive and g.character.Head or nil;e.Parent=q;P:Clean(q);P:Clean(g.Events.LocalAdded:Connect(function(L)if e then e:Destroy();end;q.Parent=O;q.CFrame=L.Head.CFrame+Vector3.new(0,1,0);q.Velocity=Vector3.zero;e=Instance.new('\87el\100Constrain\116');e.Part0=q;e.Part1=L.Head;e.Parent=q;end));repeat q.LocalTransparencyModifier=((O.CFrame.Position-O.Focus.Position).Magnitude<=0.6 and 1 or 0);task.wait();until not P.Enabled;else q=nil;end;end,Tooltip="Puts a\32china \104at \111n your \99ha\114\97c\116er (ty\32masta\100\97w\110)"});local e={"ForceField"};for L,L in Enum.Material:GetEnumItems()do if L.Name~="\70or\99eF\105el\100"then table.insert(e,L.Name);end;end;D=P:CreateDropdown({Name='\77at\101\114i\97\108',List=e,Function=function(D)if q then q.Material=Enum.Material[D];end;end});E=P:CreateColorSlider({Name="\72at Color",DefaultOpacity=0.7,Function=function(P,D,E,e)if q then q.Color=Color3.fromHSV(P,D,E);q.Transparency=1-e;end;end});end);f(function()local P;local D;local E;P=t.Legit:CreateModule({Name='Clock',Function=function(q)if q then repeat E.Text=DateTime.now():FormatLocalTime("\76T",D.Enabled and"\122\104-cn"or'\101n-\117s');task.wait(1);until not P.Enabled;end;end,Size=UDim2.fromOffset(100,41),Tooltip='Sh\111\119s the \99\117\114rent \108ocal\32\116\105me'});P:CreateFont({Name="Fo\110t",Blacklist='\71o\116h\97m',Function=function(q)E.FontFace=q;end});P:CreateColorSlider({Name="Colo\114",DefaultValue=0,DefaultOpacity=0.5,Function=function(q,e,L,F)E.BackgroundColor3=Color3.fromHSV(q,e,L);E.BackgroundTransparency=1-F;end});D=P:CreateToggle({Name="\0504 Hour Cl\111\99k"});E=Instance.new("T\101xtL\97bel");E.Size=UDim2.new(0,100,0,41);E.BackgroundTransparency=0.5;E.TextSize=15;E.Font=Enum.Font.Gotham;E.Text='0:\0480 PM';E.TextColor3=Color3.new(1,1,1);E.BackgroundColor3=Color3.new();E.Parent=P.Children;local P=Instance.new('U\73\67orn\101\114');P.CornerRadius=UDim.new(0,4);P.Parent=E;end);f(function()local P;local D;local E;local q;local function e(L,F)if(not L:GetAttribute("Disguise"))and((L:IsA("Acces\115or\121")and(not L:GetAttribute('\73nvIt\101m'))and(not L:GetAttribute("\65r\109orSlot")))or L:IsA("S\104i\114\116\71raph\105c")or L:IsA("Sh\105\114t")or L:IsA('Pa\110ts')or L:IsA('BodyCo\108ors')or F)then repeat task.wait();L.Parent=_;until L.Parent==_;L:ClearAllChildren();L:Destroy();end;end;local function L(F)if D.Value=="\67\104\97rac\116er"then task.wait(0.1);F.Character.Archivable=true;local h=F.Character:Clone();repeat if pcall(function()q=S:GetHumanoidDescriptionFromUserId(E.Value==""and 239702688 or tonumber(E.Value));end)then break;end;task.wait(1);until not P.Enabled;if not P.Enabled then h:ClearAllChildren();h:Destroy();h=nil;if q then q:Destroy();q=nil;end;return;end;h.Parent=_;local S=F.Humanoid:WaitForChild('\72um\97\110oi\100\68\101sc\114ip\116ion',2)or{HeightScale=1,SetEmotes=function()end,SetEquippedEmotes=function()end};S.JumpAnimation=q.JumpAnimation;q.HeightScale=S.HeightScale;for _,_ in h:GetChildren()do if _:IsA('Acces\115o\114y')or _:IsA("Shirt\71r\97phi\99")or _:IsA('\83hi\114t')or _:IsA("Pa\110\116s")then _:ClearAllChildren();_:Destroy();end;end;h.Humanoid:ApplyDescriptionClientServer(q);for _,_ in F.Character:GetChildren()do e(_);end;P:Clean(F.Character.ChildAdded:Connect(e));for _,_ in h:WaitForChild('Ani\109ate'):GetChildren()do if not F.Character:FindFirstChild('Anim\97t\101')then return;end;local s=F.Character.Animate:FindFirstChild(_.Name);if _ and s then local X=_:FindFirstChildWhichIsA('A\110imation')or{AnimationId=''};local _=s:FindFirstChildWhichIsA("A\110imat\105o\110")or{AnimationId=""};if _ then _.AnimationId=X.AnimationId;end;end;end;for _,_ in h:GetChildren()do _:SetAttribute("Di\115\103\117ise",true);if _:IsA('Accessory')then for s,s in _:GetDescendants()do if s:IsA("Wel\100")and s.Part1 then s.Part1=F.Character[s.Part1.Name];end;end;_.Parent=F.Character;elseif _:IsA('Sh\105r\116Graphic')or _:IsA("S\104irt")or _:IsA('\80ants')or _:IsA("Bod\121Colors")then _.Parent=F.Character;elseif _.Name=='He\97d'and F.Head:IsA("Me\115hPa\114\116")and(not F.Head:FindFirstChild("Face\67o\110trol\115"))then F.Head.MeshId=_.MeshId;end;end;local _=F.Character:FindFirstChild('face',true);local s=h:FindFirstChild('face',true);if _ and s then e(_,true);s.Parent=F.Head;end;S:SetEmotes(q:GetEmotes());S:SetEquippedEmotes(q:GetEquippedEmotes());h:ClearAllChildren();h:Destroy();h=nil;if q then q:Destroy();q=nil;end;else local S;repeat if pcall(function()S=Y:GetProductInfo(E.Value==""and 43 or tonumber(E.Value),Enum.InfoType.Bundle);end)then break;end;task.wait(1);until not P.Enabled;if not P.Enabled then if S then table.clear(S);S=nil;end;return;end;if S.BundleType=='Ava\116\97r\65nima\116io\110s'then local S=F.Character:FindFirstChild('Ani\109a\116e');if not S then return;end;for _,_ in q.Items do local q=_.Name:split(" ")[2]:lower();if q~='\97ni\109ation'then local Y,e=pcall(function()return game:GetObjects('\114\98\120ass\101t\105\100://'.._.Id);end);if Y then S[q]:FindFirstChildWhichIsA("An\105\109ati\111n").AnimationId=e[1]:FindFirstChildWhichIsA('An\105mat\105on',true).AnimationId;end;end;end;else V('Disgu\105\115e',"that's not an a\110i\109\97\116io\110\32pack",5,'wa\114ning');end;end;end;P=t.Legit:CreateModule({Name='Disguis\101',Function=function(q)if q then P:Clean(g.Events.LocalAdded:Connect(L));if g.isAlive then L(g.character);end;end;end,Tooltip="Change\115 \121\111ur ch\97rac\116er or\32animation t\111 a specific ID \40ani\109atio\110 p\97cks o\114 user\105\100\39s onl\121)"});D=P:CreateDropdown({Name='Mode',List={'C\104arac\116\101r',"\65n\105mati\111n"},Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});E=P:CreateTextBox({Name='D\105sguise',Placeholder="\68is\103uis\101\32U\115er I\100",Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});end);f(function()local P;local D;local E;P=t.Legit:CreateModule({Name="FOV",Function=function(q)if q then E=O.FieldOfView;repeat O.FieldOfView=D.Value;task.wait();until not P.Enabled;else O.FieldOfView=E;end;end,Tooltip="Ad\106us\116s\32\99amer\97 vis\105on"});D=P:CreateSlider({Name="FOV",Min=30,Max=120});end);local P=120;f(function()local D;local E;D=t.Legit:CreateModule({Name="FPS",Function=function(q)end,Size=UDim2.fromOffset(100,41),Tooltip="Sho\119s\32t\104e \99ur\114e\110\116\32fr\97merate"});D:CreateFont({Name='F\111nt',Blacklist="G\111t\104am",Function=function(q)E.FontFace=q;end});D:CreateColorSlider({Name='Co\108or',DefaultValue=0,DefaultOpacity=0.5,Function=function(q,S,_,Y)E.BackgroundColor3=Color3.fromHSV(q,S,_);E.BackgroundTransparency=1-Y;end});E=Instance.new("\84extL\97b\101l");E.Size=UDim2.fromScale(1,1);E.BackgroundTransparency=0.5;E.TextSize=15;E.Font=Enum.Font.Gotham;E.Text="in\102 \70PS";E.TextColor3=Color3.new(1,1,1);E.BackgroundColor3=Color3.new();E.Parent=D.Children;local q=Instance.new('UICorner');q.CornerRadius=UDim.new(0,4);q.Parent=E;local q={};local S=os.clock();local _=tick();t:Clean(p.PreSimulation:Connect(function()local Y=os.clock();for e=#q,1,-1.0 do q[e+1]=q[e]>=Y-1 and q[e]or nil;end;q[1]=Y;if _<tick()then _=tick()+1;P=(os.clock()-S>=1 and#q or#q/(os.clock()-S));if D.Enabled then E.Text=math.floor(P)..' \70PS';end;end;end));end);f(function()local P;local D;local E;local q,S={};local function _(Y,e,L,F)if q[Y]then q[Y].Key:Destroy();q[Y]=nil;end;local h=Instance.new('\70\114\97\109e');h.Size=Y==Enum.KeyCode.Space and UDim2.new(0,110,0,24)or UDim2.new(0,34,0,36);h.BackgroundColor3=Color3.fromHSV(E.Hue,E.Sat,E.Value);h.BackgroundTransparency=1-E.Opacity;h.Position=e;h.Name=Y.Name;h.Parent=S;local e=Instance.new("T\101x\116Label");e.BackgroundTransparency=1;e.Size=UDim2.fromScale(1,1);e.Font=Enum.Font.Gotham;e.Text=F or Y.Name;e.TextXAlignment=Enum.TextXAlignment.Left;e.TextYAlignment=Enum.TextYAlignment.Top;e.Position=L;e.TextSize=Y==Enum.KeyCode.Space and 18 or 15;e.TextColor3=Color3.new(1,1,1);e.Parent=h;local e=Instance.new("U\73Corne\114");e.CornerRadius=UDim.new(0,4);e.Parent=h;q[Y]={Key=h};end;P=t.Legit:CreateModule({Name='\75\101ys\116\114\111ke\115',Function=function(Y)if Y then _(Enum.KeyCode.W,UDim2.new(0,38,0,0),UDim2.new(0,6,0,5),D.Value=="Arrow"and'\226\134\145'or nil);_(Enum.KeyCode.S,UDim2.new(0,38,0,42),UDim2.new(0,8,0,5),D.Value=='Arr\111w'and'\226\134\147'or nil);_(Enum.KeyCode.A,UDim2.new(0,0,0,42),UDim2.new(0,7,0,5),D.Value=="Arr\111w"and"\226\134\144"or nil);_(Enum.KeyCode.D,UDim2.new(0,76,0,42),UDim2.new(0,8,0,5),D.Value=='Arr\111w'and"\226\134\146"or nil);P:Clean(Q.InputBegan:Connect(function(Y)local e=q[Y.KeyCode];if e then if e.Tween then e.Tween:Cancel();end;if e.Tween2 then e.Tween2:Cancel();end;e.Pressed=true;e.Tween=C:Create(e.Key,TweenInfo.new(0.1),{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0});e.Tween2=C:Create(e.Key.TextLabel,TweenInfo.new(0.1),{TextColor3=Color3.new()});e.Tween:Play();e.Tween2:Play();end;end));P:Clean(Q.InputEnded:Connect(function(Y)local e=q[Y.KeyCode];if e then if e.Tween then e.Tween:Cancel();end;if e.Tween2 then e.Tween2:Cancel();end;e.Pressed=false;e.Tween=C:Create(e.Key,TweenInfo.new(0.1),{BackgroundColor3=Color3.fromHSV(E.Hue,E.Sat,E.Value),BackgroundTransparency=1-E.Opacity});e.Tween2=C:Create(e.Key.TextLabel,TweenInfo.new(0.1),{TextColor3=Color3.new(1,1,1)});e.Tween:Play();e.Tween2:Play();end;end));end;end,Size=UDim2.fromOffset(110,176),Tooltip='\83h\111ws \109ovement k\101\121s\32onscreen'});S=Instance.new("F\114\97me");S.Size=UDim2.fromScale(1,1);S.BackgroundTransparency=1;S.Parent=P.Children;D=P:CreateDropdown({Name="Key\32St\121\108e",List={'Ke\121board','Arrow'},Function=function()if P.Enabled then P:Toggle();P:Toggle();end;end});E=P:CreateColorSlider({Name="Colo\114",DefaultValue=0,DefaultOpacity=0.5,Function=function(D,E,S,Y)for e,e in q do if not e.Pressed then e.Key.BackgroundColor3=Color3.fromHSV(D,E,S);e.Key.BackgroundTransparency=1-Y;end;end;end});P:CreateToggle({Name="S\104\111w\32\83paceba\114",Function=function(D)P.Children.Size=UDim2.fromOffset(110,D and 107 or 78);if D then _(Enum.KeyCode.Space,UDim2.new(0,0,0,83),UDim2.new(0,25,0,-10.0),'_\95\95___');else q[Enum.KeyCode.Space].Key:Destroy();q[Enum.KeyCode.Space]=nil;end;end,Default=true});end);f(function()local P;local D;P=t.Legit:CreateModule({Name='Memory',Function=function(E)if E then repeat D.Text=math.floor(tonumber(game:GetService("\83\116a\116s"):FindFirstChild('\80erf\111rmance\83tats').Memory:GetValue())).."\32M\66";task.wait(1);until not P.Enabled;end;end,Size=UDim2.fromOffset(100,41),Tooltip="A\32\108\97bel\32showin\103 th\101 memory cur\114\101ntl\121 us\101d by roblo\120"});P:CreateFont({Name="Fo\110t",Blacklist="Goth\97m",Function=function(E)D.FontFace=E;end});P:CreateColorSlider({Name="Color",DefaultValue=0,DefaultOpacity=0.5,Function=function(E,q,S,_)D.BackgroundColor3=Color3.fromHSV(E,q,S);D.BackgroundTransparency=1-_;end});D=Instance.new('Te\120tLa\98e\108');D.Size=UDim2.new(0,100,0,41);D.BackgroundTransparency=0.5;D.TextSize=15;D.Font=Enum.Font.Gotham;D.Text="0 MB";D.TextColor3=Color3.new(1,1,1);D.BackgroundColor3=Color3.new();D.Parent=P.Children;local P=Instance.new("UICorne\114");P.CornerRadius=UDim.new(0,4);P.Parent=D;end);f(function()local P;local D;P=t.Legit:CreateModule({Name="\80ing",Function=function(E)if E then repeat D.Text=math.floor(tonumber(game:GetService('\83\116\97ts'):FindFirstChild("Per\102\111rm\97nce\83tat\115").Ping:GetValue())).."\32ms";task.wait(1);until not P.Enabled;end;end,Size=UDim2.fromOffset(100,41),Tooltip="Sho\119s the cur\114\101\110t conn\101c\116\105on\32speed \116o\32the ro\98lox \115er\118er"});P:CreateFont({Name="Fo\110t",Blacklist="G\111tham",Function=function(E)D.FontFace=E;end});P:CreateColorSlider({Name="Co\108\111r",DefaultValue=0,DefaultOpacity=0.5,Function=function(E,q,S,_)D.BackgroundColor3=Color3.fromHSV(E,q,S);D.BackgroundTransparency=1-_;end});D=Instance.new('TextLa\98\101l');D.Size=UDim2.new(0,100,0,41);D.BackgroundTransparency=0.5;D.TextSize=15;D.Font=Enum.Font.Gotham;D.Text='0 ms';D.TextColor3=Color3.new(1,1,1);D.BackgroundColor3=Color3.new();D.Parent=P.Children;local P=Instance.new("\85ICo\114ner");P.CornerRadius=UDim.new(0,4);P.Parent=D;end);f(function()local P;local D;local E;local q={};local S;local _={};local Y=tick();local e,L,F,h;local function s()local X=D.ListEnabled;if#_>=#X then table.clear(_);end;if#X<=0 then V("S\111n\103Beat\115",'no \115o\110\103\115',10);P:Toggle();return;end;local r=X[math.random(1,#X)];if#X>1 and table.find(_,r)then repeat task.wait();r=X[math.random(1,#X)];until not table.find(_,r)or not P.Enabled;end;if not P.Enabled then return;end;local X=r:split('/');if not d(X[1])then V("SongBeat\115","M\105ssing s\111n\103\32("..X[1]..")",10);P:Toggle();return;end;L.SoundId=M(X[1]);repeat task.wait();until L.IsLoaded or not P.Enabled;if P.Enabled then Y=tick()+(tonumber(X[3])or 0);F=60/(tonumber(X[2])or 50);L:Play();end;end;P=t.Legit:CreateModule({Name="S\111\110g\32B\101ats",Function=function(d)if d then L=Instance.new("\83o\117n\100");L.Volume=S.Value/100;L.Parent=workspace;e=O.FieldOfView;repeat if not L.Playing then s();end;if Y<tick()and P.Enabled and E.Enabled then Y=tick()+F;O.FieldOfView=e-q.Value;h=C:Create(O,TweenInfo.new(math.min(F,0.2),Enum.EasingStyle.Linear),{FieldOfView=e});h:Play();end;task.wait();until not P.Enabled;else if L then L:Destroy();end;if h then h:Cancel();end;if e then O.FieldOfView=e;end;table.clear(_);end;end,Tooltip="Bui\108t i\110 mp3 player"});D=P:CreateTextList({Name='So\110\103\115',Placeholder="f\105l\101path\47bp\109/\115t\97rt"});E=P:CreateToggle({Name='\66e\97t F\79V',Function=function(d)if q.Object then q.Object.Visible=d;end;if P.Enabled then P:Toggle();P:Toggle();end;end,Default=true});q=P:CreateSlider({Name='\65djus\116me\110\116',Min=1,Max=30,Default=5,Darker=true});S=P:CreateSlider({Name='Volu\109e',Function=function(P)if L then L.Volume=P/100;end;end,Min=1,Max=100,Default=100,Suffix="%"});end);f(function()local P;local d;P=t.Legit:CreateModule({Name="Sp\101edme\116\101r",Function=function(D)if D then repeat local D=g.isAlive and g.character.HumanoidRootPart.Position*Vector3.new(1,0,1)or Vector3.zero;local E=task.wait(0.2);local q=g.isAlive and g.character.HumanoidRootPart.Position*Vector3.new(1,0,1)or Vector3.zero;d.Text=math.round(((D-q)/E).Magnitude).." \115\112s";until not P.Enabled;end;end,Size=UDim2.fromOffset(100,41),Tooltip="\65 la\98el\32showing the\32ave\114age v\101loci\116y \105n stu\100\115"});P:CreateFont({Name="Font",Blacklist='G\111\116ham',Function=function(D)d.FontFace=D;end});P:CreateColorSlider({Name='Col\111r',DefaultValue=0,DefaultOpacity=0.5,Function=function(D,E,q,S)d.BackgroundColor3=Color3.fromHSV(D,E,q);d.BackgroundTransparency=1-S;end});d=Instance.new("TextLab\101l");d.Size=UDim2.fromScale(1,1);d.BackgroundTransparency=0.5;d.TextSize=15;d.Font=Enum.Font.Gotham;d.Text='0 sps';d.TextColor3=Color3.new(1,1,1);d.BackgroundColor3=Color3.new();d.Parent=P.Children;local P=Instance.new("UICorne\114");P.CornerRadius=UDim.new(0,4);P.Parent=d;end);f(function()local P;local d;local D;P=t.Legit:CreateModule({Name="Time \67hanger",Function=function(E)if E then D=j.TimeOfDay;j.TimeOfDay=d.Value..':\0480:00';else j.TimeOfDay=D;D=nil;end;end,Tooltip='\67hange th\101 \116ime\32of t\104\101 \99urre\110t\32w\111\114ld'});d=P:CreateSlider({Name='T\105\109e',Min=0,Max=24,Default=12,Function=function(d)if P.Enabled then j.TimeOfDay=d..'\058\0480:\048\48';end;end});end);f(function()local P;local d;local D=0;P=t.Categories.Blatant:CreateModule({Name="\73nfi\110ite \74ump",Tooltip="Al\108ows y\111\117 to ju\109p i\110finitely\46",Function=function(E)if E then D=0;P:Clean(Q.JumpRequest:Connect(function()D+=1;if D>1 and d.Value=='Ve\108oc\105ty'then local E=math.sqrt(2*workspace.Gravity*g.character.Humanoid.JumpHeight);g.character.RootPart.Velocity=Vector3.new(g.character.RootPart.Velocity.X,E,g.character.RootPart.Velocity.Z);elseif d.Value=="Ju\109p"then g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end));P:Clean(g.character.Humanoid.StateChanged:Connect(function(E,q)if E==Enum.HumanoidStateType.Freefall and q==Enum.HumanoidStateType.Landed then D=0;end;end));end;end,ExtraText=function()return d.Value;end});d=P:CreateDropdown({Name='Mode',List={'\74ump',"V\101\108\111\99ity"}});end);f(function()local P;P=t.Legit:CreateModule({Name="F\80S Boo\115t",Function=function(d)if d then local d=workspace:FindFirstChildOfClass('\84\101r\114ain');d.WaterWaveSize=0;d.WaterWaveSpeed=0;d.WaterReflectance=0;d.WaterTransparency=0;j.GlobalShadows=false;j.FogEnd=9e9;settings().Rendering.QualityLevel=1;for d,d in pairs(game:GetDescendants())do p.Heartbeat:Wait();if d:IsA("Part")or d:IsA('Un\105onO\112er\97ti\111n')or d:IsA('Me\115\104Par\116')or d:IsA('C\111rnerWedgePart')or d:IsA('\84russPart')then d.Material="P\108astic";d.Reflectance=0;elseif d:IsA("\68eca\108")then d.Transparency=1;elseif d:IsA("Part\105c\108eEmitter")or d:IsA("T\114ail")then d.Lifetime=NumberRange.new(0);elseif d:IsA('E\120plosion')then d.BlastPressure=1;d.BlastRadius=1;end;end;for d,d in pairs(j:GetDescendants())do if d:IsA("Blu\114Ef\102\101ct")or d:IsA("Sun\82aysEffec\116")or d:IsA("C\111lor\67orrectio\110Effe\99t")or d:IsA('Bloom\69ff\101ct')or d:IsA('\68\101pt\104OfFieldEffect')then d.Enabled=false;end;end;P:Clean(workspace.DescendantAdded:Connect(function(P)task.spawn(function()if P:IsA('\80\97rt')or P:IsA('Un\105on\79\112era\116io\110')or P:IsA('Me\115hPart')or P:IsA('Corn\101\114WedgePa\114t')or P:IsA("Tru\115s\80\97rt")then p.Heartbeat:Wait();P.Material='Plastic';P.Reflectance=0;elseif P:IsA('De\99al')then p.Heartbeat:Wait();P.Transparency=1;elseif P:IsA('Particle\69\109\105tte\114')or P:IsA("Trail")then p.Heartbeat:Wait();P.Lifetime=NumberRange.new(0);elseif P:IsA("Exp\108o\115ion")then p.Heartbeat:Wait();P.BlastPressure=1;P.BlastRadius=1;elseif P:IsA('Force\70ield')then p.Heartbeat:Wait();P:Destroy();elseif P:IsA("Sp\97rkles")then p.Heartbeat:Wait();P:Destroy();elseif P:IsA('Smoke')or P:IsA("Fire")then p.Heartbeat:Wait();P:Destroy();end;end);end));end;end});end);f(function()local P=nil;local d=nil;local f=nil;local D=nil;local E=tick();local q=tick();local S=RaycastParams.new();local _=false;P=t.Categories.Blatant:CreateModule({Name='No Fall',Function=function(_)if _ then P:Clean(p.PreSimulation:Connect(function()if g.isAlive then if tick()>E and f.Value=="Stat\101"and g.character.Humanoid.FloorMaterial==Enum.Material.Air then return g.character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed);end;S.FilterDescendantsInstances={m.Character};if f.Value~='State'and g.character.Humanoid.FloorMaterial==Enum.Material.Air and workspace:Raycast(g.character.RootPart.Position,Vector3.new(0,-44.0,0),S)and(q>tick()or g.character.RootPart.Velocity.Y<(f.Value=="Freez\101"and-50.0 or-25.5))then if tick()>E then if f.Value=='Free\122e'then E=tick()+1;for E=1,7 do task.wait(.05);g.character.RootPart.Velocity=Vector3.new(g.character.RootPart.Velocity.X,E,g.character.RootPart.Velocity.Z);end;if d.Enabled then local E=workspace:Raycast(g.character.RootPart.Position,Vector3.new(0,-1000.0,0),S);if E then g.character.RootPart.CFrame=CFrame.lookAlong(Vector3.new(g.character.RootPart.Position.X,E.Position.Y+g.character.HipHeight,g.character.RootPart.Position.Z),g.character.RootPart.CFrame.LookVector);end;return;end;else if D.Value=='Wo\114k\115\112ace'then workspace.Gravity=140;else g.character.RootPart.Velocity+=Vector3.new(0,(-g.character.RootPart.Velocity.Y*0.02),0);end;end;end;end;end;end));else workspace.Gravity=196;end;end});d=P:CreateToggle({Name='I\110stant T\80',Tooltip='Automatic\97lly t\112s you to\32the\32g\114\111\117nd a\102t\101r u\110freezed',Default=true});f=P:CreateDropdown({Name="M\111\100e",List={"Gravi\116y",'Free\122e','State'},Default="\71ra\118ity",Function=function(d)if D then D.Object.Visible=d=="G\114avi\116y";end;end});D=P:CreateDropdown({Name="\71r\97vity\32Mode",List={"Ve\108\111\99ity",'W\111r\107\115\112a\99e'},Default='Worksp\97\99e'});end);end;end,M=function(P,P,d)(P[1])[6]=d;end,lm=function(P,d,f,D,E)if E==42.0 then d,E=P:gm(d,f,E);else if E==1.0 then D=f[0X1][39]();return 47153,D,d,E;end;end;return nil,D,d,E;end,vm=function(P,d,f,D)if f<68.0 and f>57.0 then D[0x29]=function()local E=({D,D[8]});local q=E[1][38]();(E[1])[0X6]=(E[1][6]+q);return E[2](E[0X1][22],E[1][0x6]-q,E[1][0X6]-1.0);end;if not d[0X4bDE]then(d)[16805]=-0X4cC274C1+(((d[0x2418]+P.a[2]==d[23566]and f or d[16827])<P.a[6]and P.a[4]or d[26849])-d[0X6ccc]);f=24+((P.co((P.Oo(d[0X0165d])),P.a[2],P.a[0X7]))-d[0X165d]+d[22679]);d[19422]=f;else f=(d[19422]);end;elseif f>46.0 and f<53.0 then(D)[0X28]=P.l;if not(not d[16827])then f=d[0x41BB];else f=0X2B9A6409+((P.Oo(d[0X0068e1]+d[0x7670]))+d[30320]-P.a[0X7]);(d)[0x41bb]=f;end;elseif f<57.0 and f>47.0 then D[37]=({});D[0X26]=function()local E,q,S,_={D,D[0X21],D[0xb]},0X21;while true do if not(q>30.0)then if q>=30.0 then return S;else _=1.0;q=123;end;else if q<=33.0 then q=12;S=0.0;else q=0X1e;repeat local q,p=12;repeat if q==12.0 then p=E[0x1][1](E[0X1][22],E[0X1][6],E[0X1][0X6]);q=(123);if E[2]~=E[3]then else return E[0X3];end;elseif q==123.0 then q=(0X1e);S=S+((p>127.0 and p-128.0 or p)*_);else if q==30.0 then _=P:S(_);break;end;end;until false;E[1][0X6]=(E[0x1][0X6]+1.0);until p<128.0;end;end;end;end;if not d[0x1d0A]then f=P:Z(d,f);else f=(d[7434]);end;elseif f<66.0 and f>53.0 then(D)[0x02a]=function(...)local E={D[4],D};local q=E[1]('#',...);if q~=0.0 then else return q,E[0X2][0X25];end;return q,{...};end;if not d[1728]then f=P:H(f,d);else f=(d[0x6c0]);end;else if f<83.0 and f>66.0 then(D)[43]=(function(E,q)local S={D[32],D,D[7],D[0X1a],D[18],D[0X1b],D[25]};local _=E[3];local p,Q,C,j,Y,e,L,F,h=E[6],E[7.0],E[11.0],E[9.0],E[4.0],E[2.0],E[5.0],(E[8.0]);h=(function(...)local s=S[1](_);local _,X=S[2][42](...);local r,O,m,M,t,n,x,c,b,A=1.0,1.0,1.0,0.0,(S[2][9]());local a,G,H,U=S[0X2][21](function()repeat local v=(L[r]);if v>=0X31 then if v>=74 then if v<0X56 then if v<80 then if v<77 then if not(v<75)then if v==76 then local Z=Q[r];s[Z]=s[Z](s[Z+1.0],s[Z+2.0]);m=(Z);else if s[j[r]]==s[Q[r]]then r=Y[r];end;end;else(s[j[r]])[F[r]]=C[r];end;else if v<78 then s[j[r]]=q[Y[r]];else if v~=0x4F then m=Y[r];s[m]();m=m-1.0;else local Z=(Y[r]);local K=s[Z];local W=Q[r];(S[0X03])(s,Z+1.0,Z+j[r],W+1.0,K);end;end;end;else if not(v>=83)then if v>=81 then if v==0X52 then s[j[r]]=(-s[Y[r]]);else local Z=(F[r]);local K=(Z[0X1]);Z=(#K);local W=(Z>0.0 and{});if W then for l=1.0,Z do local R=(K[l]);local K=(R[2]);local B=R[0X1];if K==0.0 then if not(not b)then else b={};end;R=b[B];if not(not R)then else R=({[1]=B,[0X2]=s});b[B]=(R);end;W[l-1.0]=(R);elseif K~=1.0 then(W)[l-1.0]=q[B];else W[l-1.0]=(s[B]);end;end;end;Z=P[e[r]](W);(S[4])(Z,t);(s)[Q[r]]=(Z);end;else local Z=j[r];s[Z]=s[Z](S[0X2][0X11](m,s,Z+1.0));m=(Z);end;else if not(v<0x54)then if v~=85 then s[Q[r]]=s[Y[r]]/s[j[r]];else local Z=(j[r]);s[Z](s[Z+1.0],s[Z+2.0]);m=(Z-1.0);end;else s[j[r]]=(s[Y[r]][s[Q[r]]]);end;end;end;else if v<0X5c then if not(v<89)then if v<0X5A then local Z=(Q[r]);m=(Z+Y[r]-1.0);(s[Z])(S[0X2][0x11](m,s,Z+1.0));m=(Z-1.0);else if v~=91 then(s)[Q[r]]=({});else local Z,K,W,l,R,B,V,N=0x14,15.0,(7.0);while true do if Z==20.0 then N=(-1490944.0);l=(0);Z=99+(S[0X2][0XC][15.0]((S[2][12][11.0](Z<=Z and Z or v))+Z,(Z)));elseif Z==99.0 then R=4503599627370495;l=l*R;break;end;end;local w;R=(S[0X2][0xC]);local T=14.0;Z=0x0052;while true do if Z==82.0 then V=(12.0);Z=(-3607101430+(S[0x2][0XC][8.0]((S[2][0Xc][10.0](Z,(23)))+v-v)));elseif Z~=9.0 then else R=R[V];V=S[0x2][0Xc];break;end;end;local z;V=V[K];Z=66;while true do if Z<66.0 then K=K[B];break;elseif Z>57.0 then K=(S[0x2][0Xc]);B=(9.0);Z=0X39+(S[2][12][15.0]((S[0x2][0Xc][7.0]((S[2][0Xc][15.0](Z,(0x9))),v))-v,(16)));end;end;Z=3;while true do if Z<=3.0 then B=(S[0X002][12]);Z=-82+(((S[2][12][9.0](Z,(Z)))+Z==Z and Z or v)-Z);else if not(Z<45.0)then B=B[z];break;else z=6.0;Z=(-0X4E+((S[0X2][12][13.0]((v>=Z and v or v)-v))+v));end;end;end;z=S[0X2][0XC];z=(z[T]);local g;T=(S[0X2][12]);T=(T[W]);Z=51;while true do if not(Z<=51.0)then g=(v);break;else W=L[r];Z=-3758176138+(S[0X2][0X00c][8.0]((S[0X2][0Xc][15.0]((S[2][12][9.0](Z-v,(0Xe))),(0X3)))));end;end;W=W~=g;if not(W)then else W=L[r];end;if not W then W=v;end;Z=(0X2c);while true do if not(Z>27.0)then if Z==5.0 then T=T(W,g,w);break;else W=W+g;Z=-0X5d+(v-Z+v-Z+Z);end;else if Z~=62.0 then g=L[r];Z=(-0x57Fe5+(S[2][0Xc][9.0]((S[2][0X0c][9.0](Z+Z>=v and Z or Z,(21))),(S[0x2][0xC][16.0](">i8",'\0\0\0\0\0\0\0\24')))));else g=(L[r]);w=L[r];Z=-0x27FffffB+(S[2][12][10.0]((S[2][0Xc][8.0](v+Z+Z)),(24)));end;end;end;Z=(68);while true do if not(Z<=22.0)then if Z~=83.0 then z=z(T);T=(v);W=v;Z=(-0X7A+((S[0x2][0Xc][7.0](v-Z))+v+v));else B=B(z,T,W);Z=(-0X45+((S[2][12][8.0]((Z~=v and v or Z)>v and Z or Z))<=v and v or v));end;else z=(0x12);break;end;end;K=K(B,z);Z=(116);while true do if Z<116.0 then K=S[0X2][0X0c];break;elseif Z>67.0 then B=(0X11);V=V(K,B);Z=-3489660861+(S[2][12][7.0]((S[0X2][12][10.0]((S[0X2][0XC][10.0]((S[2][12][12.0](Z,(0X1D))),(0X0b))),(12)))));end;end;Z=(117);while true do if Z<111.0 then K=(K[B]);Z=(0X14+((S[0X2][12][10.0]((S[2][0Xc][13.0](Z+v)),(6)))==v and Z or v));elseif Z>111.0 then B=(16.0);Z=(80+((S[0X2][12][11.0]((S[0X2][12][13.0](Z)),v,v))+v-v));elseif not(Z<117.0 and Z>80.0)then else B=("<i8");break;end;end;z=('\19\0\0\0\0\0\0\0');K=K(B,z);R=R(V,K);Z=0X45;while true do if Z==69.0 then l=l+R;Z=(74+((Z+Z+Z>Z and v or v)-Z));elseif Z==96.0 then N=(N+l);Z=(-4294967135+(S[0X2][12][7.0]((v>=Z and v or Z)-Z-v,v,Z)));elseif Z==63.0 then L[r]=(N);N=(Q[r]);break;end;end;r=N;end;end;else if not(v<87)then if v~=0X58 then for Z=j[r],Q[r]do(s)[Z]=nil;end;else local Z=q[Q[r]];Z[0X2][Z[0X1]]=s[Y[r]];end;else(s)[j[r]]=q[Q[r]][F[r]];end;end;else if not(v<0X5f)then if not(v<0x61)then if v~=98 then local Z=(Q[r]);s[Z]=s[Z](s[Z+1.0]);m=Z;else(s)[Q[r]]=(F[r]+s[j[r]]);end;else if v~=0X60 then x=(A[0X5]);c=A[0X4];n=A[0X1];A=A[0x2];else s[j[r]]=(s[Q[r]]..s[Y[r]]);end;end;else if not(v<0X5d)then if v~=0x5e then(s)[Q[r]]=X[O];else s[Q[r]]=(E);end;else local E=(q[Y[r]]);s[j[r]]=E[0X2][E[1]];end;end;end;end;elseif not(v>=0X3D)then if not(v>=0X37)then if not(v<0X34)then if v>=0X35 then if v~=54 then(s)[j[r]]=s[Y[r]][C[r]];else s[Q[r]]=s[Y[r]];end;else(s)[Y[r]]=nil;end;else if v<50 then(s)[Q[r]]=F[r]%e[r];else if v==0X33 then(s)[j[r]]=(s[Y[r]]>s[Q[r]]);else if b then for E,Z in b do if E>=1.0 then Z[0X2]=Z;(Z)[0X3]=(s[E]);Z[1]=3;(b)[E]=(nil);end;end;end;local E=Q[r];return false,E,E+j[r]-2.0;end;end;end;else if v<58 then if not(v<56)then if v~=57 then local E=Y[r];m=E+Q[r]-1.0;(s)[E]=s[E](S[0X2][0X11](m,s,E+1.0));m=E;else if not(b)then else for E,Z in b do if not(E>=1.0)then else(Z)[0X002]=(Z);(Z)[3]=(s[E]);(Z)[0x1]=3;b[E]=nil;end;end;end;return true,Y[r],1.0;end;else local E=(q[j[r]]);(E[2][E[1]])[s[Q[r]]]=(s[Y[r]]);end;else if not(v>=59)then(s)[Y[r]]=(s[Q[r]]-s[j[r]]);else if v==60 then if b then for E,Z in b do if not(E>=1.0)then else Z[2]=Z;(Z)[3]=s[E];(Z)[1]=(0X3);(b)[E]=nil;end;end;end;return false,Q[r],m;else s[j[r]]=F[r]*s[Q[r]];end;end;end;end;else if not(v<0X43)then if v<70 then if v>=68 then if v==0X45 then local E=Y[r];(s[E])(S[0x2][17](m,s,E+1.0));m=(E-1.0);else if s[Y[r]]~=e[r]then r=Q[r];end;end;else local E,Z,K=(4);while true do if E>4.0 then K=0;break;elseif not(E<19.0)then else Z=(-35.0);E=(0xf+((S[2][12][6.0]((S[0x2][12][7.0](v,E,E)),E))-v<v and E or v));end;end;local W,l=13.0,(4503599627370495);K=K*l;l=(S[0X2][12]);local R;E=(17);while true do if E<60.0 then R=8.0;E=-4294410179+(S[0X2][0XC][8.0]((S[0X2][12][12.0]((Y[r]==E and E or Y[r])<Y[r]and E or E,(E)))));elseif E>17.0 then l=l[R];break;end;end;R=(S[0x2][0Xc]);R=(R[W]);E=0x31;while true do if E>=92.0 then R=R(W);W=(L[r]);break;else W=L[r];E=0X5b+((S[2][12][14.0]((S[0X2][0Xc][6.0]((S[2][0Xc][6.0](E)),E,E))))==Y[r]and Y[r]or Y[r]);end;end;R=(R-W);W=(v);E=89;while true do if E>89.0 then if E~=115.0 then l=l(R);E=(114+((S[2][0XC][11.0](E))+Y[r]+v>v and Y[r]or v));else R=L[r];E=(0X33+(S[2][12][13.0]((S[0X2][0xc][8.0](v+Y[r]))-E)));end;else if E<89.0 then l=(l==R);if not(l)then else l=Y[r];end;break;else R=(R+W);E=(11+((S[0X2][12][12.0]((Y[r]>=Y[r]and E or E)+v,Y[r]))<E and E or E));end;end;end;if not l then l=v;end;R=(v);E=15;while true do if E==15.0 then l=l~=R;if l then l=(v);end;E=(32+(S[0X2][0xC][13.0](Y[r]-v-Y[r]-Y[r])));elseif E==34.0 then if not(not l)then else l=L[r];end;R=(Y[r]);E=(-0X29+(S[2][0XC][6.0](E-Y[r]-Y[r]+E)));elseif E==25.0 then l=(l<=R);break;end;end;E=0X39;while true do if E>=68.0 then if not l then l=(L[r]);end;break;else if not(l)then else l=(L[r]);end;E=0XB+((S[2][12][14.0](v-Y[r]-v))>v and v or E);end;end;R=(L[r]);l=(l==R);if not(l)then else l=L[r];end;if not(not l)then else l=L[r];end;E=(24);while true do if E==24.0 then K=K+l;Z=Z+K;E=(0x16+(Y[r]+E-E+Y[r]>=E and E or Y[r]));elseif E==23.0 then(L)[r]=Z;break;end;end;E=(45);while true do if E<45.0 and E>26.0 then K=(Y[r]);E=(103+(S[2][0Xc][9.0]((Y[r]+v<Y[r]and Y[r]or E)-E,Y[r])));elseif E>45.0 then l=(t);E=(-77+(S[2][0Xc][6.0]((S[0X2][0Xc][7.0](Y[r]+v,v))>=Y[r]and E or E,E)));elseif E<40.0 then R=e[r];break;elseif not(E<103.0 and E>40.0)then else Z=s;E=(13+(S[0X2][0Xc][14.0]((S[2][0xC][15.0]((S[0X2][0X00C][11.0](E-Y[r],E,E)),Y[r])))));end;end;l=(l[R]);(Z)[K]=l;end;else if v>=0x48 then if v~=0X49 then s[Q[r]]=(not s[Y[r]]);else(s[Q[r]])[e[r]]=(s[Y[r]]);end;else if v~=71 then s[Q[r]]=(s[Y[r]]==e[r]);else A=({[5]=x,[1]=n,[0X2]=A,[0X4]=c});local E=Q[r];n=(s[E+2.0]+0.0);c=s[E+1.0]+0.0;x=s[E]-n;r=(j[r]);end;end;end;else if v>=64 then if v>=65 then if v==66 then m=j[r];s[m]=s[m]();else if not(s[j[r]]<C[r])then r=(Y[r]);end;end;else(s)[Q[r]]=s[Y[r]]^s[j[r]];end;else if not(v>=62)then local E,Z=Q[r],Y[r];if Z~=0.0 then m=E+Z-1.0;end;local K,W,l=(j[r]);if Z~=1.0 then W,l=S[2][42](s[E](S[2][17](m,s,E+1.0)));else W,l=S[0X2][42](s[E]());end;if K==1.0 then m=E-1.0;else if K==0.0 then W=(W+E-1.0);m=(W);else W=E+K-2.0;m=W+1.0;end;Z=0.0;for K=E,W do Z=Z+1.0;(s)[K]=(l[Z]);end;end;else if v==63 then if not s[j[r]]then r=Y[r];end;else(S[2][12])[j[r]]=(s[Q[r]]);end;end;end;end;end;else if not(v>=0x18)then if v<0Xc then if not(v<0x6)then if not(v>=0X9)then if v<0X7 then if not(not(s[j[r]]<s[Q[r]]))then else r=(Y[r]);end;else if v==8 then s[Y[r]]=(s[j[r]]%s[Q[r]]);else s[Y[r]]=S[0X1](Q[r]);end;end;else if not(v<0XA)then if v==0Xb then local E=(j[r]);local Z,K,W=x();if not(Z)then else s[E+1.0]=(K);s[E+2.0]=(W);r=(Q[r]);end;else local E=(false);x=x+n;if n<=0.0 then E=x>=c;else E=(x<=c);end;if E then(s)[Y[r]+3.0]=x;r=j[r];end;end;else s[Q[r]][s[Y[r]]]=(e[r]);end;end;else if v>=0X3 then if v>=0X4 then if v==0x5 then s[j[r]]=(L);else(s)[Q[r]]=(s[Y[r]]-e[r]);end;else local E=(Q[r]);local Z=s[E];local K=(Y[r]);S[3](s,E+1.0,m,K+1.0,Z);end;else if not(v>=1)then r=Q[r];else if v==0X2 then s[Y[r]]=s[Q[r]]%e[r];else(s)[j[r]]=(S[0X5](s[Q[r]],F[r]));end;end;end;end;else if v<0X12 then if v<15 then if not(v>=13)then s[Y[r]]=(s[j[r]]*s[Q[r]]);else if v==0Xe then(s)[Q[r]]=s[j[r]]+s[Y[r]];else(s)[Q[r]]=(s);end;end;else if not(v>=16)then s[Y[r]]=e[r]^s[Q[r]];else if v==17 then else if not(b)then else for E,Z in b do if E>=1.0 then Z[2]=Z;(Z)[0X3]=s[E];(Z)[1]=3;b[E]=(nil);end;end;end;local E=(j[r]);m=E+1.0;return true,E,2.0;end;end;end;else if v>=0X15 then if not(v>=0X16)then M=Q[r];for E=1.0,M do(s)[E]=(X[E]);end;O=(M+1.0);else if v==23 then local E,Z=Q[r],s[Y[r]];s[E+1.0]=(Z);(s)[E]=Z[e[r]];else s[Q[r]]=s[Y[r]]/e[r];end;end;else if not(v<0X13)then if v==20 then if s[j[r]]~=s[Q[r]]then r=(Y[r]);end;else s[Y[r]]=(q[Q[r]][s[j[r]]]);end;else(s)[Q[r]]=(s[j[r]]>=s[Y[r]]);end;end;end;end;else if not(v<36)then if not(v<42)then if v>=45 then if not(v>=47)then if v==0x02e then if not(b)then else for E,Z in b do if not(E>=1.0)then else(Z)[2]=Z;Z[3]=(s[E]);Z[0X1]=3;(b)[E]=(nil);end;end;end;return;else if not(C[r]<s[Y[r]])then r=j[r];end;end;else if v==48 then A=({[0X5]=x,[1]=n,[0x2]=A,[0X4]=c});m=(Q[r]);local E=S[0X6](function(...)(S[2][23])();for n,c in...do(S[0X2][0X17])(true,n,c);end;end);(E)(s[m],s[m+1.0],s[m+2.0]);x=(E);r=Y[r];else(q[Q[r]])[s[Y[r]]]=(s[j[r]]);end;end;else if not(v<43)then if v~=44 then s[Y[r]][s[j[r]]]=(s[Q[r]]);else local E,n,x=_-M-1.0,0.0,(j[r]);if not(E<0.0)then else E=-1.0;end;for _=x,x+E do s[_]=(X[O+n]);n=n+1.0;end;m=x+E;end;else if b then for E,_ in b do if not(E>=1.0)then else(_)[2]=(_);_[0x3]=(s[E]);(_)[0X1]=(3);(b)[E]=(nil);end;end;end;local E=(Y[r]);return false,E,E;end;end;else if not(v>=0x27)then if v>=37 then if v==0x26 then if not(s[Y[r]])then else r=(Q[r]);end;else for E=1.0,j[r]do s[E]=(X[E]);end;end;else local E=(C[r]);local _=(E[1]);local X=#_;local O=X>0.0 and{};local M=S[2][0X2b](E,O);S[4](M,t);s[Y[r]]=(M);if O then for n=1.0,X do M=(_[n]);E=(M[0X2]);local _=(M[1]);if E==0.0 then if not(not b)then else b=({});end;local X=b[_];if not(not X)then else X=({[1]=_,[0X002]=s});b[_]=X;end;(O)[n-1.0]=(X);elseif E==1.0 then(O)[n-1.0]=(s[_]);else O[n-1.0]=q[_];end;end;end;end;else if not(v<0X28)then if v==0X29 then local E,_,X,O,M,n=(79);while true do if E>89.0 then n=0;E=(-4294966102+(S[2][12][9.0](E-v-E-E,Y[r])));elseif E<89.0 then _=(-4.29496446E9);E=256+((S[2][0X00C][15.0]((S[2][12][13.0](Y[r])),Y[r]))-E-E);elseif not(E>79.0 and E<98.0)then else M=4503599627370495;break;end;end;local x;n=(n*M);local c;E=(0x3a);while true do if E==58.0 then M=(S[2][12]);E=(0x17+((S[2][0xc][10.0]((S[0X02][12][14.0](E))-E,Y[r]))<v and E or E));elseif E==81.0 then X=10.0;E=(-500+(S[0X2][0Xc][10.0](v-v+E-Y[r],Y[r])));elseif E==124.0 then M=(M[X]);E=(0X2+((S[2][12][13.0](E==v and E or E))+Y[r]==v and E or v));elseif E==43.0 then X=S[0X2][0XC];E=131+(Y[r]-v-v-v+Y[r]);elseif E==14.0 then c=8.0;X=(X[c]);E=48+(((S[0X02][0Xc][14.0](Y[r]+E))==v and E or E)-v);elseif E==21.0 then c=S[0x2][0Xc];O=(10.0);E=-4294967183+((S[0X2][12][8.0](E-E))-E+E);elseif E==112.0 then c=(c[O]);break;end;end;local A;O=(S[0x2][12]);local Z=6.0;E=17;while true do if E<60.0 then A=(10.0);E=77+((S[0x2][0XC][13.0]((S[0x2][12][8.0](E))+E))-E);elseif E>17.0 then O=O[A];break;end;end;A=S[0X2][0XC];A=A[Z];E=0X3d;while true do if E>61.0 then if E<=119.0 then Z=(Z[x]);x=v;break;else x=15.0;E=(-4294967059+(S[0X2][0xc][8.0](v+E-Y[r]-v)));end;else Z=(S[0X2][0Xc]);E=-4294966933+(S[0x2][0XC][7.0]((S[0X2][0Xc][10.0](Y[r]-v,Y[r]))+E));end;end;local K=(Y[r]);Z=Z(x,K);E=(123);while true do if E<123.0 and E>30.0 then A=(Y[r]);break;elseif E<101.0 then O=O(A,Z);E=-4294967043+(S[2][0XC][10.0]((Y[r]<v and v or v)-E-E,Y[r]));elseif E>101.0 then A=A(Z);Z=(Y[r]);E=-4294967241+(S[0X2][12][8.0]((S[0X002][0Xc][10.0](E-E==Y[r]and E or Y[r],Y[r]))));end;end;O=O+A;A=Y[r];c=c(O,A);O=Y[r];c=c+O;E=(0X28);while true do if E>26.0 then if E>=103.0 then c=Y[r];E=(126+(((S[2][12][14.0]((S[0X2][12][8.0](Y[r]))))==E and v or Y[r])-E));else X=X(c);E=(93+(S[2][12][12.0](((v==Y[r]and Y[r]or Y[r])>E and E or E)+E,Y[r])));end;else M=M(X,c);break;end;end;E=0X11;while true do if not(E>60.0)then if E>=60.0 then n=Y[r];E=-18+((S[0X2][0xC][6.0](E+v,E,v))+v-v);else n=(n+M);_=_+n;(L)[r]=(_);_=(s);E=(-0X5FffFfBF+(S[2][0XC][12.0]((S[2][12][13.0]((S[2][0XC][9.0](Y[r],Y[r]))))-v,Y[r])));end;else if E~=78.0 then M=(nil);E=-4294966965+((S[0X2][12][8.0](E+v+E))+Y[r]);else _[n]=M;break;end;end;end;else local E,_,X,O,M,n,x=6.0,14;while true do if _>14.0 then M=4503599627370495;break;elseif not(_<21.0)then else X=0;_=(18+(_+v-v+j[r]==_ and _ or j[r]));end;end;local c;X=(X*M);M=S[0X2][0X00C];M=M[E];_=0X1C;while true do if _==28.0 then E=S[2][0Xc];_=10+(S[0x2][0xc][7.0](_+v-j[r]+v,v));elseif _==75.0 then O=(7.0);break;end;end;E=(E[O]);_=(88);while true do if _==88.0 then O=(S[0X2][0X0c]);_=-0X1869+(S[0x2][12][7.0]((S[0X2][12][10.0]((S[2][12][10.0](_,j[r]))+_,j[r]))));else x=(8.0);break;end;end;O=(O[x]);local A=-78.0;_=0x10;while true do if _<47.0 then x=(S[0X2][12]);_=-4272881617+(S[2][12][10.0]((S[2][0XC][8.0]((S[2][0XC][10.0](v,j[r]))))-_,(_)));elseif _<66.0 and _>16.0 then c=9.0;x=(x[c]);_=0X3B+((S[0X2][0xc][11.0]((S[2][12][12.0](v,j[r])),v))+_-v);elseif _>47.0 then c=(v);n=(j[r]);break;end;end;_=(67);while true do if _==67.0 then x=x(c,n);_=110+((S[2][0XC][10.0]((S[0x2][12][13.0](j[r]==_ and _ or _)),j[r]))-v);elseif _==70.0 then O=O(x);_=69+((S[0X2][0xC][14.0]((_>=v and j[r]or _)-v))<=j[r]and v or _);elseif _~=109.0 then else x=(j[r]);O=(O+x);break;end;end;x=L[r];_=28;while true do if _==28.0 then E=E(O,x);_=(47+((S[0X2][12][13.0]((S[2][12][11.0]((S[0X2][0XC][12.0](_,j[r])),_,v))))>_ and _ or _));elseif _==75.0 then O=(L[r]);_=(-4294967174+(S[0X02][0Xc][8.0]((S[2][12][11.0]((S[0X2][12][13.0](_))~=v and _ or _,_,_)))));elseif _==46.0 then E=E-O;_=-4294967187+((S[2][12][8.0]((S[0X2][12][7.0](_+_,j[r]))))+v);elseif _==53.0 then O=v;_=(-4294966959+(S[0x2][0Xc][8.0]((S[2][12][10.0](v+_-_,j[r])))));elseif _~=16.0 then else E=E==O;break;end;end;if E then E=(v);end;if not E then E=L[r];end;_=62;while true do if _>5.0 then O=(L[r]);E=(E+O);_=-159+(((S[0x2][0XC][11.0](_,_,_))~=_ and v or _)+v+_);elseif not(_<62.0)then else O=j[r];break;end;end;x=j[r];_=0X5C;while true do if _<92.0 then X=(X+M);_=79+(S[2][12][14.0]((S[2][0Xc][13.0]((_==_ and _ or _)+_))));elseif _>92.0 then A=(A+X);break;elseif not(_<110.0 and _>11.0)then else M=M(E,O,x);_=-4294966556+(S[2][0XC][9.0]((S[2][0Xc][11.0]((S[2][12][14.0](_)),_,j[r]))-_,j[r]));end;end;L[r]=(A);_=0X48;while true do if _==72.0 then A=s;_=-63+(S[2][0X00C][8.0]((S[2][12][15.0]((S[2][12][15.0](_,j[r])),j[r]))-_));else X=j[r];break;end;end;M=L;A[X]=M;end;else s[Y[r]]=C[r];end;end;end;else if v<30 then if not(v<0X1b)then if v>=0X1c then if v==29 then s[j[r]]=s[Q[r]]~=s[Y[r]];else(s)[j[r]]=(#s[Q[r]]);end;else if not(b)then else for E,_ in b do if E>=1.0 then(_)[2]=(_);_[3]=(s[E]);(_)[0x1]=3;(b)[E]=(nil);end;end;end;return true,j[r],0.0;end;else if not(v>=25)then local E=q[Q[r]];s[Y[r]]=E[2][E[0x1]][s[j[r]]];else if v~=26 then s[j[r]]=(Q);else s[j[r]]=(S[0X2][0XC][Y[r]]);end;end;end;else if v<0X21 then if v>=0X1F then if v==0X20 then s[Y[r]]=t[e[r]];else if not(not(F[r]<=s[Q[r]]))then else r=j[r];end;end;else(s)[Q[r]]=(S[5](s[j[r]],s[Y[r]]));end;else if v<0x22 then local E=Y[r];(s[E])(s[E+1.0]);m=E-1.0;else if v~=35 then(s)[j[r]]=(s[Y[r]]+C[r]);else s[Q[r]]=(s[j[r]]*F[r]);end;end;end;end;end;end;end;r=r+1.0;until false;end);if a then if G then if U==1.0 then return s[H]();else return s[H](S[2][0x11](m,s,H+1.0));end;else if not(H)then else return S[0X2][0X11](U,s,H);end;end;else if b then for E,q in b do if not(E>=1.0)then else q[2]=q;(q)[0x3]=s[E];(q)[1]=(3);(b)[E]=(nil);end;end;end;if S[2][0x1F](G)=='stri\110\103'then if not(S[2][0X13](G,'\58\40%\100+)[:\13\n\93'))then S[0X7](G,0.0);else S[7]("Luraph \83cr\105pt:"..(p[r]or'(i\110t\101rnal\41')..": "..S[0x2][0x14](G),0.0);end;else S[0X7](G,0.0);end;end;end);return h;end);if not(not d[0X4b1F])then f=(d[19231]);else f=58+(P.wo((P.Oo((P.Jo(P.a[1]))>d[7434]and d[0X4619]or d[16827],f))));d[0X4b1f]=(f);end;elseif f>68.0 then P:jm(D);return 0X00E94f,f;elseif f>16.0 and f<47.0 then D[0X24]=(function()local E,q=({D});q=P:Wm(E);if q~=nil then return P.J(q);end;end);if not d[0X5897]then f=(79+((P.wo(P.a[9]+d[0X3D76]))-d[0x2418]+d[29242]));d[22679]=f;else f=(d[22679]);end;else if f<46.0 then D[39]=(function()local E,q,S,_={D,D[11]},0X66;repeat if q~=13.0 then q=(0xd);_=E[0X1][0x26]();if E[1][0x18]==E[1][0xD]then S=P:km(E);if S==nil then else return P.J(S);end;else if _>=E[0X1][0XD]then return _-E[0X1][29];end;end;else return _;end;until false;end);if not(not d[0X6Ccc])then f=(d[0X6CCC]);else f=(-2147483665+((P.ho((P.Ko(d[23633],d[0x165D],d[23566]))-d[26849],(d[5725])))+d[0x170f]));(d)[27852]=f;end;end;end;end;return nil,f;end,W=function(P,d,f,D,E)local q;(D)[18]=P._.bxor;(D)[0x13]=nil;D[20]=(nil);D[21]=nil;d=(0X50);while true do if d<111.0 then(D)[19]=P.Xo;if not(not f[30320])then d=(f[0X7670]);else d=P:r(d,f);end;else if not(d>80.0)then else(D)[0X14]=P.V;D[21]=P.i;break;end;end;end;(D)[0X016]=nil;(D)[0X17]=nil;D[24]=nil;d=37;repeat q,d=P:u(D,d,f,E);if q~=0X9536 then else break;end;until false;return d;end,t=function(P,d,f,D)if d>89.0 then D[16]=P.mo;return 0X658E,d;else if not(d<100.0)then else D[0xE]=P.Yo;(D)[15]=(function(E,q,S,_)_={D};if not(S>q)then else return;end;local D=(q-S+1.0);if D>=8.0 then return E[S],E[S+1.0],E[S+2.0],E[S+3.0],E[S+4.0],E[S+5.0],E[S+6.0],E[S+7.0],_[1][0xF](E,q,S+8.0);elseif D>=7.0 then return E[S],E[S+1.0],E[S+2.0],E[S+3.0],E[S+4.0],E[S+5.0],E[S+6.0],_[1][15](E,q,S+7.0);elseif D>=6.0 then return E[S],E[S+1.0],E[S+2.0],E[S+3.0],E[S+4.0],E[S+5.0],_[1][15](E,q,S+6.0);else if D>=5.0 then return E[S],E[S+1.0],E[S+2.0],E[S+3.0],E[S+4.0],_[0X1][0Xf](E,q,S+5.0);else if D>=4.0 then return E[S],E[S+1.0],E[S+2.0],E[S+3.0],_[1][0Xf](E,q,S+4.0);elseif D>=3.0 then return E[S],E[S+1.0],E[S+2.0],_[0X1][0Xf](E,q,S+3.0);else if D>=2.0 then return E[S],E[S+1.0],_[1][15](E,q,S+2.0);else return E[S],_[1][15](E,q,S+1.0);end;end;end;end;end);if not(not f[13333])then d=f[13333];else d=-3635766021+(P.zo(((P.Oo(P.a[0X9],P.a[0X07]))>f[0X5C51]and P.a[0X5]or f[0X36AB])+P.a[7],(f[27004])));f[0X3415]=(d);end;end;end;return nil,d;end,Vm=function(P,d,f,D,E,q,S,_,p,Q,C,j)local Y,e;for L=66,100,17 do if L>83.0 then(f)[0X6]=S;for F=1.0,j[0X03](),0X1 do F=(nil);local h,s=0X4c;repeat Y,h,s,F=P:xm(s,F,j,h);if Y==48704 then break;end;until false;h=(81);repeat if h>81.0 then e=e+1.0;break;else if h<124.0 then h=(0X7C);if F%2.0==0.0 then(S)[e]=(s-s%1.0);else e=j[3]();local F=j[3]();for h=s-s%1.0,e,0X1 do if j[0X4]~=s then else for s=54,301,0x7A do if not(s>54.0)then Y=P:pm(j);if Y==nil then else return q,D,Q,C,p,d,{P.J(Y)},E,_;end;else j[1][12]=(209);break;end;end;end;(S)[h]=F;end;end;end;end;until false;end;elseif L<83.0 then e=(1.0);else if not(L>66.0 and L<100.0)then else P:Gm(f,j);end;end;end;D=(j[1][0x26]()-64826);Q=j[2](D);p=j[0X2](D);E=nil;q=(nil);C=(nil);d=(nil);for S=0Xb,0X0AF,66 do if S<143.0 and S>11.0 then q=j[0X2](D);C=j[2](D);else if S<77.0 then E=j[0X2](D);else if S>77.0 then d=j[2](D);break;end;end;end;end;_=nil;for S=111,0xbF,80 do if S==0X6F then _=j[0x2](D);else if S==0xbf then(f)[7.0]=(E);end;end;end;if j[0X1][0XF]~=D then else Y=P:Bm();return q,D,Q,C,p,d,{P.J(Y)},E,_;end;for S=79,0X9d,39 do P:_m(S,q,f,Q,d);end;(f)[4.0]=_;return q,D,Q,C,p,d,nil,E,_;end,Ko=bit32.bxor}):Po()(...);
+LPH_NO_VIRTUALIZE(function()
+	local loadstring = function(...)
+		local res, err = loadstring(...)
+		if err and vape then
+			vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+		end
+		return res
+	end
+	local isfile = isfile or function(file)
+		local suc, res = pcall(function()
+			return readfile(file)
+		end)
+		return suc and res ~= nil and res ~= ''
+	end
+	local run = function(func) task.wait() func() end
+	local function downloadFile(path, func)
+		if not isfile(path) then
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/qwertyui-is-back/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			end)
+			if not suc or res == '404: Not Found' then
+				error(res)
+			end
+			if path:find('.lua') then
+				res = '\n'..res
+			end
+			writefile(path, res)
+		end
+		return (func or readfile)(path)
+	end
+	local queue_on_teleport = queue_on_teleport or function() end
+	local cloneref = cloneref or function(obj)
+		return obj
+	end
+
+	local playersService = cloneref(game:GetService('Players'))
+	local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+	local runService = cloneref(game:GetService('RunService'))
+	local inputService = cloneref(game:GetService('UserInputService'))
+	local tweenService = cloneref(game:GetService('TweenService'))
+	local lightingService = cloneref(game:GetService('Lighting'))
+	local marketplaceService = cloneref(game:GetService('MarketplaceService'))
+	local teleportService = cloneref(game:GetService('TeleportService'))
+	local httpService = cloneref(game:GetService('HttpService'))
+	local guiService = cloneref(game:GetService('GuiService'))
+	local groupService = cloneref(game:GetService('GroupService'))
+	local textChatService = cloneref(game:GetService('TextChatService'))
+	local contextService = cloneref(game:GetService('ContextActionService'))
+	local coreGui = cloneref(game:GetService('CoreGui'))
+
+	local gameCamera = workspace.CurrentCamera or workspace:FindFirstChildWhichIsA('Camera')
+	local lplr = playersService.LocalPlayer
+	local assetfunction = getcustomasset
+	shared.vape.hackerTable = {}
+
+	local vape = shared.vape
+	local tween = vape.Libraries.tween
+	local targetinfo = vape.Libraries.targetinfo
+	local getfontsize = vape.Libraries.getfontsize
+	local getcustomasset = vape.Libraries.getcustomasset
+
+	local TargetStrafeVector, SpiderShift, WaypointFolder
+	local Spider = {Enabled = false}
+	local Phase = {Enabled = false}
+
+	local function addBlur(parent)
+		local blur = Instance.new('ImageLabel')
+		blur.Name = 'Blur'
+		blur.Size = UDim2.new(1, 89, 1, 52)
+		blur.Position = UDim2.fromOffset(-48, -31)
+		blur.BackgroundTransparency = 1
+		blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
+		blur.ScaleType = Enum.ScaleType.Slice
+		blur.SliceCenter = Rect.new(52, 31, 261, 502)
+		blur.Parent = parent
+		return blur
+	end
+
+	local function calculateMoveVector(vec)
+		local c, s
+		local _, _, _, R00, R01, R02, _, _, R12, _, _, R22 = gameCamera.CFrame:GetComponents()
+		if R12 < 1 and R12 > -1 then
+			c = R22
+			s = R02
+		else
+			c = R00
+			s = -R01 * math.sign(R12)
+		end
+		vec = Vector3.new((c * vec.X + s * vec.Z), 0, (c * vec.Z - s * vec.X)) / math.sqrt(c * c + s * s)
+		return vec.Unit == vec.Unit and vec.Unit or Vector3.zero
+	end
+
+	local function isFriend(plr, recolor)
+		if vape.Categories.Friends.Options['Use friends'].Enabled then
+			local friend = table.find(vape.Categories.Friends.ListEnabled, plr.Name) and true
+			if recolor then
+				friend = friend and vape.Categories.Friends.Options['Recolor visuals'].Enabled
+			end
+			return friend
+		end
+		return nil
+	end
+
+	local function isTarget(plr)
+		return table.find(vape.Categories.Targets.ListEnabled, plr.Name) and true
+	end
+
+	local function canClick()
+		local mousepos = (inputService:GetMouseLocation() - guiService:GetGuiInset())
+		for _, v in lplr.PlayerGui:GetGuiObjectsAtPosition(mousepos.X, mousepos.Y) do
+			local obj = v:FindFirstAncestorOfClass('ScreenGui')
+			if v.Active and v.Visible and obj and obj.Enabled then
+				return false
+			end
+		end
+		for _, v in coreGui:GetGuiObjectsAtPosition(mousepos.X, mousepos.Y) do
+			local obj = v:FindFirstAncestorOfClass('ScreenGui')
+			if v.Active and v.Visible and obj and obj.Enabled then
+				return false
+			end
+		end
+		return (not vape.gui.ScaledGui.ClickGui.Visible) and (not inputService:GetFocusedTextBox())
+	end
+
+	local function getTableSize(tab)
+		local ind = 0
+		for _ in tab do ind += 1 end
+		return ind
+	end
+
+	local function getTool()
+		return lplr.Character and lplr.Character:FindFirstChildWhichIsA('Tool', true) or nil
+	end
+
+	local function notif(...)
+		return vape:CreateNotification(...)
+	end
+
+	local function removeTags(str)
+		str = str:gsub('<br%s*/>', '\n')
+		return (str:gsub('<[^<>]->', ''))
+	end
+
+	local visited, attempted, tpSwitch = {}, {}, false
+	local cacheExpire, cache = tick()
+	local function serverHop(pointer, filter)
+		visited = shared.vapeserverhoplist and shared.vapeserverhoplist:split('/') or {}
+		if not table.find(visited, game.JobId) then
+			table.insert(visited, game.JobId)
+		end
+		if not pointer then
+			notif('Vape', 'Searching for an available server.', 2)
+		end
+
+		local suc, httpdata = pcall(function()
+			return cacheExpire < tick() and game:HttpGet('https://games.roblox.com/v1/games/'..game.PlaceId..'/servers/Public?sortOrder='..(filter == 'Ascending' and 1 or 2)..'&excludeFullGames=true&limit=100'..(pointer and '&cursor='..pointer or '')) or cache
+		end)
+		local data = suc and httpService:JSONDecode(httpdata) or nil
+		if data and data.data then
+			for _, v in data.data do
+				if tonumber(v.playing) < playersService.MaxPlayers and not table.find(visited, v.id) and not table.find(attempted, v.id) then
+					cacheExpire, cache = tick() + 60, httpdata
+					table.insert(attempted, v.id)
+					
+					notif('Vape', 'Found! Teleporting.', 5)
+					teleportService:TeleportToPlaceInstance(game.PlaceId, v.id)
+					return
+				end
+			end
+
+			if data.nextPageCursor then
+				serverHop(data.nextPageCursor, filter)
+			else
+				notif('Vape', 'Failed to find an available server.', 5, 'warning')
+			end
+		else
+			notif('Vape', 'Failed to grab servers. ('..(data and data.errors[1].message or 'no data')..')', 5, 'warning')
+		end
+	end
+
+	vape:Clean(lplr.OnTeleport:Connect(function()
+		if not tpSwitch then
+			tpSwitch = true
+			queue_on_teleport("shared.vapeserverhoplist = '"..table.concat(visited, '/').."'\nshared.vapeserverhopprevious = '"..game.JobId.."'")
+		end
+	end))
+
+	local frictionTable, oldfrict, weatherlib, entitylib = {}, {}, {}
+	getgenv().frictionTable = frictionTable
+	local function updateVelocity()
+		if getTableSize(frictionTable) > 0 then
+			if entitylib.isAlive then
+				for _, v in entitylib.character.Character:GetChildren() do
+					if v:IsA('BasePart') and v.Name ~= 'HumanoidRootPart' and not oldfrict[v] then
+						oldfrict[v] = v.CustomPhysicalProperties or 'none'
+						v.CustomPhysicalProperties = PhysicalProperties.new(0.0001, 0.2, 0.5, 1, 1)
+					end
+				end
+			end
+		else
+			for i, v in oldfrict do
+				i.CustomPhysicalProperties = v ~= 'none' and v or nil
+			end
+			table.clear(oldfrict)
+		end
+	end
+	getgenv().updateVelocity = updateVelocity
+
+	local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
+	local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
+	entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
+
+	weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
+	weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()
+	weatherlib.Snow = loadstring(downloadFile('catrewrite/libraries/Weather/Snow.lua'), 'Lightning')()
+
+	local whitelist = {
+		alreadychecked = {},
+		customtags = {},
+		data = {WhitelistedUsers = {}},
+		hashes = setmetatable({}, {
+			__index = function(_, v)
+				return hash and hash.sha512(v..'SelfReport') or ''
+			end
+		}),
+		hooked = false,
+		loaded = false,
+		localprio = 0,
+		ignores = {},
+		said = {}
+	}
+
+	local downButton
+	do
+		if lplr.PlayerGui:FindFirstChild('TouchGui') and lplr.PlayerGui.TouchGui:FindFirstChild('TouchControlFrame') and lplr.PlayerGui.TouchGui.TouchControlFrame:FindFirstChild('JumpButton') then
+			local jump = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+			downButton = jump:Clone()
+			downButton.Parent = lplr.PlayerGui.TouchGui.TouchControlFrame
+			downButton.Name = 'DownButton'
+			downButton.Position = UDim2.fromScale(jump.Position.X.Scale - 0.08, jump.Position.Y.Scale)
+			downButton.Visible = false
+			downButton.ImageRectOffset = Vector2.new(0, 146)
+			downButton.Image = 'rbxassetid://116011397928605'
+			
+			vape:Clean(downButton.MouseButton1Down:Connect(function()
+				downButton.ImageRectOffset = Vector2.new(146, 146)
+			end))
+			vape:Clean(downButton.MouseButton1Up:Connect(function()
+				downButton.ImageRectOffset = Vector2.new(0, 146)
+			end))
+			
+			vape:Clean(downButton)
+		end
+	end
+
+	vape.Libraries.entity = entitylib
+	vape.Libraries.whitelist = whitelist
+	vape.Libraries.prediction = prediction
+	vape.Libraries.hash = hash
+	vape.DownButton = downButton
+	vape.Libraries.auraanims = {
+		Normal = {
+			{CFrame = CFrame.new(-0.17, -0.14, -0.12) * CFrame.Angles(math.rad(-53), math.rad(50), math.rad(-64)), Time = 0.1},
+			{CFrame = CFrame.new(-0.55, -0.59, -0.1) * CFrame.Angles(math.rad(-161), math.rad(54), math.rad(-6)), Time = 0.08},
+			{CFrame = CFrame.new(-0.62, -0.68, -0.07) * CFrame.Angles(math.rad(-167), math.rad(47), math.rad(-1)), Time = 0.03},
+			{CFrame = CFrame.new(-0.56, -0.86, 0.23) * CFrame.Angles(math.rad(-167), math.rad(49), math.rad(-1)), Time = 0.03}
+		},
+		Astral = {
+			{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
+			{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
+			{CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
+		},
+		Random = {},
+		['Horizontal Spin'] = {
+			{CFrame = CFrame.Angles(math.rad(-10), math.rad(-90), math.rad(-80)), Time = 0.12},
+			{CFrame = CFrame.Angles(math.rad(-10), math.rad(180), math.rad(-80)), Time = 0.12},
+			{CFrame = CFrame.Angles(math.rad(-10), math.rad(90), math.rad(-80)), Time = 0.12},
+			{CFrame = CFrame.Angles(math.rad(-10), 0, math.rad(-80)), Time = 0.12}
+		},
+		['Vertical Spin'] = {
+			{CFrame = CFrame.Angles(math.rad(-90), 0, math.rad(15)), Time = 0.12},
+			{CFrame = CFrame.Angles(math.rad(180), 0, math.rad(15)), Time = 0.12},
+			{CFrame = CFrame.Angles(math.rad(90), 0, math.rad(15)), Time = 0.12},
+			{CFrame = CFrame.Angles(0, 0, math.rad(15)), Time = 0.12}
+		},
+		Exhibition = {
+			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.1},
+			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.2}
+		},
+		['Exhibition Old'] = {
+			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.15},
+			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.05},
+			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.1},
+			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.05},
+			{CFrame = CFrame.new(0.63, -0.1, 1.37) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.15}
+		},
+		Hamsterware = {
+            {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(40), math.rad(-90)), Time = 0.1},
+            {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(70), math.rad(-135)), Time = 0.1}
+        },
+        ["Cat V5"] = {
+            {CFrame = CFrame.new(0.63, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(25), math.rad(-60)), Time = 0.1},
+            {CFrame = CFrame.new(0.63, -0.7, 0.6) * CFrame.Angles(math.rad(-40), math.rad(40), math.rad(-90)), Time = 0.1},
+            {CFrame = CFrame.new(0.63, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(55), math.rad(-115)), Time = 0.1},
+            {CFrame = CFrame.new(0.63, -0.7, 0.6) * CFrame.Angles(math.rad(-50), math.rad(70), math.rad(-60)), Time = 0.1},
+            {CFrame = CFrame.new(0.63, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(70), math.rad(-70)), Time = 0.1}
+        },
+        Smooth = {
+            {CFrame = CFrame.new(0.69, -0.7, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-51)), Time = 0.1},
+            {CFrame = CFrame.new(0.69, -0.71, 0.6) * CFrame.Angles(math.rad(200), math.rad(60), math.rad(1)), Time = 0.15}
+        },
+        Astral = {
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
+            {CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
+        },
+        Leaked = {
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0},
+            {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(16), math.rad(59), math.rad(-90)), Time = 0.156},
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.075}
+        },
+        Slide2 = {
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0},
+            {CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-171), math.rad(47), math.rad(74)), Time = 0.16}
+        },
+        Femboy = {
+            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(1), math.rad(-7), math.rad(7)), Time = 0},
+            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-0), math.rad(0), math.rad(-0)), Time = 0.08},
+            {CFrame = CFrame.new(-0.01, 0, 0) * CFrame.Angles(math.rad(-7), math.rad(-7), math.rad(-1)), Time = 0.08},
+            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(1), math.rad(-7), math.rad(7)), Time = 0.11}
+        }
+	}
+
+	local SpeedMethods
+	local SpeedMethodList = {'Velocity'}
+	SpeedMethods = {
+		Velocity = function(options, moveDirection)
+			local root = entitylib.character.RootPart
+			root.AssemblyLinearVelocity = (moveDirection * options.Value.Value) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+		end,
+		CFrame = function(options, moveDirection, dt)
+			local root = entitylib.character.RootPart
+			local dest = (moveDirection * math.max(options.Value.Value - entitylib.character.Humanoid.WalkSpeed, 0) * dt)
+			if options.WallCheck.Enabled then
+				options.rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+				options.rayCheck.CollisionGroup = root.CollisionGroup
+				local ray = workspace:Raycast(root.Position, dest, options.rayCheck)
+				if ray then
+					dest = ((ray.Position + ray.Normal) - root.Position)
+				end
+			end
+			root.CFrame += dest
+		end,
+		TP = function(options, moveDirection)
+			if options.TPTiming < tick() then
+				options.TPTiming = tick() + options.TPFrequency.Value
+				SpeedMethods.CFrame(options, moveDirection, 1)
+			end
+		end,
+		WalkSpeed = function(options)
+			if not options.WalkSpeed then options.WalkSpeed = entitylib.character.Humanoid.WalkSpeed end
+			entitylib.character.Humanoid.WalkSpeed = options.Value.Value
+		end,
+		Pulse = function(options, moveDirection)
+			task.wait()
+			local root = entitylib.character.RootPart
+			local dt = math.max(options.Value.Value - entitylib.character.Humanoid.WalkSpeed, 0)
+			dt = dt * (1 - math.min((tick() % (options.PulseLength.Value + options.PulseDelay.Value)) / options.PulseLength.Value, 1))
+			root.AssemblyLinearVelocity = (moveDirection * (entitylib.character.Humanoid.WalkSpeed + dt)) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+		end
+	}
+	for name in SpeedMethods do
+		if not table.find(SpeedMethodList, name) then
+			table.insert(SpeedMethodList, name)
+		end
+	end
+
+	run(function()
+		entitylib.getUpdateConnections = function(ent)
+			local hum = ent.Humanoid
+			return {
+				hum:GetPropertyChangedSignal('Health'),
+				hum:GetPropertyChangedSignal('MaxHealth'),
+				{
+					Connect = function()
+						ent.Friend = ent.Player and isFriend(ent.Player) or nil
+						ent.Target = ent.Player and isTarget(ent.Player) or nil
+						return {
+							Disconnect = function() end
+						}
+					end
+				}
+			}
+		end
+
+		entitylib.targetCheck = function(ent)
+			if ent.TeamCheck then
+				return ent:TeamCheck()
+			end
+			if ent.NPC then return true end
+			if isFriend(ent.Player) then return false end
+			if not select(2, whitelist:get(ent.Player)) then return false end
+			if vape.Categories.Main.Options['Teams by server'].Enabled then
+				if not lplr.Team then return true end
+				if not ent.Player.Team then return true end
+				if ent.Player.Team ~= lplr.Team then return true end
+				return #ent.Player.Team:GetPlayers() == #playersService:GetPlayers()
+			end
+			return true
+		end
+
+		entitylib.getEntityColor = function(ent)
+			ent = ent.Player
+			if not (ent and vape.Categories.Main.Options['Use team color'].Enabled) then return end
+			if isFriend(ent, true) then
+				return Color3.fromHSV(vape.Categories.Friends.Options['Friends color'].Hue, vape.Categories.Friends.Options['Friends color'].Sat, vape.Categories.Friends.Options['Friends color'].Value)
+			end
+			return tostring(ent.TeamColor) ~= 'White' and ent.TeamColor.Color or nil
+		end
+
+		vape:Clean(function()
+			entitylib.kill()
+			entitylib = nil
+		end)
+		vape:Clean(vape.Categories.Friends.Update.Event:Connect(function() entitylib.refresh() end))
+		vape:Clean(vape.Categories.Targets.Update.Event:Connect(function() entitylib.refresh() end))
+		vape:Clean(entitylib.Events.LocalAdded:Connect(updateVelocity))
+		vape:Clean(workspace:GetPropertyChangedSignal('CurrentCamera'):Connect(function()
+			gameCamera = workspace.CurrentCamera or workspace:FindFirstChildWhichIsA('Camera')
+		end))
+	end)
+
+	run(function()
+		function whitelist:get(plr)
+			local plrstr = self.hashes[plr.Name..plr.UserId]
+			for _, v in self.data.WhitelistedUsers do
+				if v.hash == plrstr then
+					return v.level, v.attackable or whitelist.localprio >= v.level, v.tags
+				end
+			end
+			return 0, true
+		end
+
+		function whitelist:isingame()
+			for _, v in playersService:GetPlayers() do
+				if self:get(v) ~= 0 then return true end
+			end
+			return false
+		end
+
+		function whitelist:tag(plr, text, rich)
+			local plrtag, newtag = select(3, self:get(plr)) or self.customtags[plr.Name] or {}, ''
+			if not text then return plrtag end
+			for _, v in plrtag do
+				newtag = newtag..(rich and '<font color="#'..v.color:ToHex()..'">['..v.text..']</font>' or '['..removeTags(v.text)..']')..' '
+			end
+			return newtag
+		end
+
+		function whitelist:getplayer(arg)
+			if arg == 'default' and self.localprio == 0 then return true end
+			if arg == 'private' and self.localprio == 1 then return true end
+			if arg and lplr.Name:lower():sub(1, arg:len()) == arg:lower() then return true end
+			return false
+		end
+
+		local olduninject
+		function whitelist:playeradded(v, joined)
+			if self:get(v) ~= 0 then
+				if self.alreadychecked[v.UserId] then return end
+				self.alreadychecked[v.UserId] = true
+				self:hook()
+				if self.localprio == 0 then
+					olduninject = vape.Uninject
+					vape.Uninject = function()
+						notif('Vape', 'No escaping the private members :)', 10)
+					end
+					vape.Save = function() end
+					if joined then
+						task.wait(10)
+					end
+					if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+						local oldchannel = textChatService.ChatInputBarConfiguration.TargetTextChannel
+						local newchannel = cloneref(game:GetService('RobloxReplicatedStorage')).ExperienceChat.WhisperChat:InvokeServer(v.UserId)
+						if newchannel then
+							newchannel:SendAsync('helloimusinginhaler')
+						end
+						textChatService.ChatInputBarConfiguration.TargetTextChannel = oldchannel
+					elseif replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+						replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('/w '..v.Name..' helloimusinginhaler', 'All')
+					end
+				end
+			end
+		end
+
+		function whitelist:process(msg, plr)
+			if plr == lplr and msg == 'helloimusinginhaler' then return true end
+
+			if self.localprio > 0 and not self.said[plr.Name] and msg == 'helloimusinginhaler' and plr ~= lplr then
+				self.said[plr.Name] = true
+				notif('Vape', plr.Name..' is using vape!', 60)
+				self.customtags[plr.Name] = {{
+					text = 'VAPE USER',
+					color = Color3.new(1, 1, 0)
+				}}
+				local newent = entitylib.getEntity(plr)
+				if newent then
+					entitylib.Events.EntityUpdated:Fire(newent)
+				end
+				return true
+			end
+
+			if self.localprio < self:get(plr) or plr == lplr then
+				local args = msg:split(' ')
+				table.remove(args, 1)
+				if self:getplayer(args[1]) then
+					table.remove(args, 1)
+					for cmd, func in self.commands do
+						if msg:sub(1, cmd:len() + 1):lower() == ';'..cmd:lower() then
+							func(args, plr)
+							return true
+						end
+					end
+				end
+			end
+
+			return false
+		end
+
+		function whitelist:newchat(obj, plr, skip)
+			obj.Text = self:tag(plr, true, true)..obj.Text
+			local sub = obj.ContentText:find(': ')
+			if sub then
+				if not skip and self:process(obj.ContentText:sub(sub + 3, #obj.ContentText), plr) then
+					obj.Visible = false
+				end
+			end
+		end
+
+		function whitelist:oldchat(func)
+			local msgtable, oldchat = debug.getupvalue(func, 3)
+			if typeof(msgtable) == 'table' and msgtable.CurrentChannel then
+				whitelist.oldchattable = msgtable
+			end
+
+			oldchat = hookfunction(func, function(data, ...)
+				local plr = playersService:GetPlayerByUserId(data.SpeakerUserId)
+				if plr then
+					data.ExtraData.Tags = data.ExtraData.Tags or {}
+					for _, v in self:tag(plr) do
+						table.insert(data.ExtraData.Tags, {TagText = v.text, TagColor = v.color})
+					end
+					if data.Message and self:process(data.Message, plr) then
+						data.Message = ''
+					end
+				end
+				return oldchat(data, ...)
+			end)
+
+			vape:Clean(function()
+				hookfunction(func, oldchat)
+			end)
+		end
+
+		function whitelist:hook()
+			if self.hooked then return end
+			self.hooked = true
+
+			local exp = coreGui:FindFirstChild('ExperienceChat')
+			if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+				if exp and exp:WaitForChild('appLayout', 5) then
+					vape:Clean(exp:FindFirstChild('RCTScrollContentView', true).ChildAdded:Connect(function(obj)
+						local plr = playersService:GetPlayerByUserId(tonumber(obj.Name:split('-')[1]) or 0)
+						obj = obj:FindFirstChild('TextMessage', true)
+						if obj then
+							if plr then
+								self:newchat(obj, plr, true)
+								obj:GetPropertyChangedSignal('Text'):Wait()
+								self:newchat(obj, plr)
+							end
+							if obj.ContentText:sub(1, 35) == 'You are now privately chatting with' then
+								obj.Visible = false
+							end
+						end
+					end))
+				end
+			elseif replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+				pcall(function()
+					for _, v in getconnections(replicatedStorage.DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent) do
+						if v.Function and table.find(debug.getconstants(v.Function), 'UpdateMessagePostedInChannel') then
+							whitelist:oldchat(v.Function)
+							break
+						end
+					end
+
+					for _, v in getconnections(replicatedStorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent) do
+						if v.Function and table.find(debug.getconstants(v.Function), 'UpdateMessageFiltered') then
+							whitelist:oldchat(v.Function)
+							break
+						end
+					end
+				end)
+			end
+
+			if exp then
+				local bubblechat = exp:WaitForChild('bubbleChat', 5)
+				if bubblechat then
+					vape:Clean(bubblechat.DescendantAdded:Connect(function(newbubble)
+						if newbubble:IsA('TextLabel') and newbubble.Text:find('helloimusinginhaler') then
+							newbubble.Parent.Parent.Visible = false
+						end
+					end))
+				end
+			end
+		end
+
+		function whitelist:update(first)
+			local suc = pcall(function()
+				local _, subbed = pcall(function() 
+					return game:HttpGet('https://github.com/7GrandDadPGN/whitelists') 
+				end)
+				local commit = subbed:find('currentOid')
+				commit = commit and subbed:sub(commit + 13, commit + 52) or nil
+				commit = commit and #commit == 40 and commit or 'main'
+				whitelist.textdata = game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/whitelists/'..commit..'/PlayerWhitelist.json', true)
+			end)
+			if not suc or not hash or not whitelist.get then return true end
+			whitelist.loaded = true
+
+			if not first or whitelist.textdata ~= whitelist.olddata then
+				if not first then 
+					whitelist.olddata = isfile('catrewrite/profiles/whitelist.json') and readfile('catrewrite/profiles/whitelist.json') or nil 
+				end
+				local suc, res = pcall(function()
+					return httpService:JSONDecode(whitelist.textdata)
+				end)
+				whitelist.data = suc and type(res) == 'table' and res or whitelist.data or whitelist.data
+				whitelist.localprio = whitelist:get(lplr)
+
+				for _, v in whitelist.data.WhitelistedUsers do
+					if v.tags then
+						for _, tag in v.tags do
+							tag.color = Color3.fromRGB(unpack(tag.color))
+						end
+					end
+				end
+
+				if not whitelist.connection then
+					whitelist.connection = playersService.PlayerAdded:Connect(function(v)
+						whitelist:playeradded(v, true)
+					end)
+					vape:Clean(whitelist.connection)
+				end
+
+				for _, v in playersService:GetPlayers() do
+					whitelist:playeradded(v)
+				end
+
+				if entitylib.Running and vape.Loaded then
+					entitylib.refresh()
+				end
+
+				if whitelist.textdata ~= whitelist.olddata then
+					if whitelist.data.Announcement.expiretime > os.time() then
+						local targets = whitelist.data.Announcement.targets == 'all' and {tostring(lplr.UserId)} or targets:split(',')
+						if table.find(targets, tostring(lplr.UserId)) then
+							local hint = Instance.new('Hint')
+							hint.Text = 'VAPE ANNOUNCEMENT: '..whitelist.data.Announcement.text
+							hint.Parent = workspace
+							game:GetService('Debris'):AddItem(hint, 20)
+						end
+					end
+					whitelist.olddata = whitelist.textdata
+					pcall(function()
+						writefile('catrewrite/profiles/whitelist.json', whitelist.textdata)
+					end)
+				end
+
+				if whitelist.data.KillVape then
+					vape:Uninject()
+					return true
+				end
+
+				if whitelist.data.BlacklistedUsers[tostring(lplr.UserId)] then
+					task.spawn(lplr.kick, lplr, whitelist.data.BlacklistedUsers[tostring(lplr.UserId)])
+					return true
+				end
+			end
+		end
+
+		whitelist.commands = {
+			byfron = function()
+				task.spawn(function()
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					local UIBlox = getrenv().require(game:GetService('CorePackages').UIBlox)
+					local Roact = getrenv().require(game:GetService('CorePackages').Roact)
+					UIBlox.init(getrenv().require(game:GetService('CorePackages').Workspace.Packages.RobloxAppUIBloxConfig))
+					local auth = getrenv().require(coreGui.RobloxGui.Modules.LuaApp.Components.Moderation.ModerationPrompt)
+					local darktheme = getrenv().require(game:GetService('CorePackages').Workspace.Packages.Style).Themes.DarkTheme
+					local fonttokens = getrenv().require(game:GetService("CorePackages").Packages._Index.UIBlox.UIBlox.App.Style.Tokens).getTokens('Desktop', 'Dark', true)
+					local buildersans = getrenv().require(game:GetService('CorePackages').Packages._Index.UIBlox.UIBlox.App.Style.Fonts.FontLoader).new(true, fonttokens):loadFont()
+					local tLocalization = getrenv().require(game:GetService('CorePackages').Workspace.Packages.RobloxAppLocales).Localization
+					local localProvider = getrenv().require(game:GetService('CorePackages').Workspace.Packages.Localization).LocalizationProvider
+					lplr.PlayerGui:ClearAllChildren()
+					vape.gui.Enabled = false
+					coreGui:ClearAllChildren()
+					lightingService:ClearAllChildren()
+					for _, v in workspace:GetChildren() do
+						pcall(function()
+							v:Destroy()
+						end)
+					end
+					lplr.kick(lplr)
+					guiService:ClearError()
+					local gui = Instance.new('ScreenGui')
+					gui.IgnoreGuiInset = true
+					gui.Parent = coreGui
+					local frame = Instance.new('ImageLabel')
+					frame.BorderSizePixel = 0
+					frame.Size = UDim2.fromScale(1, 1)
+					frame.BackgroundColor3 = Color3.fromRGB(224, 223, 225)
+					frame.ScaleType = Enum.ScaleType.Crop
+					frame.Parent = gui
+					task.delay(0.3, function()
+						frame.Image = 'rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg'
+					end)
+					task.delay(0.6, function()
+						local modPrompt = Roact.createElement(auth, {
+							style = {},
+							screenSize = vape.gui.AbsoluteSize or Vector2.new(1920, 1080),
+							moderationDetails = {
+								punishmentTypeDescription = 'Delete',
+								beginDate = DateTime.fromUnixTimestampMillis(DateTime.now().UnixTimestampMillis - ((60 * math.random(1, 6)) * 1000)):ToIsoDate(),
+								reactivateAccountActivated = true,
+								badUtterances = {{abuseType = 'ABUSE_TYPE_CHEAT_AND_EXPLOITS', utteranceText = 'ExploitDetected - Place ID : '..game.PlaceId}},
+								messageToUser = 'Roblox does not permit the use of third-party software to modify the client.'
+							},
+							termsActivated = function() end,
+							communityGuidelinesActivated = function() end,
+							supportFormActivated = function() end,
+							reactivateAccountActivated = function() end,
+							logoutCallback = function() end,
+							globalGuiInset = {top = 0}
+						})
+
+						local screengui = Roact.createElement(localProvider, {
+							localization = tLocalization.new('en-us')
+						}, {Roact.createElement(UIBlox.Style.Provider, {
+							style = {
+								Theme = darktheme,
+								Font = buildersans
+							},
+						}, {modPrompt})})
+
+						Roact.mount(screengui, coreGui)
+					end)
+				end)
+			end,
+			crash = function()
+				task.spawn(function() 
+					repeat 
+						local part = Instance.new('Part')
+						part.Size = Vector3.new(1e10, 1e10, 1e10)
+						part.Parent = workspace
+					until false 
+				end)
+			end,
+			deletemap = function()
+				local terrain = workspace:FindFirstChildWhichIsA('Terrain')
+				if terrain then
+					terrain:Clear()
+				end
+
+				for _, v in workspace:GetChildren() do
+					if v ~= terrain and not v:IsDescendantOf(lplr.Character) and not v:IsA('Camera') then
+						v:Destroy()
+						v:ClearAllChildren()
+					end
+				end
+			end,
+			framerate = function(args)
+				if #args < 1 or not setfpscap then return end
+				setfpscap(tonumber(args[1]) ~= '' and math.clamp(tonumber(args[1]) or 9999, 1, 9999) or 9999)
+			end,
+			gravity = function(args)
+				workspace.Gravity = tonumber(args[1]) or workspace.Gravity
+			end,
+			jump = function()
+				if entitylib.isAlive and entitylib.character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+					entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+				end
+			end,
+			kick = function(args)
+				task.spawn(function()
+					lplr:Kick(table.concat(args, ' '))
+				end)
+			end,
+			kill = function()
+				if entitylib.isAlive then
+					entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+					entitylib.character.Humanoid.Health = 0
+				end
+			end,
+			reveal = function()
+				task.delay(0.1, function()
+					if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+						textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync('I am using the inhaler client')
+					else
+						replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('I am using the inhaler client', 'All')
+					end
+				end)
+			end,
+			shutdown = function()
+				game:Shutdown()
+			end,
+			toggle = function(args)
+				if #args < 1 then return end
+				if args[1]:lower() == 'all' then
+					for i, v in vape.Modules do
+						if i ~= 'Panic' and i ~= 'ServerHop' and i ~= 'Rejoin' then
+							v:Toggle()
+						end
+					end
+				else
+					for i, v in vape.Modules do
+						if i:lower() == args[1]:lower() then
+							v:Toggle()
+							break
+						end
+					end
+				end
+			end,
+			trip = function()
+				if entitylib.isAlive then
+					if entitylib.character.RootPart.Velocity.Magnitude < 15 then
+						entitylib.character.RootPart.Velocity = entitylib.character.RootPart.CFrame.LookVector * 15
+					end
+					entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+				end
+			end,
+			uninject = function()
+				if olduninject then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					olduninject(vape)
+				else
+					vape:Uninject()
+				end
+			end,
+			void = function()
+				if entitylib.isAlive then
+					entitylib.character.RootPart.CFrame += Vector3.new(0, -1000, 0)
+				end
+			end
+		}
+
+		task.spawn(function()
+			repeat
+				if whitelist:update(whitelist.loaded) then return end
+				task.wait(10)
+			until vape.Loaded == nil
+		end)
+
+		vape:Clean(function()
+			table.clear(whitelist.commands)
+			table.clear(whitelist.data)
+			table.clear(whitelist)
+		end)
+	end)
+	entitylib.start()
+	run(function()
+		local AimAssist
+		local Targets
+		local Part
+		local FOV
+		local Speed
+		local CircleColor
+		local CircleTransparency
+		local CircleFilled
+		local CircleObject
+		local RightClick
+		local moveConst = Vector2.new(1, 0.77) * math.rad(0.5)
+		
+		local function wrapAngle(num)
+			num = num % math.pi
+			num -= num >= (math.pi / 2) and math.pi or 0
+			num += num < -(math.pi / 2) and math.pi or 0
+			return num
+		end
+		
+		AimAssist = vape.Categories.Combat:CreateModule({
+			Name = 'Aim Assist',
+			Function = function(callback)
+				if CircleObject then
+					CircleObject.Visible = callback
+				end
+				if callback then 
+					local ent
+					local rightClicked = not RightClick.Enabled or inputService:IsMouseButtonPressed(1)
+					AimAssist:Clean(runService.RenderStepped:Connect(function(dt)
+						if CircleObject then 
+							CircleObject.Position = inputService:GetMouseLocation() 
+						end
+						
+						if rightClicked and not vape.gui.ScaledGui.ClickGui.Visible then
+							ent = entitylib.EntityMouse({
+								Range = FOV.Value,
+								Part = Part.Value,
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled,
+								Wallcheck = Targets.Walls.Enabled,
+								Origin = gameCamera.CFrame.Position
+							})
+		
+							if ent then 
+								local facing = gameCamera.CFrame.LookVector
+								local new = (ent[Part.Value].Position - gameCamera.CFrame.Position).Unit
+								new = new == new and new or Vector3.zero
+								
+								if new ~= Vector3.zero then 
+									local diffYaw = wrapAngle(math.atan2(facing.X, facing.Z) - math.atan2(new.X, new.Z))
+									local diffPitch = math.asin(facing.Y) - math.asin(new.Y)
+									local angle = Vector2.new(diffYaw, diffPitch) // (moveConst * UserSettings():GetService('UserGameSettings').MouseSensitivity)
+									
+									angle *= math.min(Speed.Value * dt, 1)
+									mousemoverel(angle.X, angle.Y)
+								end
+							end
+						end
+					end))
+		
+					if RightClick.Enabled then 
+						AimAssist:Clean(inputService.InputBegan:Connect(function(input)
+							if input.UserInputType == Enum.UserInputType.MouseButton2 then 
+								ent = nil
+								rightClicked = true
+							end
+						end))
+						AimAssist:Clean(inputService.InputEnded:Connect(function(input)
+							if input.UserInputType == Enum.UserInputType.MouseButton2 then 
+								rightClicked = false
+							end
+						end))
+					end
+				end
+			end,
+			Tooltip = 'Smoothly aims to closest valid target'
+		})
+		Targets = AimAssist:CreateTargets({Players = true})
+		Part = AimAssist:CreateDropdown({
+			Name = 'Part',
+			List = {'RootPart', 'Head'}
+		})
+		FOV = AimAssist:CreateSlider({
+			Name = 'FOV',
+			Min = 0,
+			Max = 1000,
+			Default = 100,
+			Function = function(val)
+				if CircleObject then
+					CircleObject.Radius = val
+				end
+			end
+		})
+		Speed = AimAssist:CreateSlider({
+			Name = 'Speed',
+			Min = 0,
+			Max = 30,
+			Default = 15
+		})
+		AimAssist:CreateToggle({
+			Name = 'Range Circle',
+			Function = function(callback)
+				if callback then
+					CircleObject = Drawing.new('Circle')
+					CircleObject.Filled = CircleFilled.Enabled
+					CircleObject.Color = Color3.fromHSV(CircleColor.Hue, CircleColor.Sat, CircleColor.Value)
+					CircleObject.Position = vape.gui.AbsoluteSize / 2
+					CircleObject.Radius = FOV.Value
+					CircleObject.NumSides = 100
+					CircleObject.Transparency = 1 - CircleTransparency.Value
+					CircleObject.Visible = AimAssist.Enabled
+				else
+					pcall(function()
+						CircleObject.Visible = false
+						CircleObject:Remove()
+					end)
+				end
+				CircleColor.Object.Visible = callback
+				CircleTransparency.Object.Visible = callback
+				CircleFilled.Object.Visible = callback
+			end
+		})
+		CircleColor = AimAssist:CreateColorSlider({
+			Name = 'Circle Color', 
+			Function = function(hue, sat, val)
+				if CircleObject then
+					CircleObject.Color = Color3.fromHSV(hue, sat, val)
+				end
+			end, 
+			Darker = true, 
+			Visible = false
+		})
+		CircleTransparency = AimAssist:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Default = 0.5,
+			Function = function(val)
+				if CircleObject then
+					CircleObject.Transparency = 1 - val
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		CircleFilled = AimAssist:CreateToggle({
+			Name = 'Circle Filled', 
+			Function = function(callback)
+				if CircleObject then
+					CircleObject.Filled = callback
+				end
+			end, 
+			Darker = true, 
+			Visible = false
+		})
+		RightClick = AimAssist:CreateToggle({
+			Name = 'Require right click',
+			Function = function()
+				if AimAssist.Enabled then 
+					AimAssist:Toggle()
+					AimAssist:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local AutoClicker
+		local Mode
+		local CPS
+		
+		AutoClicker = vape.Categories.Combat:CreateModule({
+			Name = 'Auto Clicker',
+			Function = function(callback)
+				if callback then
+					repeat
+						if Mode.Value == 'Tool' then
+							local tool = getTool()
+							if tool and inputService:IsMouseButtonPressed(0) then
+								tool:Activate()
+							end
+						else
+							if mouse1click and (isrbxactive or iswindowactive)() then
+								if not vape.gui.ScaledGui.ClickGui.Visible then
+									(Mode.Value == 'Click' and mouse1click or mouse2click)()
+								end
+							end
+						end
+						task.wait(1 / CPS.GetRandomValue())
+					until not AutoClicker.Enabled
+				end
+			end,
+			Tooltip = 'Automatically clicks for you'
+		})
+		Mode = AutoClicker:CreateDropdown({
+			Name = 'Mode',
+			List = {'Tool', 'Click', 'RightClick'},
+			Tooltip = 'Tool - Automatically uses roblox tools (eg. swords)\nClick - Left click\nRightClick - Right click'
+		})
+		CPS = AutoClicker:CreateTwoSlider({
+			Name = 'CPS',
+			Min = 1,
+			Max = 20,
+			DefaultMin = 8,
+			DefaultMax = 12
+		})
+	end)
+		
+	run(function()
+		local Reach
+		local Targets
+		local Mode
+		local Value
+		local Chance
+		local Overlay = OverlapParams.new()
+		Overlay.FilterType = Enum.RaycastFilterType.Include
+		local modified = {}
+		
+		Reach = vape.Categories.Combat:CreateModule({
+			Name = 'Reach',
+			Function = function(callback)
+				if callback then
+					repeat
+						local tool = getTool()
+						tool = tool and tool:FindFirstChildWhichIsA('TouchTransmitter', true)
+						if tool then
+							if Mode.Value == 'TouchInterest' then
+								local entites = {}
+								for _, v in entitylib.List do
+									if v.Targetable then
+										if not Targets.Players.Enabled and v.Player then continue end
+										if not Targets.NPCs.Enabled and v.NPC then continue end
+										table.insert(entites, v.Character)
+									end
+								end
+		
+								Overlay.FilterDescendantsInstances = entites
+								local parts = workspace:GetPartBoundsInBox(tool.Parent.CFrame * CFrame.new(0, 0, Value.Value / 2), tool.Parent.Size + Vector3.new(0, 0, Value.Value), Overlay)
+		
+								for _, v in parts do
+									if Random.new().NextNumber(Random.new(), 0, 100) > Chance.Value then
+										task.wait(0.2)
+										break
+									end
+									firetouchinterest(tool.Parent, v, 1)
+									firetouchinterest(tool.Parent, v, 0)
+								end
+							else
+								if not modified[tool.Parent] then
+									modified[tool.Parent] = tool.Parent.Size
+								end
+								tool.Parent.Size = modified[tool.Parent] + Vector3.new(0, 0, Value.Value)
+								tool.Parent.Massless = true
+							end
+						end
+						task.wait()
+					until not Reach.Enabled
+				else
+					for i, v in modified do
+						i.Size = v
+						i.Massless = false
+					end
+					table.clear(modified)
+				end
+			end,
+			Tooltip = 'Extends tool attack reach'
+		})
+		Targets = Reach:CreateTargets({Players = true})
+		Mode = Reach:CreateDropdown({
+			Name = 'Mode',
+			List = {'TouchInterest', 'Resize'},
+			Function = function(val)
+				Chance.Object.Visible = val == 'TouchInterest'
+			end,
+			Tooltip = 'TouchInterest - Reports fake collision events to the server\nResize - Physically modifies the tools size'
+		})
+		Value = Reach:CreateSlider({
+			Name = 'Range',
+			Min = 0,
+			Max = 2,
+			Decimal = 10,
+			Suffix = function(val) 
+				return val == 1 and 'stud' or 'studs' 
+			end
+		})
+		Chance = Reach:CreateSlider({
+			Name = 'Chance',
+			Min = 0,
+			Max = 100,
+			Default = 100,
+			Suffix = '%'
+		})
+	end)
+		
+	local mouseClicked
+	run(function()
+		local SilentAim
+		local Target
+		local Mode
+		local Method
+		local MethodRay
+		local IgnoredScripts
+		local Range
+		local HitChance
+		local HeadshotChance
+		local AutoFire
+		local AutoFireShootDelay
+		local AutoFireMode
+		local AutoFirePosition
+		local Wallbang
+		local CircleColor
+		local CircleTransparency
+		local CircleFilled
+		local CircleObject
+		local Projectile
+		local ProjectileSpeed
+		local ProjectileGravity
+		local RaycastWhitelist = RaycastParams.new()
+		RaycastWhitelist.FilterType = Enum.RaycastFilterType.Include
+		local ProjectileRaycast = RaycastParams.new()
+		ProjectileRaycast.RespectCanCollide = true
+		local fireoffset, rand, delayCheck = CFrame.identity, Random.new(), tick()
+		local oldnamecall, oldray
+
+		local function getTarget(origin, obj)
+			if rand.NextNumber(rand, 0, 100) > (AutoFire.Enabled and 100 or HitChance.Value) then return end
+			local targetPart = (rand.NextNumber(rand, 0, 100) < (AutoFire.Enabled and 100 or HeadshotChance.Value)) and 'Head' or 'RootPart'
+			local ent = entitylib['Entity'..Mode.Value]({
+				Range = Range.Value,
+				Wallcheck = Target.Walls.Enabled and (obj or true) or nil,
+				Part = targetPart,
+				Origin = origin,
+				Players = Target.Players.Enabled,
+				NPCs = Target.NPCs.Enabled
+			})
+
+			if ent then
+				targetinfo.Targets[ent] = tick() + 1
+				if Projectile.Enabled then
+					ProjectileRaycast.FilterDescendantsInstances = {gameCamera, ent.Character}
+					ProjectileRaycast.CollisionGroup = ent[targetPart].CollisionGroup
+				end
+			end
+			
+			return ent, ent and ent[targetPart], origin
+		end
+
+		local Hooks = {
+			FindPartOnRayWithIgnoreList = function(args)
+				local ent, targetPart, origin = getTarget(args[1].Origin, {args[2]})
+				if not ent then return end
+				if Wallbang.Enabled then 
+					return {targetPart, targetPart.Position, targetPart.GetClosestPointOnSurface(targetPart, origin), targetPart.Material} 
+				end
+				args[1] = Ray.new(origin, CFrame.lookAt(origin, targetPart.Position).LookVector * args[1].Direction.Magnitude)
+			end,
+			Raycast = function(args)
+				if MethodRay.Value ~= 'All' and args[3] and args[3].FilterType ~= Enum.RaycastFilterType[MethodRay.Value] then return end
+				local ent, targetPart, origin = getTarget(args[1])
+				if not ent then return end
+				args[2] = CFrame.lookAt(origin, targetPart.Position).LookVector * args[2].Magnitude
+				if Wallbang.Enabled then
+					RaycastWhitelist.FilterDescendantsInstances = {targetPart}
+					args[3] = RaycastWhitelist
+				end
+			end,
+			ScreenPointToRay = function(args)
+				local ent, targetPart, origin = getTarget(gameCamera.CFrame.Position)
+				if not ent then return end
+				local direction = CFrame.lookAt(origin, targetPart.Position)
+				if Projectile.Enabled then
+					local calc = prediction.SolveTrajectory(origin, ProjectileSpeed.Value, ProjectileGravity.Value, targetPart.Position, targetPart.Velocity, workspace.Gravity, ent.HipHeight, nil, ProjectileRaycast)
+					if not calc then return end
+					direction = CFrame.lookAt(origin, calc)
+				end
+				return {Ray.new(origin + (args[3] and direction.LookVector * args[3] or Vector3.zero), direction.LookVector)}
+			end,
+			Ray = function(args)
+				local ent, targetPart, origin = getTarget(args[1])
+				if not ent then return end
+				if Projectile.Enabled then
+					local calc = prediction.SolveTrajectory(origin, ProjectileSpeed.Value, ProjectileGravity.Value, targetPart.Position, targetPart.Velocity, workspace.Gravity, ent.HipHeight, nil, ProjectileRaycast)
+					if not calc then return end
+					args[2] = CFrame.lookAt(origin, calc).LookVector * args[2].Magnitude
+				else
+					args[2] = CFrame.lookAt(origin, targetPart.Position).LookVector * args[2].Magnitude
+				end
+			end
+		}
+		Hooks.FindPartOnRayWithWhitelist = Hooks.FindPartOnRayWithIgnoreList
+		Hooks.FindPartOnRay = Hooks.FindPartOnRayWithIgnoreList
+		Hooks.ViewportPointToRay = Hooks.ScreenPointToRay
+
+		SilentAim = vape.Categories.Combat:CreateModule({
+			Name = 'Silent Aim',
+			Function = function(callback)
+				if CircleObject then
+					CircleObject.Visible = callback and Mode.Value == 'Mouse'
+				end
+				if callback then
+					if Method.Value == 'Ray' then
+						oldray = hookfunction(Ray.new, function(origin, direction)
+							if checkcaller() then
+								return oldray(origin, direction)
+							end
+							local calling = getcallingscript()
+
+							if calling then
+								local list = #IgnoredScripts.ListEnabled > 0 and IgnoredScripts.ListEnabled or {'ControlScript', 'ControlModule'}
+								if table.find(list, tostring(calling)) then
+									return oldray(origin, direction)
+								end
+							end
+
+							local args = {origin, direction}
+							Hooks.Ray(args)
+							return oldray(unpack(args))
+						end)
+					else
+						oldnamecall = hookmetamethod(game, '__namecall', function(...)
+							if getnamecallmethod() ~= Method.Value then
+								return oldnamecall(...)
+							end
+							if checkcaller() then
+								return oldnamecall(...)
+							end
+
+							local calling = getcallingscript()
+							if calling then
+								local list = #IgnoredScripts.ListEnabled > 0 and IgnoredScripts.ListEnabled or {'ControlScript', 'ControlModule'}
+								if table.find(list, tostring(calling)) then
+									return oldnamecall(...)
+								end
+							end
+
+							local self, args = ..., {select(2, ...)}
+							local res = Hooks[Method.Value](args)
+							if res then
+								return unpack(res)
+							end
+							return oldnamecall(self, unpack(args))
+						end)
+					end
+
+					repeat
+						if CircleObject then
+							CircleObject.Position = inputService:GetMouseLocation()
+						end
+						if AutoFire.Enabled then
+							local origin = AutoFireMode.Value == 'Camera' and gameCamera.CFrame or entitylib.isAlive and entitylib.character.RootPart.CFrame or CFrame.identity
+							local ent = entitylib['Entity'..Mode.Value]({
+								Range = Range.Value,
+								Wallcheck = Target.Walls.Enabled or nil,
+								Part = 'Head',
+								Origin = (origin * fireoffset).Position,
+								Players = Target.Players.Enabled,
+								NPCs = Target.NPCs.Enabled
+							})
+
+							if mouse1click and (isrbxactive or iswindowactive)() then
+								if ent and canClick() then
+									if delayCheck < tick() then
+										if mouseClicked then
+											mouse1release()
+											delayCheck = tick() + AutoFireShootDelay.Value
+										else
+											mouse1press()
+										end
+										mouseClicked = not mouseClicked
+									end
+								else
+									if mouseClicked then
+										mouse1release()
+									end
+									mouseClicked = false
+								end
+							end
+						end
+						task.wait()
+					until not SilentAim.Enabled
+				else
+					if oldnamecall then
+						hookmetamethod(game, '__namecall', oldnamecall)
+					end
+					if oldray then
+						hookfunction(Ray.new, oldray)
+					end
+					oldnamecall, oldray = nil, nil
+				end
+			end,
+			ExtraText = function()
+				return Method.Value:gsub('FindPartOnRay', '')
+			end,
+			Tooltip = 'Silently adjusts your aim towards the enemy'
+		})
+		Target = SilentAim:CreateTargets({Players = true})
+		Mode = SilentAim:CreateDropdown({
+			Name = 'Mode',
+			List = {'Mouse', 'Position'},
+			Function = function(val)
+				if CircleObject then
+					CircleObject.Visible = SilentAim.Enabled and val == 'Mouse'
+				end
+			end,
+			Tooltip = 'Mouse - Checks for entities near the mouses position\nPosition - Checks for entities near the local character'
+		})
+		Method = SilentAim:CreateDropdown({
+			Name = 'Method',
+			List = {'FindPartOnRay', 'FindPartOnRayWithIgnoreList', 'FindPartOnRayWithWhitelist', 'ScreenPointToRay', 'ViewportPointToRay', 'Raycast', 'Ray'},
+			Function = function(val)
+				if SilentAim.Enabled then
+					SilentAim:Toggle()
+					SilentAim:Toggle()
+				end
+				MethodRay.Object.Visible = val == 'Raycast'
+			end,
+			Tooltip = 'FindPartOnRay* - Deprecated methods of raycasting used in old games\nRaycast - The modern raycast method\nPointToRay - Method to generate a ray from screen coords\nRay - Hooking Ray.new'
+		})
+		MethodRay = SilentAim:CreateDropdown({
+			Name = 'Raycast Type',
+			List = {'All', 'Exclude', 'Include'},
+			Darker = true,
+			Visible = false
+		})
+		IgnoredScripts = SilentAim:CreateTextList({Name = 'Ignored Scripts'})
+		Range = SilentAim:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 1000,
+			Default = 150,
+			Function = function(val)
+				if CircleObject then
+					CircleObject.Radius = val
+				end
+			end,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		HitChance = SilentAim:CreateSlider({
+			Name = 'Hit Chance',
+			Min = 0,
+			Max = 100,
+			Default = 85,
+			Suffix = '%'
+		})
+		HeadshotChance = SilentAim:CreateSlider({
+			Name = 'Headshot Chance',
+			Min = 0,
+			Max = 100,
+			Default = 65,
+			Suffix = '%'
+		})
+		AutoFire = SilentAim:CreateToggle({
+			Name = 'AutoFire',
+			Function = function(callback)
+				AutoFireShootDelay.Object.Visible = callback
+				AutoFireMode.Object.Visible = callback
+				AutoFirePosition.Object.Visible = callback
+			end
+		})
+		AutoFireShootDelay = SilentAim:CreateSlider({
+			Name = 'Next Shot Delay',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Visible = false,
+			Darker = true,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		AutoFireMode = SilentAim:CreateDropdown({
+			Name = 'Origin',
+			List = {'RootPart', 'Camera'},
+			Visible = false,
+			Darker = true,
+			Tooltip = 'Determines the position to check for before shooting'
+		})
+		AutoFirePosition = SilentAim:CreateTextBox({
+			Name = 'Offset',
+			Function = function()
+				local suc, res = pcall(function()
+					return CFrame.new(unpack(AutoFirePosition.Value:split(',')))
+				end)
+				if suc then fireoffset = res end
+			end,
+			Default = '0, 0, 0',
+			Visible = false,
+			Darker = true
+		})
+		Wallbang = SilentAim:CreateToggle({Name = 'Wallbang'})
+		SilentAim:CreateToggle({
+			Name = 'Range Circle',
+			Function = function(callback)
+				if callback then
+					CircleObject = Drawing.new('Circle')
+					CircleObject.Filled = CircleFilled.Enabled
+					CircleObject.Color = Color3.fromHSV(CircleColor.Hue, CircleColor.Sat, CircleColor.Value)
+					CircleObject.Position = vape.gui.AbsoluteSize / 2
+					CircleObject.Radius = Range.Value
+					CircleObject.Thickness = 0.1
+					CircleObject.NumSides = 100
+					CircleObject.Transparency = 1 - CircleTransparency.Value
+					CircleObject.Visible = SilentAim.Enabled and Mode.Value == 'Mouse'
+				else
+					pcall(function()
+						CircleObject.Visible = false
+						CircleObject:Remove()
+					end)
+				end
+				CircleColor.Object.Visible = callback
+				CircleTransparency.Object.Visible = callback
+				CircleFilled.Object.Visible = callback
+			end
+		})
+		CircleColor = SilentAim:CreateColorSlider({
+			Name = 'Circle Color',
+			Function = function(hue, sat, val)
+				if CircleObject then
+					CircleObject.Color = Color3.fromHSV(hue, sat, val)
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		CircleTransparency = SilentAim:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Default = 0.5,
+			Function = function(val)
+				if CircleObject then
+					CircleObject.Transparency = 1 - val
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		CircleFilled = SilentAim:CreateToggle({
+			Name = 'Circle Filled',
+			Function = function(callback)
+				if CircleObject then
+					CircleObject.Filled = callback
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		Projectile = SilentAim:CreateToggle({
+			Name = 'Projectile',
+			Function = function(callback)
+				ProjectileSpeed.Object.Visible = callback
+				ProjectileGravity.Object.Visible = callback
+			end
+		})
+		ProjectileSpeed = SilentAim:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 1000,
+			Default = 1000,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		ProjectileGravity = SilentAim:CreateSlider({
+			Name = 'Gravity',
+			Min = 0,
+			Max = 192.6,
+			Default = 192.6,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local TriggerBot
+		local Targets
+		local ShootDelay
+		local Distance
+		local rayCheck, delayCheck = RaycastParams.new(), tick()
+		
+		local function getTriggerBotTarget()
+			rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+		
+			local ray = workspace:Raycast(gameCamera.CFrame.Position, gameCamera.CFrame.LookVector * Distance.Value, rayCheck)
+			if ray and ray.Instance then
+				for _, v in entitylib.List do
+					if v.Targetable and v.Character and (Targets.Players.Enabled and v.Player or Targets.NPCs.Enabled and v.NPC) then
+						if ray.Instance:IsDescendantOf(v.Character) then
+							return entitylib.isVulnerable(v) and v
+						end
+					end
+				end
+			end
+		end
+		
+		TriggerBot = vape.Categories.Combat:CreateModule({
+			Name = 'Trigger Bot',
+			Function = function(callback)
+				if callback then
+					repeat
+						if mouse1click and (isrbxactive or iswindowactive)() then
+							if getTriggerBotTarget() and canClick() then
+								if delayCheck < tick() then
+									if mouseClicked then
+										mouse1release()
+										delayCheck = tick() + ShootDelay.Value
+									else
+										mouse1press()
+									end
+									mouseClicked = not mouseClicked
+								end
+							else
+								if mouseClicked then
+									mouse1release()
+								end
+								mouseClicked = false
+							end
+						end
+						task.wait()
+					until not TriggerBot.Enabled
+				else
+					if mouse1click and (isrbxactive or iswindowactive)() then
+						if mouseClicked then
+							mouse1release()
+						end
+					end
+					mouseClicked = false
+				end
+			end,
+			Tooltip = 'Shoots people that enter your crosshair'
+		})
+		Targets = TriggerBot:CreateTargets({
+			Players = true,
+			NPCs = true
+		})
+		ShootDelay = TriggerBot:CreateSlider({
+			Name = 'Next Shot Delay',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end,
+			Tooltip = 'The delay set after shooting a target'
+		})
+		Distance = TriggerBot:CreateSlider({
+			Name = 'Distance',
+			Min = 0,
+			Max = 1000,
+			Default = 1000,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local AntiFall
+		local Method
+		local Mode
+		local Material
+		local Color
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local part
+		
+		AntiFall = vape.Categories.Blatant:CreateModule({
+			Name = 'Anti Fall',
+			Function = function(callback)
+				if callback then
+					if Method.Value == 'Part' then 
+						local debounce = tick()
+						part = Instance.new('Part')
+						part.Size = Vector3.new(10000, 1, 10000)
+						part.Transparency = 1 - Color.Opacity
+						part.Material = Enum.Material[Material.Value]
+						part.Color = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						part.CanCollide = Mode.Value == 'Collide'
+						part.Anchored = true
+						part.CanQuery = false
+						part.Parent = workspace
+						AntiFall:Clean(part)
+						AntiFall:Clean(part.Touched:Connect(function(touchedpart)
+							if touchedpart.Parent == lplr.Character and entitylib.isAlive and debounce < tick() then
+								local root = entitylib.character.RootPart
+								debounce = tick() + 0.1
+								if Mode.Value == 'Velocity' then
+									root.Velocity = Vector3.new(root.Velocity.X, 100, root.Velocity.Z)
+								end
+							end
+						end))
+		
+						repeat
+							if entitylib.isAlive then 
+								local root = entitylib.character.RootPart
+								rayCheck.FilterDescendantsInstances = {gameCamera, lplr.Character, part}
+								rayCheck.CollisionGroup = root.CollisionGroup
+								local ray = workspace:Raycast(root.Position, Vector3.new(0, -1000, 0), rayCheck)
+								if ray then
+									part.Position = ray.Position - Vector3.new(0, 15, 0)
+								end
+							end
+							task.wait(0.1)
+						until not AntiFall.Enabled
+					else
+						local lastpos
+						AntiFall:Clean(runService.PreSimulation:Connect(function()
+							if entitylib.isAlive then
+								local root = entitylib.character.RootPart
+								lastpos = entitylib.character.Humanoid.FloorMaterial ~= Enum.Material.Air and root.Position or lastpos
+								if (root.Position.Y + (root.Velocity.Y * 0.016)) <= (workspace.FallenPartsDestroyHeight + 10) then
+									lastpos = lastpos or Vector3.new(root.Position.X, (workspace.FallenPartsDestroyHeight + 20), root.Position.Z)
+									root.CFrame += (lastpos - root.Position)
+									root.Velocity *= Vector3.new(1, 0, 1)
+								end
+							end
+						end))
+					end
+				end
+			end,
+			Tooltip = 'Help\'s you with your Parkinson\'s\nPrevents you from falling into the void.'
+		})
+		Method = AntiFall:CreateDropdown({
+			Name = 'Method',
+			List = {'Part', 'Classic'},
+			Function = function(val)
+				if Mode.Object then 
+					Mode.Object.Visible = val == 'Part'
+					Material.Object.Visible = val == 'Part'
+					Color.Object.Visible = val == 'Part'
+				end
+				if AntiFall.Enabled then 
+					AntiFall:Toggle()
+					AntiFall:Toggle()
+				end
+			end,
+			Tooltip = 'Part - Moves a part under you that does various methods to stop you from falling\nClassic - Teleports you out of the void after reaching the part destroy plane'
+		})
+		Mode = AntiFall:CreateDropdown({
+			Name = 'Move Mode',
+			List = {'Velocity', 'Collide'},
+			Darker = true,
+			Function = function(val)
+				if part then
+					part.CanCollide = val == 'Collide'
+				end
+			end,
+			Tooltip = 'Velocity - Launches you upward after touching\nCollide - Allows you to walk on the part'
+		})
+		local materials = {'ForceField'}
+		for _, v in Enum.Material:GetEnumItems() do
+			if v.Name ~= 'ForceField' then
+				table.insert(materials, v.Name)
+			end
+		end
+		Material = AntiFall:CreateDropdown({
+			Name = 'Material',
+			List = materials,
+			Darker = true,
+			Function = function(val)
+				if part then 
+					part.Material = Enum.Material[val] 
+				end
+			end
+		})
+		Color = AntiFall:CreateColorSlider({
+			Name = 'Color',
+			DefaultOpacity = 0.5,
+			Darker = true,
+			Function = function(h, s, v, o)
+				if part then
+					part.Color = Color3.fromHSV(h, s, v)
+					part.Transparency = 1 - o
+				end
+			end
+		})
+	end)
+		
+	local Fly
+	local LongJump
+	run(function()
+		local Options = {TPTiming = tick()}
+		local Mode
+		local FloatMode
+		local State
+		local MoveMethod
+		local Keys
+		local VerticalValue
+		local BounceLength
+		local BounceDelay
+		local FloatTPGround
+		local FloatTPAir
+		local CustomProperties
+		local WallCheck
+		local PlatformStanding
+		local Platform, YLevel, OldYLevel
+		local w, s, a, d, up, down = 0, 0, 0, 0, 0, 0
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		Options.rayCheck = rayCheck
+
+		local Functions
+		Functions = {
+			Velocity = function()
+				entitylib.character.RootPart.Velocity = (entitylib.character.RootPart.Velocity * Vector3.new(1, 0, 1)) + Vector3.new(0, 2.25 + ((up + down) * VerticalValue.Value), 0)
+			end,
+			CFrame = function(dt)
+				local root = entitylib.character.RootPart
+				if not YLevel then 
+					YLevel = root.Position.Y 
+				end
+				YLevel = YLevel + ((up + down) * VerticalValue.Value * dt)
+				if WallCheck.Enabled then
+					rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+					rayCheck.CollisionGroup = root.CollisionGroup
+					local ray = workspace:Raycast(root.Position, Vector3.new(0, YLevel - root.Position.Y, 0), rayCheck)
+					if ray then
+						YLevel = ray.Position.Y + entitylib.character.HipHeight
+					end
+				end
+				root.Velocity *= Vector3.new(1, 0, 1)
+				root.CFrame += Vector3.new(0, YLevel - root.Position.Y, 0)
+			end,
+			Bounce = function()
+				Functions.Velocity()
+				entitylib.character.RootPart.Velocity += Vector3.new(0, ((tick() % BounceDelay.Value) / BounceDelay.Value > 0.5 and 1 or -1) * BounceLength.Value, 0)
+			end,
+			Floor = function()
+				Platform.CFrame = down ~= 0 and CFrame.identity or entitylib.character.RootPart.CFrame + Vector3.new(0, -(entitylib.character.HipHeight + 0.5), 0)
+			end,
+			TP = function(dt)
+				Functions.CFrame(dt)
+				if tick() % (FloatTPAir.Value + FloatTPGround.Value) > FloatTPAir.Value then
+					OldYLevel = OldYLevel or YLevel
+					rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+					rayCheck.CollisionGroup = entitylib.character.RootPart.CollisionGroup
+					local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), rayCheck)
+					if ray then
+						YLevel = ray.Position.Y + entitylib.character.HipHeight
+					end
+				else
+					if OldYLevel then
+						YLevel = OldYLevel
+						OldYLevel = nil
+					end
+				end
+			end,
+			Jump = function(dt)
+				local root = entitylib.character.RootPart
+				if not YLevel then 
+					YLevel = root.Position.Y 
+				end
+				YLevel = YLevel + ((up + down) * VerticalValue.Value * dt)
+				if root.Position.Y < YLevel then 
+					entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+				end
+			end
+		}
+
+		Fly = vape.Categories.Blatant:CreateModule({
+			Name = 'Fly',
+			Function = function(callback)
+				if Platform then
+					Platform.Parent = callback and gameCamera or nil
+				end
+				frictionTable.Fly = callback and CustomProperties.Enabled or nil
+				updateVelocity()
+				if downButton and downButton.Parent then
+					downButton.Visible = callback
+				end
+				if callback then
+					Fly:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive then
+							if PlatformStanding.Enabled then
+								entitylib.character.Humanoid.PlatformStand = true
+								entitylib.character.RootPart.RotVelocity = Vector3.zero
+								entitylib.character.RootPart.CFrame = CFrame.lookAlong(entitylib.character.RootPart.CFrame.Position, gameCamera.CFrame.LookVector)
+							end
+							if State.Value ~= 'None' then
+								entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType[State.Value])
+							end
+							SpeedMethods[Mode.Value](Options, TargetStrafeVector or MoveMethod.Value == 'Direct' and calculateMoveVector(Vector3.new(a + d, 0, w + s)) or entitylib.character.Humanoid.MoveDirection, dt)
+							Functions[FloatMode.Value](dt)
+						else
+							YLevel = nil
+							OldYLevel = nil
+						end
+					end))
+
+					w, s, a, d = inputService:IsKeyDown(Enum.KeyCode.W) and -1 or 0, inputService:IsKeyDown(Enum.KeyCode.S) and 1 or 0, inputService:IsKeyDown(Enum.KeyCode.A) and -1 or 0, inputService:IsKeyDown(Enum.KeyCode.D) and 1 or 0
+					up, down = 0, 0
+					for _, v in {'InputBegan', 'InputEnded'} do
+						Fly:Clean(inputService[v]:Connect(function(input)
+							if not inputService:GetFocusedTextBox() then
+								local divided = Keys.Value:split('/')
+								if input.KeyCode == Enum.KeyCode.W then
+									w = v == 'InputBegan' and -1 or 0
+								elseif input.KeyCode == Enum.KeyCode.S then
+									s = v == 'InputBegan' and 1 or 0
+								elseif input.KeyCode == Enum.KeyCode.A then
+									a = v == 'InputBegan' and -1 or 0
+								elseif input.KeyCode == Enum.KeyCode.D then
+									d = v == 'InputBegan' and 1 or 0
+								elseif input.KeyCode == Enum.KeyCode[divided[1]] then
+									up = v == 'InputBegan' and 1 or 0
+								elseif input.KeyCode == Enum.KeyCode[divided[2]] then
+									down = v == 'InputBegan' and -1 or 0
+								end
+							end
+						end))
+					end
+					if inputService.TouchEnabled then
+						pcall(function()
+							local jumpButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+							Fly:Clean(jumpButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+								up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
+							end))
+						end)
+						if downButton then
+							Fly:Clean(downButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+								down = downButton.ImageRectOffset.X == 146 and -1 or 0
+							end))
+						end
+					end
+				else
+					YLevel, OldYLevel = nil, nil
+					if entitylib.isAlive and PlatformStanding.Enabled then
+						entitylib.character.Humanoid.PlatformStand = false
+					end
+				end
+			end,
+			ExtraText = function() 
+				return Mode.Value 
+			end,
+			Tooltip = 'Makes you go zoom.'
+		})
+		Mode = Fly:CreateDropdown({
+			Name = 'Speed Mode',
+			List = SpeedMethodList,
+			Function = function(val)
+				WallCheck.Object.Visible = FloatMode.Value == 'CFrame' or FloatMode.Value == 'TP' or val == 'CFrame' or val == 'TP'
+				Options.TPFrequency.Object.Visible = val == 'TP'
+				Options.PulseLength.Object.Visible = val == 'Pulse'
+				Options.PulseDelay.Object.Visible = val == 'Pulse'
+				if Fly.Enabled then
+					Fly:Toggle()
+					Fly:Toggle()
+				end
+			end,
+			Tooltip = 'Velocity - Uses smooth physics based movement\nCFrame - Directly adjusts the position of the root\nTP - Large teleports within intervals\nPulse - Controllable bursts of speed\nWalkSpeed - The classic mode of speed, usually detected on most games.'
+		})
+		FloatMode = Fly:CreateDropdown({
+			Name = 'Float Mode',
+			List = {'Velocity', 'CFrame', 'Bounce', 'Floor', 'Jump', 'TP'},
+			Function = function(val)
+				WallCheck.Object.Visible = Mode.Value == 'CFrame' or Mode.Value == 'TP' or val == 'CFrame' or val == 'TP'
+				BounceLength.Object.Visible = val == 'Bounce'
+				BounceDelay.Object.Visible = val == 'Bounce'
+				VerticalValue.Object.Visible = val ~= 'Floor'
+				FloatTPGround.Object.Visible = val == 'TP'
+				FloatTPAir.Object.Visible = val == 'TP'
+				if Platform then
+					Platform:Destroy()
+					Platform = nil
+				end
+				if val == 'Floor' then
+					Platform = Instance.new('Part')
+					Platform.CanQuery = false
+					Platform.Anchored = true
+					Platform.Size = Vector3.one
+					Platform.Transparency = 1
+					Platform.Parent = Fly.Enabled and gameCamera or nil
+				end
+			end,
+			Tooltip = 'Velocity - Uses smooth physics based movement\nCFrame - Directly adjusts the position of the root\nTP - Teleports you to the ground within intervals\nFloor - Spawns a part under you\nJump - Presses space after going below a certain Y Level\nBounce - Vertical bouncing motion'
+		})
+		local states = {'None'}
+		for _, v in Enum.HumanoidStateType:GetEnumItems() do
+			if v.Name ~= 'Dead' and v.Name ~= 'None' then
+				table.insert(states, v.Name)
+			end
+		end
+		State = Fly:CreateDropdown({
+			Name = 'Humanoid State',
+			List = states
+		})
+		MoveMethod = Fly:CreateDropdown({
+			Name = 'Move Mode',
+			List = {'MoveDirection', 'Direct'},
+			Tooltip = 'MoveDirection - Uses the games input vector for movement\nDirect - Directly calculate our own input vector'
+		})
+		Keys = Fly:CreateDropdown({
+			Name = 'Keys',
+			List = {'Space/LeftControl', 'Space/LeftShift', 'E/Q', 'Space/Q', 'ButtonA/ButtonL2'},
+			Tooltip = 'The key combination for going up & down'
+		})
+		Options.Value = Fly:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		VerticalValue = Fly:CreateSlider({
+			Name = 'Vertical Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Options.TPFrequency = Fly:CreateSlider({
+			Name = 'TP Frequency',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		Options.PulseLength = Fly:CreateSlider({
+			Name = 'Pulse Length',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		Options.PulseDelay = Fly:CreateSlider({
+			Name = 'Pulse Delay',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		BounceLength = Fly:CreateSlider({
+			Name = 'Bounce Length',
+			Min = 0,
+			Max = 30,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		BounceDelay = Fly:CreateSlider({
+			Name = 'Bounce Delay',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		FloatTPGround = Fly:CreateSlider({
+			Name = 'Ground',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Default = 0.1,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		FloatTPAir = Fly:CreateSlider({
+			Name = 'Air',
+			Min = 0,
+			Max = 5,
+			Decimal = 10,
+			Default = 2,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		WallCheck = Fly:CreateToggle({
+			Name = 'Wall Check',
+			Default = true,
+			Darker = true,
+			Visible = false
+		})
+		Options.WallCheck = WallCheck
+		PlatformStanding = Fly:CreateToggle({
+			Name = 'PlatformStand',
+			Function = function(callback)
+				if Fly.Enabled then
+					entitylib.character.Humanoid.PlatformStand = callback
+				end
+			end,
+			Tooltip = 'Forces the character to look infront of the camera'
+		})
+		CustomProperties = Fly:CreateToggle({
+			Name = 'Custom Properties',
+			Function = function()
+				if Fly.Enabled then
+					Fly:Toggle()
+					Fly:Toggle()
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local HighJump
+		local Mode
+		local Value
+		local AutoDisable
+		
+		local function jump()
+			local state = entitylib.isAlive and entitylib.character.Humanoid:GetState() or nil
+			--if state == Enum.HumanoidStateType.Running or state == Enum.HumanoidStateType.Landed then
+				if Mode.Value == 'Velocity' then
+					entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+					entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, Value.Value, entitylib.character.RootPart.Velocity.Z)
+				else
+					local start = math.max(Value.Value - entitylib.character.Humanoid.JumpHeight, 0)
+					repeat
+						entitylib.character.RootPart.CFrame += Vector3.new(0, start * 0.016, 0)
+						start = start - (workspace.Gravity * 0.016)
+						if Mode.Value == 'CFrame' then
+							task.wait()
+						end
+					until start <= 0
+				end
+			--end
+		end
+		
+		HighJump = vape.Categories.Blatant:CreateModule({
+			Name = 'High Jump',
+			Function = function(callback)
+				if callback then
+					if AutoDisable.Enabled then
+						jump()
+						HighJump:Toggle()
+					else
+						HighJump:Clean(runService.RenderStepped:Connect(function()
+							if not inputService:GetFocusedTextBox() and inputService:IsKeyDown(Enum.KeyCode.Space) then
+								jump()
+							end
+						end))
+					end
+				end
+			end,
+			ExtraText = function() 
+				return Mode.Value 
+			end,
+			Tooltip = 'Lets you jump higher'
+		})
+		Mode = HighJump:CreateDropdown({
+			Name = 'Mode',
+			List = {'Velocity', 'CFrame', 'Instant'},
+			Tooltip = 'Velocity - Uses smooth movement to boost you upward\nCFrame - Directly adjusts the position upward\nInstant - Teleports you to the peak of the jump'
+		})
+		Value = HighJump:CreateSlider({
+			Name = 'Velocity',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		AutoDisable = HighJump:CreateToggle({
+			Name = 'Auto Disable',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local HitBoxes
+		local Targets
+		local TargetPart
+		local Expand
+		local modified = {}
+		
+		HitBoxes = vape.Categories.Blatant:CreateModule({
+			Name = 'Hit Boxes',
+			Function = function(callback)
+				if callback then
+					repeat
+						for _, v in entitylib.List do
+							if v.Targetable then
+								if not Targets.Players.Enabled and v.Player then continue end
+								if not Targets.NPCs.Enabled and v.NPC then continue end
+								local part = v[TargetPart.Value]
+								if not modified[part] then
+									modified[part] = part.Size
+								end
+								part.Size = modified[part] + Vector3.new(Expand.Value, Expand.Value, Expand.Value)
+							end
+						end
+						task.wait()
+					until not HitBoxes.Enabled
+				else
+					for i, v in modified do
+						i.Size = v
+					end
+					table.clear(modified)
+				end
+			end,
+			Tooltip = 'Expands entities hitboxes'
+		})
+		Targets = HitBoxes:CreateTargets({Players = true})
+		TargetPart = HitBoxes:CreateDropdown({
+			Name = 'Part',
+			List = {'RootPart', 'Head'}
+		})
+		Expand = HitBoxes:CreateSlider({
+			Name = 'Expand amount',
+			Min = 0,
+			Max = 2,
+			Decimal = 10,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local Invisible
+		local clone, oldroot, hip, valid
+		local animtrack
+		local proper = true
+		
+		local function doClone()
+			if entitylib.isAlive and entitylib.character.Humanoid.Health > 0 then
+				hip = entitylib.character.Humanoid.HipHeight
+				oldroot = entitylib.character.HumanoidRootPart
+				if not lplr.Character.Parent then 
+					return false 
+				end
+		
+				lplr.Character.Parent = replicatedStorage
+				clone = oldroot:Clone()
+				clone.Parent = lplr.Character
+				oldroot.Parent = gameCamera
+				clone.CFrame = oldroot.CFrame
+		
+				lplr.Character.PrimaryPart = clone
+				entitylib.character.HumanoidRootPart = clone
+				entitylib.character.RootPart = clone
+				lplr.Character.Parent = workspace
+		
+				for _, v in lplr.Character:GetDescendants() do
+					if v:IsA('Weld') or v:IsA('Motor6D') then
+						if v.Part0 == oldroot then 
+							v.Part0 = clone 
+						end
+						if v.Part1 == oldroot then 
+							v.Part1 = clone 
+						end
+					end
+				end
+		
+				return true
+			end
+		
+			return false
+		end
+		
+		local function revertClone()
+			if not oldroot or not oldroot:IsDescendantOf(workspace) or not entitylib.isAlive then 
+				return false 
+			end
+		
+			lplr.Character.Parent = replicatedStorage
+			oldroot.Parent = lplr.Character
+			lplr.Character.PrimaryPart = oldroot
+			entitylib.character.HumanoidRootPart = oldroot
+			entitylib.character.RootPart = oldroot
+			lplr.Character.Parent = workspace
+			oldroot.CanCollide = true
+		
+			for _, v in lplr.Character:GetDescendants() do
+				if v:IsA('Weld') or v:IsA('Motor6D') then
+					if v.Part0 == clone then 
+						v.Part0 = oldroot 
+					end
+					if v.Part1 == clone then 
+						v.Part1 = oldroot 
+					end
+				end
+			end
+		
+			local oldpos = clone.CFrame
+			if clone then
+				clone:Destroy()
+				clone = nil
+			end
+		
+			oldroot.CFrame = oldpos
+			oldroot = nil
+			entitylib.character.Humanoid.HipHeight = hip or 2
+		end
+		
+		local function animationTrickery()
+			if entitylib.isAlive then 
+				local anim = Instance.new('Animation')
+				anim.AnimationId = 'http://www.roblox.com/asset/?id=18537363391'
+				animtrack = entitylib.character.Humanoid.Animator:LoadAnimation(anim)
+				animtrack.Priority = Enum.AnimationPriority.Action4
+				animtrack:Play(0, 1, 0)
+				anim:Destroy()
+				animtrack.Stopped:Connect(function()
+					if Invisible.Enabled then 
+						animationTrickery()
+					end	
+				end)
+		
+				task.delay(0, function()
+					animtrack.TimePosition = 0.77
+					task.delay(1, function()
+						animtrack:AdjustSpeed(math.huge)
+					end)
+				end)
+			end
+		end
+		
+		Invisible = vape.Categories.Blatant:CreateModule({
+			Name = 'Invisible',
+			Function = function(callback)
+				if callback then 
+					if not proper then
+						notif('Invisible', 'Broken state detected', 3, 'alert')
+						Invisible:Toggle()
+						return
+					end
+		
+					success = doClone()
+					if not success then
+						Invisible:Toggle()
+						return
+					end
+		
+					animationTrickery()
+					Invisible:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive and oldroot then
+							local root = entitylib.character.RootPart
+							local cf = root.CFrame - Vector3.new(0, entitylib.character.Humanoid.HipHeight + (root.Size.Y / 2) - 1, 0)
+		
+							if isnetworkowner and not isnetworkowner(oldroot) then 
+								root.CFrame = oldroot.CFrame
+								root.Velocity = oldroot.Velocity
+								return
+							end
+		
+							oldroot.CFrame = cf * CFrame.Angles(math.rad(180), 0, 0)
+							oldroot.Velocity = root.Velocity
+							oldroot.CanCollide = false
+						end
+					end))
+		
+					Invisible:Clean(entitylib.Events.LocalAdded:Connect(function(char)
+						local animator = char.Humanoid:WaitForChild('Animator', 1)
+						if animator and Invisible.Enabled then 
+							oldroot = nil
+							Invisible:Toggle()
+							Invisible:Toggle()
+						end
+					end))
+				else
+					if animtrack then 
+						animtrack:Stop()
+						animtrack:Destroy()
+					end
+					
+					if success and clone and oldroot and proper then
+						proper = true
+						if oldroot and clone then 
+							revertClone() 
+						end
+					end
+				end
+			end,
+			Tooltip = 'Turns you invisible.'
+		})
+	end)
+		
+	shared.vape.Attacking = false
+	run(function()
+		local Killaura
+		local Targets
+		local CPS
+		local SwingRange
+		local AttackRange
+		local AngleSlider
+		local Max
+		local Mouse
+		local Lunge
+		local BoxSwingColor
+		local BoxAttackColor
+		local ParticleTexture
+		local ParticleColor1
+		local ParticleColor2
+		local ParticleSize
+		local Face
+		local Overlay = OverlapParams.new()
+		Overlay.FilterType = Enum.RaycastFilterType.Include
+		local Particles, Boxes, AttackDelay = {}, {}, tick()
+		
+		local function getAttackData()
+			if Mouse.Enabled then
+				if not inputService:IsMouseButtonPressed(0) then return false end
+			end
+			
+			local tool = getTool()
+			return tool and tool:FindFirstChildWhichIsA('TouchTransmitter', true) or nil, tool
+		end
+		
+		Killaura = vape.Categories.Blatant:CreateModule({
+			Name = 'Killaura',
+			Function = function(callback)
+				if callback then
+					repeat
+						local interest, tool = getAttackData()
+						local attacked = {}
+						if interest then
+							local plrs = entitylib.AllPosition({
+								Range = SwingRange.Value,
+								Wallcheck = Targets.Walls.Enabled or nil,
+								Part = 'RootPart',
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled,
+								Limit = Max.Value
+							})
+		
+							if #plrs > 0 then
+								local selfpos = entitylib.character.RootPart.Position
+								local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
+		
+								for _, v in plrs do
+									local delta = (v.RootPart.Position - selfpos)
+									local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
+									if angle > (math.rad(AngleSlider.Value) / 2) then continue end
+									
+									table.insert(attacked, {
+										Entity = v,
+										Check = delta.Magnitude > AttackRange.Value and BoxSwingColor or BoxAttackColor
+									})
+									targetinfo.Targets[v] = tick() + 1
+									
+									if AttackDelay < tick() then
+										AttackDelay = tick() + (1 / CPS.GetRandomValue())
+										tool:Activate()
+									end
+		
+									if Lunge.Enabled and tool.GripUp.X == 0 then break end
+									if delta.Magnitude > AttackRange.Value then continue end
+									
+									Overlay.FilterDescendantsInstances = {v.Character}
+									for _, part in workspace:GetPartBoundsInBox(v.RootPart.CFrame, Vector3.new(4, 4, 4), Overlay) do
+										shared.vape.Attacking = true
+										firetouchinterest(interest.Parent, part, 1)
+										firetouchinterest(interest.Parent, part, 0)
+									end
+								end
+							else
+								shared.vape.Attacking = false
+							end
+						end
+		
+						for i, v in Boxes do
+							v.Adornee = attacked[i] and attacked[i].Entity.RootPart or nil
+							if v.Adornee then
+								v.Color3 = Color3.fromHSV(attacked[i].Check.Hue, attacked[i].Check.Sat, attacked[i].Check.Value)
+								v.Transparency = 1 - attacked[i].Check.Opacity
+							end
+						end
+		
+						for i, v in Particles do
+							v.Position = attacked[i] and attacked[i].Entity.RootPart.Position or Vector3.new(9e9, 9e9, 9e9)
+							v.Parent = attacked[i] and gameCamera or nil
+						end
+		
+						if Face.Enabled and attacked[1] then
+							local vec = attacked[1].Entity.RootPart.Position * Vector3.new(1, 0, 1)
+							entitylib.character.RootPart.CFrame = CFrame.lookAt(entitylib.character.RootPart.Position, Vector3.new(vec.X, entitylib.character.RootPart.Position.Y, vec.Z))
+						end
+		
+						task.wait()
+					until not Killaura.Enabled
+				else
+					for _, v in Boxes do
+						v.Adornee = nil
+					end
+					for _, v in Particles do
+						v.Parent = nil
+					end
+					shared.vape.Attacking = false
+				end
+			end,
+			Tooltip = 'Attack players around you\nwithout aiming at them.'
+		})
+		Targets = Killaura:CreateTargets({Players = true})
+		CPS = Killaura:CreateTwoSlider({
+			Name = 'Attacks per Second',
+			Min = 1,
+			Max = 20,
+			DefaultMin = 12,
+			DefaultMax = 12
+		})
+		SwingRange = Killaura:CreateSlider({
+			Name = 'Swing range',
+			Min = 1,
+			Max = 30,
+			Default = 13,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		AttackRange = Killaura:CreateSlider({
+			Name = 'Attack range',
+			Min = 1,
+			Max = 30,
+			Default = 13,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		AngleSlider = Killaura:CreateSlider({
+			Name = 'Max angle',
+			Min = 1,
+			Max = 360,
+			Default = 90
+		})
+		Max = Killaura:CreateSlider({
+			Name = 'Max targets',
+			Min = 1,
+			Max = 10,
+			Default = 10
+		})
+		Mouse = Killaura:CreateToggle({Name = 'Require mouse down'})
+		Lunge = Killaura:CreateToggle({Name = 'Sword lunge only'})
+		Killaura:CreateToggle({
+			Name = 'Show target',
+			Function = function(callback)
+				BoxSwingColor.Object.Visible = callback
+				BoxAttackColor.Object.Visible = callback
+				if callback then
+					for i = 1, 10 do
+						local box = Instance.new('BoxHandleAdornment')
+						box.Adornee = nil
+						box.AlwaysOnTop = true
+						box.Size = Vector3.new(3, 5, 3)
+						box.CFrame = CFrame.new(0, -0.5, 0)
+						box.ZIndex = 0
+						box.Parent = vape.gui
+						Boxes[i] = box
+					end
+				else
+					for _, v in Boxes do
+						v:Destroy()
+					end
+					table.clear(Boxes)
+				end
+			end
+		})
+		BoxSwingColor = Killaura:CreateColorSlider({
+			Name = 'Target Color',
+			Darker = true,
+			DefaultHue = 0.6,
+			DefaultOpacity = 0.5,
+			Visible = false
+		})
+		BoxAttackColor = Killaura:CreateColorSlider({
+			Name = 'Attack Color',
+			Darker = true,
+			DefaultOpacity = 0.5,
+			Visible = false
+		})
+		Killaura:CreateToggle({
+			Name = 'Target particles',
+			Function = function(callback)
+				ParticleTexture.Object.Visible = callback
+				ParticleColor1.Object.Visible = callback
+				ParticleColor2.Object.Visible = callback
+				ParticleSize.Object.Visible = callback
+				if callback then
+					for i = 1, 10 do
+						local part = Instance.new('Part')
+						part.Size = Vector3.new(2, 4, 2)
+						part.Anchored = true
+						part.CanCollide = false
+						part.Transparency = 1
+						part.CanQuery = false
+						part.Parent = Killaura.Enabled and gameCamera or nil
+						local particles = Instance.new('ParticleEmitter')
+						particles.Brightness = 1.5
+						particles.Size = NumberSequence.new(ParticleSize.Value)
+						particles.Shape = Enum.ParticleEmitterShape.Sphere
+						particles.Texture = ParticleTexture.Value
+						particles.Transparency = NumberSequence.new(0)
+						particles.Lifetime = NumberRange.new(0.4)
+						particles.Speed = NumberRange.new(16)
+						particles.Rate = 128
+						particles.Drag = 16
+						particles.ShapePartial = 1
+						particles.Color = ColorSequence.new({
+							ColorSequenceKeypoint.new(0, Color3.fromHSV(ParticleColor1.Hue, ParticleColor1.Sat, ParticleColor1.Value)),
+							ColorSequenceKeypoint.new(1, Color3.fromHSV(ParticleColor2.Hue, ParticleColor2.Sat, ParticleColor2.Value))
+						})
+						particles.Parent = part
+						Particles[i] = part
+					end
+				else
+					for _, v in Particles do 
+						v:Destroy() 
+					end
+					table.clear(Particles)
+				end
+			end
+		})
+		ParticleTexture = Killaura:CreateTextBox({
+			Name = 'Texture',
+			Default = 'rbxassetid://14736249347',
+			Function = function()
+				for _, v in Particles do
+					v.ParticleEmitter.Texture = ParticleTexture.Value
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		ParticleColor1 = Killaura:CreateColorSlider({
+			Name = 'Color Begin',
+			Function = function(hue, sat, val)
+				for _, v in Particles do
+					v.ParticleEmitter.Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.fromHSV(hue, sat, val)),
+						ColorSequenceKeypoint.new(1, Color3.fromHSV(ParticleColor2.Hue, ParticleColor2.Sat, ParticleColor2.Value))
+					})
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		ParticleColor2 = Killaura:CreateColorSlider({
+			Name = 'Color End',
+			Function = function(hue, sat, val)
+				for _, v in Particles do
+					v.ParticleEmitter.Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.fromHSV(ParticleColor1.Hue, ParticleColor1.Sat, ParticleColor1.Value)),
+						ColorSequenceKeypoint.new(1, Color3.fromHSV(hue, sat, val))
+					})
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		ParticleSize = Killaura:CreateSlider({
+			Name = 'Size',
+			Min = 0,
+			Max = 1,
+			Default = 0.2,
+			Decimal = 100,
+			Function = function(val)
+				for _, v in Particles do
+					v.ParticleEmitter.Size = NumberSequence.new(val)
+				end
+			end,
+			Darker = true,
+			Visible = false
+		})
+		Face = Killaura:CreateToggle({Name = 'Face target'})
+	end)
+		
+	run(function()
+		local Mode
+		local Value
+		local AutoDisable
+		
+		LongJump = vape.Categories.Blatant:CreateModule({
+			Name = 'Long Jump',
+			Function = function(callback)
+				if callback then
+					local exempt = tick() + 0.1
+					LongJump:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive then
+							if entitylib.character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+								if exempt < tick() and AutoDisable.Enabled then
+									if LongJump.Enabled then
+										LongJump:Toggle()
+									end
+								else
+									entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+								end
+							end
+		
+							local root = entitylib.character.RootPart
+							if Mode.Value == 'Velocity' then
+								root.AssemblyLinearVelocity = (entitylib.character.Humanoid.MoveDirection * Value.Value) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+							else
+								root.CFrame += (entitylib.character.Humanoid.MoveDirection * Value.Value * dt)
+							end
+						end
+					end))
+				end
+			end,
+			ExtraText = function() 
+				return Mode.Value 
+			end,
+			Tooltip = 'Lets you jump farther'
+		})
+		Mode = LongJump:CreateDropdown({
+			Name = 'Mode',
+			List = {'Velocity', 'CFrame'},
+			Tooltip = 'Velocity - Uses smooth physics based movement\nCFrame - Directly adjusts the position of the root'
+		})
+		Value = LongJump:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		AutoDisable = LongJump:CreateToggle({
+			Name = 'Auto Disable',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local MouseTP
+		local Mode
+		local MovementMode
+		local Length
+		local Delay
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		
+		local function getWaypointInMouse()
+			local returned, distance, mouseLocation = nil, math.huge, inputService:GetMouseLocation()
+			for _, v in WaypointFolder:GetChildren() do
+				local position, vis = gameCamera:WorldToViewportPoint(v.StudsOffsetWorldSpace)
+				if not vis then continue end
+				local mag = (mouseLocation - Vector2.new(position.x, position.y)).Magnitude
+				if mag < distance then
+					returned, distance = v, mag
+				end
+			end
+			return returned
+		end
+		
+		MouseTP = vape.Categories.Blatant:CreateModule({
+			Name = 'Mouse TP',
+			Function = function(callback)
+				if callback then
+					local position
+					if Mode.Value == 'Mouse' then
+						local ray = cloneref(lplr:GetMouse()).UnitRay
+						rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+						ray = workspace:Raycast(ray.Origin, ray.Direction * 10000, rayCheck)
+						position = ray and ray.Position + Vector3.new(0, entitylib.character.HipHeight or 2, 0)
+					elseif Mode.Value == 'Waypoint' then
+						local waypoint = getWaypointInMouse()
+						position = waypoint and waypoint.StudsOffsetWorldSpace
+					else
+						local ent = entitylib.EntityMouse({
+							Range = math.huge,
+							Part = 'RootPart',
+							Players = true
+						})
+						position = ent and ent.RootPart.Position
+					end
+		
+					if not position then
+						notif('MouseTP', 'No position found.', 5)
+						MouseTP:Toggle()
+						return
+					end
+		
+					if MovementMode.Value == 'Normal' then
+						if entitylib.isAlive then
+							entitylib.character.RootPart.CFrame = CFrame.lookAlong(position, entitylib.character.RootPart.CFrame.LookVector)
+						end
+						MouseTP:Toggle()
+					else
+						MouseTP:Clean(runService.Heartbeat:Connect(function()
+							if entitylib.isAlive then
+								entitylib.character.RootPart.Velocity = Vector3.zero
+							end
+						end))
+						
+						repeat
+							if entitylib.isAlive then
+								local direction = CFrame.lookAt(entitylib.character.RootPart.Position, position).LookVector * math.min((entitylib.character.RootPart.Position - position).Magnitude, Length.Value)
+								entitylib.character.RootPart.CFrame += direction
+								if (entitylib.character.RootPart.Position - position).Magnitude < 3 and MouseTP.Enabled then
+									MouseTP:Toggle()
+								end
+							elseif MouseTP.Enabled then
+								MouseTP:Toggle()
+								notif('MouseTP', 'Character missing', 5, 'warning')
+							end
+							task.wait(Delay.Value)
+						until not MouseTP.Enabled
+					end
+				end
+			end,
+			Tooltip = 'Teleports to a selected position.'
+		})
+		Mode = MouseTP:CreateDropdown({
+			Name = 'Mode',
+			List = {'Mouse', 'Player', 'Waypoint'}
+		})
+		MovementMode = MouseTP:CreateDropdown({
+			Name = 'Movement',
+			List = {'Normal', 'Lerp'},
+			Function = function(val)
+				Length.Object.Visible = val == 'Lerp'
+				Delay.Object.Visible = val == 'Lerp'
+			end
+		})
+		Length = MouseTP:CreateSlider({
+			Name = 'Length',
+			Min = 0,
+			Max = 150,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Delay = MouseTP:CreateSlider({
+			Name = 'Delay',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+	end)
+		
+	run(function()
+		local Mode
+		local StudLimit = {Object = {}}
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local overlapCheck = OverlapParams.new()
+		overlapCheck.MaxParts = 9e9
+		local modified, fflag = {}
+		local teleported
+		
+		local function grabClosestNormal(ray)
+			local partCF, mag, closest = ray.Instance.CFrame, 0, Enum.NormalId.Top
+			for _, normal in Enum.NormalId:GetEnumItems() do
+				local dot = partCF:VectorToWorldSpace(Vector3.fromNormalId(normal)):Dot(ray.Normal)
+				if dot > mag then
+					mag, closest = dot, normal
+				end
+			end
+			return Vector3.fromNormalId(closest).X ~= 0 and 'X' or 'Z'
+		end
+		
+		local Functions = {
+			Part = function()
+				local chars = {gameCamera, lplr.Character}
+				for _, v in entitylib.List do 
+					table.insert(chars, v.Character) 
+				end
+				overlapCheck.FilterDescendantsInstances = chars
+		
+				local parts = workspace:GetPartBoundsInBox(entitylib.character.RootPart.CFrame + Vector3.new(0, 1, 0), entitylib.character.RootPart.Size + Vector3.new(1, entitylib.character.HipHeight, 1), overlapCheck)
+				for _, part in parts do
+					if part.CanCollide and (not Spider.Enabled or SpiderShift) then
+						modified[part] = true
+						part.CanCollide = false
+					end
+				end
+		
+				for part in modified do
+					if not table.find(parts, part) then
+						modified[part] = nil
+						part.CanCollide = true
+					end
+				end
+			end,
+			Character = function()
+				for _, part in lplr.Character:GetDescendants() do
+					if part:IsA('BasePart') and part.CanCollide and (not Spider.Enabled or SpiderShift) then
+						modified[part] = true
+						part.CanCollide = Spider.Enabled and not SpiderShift
+					end
+				end
+			end,
+			TP = function()
+				local chars = {gameCamera, lplr.Character}
+				for _, v in entitylib.List do
+					table.insert(chars, v.Character)
+				end
+				rayCheck.FilterDescendantsInstances = chars
+				overlapCheck.FilterDescendantsInstances = chars
+				
+				local ray = workspace:Raycast(entitylib.character.Head.CFrame.Position, entitylib.character.Humanoid.MoveDirection * 1.1, rayCheck)
+				if ray and (not Spider.Enabled or SpiderShift) then
+					local phaseDirection = grabClosestNormal(ray)
+					if ray.Instance.Size[phaseDirection] <= StudLimit.Value then
+						local dest = entitylib.character.RootPart.CFrame + (ray.Normal * (-(ray.Instance.Size[phaseDirection]) - (entitylib.character.RootPart.Size.X / 1.5)))
+						if #workspace:GetPartBoundsInBox(dest, Vector3.one, overlapCheck) <= 0 then
+							entitylib.character.RootPart.CFrame = dest
+						end
+					end
+				end
+			end,
+			FFlag = function()
+				if teleported then return end
+				setfflag('AssemblyExtentsExpansionStudHundredth', '-10000')
+				fflag = true
+			end
+		}
+		
+		Phase = vape.Categories.Blatant:CreateModule({
+			Name = 'Phase',
+			Function = function(callback)
+				if callback then
+					Phase:Clean(runService.Stepped:Connect(function()
+						if entitylib.isAlive then
+							Functions[Mode.Value]()
+						end
+					end))
+					if Mode.Value == 'FFlag' then
+						Phase:Clean(lplr.OnTeleport:Connect(function()
+							teleported = true
+							setfflag('AssemblyExtentsExpansionStudHundreth', '30')
+						end))
+					end
+				else
+					if fflag then
+						setfflag('AssemblyExtentsExpansionStudHundredth', '30')
+					end
+					for part in modified do
+						part.CanCollide = true
+					end
+					table.clear(modified)
+					fflag = nil
+				end
+			end,
+			Tooltip = 'Lets you Phase/Clip through walls. (Hold shift to use Phase over spider)'
+		})
+		Mode = Phase:CreateDropdown({
+			Name = 'Mode',
+			List = {'Part', 'Character', 'TP', 'FFlag'},
+			Function = function(val)
+				StudLimit.Object.Visible = val == 'TP'
+				if fflag then
+					setfflag('AssemblyExtentsExpansionStudHundredth', '30')
+				end
+				for part in modified do
+					part.CanCollide = true
+				end
+				table.clear(modified)
+				fflag = nil
+			end,
+			Tooltip = 'Part - Modifies parts collision status around you\nCharacter - Modifies the local collision status of the character\nTP - Teleports you past parts\nFFlag - Directly adjusts all physics collisions'
+		})
+		StudLimit = Phase:CreateSlider({
+			Name = 'Wall Size',
+			Min = 1,
+			Max = 20,
+			Default = 5,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local Speed
+		local Mode
+		local Options
+		local AutoJump
+		local OnlyKillaura
+		local AutoJumpCustom
+		local AutoJumpValue
+		local w, s, a, d = 0, 0, 0, 0
+		
+		Speed = vape.Categories.Blatant:CreateModule({
+			Name = 'Speed',
+			Function = function(callback)
+				frictionTable.Speed = callback and CustomProperties.Enabled or nil
+				updateVelocity()
+				if callback then
+					Speed:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive and not Fly.Enabled and not LongJump.Enabled then
+							local state = entitylib.character.Humanoid:GetState()
+							if state == Enum.HumanoidStateType.Climbing then return end
+							local movevec = TargetStrafeVector or Options.MoveMethod.Value == 'Direct' and calculateMoveVector(Vector3.new(a + d, 0, w + s)) or entitylib.character.Humanoid.MoveDirection
+							SpeedMethods[Mode.Value](Options, movevec, dt)
+							if AutoJump.Enabled and entitylib.character.Humanoid.FloorMaterial ~= Enum.Material.Air and movevec ~= Vector3.zero and (OnlyKillaura.Enabled and shared.vape.Attacking or not OnlyKillaura.Enabled) then
+								if AutoJumpCustom.Enabled then
+									local velocity = entitylib.character.RootPart.Velocity * Vector3.new(1, 0, 1)
+									entitylib.character.RootPart.Velocity = Vector3.new(velocity.X, AutoJumpValue.Value, velocity.Z)
+								else
+									entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+								end
+							end
+						end
+					end))
+		
+					w, s, a, d = inputService:IsKeyDown(Enum.KeyCode.W) and -1 or 0, inputService:IsKeyDown(Enum.KeyCode.S) and 1 or 0, inputService:IsKeyDown(Enum.KeyCode.A) and -1 or 0, inputService:IsKeyDown(Enum.KeyCode.D) and 1 or 0
+					for _, v in {'InputBegan', 'InputEnded'} do
+						Speed:Clean(inputService[v]:Connect(function(input)
+							if not inputService:GetFocusedTextBox() then
+								if input.KeyCode == Enum.KeyCode.W then
+									w = v == 'InputBegan' and -1 or 0
+								elseif input.KeyCode == Enum.KeyCode.S then
+									s = v == 'InputBegan' and 1 or 0
+								elseif input.KeyCode == Enum.KeyCode.A then
+									a = v == 'InputBegan' and -1 or 0
+								elseif input.KeyCode == Enum.KeyCode.D then
+									d = v == 'InputBegan' and 1 or 0
+								end
+							end
+						end))
+					end
+				else
+					if Options.WalkSpeed and entitylib.isAlive then
+						entitylib.character.Humanoid.WalkSpeed = Options.WalkSpeed
+					end
+					Options.WalkSpeed = nil
+				end
+			end,
+			ExtraText = function()
+				return Mode.Value
+			end,
+			Tooltip = 'Increases your movement with various methods.'
+		})
+		Mode = Speed:CreateDropdown({
+			Name = 'Mode',
+			List = SpeedMethodList,
+			Function = function(val)
+				Options.WallCheck.Object.Visible = val == 'CFrame' or val == 'TP'
+				Options.TPFrequency.Object.Visible = val == 'TP'
+				Options.PulseLength.Object.Visible = val == 'Pulse'
+				Options.PulseDelay.Object.Visible = val == 'Pulse'
+				if Speed.Enabled then
+					Speed:Toggle()
+					Speed:Toggle()
+				end
+			end,
+			Tooltip = 'Velocity - Uses smooth physics based movement\nCFrame - Directly adjusts the position of the root\nTP - Large teleports within intervals\nPulse - Controllable bursts of speed\nWalkSpeed - The classic mode of speed, usually detected on most games.'
+		})
+		Options = {
+			MoveMethod = Speed:CreateDropdown({
+				Name = 'Move Mode',
+				List = {'MoveDirection', 'Direct'},
+				Tooltip = 'MoveDirection - Uses the games input vector for movement\nDirect - Directly calculate our own input vector'
+			}),
+			Value = Speed:CreateSlider({
+				Name = 'Speed',
+				Min = 1,
+				Max = 150,
+				Default = 50,
+				Suffix = function(val)
+					return val == 1 and 'stud' or 'studs'
+				end
+			}),
+			TPFrequency = Speed:CreateSlider({
+				Name = 'TP Frequency',
+				Min = 0,
+				Max = 1,
+				Decimal = 100,
+				Darker = true,
+				Visible = false,
+				Suffix = function(val)
+					return val == 1 and 'second' or 'seconds'
+				end
+			}),
+			PulseLength = Speed:CreateSlider({
+				Name = 'Pulse Length',
+				Min = 0,
+				Max = 1,
+				Decimal = 100,
+				Darker = true,
+				Visible = false,
+				Suffix = function(val)
+					return val == 1 and 'second' or 'seconds'
+				end
+			}),
+			PulseDelay = Speed:CreateSlider({
+				Name = 'Pulse Delay',
+				Min = 0,
+				Max = 1,
+				Decimal = 100,
+				Darker = true,
+				Visible = false,
+				Suffix = function(val)
+					return val == 1 and 'second' or 'seconds'
+				end
+			}),
+			WallCheck = Speed:CreateToggle({
+				Name = 'Wall Check',
+				Default = true,
+				Darker = true,
+				Visible = false
+			}),
+			TPTiming = tick(),
+			rayCheck = RaycastParams.new()
+		}
+		Options.rayCheck.RespectCanCollide = true
+		CustomProperties = Speed:CreateToggle({
+			Name = 'Custom Properties',
+			Function = function()
+				if Speed.Enabled then
+					Speed:Toggle()
+					Speed:Toggle()
+				end
+			end,
+			Default = true
+		})
+		AutoJump = Speed:CreateToggle({
+			Name = 'AutoJump',
+			Function = function(callback)
+				AutoJumpCustom.Object.Visible = callback
+				OnlyKillaura.Object.Visible = callback
+			end
+		})
+		OnlyKillaura = Speed:CreateToggle({
+			Name = 'Only Killaura',
+			Tooltip = 'Only jump when Killaura is attacking.',
+			Darker = true,
+			Visible = false
+		})
+		AutoJumpCustom = Speed:CreateToggle({
+			Name = 'Custom Jump',
+			Function = function(callback)
+				AutoJumpValue.Object.Visible = callback
+			end,
+			Tooltip = 'Allows you to adjust the jump power',
+			Darker = true,
+			Visible = false
+		})
+		AutoJumpValue = Speed:CreateSlider({
+			Name = 'Jump Power',
+			Min = 1,
+			Max = 50,
+			Default = 30,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local Mode
+		local Value
+		local State
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local Active, Truss
+		
+		Spider = vape.Categories.Blatant:CreateModule({
+			Name = 'Spider',
+			Function = function(callback)
+				if callback then
+					if Truss then Truss.Parent = gameCamera end
+					Spider:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive and isnetworkowner(entitylib.character.RootPart) then
+							local root = entitylib.character.RootPart
+							local chars = {gameCamera, lplr.Character, Truss}
+							for _, v in entitylib.List do
+								table.insert(chars, v.Character)
+							end
+							SpiderShift = inputService:IsKeyDown(Enum.KeyCode.LeftShift)
+							rayCheck.FilterDescendantsInstances = chars
+							rayCheck.CollisionGroup = root.CollisionGroup
+		
+							if Mode.Value ~= 'Part' then
+								local vec = entitylib.character.Humanoid.MoveDirection * 2.5
+								local ray = workspace:Raycast(root.Position - Vector3.new(0, entitylib.character.HipHeight - 0.5, 0), vec, rayCheck)
+								if Active and not ray then
+									root.Velocity = Vector3.new(root.Velocity.X, 0, root.Velocity.Z)
+								end
+		
+								Active = ray
+								if Active and ray.Normal.Y == 0 then
+									if not Phase.Enabled or not SpiderShift then
+										if State.Enabled then
+											entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Climbing)
+										end
+										entitylib.character.RootPart.Velocity *= Vector3.new(1, 0, 1)
+										if Mode.Value == 'CFrame' then
+											entitylib.character.RootPart.CFrame += Vector3.new(0, Value.Value * dt, 0)
+										else
+											entitylib.character.RootPart.Velocity += Vector3.new(0, Value.Value, 0)
+										end
+									end
+								end
+							else
+								local ray = workspace:Raycast(root.Position - Vector3.new(0, entitylib.character.HipHeight - 0.5, 0), entitylib.character.RootPart.CFrame.LookVector * 2, rayCheck)
+								if ray and (not Phase.Enabled or not SpiderShift) then
+									Truss.Position = ray.Position - ray.Normal * 0.9 or Vector3.zero
+								else
+									Truss.Position = Vector3.zero
+								end
+							end
+						end
+					end))
+				else
+					if Truss then
+						Truss.Parent = nil
+					end
+					SpiderShift = false
+				end
+			end,
+			Tooltip = 'Lets you climb up walls. (Hold shift to use Phase over spider)'
+		})
+		Mode = Spider:CreateDropdown({
+			Name = 'Mode',
+			List = {'Velocity', 'CFrame', 'Part'},
+			Function = function(val)
+				Value.Object.Visible = val ~= 'Part'
+				State.Object.Visible = val ~= 'Part'
+				if Truss then
+					Truss:Destroy()
+					Truss = nil
+				end
+				if val == 'Part' then
+					Truss = Instance.new('TrussPart')
+					Truss.Size = Vector3.new(2, 2, 2)
+					Truss.Transparency = 1
+					Truss.Anchored = true
+					Truss.Parent = Spider.Enabled and gameCamera or nil
+				end
+			end,
+			Tooltip = 'Velocity - Uses smooth movement to boost you upward\nCFrame - Directly adjusts the position upward\nPart - Positions a climbable part infront of you'
+		})
+		Value = Spider:CreateSlider({
+			Name = 'Speed',
+			Min = 0,
+			Max = 100,
+			Default = 30,
+			Darker = true,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		State = Spider:CreateToggle({
+			Name = 'Climb State',
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local SpinBot
+		local Mode
+		local XToggle
+		local YToggle
+		local ZToggle
+		local Value
+		local AngularVelocity
+		
+		SpinBot = vape.Categories.Blatant:CreateModule({
+			Name = 'Spin Bot',
+			Function = function(callback)
+				if callback then
+					SpinBot:Clean(runService.PreSimulation:Connect(function()
+						if entitylib.isAlive then
+							if Mode.Value == 'RotVelocity' then
+								local originalRotVelocity = entitylib.character.RootPart.RotVelocity
+								entitylib.character.Humanoid.AutoRotate = false
+								entitylib.character.RootPart.RotVelocity = Vector3.new(XToggle.Enabled and Value.Value or originalRotVelocity.X, YToggle.Enabled and Value.Value or originalRotVelocity.Y, ZToggle.Enabled and Value.Value or originalRotVelocity.Z)
+							elseif Mode.Value == 'CFrame' then
+								local val = math.rad((tick() * (20 * Value.Value)) % 360)
+								local x, y, z = entitylib.character.RootPart.CFrame:ToOrientation()
+								entitylib.character.RootPart.CFrame = CFrame.new(entitylib.character.RootPart.Position) * CFrame.Angles(XToggle.Enabled and val or x, YToggle.Enabled and val or y, ZToggle.Enabled and val or z)
+							elseif AngularVelocity then
+								AngularVelocity.Parent = entitylib.isAlive and entitylib.character.RootPart
+								AngularVelocity.MaxTorque = Vector3.new(XToggle.Enabled and math.huge or 0, YToggle.Enabled and math.huge or 0, ZToggle.Enabled and math.huge or 0)
+								AngularVelocity.AngularVelocity = Vector3.new(Value.Value, Value.Value, Value.Value)
+							end
+						end
+					end))
+				else
+					if entitylib.isAlive and Mode.Value == 'RotVelocity' then
+						entitylib.character.Humanoid.AutoRotate = true
+					end
+					if AngularVelocity then
+						AngularVelocity.Parent = nil
+					end
+				end
+			end,
+			Tooltip = 'Makes your character spin around in circles (does not work in first person)'
+		})
+		Mode = SpinBot:CreateDropdown({
+			Name = 'Mode',
+			List = {'CFrame', 'RotVelocity', 'BodyMover'},
+			Function = function(val)
+				if AngularVelocity then
+					AngularVelocity:Destroy()
+					AngularVelocity = nil
+				end
+				AngularVelocity = val == 'BodyMover' and Instance.new('BodyAngularVelocity') or nil
+			end
+		})
+		Value = SpinBot:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 100,
+			Default = 40
+		})
+		XToggle = SpinBot:CreateToggle({Name = 'Spin X'})
+		YToggle = SpinBot:CreateToggle({
+			Name = 'Spin Y',
+			Default = true
+		})
+		ZToggle = SpinBot:CreateToggle({Name = 'Spin Z'})
+	end)
+		
+	run(function()
+		local Swim
+		local terrain = cloneref(workspace:FindFirstChildWhichIsA('Terrain'))
+		local lastpos = Region3.new(Vector3.zero, Vector3.zero)
+		
+		Swim = vape.Categories.Blatant:CreateModule({
+			Name = 'Swim',
+			Function = function(callback)
+				if callback then
+					Swim:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive then
+							local root = entitylib.character.RootPart
+							local moving = entitylib.character.Humanoid.MoveDirection ~= Vector3.zero
+							local rootvelo = root.Velocity
+							local space = inputService:IsKeyDown(Enum.KeyCode.Space)
+		
+							if terrain then
+								local factor = (moving or space) and Vector3.new(6, 6, 6) or Vector3.new(2, 1, 2)
+								local pos = root.Position - Vector3.new(0, 1, 0)
+								local newpos = Region3.new(pos - factor, pos + factor):ExpandToGrid(4)
+								terrain:ReplaceMaterial(lastpos, 4, Enum.Material.Water, Enum.Material.Air)
+								terrain:FillRegion(newpos, 4, Enum.Material.Water)
+								lastpos = newpos
+							end
+						end
+					end))
+				else
+					if terrain and lastpos then
+						terrain:ReplaceMaterial(lastpos, 4, Enum.Material.Water, Enum.Material.Air)
+					end
+				end
+			end,
+			Tooltip = 'Lets you swim midair'
+		})
+	end)
+		
+	run(function()
+		local TargetStrafe
+		local TP
+		local Targets
+		local SearchRange
+		local StrafeRange
+		local YFactor
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local module, old
+		
+		TargetStrafe = vape.Categories.Blatant:CreateModule({
+			Name = 'Target Strafe',
+			Function = function(callback)
+				if callback then
+					if not module then
+						local suc = pcall(function() module = require(lplr.PlayerScripts.PlayerModule).controls end)
+						if not suc then
+							module = {}
+						end
+					end
+					
+					old = module.moveFunction
+					local flymod, ang, oldent = vape.Modules.Fly or {Enabled = false}
+					if TP.Enabled then
+						repeat
+							local vec = Vector3.zero
+							local wallcheck = Targets.Walls.Enabled
+							local ent = not inputService:IsKeyDown(Enum.KeyCode.S) and entitylib.EntityPosition({
+								Range = SearchRange.Value,
+								Wallcheck = wallcheck,
+								Part = 'RootPart',
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled
+							})
+			
+							if ent then
+								local root, targetPos = entitylib.character.RootPart, ent.RootPart.Position
+								rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, ent.Character}
+								rayCheck.CollisionGroup = root.CollisionGroup
+			
+								if flymod.Enabled or workspace:Raycast(targetPos, Vector3.new(0, -70, 0), rayCheck) then
+									local factor, localPosition = 0, root.Position
+									if ent ~= oldent then
+										ang = math.deg(select(2, CFrame.lookAt(targetPos, localPosition):ToEulerAnglesYXZ()))
+									end
+									local yFactor = math.abs(localPosition.Y - targetPos.Y) * (YFactor.Value / 100)
+									local entityPos = Vector3.new(targetPos.X, localPosition.Y, targetPos.Z)
+									local newPos = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (StrafeRange.Value - yFactor))
+									local startRay, endRay = entityPos, newPos
+			
+									if not wallcheck and workspace:Raycast(targetPos, (localPosition - targetPos), rayCheck) then
+										startRay, endRay = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (entityPos - localPosition).Magnitude), entityPos
+									end
+			
+									local ray = workspace:Blockcast(CFrame.new(startRay), Vector3.new(1, entitylib.character.HipHeight + (root.Size.Y / 2), 1), (endRay - startRay), rayCheck)
+									if (localPosition - newPos).Magnitude < 3 or ray then
+										factor = (8 - math.min((localPosition - newPos).Magnitude, 3))
+										if ray then
+											newPos = ray.Position + (ray.Normal * 1.5)
+											factor = (localPosition - newPos).Magnitude > 3 and 0 or factor
+										end
+									end
+			
+									if not flymod.Enabled and not workspace:Raycast(newPos, Vector3.new(0, -70, 0), rayCheck) then
+										newPos = entityPos
+										factor = 40
+									end
+			
+									ang += factor % 360
+									vec = ((newPos - localPosition) * Vector3.new(1, 0, 1)).Unit
+									vec = vec == vec and vec or Vector3.zero
+									TargetStrafeVector = vec
+								else
+									ent = nil
+								end
+							end
+			
+							TargetStrafeVector = ent and vec or nil
+							oldent = ent
+
+							entitylib.character.RootPart.CFrame += (vec * 0.6)
+							task.wait()
+						until not TargetStrafe.Enabled
+					else
+						module.moveFunction = function(self, vec, face)
+							local wallcheck = Targets.Walls.Enabled
+							local ent = not inputService:IsKeyDown(Enum.KeyCode.S) and entitylib.EntityPosition({
+								Range = SearchRange.Value,
+								Wallcheck = wallcheck,
+								Part = 'RootPart',
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled
+							})
+			
+							if ent then
+								local root, targetPos = entitylib.character.RootPart, ent.RootPart.Position
+								rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, ent.Character}
+								rayCheck.CollisionGroup = root.CollisionGroup
+			
+								if flymod.Enabled or workspace:Raycast(targetPos, Vector3.new(0, -70, 0), rayCheck) then
+									local factor, localPosition = 0, root.Position
+									if ent ~= oldent then
+										ang = math.deg(select(2, CFrame.lookAt(targetPos, localPosition):ToEulerAnglesYXZ()))
+									end
+									local yFactor = math.abs(localPosition.Y - targetPos.Y) * (YFactor.Value / 100)
+									local entityPos = Vector3.new(targetPos.X, localPosition.Y, targetPos.Z)
+									local newPos = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (StrafeRange.Value - yFactor))
+									local startRay, endRay = entityPos, newPos
+			
+									if not wallcheck and workspace:Raycast(targetPos, (localPosition - targetPos), rayCheck) then
+										startRay, endRay = entityPos + (CFrame.Angles(0, math.rad(ang), 0).LookVector * (entityPos - localPosition).Magnitude), entityPos
+									end
+			
+									local ray = workspace:Blockcast(CFrame.new(startRay), Vector3.new(1, entitylib.character.HipHeight + (root.Size.Y / 2), 1), (endRay - startRay), rayCheck)
+									if (localPosition - newPos).Magnitude < 3 or ray then
+										factor = (8 - math.min((localPosition - newPos).Magnitude, 3))
+										if ray then
+											newPos = ray.Position + (ray.Normal * 1.5)
+											factor = (localPosition - newPos).Magnitude > 3 and 0 or factor
+										end
+									end
+			
+									if not flymod.Enabled and not workspace:Raycast(newPos, Vector3.new(0, -70, 0), rayCheck) then
+										newPos = entityPos
+										factor = 40
+									end
+			
+									ang += factor % 360
+									vec = ((newPos - localPosition) * Vector3.new(1, 0, 1)).Unit
+									vec = vec == vec and vec or Vector3.zero
+									TargetStrafeVector = vec
+								else
+									ent = nil
+								end
+							end
+			
+							TargetStrafeVector = ent and vec or nil
+							oldent = ent
+							return old(self, vec, face)
+						end
+					end
+				else
+					if module and old then
+						module.moveFunction = old
+					end
+					TargetStrafeVector = nil
+				end
+			end,
+			Tooltip = 'Automatically strafes around the opponent'
+		})
+		Targets = TargetStrafe:CreateTargets({
+			Players = true,
+			Walls = true
+		})
+		SearchRange = TargetStrafe:CreateSlider({
+			Name = 'Search Range',
+			Min = 1,
+			Max = 30,
+			Default = 24,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		StrafeRange = TargetStrafe:CreateSlider({
+			Name = 'Strafe Range',
+			Min = 1,
+			Max = 30,
+			Default = 18,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		YFactor = TargetStrafe:CreateSlider({
+			Name = 'Y Factor',
+			Min = 0,
+			Max = 100,
+			Default = 100,
+			Suffix = '%'
+		})
+		TP = TargetStrafe:CreateToggle({
+			Name = 'Teleport'
+		})
+	end)
+		
+	run(function()
+		local Timer
+		local Value
+		
+		Timer = vape.Categories.Blatant:CreateModule({
+			Name = 'Timer',
+			Function = function(callback)
+				if callback then
+					setfflag('SimEnableStepPhysics', 'True')
+					setfflag('SimEnableStepPhysicsSelective', 'True')
+					Timer:Clean(runService.RenderStepped:Connect(function(dt)
+						if Value.Value > 1 then
+							runService:Pause()
+							workspace:StepPhysics(dt * (Value.Value - 1), {entitylib.character.RootPart})
+							runService:Run()
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Change the game speed.'
+		})
+		Value = Timer:CreateSlider({
+			Name = 'Value',
+			Min = 1,
+			Max = 3,
+			Decimal = 10
+		})
+	end)
+		
+	run(function()
+		local Arrows
+		local Targets
+		local Color
+		local Teammates
+		local Distance
+		local DistanceLimit
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function Added(ent)
+			if not Targets.Players.Enabled and ent.Player then return end
+			if not Targets.NPCs.Enabled and ent.NPC then return end
+			if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) and (not ent.Friend) then return end
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+			local EntityArrow = Instance.new('ImageLabel')
+			EntityArrow.Size = UDim2.fromOffset(256, 256)
+			EntityArrow.Position = UDim2.fromScale(0.5, 0.5)
+			EntityArrow.AnchorPoint = Vector2.new(0.5, 0.5)
+			EntityArrow.BackgroundTransparency = 1
+			EntityArrow.BorderSizePixel = 0
+			EntityArrow.Visible = false
+			EntityArrow.Image = getcustomasset('catrewrite/assets/new/arrowmodule.png')
+			EntityArrow.ImageColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			EntityArrow.Parent = Folder
+			Reference[ent] = EntityArrow
+		end
+		
+		local function Removed(ent)
+			local v = Reference[ent]
+			if v then
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				Reference[ent] = nil
+				v:Destroy()
+			end
+		end
+		
+		local function ColorFunc(hue, sat, val)
+			local color = Color3.fromHSV(hue, sat, val)
+			for ent, EntityArrow in Reference do
+				EntityArrow.ImageColor3 = entitylib.getEntityColor(ent) or color
+			end
+		end
+		
+		local function Loop()
+			for ent, EntityArrow in Reference do
+				if Distance.Enabled then
+					local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+					if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+						EntityArrow.Visible = false
+						continue
+					end
+				end
+		
+				local _, rootVis = gameCamera:WorldToScreenPoint(ent.RootPart.Position)
+				EntityArrow.Visible = not rootVis
+				if rootVis then continue end
+				
+				local dir = (gameCamera.CFrame:PointToObjectSpace(ent.RootPart.Position) * Vector3.new(1, 0, 1)).Unit
+				EntityArrow.Rotation = math.deg(math.atan2(dir.Z, dir.X))
+			end
+		end
+		
+		Arrows = vape.Categories.Render:CreateModule({
+			Name = 'Arrows',
+			Function = function(callback)
+				if callback then
+					Arrows:Clean(entitylib.Events.EntityRemoved:Connect(Removed))
+					for _, v in entitylib.List do
+						if Reference[v] then Removed(v) end
+						Added(v)
+					end
+					Arrows:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+						if Reference[ent] then Removed(ent) end
+						Added(ent)
+					end))
+					Arrows:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+						ColorFunc(Color.Hue, Color.Sat, Color.Value)
+					end))
+					Arrows:Clean(runService.RenderStepped:Connect(Loop))
+				else
+					for i in Reference do
+						Removed(i)
+					end
+				end
+			end,
+			Tooltip = 'Draws arrows on screen when entities\nare out of your field of view.'
+		})
+		Targets = Arrows:CreateTargets({
+			Players = true,
+			Function = function()
+				if Arrows.Enabled then
+					Arrows:Toggle()
+					Arrows:Toggle()
+				end
+			end
+		})
+		Color = Arrows:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if Arrows.Enabled then
+					ColorFunc(hue, sat, val)
+				end
+			end,
+		})
+		Teammates = Arrows:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if Arrows.Enabled then
+					Arrows:Toggle()
+					Arrows:Toggle()
+				end
+			end,
+			Default = true,
+			Tooltip = 'Hides teammates & non targetable entities'
+		})
+		Distance = Arrows:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = Arrows:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local Chams
+		local Targets
+		local Mode
+		local FillColor
+		local OutlineColor
+		local FillTransparency
+		local OutlineTransparency
+		local Teammates
+		local Walls
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function Added(ent)
+			if not Targets.Players.Enabled and ent.Player then return end
+			if not Targets.NPCs.Enabled and ent.NPC then return end
+			if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+			if Mode.Value == 'Highlight' then
+				local cham = Instance.new('Highlight')
+				cham.Adornee = ent.Character
+				cham.DepthMode = Enum.HighlightDepthMode[Walls.Enabled and 'AlwaysOnTop' or 'Occluded']
+				cham.FillColor = entitylib.getEntityColor(ent) or Color3.fromHSV(FillColor.Hue, FillColor.Sat, FillColor.Value)
+				cham.OutlineColor = Color3.fromHSV(OutlineColor.Hue, OutlineColor.Sat, OutlineColor.Value)
+				cham.FillTransparency = FillTransparency.Value
+				cham.OutlineTransparency = OutlineTransparency.Value
+				cham.Parent = Folder
+				Reference[ent] = cham
+			else
+				local chams = {}
+				for _, v in ent.Character:GetChildren() do
+					if v:IsA('BasePart') and (ent.NPC or v.Name:find('Arm') or v.Name:find('Leg') or v.Name:find('Hand') or v.Name:find('Feet') or v.Name:find('Torso') or v.Name == 'Head') then
+						local box = Instance.new(v.Name == 'Head' and 'SphereHandleAdornment' or 'BoxHandleAdornment')
+						if v.Name == 'Head' then
+							box.Radius = 0.75
+						else
+							box.Size = v.Size
+						end
+						box.AlwaysOnTop = Walls.Enabled
+						box.Adornee = v
+						box.ZIndex = 0
+						box.Transparency = FillTransparency.Value
+						box.Color3 = entitylib.getEntityColor(ent) or Color3.fromHSV(FillColor.Hue, FillColor.Sat, FillColor.Value)
+						box.Parent = Folder
+						table.insert(chams, box)
+					end
+				end
+				Reference[ent] = chams
+			end
+		end
+		
+		local function Removed(ent)
+			if Reference[ent] then
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				if type(Reference[ent]) == 'table' then
+					for _, v in Reference[ent] do
+						v:Destroy()
+					end
+					table.clear(Reference[ent])
+				else
+					Reference[ent]:Destroy()
+				end
+				Reference[ent] = nil
+			end
+		end
+		
+		Chams = vape.Categories.Render:CreateModule({
+			Name = 'Chams',
+			Function = function(callback)
+				if callback then
+					Chams:Clean(entitylib.Events.EntityRemoved:Connect(Removed))
+					Chams:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+						if Reference[ent] then
+							Removed(ent)
+						end
+						Added(ent)
+					end))
+					Chams:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+						for i, v in Reference do
+							local color = entitylib.getEntityColor(i) or Color3.fromHSV(FillColor.Hue, FillColor.Sat, FillColor.Value)
+							if type(v) == 'table' then
+								for _, v2 in v do v2.Color3 = color end
+							else
+								v.FillColor = color
+							end
+						end
+					end))
+					for _, v in entitylib.List do
+						if Reference[v] then
+							Removed(v)
+						end
+						Added(v)
+					end
+				else
+					for i in Reference do
+						Removed(i)
+					end
+				end
+			end,
+			Tooltip = 'Render players through walls'
+		})
+		Targets = Chams:CreateTargets({
+			Players = true,
+			Function = function()
+				if Chams.Enabled then
+					Chams:Toggle()
+					Chams:Toggle()
+				end
+			end
+			})
+		Mode = Chams:CreateDropdown({
+			Name = 'Mode',
+			List = {'Highlight', 'BoxHandles'},
+			Function = function(val)
+				OutlineColor.Object.Visible = val == 'Highlight'
+				OutlineTransparency.Object.Visible = val == 'Highlight'
+				if Chams.Enabled then
+					Chams:Toggle()
+					Chams:Toggle()
+				end
+			end
+		})
+		FillColor = Chams:CreateColorSlider({
+			Name = 'Color',
+			Function = function(hue, sat, val)
+				for i, v in Reference do
+					local color = entitylib.getEntityColor(i) or Color3.fromHSV(hue, sat, val)
+					if type(v) == 'table' then
+						for _, v2 in v do v2.Color3 = color end
+					else
+						v.FillColor = color
+					end
+				end
+			end
+		})
+		OutlineColor = Chams:CreateColorSlider({
+			Name = 'Outline Color',
+			DefaultSat = 0,
+			Function = function(hue, sat, val)
+				for i, v in Reference do
+					if type(v) ~= 'table' then
+						v.OutlineColor = entitylib.getEntityColor(i) or Color3.fromHSV(hue, sat, val)
+					end
+				end
+			end,
+			Darker = true
+		})
+		FillTransparency = Chams:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Default = 0.5,
+			Function = function(val)
+				for _, v in Reference do
+					if type(v) == 'table' then
+						for _, v2 in v do v2.Transparency = val end
+					else
+						v.FillTransparency = val
+					end
+				end
+			end,
+			Decimal = 10
+		})
+		OutlineTransparency = Chams:CreateSlider({
+			Name = 'Outline Transparency',
+			Min = 0,
+			Max = 1,
+			Default = 0.5,
+			Function = function(val)
+				for _, v in Reference do
+					if type(v) ~= 'table' then
+						v.OutlineTransparency = val
+					end
+				end
+			end,
+			Decimal = 10,
+			Darker = true
+		})
+		Walls = Chams:CreateToggle({
+			Name = 'Render Walls',
+			Function = function(callback)
+				for _, v in Reference do
+					if type(v) == 'table' then
+						for _, v2 in v do
+							v2.AlwaysOnTop = callback
+						end
+					else
+						v.DepthMode = Enum.HighlightDepthMode[callback and 'AlwaysOnTop' or 'Occluded']
+					end
+				end
+			end,
+			Default = true
+		})
+		Teammates = Chams:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if Chams.Enabled then
+					Chams:Toggle()
+					Chams:Toggle()
+				end
+			end,
+			Default = true,
+			Tooltip = 'Hides teammates & non targetable entities'
+		})
+	end)
+		
+	run(function()
+		local ESP
+		local Targets
+		local Color
+		local Method
+		local BoundingBox
+		local Filled
+		local HealthBar
+		local Name
+		local DisplayName
+		local Background
+		local Teammates
+		local Distance
+		local DistanceLimit
+		local Reference = {}
+		local methodused
+		
+		local function ESPWorldToViewport(pos)
+			local newpos = gameCamera:WorldToViewportPoint(gameCamera.CFrame:pointToWorldSpace(gameCamera.CFrame:PointToObjectSpace(pos)))
+			return Vector2.new(newpos.X, newpos.Y)
+		end
+		
+		local ESPAdded = {
+			Drawing2D = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				local EntityESP = {}
+				EntityESP.Main = Drawing.new('Square')
+				EntityESP.Main.Transparency = BoundingBox.Enabled and 1 or 0
+				EntityESP.Main.ZIndex = 2
+				EntityESP.Main.Filled = false
+				EntityESP.Main.Thickness = 1
+				EntityESP.Main.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+		
+				if BoundingBox.Enabled then
+					EntityESP.Border = Drawing.new('Square')
+					EntityESP.Border.Transparency = 0.35
+					EntityESP.Border.ZIndex = 1
+					EntityESP.Border.Thickness = 1
+					EntityESP.Border.Filled = false
+					EntityESP.Border.Color = Color3.new()
+					EntityESP.Border2 = Drawing.new('Square')
+					EntityESP.Border2.Transparency = 0.35
+					EntityESP.Border2.ZIndex = 1
+					EntityESP.Border2.Thickness = 1
+					EntityESP.Border2.Filled = Filled.Enabled
+					EntityESP.Border2.Color = Color3.new()
+				end
+		
+				if HealthBar.Enabled then
+					EntityESP.HealthLine = Drawing.new('Line')
+					EntityESP.HealthLine.Thickness = 1
+					EntityESP.HealthLine.ZIndex = 2
+					EntityESP.HealthLine.Color = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+					EntityESP.HealthBorder = Drawing.new('Line')
+					EntityESP.HealthBorder.Thickness = 3
+					EntityESP.HealthBorder.Transparency = 0.35
+					EntityESP.HealthBorder.ZIndex = 1
+					EntityESP.HealthBorder.Color = Color3.new()
+				end
+				
+				if Name.Enabled then
+					if Background.Enabled then
+						EntityESP.TextBKG = Drawing.new('Square')
+						EntityESP.TextBKG.Transparency = 0.35
+						EntityESP.TextBKG.ZIndex = 0
+						EntityESP.TextBKG.Thickness = 1
+						EntityESP.TextBKG.Filled = true
+						EntityESP.TextBKG.Color = Color3.new()
+					end
+					EntityESP.Drop = Drawing.new('Text')
+					EntityESP.Drop.Color = Color3.new()
+					EntityESP.Drop.Text = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+					EntityESP.Drop.ZIndex = 1
+					EntityESP.Drop.Center = true
+					EntityESP.Drop.Size = 22
+					EntityESP.Text = Drawing.new('Text')
+					EntityESP.Text.Text = EntityESP.Drop.Text
+					EntityESP.Text.ZIndex = 2
+					EntityESP.Text.Color = EntityESP.Main.Color
+					EntityESP.Text.Center = true
+					EntityESP.Text.Size = 22
+				end
+				Reference[ent] = EntityESP
+			end,
+			Drawing3D = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				local EntityESP = {}
+				EntityESP.Line1 = Drawing.new('Line')
+				EntityESP.Line2 = Drawing.new('Line')
+				EntityESP.Line3 = Drawing.new('Line')
+				EntityESP.Line4 = Drawing.new('Line')
+				EntityESP.Line5 = Drawing.new('Line')
+				EntityESP.Line6 = Drawing.new('Line')
+				EntityESP.Line7 = Drawing.new('Line')
+				EntityESP.Line8 = Drawing.new('Line')
+				EntityESP.Line9 = Drawing.new('Line')
+				EntityESP.Line10 = Drawing.new('Line')
+				EntityESP.Line11 = Drawing.new('Line')
+				EntityESP.Line12 = Drawing.new('Line')
+		
+				local color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				for _, v in EntityESP do
+					v.Thickness = 1
+					v.Color = color
+				end
+		
+				Reference[ent] = EntityESP
+			end,
+			DrawingSkeleton = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				local EntityESP = {}
+				EntityESP.Head = Drawing.new('Line')
+				EntityESP.HeadFacing = Drawing.new('Line')
+				EntityESP.Torso = Drawing.new('Line')
+				EntityESP.UpperTorso = Drawing.new('Line')
+				EntityESP.LowerTorso = Drawing.new('Line')
+				EntityESP.LeftArm = Drawing.new('Line')
+				EntityESP.RightArm = Drawing.new('Line')
+				EntityESP.LeftLeg = Drawing.new('Line')
+				EntityESP.RightLeg = Drawing.new('Line')
+		
+				local color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				for _, v in EntityESP do
+					v.Thickness = 2
+					v.Color = color
+				end
+		
+				Reference[ent] = EntityESP
+			end
+		}
+		
+		local ESPRemoved = {
+			Drawing2D = function(ent)
+				local EntityESP = Reference[ent]
+				if EntityESP then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Reference[ent] = nil
+					for _, v in EntityESP do
+						pcall(function()
+							v.Visible = false
+							v:Remove()
+						end)
+					end
+				end
+			end
+		}
+		ESPRemoved.Drawing3D = ESPRemoved.Drawing2D
+		ESPRemoved.DrawingSkeleton = ESPRemoved.Drawing2D
+		
+		local ESPUpdated = {
+			Drawing2D = function(ent)
+				local EntityESP = Reference[ent]
+				if EntityESP then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					
+					if EntityESP.HealthLine then
+						EntityESP.HealthLine.Color = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+					end
+		
+					if EntityESP.Text then
+						EntityESP.Text.Text = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+						EntityESP.Drop.Text = EntityESP.Text.Text
+					end
+				end
+			end
+		}
+		
+		local ColorFunc = {
+			Drawing2D = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.Main.Color = entitylib.getEntityColor(i) or color
+					if v.Text then
+						v.Text.Color = v.Main.Color
+					end
+				end
+			end,
+			Drawing3D = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					local playercolor = entitylib.getEntityColor(i) or color
+					for _, v2 in v do
+						v2.Color = playercolor
+					end
+				end
+			end
+		}
+		ColorFunc.DrawingSkeleton = ColorFunc.Drawing3D
+		
+		local ESPLoop = {
+			Drawing2D = function()
+				for ent, EntityESP in Reference do
+					if Distance.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							for _, obj in EntityESP do
+								obj.Visible = false
+							end
+							continue
+						end
+					end
+
+					local pos = ent.RootPart.Position
+
+					if table.find(shared.vape.hackerTable, ent.Player) and entitylib.isAlive then
+						pos = Vector3.new(pos.X, entitylib.character.RootPart.Position.Y, pos.Z)
+					end
+		
+					local rootPos, rootVis = gameCamera:WorldToViewportPoint(pos - Vector3.new(0, 0.5, 0))
+					for _, obj in EntityESP do
+						obj.Visible = rootVis
+					end
+					if not rootVis then continue end
+		
+					local topPos = gameCamera:WorldToViewportPoint((CFrame.lookAlong(pos - Vector3.new(0, 0.5, 0), gameCamera.CFrame.LookVector) * CFrame.new(2, ent.HipHeight, 0)).p)
+					local bottomPos = gameCamera:WorldToViewportPoint((CFrame.lookAlong(pos - Vector3.new(0, 0.5, 0), gameCamera.CFrame.LookVector) * CFrame.new(-2, -ent.HipHeight - 1, 0)).p)
+					local sizex, sizey = topPos.X - bottomPos.X, topPos.Y - bottomPos.Y
+					local posx, posy = (rootPos.X - sizex / 2),  ((rootPos.Y - sizey / 2))
+					EntityESP.Main.Position = Vector2.new(posx, posy) // 1
+					EntityESP.Main.Size = Vector2.new(sizex, sizey) // 1
+					if EntityESP.Border then
+						EntityESP.Border.Position = Vector2.new(posx - 1, posy + 1) // 1
+						EntityESP.Border.Size = Vector2.new(sizex + 2, sizey - 2) // 1
+						EntityESP.Border2.Position = Vector2.new(posx + 1, posy - 1) // 1
+						EntityESP.Border2.Size = Vector2.new(sizex - 2, sizey + 2) // 1
+					end
+		
+					if EntityESP.HealthLine then
+						local healthposy = sizey * math.clamp(ent.Health / ent.MaxHealth, 0, 1)
+						EntityESP.HealthLine.Visible = ent.Health > 0
+						EntityESP.HealthLine.From = Vector2.new(posx - 6, posy + (sizey - (sizey - healthposy))) // 1
+						EntityESP.HealthLine.To = Vector2.new(posx - 6, posy) // 1
+						EntityESP.HealthBorder.From = Vector2.new(posx - 6, posy + 1) // 1
+						EntityESP.HealthBorder.To = Vector2.new(posx - 6, (posy + sizey) - 1) // 1
+					end
+		
+					if EntityESP.Text then
+						EntityESP.Text.Position = Vector2.new(posx + (sizex / 2) + 4, posy + (sizey - 28)) // 1
+						EntityESP.Drop.Position = EntityESP.Text.Position + Vector2.new(0.5, 0.5)
+						if EntityESP.TextBKG then
+							EntityESP.TextBKG.Size = EntityESP.Text.TextBounds + Vector2.new(8, 4)
+							EntityESP.TextBKG.Position = EntityESP.Text.Position - Vector2.new(4 + (EntityESP.Text.TextBounds.X / 2), 0)
+						end
+					end
+				end
+			end,
+			Drawing3D = function()
+				for ent, EntityESP in Reference do
+					if Distance.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							for _, obj in EntityESP do
+								obj.Visible = false
+							end
+							continue
+						end
+					end
+		
+					local pos = ent.RootPart.Position
+
+					if table.find(shared.vape.hackerTable, ent.Player) and entitylib.isAlive then
+						pos = Vector3.new(pos.X, entitylib.character.RootPart.Position.Y, pos.Z)
+					end
+
+					local _, rootVis = gameCamera:WorldToViewportPoint(pos)
+					for _, obj in EntityESP do
+						obj.Visible = rootVis
+					end
+					if not rootVis then continue end
+		
+					local point1 = ESPWorldToViewport(pos + Vector3.new(1.5, ent.HipHeight, 1.5))
+					local point2 = ESPWorldToViewport(pos + Vector3.new(1.5, -ent.HipHeight, 1.5))
+					local point3 = ESPWorldToViewport(pos + Vector3.new(-1.5, ent.HipHeight, 1.5))
+					local point4 = ESPWorldToViewport(pos + Vector3.new(-1.5, -ent.HipHeight, 1.5))
+					local point5 = ESPWorldToViewport(pos + Vector3.new(1.5, ent.HipHeight, -1.5))
+					local point6 = ESPWorldToViewport(pos + Vector3.new(1.5, -ent.HipHeight, -1.5))
+					local point7 = ESPWorldToViewport(pos + Vector3.new(-1.5, ent.HipHeight, -1.5))
+					local point8 = ESPWorldToViewport(pos + Vector3.new(-1.5, -ent.HipHeight, -1.5))
+					EntityESP.Line1.From = point1
+					EntityESP.Line1.To = point2
+					EntityESP.Line2.From = point3
+					EntityESP.Line2.To = point4
+					EntityESP.Line3.From = point5
+					EntityESP.Line3.To = point6
+					EntityESP.Line4.From = point7
+					EntityESP.Line4.To = point8
+					EntityESP.Line5.From = point1
+					EntityESP.Line5.To = point3
+					EntityESP.Line6.From = point1
+					EntityESP.Line6.To = point5
+					EntityESP.Line7.From = point5
+					EntityESP.Line7.To = point7
+					EntityESP.Line8.From = point7
+					EntityESP.Line8.To = point3
+					EntityESP.Line9.From = point2
+					EntityESP.Line9.To = point4
+					EntityESP.Line10.From = point2
+					EntityESP.Line10.To = point6
+					EntityESP.Line11.From = point6
+					EntityESP.Line11.To = point8
+					EntityESP.Line12.From = point8
+					EntityESP.Line12.To = point4
+				end
+			end,
+			DrawingSkeleton = function()
+				for ent, EntityESP in Reference do
+					if Distance.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							for _, obj in EntityESP do
+								obj.Visible = false
+							end
+							continue
+						end
+					end
+		
+					local _, rootVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position)
+					for _, obj in EntityESP do
+						obj.Visible = rootVis
+					end
+					if not rootVis then continue end
+					
+					local rigcheck = ent.Humanoid.RigType == Enum.HumanoidRigType.R6
+					pcall(function()
+						local offset = rigcheck and CFrame.new(0, -0.8, 0) or CFrame.identity
+						local head = ESPWorldToViewport((ent.Head.CFrame).p)
+						local headfront = ESPWorldToViewport((ent.Head.CFrame * CFrame.new(0, 0, -0.5)).p)
+						local toplefttorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(-1.5, 0.8, 0)).p)
+						local toprighttorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(1.5, 0.8, 0)).p)
+						local toptorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(0, 0.8, 0)).p)
+						local bottomtorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(0, -0.8, 0)).p)
+						local bottomlefttorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(-0.5, -0.8, 0)).p)
+						local bottomrighttorso = ESPWorldToViewport((ent.Character[(rigcheck and 'Torso' or 'UpperTorso')].CFrame * CFrame.new(0.5, -0.8, 0)).p)
+						local leftarm = ESPWorldToViewport((ent.Character[(rigcheck and 'Left Arm' or 'LeftHand')].CFrame * offset).p)
+						local rightarm = ESPWorldToViewport((ent.Character[(rigcheck and 'Right Arm' or 'RightHand')].CFrame * offset).p)
+						local leftleg = ESPWorldToViewport((ent.Character[(rigcheck and 'Left Leg' or 'LeftFoot')].CFrame * offset).p)
+						local rightleg = ESPWorldToViewport((ent.Character[(rigcheck and 'Right Leg' or 'RightFoot')].CFrame * offset).p)
+						EntityESP.Head.From = toptorso
+						EntityESP.Head.To = head
+						EntityESP.HeadFacing.From = head
+						EntityESP.HeadFacing.To = headfront
+						EntityESP.UpperTorso.From = toplefttorso
+						EntityESP.UpperTorso.To = toprighttorso
+						EntityESP.Torso.From = toptorso
+						EntityESP.Torso.To = bottomtorso
+						EntityESP.LowerTorso.From = bottomlefttorso
+						EntityESP.LowerTorso.To = bottomrighttorso
+						EntityESP.LeftArm.From = toplefttorso
+						EntityESP.LeftArm.To = leftarm
+						EntityESP.RightArm.From = toprighttorso
+						EntityESP.RightArm.To = rightarm
+						EntityESP.LeftLeg.From = bottomlefttorso
+						EntityESP.LeftLeg.To = leftleg
+						EntityESP.RightLeg.From = bottomrighttorso
+						EntityESP.RightLeg.To = rightleg
+					end)
+				end
+			end
+		}
+		
+		ESP = vape.Categories.Render:CreateModule({
+			Name = 'ESP',
+			Function = function(callback)
+				if callback then
+					methodused = 'Drawing'..Method.Value
+					if ESPRemoved[methodused] then
+						ESP:Clean(entitylib.Events.EntityRemoved:Connect(ESPRemoved[methodused]))
+					end
+					if ESPAdded[methodused] then
+						for _, v in entitylib.List do
+							if Reference[v] then
+								ESPRemoved[methodused](v)
+							end
+							ESPAdded[methodused](v)
+						end
+						ESP:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+							if Reference[ent] then
+								ESPRemoved[methodused](ent)
+							end
+							ESPAdded[methodused](ent)
+						end))
+					end
+					if ESPUpdated[methodused] then
+						ESP:Clean(entitylib.Events.EntityUpdated:Connect(ESPUpdated[methodused]))
+						for _, v in entitylib.List do
+							ESPUpdated[methodused](v)
+						end
+					end
+					if ColorFunc[methodused] then
+						ESP:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+							ColorFunc[methodused](Color.Hue, Color.Sat, Color.Value)
+						end))
+					end
+					if ESPLoop[methodused] then
+						ESP:Clean(runService.RenderStepped:Connect(ESPLoop[methodused]))
+					end
+				else
+					if ESPRemoved[methodused] then
+						for i in Reference do
+							ESPRemoved[methodused](i)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Extra Sensory Perception\nRenders an ESP on players.'
+		})
+		Targets = ESP:CreateTargets({
+			Players = true,
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end
+		})
+		Method = ESP:CreateDropdown({
+			Name = 'Mode',
+			List = {'2D', '3D', 'Skeleton'},
+			Function = function(val)
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+				BoundingBox.Object.Visible = (val == '2D')
+				Filled.Object.Visible = (val == '2D')
+				HealthBar.Object.Visible = (val == '2D')
+				Name.Object.Visible = (val == '2D')
+				DisplayName.Object.Visible = Name.Object.Visible and Name.Enabled
+				Background.Object.Visible = Name.Object.Visible and Name.Enabled
+			end,
+		})
+		Color = ESP:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if ESP.Enabled and ColorFunc[methodused] then
+					ColorFunc[methodused](hue, sat, val)
+				end
+			end
+		})
+		BoundingBox = ESP:CreateToggle({
+			Name = 'Bounding Box',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Default = true,
+			Darker = true
+		})
+		Filled = ESP:CreateToggle({
+			Name = 'Filled',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Darker = true
+		})
+		HealthBar = ESP:CreateToggle({
+			Name = 'Health Bar',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Darker = true
+		})
+		Name = ESP:CreateToggle({
+			Name = 'Name',
+			Function = function(callback)
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+				DisplayName.Object.Visible = callback
+				Background.Object.Visible = callback
+			end,
+			Darker = true
+		})
+		DisplayName = ESP:CreateToggle({
+			Name = 'Use Displayname',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Default = true,
+			Darker = true
+		})
+		Background = ESP:CreateToggle({
+			Name = 'Show Background',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Darker = true
+		})
+		Teammates = ESP:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if ESP.Enabled then
+					ESP:Toggle()
+					ESP:Toggle()
+				end
+			end,
+			Default = true,
+			Tooltip = 'Hides teammates & non targetable entities'
+		})
+		Distance = ESP:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = ESP:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local GamingChair = {Enabled = false}
+		local Color
+		local wheelpositions = {
+			Vector3.new(-0.8, -0.6, -0.18),
+			Vector3.new(0.1, -0.6, -0.88),
+			Vector3.new(0, -0.6, 0.7)
+		}
+		local chairhighlight
+		local currenttween
+		local movingsound
+		local flyingsound
+		local chairanim
+		local chair
+		
+		GamingChair = vape.Categories.Render:CreateModule({
+			Name = 'Gaming Chair',
+			Function = function(callback)
+				if callback then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					chair = Instance.new('MeshPart')
+					chair.Color = Color3.fromRGB(21, 21, 21)
+					chair.Size = Vector3.new(2.16, 3.6, 2.3) / Vector3.new(12.37, 20.636, 13.071)
+					chair.CanCollide = false
+					chair.Massless = true
+					chair.MeshId = 'rbxassetid://12972961089'
+					chair.Material = Enum.Material.SmoothPlastic
+					chair.Parent = workspace
+					movingsound = Instance.new('Sound')
+					--movingsound.SoundId = downloadVapeAsset('vape/assets/ChairRolling.mp3')
+					movingsound.Volume = 0.4
+					movingsound.Looped = true
+					movingsound.Parent = workspace
+					flyingsound = Instance.new('Sound')
+					--flyingsound.SoundId = downloadVapeAsset('vape/assets/ChairFlying.mp3')
+					flyingsound.Volume = 0.4
+					flyingsound.Looped = true
+					flyingsound.Parent = workspace
+					local chairweld = Instance.new('WeldConstraint')
+					chairweld.Part0 = chair
+					chairweld.Parent = chair
+					if entitylib.isAlive then
+						chair.CFrame = entitylib.character.RootPart.CFrame * CFrame.Angles(0, math.rad(-90), 0)
+						chairweld.Part1 = entitylib.character.RootPart
+					end
+					chairhighlight = Instance.new('Highlight')
+					chairhighlight.FillTransparency = 1
+					chairhighlight.OutlineColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+					chairhighlight.DepthMode = Enum.HighlightDepthMode.Occluded
+					chairhighlight.OutlineTransparency = 0.2
+					chairhighlight.Parent = chair
+					local chairarms = Instance.new('MeshPart')
+					chairarms.Color = chair.Color
+					chairarms.Size = Vector3.new(1.39, 1.345, 2.75) / Vector3.new(97.13, 136.216, 234.031)
+					chairarms.CFrame = chair.CFrame * CFrame.new(-0.169, -1.129, -0.013)
+					chairarms.MeshId = 'rbxassetid://12972673898'
+					chairarms.CanCollide = false
+					chairarms.Parent = chair
+					local chairarmsweld = Instance.new('WeldConstraint')
+					chairarmsweld.Part0 = chairarms
+					chairarmsweld.Part1 = chair
+					chairarmsweld.Parent = chair
+					local chairlegs = Instance.new('MeshPart')
+					chairlegs.Color = chair.Color
+					chairlegs.Name = 'Legs'
+					chairlegs.Size = Vector3.new(1.8, 1.2, 1.8) / Vector3.new(10.432, 8.105, 9.488)
+					chairlegs.CFrame = chair.CFrame * CFrame.new(0.047, -2.324, 0)
+					chairlegs.MeshId = 'rbxassetid://13003181606'
+					chairlegs.CanCollide = false
+					chairlegs.Parent = chair
+					local chairfan = Instance.new('MeshPart')
+					chairfan.Color = chair.Color
+					chairfan.Name = 'Fan'
+					chairfan.Size = Vector3.zero
+					chairfan.CFrame = chair.CFrame * CFrame.new(0, -1.873, 0)
+					chairfan.MeshId = 'rbxassetid://13004977292'
+					chairfan.CanCollide = false
+					chairfan.Parent = chair
+					local trails = {}
+					for _, v in wheelpositions do
+						local attachment = Instance.new('Attachment')
+						attachment.Position = v
+						attachment.Parent = chairlegs
+						local attachment2 = Instance.new('Attachment')
+						attachment2.Position = v + Vector3.new(0, 0, 0.18)
+						attachment2.Parent = chairlegs
+						local trail = Instance.new('Trail')
+						trail.Texture = 'http://www.roblox.com/asset/?id=13005168530'
+						trail.TextureMode = Enum.TextureMode.Static
+						trail.Transparency = NumberSequence.new(0.5)
+						trail.Color = ColorSequence.new(Color3.new(0.5, 0.5, 0.5))
+						trail.Attachment0 = attachment
+						trail.Attachment1 = attachment2
+						trail.Lifetime = 20
+						trail.MaxLength = 60
+						trail.MinLength = 0.1
+						trail.Parent = chairlegs
+						table.insert(trails, trail)
+					end
+					GamingChair:Clean(chair)
+					GamingChair:Clean(movingsound)
+					GamingChair:Clean(flyingsound)
+					chairanim = {Stop = function() end}
+					local oldmoving = false
+					local oldflying = false
+					repeat
+						if entitylib.isAlive and entitylib.character.Humanoid.Health > 0 then
+							if not chairanim.IsPlaying then
+								local temp2 = Instance.new('Animation')
+								temp2.AnimationId = entitylib.character.Humanoid.RigType == Enum.HumanoidRigType.R15 and 'http://www.roblox.com/asset/?id=2506281703' or 'http://www.roblox.com/asset/?id=178130996'
+								chairanim = entitylib.character.Humanoid:LoadAnimation(temp2)
+								chairanim.Priority = Enum.AnimationPriority.Movement
+								chairanim.Looped = true
+								chairanim:Play()
+							end
+							chair.CFrame = entitylib.character.RootPart.CFrame * CFrame.Angles(0, math.rad(-90), 0)
+							chairweld.Part1 = entitylib.character.RootPart
+							chairlegs.Velocity = Vector3.zero
+							chairlegs.CFrame = chair.CFrame * CFrame.new(0.047, -2.324, 0)
+							chairfan.Velocity = Vector3.zero
+							chairfan.CFrame = chair.CFrame * CFrame.new(0.047, -1.873, 0) * CFrame.Angles(0, math.rad(tick() * 180 % 360), math.rad(180))
+							local moving = entitylib.character.Humanoid:GetState() == Enum.HumanoidStateType.Running and entitylib.character.Humanoid.MoveDirection ~= Vector3.zero
+							local flying = vape.Modules.Fly and vape.Modules.Fly.Enabled or vape.Modules.LongJump and vape.Modules.LongJump.Enabled or vape.Modules.InfiniteFly and vape.Modules.InfiniteFly.Enabled
+							if movingsound.TimePosition > 1.9 then
+								movingsound.TimePosition = 0.2
+							end
+							movingsound.PlaybackSpeed = (entitylib.character.RootPart.Velocity * Vector3.new(1, 0, 1)).Magnitude / 16
+							for _, v in trails do
+								v.Enabled = not flying and moving
+								v.Color = ColorSequence.new(movingsound.PlaybackSpeed > 1.5 and Color3.new(1, 0.5, 0) or Color3.new())
+							end
+							if moving ~= oldmoving then
+								if movingsound.IsPlaying then
+									if not moving then
+										movingsound:Stop()
+									end
+								else
+									if not flying and moving then
+										movingsound:Play()
+									end
+								end
+								oldmoving = moving
+							end
+							if flying ~= oldflying then
+								if flying then
+									if movingsound.IsPlaying then
+										movingsound:Stop()
+									end
+									if not flyingsound.IsPlaying then
+										flyingsound:Play()
+									end
+									if currenttween then
+										currenttween:Cancel()
+									end
+									tween = tweenService:Create(chairlegs, TweenInfo.new(0.15), {
+										Size = Vector3.zero
+									})
+									tween.Completed:Connect(function(state)
+										if state == Enum.PlaybackState.Completed then
+											chairfan.Transparency = 0
+											chairlegs.Transparency = 1
+											tween = tweenService:Create(chairfan, TweenInfo.new(0.15), {
+												Size = Vector3.new(1.534, 0.328, 1.537) / Vector3.new(791.138, 168.824, 792.027)
+											})
+											tween:Play()
+										end
+									end)
+									tween:Play()
+								else
+									if flyingsound.IsPlaying then
+										flyingsound:Stop()
+									end
+									if not movingsound.IsPlaying and moving then
+										movingsound:Play()
+									end
+									if currenttween then currenttween:Cancel() end
+									tween = tweenService:Create(chairfan, TweenInfo.new(0.15), {
+										Size = Vector3.zero
+									})
+									tween.Completed:Connect(function(state)
+										if state == Enum.PlaybackState.Completed then
+											chairfan.Transparency = 1
+											chairlegs.Transparency = 0
+											tween = tweenService:Create(chairlegs, TweenInfo.new(0.15), {
+												Size = Vector3.new(1.8, 1.2, 1.8) / Vector3.new(10.432, 8.105, 9.488)
+											})
+											tween:Play()
+										end
+									end)
+									tween:Play()
+								end
+								oldflying = flying
+							end
+						else
+							chair.Anchored = true
+							chairlegs.Anchored = true
+							chairfan.Anchored = true
+							repeat task.wait() until entitylib.isAlive and entitylib.character.Humanoid.Health > 0
+							chair.Anchored = false
+							chairlegs.Anchored = false
+							chairfan.Anchored = false
+							chairanim:Stop()
+						end
+						task.wait()
+					until not GamingChair.Enabled
+				else
+					if chairanim then
+						chairanim:Stop()
+					end
+				end
+			end,
+			Tooltip = 'Sit in the best gaming chair known to mankind.'
+		})
+		Color = GamingChair:CreateColorSlider({
+			Name = 'Color',
+			Function = function(h, s, v)
+				if chairhighlight then
+					chairhighlight.OutlineColor = Color3.fromHSV(h, s, v)
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local Health
+		
+		Health = vape.Categories.Render:CreateModule({
+			Name = 'Health',
+			Function = function(callback)
+				if callback then
+					local label = Instance.new('TextLabel')
+					label.Size = UDim2.fromOffset(100, 20)
+					label.Position = UDim2.new(0.5, 6, 0.5, 30)
+					label.AnchorPoint = Vector2.new(0.5, 0)
+					label.BackgroundTransparency = 1
+					label.Text = '100 ❤️'
+					label.TextSize = 18
+					label.Font = Enum.Font.Arial
+					label.Parent = vape.gui
+					Health:Clean(label)
+					
+					repeat
+						label.Text = entitylib.isAlive and math.round(entitylib.character.Humanoid.Health)..' ❤️' or ''
+						label.TextColor3 = entitylib.isAlive and Color3.fromHSV((entitylib.character.Humanoid.Health / entitylib.character.Humanoid.MaxHealth) / 2.8, 0.86, 1) or Color3.new()
+						task.wait()
+					until not Health.Enabled
+				end
+			end,
+			Tooltip = 'Displays your health in the center of your screen.'
+		})
+	end)
+		
+	run(function()
+		local NameTags
+		local Targets
+		local Color
+		local Background
+		local DisplayName
+		local Health
+		local Distance
+		local DrawingToggle
+		local Scale
+		local FontOption
+		local Teammates
+		local DistanceCheck
+		local DistanceLimit
+		local Strings, Sizes, Reference = {}, {}, {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		local methodused
+		
+		local Added = {
+			Normal = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+		
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+				
+				if Health.Enabled then
+					local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+					Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(healthColor.R * 255))..','..tostring(math.floor(healthColor.G * 255))..','..tostring(math.floor(healthColor.B * 255))..')">'..math.round(ent.Health)..'</font>'
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+				end
+		
+				local nametag = Instance.new('TextLabel')
+				nametag.TextSize = 14 * Scale.Value
+				nametag.FontFace = FontOption.Value
+				local ize = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+				nametag.Name = ent.Player and ent.Player.Name or ent.Character.Name
+				nametag.Size = UDim2.fromOffset(ize.X + 8, ize.Y + 7)
+				nametag.AnchorPoint = Vector2.new(0.5, 1)
+				nametag.BackgroundColor3 = Color3.new()
+				nametag.BackgroundTransparency = Background.Value
+				nametag.BorderSizePixel = 0
+				nametag.Visible = false
+				nametag.Text = Strings[ent]
+				nametag.TextColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.RichText = true
+				nametag.Parent = Folder
+				Reference[ent] = nametag
+			end,
+			Drawing = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+		
+				local nametag = {}
+				nametag.BG = Drawing.new('Square')
+				nametag.BG.Filled = true
+				nametag.BG.Transparency = 1 - Background.Value
+				nametag.BG.Color = Color3.new()
+				nametag.BG.ZIndex = 1
+				nametag.Text = Drawing.new('Text')
+				nametag.Text.Size = 15 * Scale.Value
+				nametag.Text.Font = 0
+				nametag.Text.ZIndex = 2
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+				
+				if Health.Enabled then
+					Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '[%s] '..Strings[ent]
+				end
+		
+				nametag.Text.Text = Strings[ent]
+				nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+				Reference[ent] = nametag
+			end
+		}
+		
+		local Removed = {
+			Normal = function(ent)
+				local v = Reference[ent]
+				if v then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					v:Destroy()
+				end
+			end,
+			Drawing = function(ent)
+				local v = Reference[ent]
+				if v then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					for _, v2 in v do
+						pcall(function()
+							v2.Visible = false
+							v2:Remove()
+						end)
+					end
+				end
+			end
+		}
+		
+		local Updated = {
+			Normal = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+					
+					if Health.Enabled then
+						local color = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+						Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(color.R * 255))..','..tostring(math.floor(color.G * 255))..','..tostring(math.floor(color.B * 255))..')">'..math.round(ent.Health)..'</font>'
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+					end
+		
+					local ize = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+					nametag.Size = UDim2.fromOffset(ize.X + 8, ize.Y + 7)
+					nametag.Text = Strings[ent]
+				end
+			end,
+			Drawing = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+					
+					if Health.Enabled then
+						Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '[%s] '..Strings[ent]
+						nametag.Text.Text = entitylib.isAlive and string.format(Strings[ent], math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude)) or Strings[ent]
+					else
+						nametag.Text.Text = Strings[ent]
+					end
+		
+					nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+					nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				end
+			end
+		}
+		
+		local ColorFunc = {
+			Normal = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.TextColor3 = entitylib.getEntityColor(i) or color
+				end
+			end,
+			Drawing = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.Text.Color = entitylib.getEntityColor(i) or color
+				end
+			end
+		}
+		
+		local Loop = {
+			Normal = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled and entitylib.isAlive then
+						local mag = math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude)
+						if Sizes[ent] ~= mag then
+							nametag.Text = string.format(Strings[ent], mag)
+							local ize = getfontsize(removeTags(nametag.Text), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+							nametag.Size = UDim2.fromOffset(ize.X + 8, ize.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.Position = UDim2.fromOffset(headPos.X, headPos.Y)
+				end
+			end,
+			Drawing = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Text.Visible = false
+							nametag.BG.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToScreenPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Text.Visible = headVis
+					nametag.BG.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled and entitylib.isAlive then
+						local mag = math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude)
+						if Sizes[ent] ~= mag then
+							nametag.Text.Text = string.format(Strings[ent], mag)
+							nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.BG.Position = Vector2.new(headPos.X - (nametag.BG.Size.X / 2), headPos.Y + (nametag.BG.Size.Y / 2))
+					nametag.Text.Position = nametag.BG.Position + Vector2.new(4, 2.5)
+				end
+			end
+		}
+		
+		NameTags = vape.Categories.Render:CreateModule({
+			Name = 'Name Tags',
+			Function = function(callback)
+				if callback then
+					methodused = DrawingToggle.Enabled and 'Drawing' or 'Normal'
+					if Removed[methodused] then
+						NameTags:Clean(entitylib.Events.EntityRemoved:Connect(Removed[methodused]))
+					end
+					if Added[methodused] then
+						for _, v in entitylib.List do
+							if Reference[v] then
+								Removed[methodused](v)
+							end
+							Added[methodused](v)
+						end
+						NameTags:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+							if Reference[ent] then
+								Removed[methodused](ent)
+							end
+							Added[methodused](ent)
+						end))
+					end
+					if Updated[methodused] then
+						NameTags:Clean(entitylib.Events.EntityUpdated:Connect(Updated[methodused]))
+						for _, v in entitylib.List do
+							Updated[methodused](v)
+						end
+					end
+					if ColorFunc[methodused] then
+						NameTags:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+							ColorFunc[methodused](Color.Hue, Color.Sat, Color.Value)
+						end))
+					end
+					if Loop[methodused] then
+						NameTags:Clean(runService.RenderStepped:Connect(Loop[methodused]))
+					end
+				else
+					if Removed[methodused] then
+						for i in Reference do
+							Removed[methodused](i)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Renders nametags on entities through walls.'
+		})
+		Targets = NameTags:CreateTargets({
+			Players = true,
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		FontOption = NameTags:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Arial',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Color = NameTags:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if NameTags.Enabled and ColorFunc[methodused] then
+					ColorFunc[methodused](hue, sat, val)
+				end
+			end
+		})
+		Scale = NameTags:CreateSlider({
+			Name = 'Scale',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 1,
+			Min = 0.1,
+			Max = 1.5,
+			Decimal = 10
+		})
+		Background = NameTags:CreateSlider({
+			Name = 'Transparency',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 0.5,
+			Min = 0,
+			Max = 1,
+			Decimal = 10
+		})
+		Health = NameTags:CreateToggle({
+			Name = 'Health',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Distance = NameTags:CreateToggle({
+			Name = 'Distance',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		DisplayName = NameTags:CreateToggle({
+			Name = 'Use Displayname',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true
+		})
+		Teammates = NameTags:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true,
+			Tooltip = 'Hides teammates & non targetable entities'
+		})
+		DrawingToggle = NameTags:CreateToggle({
+			Name = 'Drawing',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		DistanceCheck = NameTags:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = NameTags:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local PlayerModel
+		local Scale
+		local Local
+		local Invisible
+		local Mesh
+		local Texture
+		local Rots = {}
+		local models = {}
+		
+		local function getTorso(ent)
+			local hum = ent.Humanoid
+			local torso = "UpperTorso"
+			if hum.RigType == Enum.HumanoidRigType.R6 or ent.Character:FindFirstChild("Torso") then torso = "Torso" end
+			return ent.Character[torso]
+		end
+		
+		local function addMesh(ent)
+			if vape.ThreadFix then 
+				setthreadidentity(8)
+			end
+			local torso = getTorso(ent)
+			local root = ent.RootPart
+			local part = Instance.new('Part')
+			part.Size = Vector3.new(3, 3, 3)
+			part.CFrame = root.CFrame * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+			part.CanCollide = false
+			part.CanQuery = false
+			part.Massless = true
+			part.Parent = workspace
+			local meshd = Instance.new('SpecialMesh')
+			meshd.MeshId = Mesh.Value
+			meshd.TextureId = Texture.Value
+			meshd.Scale = Vector3.one * Scale.Value
+			meshd.Parent = part
+			local weld = Instance.new('WeldConstraint')
+			weld.Part0 = part
+			weld.Part1 = torso
+			weld.Parent = part
+			models[root] = part
+		end
+		
+		local function removeMesh(ent)
+			if models[ent.RootPart] then 
+				models[ent.RootPart]:Destroy()
+				models[ent.RootPart] = nil
+			end
+		end
+		
+		PlayerModel = vape.Categories.Render:CreateModule({
+			Name = 'Player Model',
+			Function = function(callback)
+				if callback then 
+					if Local.Enabled then 
+						PlayerModel:Clean(entitylib.Events.LocalAdded:Connect(addMesh))
+						PlayerModel:Clean(entitylib.Events.LocalRemoved:Connect(removeMesh))
+						if entitylib.isAlive then 
+							task.spawn(addMesh, entitylib.character)
+						end
+					end
+					PlayerModel:Clean(entitylib.Events.EntityAdded:Connect(function(m)
+						addMesh(m)
+						pcall(function()
+							if Invisible.Enabled then 
+								for i,v in m.Character:GetChildren() do
+									if v:FindFirstChild("Humanoid") ~= nil then
+										if v.Humanoid ~= nil and (v.HumanoidRootPart ~= nil and v.Humanoid ~= nil and v.Humanoid.Health ~= 0) then
+											if v:IsA("MeshPart") then
+												v.Transparency = 1
+											elseif v:IsA("Accessory") and not v.Name:find("sword") and not v.Name:find("block") and not v.Name:find("pickaxe") and not v.Name:find("bow") and not v.Name:find("axe") and not v.Name:find("fireball") and not v.Name:find("cannon") and not v.Name:find("shears") then
+												v.Handle.Transparency = 1
+											end
+										end
+									end
+								end
+							end
+						end)
+					end))
+					PlayerModel:Clean(entitylib.Events.EntityRemoved:Connect(removeMesh))
+					for _, ent in entitylib.List do 
+						task.spawn(function()
+							addMesh(ent)
+							pcall(function()
+								if Invisible.Enabled then 
+									for i,v in ent.Character:GetChildren() do
+										if (v.HumanoidRootPart ~= nil and v.Humanoid.Health ~= 0) then
+											if v:IsA("MeshPart") then
+												v.Transparency = 1
+											elseif v:IsA("Accessory") and not v.Name:find("sword") and not v.Name:find("block") and not v.Name:find("pickaxe") and not v.Name:find("bow") and not v.Name:find("axe") and not v.Name:find("fireball") and not v.Name:find("cannon") and not v.Name:find("shears") then
+												v.Handle.Transparency = 1
+											end
+										end
+									end
+								end
+							end)
+						end)
+					end
+				else
+					for _, part in models do 
+						part:Destroy()
+					end
+					table.clear(models)
+					if Invisible.Enabled then 
+						for i,v in pairs(game.Players:GetChildren()) do
+							for o,b in pairs(v.Character:GetChildren()) do
+								if b:IsA("MeshPart") then
+									b.Transparency = 0
+								elseif b:IsA("Part") and b.Name ~= "HumanoidRootPart" then
+									b.Transparency = 0
+								elseif b:IsA("Accessory") then
+									b.Handle.Transparency = 0
+								end
+							end
+						end
+					end
+				end
+			end,
+			Tooltip = 'Change the player models to a Mesh'
+		})
+		Scale = PlayerModel:CreateSlider({
+			Name = 'Scale',
+			Min = 0,
+			Max = 2,
+			Default = 1,
+			Decimal = 100,
+			Function = function(val)
+				for _, part in models do 
+					part.Mesh.Scale = Vector3.one * val
+				end
+			end
+		})
+		for _, name in {'Rotation X', 'Rotation Y', 'Rotation Z'} do 
+			table.insert(Rots, PlayerModel:CreateSlider({
+				Name = name,
+				Min = 0,
+				Max = 360,
+				Function = function(val)
+					for root, part in models do 
+						part.WeldConstraint.Enabled = false
+						part.CFrame = root.CFrame * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+						part.WeldConstraint.Enabled = true
+					end
+				end
+			}))
+		end
+		Local = PlayerModel:CreateToggle({
+			Name = 'Local',
+			Function = function()
+				if PlayerModel.Enabled then 
+					PlayerModel:Toggle()
+					PlayerModel:Toggle()
+				end
+			end
+		})
+		Invisible = PlayerModel:CreateToggle({
+			Name = "Invisible",
+			Function = function()
+				if PlayerModel.Enabled then 
+					PlayerModel:Toggle()
+					PlayerModel:Toggle()
+				end
+			end
+		})
+		Mesh = PlayerModel:CreateTextBox({
+			Name = 'Mesh',
+			Placeholder = 'mesh id',
+			Function = function()
+				for _, part in models do 
+					part.Mesh.MeshId = Mesh.Value
+				end
+			end
+		})
+		Texture = PlayerModel:CreateTextBox({
+			Name = 'Texture',
+			Placeholder = 'texture id',
+			Function = function()
+				for _, part in models do 
+					part.Mesh.TextureId = Texture.Value
+				end
+			end
+		})
+		
+	end)
+		
+	run(function()
+		local Radar
+		local Targets
+		local DotStyle
+		local PlayerColor
+		local Clamp
+		local Reference = {}
+		local bkg
+		
+		local function Added(ent)
+			if not Targets.Players.Enabled and ent.Player then return end
+			if not Targets.NPCs.Enabled and ent.NPC then return end
+			if (not ent.Targetable) and (not ent.Friend) then return end
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+		
+			local EntityDot = Instance.new('Frame')
+			EntityDot.Size = UDim2.fromOffset(4, 4)
+			EntityDot.AnchorPoint = Vector2.new(0.5, 0.5)
+			EntityDot.BackgroundColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(PlayerColor.Hue, PlayerColor.Sat, PlayerColor.Value)
+			EntityDot.Parent = bkg
+			local EntityCorner = Instance.new('UICorner')
+			EntityCorner.CornerRadius = UDim.new(DotStyle.Value == 'Circles' and 1 or 0, 0)
+			EntityCorner.Parent = EntityDot
+			local EntityStroke = Instance.new('UIStroke')
+			EntityStroke.Color = Color3.new()
+			EntityStroke.Thickness = 1
+			EntityStroke.Transparency = 0.8
+			EntityStroke.Parent = EntityDot
+			Reference[ent] = EntityDot
+		end
+		
+		local function Removed(ent)
+			local v = Reference[ent]
+			if v then
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				Reference[ent] = nil
+				v:Destroy()
+			end
+		end
+		
+		Radar = vape:CreateOverlay({
+			Name = 'Radar',
+			Icon = getcustomasset('catrewrite/assets/new/radaricon.png'),
+			Size = UDim2.fromOffset(14, 14),
+			Position = UDim2.fromOffset(12, 13),
+			Function = function(callback)
+				if callback then
+					Radar:Clean(entitylib.Events.EntityRemoved:Connect(Removed))
+					for _, v in entitylib.List do
+						if Reference[v] then
+							Removed(v)
+						end
+						Added(v)
+					end
+					Radar:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+						if Reference[ent] then
+							Removed(ent)
+						end
+						Added(ent)
+					end))
+					Radar:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+						for ent, EntityDot in Reference do
+							EntityDot.BackgroundColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(PlayerColor.Hue, PlayerColor.Sat, PlayerColor.Value)
+						end
+					end))
+					Radar:Clean(runService.RenderStepped:Connect(function()
+						for ent, EntityDot in Reference do
+							if entitylib.isAlive then
+								local dt = CFrame.lookAlong(entitylib.character.RootPart.Position, gameCamera.CFrame.LookVector * Vector3.new(1, 0, 1)):PointToObjectSpace(ent.RootPart.Position)
+								EntityDot.Position = UDim2.fromOffset(Clamp.Enabled and math.clamp(108 + dt.X, 2, 214) or 108 + dt.X, Clamp.Enabled and math.clamp(108 + dt.Z, 8, 214) or 108 + dt.Z)
+							end
+						end
+					end))
+				else
+					for ent in Reference do 
+						Removed(ent) 
+					end
+				end
+			end
+		})
+		Targets = Radar:CreateTargets({
+			Players = true,
+			Function = function()
+				if Radar.Button.Enabled then
+					Radar.Button:Toggle()
+					Radar.Button:Toggle()
+				end
+			end
+		})
+		DotStyle = Radar:CreateDropdown({
+			Name = 'Dot Style',
+			List = {'Circles', 'Squares'},
+			Function = function(val)
+				for _, dot in Reference do
+					dot.UICorner.CornerRadius = UDim.new(val == 'Circles' and 1 or 0, 0)
+				end
+			end
+		})
+		PlayerColor = Radar:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				for ent, EntityDot in Reference do
+					EntityDot.BackgroundColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(hue, sat, val)
+				end
+			end
+		})
+		bkg = Instance.new('Frame')
+		bkg.Size = UDim2.fromOffset(216, 216)
+		bkg.Position = UDim2.fromOffset(2, 2)
+		bkg.BackgroundColor3 = Color3.new()
+		bkg.BackgroundTransparency = 0.5
+		bkg.ClipsDescendants = true
+		bkg.Parent = Radar.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 8)
+		corner.Parent = bkg
+		local stroke = Instance.new('UIStroke')
+		stroke.Thickness = 2
+		stroke.Color = Color3.new()
+		stroke.Transparency = 0.4
+		stroke.Parent = bkg
+		local line1 = Instance.new('Frame')
+		line1.Size = UDim2.new(0, 2, 1, 0)
+		line1.Position = UDim2.fromScale(0.5, 0.5)
+		line1.AnchorPoint = Vector2.new(0.5, 0.5)
+		line1.ZIndex = 0
+		line1.BackgroundColor3 = Color3.new(1, 1, 1)
+		line1.BackgroundTransparency = 0.5
+		line1.BorderSizePixel = 0
+		line1.Parent = bkg
+		local line2 = line1:Clone()
+		line2.Size = UDim2.new(1, 0, 0, 2)
+		line2.Parent = bkg
+		local bar = Instance.new('Frame')
+		bar.Size = UDim2.new(1, -6, 0, 4)
+		bar.Position = UDim2.fromOffset(3, 0)
+		bar.BackgroundColor3 = Color3.fromHSV(0.44, 1, 1)
+		bar.Parent = bkg
+		local barcorner = Instance.new('UICorner')
+		barcorner.CornerRadius = UDim.new(0, 8)
+		barcorner.Parent = bar
+		Radar:CreateColorSlider({
+			Name = 'Bar Color',
+			Function = function(hue, sat, val)
+				bar.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+			end
+		})
+		Radar:CreateToggle({
+			Name = 'Show Background',
+			Default = true,
+			Function = function(callback)
+				bkg.BackgroundTransparency = callback and 0.5 or 1
+				bar.BackgroundTransparency = callback and 0 or 1
+				stroke.Transparency = callback and 0.4 or 1
+			end
+		})
+		Radar:CreateToggle({
+			Name = 'Show Cross',
+			Default = true,
+			Function = function(callback)
+				line1.BackgroundTransparency = callback and 0.5 or 1
+				line2.BackgroundTransparency = callback and 0.5 or 1
+			end
+		})
+		Clamp = Radar:CreateToggle({
+			Name = 'Clamp Radar',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Search
+		local List
+		local Color
+		local FillTransparency
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function Add(v)
+			if not table.find(List.ListEnabled, v.Name) then return end
+			if v:IsA('BasePart') or v:IsA('Model') then
+				local box = Instance.new('BoxHandleAdornment')
+				box.AlwaysOnTop = true
+				box.Adornee = v
+				box.Size = v:IsA('Model') and v:GetExtentsSize() or v.Size
+				box.ZIndex = 0
+				box.Transparency = FillTransparency.Value
+				box.Color3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				box.Parent = Folder
+				Reference[v] = box
+			end
+		end
+		
+		Search = vape.Categories.Render:CreateModule({
+			Name = 'Search',
+			Function = function(callback)
+				if callback then
+					Search:Clean(workspace.DescendantAdded:Connect(Add))
+					Search:Clean(workspace.DescendantRemoving:Connect(function(v)
+						if Reference[v] then
+							Reference[v]:Destroy()
+							Reference[v] = nil
+						end
+					end))
+					
+					for _, v in workspace:GetDescendants() do
+						Add(v)
+					end
+				else
+					Folder:ClearAllChildren()
+					table.clear(Reference)
+				end
+			end,
+			Tooltip = 'Draws box around selected parts\nAdd parts in Search frame'
+		})
+		List = Search:CreateTextList({
+			Name = 'Parts',
+			Function = function()
+				if Search.Enabled then
+					Search:Toggle()
+					Search:Toggle()
+				end
+			end
+		})
+		Color = Search:CreateColorSlider({
+			Name = 'Color',
+			Function = function(hue, sat, val)
+				for _, v in Reference do
+					v.Color3 = Color3.fromHSV(hue, sat, val)
+				end
+			end
+		})
+		FillTransparency = Search:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Function = function(val)
+				for _, v in Reference do
+					v.Transparency = val
+				end
+			end,
+			Decimal = 10
+		})
+	end)
+		
+	run(function()
+		local SessionInfo
+		local FontOption
+		local TextSize
+		local BorderColor
+		local Title
+		local TitleOffset = {}
+		local infoholder
+		local infolabel
+		local infostroke
+		
+		SessionInfo = vape:CreateOverlay({
+			Name = 'Session Info',
+			Icon = getcustomasset('catrewrite/assets/new/textguiicon.png'),
+			Size = UDim2.fromOffset(16, 12),
+			Position = UDim2.fromOffset(12, 14),
+			Function = function(callback)
+				if callback then
+					local teleportedServers
+					SessionInfo:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
+						if not teleportedServers then
+							teleportedServers = true
+							queue_on_teleport("shared.vapesessioninfo = '"..httpService:JSONEncode(vape.Libraries.sessioninfo.Objects).."'")
+						end
+					end))
+		
+					if shared.vapesessioninfo then
+						for i, v in httpService:JSONDecode(shared.vapesessioninfo) do
+							if vape.Libraries.sessioninfo.Objects[i] and v.Saved then
+								vape.Libraries.sessioninfo.Objects[i].Value = v.Value
+							end
+						end
+					end
+		
+					repeat
+						if vape.Libraries.sessioninfo then
+							--shared.vapesessioninfo = "'"..httpService:JSONEncode(vape.Libraries.sessioninfo.Objects).."'"
+							local stuff = {''}
+							if Title.Enabled then
+								stuff[1] = TitleOffset.Enabled and '<b>Session Info</b>\n<font size="4"> </font>' or '<b>Session Info</b>'
+							end
+							for i, v in vape.Libraries.sessioninfo.Objects do
+								stuff[v.Index] = i..': '..v.Function(v.Value)
+							end
+							if not Title.Enabled then
+								table.remove(stuff, 1)
+							end
+							infolabel.Text = table.concat(stuff, '\n')
+							infolabel.FontFace = FontOption.Value
+							infolabel.TextSize = TextSize.Value
+							local size = getfontsize(removeTags(infolabel.Text), infolabel.TextSize, infolabel.FontFace)
+							infoholder.Size = UDim2.fromOffset(size.X + 16, size.Y + (Title.Enabled and TitleOffset.Enabled and 4 or 16))
+						end
+						task.wait(1)
+					until not SessionInfo.Button or not SessionInfo.Button.Enabled
+				end
+			end
+		})
+		FontOption = SessionInfo:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Arial'
+		})
+		SessionInfo:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				infoholder.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				infoholder.BackgroundTransparency = 1 - opacity
+			end
+		})
+		BorderColor = SessionInfo:CreateColorSlider({
+			Name = 'Border Color',
+			Function = function(hue, sat, val, opacity)
+				infostroke.Color = Color3.fromHSV(hue, sat, val)
+				infostroke.Transparency = 1 - opacity
+			end,
+			Darker = true,
+			Visible = false
+		})
+		TextSize = SessionInfo:CreateSlider({
+			Name = 'Text Size',
+			Min = 1,
+			Max = 30,
+			Default = 16
+		})
+		Title = SessionInfo:CreateToggle({
+			Name = 'Title',
+			Function = function(callback)
+				if TitleOffset.Object then
+					TitleOffset.Object.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		TitleOffset = SessionInfo:CreateToggle({
+			Name = 'Offset',
+			Default = true,
+			Darker = true
+		})
+		SessionInfo:CreateToggle({
+			Name = 'Border',
+			Function = function(callback)
+				infostroke.Enabled = callback
+				BorderColor.Object.Visible = callback
+			end
+		})
+		infoholder = Instance.new('Frame')
+		infoholder.BackgroundColor3 = Color3.new()
+		infoholder.BackgroundTransparency = 0.5
+		infoholder.Parent = SessionInfo.Children
+		vape:Clean(SessionInfo.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+			if vape.ThreadFix then 
+				setthreadidentity(8) 
+			end
+			local newside = SessionInfo.Children.AbsolutePosition.X > (vape.gui.AbsoluteSize.X / 2)
+			infoholder.Position = UDim2.fromScale(newside and 1 or 0, 0)
+			infoholder.AnchorPoint = Vector2.new(newside and 1 or 0, 0)
+		end))
+		local sessioninfocorner = Instance.new('UICorner')
+		sessioninfocorner.CornerRadius = UDim.new(0, 5)
+		sessioninfocorner.Parent = infoholder
+		infolabel = Instance.new('TextLabel')
+		infolabel.Size = UDim2.new(1, -16, 1, -16)
+		infolabel.Position = UDim2.fromOffset(8, 8)
+		infolabel.BackgroundTransparency = 1
+		infolabel.TextXAlignment = Enum.TextXAlignment.Left
+		infolabel.TextYAlignment = Enum.TextYAlignment.Top
+		infolabel.TextSize = 16
+		infolabel.TextColor3 = Color3.new(1, 1, 1)
+		infolabel.TextStrokeColor3 = Color3.new()
+		infolabel.TextStrokeTransparency = 0.8
+		infolabel.Font = Enum.Font.Arial
+		infolabel.RichText = true
+		infolabel.Parent = infoholder
+		infostroke = Instance.new('UIStroke')
+		infostroke.Enabled = false
+		infostroke.Color = Color3.fromHSV(0.44, 1, 1)
+		infostroke.Parent = infoholder
+		addBlur(infoholder)
+		vape.Libraries.sessioninfo = {
+			Objects = {},
+			AddItem = function(self, name, startvalue, func, saved)
+				func, saved = func or function(val) return val end, saved == nil or saved
+				self.Objects[name] = {Function = func, Saved = saved, Value = startvalue or 0, Index = getTableSize(self.Objects) + 2}
+				return {
+					Increment = function(_, val)
+						self.Objects[name].Value += (val or 1)
+					end
+				}
+			end
+		}
+		vape.Libraries.sessioninfo:AddItem('Time Played', os.clock(), function(value) 
+			return os.date('!%X', math.floor(os.clock() - value)) 
+		end)
+	end)
+		
+	run(function()
+		local Tracers
+		local Targets
+		local Color
+		local Transparency
+		local StartPosition
+		local EndPosition
+		local Teammates
+		local DistanceColor
+		local Distance
+		local DistanceLimit
+		local Behind
+		local Reference = {}
+		
+		local function Added(ent)
+			if not Targets.Players.Enabled and ent.Player then return end
+			if not Targets.NPCs.Enabled and ent.NPC then return end
+			if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+		
+			local EntityTracer = Drawing.new('Line')
+			EntityTracer.Thickness = 1
+			EntityTracer.Transparency = 1 - Transparency.Value
+			EntityTracer.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			Reference[ent] = EntityTracer
+		end
+		
+		local function Removed(ent)
+			local v = Reference[ent]
+			if v then
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				Reference[ent] = nil
+				pcall(function()
+					v.Visible = false
+					v:Remove()
+				end)
+			end
+		end
+		
+		local function ColorFunc(hue, sat, val)
+			if DistanceColor.Enabled then return end
+			local tracerColor = Color3.fromHSV(hue, sat, val)
+			for ent, EntityTracer in Reference do
+				EntityTracer.Color = entitylib.getEntityColor(ent) or tracerColor
+			end
+		end
+		
+		local function Loop()
+			local screenSize = vape.gui.AbsoluteSize
+			local startVector = StartPosition.Value == 'Mouse' and inputService:GetMouseLocation() or Vector2.new(screenSize.X / 2, (StartPosition.Value == 'Middle' and screenSize.Y / 2 or screenSize.Y))
+		
+			for ent, EntityTracer in Reference do
+				local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude
+				if Distance.Enabled and distance then
+					if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+						EntityTracer.Visible = false
+						continue
+					end
+				end
+				
+				local pos = ent[EndPosition.Value == 'Torso' and 'RootPart' or 'Head'].Position
+				local rootPos, rootVis = gameCamera:WorldToViewportPoint(pos)
+				if not rootVis and Behind.Enabled then
+					local tempPos = gameCamera.CFrame:PointToObjectSpace(pos)
+					tempPos = CFrame.Angles(0, 0, (math.atan2(tempPos.Y, tempPos.X) + math.pi)):VectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):VectorToWorldSpace(Vector3.new(0, 0, -1))))
+					rootPos = gameCamera:WorldToViewportPoint(gameCamera.CFrame:pointToWorldSpace(tempPos))
+					rootVis = true
+				end
+				
+				local endVector = Vector2.new(rootPos.X, rootPos.Y)
+				EntityTracer.Visible = rootVis
+				EntityTracer.From = startVector
+				EntityTracer.To = endVector
+				if DistanceColor.Enabled and distance then
+					EntityTracer.Color = Color3.fromHSV(math.min((distance / 128) / 2.8, 0.4), 0.89, 0.75)
+				end
+			end
+		end
+		
+		Tracers = vape.Categories.Render:CreateModule({
+			Name = 'Tracers',
+			Function = function(callback)
+				if callback then
+					Tracers:Clean(entitylib.Events.EntityRemoved:Connect(Removed))
+					for _, v in entitylib.List do
+						if Reference[v] then
+							Removed(v)
+						end
+						Added(v)
+					end
+					Tracers:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+						if Reference[ent] then
+							Removed(ent)
+						end
+						Added(ent)
+					end))
+					Tracers:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+						ColorFunc(Color.Hue, Color.Sat, Color.Value)
+					end))
+					Tracers:Clean(runService.RenderStepped:Connect(Loop))
+				else
+					for i in Reference do
+						Removed(i)
+					end
+				end
+			end,
+			Tooltip = 'Renders tracers on players.'
+		})
+		Targets = Tracers:CreateTargets({
+			Players = true,
+			Function = function()
+				if Tracers.Enabled then
+					Tracers:Toggle()
+					Tracers:Toggle()
+				end
+			end
+		})
+		StartPosition = Tracers:CreateDropdown({
+			Name = 'Start Position',
+			List = {'Middle', 'Bottom', 'Mouse'},
+			Function = function()
+				if Tracers.Enabled then
+					Tracers:Toggle()
+					Tracers:Toggle()
+				end
+			end
+		})
+		EndPosition = Tracers:CreateDropdown({
+			Name = 'End Position',
+			List = {'Head', 'Torso'},
+			Function = function()
+				if Tracers.Enabled then
+					Tracers:Toggle()
+					Tracers:Toggle()
+				end
+			end
+		})
+		Color = Tracers:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if Tracers.Enabled and ColorFuncs then
+					ColorFuncs(hue, sat, val)
+				end
+			end
+		})
+		Transparency = Tracers:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Function = function(val)
+				for _, tracer in Reference do
+					tracer.Transparency = 1 - val
+				end
+			end,
+			Decimal = 10
+		})
+		DistanceColor = Tracers:CreateToggle({
+			Name = 'Color by distance',
+			Function = function()
+				if Tracers.Enabled then
+					Tracers:Toggle()
+					Tracers:Toggle()
+				end
+			end
+		})
+		Distance = Tracers:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = Tracers:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+		Behind = Tracers:CreateToggle({
+			Name = 'Behind',
+			Default = true
+		})
+		Teammates = Tracers:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if Tracers.Enabled then
+					Tracers:Toggle()
+					Tracers:Toggle()
+				end
+			end,
+			Default = true,
+			Tooltip = 'Hides teammates & non targetable entities'
+		})
+	end)
+		
+	run(function()
+		local Waypoints
+		local FontOption
+		local List
+		local Color
+		local Scale
+		local Background
+		WaypointFolder = Instance.new('Folder')
+		WaypointFolder.Parent = vape.gui
+		
+		Waypoints = vape.Categories.Render:CreateModule({
+			Name = 'Waypoints',
+			Function = function(callback)
+				if callback then
+					for _, v in List.ListEnabled do
+						local split = v:split('/')
+						local tagSize = getfontsize(removeTags(split[2]), 14 * Scale.Value, FontOption.Value, Vector2.new(100000, 100000))
+						local billboard = Instance.new('BillboardGui')
+						billboard.Size = UDim2.fromOffset(tagSize.X + 8, tagSize.Y + 7)
+						billboard.StudsOffsetWorldSpace = Vector3.new(unpack(split[1]:split(',')))
+						billboard.AlwaysOnTop = true
+						billboard.Parent = WaypointFolder
+						local tag = Instance.new('TextLabel')
+						tag.BackgroundColor3 = Color3.new()
+						tag.BorderSizePixel = 0
+						tag.Visible = true
+						tag.RichText = true
+						tag.FontFace = FontOption.Value
+						tag.TextSize = 14 * Scale.Value
+						tag.BackgroundTransparency = Background.Value
+						tag.Size = billboard.Size
+						tag.Text = split[2]
+						tag.TextColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						tag.Parent = billboard
+					end
+				else
+					WaypointFolder:ClearAllChildren()
+				end
+			end,
+			Tooltip = 'Mark certain spots with a visual indicator'
+		})
+		FontOption = Waypoints:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Arial',
+			Function = function()
+				if Waypoints.Enabled then
+					Waypoints:Toggle()
+					Waypoints:Toggle()
+				end
+			end,
+		})
+		List = Waypoints:CreateTextList({
+			Name = 'Points',
+			Placeholder = 'x, y, z/name',
+			Function = function()
+				if Waypoints.Enabled then
+					Waypoints:Toggle()
+					Waypoints:Toggle()
+				end
+			end
+		})
+		local waypointname;
+		Waypoints:CreateButton({
+			Name = 'Add current position',
+			Function = function()
+				if entitylib.isAlive then
+					local pos = entitylib.character.RootPart.Position // 1
+					List:ChangeValue(pos.X..','..pos.Y..','..pos.Z..'/'.. waypointname.Value == '' and 'Waypoint '.. (#List.List + 1) or waypointname.Value)
+				end
+			end
+		})
+		waypointname = Waypoints:CreateTextBox({
+			Name = 'Waypoint name',
+			Placeholder = 'pos name',
+			Function = void
+		})
+		Color = Waypoints:CreateColorSlider({
+			Name = 'Color',
+			Function = function(hue, sat, val)
+				for _, v in WaypointFolder:GetChildren() do
+					v.TextLabel.TextColor3 = Color3.fromHSV(hue, sat, val)
+				end
+			end
+		})
+		Scale = Waypoints:CreateSlider({
+			Name = 'Scale',
+			Function = function()
+				if Waypoints.Enabled then
+					Waypoints:Toggle()
+					Waypoints:Toggle()
+				end
+			end,
+			Default = 1,
+			Min = 0.1,
+			Max = 1.5,
+			Decimal = 10
+		})
+		Background = Waypoints:CreateSlider({
+			Name = 'Transparency',
+			Function = function()
+				if Waypoints.Enabled then
+					Waypoints:Toggle()
+					Waypoints:Toggle()
+				end
+			end,
+			Default = 0.5,
+			Min = 0,
+			Max = 1,
+			Decimal = 10
+		})
+		
+	end)
+		
+	run(function()
+		local AnimationPlayer
+		local IDBox
+		local Priority
+		local Speed
+		local anim, animobject
+		
+		local function playAnimation(char)
+			local animcheck = anim
+			if animcheck then
+				anim = nil
+				animcheck:Stop()
+			end
+		
+			local suc, res = pcall(function()
+				anim = char.Humanoid.Animator:LoadAnimation(animobject)
+			end)
+		
+			if suc then
+				local currentanim = anim
+				anim.Priority = Enum.AnimationPriority[Priority.Value]
+				anim:Play()
+				anim:AdjustSpeed(Speed.Value)
+				AnimationPlayer:Clean(anim.Stopped:Connect(function()
+					if currentanim == anim then
+						anim:Play()
+					end
+				end))
+			else
+				notif('AnimationPlayer', 'failed to load anim : '..(res or 'invalid animation id'), 5, 'warning')
+			end
+		end
+		
+		AnimationPlayer = vape.Categories.Utility:CreateModule({
+			Name = 'Animation Player',
+			Function = function(callback)
+				if callback then
+					animobject = Instance.new('Animation')
+					local suc, id = pcall(function()
+						return string.match(game:GetObjects('rbxassetid://'..IDBox.Value)[1].AnimationId, '%?id=(%d+)')
+					end)
+					animobject.AnimationId = 'rbxassetid://'..(suc and id or IDBox.Value)
+					
+					if entitylib.isAlive then 
+						playAnimation(entitylib.character) 
+					end
+					AnimationPlayer:Clean(entitylib.Events.LocalAdded:Connect(playAnimation))
+					AnimationPlayer:Clean(animobject)
+				else
+					if anim then
+						anim:Stop()
+					end
+				end
+			end,
+			Tooltip = 'Plays a specific animation of your choosing at a certain speed'
+		})
+		IDBox = AnimationPlayer:CreateTextBox({
+			Name = 'Animation',
+			Placeholder = 'anim (num only)',
+			Function = function(enter)
+				if enter and AnimationPlayer.Enabled then
+					AnimationPlayer:Toggle()
+					AnimationPlayer:Toggle()
+				end
+			end
+		})
+		local prio = {'Action4'}
+		for _, v in Enum.AnimationPriority:GetEnumItems() do
+			if v.Name ~= 'Action4' then
+				table.insert(prio, v.Name)
+			end
+		end
+		Priority = AnimationPlayer:CreateDropdown({
+			Name = 'Priority',
+			List = prio,
+			Function = function(val)
+				if anim then
+					anim.Priority = Enum.AnimationPriority[val]
+				end
+			end
+		})
+		Speed = AnimationPlayer:CreateSlider({
+			Name = 'Speed',
+			Function = function(val)
+				if anim then
+					anim:AdjustSpeed(val)
+				end
+			end,
+			Min = 0.1,
+			Max = 2,
+			Decimal = 10
+		})
+	end)
+		
+	run(function()
+		local AntiRagdoll
+		
+		AntiRagdoll = vape.Categories.Utility:CreateModule({
+			Name = 'Anti Ragdoll',
+			Function = function(callback)
+				if entitylib.isAlive then
+					entitylib.character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, not callback)
+				end
+				if callback then
+					AntiRagdoll:Clean(entitylib.Events.LocalAdded:Connect(function(char)
+						char.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+					end))
+				end
+			end,
+			Tooltip = 'Prevents you from getting knocked down in a ragdoll state'
+		})
+	end)
+		
+	run(function()
+		local AutoRejoin
+		local Sort
+		
+		AutoRejoin = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Rejoin',
+			Function = function(callback)
+				if callback then
+					local check
+					AutoRejoin:Clean(guiService.ErrorMessageChanged:Connect(function(str)
+						if (not check or guiService:GetErrorCode() ~= Enum.ConnectionError.DisconnectLuaKick) and guiService:GetErrorCode() ~= Enum.ConnectionError.DisconnectConnectionLost and not str:lower():find('ban') then
+							check = true
+							serverHop(nil, Sort.Value)
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Automatically rejoins into a new server if you get disconnected / kicked'
+		})
+		Sort = AutoRejoin:CreateDropdown({
+			Name = 'Sort',
+			List = {'Descending', 'Ascending'},
+			Tooltip = 'Descending - Prefers full servers\nAscending - Prefers empty servers'
+		})
+	end)
+		
+	run(function()
+		local Blink
+		local Type
+		local AutoSend
+		local AutoSendLength
+		local oldphys, oldsend
+		
+		Blink = vape.Categories.Utility:CreateModule({
+			Name = 'Blink',
+			Function = function(callback)
+				if callback then
+					local teleported
+					Blink:Clean(lplr.OnTeleport:Connect(function()
+						setfflag('S2PhysicsSenderRate', '15')
+						setfflag('DataSenderRate', '60')
+						teleported = true
+					end))
+		
+					repeat
+						local physicsrate, senderrate = '0', Type.Value == 'All' and '-1' or '60'
+						if AutoSend.Enabled and tick() % (AutoSendLength.Value + 0.1) > AutoSendLength.Value then
+							physicsrate, senderrate = '15', '60'
+						end
+		
+						if physicsrate ~= oldphys or senderrate ~= oldsend then
+							setfflag('S2PhysicsSenderRate', physicsrate)
+							setfflag('DataSenderRate', senderrate)
+							oldphys, oldsend = physicsrate, oldsend
+						end
+						
+						task.wait(0.03)
+					until (not Blink.Enabled and not teleported)
+				else
+					if setfflag then
+						setfflag('S2PhysicsSenderRate', '15')
+						setfflag('DataSenderRate', '60')
+					end
+					oldphys, oldsend = nil, nil
+				end
+			end,
+			Tooltip = 'Chokes packets until disabled.'
+		})
+		Type = Blink:CreateDropdown({
+			Name = 'Type',
+			List = {'Movement Only', 'All'},
+			Tooltip = 'Movement Only - Only chokes movement packets\nAll - Chokes remotes & movement'
+		})
+		AutoSend = Blink:CreateToggle({
+			Name = 'Auto send',
+			Function = function(callback)
+				AutoSendLength.Object.Visible = callback
+			end,
+			Tooltip = 'Automatically send packets in intervals'
+		})
+		AutoSendLength = Blink:CreateSlider({
+			Name = 'Send threshold',
+			Min = 0,
+			Max = 1,
+			Decimal = 100,
+			Darker = true,
+			Visible = false,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+	end)
+		
+	run(function()
+		local ChatSpammer
+		local Lines
+		local Mode
+		local Delay
+		local Hide
+		local oldchat
+		
+		ChatSpammer = vape.Categories.Utility:CreateModule({
+			Name = 'Chat Spammer',
+			Function = function(callback)
+				if callback then
+					if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+						if Hide.Enabled and coreGui:FindFirstChild('ExperienceChat') then
+							ChatSpammer:Clean(coreGui.ExperienceChat:FindFirstChild('RCTScrollContentView', true).ChildAdded:Connect(function(msg)
+								if msg.Name:sub(1, 2) == '0-' and msg.ContentText == 'You must wait before sending another message.' then
+									msg.Visible = false
+								end
+							end))
+						end
+					elseif replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+						if Hide.Enabled then
+							oldchat = hookfunction(getconnections(replicatedStorage.DefaultChatSystemChatEvents.OnNewSystemMessage.OnClientEvent)[1].Function, function(data, ...)
+								if data.Message:find('ChatFloodDetector') then return end
+								return oldchat(data, ...)
+							end)
+						end
+					else
+						notif('ChatSpammer', 'unsupported chat', 5, 'warning')
+						ChatSpammer:Toggle()
+						return
+					end
+					
+					local ind = 1
+					repeat
+						local message = (#Lines.ListEnabled > 0 and Lines.ListEnabled[math.random(1, #Lines.ListEnabled)] or 'vxpe on top')
+						if Mode.Value == 'Order' and #Lines.ListEnabled > 0 then
+							message = Lines.ListEnabled[ind] or Lines.ListEnabled[1]
+							ind = (ind % #Lines.ListEnabled) + 1
+						end
+		
+						if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+							textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(message)
+						else
+							replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'All')
+						end
+		
+						task.wait(Delay.Value)
+					until not ChatSpammer.Enabled
+				else
+					if oldchat then
+						hookfunction(getconnections(replicatedStorage.DefaultChatSystemChatEvents.OnNewSystemMessage.OnClientEvent)[1].Function, oldchat)
+					end
+				end
+			end,
+			Tooltip = 'Automatically types in chat'
+		})
+		Lines = ChatSpammer:CreateTextList({Name = 'Lines'})
+		Mode = ChatSpammer:CreateDropdown({
+			Name = 'Mode',
+			List = {'Random', 'Order'}
+		})
+		Delay = ChatSpammer:CreateSlider({
+			Name = 'Delay',
+			Min = 0.1,
+			Max = 10,
+			Default = 1,
+			Decimal = 10,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		Hide = ChatSpammer:CreateToggle({
+			Name = 'Hide Flood Message',
+			Default = true,
+			Function = function()
+				if ChatSpammer.Enabled then
+					ChatSpammer:Toggle()
+					ChatSpammer:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local Disabler
+		
+		local function characterAdded(char)
+			for _, v in getconnections(char.RootPart:GetPropertyChangedSignal('CFrame')) do
+				hookfunction(v.Function, function() end)
+			end
+			for _, v in getconnections(char.RootPart:GetPropertyChangedSignal('Velocity')) do
+				hookfunction(v.Function, function() end)
+			end
+		end
+		
+		Disabler = vape.Categories.Utility:CreateModule({
+			Name = 'Disabler',
+			Function = function(callback)
+				if callback then
+					Disabler:Clean(entitylib.Events.LocalAdded:Connect(characterAdded))
+					if entitylib.isAlive then
+						characterAdded(entitylib.character)
+					end
+				end
+			end,
+			Tooltip = 'Disables GetPropertyChangedSignal detections for movement'
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Utility:CreateModule({
+			Name = 'Panic',
+			Function = function(callback)
+				if callback then
+					for _, v in vape.Modules do
+						if v.Enabled then
+							v:Toggle()
+						end
+					end
+				end
+			end,
+			Tooltip = 'Disables all currently enabled modules'
+		})
+	end)
+		
+	run(function()
+		local Rejoin
+		
+		Rejoin = vape.Categories.Utility:CreateModule({
+			Name = 'Rejoin',
+			Function = function(callback)
+				if callback then
+					notif('Rejoin', 'Rejoining...', 5)
+					Rejoin:Toggle()
+					if playersService.NumPlayers > 1 then
+						teleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
+					else
+						teleportService:Teleport(game.PlaceId)
+					end
+				end
+			end,
+			Tooltip = 'Rejoins the server'
+		})
+	end)
+		
+	run(function()
+		local ServerHop
+		local Sort
+		
+		ServerHop = vape.Categories.Utility:CreateModule({
+			Name = 'Server Hop',
+			Function = function(callback)
+				if callback then
+					ServerHop:Toggle()
+					serverHop(nil, Sort.Value)
+				end
+			end,
+			Tooltip = 'Teleports into a unique server'
+		})
+		Sort = ServerHop:CreateDropdown({
+			Name = 'Sort',
+			List = {'Descending', 'Ascending'},
+			Tooltip = 'Descending - Prefers full servers\nAscending - Prefers empty servers'
+		})
+		ServerHop:CreateButton({
+			Name = 'Rejoin Previous Server',
+			Function = function()
+				notif('ServerHop', shared.vapeserverhopprevious and 'Rejoining previous server...' or 'Cannot find previous server', 5)
+				if shared.vapeserverhopprevious then
+					teleportService:TeleportToPlaceInstance(game.PlaceId, shared.vapeserverhopprevious)
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local StaffDetector
+		local Mode
+		local Profile
+		local Users
+		local Group
+		local Role
+		
+		local function getRole(plr, id)
+			local suc, res
+			for _ = 1, 3 do
+				suc, res = pcall(function()
+					return plr:GetRankInGroup(id)
+				end)
+				if suc then break end
+			end
+			return suc and res or 0
+		end
+		
+		local function getLowestStaffRole(roles)
+			local highest = math.huge
+			for _, v in roles do
+				local low = v.Name:lower()
+				if (low:find('admin') or low:find('mod') or low:find('dev')) and v.Rank < highest then
+					highest = v.Rank
+				end
+			end
+			return highest
+		end
+		
+		local function playerAdded(plr)
+			if not vape.Loaded then 
+				repeat task.wait() until vape.Loaded 
+			end
+		
+			local user = table.find(Users.ListEnabled, tostring(plr.UserId))
+			if user or getRole(plr, tonumber(Group.Value) or 0) >= (tonumber(Role.Value) or 1) then
+				notif('StaffDetector', 'Staff Detected ('..(user and 'blacklisted_user' or 'staff_role')..'): '..plr.Name, 60, 'alert')
+				whitelist.customtags[plr.Name] = {{text = 'GAME STAFF', color = Color3.new(1, 0, 0)}}
+				
+				if Mode.Value == 'Uninject' then
+					task.spawn(function() 
+						vape:Uninject() 
+					end)
+					game:GetService('StarterGui'):SetCore('SendNotification', {
+						Title = 'StaffDetector',
+						Text = 'Staff Detected\n'..plr.Name,
+						Duration = 60,
+					})
+				elseif Mode.Value == 'ServerHop' then
+					serverHop()
+				elseif Mode.Value == 'Profile' then
+					vape.Save = function() end
+					if vape.Profile ~= Profile.Value then
+						vape.Profile = Profile.Value
+						vape:Load(true, Profile.Value)
+					end
+				elseif Mode.Value == 'AutoConfig' then
+					vape.Save = function() end
+					for _, v in vape.Modules do
+						if v.Enabled then
+							v:Toggle()
+						end
+					end
+				end
+			end
+		end
+		
+		StaffDetector = vape.Categories.Utility:CreateModule({
+			Name = 'Staff Detector',
+			Function = function(callback)
+				if callback then
+					if Group.Value == '' or Role.Value == '' then
+						local placeinfo = {Creator = {CreatorTargetId = tonumber(Group.Value)}}
+						if Group.Value == '' then
+							placeinfo = marketplaceService:GetProductInfo(game.PlaceId)
+							if placeinfo.Creator.CreatorType ~= 'Group' then
+								local desc = placeinfo.Description:split('\n')
+								for _, str in desc do
+									local _, begin = str:find('roblox.com/groups/')
+									if begin then
+										local endof = str:find('/', begin + 1)
+										placeinfo = {Creator = {
+											CreatorType = 'Group', 
+											CreatorTargetId = str:sub(begin + 1, endof - 1)
+										}}
+									end
+								end
+							end
+		
+							if placeinfo.Creator.CreatorType ~= 'Group' then
+								notif('StaffDetector', 'Automatic Setup Failed (no group detected)', 60, 'warning')
+								return
+							end
+						end
+		
+						local groupinfo = groupService:GetGroupInfoAsync(placeinfo.Creator.CreatorTargetId)
+						Group:SetValue(placeinfo.Creator.CreatorTargetId)
+						Role:SetValue(getLowestStaffRole(groupinfo.Roles))
+					end
+					
+					if Group.Value == '' or Role.Value == '' then 
+						return 
+					end
+					
+					StaffDetector:Clean(playersService.PlayerAdded:Connect(playerAdded))
+					for _, v in playersService:GetPlayers() do
+						task.spawn(playerAdded, v)
+					end
+				end
+			end,
+			Tooltip = 'Detects people with a staff rank ingame'
+		})
+		Mode = StaffDetector:CreateDropdown({
+			Name = 'Mode',
+			List = {'Uninject', 'ServerHop', 'Profile', 'AutoConfig', 'Notify'},
+			Function = function(val)
+				if Profile.Object then
+					Profile.Object.Visible = val == 'Profile'
+				end
+			end
+		})
+		Profile = StaffDetector:CreateTextBox({
+			Name = 'Profile',
+			Default = 'default',
+			Darker = true,
+			Visible = false
+		})
+		Users = StaffDetector:CreateTextList({
+			Name = 'Users',
+			Placeholder = 'player (userid)'
+		})
+		Group = StaffDetector:CreateTextBox({
+			Name = 'Group',
+			Placeholder = 'Group Id'
+		})
+		Role = StaffDetector:CreateTextBox({
+			Name = 'Role',
+			Placeholder = 'Role Rank'
+		})
+	end)
+		
+	run(function()
+		local connections = {}
+		
+		vape.Categories.World:CreateModule({
+			Name = 'Anti-AFK',
+			Function = function(callback)
+				if callback then
+					for _, v in getconnections(lplr.Idled) do
+						table.insert(connections, v)
+						v:Disable()
+					end
+				else
+					for _, v in connections do
+						v:Enable()
+					end
+					table.clear(connections)
+				end
+			end,
+			Tooltip = 'Lets you stay ingame without getting kicked'
+		})
+	end)
+		
+	run(function()
+		local Freecam
+		local Value
+		local randomkey, module, old = httpService:GenerateGUID(false)
+		
+		Freecam = vape.Categories.World:CreateModule({
+			Name = 'Freecam',
+			Function = function(callback)
+				if callback then
+					repeat
+						task.wait(0.1)
+						for _, v in getconnections(gameCamera:GetPropertyChangedSignal('CameraType')) do
+							if v.Function then
+								module = debug.getupvalue(v.Function, 1)
+							end
+						end
+					until module or not Freecam.Enabled
+		
+					if module and module.activeCameraController and Freecam.Enabled then
+						old = module.activeCameraController.GetSubjectPosition
+						local camPos = old(module.activeCameraController) or Vector3.zero
+						module.activeCameraController.GetSubjectPosition = function()
+							return camPos
+						end
+		
+						Freecam:Clean(runService.PreSimulation:Connect(function(dt)
+							if not inputService:GetFocusedTextBox() then
+								local forward = (inputService:IsKeyDown(Enum.KeyCode.W) and -1 or 0) + (inputService:IsKeyDown(Enum.KeyCode.S) and 1 or 0)
+								local side = (inputService:IsKeyDown(Enum.KeyCode.A) and -1 or 0) + (inputService:IsKeyDown(Enum.KeyCode.D) and 1 or 0)
+								local up = (inputService:IsKeyDown(Enum.KeyCode.Q) and -1 or 0) + (inputService:IsKeyDown(Enum.KeyCode.E) and 1 or 0)
+								dt = dt * (inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 0.25 or 1)
+								camPos = (CFrame.lookAlong(camPos, gameCamera.CFrame.LookVector) * CFrame.new(Vector3.new(side, up, forward) * (Value.Value * dt))).Position
+							end
+						end))
+		
+						contextService:BindActionAtPriority('FreecamKeyboard'..randomkey, function() 
+							return Enum.ContextActionResult.Sink 
+						end, false, Enum.ContextActionPriority.High.Value,
+							Enum.KeyCode.W,
+							Enum.KeyCode.A,
+							Enum.KeyCode.S,
+							Enum.KeyCode.D,
+							Enum.KeyCode.E,
+							Enum.KeyCode.Q,
+							Enum.KeyCode.Up,
+							Enum.KeyCode.Down
+						)
+					end
+				else
+					pcall(function()
+						contextService:UnbindAction('FreecamKeyboard'..randomkey)
+					end)
+					if module and old then
+						module.activeCameraController.GetSubjectPosition = old
+						module = nil
+						old = nil
+					end
+				end
+			end,
+			Tooltip = 'Lets you fly and clip through walls freely\nwithout moving your player server-sided.'
+		})
+		Value = Freecam:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local Gravity
+		local Mode
+		local Value
+		local changed, old = false
+		
+		Gravity = vape.Categories.World:CreateModule({
+			Name = 'Gravity',
+			Function = function(callback)
+				if callback then
+					if Mode.Value == 'Workspace' then
+						old = workspace.Gravity
+						workspace.Gravity = Value.Value
+						Gravity:Clean(workspace:GetPropertyChangedSignal('Gravity'):Connect(function()
+							if changed then return end
+							changed = true
+							old = workspace.Gravity
+							workspace.Gravity = Value.Value
+							changed = false
+						end))
+					else
+						Gravity:Clean(runService.PreSimulation:Connect(function(dt)
+							if entitylib.isAlive and entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air then
+								entitylib.character.RootPart.AssemblyLinearVelocity += Vector3.new(0, dt * (workspace.Gravity - Value.Value), 0)
+							end
+						end))
+					end
+				else
+					if old then
+						workspace.Gravity = old
+						old = nil
+					end
+				end
+			end,
+			Tooltip = 'Changes the rate you fall'
+		})
+		Mode = Gravity:CreateDropdown({
+			Name = 'Mode',
+			List = {'Workspace', 'Velocity'},
+			Tooltip = 'Workspace - Adjusts the gravity for the entire game\nVelocity - Adjusts the local players gravity'
+		})
+		Value = Gravity:CreateSlider({
+			Name = 'Gravity',
+			Min = 0,
+			Max = 192,
+			Function = function(val)
+				if Gravity.Enabled and Mode.Value == 'Workspace' then
+					changed = true
+					workspace.Gravity = val
+					changed = false
+				end
+			end,
+			Default = 192
+		})
+	end)
+		
+	run(function()
+		local Parkour
+		
+		Parkour = vape.Categories.World:CreateModule({
+			Name = 'Parkour',
+			Function = function(callback)
+				if callback then 
+					local oldfloor
+					Parkour:Clean(runService.RenderStepped:Connect(function()
+						if entitylib.isAlive then 
+							local material = entitylib.character.Humanoid.FloorMaterial
+							if material == Enum.Material.Air and oldfloor ~= Enum.Material.Air then 
+								entitylib.character.Humanoid.Jump = true
+							end
+							oldfloor = material
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Automatically jumps after reaching the edge'
+		})
+	end)
+		
+	run(function()
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local module, old
+		
+		vape.Categories.World:CreateModule({
+			Name = 'Safe Walk',
+			Function = function(callback)
+				if callback then
+					if not module then
+						local suc = pcall(function() 
+							module = require(lplr.PlayerScripts.PlayerModule).controls 
+						end)
+						if not suc then module = {} end
+					end
+					
+					old = module.moveFunction
+					module.moveFunction = function(self, vec, face)
+						if entitylib.isAlive then
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+							local root = entitylib.character.RootPart
+							local movedir = root.Position + vec
+							local ray = workspace:Raycast(movedir, Vector3.new(0, -15, 0), rayCheck)
+							if not ray then
+								local check = workspace:Blockcast(root.CFrame, Vector3.new(3, 1, 3), Vector3.new(0, -(entitylib.character.HipHeight + 1), 0), rayCheck)
+								if check then
+									vec = (check.Instance:GetClosestPointOnSurface(movedir) - root.Position) * Vector3.new(1, 0, 1)
+								end
+							end
+						end
+		
+						return old(self, vec, face)
+					end
+				else
+					if module and old then
+						module.moveFunction = old
+					end
+				end
+			end,
+			Tooltip = 'Prevents you from walking off the edge of parts'
+		})
+	end)
+		
+	run(function()
+		local Xray
+		local List
+		local modified = {}
+		
+		local function modifyPart(v)
+			if v:IsA('BasePart') and not table.find(List.ListEnabled, v.Name) then
+				modified[v] = true
+				v.LocalTransparencyModifier = 0.5
+			end
+		end
+		
+		Xray = vape.Categories.World:CreateModule({
+			Name = 'Xray',
+			Function = function(callback)
+				if callback then
+					Xray:Clean(workspace.DescendantAdded:Connect(modifyPart))
+					for _, v in workspace:GetDescendants() do
+						modifyPart(v)
+					end
+				else
+					for i in modified do
+						i.LocalTransparencyModifier = 0
+					end
+					table.clear(modified)
+				end
+			end,
+			Tooltip = 'Renders whitelisted parts through walls.'
+		})
+		List = Xray:CreateTextList({
+			Name = 'Part',
+			Function = function()
+				if Xray.Enabled then
+					Xray:Toggle()
+					Xray:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local MurderMystery
+		local murderer, sheriff, oldtargetable, oldgetcolor
+		
+		local function itemAdded(v, plr)
+			if v:IsA('Tool') then
+				local check = v:FindFirstChild('IsGun') and 'sheriff' or v:FindFirstChild('KnifeServer') and 'murderer' or nil
+				check = check or v.Name:lower():find('knife') and 'murderer' or v.Name:lower():find('gun') and 'sheriff' or nil
+				if check == 'murderer' and plr ~= murderer then
+					murderer = plr
+					if plr.Character then
+						entitylib.refresh()
+					end
+				elseif check == 'sheriff' and plr ~= sheriff then
+					sheriff = plr
+					if plr.Character then
+						entitylib.refresh()
+					end
+				end
+			end
+		end
+		
+		local function playerAdded(plr)
+			MurderMystery:Clean(plr.DescendantAdded:Connect(function(v)
+				itemAdded(v, plr)
+			end))
+			local pack = plr:FindFirstChildWhichIsA('Backpack')
+			if pack then
+				for _, v in pack:GetChildren() do
+					itemAdded(v, plr)
+				end
+			end
+			if plr.Character then
+				for _, v in plr.Character:GetChildren() do
+					itemAdded(v, plr)
+				end
+			end
+		end
+		
+		MurderMystery = vape.Categories.Minigames:CreateModule({
+			Name = 'Murder Mystery',
+			Function = function(callback)
+				if callback then
+					oldtargetable, oldgetcolor = entitylib.targetCheck, entitylib.getEntityColor
+					entitylib.getEntityColor = function(ent)
+						ent = ent.Player
+						if not (ent and vape.Categories.Main.Options['Use team color'].Enabled) then return end
+						if isFriend(ent, true) then
+							return Color3.fromHSV(vape.Categories.Friends.Options['Friends color'].Hue, vape.Categories.Friends.Options['Friends color'].Sat, vape.Categories.Friends.Options['Friends color'].Value)
+						end
+						return murderer == ent and Color3.new(1, 0.3, 0.3) or sheriff == ent and Color3.new(0, 0.5, 1) or nil
+					end
+					entitylib.targetCheck = function(ent)
+						if ent.Player and isFriend(ent.Player) then return false end
+						if murderer == lplr then return true end
+						return murderer == ent.Player or sheriff == ent.Player
+					end
+					for _, v in playersService:GetPlayers() do
+						playerAdded(v)
+					end
+					MurderMystery:Clean(playersService.PlayerAdded:Connect(playerAdded))
+					entitylib.refresh()
+				else
+					entitylib.getEntityColor = oldgetcolor
+					entitylib.targetCheck = oldtargetable
+					entitylib.refresh()
+				end
+			end,
+			Tooltip = 'Automatic murder mystery teaming based on equipped roblox tools.'
+		})
+	end)
+		
+	run(function()
+		local Atmosphere
+		local Toggles = {}
+		local newobjects, oldobjects = {}, {}
+		local apidump = {
+			Sky = {
+				SkyboxUp = 'Text',
+				SkyboxDn = 'Text',
+				SkyboxLf = 'Text',
+				SkyboxRt = 'Text',
+				SkyboxFt = 'Text',
+				SkyboxBk = 'Text',
+				SunTextureId = 'Text',
+				SunAngularSize = 'Number',
+				MoonTextureId = 'Text',
+				MoonAngularSize = 'Number',
+				StarCount = 'Number'
+			},
+			Atmosphere = {
+				Color = 'Color',
+				Decay = 'Color',
+				Density = 'Number',
+				Offset = 'Number',
+				Glare = 'Number',
+				Haze = 'Number'
+			},
+			BloomEffect = {
+				Intensity = 'Number',
+				Size = 'Number',
+				Threshold = 'Number'
+			},
+			DepthOfFieldEffect = {
+				FarIntensity = 'Number',
+				FocusDistance = 'Number',
+				InFocusRadius = 'Number',
+				NearIntensity = 'Number'
+			},
+			SunRaysEffect = {
+				Intensity = 'Number',
+				Spread = 'Number'
+			},
+			ColorCorrectionEffect = {
+				TintColor = 'Color',
+				Saturation = 'Number',
+				Contrast = 'Number',
+				Brightness = 'Number'
+			}
+		}
+		
+		local function removeObject(v)
+			if not table.find(newobjects, v) then 
+				local toggle = Toggles[v.ClassName]
+				if toggle and toggle.Toggle.Enabled then
+					table.insert(oldobjects, v)
+					v.Parent = replicatedStorage
+				end
+			end
+		end
+		
+		Atmosphere = vape.Legit:CreateModule({
+			Name = 'Atmosphere',
+			Function = function(callback)
+				if callback then
+					for _, v in lightingService:GetChildren() do
+						removeObject(v)
+					end
+					Atmosphere:Clean(lightingService.ChildAdded:Connect(function(v)
+						task.defer(removeObject, v)
+					end))
+		
+					for i, v in Toggles do
+						if v.Toggle.Enabled then
+							local obj = Instance.new(i)
+							for i2, v2 in v.Objects do
+								if v2.Type == 'ColorSlider' then
+									obj[i2] = Color3.fromHSV(v2.Hue, v2.Sat, v2.Value)
+								else
+									obj[i2] = apidump[i][i2] ~= 'Number' and v2.Value or tonumber(v2.Value) or 0
+								end
+							end
+							obj.Parent = lightingService
+							table.insert(newobjects, obj)
+						end
+					end
+				else
+					for _, v in newobjects do
+						v:Destroy()
+					end
+					for _, v in oldobjects do
+						v.Parent = lightingService
+					end
+					table.clear(newobjects)
+					table.clear(oldobjects)
+				end
+			end,
+			Tooltip = 'Custom lighting objects'
+		})
+		for i, v in apidump do
+			Toggles[i] = {Objects = {}}
+			Toggles[i].Toggle = Atmosphere:CreateToggle({
+				Name = i,
+				Function = function(callback)
+					if Atmosphere.Enabled then
+						Atmosphere:Toggle()
+						Atmosphere:Toggle()
+					end
+					for _, toggle in Toggles[i].Objects do
+						toggle.Object.Visible = callback
+					end
+				end
+			})
+		
+			for i2, v2 in v do
+				if v2 == 'Text' or v2 == 'Number' then
+					Toggles[i].Objects[i2] = Atmosphere:CreateTextBox({
+						Name = i2,
+						Function = function(enter)
+							if Atmosphere.Enabled and enter then
+								Atmosphere:Toggle()
+								Atmosphere:Toggle()
+							end
+						end,
+						Darker = true,
+						Default = v2 == 'Number' and '0' or nil,
+						Visible = false
+					})
+				elseif v2 == 'Color' then
+					Toggles[i].Objects[i2] = Atmosphere:CreateColorSlider({
+						Name = i2,
+						Function = function()
+							if Atmosphere.Enabled then
+								Atmosphere:Toggle()
+								Atmosphere:Toggle()
+							end
+						end,
+						Darker = true,
+						Visible = false
+					})
+				end
+			end
+		end
+	end)
+
+	pcall(function()
+		local weather
+		local oldatmosphere = {}
+		local oldclouds = {}
+		local thundertick = tick()
+		local weathermode = nil
+		local snowYLevel
+
+		local thunderSounds = {}
+
+		for i,v in {'rbxassetid://6734393210', 'rbxassetid://18650085493'} do
+			local sound = Instance.new('Sound', soundService)
+			sound.SoundId = v
+			table.insert(thunderSounds, sound)
+		end
+
+		local lightning = game:GetObjects('rbxassetid://71302811326216')[1]
+		lightning:PivotTo(CFrame.new())
+		lightning.Parent = replicatedStorage
+
+		for _, v in lightning:GetChildren() do
+			local PointLight = Instance.new('PointLight', v)
+			PointLight.Brightness = 20
+			PointLight.Range = 35
+			PointLight.Shadows = true
+		end
+
+		local function createThunder(pos)
+			weatherlib.Lightning.CreateLightning(pos)
+
+			local old = lightingService.Brightness
+			local b = tweenService:Create(lightingService, TweenInfo.new(0.1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Brightness = Random.new():NextInteger(90, 100)
+			})
+			b:Play()
+			b.Completed:Wait()
+			local sound = thunderSounds[math.random(1, #thunderSounds)]
+			sound.Volume = Random.new():NextNumber(0.7, 1.5)
+			sound:Play()
+			
+			task.wait(0.14)
+			tweenService:Create(lightingService, TweenInfo.new(0.3, Enum.EasingStyle.Sine), {
+				Brightness = old
+			}):Play()
+		end
+
+		local function getrandompos(currpos)
+			local randomizedvec = Vector3.new(Random.new():NextInteger(19, math.random(23, 47)), 0, Random.new():NextInteger(18, math.random(22, 45)))
+
+			local ray = workspace:Raycast(currpos + randomizedvec, Vector3.new(0, -50000, 0))
+
+			if ray then
+				return CFrame.new(ray.Position)
+			else
+				local vec = currpos + randomizedvec
+				return CFrame.new(vec)
+			end
+		end
+
+		local rand = Random.new()
+
+		weather = vape.Categories.Render:CreateModule({
+			Name = 'Weather',
+			Function = function(call)
+				if call then
+					thundertick = tick() + math.random(1, 2)
+					if weathermode.Value == 'Rain' or weathermode.Value == 'Thunderstorm' then
+						weatherlib.Rain:Enable()
+					elseif weathermode.Value == 'Snow' then
+						weatherlib.Snow:Enable(snowYLevel.Value)
+					end
+					if not workspace.Terrain:FindFirstChildOfClass('Clouds') then
+						local clouds = Instance.new('Clouds', workspace.Terrain)
+						clouds.Cover = 1
+						clouds.Density = 1
+						clouds.Color = Color3.fromRGB(12, 13, 16)
+						weather:Clean(clouds)
+					end
+					if not lightingService:FindFirstChildOfClass('Atmosphere') then
+						local atmosphere = Instance.new('Atmosphere', lightingService)
+						weather:Clean(atmosphere)
+					else
+						local a = lightingService:FindFirstChildOfClass('Atmosphere')
+						oldatmosphere.Density = a.Density
+						oldatmosphere.Offset = a.Offset
+						oldatmosphere.Glare = a.Glare
+						oldatmosphere.Haze = a.Haze
+						oldatmosphere.Color = a.Color
+						oldatmosphere.Decay = a.Decay
+					end
+					repeat
+						local atmosphere = lightingService:FindFirstChildOfClass('Atmosphere')
+						if weathermode.Value == 'Rain' or weathermode.Value == 'Thunderstorm' or weathermode.Value == "Snow" then
+							if atmosphere then
+								if weathermode.Value == 'Rain' then
+									atmosphere.Density = 0.65
+									atmosphere.Offset = 0.25
+									atmosphere.Glare = 0
+									atmosphere.Haze = 0
+								elseif weathermode.Value == "Snow" then
+									atmosphere.Density = 0.7
+									atmosphere.Offset = 0.75
+									atmosphere.Color = Color3.fromRGB(142, 142, 142)
+									atmosphere.Decay = Color3.fromRGB(142, 142, 142)
+									atmosphere.Glare = 0.5
+									atmosphere.Haze = 0.5
+								elseif weathermode.Value == 'Thunderstorm' then
+									atmosphere.Density = 0.8
+									atmosphere.Offset = 0.2
+									atmosphere.Glare = 0.1
+									atmosphere.Color = Color3.fromRGB(121, 124, 160)
+									atmosphere.Decay = Color3.fromRGB(37, 38, 49)
+									atmosphere.Haze = 9
+								end
+							end
+							if weathermode.Value == 'Thunderstorm' and tick() > thundertick then
+								thundertick = tick() + rand:NextNumber(7, 25)
+								local pivot = getrandompos(lplr.Character.PrimaryPart.Position)
+								createThunder(pivot)
+							end
+							if entitylib.isAlive then
+								local vector = lplr.Character.Humanoid.MoveDirection
+								vector *= -0.1
+								weatherlib.Rain:SetDirection(vector.Magnitude >= 0.1 and Vector3.new(1, 0 ,0) or Vector3.zero, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+							end
+						end
+						task.wait()
+					until not weather.Enabled
+				else
+					weatherlib.Rain:Disable()
+					weatherlib.Snow:Disable()
+					local atmosphere = lightingService:FindFirstChildOfClass('Atmosphere')
+					if atmosphere then
+						for i,v in oldatmosphere do
+							atmosphere[i] = v
+						end
+					end
+					table.clear(oldatmosphere)
+				end
+			end,
+			ExtraText = function()
+				return weathermode.Value
+			end
+		})
+		weathermode = weather:CreateDropdown({
+			Name = 'Mode',
+			List = {'Rain', 'Snow', 'Thunderstorm'},
+			Function = function()
+				if weather.Enabled then
+					weather:Toggle()
+					weather:Toggle()
+				end
+			end
+		})
+		snowYLevel = weather:CreateSlider({
+			Name = 'Snow Y Level',
+			Min = 0,
+			Max = 256,
+			Default = 60,
+			Function = function()
+				if weather.Enabled then
+					weather:Toggle()
+					weather:Toggle()
+				end
+			end,
+		})
+	end)
+		
+	run(function()
+		local Breadcrumbs
+		local Texture
+		local Lifetime
+		local Thickness
+		local FadeIn
+		local FadeOut
+		local trail, point, point2
+
+		local function createTrail()
+			point = Instance.new('Attachment')
+			point.Position = Vector3.new(0, Thickness.Value - 2.7, 0)
+			point2 = Instance.new('Attachment')
+			point2.Position = Vector3.new(0, -Thickness.Value - 2.7, 0)
+			trail = Instance.new('Trail')
+			trail.Texture = Texture.Value == '' and 'http://www.roblox.com/asset/?id=14166981368' or Texture.Value
+			trail.TextureMode = Enum.TextureMode.Static
+			trail.Color = ColorSequence.new(Color3.fromHSV(FadeIn.Hue, FadeIn.Sat, FadeIn.Value), Color3.fromHSV(FadeOut.Hue, FadeOut.Sat, FadeOut.Value))
+			trail.Lifetime = Lifetime.Value
+			trail.Attachment0 = point
+			trail.Attachment1 = point2
+			trail.FaceCamera = true
+		end
+		
+		Breadcrumbs = vape.Legit:CreateModule({
+			Name = 'Breadcrumbs',
+			Function = function(callback)
+				if callback then
+					pcall(createTrail)
+					Breadcrumbs:Clean(trail)
+					Breadcrumbs:Clean(point)
+					Breadcrumbs:Clean(point2)
+					Breadcrumbs:Clean(entitylib.Events.LocalAdded:Connect(function(ent)
+						point.Parent = ent.HumanoidRootPart
+						point2.Parent = ent.HumanoidRootPart
+						trail.Parent = gameCamera
+					end))
+					
+					repeat
+						if not point or not point.Parent then
+							createTrail()
+						end
+						if entitylib.isAlive then
+							point.Parent = lplr.Character.PrimaryPart
+							point2.Parent = lplr.Character.PrimaryPart
+						end
+						task.wait()
+					until not Breadcrumbs.Enabled
+					
+					if entitylib.isAlive then
+						trail.Parent = gameCamera
+					end
+				else
+					trail = nil
+					point = nil
+					point2 = nil
+				end
+			end,
+			Tooltip = 'Shows a trail behind your character'
+		})
+		Texture = Breadcrumbs:CreateTextBox({
+			Name = 'Texture',
+			Placeholder = 'Texture Id',
+			Function = function(enter)
+				if enter and trail then
+					trail.Texture = Texture.Value == '' and 'http://www.roblox.com/asset/?id=14166981368' or Texture.Value
+				end
+			end
+		})
+		FadeIn = Breadcrumbs:CreateColorSlider({
+			Name = 'Fade In',
+			Function = function(hue, sat, val)
+				if trail then
+					trail.Color = ColorSequence.new(Color3.fromHSV(hue, sat, val), Color3.fromHSV(FadeOut.Hue, FadeOut.Sat, FadeOut.Value))
+				end
+			end
+		})
+		FadeOut = Breadcrumbs:CreateColorSlider({
+			Name = 'Fade Out',
+			Function = function(hue, sat, val)
+				if trail then
+					trail.Color = ColorSequence.new(Color3.fromHSV(FadeIn.Hue, FadeIn.Sat, FadeIn.Value), Color3.fromHSV(hue, sat, val))
+				end
+			end
+		})
+		Lifetime = Breadcrumbs:CreateSlider({
+			Name = 'Lifetime',
+			Min = 1,
+			Max = 5,
+			Default = 3,
+			Decimal = 10,
+			Function = function(val)
+				if trail then
+					trail.Lifetime = val
+				end
+			end,
+			Suffix = function(val)
+				return val == 1 and 'second' or 'seconds'
+			end
+		})
+		Thickness = Breadcrumbs:CreateSlider({
+			Name = 'Thickness',
+			Min = 0,
+			Max = 2,
+			Default = 0.1,
+			Decimal = 100,
+			Function = function(val)
+				if point then
+					point.Position = Vector3.new(0, val - 2.7, 0)
+				end
+				if point2 then
+					point2.Position = Vector3.new(0, -val - 2.7, 0)
+				end
+			end,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local Cape
+		local Texture
+		local part, motor
+		
+		local function createMotor(char)
+			if motor then 
+				motor:Destroy() 
+			end
+			part.Parent = gameCamera
+			motor = Instance.new('Motor6D')
+			motor.MaxVelocity = 0.08
+			motor.Part0 = part
+			motor.Part1 = char.Character:FindFirstChild('UpperTorso') or char.RootPart
+			motor.C0 = CFrame.new(0, 2, 0) * CFrame.Angles(0, math.rad(-90), 0)
+			motor.C1 = CFrame.new(0, motor.Part1.Size.Y / 2, 0.45) * CFrame.Angles(0, math.rad(90), 0)
+			motor.Parent = part
+		end
+		
+		Cape = vape.Legit:CreateModule({
+			Name = 'Cape',
+			Function = function(callback)
+				if callback then
+					part = Instance.new('Part')
+					part.Size = Vector3.new(2, 4, 0.1)
+					part.CanCollide = false
+					part.CanQuery = false
+					part.Massless = true
+					part.Transparency = 0
+					part.Material = Enum.Material.SmoothPlastic
+					part.Color = Color3.new()
+					part.CastShadow = false
+					part.Parent = gameCamera
+					local capesurface = Instance.new('SurfaceGui')
+					capesurface.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+					capesurface.Adornee = part
+					capesurface.Parent = part
+		
+					if Texture.Value:find('.webm') then
+						local decal = Instance.new('VideoFrame')
+						decal.Video = getcustomasset(Texture.Value)
+						decal.Size = UDim2.fromScale(1, 1)
+						decal.BackgroundTransparency = 1
+						decal.Looped = true
+						decal.Parent = capesurface
+						decal:Play()
+					else
+						local decal = Instance.new('ImageLabel')
+						decal.Image = Texture.Value ~= '' and (Texture.Value:find('rbxasset') and Texture.Value or assetfunction(Texture.Value)) or 'rbxassetid://14637958134'
+						decal.Size = UDim2.fromScale(1, 1)
+						decal.BackgroundTransparency = 1
+						decal.Parent = capesurface
+					end
+					Cape:Clean(part)
+					Cape:Clean(entitylib.Events.LocalAdded:Connect(createMotor))
+					if entitylib.isAlive then
+						createMotor(entitylib.character)
+					end
+		
+					repeat
+						if motor and entitylib.isAlive then
+							local velo = math.min(entitylib.character.RootPart.Velocity.Magnitude, 90)
+							motor.DesiredAngle = math.rad(6) + math.rad(velo) + (velo > 1 and math.abs(math.cos(tick() * 5)) / 3 or 0)
+						end
+						capesurface.Enabled = (gameCamera.CFrame.Position - gameCamera.Focus.Position).Magnitude > 0.6
+						part.Transparency = (gameCamera.CFrame.Position - gameCamera.Focus.Position).Magnitude > 0.6 and 0 or 1
+						task.wait()
+					until not Cape.Enabled
+				else
+					part = nil
+					motor = nil
+				end
+			end,
+			Tooltip = 'Add\'s a cape to your character'
+		})
+		Texture = Cape:CreateTextBox({
+			Name = 'Texture'
+		})
+	end)
+		
+	run(function()
+		local ChinaHat
+		local Material
+		local Color
+		local hat
+		
+		ChinaHat = vape.Legit:CreateModule({
+			Name = 'China Hat',
+			Function = function(callback)
+				if callback then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					hat = Instance.new('MeshPart')
+					hat.Size = Vector3.new(3, 0.7, 3)
+					hat.Name = 'ChinaHat'
+					hat.Material = Enum.Material[Material.Value]
+					hat.Color = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+					hat.CanCollide = false
+					hat.CanQuery = false
+					hat.Massless = true
+					hat.MeshId = 'http://www.roblox.com/asset/?id=1778999'
+					hat.Transparency = 1 - Color.Opacity
+					hat.Parent = gameCamera
+					hat.CFrame = entitylib.isAlive and entitylib.character.Head.CFrame + Vector3.new(0, 1, 0) or CFrame.identity
+					local weld = Instance.new('WeldConstraint')
+					weld.Part0 = hat
+					weld.Part1 = entitylib.isAlive and entitylib.character.Head or nil
+					weld.Parent = hat
+					ChinaHat:Clean(hat)
+					ChinaHat:Clean(entitylib.Events.LocalAdded:Connect(function(char)
+						if weld then 
+							weld:Destroy() 
+						end
+						hat.Parent = gameCamera
+						hat.CFrame = char.Head.CFrame + Vector3.new(0, 1, 0)
+						hat.Velocity = Vector3.zero
+						weld = Instance.new('WeldConstraint')
+						weld.Part0 = hat
+						weld.Part1 = char.Head
+						weld.Parent = hat
+					end))
+		
+					repeat
+						hat.LocalTransparencyModifier = ((gameCamera.CFrame.Position - gameCamera.Focus.Position).Magnitude <= 0.6 and 1 or 0)
+						task.wait()
+					until not ChinaHat.Enabled
+				else
+					hat = nil
+				end
+			end,
+			Tooltip = 'Puts a china hat on your character (ty mastadawn)'
+		})
+		local materials = {'ForceField'}
+		for _, v in Enum.Material:GetEnumItems() do
+			if v.Name ~= 'ForceField' then
+				table.insert(materials, v.Name)
+			end
+		end
+		Material = ChinaHat:CreateDropdown({
+			Name = 'Material',
+			List = materials,
+			Function = function(val)
+				if hat then
+					hat.Material = Enum.Material[val]
+				end
+			end
+		})
+		Color = ChinaHat:CreateColorSlider({
+			Name = 'Hat Color',
+			DefaultOpacity = 0.7,
+			Function = function(hue, sat, val, opacity)
+				if hat then
+					hat.Color = Color3.fromHSV(hue, sat, val)
+					hat.Transparency = 1 - opacity
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local Clock
+		local TwentyFourHour
+		local label
+		
+		Clock = vape.Legit:CreateModule({
+			Name = 'Clock',
+			Function = function(callback)
+				if callback then
+					repeat
+						label.Text = DateTime.now():FormatLocalTime('LT', TwentyFourHour.Enabled and 'zh-cn' or 'en-us')
+						task.wait(1)
+					until not Clock.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41),
+			Tooltip = 'Shows the current local time'
+		})
+		Clock:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		Clock:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		TwentyFourHour = Clock:CreateToggle({
+			Name = '24 Hour Clock'
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.new(0, 100, 0, 41)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0:00 PM'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = Clock.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local Disguise
+		local Mode
+		local IDBox
+		local desc
+		
+		local function itemAdded(v, manual)
+			if (not v:GetAttribute('Disguise')) and ((v:IsA('Accessory') and (not v:GetAttribute('InvItem')) and (not v:GetAttribute('ArmorSlot'))) or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') or v:IsA('BodyColors') or manual) then
+				repeat
+					task.wait()
+					v.Parent = replicatedStorage
+				until v.Parent == replicatedStorage
+				v:ClearAllChildren()
+				v:Destroy()
+			end
+		end
+		
+		local function characterAdded(char)
+			if Mode.Value == 'Character' then
+				task.wait(0.1)
+				char.Character.Archivable = true
+				local clone = char.Character:Clone()
+				repeat
+					if pcall(function()
+						desc = playersService:GetHumanoidDescriptionFromUserId(IDBox.Value == '' and 239702688 or tonumber(IDBox.Value))
+					end) then break end
+					task.wait(1)
+				until not Disguise.Enabled
+				if not Disguise.Enabled then
+					clone:ClearAllChildren()
+					clone:Destroy()
+					clone = nil
+					if desc then
+						desc:Destroy()
+						desc = nil
+					end
+					return
+				end
+				clone.Parent = replicatedStorage
+		
+				local originalDesc = char.Humanoid:WaitForChild('HumanoidDescription', 2) or {
+					HeightScale = 1,
+					SetEmotes = function() end,
+					SetEquippedEmotes = function() end
+				}
+				originalDesc.JumpAnimation = desc.JumpAnimation
+				desc.HeightScale = originalDesc.HeightScale
+		
+				for _, v in clone:GetChildren() do
+					if v:IsA('Accessory') or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') then
+						v:ClearAllChildren()
+						v:Destroy()
+					end
+				end
+		
+				clone.Humanoid:ApplyDescriptionClientServer(desc)
+				for _, v in char.Character:GetChildren() do
+					itemAdded(v)
+				end
+				Disguise:Clean(char.Character.ChildAdded:Connect(itemAdded))
+		
+				for _, v in clone:WaitForChild('Animate'):GetChildren() do
+					if not char.Character:FindFirstChild('Animate') then return end
+					local real = char.Character.Animate:FindFirstChild(v.Name)
+					if v and real then
+						local anim = v:FindFirstChildWhichIsA('Animation') or {AnimationId = ''}
+						local realanim = real:FindFirstChildWhichIsA('Animation') or {AnimationId = ''}
+						if realanim then
+							realanim.AnimationId = anim.AnimationId
+						end
+					end
+				end
+		
+				for _, v in clone:GetChildren() do
+					v:SetAttribute('Disguise', true)
+					if v:IsA('Accessory') then
+						for _, v2 in v:GetDescendants() do
+							if v2:IsA('Weld') and v2.Part1 then
+								v2.Part1 = char.Character[v2.Part1.Name]
+							end
+						end
+						v.Parent = char.Character
+					elseif v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') or v:IsA('BodyColors') then
+						v.Parent = char.Character
+					elseif v.Name == 'Head' and char.Head:IsA('MeshPart') and (not char.Head:FindFirstChild('FaceControls')) then
+						char.Head.MeshId = v.MeshId
+					end
+				end
+		
+				local localface = char.Character:FindFirstChild('face', true)
+				local cloneface = clone:FindFirstChild('face', true)
+				if localface and cloneface then
+					itemAdded(localface, true)
+					cloneface.Parent = char.Head
+				end
+				originalDesc:SetEmotes(desc:GetEmotes())
+				originalDesc:SetEquippedEmotes(desc:GetEquippedEmotes())
+				clone:ClearAllChildren()
+				clone:Destroy()
+				clone = nil
+				if desc then
+					desc:Destroy()
+					desc = nil
+				end
+			else
+				local data
+				repeat
+					if pcall(function()
+						data = marketplaceService:GetProductInfo(IDBox.Value == '' and 43 or tonumber(IDBox.Value), Enum.InfoType.Bundle)
+					end) then break end
+					task.wait(1)
+				until not Disguise.Enabled
+				if not Disguise.Enabled then
+					if data then
+						table.clear(data)
+						data = nil
+					end
+					return
+				end
+				if data.BundleType == 'AvatarAnimations' then
+					local animate = char.Character:FindFirstChild('Animate')
+					if not animate then return end
+					for _, v in desc.Items do
+						local animtype = v.Name:split(' ')[2]:lower()
+						if animtype ~= 'animation' then
+							local suc, res = pcall(function() return game:GetObjects('rbxassetid://'..v.Id) end)
+							if suc then
+								animate[animtype]:FindFirstChildWhichIsA('Animation').AnimationId = res[1]:FindFirstChildWhichIsA('Animation', true).AnimationId
+							end
+						end
+					end
+				else
+					notif('Disguise', 'that\'s not an animation pack', 5, 'warning')
+				end
+			end
+		end
+		
+		Disguise = vape.Legit:CreateModule({
+			Name = 'Disguise',
+			Function = function(callback)
+				if callback then
+					Disguise:Clean(entitylib.Events.LocalAdded:Connect(characterAdded))
+					if entitylib.isAlive then
+						characterAdded(entitylib.character)
+					end
+				end
+			end,
+			Tooltip = 'Changes your character or animation to a specific ID (animation packs or userid\'s only)'
+		})
+		Mode = Disguise:CreateDropdown({
+			Name = 'Mode',
+			List = {'Character', 'Animation'},
+			Function = function()
+				if Disguise.Enabled then
+					Disguise:Toggle()
+					Disguise:Toggle()
+				end
+			end
+		})
+		IDBox = Disguise:CreateTextBox({
+			Name = 'Disguise',
+			Placeholder = 'Disguise User Id',
+			Function = function()
+				if Disguise.Enabled then
+					Disguise:Toggle()
+					Disguise:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local FOV
+		local Value
+		local oldfov
+		
+		FOV = vape.Legit:CreateModule({
+			Name = 'FOV',
+			Function = function(callback)
+				if callback then
+					oldfov = gameCamera.FieldOfView
+					repeat
+						gameCamera.FieldOfView = Value.Value
+						task.wait()
+					until not FOV.Enabled
+				else
+					gameCamera.FieldOfView = oldfov
+				end
+			end,
+			Tooltip = 'Adjusts camera vision'
+		})
+		Value = FOV:CreateSlider({
+			Name = 'FOV',
+			Min = 30,
+			Max = 120
+		})
+	end)
+
+	local fpsvar = 120
+		
+	run(function()
+		--[[
+			Grabbing an accurate count of the current framerate
+			Source: https://devforum.roblox.com/t/get-client-FPS-trough-a-script/282631
+		]]
+		local FPS
+		local label
+		
+		FPS = vape.Legit:CreateModule({
+			Name = 'FPS',
+			Function = function(callback) end,
+			Size = UDim2.fromOffset(100, 41),
+			Tooltip = 'Shows the current framerate'
+		})
+		FPS:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		FPS:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = 'inf FPS'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = FPS.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+
+		local frames = {}
+		local startClock = os.clock()
+		local updateTick = tick()
+
+		vape:Clean(runService.PreSimulation:Connect(function()
+			local updateClock = os.clock()
+			for i = #frames, 1, -1 do
+				frames[i + 1] = frames[i] >= updateClock - 1 and frames[i] or nil
+			end
+			frames[1] = updateClock
+			if updateTick < tick() then
+				updateTick = tick() + 1
+				fpsvar = (os.clock() - startClock >= 1 and #frames or #frames / (os.clock() - startClock))
+				if FPS.Enabled then
+					label.Text = math.floor(fpsvar)..' FPS'
+				end
+			end
+		end))
+	end)
+		
+	run(function()
+		local Keystrokes
+		local Style
+		local Color
+		local keys, holder = {}
+		
+		local function createKeystroke(keybutton, pos, pos2, text)
+			if keys[keybutton] then
+				keys[keybutton].Key:Destroy()
+				keys[keybutton] = nil
+			end
+			local key = Instance.new('Frame')
+			key.Size = keybutton == Enum.KeyCode.Space and UDim2.new(0, 110, 0, 24) or UDim2.new(0, 34, 0, 36)
+			key.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			key.BackgroundTransparency = 1 - Color.Opacity
+			key.Position = pos
+			key.Name = keybutton.Name
+			key.Parent = holder
+			local keytext = Instance.new('TextLabel')
+			keytext.BackgroundTransparency = 1
+			keytext.Size = UDim2.fromScale(1, 1)
+			keytext.Font = Enum.Font.Gotham
+			keytext.Text = text or keybutton.Name
+			keytext.TextXAlignment = Enum.TextXAlignment.Left
+			keytext.TextYAlignment = Enum.TextYAlignment.Top
+			keytext.Position = pos2
+			keytext.TextSize = keybutton == Enum.KeyCode.Space and 18 or 15
+			keytext.TextColor3 = Color3.new(1, 1, 1)
+			keytext.Parent = key
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 4)
+			corner.Parent = key
+			keys[keybutton] = {Key = key}
+		end
+		
+		Keystrokes = vape.Legit:CreateModule({
+			Name = 'Keystrokes',
+			Function = function(callback)
+				if callback then
+					createKeystroke(Enum.KeyCode.W, UDim2.new(0, 38, 0, 0), UDim2.new(0, 6, 0, 5), Style.Value == 'Arrow' and '↑' or nil)
+					createKeystroke(Enum.KeyCode.S, UDim2.new(0, 38, 0, 42), UDim2.new(0, 8, 0, 5), Style.Value == 'Arrow' and '↓' or nil)
+					createKeystroke(Enum.KeyCode.A, UDim2.new(0, 0, 0, 42), UDim2.new(0, 7, 0, 5), Style.Value == 'Arrow' and '←' or nil)
+					createKeystroke(Enum.KeyCode.D, UDim2.new(0, 76, 0, 42), UDim2.new(0, 8, 0, 5), Style.Value == 'Arrow' and '→' or nil)
+		
+					Keystrokes:Clean(inputService.InputBegan:Connect(function(inputType)
+						local key = keys[inputType.KeyCode]
+						if key then
+							if key.Tween then
+								key.Tween:Cancel()
+							end
+							if key.Tween2 then
+								key.Tween2:Cancel()
+							end
+		
+							key.Pressed = true
+							key.Tween = tweenService:Create(key.Key, TweenInfo.new(0.1), {
+								BackgroundColor3 = Color3.new(1, 1, 1), 
+								BackgroundTransparency = 0
+							})
+							key.Tween2 = tweenService:Create(key.Key.TextLabel, TweenInfo.new(0.1), {
+								TextColor3 = Color3.new()
+							})
+							key.Tween:Play()
+							key.Tween2:Play()
+						end
+					end))
+		
+					Keystrokes:Clean(inputService.InputEnded:Connect(function(inputType)
+						local key = keys[inputType.KeyCode]
+						if key then
+							if key.Tween then
+								key.Tween:Cancel()
+							end
+							if key.Tween2 then
+								key.Tween2:Cancel()
+							end
+		
+							key.Pressed = false
+							key.Tween = tweenService:Create(key.Key, TweenInfo.new(0.1), {
+								BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value), 
+								BackgroundTransparency = 1 - Color.Opacity
+							})
+							key.Tween2 = tweenService:Create(key.Key.TextLabel, TweenInfo.new(0.1), {
+								TextColor3 = Color3.new(1, 1, 1)
+							})
+							key.Tween:Play()
+							key.Tween2:Play()
+						end
+					end))
+				end
+			end,
+			Size = UDim2.fromOffset(110, 176),
+			Tooltip = 'Shows movement keys onscreen'
+		})
+		holder = Instance.new('Frame')
+		holder.Size = UDim2.fromScale(1, 1)
+		holder.BackgroundTransparency = 1
+		holder.Parent = Keystrokes.Children
+		Style = Keystrokes:CreateDropdown({
+			Name = 'Key Style',
+			List = {'Keyboard', 'Arrow'},
+			Function = function()
+				if Keystrokes.Enabled then
+					Keystrokes:Toggle()
+					Keystrokes:Toggle()
+				end
+			end
+		})
+		Color = Keystrokes:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in keys do
+					if not v.Pressed then
+						v.Key.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+						v.Key.BackgroundTransparency = 1 - opacity
+					end
+				end
+			end
+		})
+		Keystrokes:CreateToggle({
+			Name = 'Show Spacebar',
+			Function = function(callback)
+				Keystrokes.Children.Size = UDim2.fromOffset(110, callback and 107 or 78)
+				if callback then
+					createKeystroke(Enum.KeyCode.Space, UDim2.new(0, 0, 0, 83), UDim2.new(0, 25, 0, -10), '______')
+				else
+					keys[Enum.KeyCode.Space].Key:Destroy()
+					keys[Enum.KeyCode.Space] = nil
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Memory
+		local label
+		
+		Memory = vape.Legit:CreateModule({
+			Name = 'Memory',
+			Function = function(callback)
+				if callback then
+					repeat
+						label.Text = math.floor(tonumber(game:GetService('Stats'):FindFirstChild('PerformanceStats').Memory:GetValue()))..' MB'
+						task.wait(1)
+					until not Memory.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41),
+			Tooltip = 'A label showing the memory currently used by roblox'
+		})
+		Memory:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		Memory:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.new(0, 100, 0, 41)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0 MB'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = Memory.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local Ping
+		local label
+		
+		Ping = vape.Legit:CreateModule({
+			Name = 'Ping',
+			Function = function(callback)
+				if callback then
+					repeat
+						label.Text = math.floor(tonumber(game:GetService('Stats'):FindFirstChild('PerformanceStats').Ping:GetValue()))..' ms'
+						task.wait(1)
+					until not Ping.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41),
+			Tooltip = 'Shows the current connection speed to the roblox server'
+		})
+		Ping:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		Ping:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.new(0, 100, 0, 41)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0 ms'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = Ping.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local SongBeats
+		local List
+		local FOV
+		local FOVValue = {}
+		local Volume
+		local alreadypicked = {}
+		local beattick = tick()
+		local oldfov, songobj, songbpm, songtween
+		
+		local function choosesong()
+			local list = List.ListEnabled
+			if #alreadypicked >= #list then
+				table.clear(alreadypicked)
+			end
+		
+			if #list <= 0 then
+				notif('SongBeats', 'no songs', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			local chosensong = list[math.random(1, #list)]
+			if #list > 1 and table.find(alreadypicked, chosensong) then
+				repeat
+					task.wait()
+					chosensong = list[math.random(1, #list)]
+				until not table.find(alreadypicked, chosensong) or not SongBeats.Enabled
+			end
+			if not SongBeats.Enabled then return end
+		
+			local split = chosensong:split('/')
+			if not isfile(split[1]) then
+				notif('SongBeats', 'Missing song ('..split[1]..')', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			songobj.SoundId = assetfunction(split[1])
+			repeat task.wait() until songobj.IsLoaded or not SongBeats.Enabled
+			if SongBeats.Enabled then
+				beattick = tick() + (tonumber(split[3]) or 0)
+				songbpm = 60 / (tonumber(split[2]) or 50)
+				songobj:Play()
+			end
+		end
+		
+		SongBeats = vape.Legit:CreateModule({
+			Name = 'Song Beats',
+			Function = function(callback)
+				if callback then
+					songobj = Instance.new('Sound')
+					songobj.Volume = Volume.Value / 100
+					songobj.Parent = workspace
+					oldfov = gameCamera.FieldOfView
+		
+					repeat
+						if not songobj.Playing then
+							choosesong()
+						end
+						if beattick < tick() and SongBeats.Enabled and FOV.Enabled then
+							beattick = tick() + songbpm
+							gameCamera.FieldOfView = oldfov - FOVValue.Value
+							songtween = tweenService:Create(gameCamera, TweenInfo.new(math.min(songbpm, 0.2), Enum.EasingStyle.Linear), {
+								FieldOfView = oldfov
+							})
+							songtween:Play()
+						end
+						task.wait()
+					until not SongBeats.Enabled
+				else
+					if songobj then
+						songobj:Destroy()
+					end
+					if songtween then
+						songtween:Cancel()
+					end
+					if oldfov then
+						gameCamera.FieldOfView = oldfov
+					end
+					table.clear(alreadypicked)
+				end
+			end,
+			Tooltip = 'Built in mp3 player'
+		})
+		List = SongBeats:CreateTextList({
+			Name = 'Songs',
+			Placeholder = 'filepath/bpm/start'
+		})
+		FOV = SongBeats:CreateToggle({
+			Name = 'Beat FOV',
+			Function = function(callback)
+				if FOVValue.Object then
+					FOVValue.Object.Visible = callback
+				end
+				if SongBeats.Enabled then
+					SongBeats:Toggle()
+					SongBeats:Toggle()
+				end
+			end,
+			Default = true
+		})
+		FOVValue = SongBeats:CreateSlider({
+			Name = 'Adjustment',
+			Min = 1,
+			Max = 30,
+			Default = 5,
+			Darker = true
+		})
+		Volume = SongBeats:CreateSlider({
+			Name = 'Volume',
+			Function = function(val)
+				if songobj then
+					songobj.Volume = val / 100
+				end
+			end,
+			Min = 1,
+			Max = 100,
+			Default = 100,
+			Suffix = '%'
+		})
+	end)
+		
+	run(function()
+		local Speedmeter
+		local label
+		
+		Speedmeter = vape.Legit:CreateModule({
+			Name = 'Speedmeter',
+			Function = function(callback)
+				if callback then
+					repeat
+						local lastpos = entitylib.isAlive and entitylib.character.HumanoidRootPart.Position * Vector3.new(1, 0, 1) or Vector3.zero
+						local dt = task.wait(0.2)
+						local newpos = entitylib.isAlive and entitylib.character.HumanoidRootPart.Position * Vector3.new(1, 0, 1) or Vector3.zero
+						label.Text = math.round(((lastpos - newpos) / dt).Magnitude)..' sps'
+					until not Speedmeter.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41),
+			Tooltip = 'A label showing the average velocity in studs'
+		})
+		Speedmeter:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		Speedmeter:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0 sps'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = Speedmeter.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local TimeChanger
+		local Value
+		local old
+		
+		TimeChanger = vape.Legit:CreateModule({
+			Name = 'Time Changer',
+			Function = function(callback)
+				if callback then
+					old = lightingService.TimeOfDay
+					lightingService.TimeOfDay = Value.Value..':00:00'
+				else
+					lightingService.TimeOfDay = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Change the time of the current world'
+		})
+		Value = TimeChanger:CreateSlider({
+			Name = 'Time',
+			Min = 0,
+			Max = 24,
+			Default = 12,
+			Function = function(val)
+				if TimeChanger.Enabled then 
+					lightingService.TimeOfDay = val..':00:00'
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local InfiniteJump
+		local Mode
+		local jumps = 0
+		InfiniteJump = vape.Categories.Blatant:CreateModule({
+			Name = "Infinite Jump",
+			Tooltip = "Allows you to jump infinitely.",
+			Function = function(callback: boolean)
+				if callback then
+					jumps = 0
+					InfiniteJump:Clean(inputService.JumpRequest:Connect(function()
+						jumps += 1
+						if jumps > 1 and Mode.Value == "Velocity" then
+							local power = math.sqrt(2 * workspace.Gravity * entitylib.character.Humanoid.JumpHeight)
+							entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, power, entitylib.character.RootPart.Velocity.Z)
+						elseif Mode.Value == "Jump" then
+							entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+						end
+					end))
+					InfiniteJump:Clean(entitylib.character.Humanoid.StateChanged:Connect(function(old, new)
+						if old == Enum.HumanoidStateType.Freefall and new == Enum.HumanoidStateType.Landed then
+							jumps = 0
+						end
+					end))
+				end
+			end,
+			ExtraText = function() return Mode.Value end
+		})
+		Mode = InfiniteJump:CreateDropdown({
+			Name = "Mode",
+			List = {"Jump", "Velocity"}
+		})
+	end)
+		
+	run(function()
+		local FPSBoost
+		FPSBoost = vape.Legit:CreateModule({
+			Name = "FPS Boost",
+			Function = function(callback: boolean)
+				if callback then
+					-- Huge thanks to Infinite Yield, Toon gave me permission to use this code!
+					local Terrain = workspace:FindFirstChildOfClass('Terrain')
+					Terrain.WaterWaveSize = 0
+					Terrain.WaterWaveSpeed = 0
+					Terrain.WaterReflectance = 0
+					Terrain.WaterTransparency = 0
+					lightingService.GlobalShadows = false
+					lightingService.FogEnd = 9e9
+					settings().Rendering.QualityLevel = 1
+					for i,v in pairs(game:GetDescendants()) do
+						runService.Heartbeat:Wait()
+						if v:IsA('Part') or v:IsA('UnionOperation') or v:IsA('MeshPart') or v:IsA('CornerWedgePart') or v:IsA('TrussPart') then
+							v.Material = 'Plastic'
+							v.Reflectance = 0
+						elseif v:IsA('Decal') then
+							v.Transparency = 1
+						elseif v:IsA('ParticleEmitter') or v:IsA('Trail') then
+							v.Lifetime = NumberRange.new(0)
+						elseif v:IsA('Explosion') then
+							v.BlastPressure = 1
+							v.BlastRadius = 1
+						end
+					end
+					for i,v in pairs(lightingService:GetDescendants()) do
+						if v:IsA('BlurEffect') or v:IsA('SunRaysEffect') or v:IsA('ColorCorrectionEffect') or v:IsA('BloomEffect') or v:IsA('DepthOfFieldEffect') then
+							v.Enabled = false
+						end
+					end
+					FPSBoost:Clean(workspace.DescendantAdded:Connect(function(child)
+						task.spawn(function()
+							if child:IsA('Part') or child:IsA('UnionOperation') or child:IsA('MeshPart') or child:IsA('CornerWedgePart') or child:IsA('TrussPart') then
+								runService.Heartbeat:Wait()
+								child.Material = 'Plastic'
+								child.Reflectance = 0
+							elseif child:IsA('Decal') then
+								runService.Heartbeat:Wait()
+								child.Transparency = 1
+							elseif child:IsA('ParticleEmitter') or child:IsA('Trail') then
+								runService.Heartbeat:Wait()
+								child.Lifetime = NumberRange.new(0)
+							elseif child:IsA('Explosion') then
+								runService.Heartbeat:Wait()
+								child.BlastPressure = 1
+								child.BlastRadius = 1
+							elseif child:IsA('ForceField') then
+								runService.Heartbeat:Wait()
+								child:Destroy()
+							elseif child:IsA('Sparkles') then
+								runService.Heartbeat:Wait()
+								child:Destroy()
+							elseif child:IsA('Smoke') or child:IsA('Fire') then
+								runService.Heartbeat:Wait()
+								child:Destroy()
+							end
+						end)
+					end))
+				end
+			end
+		})
+	end)
+
+	run(function()
+		local nofall = nil
+		local nofallinstant = nil
+		local nofallmode = nil
+		local nofallgravmode = nil
+
+		local nofalltick = tick()
+		local canceltick = tick()
+
+		local params = RaycastParams.new()
+
+		local should = false
+
+		nofall = vape.Categories.Blatant:CreateModule({
+			Name = 'No Fall',
+			Function = function(call)
+				if call then
+					nofall:Clean(runService.PreSimulation:Connect(function()
+						if entitylib.isAlive then
+							if tick() > nofalltick and nofallmode.Value == 'State' and entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air then
+								return entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+							end
+							params.FilterDescendantsInstances = {lplr.Character}
+							if nofallmode.Value ~= 'State' and entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -44, 0), params) and (canceltick > tick() or entitylib.character.RootPart.Velocity.Y < (nofallmode.Value == 'Freeze' and -50 or -25.5)) then
+								if tick() > nofalltick then
+									if nofallmode.Value == 'Freeze' then
+										nofalltick = tick() + 1
+										for __ = 1, 7 do
+											task.wait(.05)
+											entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, __, entitylib.character.RootPart.Velocity.Z)
+										end
+										if nofallinstant.Enabled then
+											local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), params)
+											if ray then
+												entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.Position.X, ray.Position.Y + entitylib.character.HipHeight, entitylib.character.RootPart.Position.Z), entitylib.character.RootPart.CFrame.LookVector)
+											end
+											return
+										end
+									else
+										if nofallgravmode.Value == 'Workspace' then
+											workspace.Gravity = 140
+										else
+											entitylib.character.RootPart.Velocity += Vector3.new(0, (-entitylib.character.RootPart.Velocity.Y * 0.02), 0)
+										end
+									end
+								end
+							end
+						end
+					end))
+				else
+					workspace.Gravity = 196
+				end
+			end
+		})
+		nofallinstant = nofall:CreateToggle({
+			Name = 'Instant TP',
+			Tooltip = 'Automatically tps you to the ground after unfreezed',
+			Default = true
+		})
+		nofallmode = nofall:CreateDropdown({
+			Name = 'Mode',
+			List = {'Gravity', 'Freeze', 'State'},
+			Default = 'Gravity',
+			Function = function(val)
+				if nofallgravmode then
+					nofallgravmode.Object.Visible = val == 'Gravity'
+				end
+			end
+		})
+		nofallgravmode = nofall:CreateDropdown({
+			Name = 'Gravity Mode',
+			List = {'Velocity', 'Workspace'},
+			Default = 'Workspace'
+		})
+	end)
+end)()

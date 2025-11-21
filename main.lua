@@ -67,7 +67,7 @@ local function finishLoading()
 				teleportScript = `getgenv().username = {getgenv().username}\n`.. teleportScript
 			end
 			if getgenv().password then
-				teleportScript = `getgenv().password = {getgenv().password}\n`.. teleportScript
+				teleportScript = `getgenv().username = {getgenv().password}\n`.. teleportScript
 			end
 			if getgenv().closet then
 				teleportScript = 'getgenv().closet = true\n'.. teleportScript
@@ -134,26 +134,82 @@ end
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 
+local function callback(func)
+	local success, result
+
+	task.spawn(function()
+		success, result = pcall(func)
+	end)
+
+	local Start = os.clock()
+
+	repeat task.wait() until success ~= nil or (os.clock() - Start) >= 10
+
+	return success, result
+end
+
 if not shared.VapeIndependent then
 	makestage(3, 'Downloading game packages')
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	shared.vape.Libraries.Cat = true
 	makestage(4, 'Loading all packages')
-	loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
-	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
-		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
-	else
-		if not shared.VapeDeveloper then
-			local suc, res = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
-			end)
-			if suc and res ~= '404: Not Found' then
-				loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+	callback(function()
+		loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
+	end)
+	local success, result = callback(function(...)
+		if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
+			loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+		else
+			if not shared.VapeDeveloper then
+				local suc, res = pcall(function()
+					return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
+				end)
+				if suc and res ~= '404: Not Found' then
+					loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+				end
 			end
 		end
+	end)
+
+	if success then
+		xpcall(function()
+			loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
+		end, warn)
+		finishLoading()
+	else
+		task.spawn(error, result)
+		if not closet then
+			callback(function()
+				if setthreadidentity then
+					setthreadidentity(8)
+				end
+
+				local errorPrompt = getrenv().require(game:GetService('CoreGui').RobloxGui.Modules.ErrorPrompt)
+				local game = cloneref(game)
+
+				local gui = Instance.new('ScreenGui', cloneref(game:GetService('CoreGui')))
+				gui.OnTopOfCoreBlur = true
+
+
+				local prompt = errorPrompt.new('Default')
+				prompt._hideErrorCode = true
+				prompt:setErrorTitle('Loading Failure')
+
+				prompt:updateButtons({
+					{
+						Text = 'Ok',
+						Callback = function()
+							prompt:_close()
+						end,
+						Primary = true
+					}
+				}, 'Default')
+
+				prompt:setParent(gui)
+				prompt:_open('Failed to load catvape with this error code, Please report this to the discord server\n\n'.. result.. '\n(Error Code: 0)')
+			end)
+		end
 	end
-	loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
-	finishLoading()
 else
 	vape.Init = finishLoading
 	return vape
