@@ -757,7 +757,11 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 		end
 		getgenv().require = require
 
-		libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
+		downloadFile('catrewrite/libraries/cheatenginelib.lua')
+
+		print('running')
+		libraries = loadfile('catrewrite/libraries/cheatenginelib.lua')(vape, vapeEvents, entitylib, store, bedwars)
+		print('works?', typeof(libraries))
 	end
 
 	run(function()
