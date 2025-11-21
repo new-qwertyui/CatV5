@@ -733,6 +733,12 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 	getgenv().canDebug = canDebug
 	
 	if not canDebug then
+		notif('Vape', 'Loading cheat engine mode, This may take up to 20s to load', 20, 'info')
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
+		for _, v in req do
+			downloadFile(`catrewrite/{v.path}`)
+		end
+
 		local function cache(Name : string)
 			return libraries[Name]
 				or isfile(`catrewrite/cache/{Name}.json`)
