@@ -132,6 +132,7 @@ if shared.vape then
 	shared.vape:Uninject()
 end
 
+warn(downloadFile('catrewrite/guis/'..gui..'.lua'))
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 

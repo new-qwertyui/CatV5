@@ -238,9 +238,8 @@ local delfile = delfile or function(file)
 	writefile(file, '')
 end
 
-
 local function downloadFile(path, func)
-	if not isfile(path) then
+	if not developer then
 		local suc, res = pcall(function()
 			local subbed = path:gsub('catrewrite/', '')
 			subbed = subbed:gsub(' ', '%%20')
@@ -323,7 +322,6 @@ if not shared.VapeDeveloper then
 end
 
 local success, err = pcall(function()
-	pcall(delfile, 'catrewrite/main.lua')
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
