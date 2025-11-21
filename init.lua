@@ -282,9 +282,11 @@ if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
 	getgenv().setfflag = nil
 end
 
+local new = false
 if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
     makefolder('catrewrite/profiles')
     writefile('catrewrite/profiles/commit.txt', commitdata.sha)
+	new = true
 	if not assexecutorhurtsmybutt then
  		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
 		for _, v in req do
@@ -309,7 +311,7 @@ getgenv().closet = closet
 
 if not shared.VapeDeveloper then
 	local commit = commitdata.sha or 'main'
-	if commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit then
+	if commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit or new then
 		wipeFolder('catrewrite')
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
