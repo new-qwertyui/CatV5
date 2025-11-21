@@ -727,7 +727,7 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 		getgenv().debug = debug
 	end
 
-	local canDebug = false--debug.getupvalue ~= nil
+	local canDebug = debug.getupvalue ~= nil
 	local libraries = {}
 
 	getgenv().canDebug = canDebug
