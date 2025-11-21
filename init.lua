@@ -317,7 +317,6 @@ if not shared.VapeDeveloper then
 		wipeFolder('catrewrite/guis')
 		wipeFolder('catrewrite/libraries')
 	end
-    writefile('catrewrite/cheaters.json', '{}')
 	writefile('catrewrite/profiles/commit.txt', commit)
 end
 
