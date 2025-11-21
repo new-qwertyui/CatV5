@@ -322,6 +322,7 @@ if not shared.VapeDeveloper then
 end
 
 local success, err = pcall(function()
+	pcall(delfile, 'catrewrite/main.lua')
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
