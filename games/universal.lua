@@ -4,6 +4,8 @@ loadstring([[
     getgenv().LPH_JIT_MAX = LPH_JIT_MAX or function(func) return func end
 ]])()
 
+warn('Updated!!')
+
 LPH_NO_VIRTUALIZE(function()
 	local loadstring = function(...)
 		local res, err = loadstring(...)
