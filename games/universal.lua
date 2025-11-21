@@ -216,9 +216,11 @@ LPH_NO_VIRTUALIZE(function()
 	local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
 	entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
 
-	weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
-	weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()
-	weatherlib.Snow = loadstring(downloadFile('catrewrite/libraries/Weather/Snow.lua'), 'Lightning')()
+	pcall(function()
+		weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
+		weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()
+		weatherlib.Snow = loadstring(downloadFile('catrewrite/libraries/Weather/Snow.lua'), 'Lightning')()
+	end)
 
 	local whitelist = {
 		alreadychecked = {},
