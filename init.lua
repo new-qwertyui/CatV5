@@ -203,6 +203,7 @@ getgenv().makestage = function(stage, package)
 end
 
 local httpService = cloneref(game:GetService('HttpService'))
+local UserInputService = game:GetService('UserInputService')
 
 local success, commitdata = pcall(function()
     local commitinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/commits'))[1]
@@ -239,7 +240,7 @@ local delfile = delfile or function(file)
 end
 
 local function downloadFile(path, func)
-	if not developer then
+	if not isfile(path) then
 		local suc, res = pcall(function()
 			local subbed = path:gsub('catrewrite/', '')
 			subbed = subbed:gsub(' ', '%%20')
@@ -316,7 +317,16 @@ if not shared.VapeDeveloper then
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
 		wipeFolder('catrewrite/libraries')
+
+		if table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1]) or debug.setconstant == nil then
+			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
+			for _, v in req do
+				makestage(2, `Downloading required files\n({v.path})`)
+				downloadFile(`catrewrite/{v.path}`)
+			end
+		end
 	end
+    writefile('catrewrite/cheaters.json', '{}')
 	writefile('catrewrite/profiles/commit.txt', commit)
 end
 

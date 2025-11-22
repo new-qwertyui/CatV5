@@ -733,12 +733,6 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 	getgenv().canDebug = canDebug
 	
 	if not canDebug then
-		notif('Vape', 'Loading cheat engine mode, This may take up to 20s to load', 20, 'info')
-		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
-		for _, v in req do
-			downloadFile(`catrewrite/{v.path}`)
-		end
-
 		local function cache(Name : string)
 			return libraries[Name]
 				or isfile(`catrewrite/cache/{Name}.json`)
@@ -757,11 +751,7 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 		end
 		getgenv().require = require
 
-		downloadFile('catrewrite/libraries/cheatenginelib.lua')
-
-		print('running')
-		libraries = loadfile('catrewrite/libraries/cheatenginelib.lua')(vape, vapeEvents, entitylib, store, bedwars)
-		print('works?', typeof(libraries))
+		libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
 	end
 
 	run(function()
@@ -2271,12 +2261,14 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 					Fly:Clean(runService.PreSimulation:Connect(function(dt)
 						if entitylib.isAlive and not InfiniteFly.Enabled and isnetworkowner(entitylib.character.RootPart) then
 							local flyAllowed = (lplr.Character:GetAttribute('InflatedBalloons') and lplr.Character:GetAttribute('InflatedBalloons') > 0) or store.matchState == 2
-							local mass = (1.5 + (flyAllowed and 6 or 0) * (tick() % 0.4 < 0.2 and -1 or 1)) + ((up + down) * VerticalValue.Value)
+							local mass = (1.5 + (flyAllowed and 6 or 0) * (tick() % 0.4 < 0.2 and -1 or 1))
 							local root, moveDirection = entitylib.character.RootPart, entitylib.character.Humanoid.MoveDirection
 							local velo = getSpeed()
 							local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
 							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
 							rayCheck.CollisionGroup = root.CollisionGroup
+
+							destination += Vector3.new(0, ((up + down) * VerticalValue.Value) / 150, 0)
 
 							if WallCheck.Enabled then
 								local ray = workspace:Raycast(root.Position, destination, rayCheck)
@@ -3916,7 +3908,7 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
 							rayCheck.CollisionGroup = root.CollisionGroup
 		
-							if pearl and root.Velocity.Y < -60 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
+							if pearl and root.Velocity.Y < -80 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
 								if not check then
 									check = true
 									local ground = getNearGround(20)
