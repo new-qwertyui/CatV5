@@ -208,7 +208,7 @@ if not shared.VapeIndependent then
 				}, 'Default')
 
 				prompt:setParent(gui)
-				prompt:_open('Failed to load catvape with this error code, Please report this to the discord server\n\n'.. result.. '\n(Error Code: 0)')
+				prompt:_open(result.. '\n\n(Error Code: 0)')
 			end)
 		end
 	end
