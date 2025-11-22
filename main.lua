@@ -166,6 +166,7 @@ if not shared.VapeIndependent then
 				local suc, res = pcall(function()
 					return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
 				end)
+				print(suc, res)
 				if suc and res ~= '404: Not Found' then
 					loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 				end

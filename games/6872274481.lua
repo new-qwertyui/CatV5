@@ -4,7 +4,7 @@ loadstring([[
 
 LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 	local run = function(func)
-		func()
+		xpcall(func, warn)
 	end
 	local cloneref = cloneref or function(obj)
 		return obj
@@ -800,7 +800,6 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 			ClientDamageBlock = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.shared.remotes).BlockEngineRemotes.Client,
 			CombatConstant = require(replicatedStorage.TS.combat['combat-constant']).CombatConstant,
 			DamageIndicator = Knit.Controllers.DamageIndicatorController.spawnDamageIndicator,
-			DefaultKillEffect = require(lplr.PlayerScripts.TS.controllers.global.locker['kill-effect'].effects['default-kill-effect']),
 			EmoteType = require(replicatedStorage.TS.locker.emote['emote-type']).EmoteType,
 			GameAnimationUtil = require(replicatedStorage.TS.animation['animation-util']).GameAnimationUtil,
 			getIcon = function(item, showinv)
@@ -854,6 +853,10 @@ LPH_NO_VIRTUALIZE(function() -- cba to remove ts
 				return rawget(self, ind)
 			end
 		}) -- w lr 
+
+		pcall(function()
+			bedwars.DefaultKillEffect = require(lplr.PlayerScripts.TS.controllers.global.locker['kill-effect'].effects['default-kill-effect'])
+		end)
 
 		local function getproto(...)
 			local gp = debug.getproto or error
