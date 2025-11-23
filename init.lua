@@ -365,7 +365,6 @@ if (not license.Developer and not shared.VapeDeveloper) then
 
 		for _, v in req do
 			if v.path ~= 'profiles/commit.txt' then
-				makestage(2, `Downloading required files\n({v.path})`)
 				downloadFile(`catrewrite/{v.path}`)
 			end
 		end
