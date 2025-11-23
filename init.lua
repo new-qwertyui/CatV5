@@ -14,19 +14,26 @@ if shared.vape then
 end
 
 local license = ({...})[1] or {}
-local developer = getgenv().catvapedev or license.Developer or false
-local closet = getgenv().closet or license.Closet or false
+local developer =  license.Developer or getgenv().catvapedev or false
+local closet = license.Closet or getgenv().closet or false
+local commit = license.Commit or (cloneref(game:GetService('HttpService')):JSONDecode(request({Url = 'https://api.catvape.info/version',Method = 'GET'}).Body).latest_commit or 'main')
 
-getgenv().username = username or license.Username
-getgenv().password = password or license.Password
+getgenv().username = license.Username or getgenv().username
+getgenv().password = license.Password or getgenv().password
 getgenv().catuser = getgenv().username
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
-local tweenService = game:GetService('TweenService')
+
+local inputService = cloneref(game:GetService('UserInputService'))
+local tweenService = cloneref(game:GetService('TweenService'))
+local guiService = cloneref(game:GetService('GuiService'))
+local httpService = cloneref(game:GetService('HttpService'))
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
 gui.Enabled = not closet
+
+local Connections: {RBXScriptConnection} = {}
 
 local stages = {
 	UDim2.new(0, 50, 1, 0),
@@ -36,7 +43,7 @@ local stages = {
 	UDim2.new(0, 240, 1, 0)
 }
 
-local createinstance = function(class, properties)
+local function createinstance(class : string, properties : {[string] : any})
 	local res = Instance.new(class)
 	
 	for property, value in properties do
@@ -44,6 +51,24 @@ local createinstance = function(class, properties)
 	end
 
 	return res
+end
+
+local function addCallback(image : ImageLabel | ImageButton, ...)
+	local Original = image.ImageColor3
+	
+	table.insert(Connections, image.MouseEnter:Connect(function()  
+		tweenService:Create(image, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
+			ImageColor3 = Color3.fromRGB(44, 43, 44)
+		}):Play()
+	end))
+
+	table.insert(Connections, image.MouseLeave:Connect(function()  
+		tweenService:Create(image, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
+			ImageColor3 = Original
+		}):Play()
+	end))
+
+	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
 if closet then
@@ -63,30 +88,75 @@ if closet then
 end
 
 if gui.Enabled then
-	createinstance('ImageLabel', {
+	local window = createinstance('ImageLabel', {
 		Name = 'Main',
 		Parent = gui,
 		BackgroundTransparency = 1,
 		Size = UDim2.fromOffset(685, 399),
+		ZIndex = 1,
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		ScaleType = Enum.ScaleType.Fit,
 		Image = 'rbxassetid://93496634716737'
 	})
 
+	-- DRAG --
+
+	local scale
+	
+	window.InputBegan:Connect(function(inputObj)
+		if
+			(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+			and (inputObj.Position.Y - window.AbsolutePosition.Y < 40)
+		then
+			local dragPosition = Vector2.new(
+				window.AbsolutePosition.X - inputObj.Position.X,
+				window.AbsolutePosition.Y - inputObj.Position.Y + guiService:GetGuiInset().Y
+			) / scale.Scale
+
+			local changed = inputService.InputChanged:Connect(function(input)
+				if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+					local position = input.Position
+					if inputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+						dragPosition = (dragPosition // 3) * 3
+						position = (position // 3) * 3
+					end
+					window.Position = UDim2.fromOffset((position.X / scale.Scale) + dragPosition.X, (position.Y / scale.Scale) + dragPosition.Y)
+				end
+			end)
+
+			local ended
+			ended = inputObj.Changed:Connect(function()
+				if inputObj.UserInputState == Enum.UserInputState.End then
+					if changed then
+						changed:Disconnect()
+					end
+					if ended then
+						ended:Disconnect()
+					end
+				end
+			end)
+		end
+	end)
+
 	-- EXIT BUTTON --
 
-	createinstance('ImageButton', {
+	local exit = createinstance('ImageButton', {
 		Name = 'Exit',
 		Parent = gui.Main,
 		BackgroundTransparency = 1,
 		Position = UDim2.fromOffset(624, 23),
 		Size = UDim2.fromOffset(40, 30),
 		AutoButtonColor = false,
+		ZIndex = 2,
 		ImageColor3 = Color3.fromRGB(34, 33, 34),
 		Image = 'rbxassetid://110629770884920',
 		ScaleType = Enum.ScaleType.Fit
 	})
+
+	addCallback(exit, function()
+		gui.Enabled = false
+	end)
 
 	createinstance('ImageLabel', {
 		Name = 'Icon',
@@ -94,6 +164,7 @@ if gui.Enabled then
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 10, 0.5, 0),
 		Size = UDim2.fromOffset(16, 16),
+		ZIndex = 2,
 		AnchorPoint = Vector2.new(0, 0.5),
 		ImageTransparency = 0.4,
 		ImageColor3 = Color3.new(1, 1, 1),
@@ -103,17 +174,20 @@ if gui.Enabled then
 
 	-- MINIMIZE BUTTON --
 
-	createinstance('ImageButton', {
+	local minimize = createinstance('ImageButton', {
 		Name = 'Minimize',
 		Parent = gui.Main,
 		BackgroundTransparency = 1,
 		Position = UDim2.fromOffset(582, 23),
+		ZIndex = 2,
 		Size = UDim2.fromOffset(40, 30),
 		AutoButtonColor = false,
 		ImageColor3 = Color3.fromRGB(34, 33, 34),
 		Image = 'rbxassetid://133363055871405',
 		ScaleType = Enum.ScaleType.Fit
 	})
+
+	addCallback(minimize, function() end)
 
 	createinstance('ImageLabel', {
 		Name = 'Icon',
@@ -135,6 +209,7 @@ if gui.Enabled then
 		Parent = gui.Main,
 		AnchorPoint = Vector2.new(0.48, 0.31),
 		BackgroundTransparency = 1,
+		ZIndex = 2,
 		Position = UDim2.fromScale(0.48, 0.31),
 		Size = UDim2.fromOffset(70, 70),
 		Image = 'rbxassetid://84228868064393',
@@ -145,6 +220,7 @@ if gui.Enabled then
 		Name = 'version',
 		Parent = gui.Main.textvape,
 		BackgroundTransparency = 1,
+		ZIndex = 2,
 		Position = UDim2.fromScale(1, 0.3),
 		Size = UDim2.fromOffset(29, 29),
 		Image = 'rbxassetid://138794287840926',
@@ -160,6 +236,7 @@ if gui.Enabled then
 		AnchorPoint = Vector2.new(0.5, 0.53),
 		BackgroundColor3 = Color3.fromRGB(20, 20, 20),
 		BorderSizePixel = 0,
+		ZIndex = 2,
 		Position = UDim2.fromScale(0.5, 0.53),
 		Size = UDim2.fromOffset(240, 6)
 	})
@@ -182,6 +259,7 @@ if gui.Enabled then
 		Position = UDim2.fromScale(0.353284657, 0.556391001),
 		Size = UDim2.fromOffset(200, 15),
 		Font = Enum.Font.Arial,
+		ZIndex = 2,
 		Text = '',
 		TextColor3 = Color3.new(1, 1, 1),
 		TextSize = 12,
@@ -190,54 +268,31 @@ if gui.Enabled then
 
 	Instance.new('UICorner', gui.Main.loadbar)
 	Instance.new('UICorner', gui.Main.loadbar.fullbar)
-	Instance.new('UIScale', gui.Main).Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+	
+	scale = Instance.new('UIScale', gui.Main)
+	scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+
+	task.spawn(function()
+		repeat task.wait() until shared.vape and shared.vape.Loaded
+
+		task.wait(2)
+
+		gui:Destroy()
+	end)
 end;
 
-getgenv().makestage = function(stage, package)
-	pcall(function()
-		tweenService:Create(gui.Main.loadbar.fullbar, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
-			Size = stages[stage]
-		}):Play()
-		gui.Main.action.Text = package or ''
-	end)
+local debug = debug
+
+if table.find({'Xeno'}, ({identifyexecutor()})[1]) then
+	debug = table.clone(debug)
+	debug.getupvalue = nil
+	debug.getconstant = nil
+	debug.setstack = nil
+
+	getgenv().debug = debug
 end
 
-local httpService = cloneref(game:GetService('HttpService'))
-local UserInputService = game:GetService('UserInputService')
-
-local success, commitdata = pcall(function()
-    local commitinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/commits'))[1]
-    if commitinfo and type(commitinfo) == 'table' then
-        local fullinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/commits/'.. commitinfo.sha))
-        fullinfo.hash = commitinfo.sha:sub(1, 7)
-        return fullinfo
-    end
-end)
-
-if not success or typeof(commitdata) ~= 'table' or commitdata.sha == nil then
-	commitdata = {sha = 'main', files = {}}
-end
-
-if not isfile('catreset67') and not closet and isfolder('catrewrite') and not developer then
-	for _, v in listfiles('catrewrite') do
-		if not v:find('assets') then
-			pcall(delfile, v)
-			pcall(delfolder, v)
-		end
-	end
-end
-
-writefile('catreset67', 'True')
-
-local isfile = isfile or function(file)
-	local suc, res = pcall(function()
-		return readfile(file)
-	end)
-	return suc and res ~= nil and res ~= ''
-end
-local delfile = delfile or function(file)
-	writefile(file, '')
-end
+local canDebug = debug.getupvalue ~= nil
 
 local function downloadFile(path, func)
 	if not isfile(path) then
@@ -249,9 +304,6 @@ local function downloadFile(path, func)
 		if not suc or res == '404: Not Found' then
 			error(res)
 		end
-		if path:find('.lua') then
-			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
-		end
 		writefile(path, res)
 	end
 	return (func or readfile)(path)
@@ -259,7 +311,6 @@ end
 
 local function wipeFolder(path)
 	if not isfolder(path) then return end
-	if catvapedev then return end
 	for _, file in listfiles(path) do
 		if file:find('init') then continue end
 		if isfile(file) then
@@ -268,68 +319,75 @@ local function wipeFolder(path)
 	end
 end 
 
+local function makestage(stage, package)
+	if gui.Enabled then
+		tweenService:Create(gui.Main.loadbar.fullbar, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
+			Size = stages[stage]
+		}):Play()
+		gui.Main.action.Text = package or ''
+	end
+end
+
 makestage(1, 'Downloading packages')
 
 for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/cache', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
-		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
 		makefolder(folder)
 	end
 end
 
-makestage(2, 'Downloading required files')
+if (not license.Developer and not shared.VapeDeveloper) then
+	local Updated: boolean = (commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit)
 
-if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
-	getgenv().assexecutorhurtsmybutt = true
-	getgenv().setfflag = nil
-end
+	if Updated then
+		wipeFolder('catrewrite')
+		wipeFolder('catrewrite/games')
+		wipeFolder('catrewrite/guis')
+		wipeFolder('catrewrite/libraries')
+	end
+	
+	if #listfiles('catrewrite/profiles') <= 2 then
+		makestage(2, 'Downloading config, This may take up to 20s')
 
-local new = false
-if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
-    makefolder('catrewrite/profiles')
-    writefile('catrewrite/profiles/commit.txt', commitdata.sha)
-	new = true
-	if not assexecutorhurtsmybutt then
- 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
+
 		for _, v in req do
 			if v.path ~= 'profiles/commit.txt' then
 				makestage(2, `Downloading required files\n({v.path})`)
 				downloadFile(`catrewrite/{v.path}`)
 			end
 		end
-		task.spawn(function()
-			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/translations'))
-			for _, v in req do
-				downloadFile(`catrewrite/{v.path}`)
-			end
-		end)
+	end
+
+	if #listfiles('catrewrite/translations') <= 2 then
+		makestage(2, 'Downloading languages, this may take a bit')
+	
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/translations'))
+
+		for _, v in req do
+			makestage(2, `Downloading {v.name} language`)
+			pcall(downloadFile, `catrewrite/{v.path}`)
+		end
+	end
+	if not canDebug and Updated  then
+		makestage(2, `Downloading {({identifyexecutor()})[1]} support, this may take a bit`)
+	
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
+
+		for _, v in req do
+			pcall(downloadFile, `catrewrite/{v.path}`)
+		end
 	end
 end
+
+writefile('catrewrite/profiles/commit.txt', commit)
 
 shared.VapeDeveloper = developer
 getgenv().used_init = true
 getgenv().catvapedev = developer
 getgenv().closet = closet
-
-if not shared.VapeDeveloper then
-	local commit = commitdata.sha or 'main'
-	if commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit or new then
-		wipeFolder('catrewrite')
-		wipeFolder('catrewrite/games')
-		wipeFolder('catrewrite/guis')
-		wipeFolder('catrewrite/libraries')
-
-		if table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1]) or debug.setconstant == nil then
-			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
-			for _, v in req do
-				makestage(2, `Downloading required files\n({v.path})`)
-				downloadFile(`catrewrite/{v.path}`)
-			end
-		end
-	end
-    writefile('catrewrite/cheaters.json', '{}')
-	writefile('catrewrite/profiles/commit.txt', commit)
-end
+getgenv().makestage = makestage
+getgenv().canDebug = canDebug
 
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
@@ -338,15 +396,21 @@ end)
 for _, v in gui:GetDescendants() do
 	for __, prop in {'BackgroundTransparency', 'ImageTransparency', 'TextTransparency'} do
 		task.spawn(pcall, function()
-			tweenService:Create(v, TweenInfo.new(1, Enum.EasingStyle.Quad), {
+			tweenService:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
 				[prop] = 1
 			}):Play()
 		end)
 	end
 end
 
+for _, v in Connections do
+	v:Disconnect()
+end
+
+table.clear(Connections)
+
 if not success then
 	error('Failed to initalize catvape: '.. err, 8)
 elseif not closet then
-	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'announcements.lua')() 
 end

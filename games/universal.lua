@@ -1,10 +1,9 @@
+
 loadstring([[
 	getgenv().LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(func) return func end
 	getgenv().LPH_JIT = LPH_JIT or function(func) return func end
     getgenv().LPH_JIT_MAX = LPH_JIT_MAX or function(func) return func end
 ]])()
-
-warn('Updated!!')
 
 LPH_NO_VIRTUALIZE(function()
 	local loadstring = function(...)
@@ -8242,20 +8241,16 @@ LPH_NO_VIRTUALIZE(function()
 			Function = function(callback: boolean)
 				if callback then
 					jumps = 0
+																			
 					InfiniteJump:Clean(inputService.JumpRequest:Connect(function()
 						jumps += 1
-						if Mode.Value == "Velocity" then
+						if jumps > 1 and Mode.Value == "Velocity" then
 							local power = math.sqrt(2 * workspace.Gravity * entitylib.character.Humanoid.JumpHeight)
 							entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, power, entitylib.character.RootPart.Velocity.Z)
 						elseif Mode.Value == "Jump" then
 							entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 						end
 					end))
-					--[[InfiniteJump:Clean(entitylib.character.Humanoid.StateChanged:Connect(function(old, new)
-						if old == Enum.HumanoidStateType.Freefall and new == Enum.HumanoidStateType.Landed then
-							jumps = 0
-						end
-					end))]]
 				end
 			end,
 			ExtraText = function() return Mode.Value end

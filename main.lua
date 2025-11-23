@@ -1,11 +1,12 @@
 repeat task.wait() until game:IsLoaded()
 
 local vape
+local closet = getgenv().closet
+local makestage = getgenv().makestage or function() end
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
 		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
-		task.spawn(error, err)
 	end
 	return res
 end
@@ -19,10 +20,11 @@ end
 local cloneref = cloneref or function(obj)
 	return obj
 end
+local httpService = cloneref(game:GetService('HttpService'))
 local playersService = cloneref(game:GetService('Players'))
 
 local function downloadFile(path, func)
-	if not isfile(path) then
+	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
@@ -40,10 +42,31 @@ end
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
+	makestage(5, 'Finished!')
+
 	task.spawn(function()
+		local save, update = 0, os.clock() 
+
 		repeat
-			vape:Save()
-			task.wait(10)
+			if os.clock() > save then
+				vape:Save()
+				save = os.clock() + 10
+			end
+
+			if os.clock() > update then
+				local newcommit = httpService:JSONDecode(request({
+					Url = 'https://api.catvape.info/version',
+					Method = 'GET'		
+				}).Body).latest_commit or 'main'
+
+				if newcommit ~= 'main' and newcommit ~= readfile('catrewrite/profiles/commit.txt') then
+					vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
+				end
+				
+				update = os.clock() + (newcommit == 'main' and 120 or 25)
+			end
+
+			task.wait()
 		until not vape.Loaded
 	end)
 
@@ -53,13 +76,14 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
-				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')()
+				local commit = game:HttpGet('https://api.catvape.info/version').latest_commit or 'main'
+
+				loadstring(game:HttpGet(`https://raw.githubusercontent.com/new-qwertyui/CatV5/{commit}/init.lua`), 'init.lua')({
+					Commit = commit
+				})
 			]]
 			if getgenv().catvapedev then
-				teleportScript = 'getgenv().catvapedev = true\n'.. [[
-					shared.vapereload = true
-					loadstring(readfile('catrewrite/init.lua'), 'init.lua')()
-				]]
+				teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
 			end
 			if shared.VapeDeveloper then
 				teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
@@ -68,7 +92,7 @@ local function finishLoading()
 				teleportScript = `getgenv().username = {getgenv().username}\n`.. teleportScript
 			end
 			if getgenv().password then
-				teleportScript = `getgenv().username = {getgenv().password}\n`.. teleportScript
+				teleportScript = `getgenv().password = {getgenv().password}\n`.. teleportScript
 			end
 			if getgenv().closet then
 				teleportScript = 'getgenv().closet = true\n'.. teleportScript
@@ -83,7 +107,6 @@ local function finishLoading()
 
 	if not shared.vapereload then
 		if not vape.Categories then return end
-		makestage(5, 'Finished!')
 		task.spawn(pcall, function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
@@ -132,7 +155,6 @@ if shared.vape then
 	shared.vape:Uninject()
 end
 
-warn(downloadFile('catrewrite/guis/'..gui..'.lua'))
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 
@@ -206,7 +228,7 @@ if not shared.VapeIndependent then
 				}, 'Default')
 
 				prompt:setParent(gui)
-				prompt:_open(result.. '\n\n(Error Code: 0)')
+				prompt:_open('Failed to load catvape with this error code, Please report this to the discord server\n\n'.. result.. '\n(Error Code: 0)')
 			end)
 		end
 	end

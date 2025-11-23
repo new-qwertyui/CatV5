@@ -1,4 +1,5 @@
 
+
 --[[
 	Procedural Lightning Effect Module. By Quasiduck
 	License: https://github.com/SamyBlue/Lightning-Beams/blob/main/LICENSE
