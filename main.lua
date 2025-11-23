@@ -54,16 +54,18 @@ local function finishLoading()
 			end
 
 			if os.clock() > update then
-				local newcommit = httpService:JSONDecode(request({
-					Url = 'https://api.catvape.info/version',
-					Method = 'GET'		
-				}).Body).latest_commit or 'main'
+				pcall(function()
+					local newcommit = httpService:JSONDecode(request({
+						Url = 'https://api.catvape.info/version',
+						Method = 'GET'		
+					}).Body).latest_commit or 'main'
 
-				if newcommit ~= 'main' and newcommit ~= readfile('catrewrite/profiles/commit.txt') then
-					vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
-				end
-				
-				update = os.clock() + (newcommit == 'main' and 120 or 25)
+					if newcommit ~= 'main' and newcommit ~= readfile('catrewrite/profiles/commit.txt') then
+						vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
+					end
+					
+					update = os.clock() + (newcommit == 'main' and 120 or 25)
+				end)
 			end
 
 			task.wait()

@@ -16,7 +16,17 @@ end
 local license = ({...})[1] or {}
 local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
-local commit = license.Commit or (cloneref(game:GetService('HttpService')):JSONDecode(request({Url = 'https://api.catvape.info/version',Method = 'GET'}).Body).latest_commit or 'main')
+local commit = license.Commit or nil
+
+if not commit then
+	local suc = pcall(function()
+		commit = (cloneref(game:GetService('HttpService')):JSONDecode(request({Url = 'https://api.catvape.info/version',Method = 'GET'}).Body).latest_commit or 'main')
+	end)
+
+	if not suc or not commit then
+		commit = 'main'
+	end
+end
 
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password
