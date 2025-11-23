@@ -361,12 +361,19 @@ if (not license.Developer and not shared.VapeDeveloper) then
 	if #listfiles('catrewrite/profiles') <= 2 then
 		makestage(2, 'Downloading config, This may take up to 20s')
 
-		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
+		local preloaded = pcall(function()
+			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
 
-		for _, v in req do
-			if v.path ~= 'profiles/commit.txt' then
-				downloadFile(`catrewrite/{v.path}`)
+			for _, v in req do
+				if v.path ~= 'profiles/commit.txt' then
+					downloadFile(`catrewrite/{v.path}`)
+				end
 			end
+		end)
+
+		if not preloaded then
+			makestage(2, `Failed to download preset config ({identifyexecutor()}), Will recontinue in 2 seconds.`)
+			task.wait(2)
 		end
 	end
 
