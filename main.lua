@@ -45,7 +45,7 @@ local function finishLoading()
 	makestage(5, 'Finished!')
 
 	task.spawn(function()
-		local save, update = 0, os.clock() 
+		local save, update = 0, os.clock() + 120 
 
 		repeat
 			if os.clock() > save then
@@ -64,7 +64,7 @@ local function finishLoading()
 						vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
 					end
 					
-					update = os.clock() + (newcommit == 'main' and 120 or 25)
+					update = os.clock() + (newcommit == 'main' and 120 or 60)
 				end)
 			end
 
