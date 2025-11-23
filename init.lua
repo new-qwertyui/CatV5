@@ -349,6 +349,8 @@ end
 if (not license.Developer and not shared.VapeDeveloper) then
 	local Updated: boolean = (commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit)
 
+	writefile('catrewrite/profiles/commit.txt', commit)
+
 	if Updated then
 		wipeFolder('catrewrite')
 		wipeFolder('catrewrite/games')
@@ -379,7 +381,8 @@ if (not license.Developer and not shared.VapeDeveloper) then
 			pcall(downloadFile, `catrewrite/{v.path}`)
 		end
 	end
-	if not canDebug and Updated  then
+	
+	if not canDebug and Updated then
 		makestage(2, `Downloading {({identifyexecutor()})[1]} support, this may take a bit`)
 	
 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
