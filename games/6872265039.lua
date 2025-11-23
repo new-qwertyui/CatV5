@@ -1,3 +1,4 @@
+pcall(function()
 local run = function(func) func() end
 local cloneref = cloneref or function(obj) return obj end
 
@@ -189,6 +190,4 @@ run(function()
 		Tooltip = 'Automatically opens lucky crates'
 	})
 end)
-	
-
-print('modules loaded')
+end)
