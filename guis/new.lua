@@ -5617,7 +5617,7 @@ function mainapi:Load(skipgui, profile)
 
 	--> ud code btw pls dontt get mad
 
-	if not inputService.KeyboardEnabled or not closet then
+	if not inputService.KeyboardEnabled then
 		if setthreadidentity then
 			setthreadidentity(8)
 		end
