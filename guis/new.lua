@@ -5633,7 +5633,7 @@ task.spawn(function()
 		button.Visible = true
 		button.Parent = main
 
-		makeDraggable(button)
+		--makeDraggable(button)
 
 		local image = Instance.new('ImageLabel')
 		image.Size = UDim2.fromOffset(33, 33)
