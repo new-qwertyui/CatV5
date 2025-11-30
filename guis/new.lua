@@ -6111,8 +6111,8 @@ guipane:CreateToggle({
 })
 guipane:CreateToggle({
 	Name = 'Show vape button',
+	Default = inputService.TouchEnabled,
 	Function = function(enabled)
-		warn(mainapi.VapeButton)
 		if mainapi.VapeButton then
 			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
 			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
