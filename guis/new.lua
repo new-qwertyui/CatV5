@@ -6119,7 +6119,7 @@ guipane:CreateToggle({
 		if mainapi.VapeButton then
 			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
 			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
-		  if not enabled and not inputService.Enabled then
+		  if not enabled and not inputService.KeyboardEnabled then
 		      mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
 		  end
 		end
