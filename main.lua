@@ -194,7 +194,10 @@ if not shared.VapeIndependent then
 		end
 	end)
 
-	if success then
+	warn('working????????', success, result)
+
+	if success or not canDebug then
+		print('loading!!')
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
 		finishLoading()
 	else

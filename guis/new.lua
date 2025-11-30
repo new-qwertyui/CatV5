@@ -5620,9 +5620,10 @@ task.spawn(function()
 	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
 	if main then
+		game:GetService('CoreGui').OnTopOfCoreBlur = true
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(44, 44)
-		button.Position = UDim2.fromOffset(240, 0)
+		button.Position = UDim2.fromOffset(240, 42)
 		button.BackgroundColor3 = main.BackgroundColor3
 		button.ZIndex = 500
 		button.BackgroundTransparency = 1
@@ -6111,7 +6112,7 @@ guipane:CreateToggle({
 })
 guipane:CreateToggle({
 	Name = 'Show vape button',
-	Default = inputService.TouchEnabled,
+	Default = not inputService.KeyboardEnabled,
 	Function = function(enabled)
 		if mainapi.VapeButton then
 			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
