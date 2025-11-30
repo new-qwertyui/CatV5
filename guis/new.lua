@@ -5616,7 +5616,7 @@ if setthreadidentity then
 	setthreadidentity(8)
 end
 
-(function()
+task.spawn(function()
 	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
 	if main then
@@ -5665,7 +5665,7 @@ end
 			mainapi:BlurCheck()
 		end)
 	end
-end)()
+end)
 
 function mainapi:LoadOptions(object, savedoptions)
 	for i, v in savedoptions do
