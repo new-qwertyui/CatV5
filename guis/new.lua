@@ -5617,7 +5617,12 @@ if setthreadidentity then
 end
 
 task.spawn(function()
-	local main = not inputService.KeyboardEnabled and game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
+	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
+	
+	if not inputService.TouchEnabled then
+	    main = nil
+	    warn('awesome')
+	end
 
 	if main then
 		game:GetService('CoreGui').OnTopOfCoreBlur = true
