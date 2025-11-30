@@ -5617,7 +5617,7 @@ if setthreadidentity then
 end
 
 task.spawn(function()
-	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
+	local main = not inputService.KeyboardEnabled and game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
 	if main then
 		game:GetService('CoreGui').OnTopOfCoreBlur = true
@@ -5626,7 +5626,7 @@ task.spawn(function()
 		button.Position = UDim2.fromOffset(240, 42)
 		button.BackgroundColor3 = main.BackgroundColor3
 		button.ZIndex = 500
-		button.BackgroundTransparency = 1
+		button.BackgroundTransparency = 0
 		button.Text = ''
 		button.Visible = true
 		button.Parent = main
@@ -5638,7 +5638,7 @@ task.spawn(function()
 		image.AnchorPoint = Vector2.new(0.5, 0.5)
 		image.Position = UDim2.fromScale(0.5, 0.5)
 		image.ZIndex = 500
-		image.ImageTransparency = 1
+		image.ImageTransparency = 0
 		image.BackgroundTransparency = 1
 		image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
 		image.Parent = button
@@ -6110,16 +6110,7 @@ guipane:CreateToggle({
 	Default = true,
 	Tooltip = "Displays a message indicating your GUI upon injecting.\nI.E. 'Press RSHIFT to open GUI'"
 })
-guipane:CreateToggle({
-	Name = 'Show vape button',
-	Default = not inputService.KeyboardEnabled,
-	Function = function(enabled)
-		if mainapi.VapeButton then
-			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
-			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
-		end
-	end,
-})
+
 guipane:CreateToggle({
 	Name = 'Show tooltips',
 	Function = function(enabled)
