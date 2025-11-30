@@ -7047,7 +7047,7 @@ LPH_NO_VIRTUALIZE(function()
 		local thunderSounds = {}
 
 		for i,v in {'rbxassetid://6734393210', 'rbxassetid://18650085493'} do
-			local sound = Instance.new('Sound', soundService)
+			local sound = Instance.new('Sound', game.SoundService)
 			sound.SoundId = v
 			table.insert(thunderSounds, sound)
 		end

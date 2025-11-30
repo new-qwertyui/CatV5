@@ -2755,10 +2755,6 @@ function mainapi:CreateGUI()
 		function optionapi:SetBind(tab)
 			mainapi.Keybind = #tab <= 0 and mainapi.Keybind or table.clone(tab)
 			self.Bind = mainapi.Keybind
-			if mainapi.VapeButton then
-				mainapi.VapeButton:Destroy()
-				mainapi.VapeButton = nil
-			end
 
 			bind.Visible = true
 			label.Visible = true
@@ -5614,58 +5610,62 @@ function mainapi:Load(skipgui, profile)
 	end
 	self.Loaded = savecheck
 	self.Categories.Main.Options.Bind:SetBind(self.Keybind)
+end
 
-	--> ud code btw pls dontt get mad
+if setthreadidentity then
+	setthreadidentity(8)
+end
 
-	if not inputService.KeyboardEnabled or not closet then
-		if setthreadidentity then
-			setthreadidentity(8)
-		end
+(function()
+	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
-		local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp'):WaitForChild('MenuIconHolder'):WaitForChild('TriggerPoint'):FindFirstChildOfClass('ImageButton')
-
+	if main then
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(44, 44)
-		button.Position = UDim2.fromOffset(240, 11)
+		button.Position = UDim2.fromOffset(240, 0)
 		button.BackgroundColor3 = main.BackgroundColor3
 		button.ZIndex = 500
-		button.BackgroundTransparency = main.BackgroundTransparency
+		button.BackgroundTransparency = 1
 		button.Text = ''
-		button.Parent = gui
+		button.Visible = true
+		button.Parent = main
+
+		makeDraggable(button)
 
 		local image = Instance.new('ImageLabel')
-		image.Size = UDim2.fromOffset(22, 22)
+		image.Size = UDim2.fromOffset(33, 33)
 		image.AnchorPoint = Vector2.new(0.5, 0.5)
 		image.Position = UDim2.fromScale(0.5, 0.5)
 		image.ZIndex = 500
+		image.ImageTransparency = 1
 		image.BackgroundTransparency = 1
-		image.Image = 'rbxassetid://14373395239'
+		image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
 		image.Parent = button
 
 		local buttoncorner = Instance.new('UICorner')
 		buttoncorner.Parent = button
 		buttoncorner.CornerRadius = UDim.new(1, 0)
 
-		self.VapeButton = button
+		mainapi.VapeButton = button
 
 		button.MouseButton1Click:Connect(function()
-			if self.ThreadFix then
+			if mainapi.ThreadFix then
 				setthreadidentity(8)
 			end
-			for _, v in self.Windows do
+			for _, v in mainapi.Windows do
 				v.Visible = false
 			end
-			for _, mobileButton in self.Modules do
+			for _, mobileButton in mainapi.Modules do
 				if mobileButton.Bind.Button then
 					mobileButton.Bind.Button.Visible = clickgui.Visible
 				end
 			end
 			clickgui.Visible = not clickgui.Visible
 			tooltip.Visible = false
-			self:BlurCheck()
+			mainapi:BlurCheck()
 		end)
 	end
-end
+end)()
 
 function mainapi:LoadOptions(object, savedoptions)
 	for i, v in savedoptions do
@@ -5929,11 +5929,6 @@ mainapi:CreateCategory({
 	Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
 	Size = UDim2.fromOffset(19, 12)
 })
-mainapi:CreateCategory({
-	Name = 'Catvape',
-	Icon = getcustomasset('catrewrite/assets/new/targetnpc2.png'),
-	Size = UDim2.fromOffset(14, 14)
-})
 mainapi.Categories.Main:CreateDivider('misc')
 
 --[[
@@ -6037,6 +6032,7 @@ mainapi.MultiKeybind = general:CreateToggle({
 	Name = 'Enable Multi-Keybinding',
 	Tooltip = 'Allows multiple keys to be bound to a module (eg. G + H)'
 })
+
 general:CreateButton({
 	Name = 'Reset current profile',
 	Function = function()
@@ -6112,6 +6108,16 @@ guipane:CreateToggle({
 	Name = 'GUI bind indicator',
 	Default = true,
 	Tooltip = "Displays a message indicating your GUI upon injecting.\nI.E. 'Press RSHIFT to open GUI'"
+})
+guipane:CreateToggle({
+	Name = 'Show vape button',
+	Function = function(enabled)
+		warn(mainapi.VapeButton)
+		if mainapi.VapeButton then
+			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
+			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
+		end
+	end,
 })
 guipane:CreateToggle({
 	Name = 'Show tooltips',
@@ -6692,7 +6698,6 @@ local function handleImage(path)
 	image.Visible = not isVisible
 	video.Visible = isVideo
 
-	print(ye)
 	if isVideo then
 		video.Video = ye
 		video:Play()
@@ -6902,7 +6907,6 @@ spotifyobj = mainapi:CreateOverlay({
 				if updateTick < tick() then
 					updateTick = tick() + 1200
 					TOKEN = Spotify:UpdateToken(spotifyrefreshtoken.Value, "9814867a949d46e8a379fa64cfbc5026", "dd7bc97681aa48379795c5aaa54fb1f3")
-					print("Token update finished")
 				end
 			end))
 			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
@@ -6933,7 +6937,6 @@ spotifyobj = mainapi:CreateOverlay({
 							song = data.song.name
 							local path = "catrewrite/assets/trash/"..data.song.name
 							path = path.." "..data.song.artist..".png"
-							print(path)
 							makefolder("catrewrite/assets/trash")
 							writefile(path, game:HttpGet(data.song.cover))
 							spotifyshot.Image = getcustomasset(path)

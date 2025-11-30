@@ -16,7 +16,7 @@ end
 local license = ({...})[1] or {}
 local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
-local commit = license.Commit or nil
+local commit = license.Commit or nil -- not meant to be downgradable
 
 if not commit then
 	local suc = pcall(function()
@@ -28,9 +28,18 @@ if not commit then
 	end
 end
 
-getgenv().username = license.Username or getgenv().username
-getgenv().password = license.Password or getgenv().password
-getgenv().catuser = getgenv().username
+if not commit or commit == 'main' then
+	local _, subbed = pcall(function()
+		return game:HttpGet('https://github.com/new-qwertyui/CatV5')
+	end)
+	commit = subbed:find('currentOid')
+	commit = commit and subbed:sub(commit + 13, commit + 52) or nil
+	commit = commit and #commit == 40 and commit or 'main'
+
+	if #commit > 7 then
+		commit = commit:sub(1, 7)
+	end
+end
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
@@ -293,7 +302,7 @@ end;
 
 local debug = debug
 
-if table.find({'Xeno'}, ({identifyexecutor()})[1]) then
+if table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1]) then
 	debug = table.clone(debug)
 	debug.getupvalue = nil
 	debug.getconstant = nil
@@ -309,7 +318,7 @@ local function downloadFile(path, func)
 		local suc, res = pcall(function()
 			local subbed = path:gsub('catrewrite/', '')
 			subbed = subbed:gsub(' ', '%%20')
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..subbed, true)
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..commit..'/'..subbed, true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -349,12 +358,11 @@ end
 if (not license.Developer and not shared.VapeDeveloper) then
 	local Updated: boolean = (commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit)
 
-	writefile('catrewrite/profiles/commit.txt', commit)
-
 	if Updated then
 		wipeFolder('catrewrite')
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
+		wipeFolder('catrewrite/cache')
 		wipeFolder('catrewrite/libraries')
 	end
 	
@@ -408,19 +416,12 @@ getgenv().closet = closet
 getgenv().makestage = makestage
 getgenv().canDebug = canDebug
 
+getgenv().username = license.Username or getgenv().username
+getgenv().password = license.Password or getgenv().password
+
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
-
-for _, v in gui:GetDescendants() do
-	for __, prop in {'BackgroundTransparency', 'ImageTransparency', 'TextTransparency'} do
-		task.spawn(pcall, function()
-			tweenService:Create(v, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
-				[prop] = 1
-			}):Play()
-		end)
-	end
-end
 
 for _, v in Connections do
 	v:Disconnect()

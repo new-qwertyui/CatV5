@@ -45,7 +45,7 @@ local function finishLoading()
 	makestage(5, 'Finished!')
 
 	task.spawn(function()
-		local save, update = 0, os.clock() + 120 
+		local save, update = 0, os.clock() 
 
 		repeat
 			if os.clock() > save then
@@ -53,8 +53,8 @@ local function finishLoading()
 				save = os.clock() + 10
 			end
 
-			if os.clock() > update then
-				pcall(function()
+			pcall(function()
+				if os.clock() > update then
 					local newcommit = httpService:JSONDecode(request({
 						Url = 'https://api.catvape.info/version',
 						Method = 'GET'		
@@ -64,9 +64,9 @@ local function finishLoading()
 						vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
 					end
 					
-					update = os.clock() + (newcommit == 'main' and 120 or 60)
-				end)
-			end
+					update = os.clock() + (newcommit == 'main' and 120 or 25)
+				end
+			end)
 
 			task.wait()
 		until not vape.Loaded
@@ -78,10 +78,8 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
-				local commit = game:HttpGet('https://api.catvape.info/version').latest_commit or 'main'
-
-				loadstring(game:HttpGet(`https://raw.githubusercontent.com/new-qwertyui/CatV5/{commit}/init.lua`), 'init.lua')({
-					Commit = commit
+				loadstring(readfile('catrewrite/init.lua'), 'init.lua')({
+					
 				})
 			]]
 			if getgenv().catvapedev then
@@ -113,7 +111,7 @@ local function finishLoading()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
-				vape:CreateNotification('Cat', `Initialized as {(catuser or 'Guest')} with role {catrole or 'Basic'}`, 2.5, 'info')
+				vape:CreateNotification('Cat', `Initialized as {(getgenv().username or 'Guest')} with role {getgenv().catrole or 'Basic'}`, 2.5, 'info')
 				task.wait(1)
 				if not isfile('newusercat2') then
 					vape:CreateNotification('Cat', 'You have been redirected to cat\'s discord server', 3, 'warning')
@@ -175,10 +173,9 @@ local function callback(func)
 end
 
 if not shared.VapeIndependent then
-	makestage(3, 'Downloading game packages')
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	shared.vape.Libraries.Cat = true
-	makestage(4, 'Loading all packages')
+	makestage(4, 'Launching packages')
 	callback(function()
 		loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
 	end)

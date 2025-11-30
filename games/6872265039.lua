@@ -1,4 +1,3 @@
-pcall(function()
 local run = function(func) func() end
 local cloneref = cloneref or function(obj) return obj end
 
@@ -27,7 +26,6 @@ run(function()
 		return ind and tab[ind + 1] or ''
 	end
 
-	local KnitInit, Knit
 	repeat
 		KnitInit, Knit = pcall(function() 
 			local real = require(lplr.PlayerScripts.TS.knit)
@@ -189,5 +187,4 @@ run(function()
 		end,
 		Tooltip = 'Automatically opens lucky crates'
 	})
-end)
 end)
