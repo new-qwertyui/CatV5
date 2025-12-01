@@ -43,6 +43,7 @@ run(function()
 
 	bedwars = setmetatable({
 		Client = Client,
+		Knit = Knit,
 		CrateItemMeta = debug.getupvalue(Flamework.resolveDependency('client/controllers/global/reward-crate/crate-controller@CrateController').onStart, 3),
 		QueueMeta = require(replicatedStorage.TS.game['queue-meta']).QueueMeta,
 		Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore
@@ -52,6 +53,8 @@ run(function()
 			return rawget(self, ind)
 		end
 	})
+
+	getgenv().lobbybedwars = bedwars
 
 	local kills = sessioninfo:AddItem('Kills')
 	local beds = sessioninfo:AddItem('Beds')
