@@ -32,9 +32,9 @@ run(function()
 				require(lplr.PlayerScripts.TS.knit).setup, 9
 			) 
 		end)
-		if KnitInit then break else warn('error', Knit) end
+		if KnitInit then break end
 		task.wait()
-	until KnitInit
+	until KnitInit or not canDebug
 	if not debug.getupvalue(Knit.Start, 1) then
 		repeat task.wait() until debug.getupvalue(Knit.Start, 1)
 	end
