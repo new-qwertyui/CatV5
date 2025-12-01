@@ -791,6 +791,9 @@ run(function()
 		DamageIndicator = Knit.Controllers.DamageIndicatorController.spawnDamageIndicator,
 		DefaultKillEffect = require(lplr.PlayerScripts.TS.controllers.global.locker['kill-effect'].effects['default-kill-effect']),
 		EmoteType = require(replicatedStorage.TS.locker.emote['emote-type']).EmoteType,
+		EmoteImage = require(replicatedStorage.TS.locker.emote['emote-image']).EmoteImage,
+		EmoteMeta = require(replicatedStorage.TS.locker.emote['emote-meta']).EmoteMeta,
+		EffectUtil = require(game:GetService('ReplicatedStorage').TS.util.effect['effect-util']).EffectUtil,
 		GameAnimationUtil = require(replicatedStorage.TS.animation['animation-util']).GameAnimationUtil,
 		getIcon = function(item, showinv)
 			local itemmeta = bedwars.ItemMeta[item.itemType]
@@ -4447,9 +4450,10 @@ run(function()
 									if not block then
 										blockpos = checkAdjacent(blockpos * 3) and blockpos * 3 or blockProximity(currentpos)
 										if blockpos then
-											hotbarSwitch(getHotbar(getItem(wool).tool))
+											if AutoSwitch.Enabled then
+												hotbarSwitch(getHotbar(getItem(wool).tool))
+											end
 											task.spawn(bedwars.placeBlock, blockpos, wool, false)
-											warn('Ragebait')
 											switchTime = tick() + 0.25
 											Scaffolding = true
 										end

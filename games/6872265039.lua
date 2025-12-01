@@ -28,7 +28,6 @@ run(function()
 
 	repeat
 		KnitInit, Knit = pcall(function() 
-			local real = require(lplr.PlayerScripts.TS.knit)
 			return debug.getupvalue(
 				require(lplr.PlayerScripts.TS.knit).setup, 9
 			) 

@@ -2587,6 +2587,9 @@ task.spawn(function()
 end)
 
 function mainapi:BlurCheck()
+  if not inputService.KeyboardEnabled then
+      return
+  end
 	if self.ThreadFix then
 		setthreadidentity(8)
 		runService:SetRobloxGuiFocused((clickgui.Visible or guiService:GetErrorType() ~= Enum.ConnectionError.OK) and self.Blur.Enabled)
@@ -5620,10 +5623,9 @@ task.spawn(function()
 	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
 	if main then
-		game:GetService('CoreGui').OnTopOfCoreBlur = true
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(44, 44)
-		button.Position = UDim2.fromOffset(240, 42)
+		button.Position = UDim2.fromOffset(240, 0)
 		button.BackgroundColor3 = main.BackgroundColor3
 		button.ZIndex = 500
 		button.BackgroundTransparency = 1
@@ -5631,7 +5633,7 @@ task.spawn(function()
 		button.Visible = true
 		button.Parent = main
 
-		makeDraggable(button)
+		--makeDraggable(button)
 
 		local image = Instance.new('ImageLabel')
 		image.Size = UDim2.fromOffset(33, 33)
@@ -6117,6 +6119,9 @@ guipane:CreateToggle({
 		if mainapi.VapeButton then
 			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
 			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
+		  if not enabled and not inputService.KeyboardEnabled then
+		      mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+		  end
 		end
 	end,
 })
