@@ -1,4 +1,4 @@
-local run = function(func) func() end
+local run = pcall
 local cloneref = cloneref or function(obj) return obj end
 
 local playersService = cloneref(game:GetService('Players'))
@@ -9,7 +9,7 @@ local lplr = playersService.LocalPlayer
 local vape = shared.vape
 local entitylib = vape.Libraries.entity
 local sessioninfo = vape.Libraries.sessioninfo
-local bedwars = {}
+local bedwars
 
 local function notif(...)
 	return vape:CreateNotification(...)
@@ -44,6 +44,10 @@ run(function()
 	bedwars = setmetatable({
 		Client = Client,
 		Knit = Knit,
+		Roact = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts']['roact'].src),
+		EmoteType = require(replicatedStorage.TS.locker.emote['emote-type']).EmoteType,
+		EmoteImage = require(replicatedStorage.TS.locker.emote['emote-image']).EmoteImage,
+		EmoteMeta = require(replicatedStorage.TS.locker.emote['emote-meta']).EmoteMeta,
 		CrateItemMeta = debug.getupvalue(Flamework.resolveDependency('client/controllers/global/reward-crate/crate-controller@CrateController').onStart, 3),
 		QueueMeta = require(replicatedStorage.TS.game['queue-meta']).QueueMeta,
 		Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore

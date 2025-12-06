@@ -192,20 +192,6 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
     local h, j, k = disp.X, disp.Y, disp.Z
     local l = -0.5 * gravity
 
-	if ping and ping > 0.1 then
-		ping = ping / 4
-	elseif not ping then
-		ping = 0
-	end
-
-	warn('lol',ping)
-
-	if q > 0 and q < 50 then
-		q = 1
-	elseif q < -1 and q > -50 then
-		q = -q
-	end
-
     if math.abs(q) > 0.01 and playerGravity and playerGravity > 0 then
         local estTime = (disp.Magnitude / projectileSpeed)
         for _ = 1, 100 do
@@ -246,7 +232,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
 
         if bestT then
-            local futurePos = targetPos + targetVelocity * (bestT + ping)
+            local futurePos = targetPos + targetVelocity * (bestT)
 			local futureYPos = targetPos + targetVelocity * bestT
 
             local disp2 = futurePos - origin
@@ -260,7 +246,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
         end
     elseif gravity == 0 then
         local t = (disp.Magnitude / projectileSpeed) 
-        local futurePos = targetPos + targetVelocity * (t + ping)
+        local futurePos = targetPos + targetVelocity * (t)
 		local futureYPos = targetPos + targetVelocity * t
 
         local disp2 = futurePos - origin

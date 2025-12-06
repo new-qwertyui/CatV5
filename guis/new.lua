@@ -124,6 +124,7 @@ local getcustomassets = {
 	['catrewrite/assets/new/textvape.png'] = 'rbxassetid://14368358200',
 	['catrewrite/assets/new/utilityicon.png'] = 'rbxassetid://14368359107',
 	['catrewrite/assets/new/vape.png'] = 'rbxassetid://14373395239',
+	['catrewrite/assets/new/mascot.png'] = 'rbxassetid://14373395239',
 	['catrewrite/assets/new/warning.png'] = 'rbxassetid://14368361552',
 	['catrewrite/assets/new/worldicon.png'] = 'rbxassetid://14368362492',
 	['catrewrite/assets/old/spotify.png'] = 'rbxassetid://129349257949035',
@@ -436,7 +437,7 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 
-local blacklistedexecs = {'Fluxus', 'Krnl'}
+local blacklistedexecs = {'Fluxus', 'Krnl', 'Xeno', 'Solara'}
 
 local getexecutorname = function()
 	local name, ver = identifyexecutor()
@@ -4455,11 +4456,11 @@ function mainapi:CreateCategoryList(categorysettings)
 	childrentwo.Parent = children
 	local settings = Instance.new('ImageButton')
 	settings.Name = 'Settings'
-	settings.Size = UDim2.fromOffset(16, 16)
+	settings.Size = categorysettings.Profiles and UDim2.fromOffset(14, 14) or UDim2.fromOffset(16, 16)
 	settings.Position = UDim2.new(1, -52, 0, 13)
 	settings.BackgroundTransparency = 1
 	settings.AutoButtonColor = false
-	settings.Image = getcustomasset('catrewrite/assets/new/customsettings.png')
+	settings.Image = categorysettings.Profiles and getcustomasset('catrewrite/assets/new/worldicon.png') or getcustomasset('catrewrite/assets/new/customsettings.png')
 	settings.ImageColor3 = color.Dark(uipallet.Text, 0.43)
 	settings.Parent = window
 	local divider = Instance.new('Frame')
@@ -4898,7 +4899,9 @@ function mainapi:CreateCategoryList(categorysettings)
 		settings.ImageColor3 = color.Light(uipallet.Main, 0.37)
 	end)
 	settings.MouseButton1Click:Connect(function()
-		childrentwo.Visible = not childrentwo.Visible
+		clickgui.Visible = false
+		self.PublicConfigs.Window.Visible = true
+		self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
 	end)
 	window.InputBegan:Connect(function(inputObj)
 		if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
@@ -5367,6 +5370,844 @@ function mainapi:CreateLegit()
 	self.Legit = legitapi
 
 	return legitapi
+end
+
+function mainapi:CreateProfileGUI()
+	local configapi = {Sorts = {}}
+
+	local window = Instance.new('Frame')
+	window.Name = 'ConfigGUI'
+	window.Size = UDim2.fromOffset(700, 389)
+	window.Position = UDim2.new(0.5, -350, 0.5, -194)
+	window.BackgroundColor3 = uipallet.Main
+	window.Visible = false
+	window.Parent = scaledgui
+	addBlur(window)
+	addCorner(window)
+	makeDraggable(window)
+
+	local modal = Instance.new('TextButton')
+	modal.BackgroundTransparency = 1
+	modal.Text = ''
+	modal.Modal = true
+	modal.Parent = window
+	
+	local icon = Instance.new('ImageLabel')
+	icon.Name = 'Icon'
+	icon.Size = UDim2.fromOffset(16, 10)
+	icon.Position = UDim2.fromOffset(10, 13)
+	icon.BackgroundTransparency = 1
+	icon.Image = getcustomasset('catrewrite/assets/new/profilesicon.png')
+	icon.ImageColor3 = uipallet.Text
+	icon.Parent = window
+
+	local close = addCloseButton(window)
+
+	local children = Instance.new('ScrollingFrame')
+	children.Name = 'Children'
+	children.Size = UDim2.fromOffset(684, 340)
+	children.Position = UDim2.fromOffset(14, 41)
+	children.BackgroundColor3 = uipallet.Main
+	children.BackgroundTransparency = 1
+	children.BorderSizePixel = 0
+	children.ScrollBarThickness = 2
+	children.ScrollBarImageTransparency = 0.75
+	children.CanvasSize = UDim2.new()
+	children.Parent = window
+
+	local windowlist = Instance.new('UIGridLayout')
+	windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+	windowlist.FillDirectionMaxCells = 4
+	windowlist.CellSize = UDim2.fromOffset(163, 114)
+	windowlist.CellPadding = UDim2.fromOffset(6, 5)
+	windowlist.Parent = children
+
+	configapi.Window = window
+
+	table.insert(mainapi.Windows, window)
+
+	close.MouseButton1Click:Connect(function()
+		window.Visible = false
+		clickgui.Visible = true
+	end)
+
+	local div = Instance.new('Frame')
+	div.Parent = window
+	div.BackgroundColor3 = Color3.new(1, 1, 1)
+	div.BackgroundTransparency = 0.95
+	div.BorderSizePixel = 0
+	div.Position = UDim2.new(0, 0, 0.102827765, 0)
+	div.Size = UDim2.new(1, 0, 0, 1)
+
+	local profiletitle = Instance.new('TextLabel') -- w gui 2 lua (lowk lazy so aint doing all the work)
+	profiletitle.Parent = icon
+	profiletitle.BackgroundTransparency = 1
+	profiletitle.Position = UDim2.new(0, 25, 0, 0)
+	profiletitle.Size = UDim2.new(1, 20, 0, 20)
+	profiletitle.Font = Enum.Font.Arial
+	profiletitle.Text = 'Public Profiles'
+	profiletitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+	profiletitle.TextSize = 13
+	profiletitle.TextXAlignment = Enum.TextXAlignment.Left
+	profiletitle.TextYAlignment = Enum.TextYAlignment.Top
+
+	local profilemaker = Instance.new('TextButton')
+	profilemaker.Parent = window
+	profilemaker.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+	profilemaker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	profilemaker.BorderSizePixel = 0
+	profilemaker.Position = UDim2.new(0.0142857144, 0, 0.136246786, 0)
+	profilemaker.Size = UDim2.new(0, 167, 0, 30)
+	profilemaker.Font = Enum.Font.Arial
+	profilemaker.Text = ('create new'):upper()
+	profilemaker.TextColor3 = Color3.fromRGB(255, 255, 255)
+	profilemaker.TextSize = 12.000
+
+	addCorner(profilemaker)
+
+	--[[
+		Sorts
+	]]
+
+	local sortframe = Instance.new("Frame")
+	sortframe.Parent = window
+	sortframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	sortframe.BackgroundTransparency = 1.000
+	sortframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	sortframe.BorderSizePixel = 0
+	sortframe.Position = UDim2.new(0.282000005, 0, 0.270000011, 0)
+	sortframe.Size = UDim2.new(0, 500, 0, 28)
+
+	local layout = Instance.new("UIListLayout")
+	layout.Parent = sortframe
+	layout.FillDirection = Enum.FillDirection.Horizontal
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.Padding = UDim.new(0, 5)
+
+	local sortfuncs = {
+		oldest = function(a, b)
+			return a.edited > b.edited
+		end,
+		newest = function(a, b)
+			return a.edited < b.edited
+		end
+	}
+
+	local sortfunc = 'newest'
+
+
+	--[[
+		Popup
+	]]
+
+	local popup: Frame = Instance.new('Frame', window)
+	popup.AnchorPoint = Vector2.new(0.5, 0.5)
+	popup.Name = 'popup'
+	popup.ZIndex = 5
+	popup.Visible = false
+	popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+	popup.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	popup.Size = UDim2.new(0.949999988, 0, 0.9, 0)
+	popup.BorderSizePixel = 0
+	popup.BackgroundColor3 = Color3.fromRGB(33, 32, 33)
+
+	local closebut = addCloseButton(popup)
+	closebut.ZIndex = 6
+	closebut.MouseButton1Click:Connect(function()
+		popup.Visible = false
+	end)
+
+	addCorner(popup)
+
+	local UIStroke: UIStroke = Instance.new('UIStroke', popup)
+	UIStroke.Color = Color3.fromRGB(42, 40, 42)
+	UIStroke.Thickness = 2
+
+	local info: TextLabel = Instance.new('TextLabel', popup);
+	info.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+	info.TextColor3 = Color3.fromRGB(220, 220, 220);
+	info.Text = 'Unknown';
+	info.Name = 'info';
+	info.ZIndex = 5
+	info.TextXAlignment = Enum.TextXAlignment.Left;
+	info.BackgroundTransparency = 1;
+	info.TextTruncate = Enum.TextTruncate.SplitWord;
+	info.Position = UDim2.new(0, 13, 0, 16);
+	info.TextYAlignment = Enum.TextYAlignment.Top;
+	info.TextSize = 15;
+	info.Size = UDim2.new(1, -520, 0, 20);
+
+	local user: TextLabel = Instance.new('TextLabel', info);
+	user.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	user.TextColor3 = Color3.fromRGB(220, 220, 220);
+	user.TextTransparency = 0.7;
+	user.ZIndex = 5
+	user.Text = 'By unknown';
+	user.Name = 'user';
+	user.BackgroundTransparency = 1;
+	user.TextXAlignment = Enum.TextXAlignment.Left;
+	user.Position = UDim2.new(0, 0, 0, 25);
+	user.TextYAlignment = Enum.TextYAlignment.Top;
+	user.TextSize = 12;
+	user.Size = UDim2.new(0, 50, 0, 20);
+
+
+	local description: TextLabel = Instance.new('TextLabel', popup);
+	description.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+	description.TextColor3 = Color3.fromRGB(220, 220, 220);
+	description.Text = 'Details';
+	description.ZIndex = 5
+	description.RichText = true
+	description.Name = 'description';
+	description.TextXAlignment = Enum.TextXAlignment.Left;
+	description.BackgroundTransparency = 1;
+	description.TextTruncate = Enum.TextTruncate.SplitWord;
+	description.Position = UDim2.new(0, 180, 0, 16);
+	description.TextYAlignment = Enum.TextYAlignment.Top;
+	description.TextSize = 14;
+	description.Size = UDim2.new(1, -200, 0.222, 20);
+
+
+	local downloads: Frame = Instance.new('Frame', popup);
+	downloads.Name = 'downloads';
+	downloads.ZIndex = 5
+	downloads.Position = UDim2.new(0.269172937, 0, 0.323, 0);
+	downloads.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	downloads.Size = UDim2.new(0, 150, 0, 70);
+	downloads.BorderSizePixel = 0;
+	downloads.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+	addCorner(downloads)
+
+	local userd: TextLabel = Instance.new('TextLabel', downloads);
+	userd.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	userd.TextColor3 = Color3.fromRGB(220, 220, 220);
+	userd.TextTransparency = 0.5;
+	userd.Text = 'Last updated';
+	userd.ZIndex = 5
+	userd.AnchorPoint = Vector2.new(0.5, 0);
+	userd.BackgroundTransparency = 1;
+	userd.Position = UDim2.new(0.5, 0, 0, 38);
+	userd.Name = 'user';
+	userd.TextSize = 11;
+	userd.Size = UDim2.new(0, 100, 0, 20);
+
+
+	local amount: TextLabel = Instance.new('TextLabel', downloads);
+	amount.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	amount.TextColor3 = Color3.fromRGB(220, 220, 220);
+	amount.Text = 'unknown';
+	amount.AnchorPoint = Vector2.new(0.5, 0);
+	amount.BackgroundTransparency = 1;
+	amount.ZIndex = 5
+	amount.Position = UDim2.new(0.5, 0, 0, 12);
+	amount.Name = 'amount';
+	amount.TextSize = 17;
+	amount.Size = UDim2.new(0, 100, 0, 20);
+
+
+	local divide1: Frame = Instance.new('Frame', popup);
+	divide1.Name = 'divide1';
+	divide1.ZIndex = 5
+	divide1.BackgroundTransparency = 0.95;
+	divide1.Position = UDim2.new(0, 165, 0, 0);
+	divide1.Size = UDim2.new(0, 1, 1, 0);
+	divide1.BorderSizePixel = 0;
+	divide1.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+	local divide2: Frame = Instance.new('Frame', popup);
+	divide2.Name = 'divide2';
+	divide2.ZIndex = 5
+	divide2.BackgroundTransparency = 0.95;
+	divide2.Position = UDim2.new(0, 180, 0, 290);
+	divide2.Size = UDim2.new(0.729172945, 0, 0, 1);
+	divide2.BorderSizePixel = 0;
+	divide2.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+	local TextButton: TextButton = Instance.new('TextButton', popup);
+	TextButton.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	TextButton.TextColor3 = Color3.fromRGB(255, 255, 255);
+	TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	TextButton.Text = 'Download';
+	TextButton.ZIndex = 5
+	TextButton.Position = UDim2.new(0, 228, 0, 305);
+	TextButton.Size = UDim2.new(0, 426, 0, 30);
+	TextButton.BorderSizePixel = 0;
+	TextButton.TextSize = 12;
+	TextButton.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+	addCorner(TextButton)
+
+	local ImageButton: ImageButton = Instance.new('ImageButton', popup);
+	ImageButton.Image = 'rbxassetid://0';
+	ImageButton.ZIndex = 5
+	ImageButton.Size = UDim2.new(0, 30, 0, 30);
+	ImageButton.Position = UDim2.new(0, 180, 0, 305);
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	ImageButton.BorderSizePixel = 0;
+	ImageButton.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+	addCorner(ImageButton)
+
+	local ImageLabel: ImageButton = Instance.new('ImageButton', ImageButton);
+	ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5);
+	ImageLabel.ZIndex = 5
+	ImageLabel.Image = 'rbxassetid://10747362241';
+	ImageLabel.BackgroundTransparency = 1;
+	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0);
+	ImageLabel.Size = UDim2.new(0.550000012, 0, 0.55, 0);
+	ImageLabel.BorderSizePixel = 0;
+	ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+	--[[
+		Search
+	]]
+
+	local psearchbar = Instance.new("Frame")
+	psearchbar.Name = "Search"
+	psearchbar.Parent = window
+	psearchbar.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	psearchbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	psearchbar.BorderSizePixel = 0
+	psearchbar.Position = UDim2.new(0.282000005, 0, 0.153999999, 0)
+	psearchbar.Size = UDim2.new(0, 485, 0, 35)
+
+	local uistroke = Instance.new('UIStroke', psearchbar)
+	uistroke.Color = Color3.fromRGB(42, 41, 42)
+
+	addCorner(psearchbar)
+
+	local searchicon = Instance.new("ImageLabel")
+	searchicon.Parent = psearchbar
+	searchicon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	searchicon.BackgroundTransparency = 1.000
+	searchicon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	searchicon.BorderSizePixel = 0
+	searchicon.Position = UDim2.new(0.0189999994, 0, 0.300000012, 0)
+	searchicon.Size = UDim2.new(0, 13, 0, 13)
+	searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+	searchicon.ImageTransparency = 0.700
+
+	local searchbox = Instance.new("TextBox")
+	searchbox.Parent = psearchbar
+	searchbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	searchbox.BackgroundTransparency = 1.000
+	searchbox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	searchbox.BorderSizePixel = 0
+	searchbox.Position = UDim2.new(0.0787525922, 0, 0, 2)
+	searchbox.Size = UDim2.new(0.509247422, 200, 0.899999976, 0)
+	searchbox.Font = Enum.Font.Arial
+	searchbox.PlaceholderColor3 = Color3.fromRGB(94, 94, 94)
+	searchbox.PlaceholderText = "Search Profile / Username"
+	searchbox.Text = ""
+	searchbox.TextColor3 = Color3.fromRGB(171, 171, 171)
+	searchbox.TextSize = 12.000
+	searchbox.TextXAlignment = Enum.TextXAlignment.Left
+
+	searchbox:GetPropertyChangedSignal('Text'):Connect(function()
+		for i, v in configapi do
+			if v and typeof(v) == 'table' and v.instance then
+				v.instance.Visible = false
+				
+				if i:lower():gsub(' ', ''):find(searchbox.Text:lower():gsub(' ', '')) or searchbox.Text == '' then
+					v.instance.Visible = true
+				end
+			end
+		end
+	end)
+
+	--[[
+		confirmation
+	]]
+
+	local uploadconfirmationn: Frame = Instance.new('Frame', window);
+	uploadconfirmationn.AnchorPoint = Vector2.new(0.5, 0.5);
+	uploadconfirmationn.Name = 'uploadconfirmationn';
+	uploadconfirmationn.ZIndex = 8
+	uploadconfirmationn.Position = UDim2.new(0.5, 0, 0.5, 0);
+	uploadconfirmationn.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	uploadconfirmationn.Size = UDim2.new(0, 300, 0, 150);
+	uploadconfirmationn.BorderSizePixel = 0;
+	uploadconfirmationn.BackgroundColor3 = Color3.fromRGB(34, 33, 34);
+
+	local ahhcorner: UICorner = Instance.new('UICorner', uploadconfirmationn);
+	ahhcorner.Name = 'ahhcorner';
+	ahhcorner.CornerRadius = UDim.new(0, 5);
+
+	local publishb: TextButton = Instance.new('TextButton', uploadconfirmationn);
+	publishb.TextWrapped = true;
+	publishb.TextColor3 = Color3.fromRGB(255, 255, 255);
+	publishb.ZIndex = 8
+	publishb.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	publishb.Text = 'Publish "default" config';
+	publishb.Size = UDim2.new(0, 100, 0, 35);
+	publishb.Name = 'publishb';
+	publishb.Position = UDim2.new(0, 20, 0, 95);
+	publishb.BorderSizePixel = 0;
+	publishb.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	publishb.TextSize = 12;
+	publishb.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+	local publishbs: UIStroke = Instance.new('UIStroke', publishb);
+	publishbs.Thickness = 2;
+	publishbs.Name = 'publishbs';
+	publishbs.ZIndex = 8
+	publishbs.Color = Color3.fromRGB(42, 41, 42);
+	publishbs.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+
+	local publishbc: UICorner = Instance.new('UICorner', publishb);
+	publishbc.Name = 'publishbc';
+	publishbc.CornerRadius = UDim.new(0, 5);
+
+	local ahhstrokr: UIStroke = Instance.new('UIStroke', uploadconfirmationn);
+	ahhstrokr.Color = Color3.fromRGB(42, 41, 42);
+	ahhstrokr.Name = 'ahhstrokr';
+	ahhstrokr.Thickness = 2;
+
+	local configcancel: TextButton = Instance.new('TextButton', uploadconfirmationn);
+	configcancel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	configcancel.TextColor3 = Color3.fromRGB(255, 255, 255);
+	configcancel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	configcancel.Text = 'Cancel';
+	configcancel.Name = 'configcancel';
+	configcancel.Position = UDim2.new(0, 170, 0, 95);
+	configcancel.ZIndex = 8
+	configcancel.Size = UDim2.new(0, 100, 0, 35);
+	configcancel.BorderSizePixel = 0;
+	configcancel.TextSize = 14;
+	configcancel.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+	local UIStroke: UIStroke = Instance.new('UIStroke', configcancel);
+	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+	UIStroke.Thickness = 2;
+	UIStroke.Color = Color3.fromRGB(42, 41, 42);
+
+	local UICorner: UICorner = Instance.new('UICorner', configcancel);
+	UICorner.CornerRadius = UDim.new(0, 5);
+
+	local confignbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+	confignbox.CursorPosition = -1;
+	confignbox.ZIndex = 8
+	confignbox.Name = 'confignbox';
+	confignbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+	confignbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	confignbox.Text = '';
+	confignbox.Size = UDim2.new(0, 200, 0, 30);
+	confignbox.TextWrapped = true;
+	confignbox.AnchorPoint = Vector2.new(0.5, 0);
+	confignbox.BorderSizePixel = 0;
+	confignbox.BackgroundTransparency = 1;
+	confignbox.Position = UDim2.new(0.5, -5, 0, 20);
+	confignbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	confignbox.PlaceholderText = 'Config name';
+	confignbox.TextSize = 14;
+	confignbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+	local configdbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+	configdbox.CursorPosition = -1;
+	configdbox.Name = 'configdbox';
+	configdbox.ZIndex = 8
+	configdbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+	configdbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	configdbox.Text = '';
+	configdbox.Size = UDim2.new(0, 200, 0, 30);
+	configdbox.TextWrapped = true;
+	configdbox.AnchorPoint = Vector2.new(0.5, 0);
+	configdbox.BorderSizePixel = 0;
+	configdbox.BackgroundTransparency = 1;
+	configdbox.Position = UDim2.new(0.5, -5, 0, 50);
+	configdbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+	configdbox.PlaceholderText = 'Config description';
+	configdbox.TextSize = 14;
+	configdbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+	--[[
+		select config
+	]]
+
+	local configdatas: Frame = Instance.new('Frame', profilemaker);
+	configdatas.Name = 'configdatas';
+	configdatas.Position = UDim2.new(0.095808387, 0, 0.8, 0);
+	configdatas.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	configdatas.Size = UDim2.new(0, 151, 0, 248);
+	configdatas.BorderSizePixel = 0;
+	configdatas.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+	addCorner(configdatas)
+
+	local configstorage: ScrollingFrame = Instance.new('ScrollingFrame', configdatas);
+	configstorage.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200);
+	configstorage.Active = true;
+	configstorage.BorderColor3 = Color3.fromRGB(0, 0, 0);
+	configstorage.ScrollBarThickness = 2;
+	configstorage.Name = 'configstorage';
+	configstorage.BackgroundTransparency = 1;
+	configstorage.Position = UDim2.new(0, 0, 0.072, 0);
+	configstorage.Size = UDim2.new(0, 151, 0, 230);
+	configstorage.ClipsDescendants = false;
+	configstorage.BorderSizePixel = 0;
+	configstorage.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+	local cfglayotu: UIListLayout = Instance.new('UIListLayout', configstorage);
+	cfglayotu.SortOrder = Enum.SortOrder.LayoutOrder;
+	cfglayotu.HorizontalAlignment = Enum.HorizontalAlignment.Center;
+	cfglayotu.Padding = UDim.new(0, 10);
+
+	local SelectedConfig = 'default'
+
+	addCorner(configstorage)
+
+	--[[
+		children
+	]]
+
+	local children = Instance.new("ScrollingFrame")
+	children.Parent = window
+	children.BackgroundTransparency = 1.000
+	children.BorderSizePixel = 0
+	children.Position = UDim2.new(0.282000035, 0, 0, 153)
+	children.Size = UDim2.new(0, 500, 0, 236)
+	children.CanvasSize = UDim2.new(0, 0, 0, 471)
+	children.ScrollBarThickness = 2
+
+	local function Refresh(newconfigs)
+		for i,v in configstorage:GetChildren() do
+			if v.ClassName ~= 'UIListLayout' then
+				v:Destroy()
+			end
+		end
+
+		for i,v in children:GetChildren() do
+			if v:IsA('TextButton') then
+				v:Destroy()
+			end
+		end
+		
+		local awesome = {}
+
+		for i, v in mainapi.Profiles do
+			local configlabel: TextLabel = Instance.new('TextButton', configstorage);
+			configlabel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+			configlabel.TextColor3 = Color3.fromRGB(255, 255, 255);
+			configlabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+			configlabel.Text = v.Name;
+			configlabel.BackgroundTransparency = 1;
+			configlabel.Name = v.Name;
+			configlabel.Size = UDim2.new(0.899999976, 0, 0, 20);
+			configlabel.BorderSizePixel = 0;
+			configlabel.TextSize = 13;
+			configlabel.BackgroundColor3 = Color3.fromRGB(22, 21, 22);
+
+			local labellayout: UIStroke = Instance.new('UIStroke', configlabel);
+			labellayout.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+			labellayout.Name = 'labellayout';
+			labellayout.Enabled = v.Name == SelectedConfig
+			labellayout.Color = Color3.fromRGB(255, 255, 255);
+
+			table.insert(awesome, configlabel)
+
+			configlabel.MouseButton1Click:Connect(function()
+				for i2, v2 in awesome do
+					v2.labellayout.Enabled = v2.Name == v.Name
+					publishb.Text = `Publish "{v.Name}" config`
+					SelectedConfig = v.Name
+				end
+			end)
+		end
+	end
+
+	local gridlayout = Instance.new("UIGridLayout")
+	gridlayout.Parent = children
+	gridlayout.SortOrder = Enum.SortOrder.LayoutOrder
+	gridlayout.CellPadding = UDim2.new(0, 9, 0, 5)
+	gridlayout.CellSize = UDim2.new(0, 157, 0, 140)
+	gridlayout.FillDirectionMaxCells = 4
+
+	local function addConfig(name, author, cfginfo)
+		configapi[name] = table.clone(cfginfo)
+
+		local config = Instance.new('TextButton')
+		config.Parent = children
+		config.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+		config.LayoutOrder = #children:GetChildren() + 1
+		config.ClipsDescendants = false
+		config.Position = UDim2.new(0.0120000001, 0, 0, 0)
+		config.AutoButtonColor = false
+		config.Text = ''
+
+		configapi[name].instance = config
+
+		local uistroke = Instance.new('UIStroke', config)
+		uistroke.Transparency = 1
+		uistroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		uistroke.Color = color.Light(uipallet.Main, 0.034)
+		uistroke.Thickness = 2
+
+		addCorner(config)
+
+		local label = Instance.new('TextLabel')
+		label.Parent = config
+		label.BackgroundTransparency = 1
+		label.Position = UDim2.new(0, 16, 0, 20)
+		label.Size = UDim2.new(0.753427446, -16, 0.423529416, 20)
+		label.Font = Enum.Font.Arial
+		label.RichText = true
+		label.Text = `{name}\n\n\n<font tr=\"0.7\">@{author}</font>`
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.TextSize = 13.000
+		label.TextTransparency = 0.300
+		label.TextWrapped = true
+		label.TextXAlignment = Enum.TextXAlignment.Left
+		label.TextYAlignment = Enum.TextYAlignment.Top
+
+		config.MouseButton1Click:Connect(function()
+			local time = (os.time() - cfginfo.edited) / 86400 
+
+			if time < 1 then
+				time = 'Today'
+			else
+				time = math.floor(time)
+			end
+
+			popup.Visible = true
+			amount.Text = `{time ~= 'Today' and time.. ' days' or time}`
+			description.Text = `Details\n\n<font tr=\"0.5\">{cfginfo.description or 'No context'}</font>`
+			info.Text = name
+			user.Text = `By {author}`
+		end)
+
+		config.MouseEnter:Connect(function()
+			tween:Tween(config, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+			})
+
+			tweenService:Create(uistroke, uipallet.Tween, {
+				Transparency = 0
+			}):Play()
+		end)
+
+		config.MouseLeave:Connect(function()
+			tween:Tween(config, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			})
+
+			tweenService:Create(uistroke, uipallet.Tween, {
+				Transparency = 1
+			}):Play()
+		end)
+	end
+
+	local function addSorting(name, func, options)
+		local size = options.Size
+		local enabled = options.On
+
+		local newsort = Instance.new('TextButton')
+		newsort.Name = name
+		newsort.Parent = sortframe
+		newsort.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+		newsort.BackgroundTransparency = enabled and 0 or 1
+		newsort.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		newsort.BorderSizePixel = 0
+		newsort.TextTransparency = 1
+		newsort.Size = size
+		
+		local label = Instance.new('TextLabel')
+		label.Parent = newsort
+		label.Name = 'label'
+		label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		label.BackgroundTransparency = 1.000
+		label.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		label.BorderSizePixel = 0
+		label.Size = UDim2.new(1, 0, 1, 0)
+		label.Font = Enum.Font.ArialBold
+		label.TextTransparency = enabled and 0 or 0.85
+		label.Text = name:upper()
+		label.TextColor3 = Color3.fromRGB(255, 255, 255)
+		label.TextSize = 10.000
+		
+		addCorner(newsort, UDim.new(1, 0))
+
+		local api = {
+			SetVisible = function(call)
+				for _, v in configapi.Sorts do
+					v.Window.BackgroundTransparency = 1
+					v.Window.label.TextTransparency = 0.85
+				end
+
+				newsort.BackgroundTransparency = call and 0 or 1
+				label.TextTransparency = call and 0 or 0.85
+			end,
+			ShowPopup = function() end,
+			Window = newsort
+		}
+
+		newsort.MouseButton1Click:Connect(function()
+			api:SetVisible(true)
+			sortfunc = name:lower()
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+			table.sort(configs, sortfuncs[sortfunc])
+
+			Refresh()
+
+			for _, v in configs do
+				addConfig(v.name, v.username, v)
+			end
+		end)
+
+		table.insert(configapi.Sorts, api)
+
+		return api
+	end
+
+	addSorting('newest', nil, {
+		Size = UDim2.new(0, 70, 1, 0),
+		On = true
+	})
+	
+	addSorting('oldest', nil, {
+		Size = UDim2.new(0, 70, 1, 0),
+		On = false
+	})
+
+	TextButton.MouseButton1Click:Connect(function()
+		local lol = configapi[info.Text]
+		if lol then
+			local awesome = `{lol.name} ({lol.username})`
+			local file = game:HttpGet(lol.link)
+			table.insert(mainapi.Profiles, {Name = awesome, Bind = {}})
+			mainapi:Save(awesome)
+			writefile('catrewrite/profiles/'..awesome..mainapi.Place..'.txt', file)
+			mainapi:Load(true, awesome)
+			mainapi:CreateNotification('Vape', `Downloaded "{info.Text}" by {lol.username}`, 5, 'info')
+		else
+			mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+		end
+	end)
+
+	publishb.MouseButton1Click:Connect(function()
+		configapi.ShowPopup(false)
+		local omgreal = SelectedConfig
+		SelectedConfig = 'default'
+
+		if confignbox.Text == '' then
+			mainapi:CreateNotification('Vape', 'No config name provided', 5, 'info')
+			return
+		end
+
+		mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
+
+		if request({
+			Url = 'https://api.catvape.info/configs',
+			Method = 'POST',
+			Headers = {
+				['Content-Type'] = 'application/json'
+			},
+			Body = httpService:JSONEncode({
+				username = getgenv().username,
+				password = getgenv().password,
+				config_name = confignbox.Text,
+				config = readfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt'),
+				description = configdbox.Text
+			})
+		}).Body == '"Success"' then
+			mainapi:CreateNotification('Vape', `Published "{omgreal}" config`, 15, 'info')
+			task.wait(1)
+			mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
+			task.wait(2)
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+			table.sort(configs, sortfuncs[sortfunc])
+
+			Refresh()
+
+			for _, v in configs do
+				addConfig(v.name, v.username, v)
+			end
+		else
+			mainapi:CreateNotification('Vape', `Failed to publish config`, 15, 'info')
+		end
+	end)
+
+	ImageLabel.MouseButton1Click:Connect(function()
+		mainapi:CreateNotification('Vape', `Deleting "{info.Text}" config`, 10, 'info')
+		
+		local lol = configapi[info.Text]
+
+		if lol then
+			local res = request({
+				Url = 'https://api.catvape.info/configs',
+				Method = 'DELETE',
+				Headers = {
+					['Content-Type'] = 'application/json'
+				},
+				Body = httpService:JSONEncode({
+					username = getgenv().username,
+					password = getgenv().password,
+					config = info.Text
+				})
+			}).Body
+
+			if res == '"success"' then
+				mainapi:CreateNotification('Vape', `Deleted ({info.Text}) config from public profiles`, 10, 'info')
+			else
+				mainapi:CreateNotification('Vape', `Failed to delete config ({info.Text})`, 10, 'warning')
+			end
+		else
+			mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+		end
+	end)
+
+	configcancel.MouseButton1Click:Connect(function()
+		configapi.ShowPopup(false)
+	end)
+
+	configapi.ShowPopup = function(call)
+		uploadconfirmationn.Visible = call
+		configdatas.Visible = call
+	end
+
+	configapi.ShowPopup(false)
+
+	profilemaker.MouseButton1Click:Connect(function()
+		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+		table.sort(configs, sortfuncs[sortfunc])
+
+		Refresh()
+
+		for _, v in configs do
+			addConfig(v.name, v.username, v)
+		end
+		configapi.ShowPopup(true)
+	end)
+
+	for _, v in httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs')) do
+		addConfig(v.name, v.username, v)
+	end
+
+	--self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+	window:GetPropertyChangedSignal('Visible'):Connect(function()
+		self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+		--visibleCheck()
+	end)
+	gridlayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+		print('hmm')
+		if self.ThreadFix then
+			setthreadidentity(8)
+		end
+		warn('reset')
+		children.CanvasSize = UDim2.fromOffset(0, gridlayout.AbsoluteContentSize.Y / scale.Scale)
+	end)
+
+	warn('omg!!')
+	self.PublicConfigs = configapi
+
+	return configapi
 end
 
 function mainapi:CreateNotification(title, text, duration, type, custom, customsize)
@@ -6023,6 +6864,7 @@ mainapi:Clean(targets.Update)
 
 mainapi:CreateLegit()
 mainapi:CreateSearch()
+mainapi:CreateProfileGUI()
 mainapi.Categories.Main:CreateOverlayBar()
 mainapi.Categories.Main:CreateSettingsDivider()
 
@@ -6595,6 +7437,21 @@ VapeLogo.Visible = false
 VapeLogo.BackgroundColor3 = Color3.new()
 VapeLogo.Image = getcustomasset('catrewrite/assets/new/textvape.png')
 VapeLogo.Parent = textgui.Children
+
+local ChristmasHat = Instance.new('ImageLabel')
+ChristmasHat.Name = 'Hat'
+ChristmasHat.Size = UDim2.fromOffset(21, 21)
+ChristmasHat.Position = UDim2.fromScale(0.8, -0.18)
+ChristmasHat.Rotation = 5
+ChristmasHat.BackgroundTransparency = 1
+ChristmasHat.Visible = false
+ChristmasHat.Image = getcustomasset('catrewrite/assets/new/christmashat.png')
+ChristmasHat.Parent = VapeLogo
+
+VapeLogo:GetPropertyChangedSignal('Visible'):Connect(function()
+	ChristmasHat.Visible = VapeLogo.Visible
+end)
+
 
 local lastside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
 mainapi:Clean(textgui.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()

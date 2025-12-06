@@ -7154,11 +7154,6 @@ LPH_NO_VIRTUALIZE(function()
 								local pivot = getrandompos(lplr.Character.PrimaryPart.Position)
 								createThunder(pivot)
 							end
-							if entitylib.isAlive then
-								local vector = lplr.Character.Humanoid.MoveDirection
-								vector *= -0.1
-								weatherlib.Rain:SetDirection(vector.Magnitude >= 0.1 and Vector3.new(1, 0 ,0) or Vector3.zero, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
-							end
 						end
 						task.wait()
 					until not weather.Enabled
