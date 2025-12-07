@@ -42,7 +42,8 @@ if not commit or commit == 'main' then
 end
 
 local cloneref = cloneref or function(ref) return ref end
-local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
+local lplr = cloneref(game:GetService('Players')).LocalPlayer
+local gethui = gethui or function() return lplr.PlayerGui end
 
 local inputService = cloneref(game:GetService('UserInputService'))
 local tweenService = cloneref(game:GetService('TweenService'))
@@ -405,6 +406,10 @@ if (not license.Developer and not shared.VapeDeveloper) then
 			pcall(downloadFile, `catrewrite/{v.path}`)
 		end
 	end
+end
+
+if not canDebug then
+	repeat task.wait() until lplr.Character and lplr.Character:FindFirstChild('Humanoid') and lplr.Character.Humanoid.Health > 0
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
