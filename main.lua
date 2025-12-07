@@ -175,6 +175,7 @@ end
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	shared.vape.Libraries.Cat = true
+	shared.vape.Libraries.pathfind = {}
 	makestage(4, 'Launching packages')
 	callback(function()
 		loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
@@ -194,10 +195,7 @@ if not shared.VapeIndependent then
 		end
 	end)
 
-	warn('working????????', success, result)
-
 	if success or not canDebug then
-		print('loading!!')
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
 		finishLoading()
 	else
