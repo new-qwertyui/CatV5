@@ -18,16 +18,6 @@ local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
 local commit = license.Commit or nil -- not meant to be downgradable
 
-if not commit then
-	local suc = pcall(function()
-		commit = (cloneref(game:GetService('HttpService')):JSONDecode(request({Url = 'https://api.catvape.info/version',Method = 'GET'}).Body).latest_commit or 'main')
-	end)
-
-	if not suc or not commit then
-		commit = 'main'
-	end
-end
-
 if not commit or commit == 'main' then
 	local _, subbed = pcall(function()
 		return game:HttpGet('https://github.com/new-qwertyui/CatV5')
