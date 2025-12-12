@@ -615,7 +615,7 @@ run(function()
 			if v.Name == "ComputerTable" then
 				if v.Screen.BrickColor ~= BrickColor.new("Dark green") then
 					local mag = (store.Beast.Character.HumanoidRootPart.Position - v.ComputerTrigger3.Position).magnitude
-					if mag > 70 then
+					if mag > 80 then
 						local s = 3
 						for i2, v2 in pairs(playersService:GetChildren()) do
 							local mag2 = (v2.Character.HumanoidRootPart.Position - v["ComputerTrigger"..s].Position).magnitude

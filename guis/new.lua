@@ -6186,9 +6186,21 @@ function mainapi:CreateProfileGUI()
 		configapi.ShowPopup(true)
 	end)
 
-	for _, v in httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs')) do
-		addConfig(v.name, v.username, v)
-	end
+	task.spawn(function()
+		for i = 1, 12 do
+			local suc, res = pcall(function()
+				return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+			end)
+
+			if suc and res then
+				for _, v in res do
+					addConfig(v.name, v.username, v)
+				end
+			else
+				task.wait(1)
+			end
+		end
+	end)
 
 	--self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
 	window:GetPropertyChangedSignal('Visible'):Connect(function()
