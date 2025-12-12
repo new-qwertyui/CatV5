@@ -38,6 +38,8 @@ local httpService = cloneref(game:GetService('HttpService'))
 local textChatService = cloneref(game:GetService("TextChatService"))
 local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 
+local updateSignal = Instance.new('BindableEvent')
+
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
 local notifications
@@ -4900,6 +4902,7 @@ function mainapi:CreateCategoryList(categorysettings)
 	end)
 	settings.MouseButton1Click:Connect(function()
 		clickgui.Visible = false
+		updateSignal:Fire()
 		self.PublicConfigs.Window.Visible = true
 		self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
 	end)
@@ -6186,12 +6189,12 @@ function mainapi:CreateProfileGUI()
 		configapi.ShowPopup(true)
 	end)
 
-	task.spawn(function()
-		for i = 1, 12 do
+	updateSignal.Event:Connect(function()
+		for i = 1, 4 do
 			local suc, res = pcall(function()
 				return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
 			end)
-
+			
 			if suc and res then
 				for _, v in res do
 					addConfig(v.name, v.username, v)
@@ -6208,15 +6211,12 @@ function mainapi:CreateProfileGUI()
 		--visibleCheck()
 	end)
 	gridlayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
-		print('hmm')
 		if self.ThreadFix then
 			setthreadidentity(8)
 		end
-		warn('reset')
 		children.CanvasSize = UDim2.fromOffset(0, gridlayout.AbsoluteContentSize.Y / scale.Scale)
 	end)
 
-	warn('omg!!')
 	self.PublicConfigs = configapi
 
 	return configapi
