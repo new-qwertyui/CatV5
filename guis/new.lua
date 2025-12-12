@@ -6642,7 +6642,7 @@ end
 
 gui = Instance.new('ScreenGui')
 gui.Name = randomString()
-gui.DisplayOrder = 9999999
+gui.DisplayOrder = 20
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 gui.IgnoreGuiInset = true
 gui.OnTopOfCoreBlur = not inputService.TouchEnabled
