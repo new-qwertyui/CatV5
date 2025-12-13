@@ -6642,10 +6642,10 @@ end
 
 gui = Instance.new('ScreenGui')
 gui.Name = randomString()
-gui.DisplayOrder = 20
+gui.DisplayOrder = 9999999
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 gui.IgnoreGuiInset = true
-gui.OnTopOfCoreBlur = not inputService.TouchEnabled
+gui.OnTopOfCoreBlur = true
 gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
 gui.ResetOnSpawn = false
 mainapi.gui = gui
