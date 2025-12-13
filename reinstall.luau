@@ -7,10 +7,12 @@ local StarterGui: StarterGui = cloneref(game:GetService('StarterGui'))
 if not getgenv().catvapedev then
     if isfolder('catrewrite') then
         for _, v: string in listfiles('catrewrite') do
-            if isfolder(v) then
-                delfolder(v)
-            elseif isfile(v) then
-                delfile(v)
+            if not v:find('profiles') then
+                if isfolder(v) then
+                    delfolder(v)
+                elseif isfile(v) then
+                    delfile(v)
+                end
             end
         end
 
