@@ -6727,7 +6727,9 @@ mainapi:Clean(scale:GetPropertyChangedSignal('Scale'):Connect(function()
 end))
 
 mainapi:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
-	mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+	pcall(function()
+		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+	end)
 	if clickgui.Visible and inputService.MouseEnabled then
 		repeat
 			local visibleCheck = clickgui.Visible
