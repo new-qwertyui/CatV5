@@ -406,7 +406,8 @@ if (not license.Developer and not shared.VapeDeveloper) then
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
-pcall(downloadFile, 'libraries/pathfind.lua')
+pcall(downloadFile, 'catrewrite/libraries/pathfind.lua')
+pcall(downloadFile, 'catrewrite/libraries/oldpath.lua')
 
 shared.VapeDeveloper = developer
 getgenv().used_init = true
