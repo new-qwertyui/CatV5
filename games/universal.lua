@@ -6950,7 +6950,7 @@ LPH_NO_VIRTUALIZE(function()
 			end
 		end
 		
-		Atmosphere = vape.Legit:CreateModule({
+		Atmosphere = vape.Categories.Legit:CreateModule({
 			Name = 'Atmosphere',
 			Function = function(callback)
 				if callback then
@@ -7221,7 +7221,7 @@ LPH_NO_VIRTUALIZE(function()
 			trail.FaceCamera = true
 		end
 		
-		Breadcrumbs = vape.Legit:CreateModule({
+		Breadcrumbs = vape.Categories.Legit:CreateModule({
 			Name = 'Breadcrumbs',
 			Function = function(callback)
 				if callback then
@@ -7336,7 +7336,7 @@ LPH_NO_VIRTUALIZE(function()
 			motor.Parent = part
 		end
 		
-		Cape = vape.Legit:CreateModule({
+		Cape = vape.Categories.Legit:CreateModule({
 			Name = 'Cape',
 			Function = function(callback)
 				if callback then
@@ -7403,7 +7403,7 @@ LPH_NO_VIRTUALIZE(function()
 		local Color
 		local hat
 		
-		ChinaHat = vape.Legit:CreateModule({
+		ChinaHat = vape.Categories.Legit:CreateModule({
 			Name = 'China Hat',
 			Function = function(callback)
 				if callback then
@@ -7665,7 +7665,7 @@ LPH_NO_VIRTUALIZE(function()
 			end
 		end
 		
-		Disguise = vape.Legit:CreateModule({
+		Disguise = vape.Categories.Legit:CreateModule({
 			Name = 'Disguise',
 			Function = function(callback)
 				if callback then
@@ -7704,7 +7704,7 @@ LPH_NO_VIRTUALIZE(function()
 		local Value
 		local oldfov
 		
-		FOV = vape.Legit:CreateModule({
+		FOV = vape.Categories.Legit:CreateModule({
 			Name = 'FOV',
 			Function = function(callback)
 				if callback then
@@ -8068,7 +8068,7 @@ LPH_NO_VIRTUALIZE(function()
 			end
 		end
 		
-		SongBeats = vape.Legit:CreateModule({
+		SongBeats = vape.Categories.Legit:CreateModule({
 			Name = 'Song Beats',
 			Function = function(callback)
 				if callback then
@@ -8198,7 +8198,7 @@ LPH_NO_VIRTUALIZE(function()
 		local Value
 		local old
 		
-		TimeChanger = vape.Legit:CreateModule({
+		TimeChanger = vape.Categories.Legit:CreateModule({
 			Name = 'Time Changer',
 			Function = function(callback)
 				if callback then
@@ -8226,8 +8226,10 @@ LPH_NO_VIRTUALIZE(function()
 		
 	run(function()
 		local InfiniteJump
+		local TPDown
 		local Mode
 		local jumps = 0
+
 		InfiniteJump = vape.Categories.Blatant:CreateModule({
 			Name = "Infinite Jump",
 			Tooltip = "Allows you to jump infinitely.",
@@ -8252,11 +8254,14 @@ LPH_NO_VIRTUALIZE(function()
 			Name = "Mode",
 			List = {"Jump", "Velocity"}
 		})
+		TPDown = InfiniteJump:CreateToggle({
+			Name = 'TP Down'
+		})
 	end)
 		
 	run(function()
 		local FPSBoost
-		FPSBoost = vape.Legit:CreateModule({
+		FPSBoost = vape.Categories.Legit:CreateModule({
 			Name = "FPS Boost",
 			Function = function(callback: boolean)
 				if callback then

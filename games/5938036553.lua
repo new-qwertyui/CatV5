@@ -1486,7 +1486,7 @@ run(function()
 	local DrawingToggle
 	local drawingobjs = {}
 	
-	BulletTracers = vape.Legit:CreateModule({
+	BulletTracers = vape.Categories.Legit:CreateModule({
 		Name = 'BulletTracers',
 		Function = function(callback)
 			if callback then 

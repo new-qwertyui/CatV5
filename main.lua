@@ -1,5 +1,3 @@
-repeat task.wait() until game:IsLoaded()
-
 local vape
 local closet = getgenv().closet
 local makestage = getgenv().makestage or function() end
@@ -45,14 +43,9 @@ local function finishLoading()
 	makestage(5, 'Finished!')
 
 	task.spawn(function()
-		local save, update = 0, os.clock() 
-
 		repeat
-			if os.clock() > save then
-				vape:Save()
-				save = os.clock() + 10
-			end
-			task.wait(1)
+			vape:Save()
+			task.wait(10)
 		until not vape.Loaded
 	end)
 
@@ -93,7 +86,7 @@ local function finishLoading()
 		if not vape.Categories then return end
 		task.spawn(pcall, function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
+				vape:CreateNotification('Finished Loading', UserInputService.TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
 				vape:CreateNotification('Cat', `Initialized as {(getgenv().username or 'Guest')} with role {getgenv().catrole or 'Basic'}`, 2.5, 'info')
 				task.wait(1)
@@ -159,7 +152,6 @@ end
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	shared.vape.Libraries.Cat = true
-	shared.vape.Libraries.pathfind = {}
 	makestage(4, 'Launching packages')
 	callback(function()
 		loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
@@ -179,8 +171,11 @@ if not shared.VapeIndependent then
 		end
 	end)
 
+	warn('working????????', success, result)
+
 	if success or not canDebug then
-		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
+		print('loading!!')
+		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), `Players.{cloneref(game:GetService('Players')).LocalPlayer.Name}.PlayerScripts.TS.controllers.games.bedwars.match-event.events.diamond-guardian.diamond-guardian-controller`)()
 		finishLoading()
 	else
 		task.spawn(error, result)

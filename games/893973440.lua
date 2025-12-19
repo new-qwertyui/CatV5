@@ -493,7 +493,7 @@ end)
 
 run(function()
 	local CameraUnlock
-	CameraUnlock = vape.Legit:CreateModule({
+	CameraUnlock = vape.Categories.Legit:CreateModule({
 		Name = "Camera Unlocker",
 		Tooltip = "Unlocks your camera to move freely.",
 		Function = function(callback: boolean)
@@ -538,7 +538,7 @@ run(function()
 end)
 
 run(function()
-	vape.Legit:CreateModule({
+	vape.Categories.Legit:CreateModule({
 		Name = "Gui Fixer",
 		Tooltip = "Fixes the gui being invisible.",
 		Function = function()
@@ -575,7 +575,7 @@ run(function()
 		end))
 	end
 	
-	Viewmodel = vape.Legit:CreateModule({
+	Viewmodel = vape.Categories.Legit:CreateModule({
 		Name = 'Viewmodel',
 		Function = function(callback)
 			if callback then 
@@ -615,7 +615,7 @@ run(function()
 			if v.Name == "ComputerTable" then
 				if v.Screen.BrickColor ~= BrickColor.new("Dark green") then
 					local mag = (store.Beast.Character.HumanoidRootPart.Position - v.ComputerTrigger3.Position).magnitude
-					if mag > 80 then
+					if mag > 70 then
 						local s = 3
 						for i2, v2 in pairs(playersService:GetChildren()) do
 							local mag2 = (v2.Character.HumanoidRootPart.Position - v["ComputerTrigger"..s].Position).magnitude

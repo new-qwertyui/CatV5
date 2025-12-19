@@ -4956,6 +4956,14 @@ function mainapi:CreateSearch()
 	searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
 	searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
 	searchicon.Parent = searchbkg
+	local legitbackground = Instance.new('Frame')
+	legitbackground.Name = 'Background'
+	legitbackground.Size = UDim2.fromOffset(35, 22)
+	legitbackground.Position = UDim2.fromOffset(5, 8)
+	legitbackground.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+	legitbackground.BackgroundTransparency = 0.7
+	legitbackground.Parent = searchbkg
+	addCorner(legitbackground)
 	local legiticon = Instance.new('ImageButton')
 	legiticon.Name = 'Legit'
 	legiticon.Size = UDim2.fromOffset(29, 16)
@@ -4963,6 +4971,16 @@ function mainapi:CreateSearch()
 	legiticon.BackgroundTransparency = 1
 	legiticon.Image = getcustomasset('catrewrite/assets/new/legit.png')
 	legiticon.Parent = searchbkg
+	--[[local legitlabel = Instance.new('TextLabel')
+	legitlabel.Name = 'LegitLabel'
+	legitlabel.Size = UDim2.fromOffset(29, 16)
+	legitlabel.Position = UDim2.fromOffset(31, 0)
+	legitlabel.BackgroundTransparency = 1
+	legitlabel.Parent = legiticon
+	legitlabel.FontFace = uipallet.Font
+	legitlabel.TextColor3 = Color3.new(1, 1, 1)
+	legitlabel.TextSize = 14
+	legitlabel.Text = 'Legit']]
 	local legitdivider = Instance.new('Frame')
 	legitdivider.Name = 'LegitDivider'
 	legitdivider.Size = UDim2.fromOffset(2, 12)
@@ -5055,7 +5073,7 @@ function mainapi:CreateSearch()
 		searchbkg.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 437))
 	end)
 
-	self.Legit.Icon = legiticon
+	pcall(function() self.Legit.Icon = legiticon end)
 end
 
 function mainapi:CreateLegit()
@@ -6727,9 +6745,7 @@ mainapi:Clean(scale:GetPropertyChangedSignal('Scale'):Connect(function()
 end))
 
 mainapi:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
-	pcall(function()
-		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
-	end)
+	mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
 	if clickgui.Visible and inputService.MouseEnabled then
 		repeat
 			local visibleCheck = clickgui.Visible
@@ -6786,6 +6802,11 @@ mainapi:CreateCategory({
 	Name = 'Minigames',
 	Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
 	Size = UDim2.fromOffset(19, 12)
+})
+mainapi:CreateCategory({
+	Name = 'Legit',
+	Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
+	Size = UDim2.fromOffset(14, 14)
 })
 mainapi.Categories.Main:CreateDivider('misc')
 

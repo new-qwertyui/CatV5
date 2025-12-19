@@ -167,6 +167,7 @@ local function getBestArmor(slot)
 
 	return closest
 end
+getgenv().getBestArmor = getBestArmor
 
 local function getBow()
 	local bestBow, bestBowSlot, bestBowDamage = nil, nil, 0
@@ -308,6 +309,8 @@ local function getShieldAttribute(char)
 	return returned
 end
 
+getgenv().getShieldAttribute = getShieldAttribute
+
 local damagedata = {
 	lastHit = os.clock(),
 	Value = 0,
@@ -390,11 +393,6 @@ end
 
 local function notif(...) return
 	vape:CreateNotification(...)
-end
-
-if not canDebug then
-	notif('Vape', `{({identifyexecutor()})[1]} Support is loaded, may take up to 10 seconds to load.`, 10, 'info')
-	task.wait(10)
 end
 
 local function removeTags(str)
@@ -771,6 +769,7 @@ run(function()
 		AppController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out.client.controllers['app-controller']).AppController,
 		BedBreakEffectMeta = require(replicatedStorage.TS.locker['bed-break-effect']['bed-break-effect-meta']).BedBreakEffectMeta,
 		BedwarsKitMeta = require(replicatedStorage.TS.games.bedwars.kit['bedwars-kit-meta']).BedwarsKitMeta,
+		BedwarsKitClass = require(replicatedStorage.TS.games.bedwars.kit.class['bedwars-class']).BedwarsClass,
 		BlockBreaker = Knit.Controllers.BlockBreakController.blockBreaker,
 		BlockController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out).BlockEngine,
 		BlockPlacer = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.client.placement['block-placer']).BlockPlacer,
@@ -1421,7 +1420,7 @@ run(function()
 		local items = collection('ItemDrop', vape)
 
 		repeat
-			if vape.Loaded and entitylib.isAlive and (vape.Modules.Fly.Enabled or vape.Modules['Infinite Jump'].Enabled or vape.Modules['Long Jump'].Enabled) then
+			if vape.Loaded and entitylib.isAlive and ((vape.Modules.Fly.Enabled and vape.Modules.Fly.Options['TP Down'].Enabled) or (vape.Modules['Infinite Jump'].Enabled and vape.Modules['Infinite Jump'].Options['TP Down'].Enabled) or vape.Modules['Long Jump'].Enabled) then
 				local excludes = items
 				table.insert(excludes, gameCamera)
 				table.insert(excludes, lplr.Character)
@@ -1827,7 +1826,7 @@ run(function()
 			if callback then
 				if inputService.TouchEnabled then 
 					pcall(function() 
-						lplr.PlayerGui.MobileUI['4'].Visible = false 
+						--lplr.PlayerGui.MobileUI['4'].Visible = false 
 					end) 
 				end
 				old = bedwars.SprintController.stopSprinting
@@ -3955,7 +3954,7 @@ run(function()
 	end
 	
 	AutoPlay = vape.Categories.Utility:CreateModule({
-		Name = 'Auto Play',
+		Name = 'Auto Queue',
 		Function = function(callback)
 			if callback then
 				AutoPlay:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
@@ -5067,6 +5066,7 @@ end)
 	
 run(function()
 	local ChestSteal
+	local Delay
 	local Range
 	local Open
 	local Skywars
@@ -5086,6 +5086,10 @@ run(function()
 							bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
 						end)
 					end)
+
+					if Delay.Value > 0 then
+						task.wait(Delay.Value)
+					end
 				end
 			end
 	
@@ -5130,6 +5134,16 @@ run(function()
 		Suffix = function(val)
 			return val == 1 and 'stud' or 'studs'
 		end
+	})
+	Delay = ChestSteal:CreateSlider({
+		Name = 'Loot Delay',
+		Min = 0,
+		Max = 10,
+		Default = 0,
+		Suffix = function(val)
+			return val == 1 and 'sec' or 'secs'
+		end,
+		Decimal = 5
 	})
 	Open = ChestSteal:CreateToggle({Name = 'GUI Check'})
 	Skywars = ChestSteal:CreateToggle({
@@ -7125,7 +7139,7 @@ run(function()
 	local List
 	local NameToId = {}
 	
-	BedBreakEffect = vape.Legit:CreateModule({
+	BedBreakEffect = vape.Categories.Legit:CreateModule({
 		Name = 'Bed Break Effect',
 		Function = function(callback)
 			if callback then
@@ -7155,7 +7169,7 @@ run(function()
 end)
 	
 run(function()
-	vape.Legit:CreateModule({
+	vape.Categories.Legit:CreateModule({
 		Name = 'Clean Kit',
 		Function = function(callback)
 			if callback then
@@ -7174,7 +7188,7 @@ run(function()
 	local old
 	local Image
 	
-	local Crosshair = vape.Legit:CreateModule({
+	local Crosshair = vape.Categories.Legit:CreateModule({
 		Name = 'Crosshair',
 		Function = function(callback)
 			if callback then
@@ -7219,7 +7233,7 @@ run(function()
 	tab = suc and tab or {}
 	local oldvalues, oldfont = {}
 	
-	DamageIndicator = vape.Legit:CreateModule({
+	DamageIndicator = vape.Categories.Legit:CreateModule({
 		Name = 'Damage Indicator',
 		Function = function(callback)
 			if callback then
@@ -7307,7 +7321,7 @@ run(function()
 	local Value
 	local old, old2
 	
-	FOV = vape.Legit:CreateModule({
+	FOV = vape.Categories.Legit:CreateModule({
 		Name = 'FOV',
 		Function = function(callback)
 			if callback then
@@ -7342,7 +7356,7 @@ run(function()
 	local Visualizer
 	local effects, util = {}, {}
 	
-	FPSBoost = vape.Legit:CreateModule({
+	FPSBoost = vape.Categories.Legit:CreateModule({
 		Name = 'FPS Boost',
 		Function = function(callback)
 			if callback then
@@ -7419,7 +7433,7 @@ run(function()
 	local Color
 	local done = {}
 	
-	HitColor = vape.Legit:CreateModule({
+	HitColor = vape.Categories.Legit:CreateModule({
 		Name = 'Hit Color',
 		Function = function(callback)
 			if callback then 
@@ -7453,7 +7467,7 @@ run(function()
 end)
 	
 run(function()
-	vape.Legit:CreateModule({
+	vape.Categories.Legit:CreateModule({
 		Name = 'Hit Fix',
 		Function = function(callback)
 			debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
@@ -7502,7 +7516,7 @@ if canDebug then
 			end
 		end
 		
-		Interface = vape.Legit:CreateModule({
+		Interface = vape.Categories.Legit:CreateModule({
 			Name = 'Interface',
 			Function = function(callback)
 				for i, v in (callback and new or old) do
@@ -7661,7 +7675,7 @@ run(function()
 		end
 	}
 	
-	KillEffect = vape.Legit:CreateModule({
+	KillEffect = vape.Categories.Legit:CreateModule({
 		Name = 'Kill Effect',
 		Function = function(callback)
 			if callback then
@@ -7815,7 +7829,7 @@ run(function()
 		end
 	end
 	
-	SongBeats = vape.Legit:CreateModule({
+	SongBeats = vape.Categories.Legit:CreateModule({
 		Name = 'Song Beats',
 		Function = function(callback)
 			if callback then
@@ -7892,7 +7906,7 @@ run(function()
 	local soundlist = {}
 	local old
 	
-	SoundChanger = vape.Legit:CreateModule({
+	SoundChanger = vape.Categories.Legit:CreateModule({
 		Name = 'Sound Changer',
 		Function = function(callback)
 			if callback then
@@ -7970,7 +7984,7 @@ if canDebug then
 			end
 		end
 		
-		UICleanup = vape.Legit:CreateModule({
+		UICleanup = vape.Categories.Legit:CreateModule({
 			Name = 'UI Cleanup',
 			Function = function(callback)
 				for i, v in (callback and new or old) do
@@ -8091,7 +8105,7 @@ run(function()
 	local Rots = {}
 	local old, oldc1
 	
-	Viewmodel = vape.Legit:CreateModule({
+	Viewmodel = vape.Categories.Legit:CreateModule({
 		Name = 'Viewmodel',
 		Function = function(callback)
 			local viewmodel = gameCamera:FindFirstChild('Viewmodel')
@@ -8198,7 +8212,7 @@ run(function()
 	local List
 	local NameToId = {}
 	
-	WinEffect = vape.Legit:CreateModule({
+	WinEffect = vape.Categories.Legit:CreateModule({
 		Name = 'Win Effect',
 		Function = function(callback)
 			if callback then

@@ -1,5 +1,5 @@
 if canDebug then
-	local run = pcall
+	local run = function(func) func() end
 	local cloneref = cloneref or function(obj) return obj end
 
 	local playersService = cloneref(game:GetService('Players'))
@@ -10,7 +10,7 @@ if canDebug then
 	local vape = shared.vape
 	local entitylib = vape.Libraries.entity
 	local sessioninfo = vape.Libraries.sessioninfo
-	local bedwars
+	local bedwars = {}
 
 	local function notif(...)
 		return vape:CreateNotification(...)
@@ -33,9 +33,9 @@ if canDebug then
 					require(lplr.PlayerScripts.TS.knit).setup, 9
 				) 
 			end)
-			if KnitInit then break end
+			if KnitInit then break else warn('error', Knit) end
 			task.wait()
-		until KnitInit or not canDebug
+		until KnitInit
 		if not debug.getupvalue(Knit.Start, 1) then
 			repeat task.wait() until debug.getupvalue(Knit.Start, 1)
 		end

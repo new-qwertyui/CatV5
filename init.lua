@@ -18,6 +18,14 @@ local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
 local commit = license.Commit or nil -- not meant to be downgradable
 
+local loadstring = function(...)
+	local res, err = loadstring(...)
+	if err then
+		error(err)
+	end
+	return res
+end
+
 if not commit or commit == 'main' then
 	local _, subbed = pcall(function()
 		return game:HttpGet('https://github.com/new-qwertyui/CatV5')
@@ -32,8 +40,7 @@ if not commit or commit == 'main' then
 end
 
 local cloneref = cloneref or function(ref) return ref end
-local lplr = cloneref(game:GetService('Players')).LocalPlayer
-local gethui = gethui or function() return lplr.PlayerGui end
+local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
 
 local inputService = cloneref(game:GetService('UserInputService'))
 local tweenService = cloneref(game:GetService('TweenService'))
@@ -398,11 +405,8 @@ if (not license.Developer and not shared.VapeDeveloper) then
 	end
 end
 
-if not canDebug then
-	repeat task.wait() until lplr.Character and lplr.Character:FindFirstChild('Humanoid') and lplr.Character.Humanoid.Health > 0
-end
-
 writefile('catrewrite/profiles/commit.txt', commit)
+pcall(downloadFile, 'libraries/pathfind.lua')
 
 shared.VapeDeveloper = developer
 getgenv().used_init = true
