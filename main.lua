@@ -9,6 +9,11 @@ local loadstring = function(...)
 	return res
 end
 local queue_on_teleport = queue_on_teleport or function() end
+
+if table.find({'Potassium'}, ({identifyexecutor()})[1]) then
+	queue_on_teleport = function() end
+end
+
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
 		return readfile(file)
