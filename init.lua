@@ -407,6 +407,7 @@ end
 
 writefile('catrewrite/profiles/commit.txt', commit)
 pcall(downloadFile, 'catrewrite/libraries/pathfind.lua')
+pcall(downloadFile, 'catrewrite/init.lua')
 pcall(downloadFile, 'catrewrite/libraries/oldpath.lua')
 
 shared.VapeDeveloper = developer
