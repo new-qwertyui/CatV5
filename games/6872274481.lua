@@ -7316,39 +7316,45 @@ run(function()
 	})
 end)
 	
-run(function()
-	local FOV
-	local Value
-	local old, old2
-	
-	FOV = vape.Categories.Legit:CreateModule({
-		Name = 'FOV',
-		Function = function(callback)
-			if callback then
-				old = bedwars.FovController.setFOV
-				old2 = bedwars.FovController.getFOV
-				bedwars.FovController.setFOV = function(self) 
-					return old(self, Value.Value) 
+if canDebug then
+	run(function()
+		local FOV
+		local Value
+		local old, old2
+		
+		FOV = vape.Categories.Legit:CreateModule({
+			Name = 'FOV',
+			Function = function(callback)
+				if callback then
+					old = bedwars.FovController.setFOV
+					old2 = bedwars.FovController.getFOV
+					bedwars.FovController.setFOV = function(self) 
+						return old(self, Value.Value) 
+					end
+					bedwars.FovController.getFOV = function() 
+						return Value.Value 
+					end
+					bedwars.FovController:setFOV(Value.Value)
+				else
+					bedwars.FovController.setFOV = old
+					bedwars.FovController.getFOV = old2
 				end
-				bedwars.FovController.getFOV = function() 
-					return Value.Value 
-				end
-				bedwars.FovController:setFOV(Value.Value)
-			else
-				bedwars.FovController.setFOV = old
-				bedwars.FovController.getFOV = old2
-			end
-			
-			bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
-		end,
-		Tooltip = 'Adjusts camera vision'
-	})
-	Value = FOV:CreateSlider({
-		Name = 'FOV',
-		Min = 30,
-		Max = 120
-	})
-end)
+				
+				bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
+			end,
+			Tooltip = 'Adjusts camera vision'
+		})
+		Value = FOV:CreateSlider({
+			Name = 'FOV',
+			Min = 30,
+			Max = 120
+		})
+	end)
+else
+	vape:Clean(gameCamera:GetPropertyChangedSignal('FieldOfView'):Connect(function()
+		bedwars.FovController:setFOV(gameCamera.FieldOfView)
+	end))
+end
 	
 run(function()
 	local FPSBoost
