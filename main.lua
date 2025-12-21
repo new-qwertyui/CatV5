@@ -60,9 +60,7 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
-				loadstring(readfile('catrewrite/init.lua'), 'init.lua')({
-					
-				})
+				loadstring(readfile('catrewrite/init.lua'), 'init.lua')({})
 			]]
 			if getgenv().catvapedev then
 				teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
@@ -176,10 +174,7 @@ if not shared.VapeIndependent then
 		end
 	end)
 
-	warn('working????????', success, result)
-
 	if success or not canDebug then
-		print('loading!!')
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'stupid ac mods like orion pmo - max')()
 		finishLoading()
 	else
