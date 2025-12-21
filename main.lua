@@ -180,7 +180,7 @@ if not shared.VapeIndependent then
 
 	if success or not canDebug then
 		print('loading!!')
-		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), `Players.{cloneref(game:GetService('Players')).LocalPlayer.Name}.PlayerScripts.TS.controllers.games.bedwars.match-event.events.diamond-guardian.diamond-guardian-controller`)()
+		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'stupid ac mods like orion pmo - max')()
 		finishLoading()
 	else
 		task.spawn(error, result)
