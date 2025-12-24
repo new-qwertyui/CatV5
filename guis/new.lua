@@ -20,7 +20,7 @@ local mainapi = {
 	Scale = {Value = 1},
 	ThreadFix = setthreadidentity and true or false,
 	ToggleNotifications = {},
-	Version = 'v4.500',
+	Version = 'CHRISTMAS',
 	Windows = {},
 	Indicators = {}
 }
@@ -533,7 +533,10 @@ local function removeTags(str)
 end
 
 do
-	local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
+	local res = {
+		Main = {220, 220, 220},
+		Text = {60, 60, 60}
+	} --isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
 	if res then 
 		uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
 		uipallet.Text = res.Main and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
