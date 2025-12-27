@@ -175,7 +175,7 @@ if not shared.VapeIndependent then
 	end)
 
 	if success or not canDebug then
-		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'stupid ac mods like orion pmo - max')()
+		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'diddy')()
 		finishLoading()
 	else
 		task.spawn(error, result)
