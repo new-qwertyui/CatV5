@@ -6504,6 +6504,14 @@ task.spawn(function()
 		button.Visible = true
 		button.Parent = main
 
+		pcall(function()
+			mainapi:Clean(function()
+				if button and button.Parent then
+					button:Destroy()
+				end
+			end)
+		end)
+
 		--makeDraggable(button)
 
 		local image = Instance.new('ImageLabel')
