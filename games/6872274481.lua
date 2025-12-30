@@ -8271,3 +8271,18 @@ run(function()
 		List = WinEffectName
 	})
 end)
+
+run(function()
+	local LeaveParty
+	LeaveParty = vape.Categories.Legit:CreateModule({
+		Name = 'Leave Party',
+		Function = function(callback)
+			if callback then
+				repeat task.wait() until store.matchState ~= 0 or not LeaveParty.Enabled
+				if not LeaveParty.Enabled then return end
+				bedwars.PartyController:leaveParty()
+			end
+		end,
+		Tooltip = 'Leaves ur own party'
+	})
+end)
