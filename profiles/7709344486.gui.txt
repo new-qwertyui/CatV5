@@ -1,0 +1,1 @@
+{"Categories":{"Radar":{"Position":{"Y":0,"X":0}},"RiseInterface":{"Position":{"Y":0,"X":0}},"Session Info":{"Position":{"Y":0,"X":0}},"Target Info":{"Position":{"Y":0,"X":0}},"Themes":{"Theme":"Blend"}},"Keybind":["RightShift"],"Profile":"default","Profiles":[{"Name":"default","Bind":[]}]}
