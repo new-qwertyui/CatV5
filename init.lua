@@ -6,7 +6,7 @@ repeat
 until game:IsLoaded()
 
 if loadonscreen then
-    task.wait(2)
+    task.wait(4)
 end
 
 if shared.vape then
