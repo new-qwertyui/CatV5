@@ -43,30 +43,9 @@ local function finishLoading()
 	makestage(5, 'Finished!')
 
 	task.spawn(function()
-		local save, update = 0, os.clock() 
-
 		repeat
-			if os.clock() > save then
-				vape:Save()
-				save = os.clock() + 10
-			end
-
-			pcall(function()
-				if os.clock() > update then
-					local newcommit = httpService:JSONDecode(request({
-						Url = 'https://api.catvape.info/version',
-						Method = 'GET'		
-					}).Body).latest_commit or 'main'
-
-					if newcommit ~= 'main' and newcommit ~= readfile('catrewrite/profiles/commit.txt') then
-						vape:CreateNotification('Cat', 'An update has been detected, Please re execute catvape to get the new changes', 45, 'info')
-					end
-					
-					update = os.clock() + (newcommit == 'main' and 120 or 25)
-				end
-			end)
-
-			task.wait()
+			vape:Save()
+			task.wait(10)
 		until not vape.Loaded
 	end)
 
@@ -108,7 +87,7 @@ local function finishLoading()
 		if not vape.Categories then return end
 		task.spawn(pcall, function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-				vape:CreateNotification('Finished Loading', UserInputService.TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
+				vape:CreateNotification('Finished Loading', cloneref(game:GetService('UserInputService')).TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
 				vape:CreateNotification('Cat', `Initialized as {(getgenv().username or 'Guest')} with role {getgenv().catrole or 'Basic'}`, 2.5, 'info')
 				task.wait(1)
@@ -192,8 +171,6 @@ if not shared.VapeIndependent then
 			end
 		end
 	end)
-
-	warn('working????????', success, result)
 
 	if success or not canDebug then
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')()
