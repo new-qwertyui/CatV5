@@ -48,7 +48,7 @@ local guiService = cloneref(game:GetService('GuiService'))
 local httpService = cloneref(game:GetService('HttpService'))
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
-gui.Enabled = not closet
+gui.Enabled = false
 
 local Connections: {RBXScriptConnection} = {}
 

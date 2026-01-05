@@ -6493,7 +6493,7 @@ end
 task.spawn(function()
 	local main = game:GetService('CoreGui'):WaitForChild('TopBarApp', 10):WaitForChild('TopBarApp', 10):WaitForChild('MenuIconHolder', 10):WaitForChild('TriggerPoint', 10):FindFirstChildOfClass('ImageButton')
 
-	if main then
+	if main and not inputService.KeyboardEnabled then
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(44, 44)
 		button.Position = UDim2.fromOffset(240, 0)
@@ -6503,14 +6503,6 @@ task.spawn(function()
 		button.Text = ''
 		button.Visible = true
 		button.Parent = main
-
-		pcall(function()
-			mainapi:Clean(function()
-				if button and button.Parent then
-					button:Destroy()
-				end
-			end)
-		end)
 
 		--makeDraggable(button)
 
@@ -6999,14 +6991,13 @@ guipane:CreateToggle({
 })
 guipane:CreateToggle({
 	Name = 'Show vape button',
-	Default = not inputService.KeyboardEnabled,
 	Function = function(enabled)
 		if mainapi.VapeButton then
 			mainapi.VapeButton.BackgroundTransparency = enabled and 0 or 1
 			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
-		  if not enabled and not inputService.KeyboardEnabled then
-		      mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
-		  end
+			if not enabled and not inputService.KeyboardEnabled then
+				mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+			end
 		end
 	end,
 })
@@ -7481,7 +7472,7 @@ VapeLogo.BackgroundColor3 = Color3.new()
 VapeLogo.Image = getcustomasset('catrewrite/assets/new/textvape.png')
 VapeLogo.Parent = textgui.Children
 
-local ChristmasHat = Instance.new('ImageLabel')
+--[[local ChristmasHat = Instance.new('ImageLabel')
 ChristmasHat.Name = 'Hat'
 ChristmasHat.Size = UDim2.fromOffset(21, 21)
 ChristmasHat.Position = UDim2.fromScale(0.8, -0.18)
@@ -7493,8 +7484,7 @@ ChristmasHat.Parent = VapeLogo
 
 VapeLogo:GetPropertyChangedSignal('Visible'):Connect(function()
 	ChristmasHat.Visible = VapeLogo.Visible
-end)
-
+end)]]
 
 local lastside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
 mainapi:Clean(textgui.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()

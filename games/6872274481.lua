@@ -210,11 +210,18 @@ end
 local function getSword()
 	local bestSword, bestSwordSlot, bestSwordDamage = nil, nil, 0
 	for slot, item in store.inventory.inventory.items do
-		local swordMeta = bedwars.ItemMeta[item.itemType].sword
-		if swordMeta then
-			local swordDamage = swordMeta.damage or 0
-			if swordDamage > bestSwordDamage then
-				bestSword, bestSwordSlot, bestSwordDamage = item, slot, swordDamage
+		if store.equippedKit == 'summoner' then
+			if item.itemType:find('summoner_claw') then
+				bestSword, bestSwordSlot = item, slot
+				break
+			end
+		else
+			local swordMeta = bedwars.ItemMeta[item.itemType].sword
+			if swordMeta then
+				local swordDamage = swordMeta.damage or 0
+				if swordDamage > bestSwordDamage then
+					bestSword, bestSwordSlot, bestSwordDamage = item, slot, swordDamage
+				end
 			end
 		end
 	end
@@ -4580,6 +4587,7 @@ end)
 run(function()
 	local ShopTierBypass
 	local tiered, nexttier = {}, {}
+	local old
 	
 	ShopTierBypass = vape.Categories.Utility:CreateModule({
 		Name = 'Shop Tier Bypass',
@@ -4593,6 +4601,18 @@ run(function()
 						v.nextTier = nil
 						v.tiered = nil
 					end
+
+					old = bedwars.Shop.getShop
+					bedwars.Shop.getShop = function(...)
+						local res = {old(...)}
+
+						for i, v in res[1] do
+							v.nextTier = nil
+							v.tiered = nil
+						end
+
+						return unpack(res)
+					end
 				end
 			else
 				for i, v in tiered do
@@ -4600,6 +4620,10 @@ run(function()
 				end
 				for i, v in nexttier do
 					i.nextTier = v
+				end
+				if old then
+					bedwars.Shop.getShop = old
+					old = nil
 				end
 				table.clear(nexttier)
 				table.clear(tiered)
@@ -8271,20 +8295,5 @@ run(function()
 	List = WinEffect:CreateDropdown({
 		Name = 'Effects',
 		List = WinEffectName
-	})
-end)
-
-run(function()
-	local LeaveParty
-	LeaveParty = vape.Categories.Legit:CreateModule({
-		Name = 'Leave Party',
-		Function = function(callback)
-			if callback then
-				repeat task.wait() until store.matchState ~= 0 or not LeaveParty.Enabled
-				if not LeaveParty.Enabled then return end
-				bedwars.PartyController:leaveParty()
-			end
-		end,
-		Tooltip = 'Leaves ur own party'
 	})
 end)
