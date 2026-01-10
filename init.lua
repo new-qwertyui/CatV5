@@ -6,7 +6,7 @@ repeat
 until game:IsLoaded()
 
 if loadonscreen then
-    task.wait(4)
+    task.wait(1.5)
 end
 
 if shared.vape then
@@ -88,7 +88,7 @@ local function addCallback(image : ImageLabel | ImageButton, ...)
 	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
-if closet then
+if not developer then
 	task.spawn(function()
 		repeat
 			for _, v in getconnections(game:GetService('LogService').MessageOut) do
@@ -406,9 +406,6 @@ if (not license.Developer and not shared.VapeDeveloper) then
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
-pcall(downloadFile, 'catrewrite/libraries/pathfind.lua')
-pcall(downloadFile, 'catrewrite/init.lua')
-pcall(downloadFile, 'catrewrite/libraries/oldpath.lua')
 
 shared.VapeDeveloper = developer
 getgenv().used_init = true

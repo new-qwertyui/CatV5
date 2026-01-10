@@ -40,6 +40,7 @@ local starterGui = cloneref(game:GetService('StarterGui'))
 local isnetworkowner = isnetworkowner or function()
 	return true
 end
+local mouse1click = mouse1click or function() end
 local gameCamera = workspace.CurrentCamera
 local lplr = playersService.LocalPlayer
 local assetfunction = getcustomasset
@@ -95,7 +96,7 @@ local function addBlur(parent)
 end
 
 local function downloadFile(path, func)
-	if not isfile(path) or not shared.VapeDeveloper then
+	if not isfile(path) then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
@@ -520,7 +521,7 @@ run(function()
 	local connected = lplr:GetAttribute('PlayerConnected')
 	repeat
 		task.wait()
-	until lplr:GetAttribute('PlayerConnected')
+	until lplr:GetAttribute('PlayerConnected') and entitylib
 
 	if not connected then
 		task.wait(2 :: number)
@@ -543,13 +544,15 @@ run(function()
 	entitylib.start = function()
 		oldstart()
 		if entitylib.Running then
-			for _, ent in collectionService:GetTagged('entity') do
-				customEntity(ent)
+			for __, tag in {'entity', 'trainingRoomDummy'} do
+				for _, ent in collectionService:GetTagged(tag) do
+					customEntity(ent)
+				end
+				table.insert(entitylib.Connections, collectionService:GetInstanceAddedSignal(tag):Connect(customEntity))
+				table.insert(entitylib.Connections, collectionService:GetInstanceRemovedSignal(tag):Connect(function(ent)
+					entitylib.removeEntity(ent)
+				end))
 			end
-			table.insert(entitylib.Connections, collectionService:GetInstanceAddedSignal('entity'):Connect(customEntity))
-			table.insert(entitylib.Connections, collectionService:GetInstanceRemovedSignal('entity'):Connect(function(ent)
-				entitylib.removeEntity(ent)
-			end))
 		end
 	end
 
@@ -738,19 +741,13 @@ local canDebug = getgenv().canDebug or false
 
 if not canDebug then
 	local function cache(Name : string)
-		return libraries[Name]
-			or isfile(`catrewrite/cache/{Name}.json`)
-			and httpService:JSONDecode(readfile(`catrewrite/cache/{Name}.json`))
+		return libraries[Name]:await()
 	end
 
 	require = function(ins)
 		local Name = ins:GetFullName():gsub(lplr.Name, 'PlayerTemplate')
 		local Result = cache(Name)
-
-		if not Result then
-			return {}
-		end
-
+		
 		return Result
 	end
 	getgenv().require = require
@@ -763,7 +760,7 @@ run(function()
 
 	repeat
 		KnitInit, Knit = pcall(function()
-			return require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient --> thanks lr
+			return require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient 
 		end)
 		if KnitInit then break end
 		task.wait()
@@ -841,7 +838,7 @@ run(function()
 		Roact = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts']['roact'].src),
 		RuntimeLib = require(replicatedStorage['rbxts_include'].RuntimeLib),
 		SoundList = require(replicatedStorage.TS.sound['game-sound']).GameSound,
-		SoundManager = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).SoundManager,
+		SoundManager = canDebug and require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).SoundManager or libraries.SoundUtil,
 		Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore,
 		TeamUpgradeMeta = canDebug and debug.getupvalue(require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).getTeamUpgradeMetaForQueue, 6) or require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).OGTeamUpgrades,
 		PyroUpgradeMeta = require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).FlamethrowerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).getFlamethrowerUpgradeMeta, 1),
@@ -855,10 +852,7 @@ run(function()
 		BlockSelector = require(replicatedStorage.rbxts_include.node_modules['@easy-games']['block-engine'].out.client.select['block-selector']).BlockSelector
 	}, {
 		__index = function(self, ind)
-			local Controller = canDebug and Knit.Controllers[ind] or (libraries.KnitControllers[ind] or Knit.Controllers[ind])
-
-			rawset(self, ind, Controller)
-
+			rawset(self, ind, Knit.Controllers[ind])
 			return rawget(self, ind)
 		end
 	}) -- w lr 
@@ -999,6 +993,7 @@ run(function()
 		return call
 	end
 
+
 	bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
 		local obj = bedwars.BlockController:getStore():getBlockAt(breakTable.blockPosition)
 
@@ -1014,7 +1009,9 @@ run(function()
 	end
 
 	local cache, blockhealthbar = {}, {blockHealth = -1, breakingBlockPosition = Vector3.zero}
-	store.blockPlacer = bedwars.BlockPlacer.new(bedwars.BlockEngine, 'wool_white')
+	if canDebug then
+		store.blockPlacer = bedwars.BlockPlacer.new(bedwars.BlockEngine, 'wool_white')
+	end
 
 	local function getBlockHealth(block, blockpos)
 		local blockdata = bedwars.BlockController:getStore():getBlockData(blockpos)
@@ -1105,11 +1102,22 @@ run(function()
 
 		local positions = (handler and handler:getContainedPositions(block) or {block.Position / 3})
 
-		for _, v in positions do
-			local dpos, dcost, dpath = calculatePath(block, v * 3)
-			local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
-			if dpos and dcost < cost and dmag < mag then
-				cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
+		if not canDebug then
+			pos = positions[2] or positions[1]
+			target = positions[2]
+			path = {}
+			if positions[2] then
+				path[positions[2]] = positions[2] - Vector3.new(0, 3, 0)
+			end
+
+			path[positions[1]] = positions[1] - Vector3.new(0, 3, 0)
+		else
+			for _, v in positions do
+				local dpos, dcost, dpath = calculatePath(block, v * 3)
+				local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
+				if dpos and dcost < cost and dmag < mag then
+					cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
+				end
 			end
 		end
 
@@ -1185,6 +1193,8 @@ run(function()
 				return pos, path, target
 			end
 		end
+
+		return
 	end
 
 	for _, v in Enum.NormalId:GetEnumItems() do
@@ -1471,135 +1481,6 @@ for _, v in {'Anti Ragdoll', 'Trigger Bot', 'Silent Aim', 'Auto Rejoin', 'Rejoin
 	vape:Remove(v)
 end
 
-run(function()
-	local AimAssist
-	local Third
-	local Targets
-	local Sort
-	local AimSpeed
-	local Distance
-	local AngleSlider
-	local StrafeIncrease
-	local KillauraTarget
-	local ClickAim
-	local Shake
-
-	AimAssist = vape.Categories.Combat:CreateModule({
-		Name = 'Aim Assist',
-		Function = function(callback)
-			if callback then
-				AimAssist:Clean(runService.Heartbeat:Connect(function(dt)
-					if entitylib.isAlive and store.hand.toolType == 'sword' and ((not ClickAim.Enabled) or (tick() - bedwars.SwordController.lastSwing) < 0.4) then
-						local ent = not KillauraTarget.Enabled and entitylib.EntityPosition({
-							Range = Distance.Value,
-							Part = 'RootPart',
-							Wallcheck = Targets.Walls.Enabled,
-							Players = Targets.Players.Enabled,
-							NPCs = Targets.NPCs.Enabled,
-							Sort = sortmethods[Sort.Value]
-						}) or store.KillauraTarget
-
-						if ent then
-							local delta = (ent.RootPart.Position - entitylib.character.RootPart.Position)
-							local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
-							local angle = math.acos(localfacing:Dot((delta * Vector3.new(1, 0, 1)).Unit))
-							if angle >= (math.rad(AngleSlider.Value) / 2) then return end
-							
-							targetinfo.Targets[ent] = tick() + 1
-							local rng = Random.new()
-								
-							local targetPos = ent.RootPart.Position
-							
-							local shake = Vector3.new(
-								(rng:NextNumber() - 0.5) * Shake.Value * 0.1,
-								(rng:NextNumber() - 0.5) * Shake.Value * 0.1,
-								(rng:NextNumber() - 0.5) * Shake.Value * 0.1
-							)
-							targetPos += shake
-
-							local speed = (AimSpeed.Value + (StrafeIncrease.Enabled and (inputService:IsKeyDown(Enum.KeyCode.A) or inputService:IsKeyDown(Enum.KeyCode.D)) and 10 or 0))
-							if Third.Enabled then
-								entitylib.character.RootPart.CFrame = entitylib.character.RootPart.CFrame:Lerp(
-									CFrame.lookAt(entitylib.character.RootPart.CFrame.p, 
-									Vector3.new(ent.RootPart.Position.X, entitylib.character.RootPart.Position.Y, ent.RootPart.Position.Z)), speed * dt) -- w format
-							else
-								gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, targetPos), speed * dt)
-							end
-						end
-					end
-				end))
-			end
-		end,
-		Tooltip = 'Smoothly aims to closest valid target with sword'
-	})
-
-	Targets = AimAssist:CreateTargets({
-		Players = true,
-		Walls = true
-	})
-
-	local methods = {'Damage', 'Distance'}
-	for i in sortmethods do
-		if not table.find(methods, i) then
-			table.insert(methods, i)
-		end
-	end
-
-	Sort = AimAssist:CreateDropdown({
-		Name = 'Target Mode',
-		List = methods
-	})
-
-	AimSpeed = AimAssist:CreateSlider({
-		Name = 'Aim Speed',
-		Min = 1,
-		Max = 20,
-		Default = 6
-	})
-
-	Distance = AimAssist:CreateSlider({
-		Name = 'Distance',
-		Min = 1,
-		Max = 30,
-		Default = 30,
-		Suffx = function(val)
-			return val == 1 and 'stud' or 'studs'
-		end
-	})
-
-	AngleSlider = AimAssist:CreateSlider({
-		Name = 'Max angle',
-		Min = 1,
-		Max = 360,
-		Default = 70
-	})
-
-	Shake = AimAssist:CreateSlider({
-		Name = 'Shake',
-		Min = 0,
-		Max = 100,
-		Default = 0,
-		Tooltip = 'Adds random jitter to simulate human aim lmfao xd'
-	})
-
-	ClickAim = AimAssist:CreateToggle({
-		Name = 'Click Aim',
-		Default = true
-	})
-
-	KillauraTarget = AimAssist:CreateToggle({
-		Name = 'Use killaura target'
-	})
-
-	Third = AimAssist:CreateToggle({
-		Name = 'Third person aim'
-	})
-
-	StrafeIncrease = AimAssist:CreateToggle({
-		Name = 'Strafe increase'
-	})
-end)
-	
 --[[run(function()
 	local old
 	
@@ -1673,14 +1554,22 @@ run(function()
 				if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
 					local blockPlacer = bedwars.BlockPlacementController.blockPlacer
 					if store.hand.toolType == 'block' and blockPlacer then
-						if (workspace:GetServerTimeNow() - bedwars.BlockCpsController.lastPlaceTimestamp) >= ((1 / 12) * 0.5) then
-							local mouseinfo = blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
-							if mouseinfo and mouseinfo.placementPosition == mouseinfo.placementPosition then
-								task.spawn(blockPlacer.placeBlock, blockPlacer, mouseinfo.placementPosition)
+						if canDebug then
+							if (workspace:GetServerTimeNow() - bedwars.BlockCpsController.lastPlaceTimestamp) >= ((1 / 12) * 0.5) then
+								local mouseinfo = blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
+								if mouseinfo and mouseinfo.placementPosition == mouseinfo.placementPosition then
+									task.spawn(blockPlacer.placeBlock, blockPlacer, mouseinfo.placementPosition)
+								end
 							end
+						else
+							mouse1click()
 						end
 					elseif store.hand.toolType == 'sword' then
-						bedwars.SwordController:swingSwordAtMouse(0.39)
+						if canDebug then
+							bedwars.SwordController:swingSwordAtMouse(0.39)
+						else
+							mouse1click()
+						end
 					end
 				end
 	
@@ -2503,8 +2392,10 @@ run(function()
 	vape.Categories.Blatant:CreateModule({
 		Name = 'KeepSprint',
 		Function = function(callback)
-			debug.setconstant(bedwars.SprintController.startSprinting, 5, callback and 'blockSprinting' or 'blockSprint')
-			bedwars.SprintController:stopSprinting()
+			if canDebug then
+				debug.setconstant(bedwars.SprintController.startSprinting, 5, callback and 'blockSprinting' or 'blockSprint')
+				bedwars.SprintController:stopSprinting()
+			end
 		end,
 		Tooltip = 'Lets you sprint with a speed potion.'
 	})
@@ -2528,7 +2419,7 @@ run(function()
 		switchItem(item.tool, 0)
 		task.wait(0.1)
 		bedwars.ProjectileController:createLocalProjectile(bedwars.ProjectileMeta[proj], proj, proj, shootPosition.Position, '', shootPosition.LookVector * speed, {drawDurationSeconds = 1})
-		if projectileRemote:InvokeServer(item.tool, proj, proj, shootPosition.Position, pos, shootPosition.LookVector * speed, httpService:GenerateGUID(true), {drawDurationSeconds = 1}, workspace:GetServerTimeNow() - 0.045) then
+		if projectileRemote:InvokeServer(item.tool, proj, proj, shootPosition.Position, pos, shootPosition.LookVector * speed, httpService:GenerateGUID(true), {shotId = httpService:GenerateGUID(false), drawDurationSec = 1}, workspace:GetServerTimeNow() - 0.045) then
 			local shoot = bedwars.ItemMeta[item.itemType].projectileSource.launchSound
 			shoot = shoot and shoot[math.random(1, #shoot)] or nil
 			if shoot then
@@ -2669,7 +2560,6 @@ run(function()
 							JumpSpeed = knockbackBoost
 							JumpTick = tick() + 2.5
 							Direction = Vector3.new(vec.X, 0, vec.Z).Unit
-							warn(vec.Magnitude, vec)
 						end
 					end
 				end))
@@ -2707,7 +2597,7 @@ run(function()
 					end
 				end))
 	
-				if store.hand and LongJumpMethods[store.hand.tool.Name] then
+				if store.hand and store.hand.tool and LongJumpMethods[store.hand.tool.Name] then
 					task.spawn(LongJumpMethods[store.hand.tool.Name], getItem(store.hand.tool.Name), start, (CameraDir.Enabled and gameCamera or entitylib.character.RootPart).CFrame.LookVector)
 					return
 				end
@@ -7292,24 +7182,26 @@ run(function()
 	DamageIndicator = vape.Categories.Legit:CreateModule({
 		Name = 'Damage Indicator',
 		Function = function(callback)
-			if callback then
-				oldvalues = table.clone(tab)
-				oldfont = debug.getconstant(bedwars.DamageIndicator, 86)
-				debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[FontOption.Value])
-				debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
-				tab.strokeThickness = Stroke.Enabled and 1 or false
-				tab.textSize = Size.Value
-				tab.blowUpSize = Size.Value
-				tab.blowUpDuration = 0
-				tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
-				tab.blowUpCompleteDuration = 0
-				tab.anchoredDuration = Anchor.Value
-			else
-				for i, v in oldvalues do
-					tab[i] = v
+			if canDebug then
+				if callback then
+					oldvalues = table.clone(tab)
+					oldfont = debug.getconstant(bedwars.DamageIndicator, 86)
+					debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[FontOption.Value])
+					debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
+					tab.strokeThickness = Stroke.Enabled and 1 or false
+					tab.textSize = Size.Value
+					tab.blowUpSize = Size.Value
+					tab.blowUpDuration = 0
+					tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+					tab.blowUpCompleteDuration = 0
+					tab.anchoredDuration = Anchor.Value
+				else
+					for i, v in oldvalues do
+						tab[i] = v
+					end
+					debug.setconstant(bedwars.DamageIndicator, 86, oldfont)
+					debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
 				end
-				debug.setconstant(bedwars.DamageIndicator, 86, oldfont)
-				debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
 			end
 		end,
 		Tooltip = 'Customize the damage indicator'
@@ -7395,7 +7287,9 @@ run(function()
 				bedwars.FovController.getFOV = old2
 			end
 			
-			bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
+			if canDebug then
+				bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
+			end
 		end,
 		Tooltip = 'Adjusts camera vision'
 	})
@@ -7526,8 +7420,10 @@ run(function()
 	vape.Categories.Legit:CreateModule({
 		Name = 'Hit Fix',
 		Function = function(callback)
-			debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
-			debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
+			if canDebug then
+				debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
+				debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
+			end
 		end,
 		Tooltip = 'Changes the raycast function to the correct one'
 	})

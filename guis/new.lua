@@ -6808,6 +6808,13 @@ mainapi:CreateCategory({
 	Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
 	Size = UDim2.fromOffset(14, 14)
 })
+if game.GameId == 2619619496 then
+	mainapi:CreateCategory({
+		Name = 'Kits',
+		Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+end
 mainapi.Categories.Main:CreateDivider('misc')
 
 --[[

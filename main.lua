@@ -50,38 +50,40 @@ local function finishLoading()
 	end)
 
 	local teleportedServers
-	vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
-		if (not teleportedServers) and (not shared.VapeIndependent) then
-			teleportedServers = true
-			local teleportScript = [[
-				shared.vapereload = true
-				loadstring(readfile('catrewrite/init.lua'), 'init.lua')({
-					Username = "tpusername",
-					Password = "tppassword"
-				})
-			]]
-			if getgenv().catvapedev then
-				teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
+	if not table.find({'Bunni', 'Potassium'}, ({identifyexecutor()})[1]) then
+		vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
+			if (not teleportedServers) and (not shared.VapeIndependent) then
+				teleportedServers = true
+				local teleportScript = [[
+					shared.vapereload = true
+					loadstring(readfile('catrewrite/init.lua'), 'init.lua')({
+						Username = "tpusername",
+						Password = "tppassword"
+					})
+				]]
+				if getgenv().catvapedev then
+					teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
+				end
+				if shared.VapeDeveloper then
+					teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
+				end
+				if getgenv().username then
+					teleportScript = teleportScript:gsub('tpusername', (getgenv().username or ''))
+				end
+				if getgenv().password then
+					teleportScript = teleportScript:gsub('tppassword', (getgenv().password or ''))
+				end
+				if getgenv().closet then
+					teleportScript = 'getgenv().closet = true\n'.. teleportScript
+				end
+				if shared.VapeCustomProfile then
+					teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
+				end
+				vape:Save()
+				queue_on_teleport(teleportScript)
 			end
-			if shared.VapeDeveloper then
-				teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
-			end
-			if getgenv().username then
-				teleportScript = teleportScript:gsub('tpusername', getgenv().username)
-			end
-			if getgenv().password then
-				teleportScript = teleportScript:gsub('tppassword', getgenv().password)
-			end
-			if getgenv().closet then
-				teleportScript = 'getgenv().closet = true\n'.. teleportScript
-			end
-			if shared.VapeCustomProfile then
-				teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
-			end
-			vape:Save()
-			queue_on_teleport(teleportScript)
-		end
-	end))
+		end))
+	end
 
 	if not shared.vapereload then
 		if not vape.Categories then return end
@@ -172,9 +174,10 @@ if not shared.VapeIndependent then
 		end
 	end)
 
+	warn('working????????', success, result)
+
 	if success or not canDebug then
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')()
-		callback(function() vape:Remove('Float Disabler') end)
 		finishLoading()
 	else
 		task.spawn(error, result)
