@@ -857,6 +857,17 @@ run(function()
 		end
 	}) -- w lr 
 
+	local oldDispatch = bedwars.Store.dispatch
+	bedwars.Store.dispatch = function(...)
+		local arg = select(2, ...)
+
+		if arg and typeof(arg) == 'table' and arg.type == 'IncrementTaxState' and vape.Modules['Shop Tax Bypass'] and vape.Modules['Shop Tax Bypass'].Enabled then
+			return
+		end -- w leak
+		
+		return oldDispatch(...)
+	end
+
 	local function getproto(...)
 		local gp = debug.getproto or error
 
