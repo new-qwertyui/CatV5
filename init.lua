@@ -88,7 +88,7 @@ local function addCallback(image : ImageLabel | ImageButton, ...)
 	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
-if not developer then
+if not developer and getconnections then
 	task.spawn(function()
 		repeat
 			for _, v in getconnections(game:GetService('LogService').MessageOut) do
