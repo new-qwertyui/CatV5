@@ -405,6 +405,8 @@ if (not license.Developer and not shared.VapeDeveloper) then
 	end
 end
 
+pcall(downloadFile, 'libraries/oldpath.lua')
+pcall(downloadFile, 'libraries/pathfind.lua')
 writefile('catrewrite/profiles/commit.txt', commit)
 
 shared.VapeDeveloper = developer
