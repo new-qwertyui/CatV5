@@ -6,7 +6,7 @@ repeat
 until game:IsLoaded()
 
 if loadonscreen then
-    task.wait(1.5)
+    task.wait(4.5)
 end
 
 if shared.vape then
@@ -88,7 +88,7 @@ local function addCallback(image : ImageLabel | ImageButton, ...)
 	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
-if not developer and getconnections then
+if not developer then
 	task.spawn(function()
 		repeat
 			for _, v in getconnections(game:GetService('LogService').MessageOut) do
@@ -393,10 +393,20 @@ if (not license.Developer and not shared.VapeDeveloper) then
 			pcall(downloadFile, `catrewrite/{v.path}`)
 		end
 	end
+	
+	if not canDebug and Updated then
+		makestage(2, `Downloading {({identifyexecutor()})[1]} support, this may take a bit`)
+	
+		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
+
+		for _, v in req do
+			pcall(downloadFile, `catrewrite/{v.path}`)
+		end
+	end
 end
 
-pcall(downloadFile, 'catrewrite/libraries/oldpath.lua')
-pcall(downloadFile, 'catrewrite/libraries/pathfind.lua')
+pcall(downloadFile, 'libraries/oldpath.lua')
+pcall(downloadFile, 'libraries/pathfind.lua')
 writefile('catrewrite/profiles/commit.txt', commit)
 
 shared.VapeDeveloper = developer
