@@ -217,6 +217,10 @@ entitylib.AllPosition = function(entitysettings)
 			return a.Magnitude < b.Magnitude
 		end)
 
+		if entitysettings.Priority then
+			table.sort(sortingTable, entitysettings.Priority)
+		end
+
 		table.sort(sortingTable, function(a, b)
 			return shared.vape.hackerTable[a] and not shared.vape.hackerTable[b]
 		end)

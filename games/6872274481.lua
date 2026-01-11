@@ -1,15 +1,10 @@
 
 local run = function(func)
-	func()
-end
+	local suc, err = pcall(func)
 
-
-local loadstring = function(...)
-	local res, err = loadstring(...)
-	if err and vape then
-		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+	if not suc then
+		warn(err)
 	end
-	return res
 end
 
 local cloneref = cloneref or function(obj)
@@ -56,6 +51,15 @@ local whitelist = vape.Libraries.whitelist
 local prediction = vape.Libraries.prediction
 local getfontsize = vape.Libraries.getfontsize
 local getcustomasset = vape.Libraries.getcustomasset
+
+local loadstring = function(...)
+	local res, err = loadstring(...)
+	if err and vape then
+		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+	end
+	return res
+end
+
 
 local store = {
 	contracts = {},
@@ -969,42 +973,43 @@ run(function()
 		
 	OldBreak = bedwars.BlockController.isBlockBreakable
 
-	Client.Get = function(self, remoteName)
-		local call = OldGet(self, remoteName)
+	if canDebug then
+		Client.Get = function(self, remoteName)
+			local call = OldGet(self, remoteName)
 
-		if remoteName == remotes.AttackEntity then
-			return {
-				instance = call.instance,
-				SendToServer = function(_, attackTable, ...)
-					local suc, plr = pcall(function()
-						return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
-					end)
+			if remoteName == remotes.AttackEntity then
+				return {
+					instance = call.instance,
+					SendToServer = function(_, attackTable, ...)
+						local suc, plr = pcall(function()
+							return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
+						end)
 
-					local selfpos = attackTable.validate.selfPosition.value
-					local targetpos = attackTable.validate.targetPosition.value
-					store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
-					store.attackReachUpdate = tick() + 1
+						local selfpos = attackTable.validate.selfPosition.value
+						local targetpos = attackTable.validate.targetPosition.value
+						store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
+						store.attackReachUpdate = tick() + 1
 
-					if Reach.Enabled or HitBoxes.Enabled then
-						attackTable.validate.raycast = attackTable.validate.raycast or {}
-						attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+						if Reach.Enabled or HitBoxes.Enabled then
+							attackTable.validate.raycast = attackTable.validate.raycast or {}
+							attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+						end
+
+						if suc and plr then
+							if not select(2, whitelist:get(plr)) then return end
+							if table.find(vape.Libraries.whitelist.ignores, plr) then return end
+						end
+
+						return call:SendToServer(attackTable, ...)
 					end
+				}
+			elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
+				return {SendToServer = function() end}
+			end
 
-					if suc and plr then
-						if not select(2, whitelist:get(plr)) then return end
-						if table.find(vape.Libraries.whitelist.ignores, plr) then return end
-					end
-
-					return call:SendToServer(attackTable, ...)
-				end
-			}
-		elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
-			return {SendToServer = function() end}
+			return call
 		end
-
-		return call
 	end
-
 
 	bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
 		local obj = bedwars.BlockController:getStore():getBlockAt(breakTable.blockPosition)
@@ -1259,6 +1264,15 @@ run(function()
 	local storeChanged = bedwars.Store.changed:connect(updateStore)
 	updateStore(bedwars.Store:getState(), {})
 
+	if not canDebug then
+		vape:Clean(task.spawn(function()
+			repeat
+				task.wait(0.5)
+				updateStore(bedwars.Store:getState(), {})
+			until false
+		end))
+	end
+
 	for _, event in {'MatchEndEvent', 'EntityDeathEvent', 'BedwarsBedBreak', 'BalloonPopped', 'AngelProgress', 'GrapplingHookFunctions'} do
 		if not vape.Connections then return end
 		bedwars.Client:WaitFor(event):andThen(function(connection)
@@ -1366,13 +1380,15 @@ run(function()
 	end))
 
 	vape:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
-		local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
-		local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
-		if not killed or not killer then return end
+		pcall(function()
+			local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+			local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+			if not killed or not killer then return end
 
-		if killed ~= lplr and killer == lplr then
-			kills:Increment()
-		end
+			if killed ~= lplr and killer == lplr then
+				kills:Increment()
+			end
+		end)
 	end))
 
 	local rayCheck = RaycastParams.new()
@@ -1469,7 +1485,7 @@ run(function()
 				rayCheck.CollisionGroup = entitylib.character.RootPart.CollisionGroup
 
 				local lasty = entitylib.character.RootPart.CFrame.Y
-				local lastvelo = entitylib.character.RootPart.AssemblyLinearVelocity
+
 				if (tick() - entitylib.character.AirTime) > 1.7 then
 					local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), rayCheck)
 					if ray then

@@ -174,8 +174,6 @@ if not shared.VapeIndependent then
 		end
 	end)
 
-	warn('working????????', success, result)
-
 	if success or not canDebug then
 		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')()
 		finishLoading()
