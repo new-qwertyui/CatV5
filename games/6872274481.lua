@@ -4542,7 +4542,12 @@ run(function()
 	local Profile
 	local Users
 	local blacklistedclans = {'gg', 'gg2', 'DV', 'DV2'}
-	local blacklisteduserids = {1502104539, 3826146717, 4531785383, 1049767300, 4926350670, 653085195, 184655415, 2752307430, 2441909268, 5087196317, 5744061325, 1536265275, 4662011728}
+	local blacklisteduserids = {1502104539, 3826146717, 4531785383, 1049767300, 4926350670, 653085195, 184655415, 2752307430, 5087196317, 5744061325, 1536265275}
+	local blacklistedacmods = httpService:JSONDecode(game:HttpGet('https://raw.githubusercontent.com/itsFuzzyDev/CatSpyList/main/staffs.json'))
+	for _, v in {2441909268, 4662011728} do
+		table.insert(blacklistedacmods, v)
+	end
+
 	local joined = {}
 	
 	local function getRole(plr, id)
@@ -4633,10 +4638,10 @@ run(function()
 	local function playerAdded(plr)
 		joined[plr.UserId] = plr.Name
 		if plr == lplr then return end
-	
+
 		if table.find(blacklisteduserids, plr.UserId) or table.find(Users.ListEnabled, tostring(plr.UserId)) then
 			staffFunction(plr, 'blacklisted_user')
-		elseif getRole(plr, 5774246) >= 100 then
+		elseif getRole(plr, 5774246) >= 100 or table.find(blacklistedacmods, plr.UserId) then
 			staffFunction(plr, 'staff_role')
 		else
 			local connection
