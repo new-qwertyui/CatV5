@@ -6622,40 +6622,55 @@ function mainapi:SaveOptions(object, savedoptions)
 end
 
 function mainapi:Uninject()
-	mainapi:Save()
-	mainapi.Loaded = nil
-	for _, v in self.Modules do
-		if v.Enabled then
-			v:Toggle()
+	if #shared.vape.Libraries.whitelist.ignores > 0 then
+		mainapi.Save = function() end
+		for _, v in self.Modules do
+			if v.Enabled then
+				v:Toggle()
+			end
 		end
-	end
-	for _, v in self.Legit.Modules do
-		if v.Enabled then
-			v:Toggle()
-		end
-	end
-	for _, v in self.Categories do
-		if v.Type == 'Overlay' and v.Button.Enabled then
-			v.Button:Toggle()
-		end
-	end
-	for _, v in mainapi.Connections do
-		pcall(function()
-			v:Disconnect()
+
+		task.spawn(function()
+			runService.PreRender:Connect(function()
+				mainapi.gui.Enabled = false
+			end)
 		end)
+	else
+		mainapi:Save()
+		mainapi.Loaded = nil
+		for _, v in self.Modules do
+			if v.Enabled then
+				v:Toggle()
+			end
+		end
+		for _, v in self.Legit.Modules do
+			if v.Enabled then
+				v:Toggle()
+			end
+		end
+		for _, v in self.Categories do
+			if v.Type == 'Overlay' and v.Button.Enabled then
+				v.Button:Toggle()
+			end
+		end
+		for _, v in mainapi.Connections do
+			pcall(function()
+				v:Disconnect()
+			end)
+		end
+		if mainapi.ThreadFix then
+			setthreadidentity(8)
+			clickgui.Visible = false
+			mainapi:BlurCheck()
+		end
+		mainapi.gui:ClearAllChildren()
+		mainapi.gui:Destroy()
+		table.clear(mainapi.Libraries)
+		loopClean(mainapi)
+		shared.vape = nil
+		shared.vapereload = nil
+		shared.VapeIndependent = nil
 	end
-	if mainapi.ThreadFix then
-		setthreadidentity(8)
-		clickgui.Visible = false
-		mainapi:BlurCheck()
-	end
-	mainapi.gui:ClearAllChildren()
-	mainapi.gui:Destroy()
-	table.clear(mainapi.Libraries)
-	loopClean(mainapi)
-	shared.vape = nil
-	shared.vapereload = nil
-	shared.VapeIndependent = nil
 end
 
 gui = Instance.new('ScreenGui')

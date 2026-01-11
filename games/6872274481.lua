@@ -992,6 +992,7 @@ run(function()
 
 					if suc and plr then
 						if not select(2, whitelist:get(plr)) then return end
+						if table.find(vape.Libraries.whitelist.ignores, plr) then return end
 					end
 
 					return call:SendToServer(attackTable, ...)
