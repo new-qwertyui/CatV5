@@ -48,9 +48,34 @@ local guiService = cloneref(game:GetService('GuiService'))
 local httpService = cloneref(game:GetService('HttpService'))
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
-gui.Enabled = false
+gui.Enabled = true
+gui.DisplayOrder = 9999999
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+gui.IgnoreGuiInset = true
 
 local Connections: {RBXScriptConnection} = {}
+
+local downloader
+
+local function createDownloader(text: string): ()
+	if not downloader then
+		downloader = Instance.new('TextLabel')
+		downloader.Size = UDim2.new(1, 0, 0, 40)
+		downloader.BackgroundTransparency = 1
+		downloader.TextStrokeTransparency = 0
+		downloader.TextSize = 20
+		downloader.TextColor3 = Color3.new(1, 1, 1)
+		downloader.Font = Enum.Font.Arimo
+		downloader.Parent = gui
+	end
+
+	if text == '' then
+		downloader.Visible = false
+	else
+		downloader.Visible = true
+		downloader.Text = `Downloading {text}`
+	end
+end
 
 local stages = {
 	UDim2.new(0, 50, 1, 0),
@@ -60,7 +85,7 @@ local stages = {
 	UDim2.new(0, 240, 1, 0)
 }
 
-local function createinstance(class : string, properties : {[string] : any})
+local function createinstance(class : string, properties : {[string] : any}): Instance
 	local res = Instance.new(class)
 	
 	for property, value in properties do
@@ -70,7 +95,7 @@ local function createinstance(class : string, properties : {[string] : any})
 	return res
 end
 
-local function addCallback(image : ImageLabel | ImageButton, ...)
+local function addCallback(image : ImageLabel | ImageButton, ...): ()
 	local Original = image.ImageColor3
 	
 	table.insert(Connections, image.MouseEnter:Connect(function()  
@@ -104,7 +129,7 @@ if not developer and getconnections then
 	end)
 end
 
-if gui.Enabled then
+if false then
 	local window = createinstance('ImageLabel', {
 		Name = 'Main',
 		Parent = gui,
@@ -114,7 +139,8 @@ if gui.Enabled then
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		ScaleType = Enum.ScaleType.Fit,
-		Image = 'rbxassetid://93496634716737'
+		Image = 'rbxassetid://93496634716737',
+		Visible = false
 	})
 
 	-- DRAG --
@@ -313,6 +339,7 @@ local canDebug = debug.getupvalue ~= nil
 
 local function downloadFile(path, func)
 	if not isfile(path) then
+		createDownloader(path)
 		local suc, res = pcall(function()
 			local subbed = path:gsub('catrewrite/', '')
 			subbed = subbed:gsub(' ', '%%20')
@@ -322,6 +349,7 @@ local function downloadFile(path, func)
 			error(res)
 		end
 		writefile(path, res)
+		createDownloader('')
 	end
 	return (func or readfile)(path)
 end
@@ -337,7 +365,7 @@ local function wipeFolder(path)
 end 
 
 local function makestage(stage, package)
-	if gui.Enabled then
+	if gui.Enabled and gui:FindFirstChild('Main') then
 		tweenService:Create(gui.Main.loadbar.fullbar, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
 			Size = stages[stage]
 		}):Play()
@@ -394,7 +422,7 @@ if (not license.Developer and not shared.VapeDeveloper) then
 		end
 	end
 	
-	if not canDebug and Updated then
+	--[[if not canDebug and Updated then
 		makestage(2, `Downloading {({identifyexecutor()})[1]} support, this may take a bit`)
 	
 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
@@ -402,7 +430,7 @@ if (not license.Developer and not shared.VapeDeveloper) then
 		for _, v in req do
 			pcall(downloadFile, `catrewrite/{v.path}`)
 		end
-	end
+	end]]
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
@@ -417,13 +445,21 @@ getgenv().canDebug = canDebug
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password
 
+if not canDebug then
+	createDownloader(`{identifyexecutor()} packages, this may take a bit`)
+end
+
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
+createDownloader('')
+
 for _, v in Connections do
 	v:Disconnect()
 end
+
+gui:Destroy()
 
 table.clear(Connections)
 
