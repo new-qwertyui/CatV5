@@ -449,6 +449,8 @@ if not canDebug then
 	createDownloader(`{identifyexecutor()} packages, this may take a bit`)
 end
 
+pcall(downloadFile, 'catrewrite/init.lua')
+
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
