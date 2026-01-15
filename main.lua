@@ -147,7 +147,7 @@ local function callback(func)
 
 	local Start = os.clock()
 
-	repeat task.wait() until success ~= nil or (os.clock() - Start) >= 10
+	repeat task.wait() until success ~= nil or (os.clock() - Start) >= 5
 
 	return success, result
 end
@@ -176,7 +176,7 @@ if not shared.VapeIndependent then
 	end)
 
 	if success or not canDebug then
-		loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')()
+		callback(function() loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')() end)
 		finishLoading()
 	else
 		task.spawn(error, result)
