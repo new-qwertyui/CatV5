@@ -153,7 +153,6 @@ local function callback(func)
 end
 
 if not shared.VapeIndependent then
-	repeat task.wait() until shared.vape
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	shared.vape.Libraries.Cat = true
 	makestage(4, 'Launching packages')

@@ -79,7 +79,6 @@ local store = {
 	queueType = 'bedwars_test',
 	tools = {}
 }
-local Reach = {}
 local HitBoxes = {}
 local InfiniteFly = {}
 local TrapDisabler
@@ -781,6 +780,7 @@ run(function()
 
 	bedwars = setmetatable({
 		Flamework = Flamework,
+		NotificationController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/notification-controller@NotificationController'),
 		AbilityController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/ability/ability-controller@AbilityController'),
 		AnimationType = require(replicatedStorage.TS.animation['animation-type']).AnimationType,
 		AnimationUtil = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out['shared'].util['animation-util']).AnimationUtil,
@@ -990,7 +990,11 @@ run(function()
 						store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
 						store.attackReachUpdate = tick() + 1
 
-						if Reach.Enabled or HitBoxes.Enabled then
+						if SilentAim and SilentAim.Enabled and SilentAim.Options.Sword.Enabled then
+							attackTable.validate.selfPosition.value = CFrame.lookAt(selfpos, targetpos)
+						end
+
+						if Reach and Reach.Enabled or HitBoxes.Enabled then
 							attackTable.validate.raycast = attackTable.validate.raycast or {}
 							attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
 						end
@@ -998,6 +1002,8 @@ run(function()
 						if suc and plr then
 							if not select(2, whitelist:get(plr)) then return end
 							if table.find(vape.Libraries.whitelist.ignores, plr) then return end
+
+							vapeEvents.Attacked:Fire(plr)
 						end
 
 						return call:SendToServer(attackTable, ...)
@@ -1282,7 +1288,7 @@ run(function()
 		end)
 	end
 
-	vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)
+	vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)		
 		vapeEvents.EntityDamageEvent:Fire({
 			entityInstance = ...,
 			damage = select(2, ...),
@@ -1689,86 +1695,6 @@ run(function()
 	})
 end)
 
-run(function()
-	local old
-	
-	vape.Categories.Combat:CreateModule({
-		Name = 'No Register Delay',
-		Function = function(callback)
-			if callback then
-				old = bedwars.SwordController.isClickingTooFast
-				bedwars.SwordController.isClickingTooFast = function(self, ...)
-					self.lastAttack = 0
-					return old(self, ...)
-				end
-			else
-				bedwars.SwordController.isClickingTooFast = old
-			end
-		end,
-		Tooltip = 'Remove the Register cap'
-	})
-end)
-	
-run(function()
-	local AttackValue
-	local BlockRange
-	local BreakRange
-
-	local Old
-	
-	Reach = vape.Categories.Combat:CreateModule({
-		Name = 'Reach',
-		Function = function(callback)
-			bedwars.CombatConstant.RAYCAST_SWORD_CHARACTER_DISTANCE = callback and AttackValue.Value + 2 or 14.4
-			bedwars.BlockBreakController.blockBreaker.range = callback and BreakRange.Value or 18
-			debug.setupvalue(bedwars.BlockSelector.getMouseInfo, 2, callback and BlockRange.Value or 18)
-		end,
-		Tooltip = 'Extends attack reach'
-	})
-
-	BlockRange = Reach:CreateSlider({
-		Name = 'Block Range',
-		Min = 0,
-		Max = 40,
-		Default = 18,
-		Function = function(val)
-			debug.setupvalue(bedwars.BlockSelector.getMouseInfo, 2, callback and val or 18)
-		end,
-		Suffix = function(val)
-			return val == 1 and 'stud' or 'studs'
-		end
-	})
-
-	BreakRange = Reach:CreateSlider({
-		Name = 'Break Range',
-		Min = 0,
-		Max = 30,
-		Default = 18,
-		Function = function(val)
-			if Reach.Enabled then
-				bedwars.BlockBreakController.blockBreaker.range = val
-			end
-		end,
-		Suffix = function(val)
-			return val == 1 and 'stud' or 'studs'
-		end
-	})
-
-	AttackValue = Reach:CreateSlider({
-		Name = 'Attack Range',
-		Min = 0,
-		Max = 24,
-		Default = 24,
-		Function = function(val)
-			if Reach.Enabled then
-				bedwars.CombatConstant.RAYCAST_SWORD_CHARACTER_DISTANCE = val + 2
-			end
-		end,
-		Suffix = function(val)
-			return val == 1 and 'stud' or 'studs'
-		end
-	})
-end)
 	
 run(function()
 	local Sprint
@@ -1777,32 +1703,44 @@ run(function()
 	Sprint = vape.Categories.Combat:CreateModule({
 		Name = 'Sprint',
 		Function = function(callback)
-			if callback then
-				if inputService.TouchEnabled then 
-					pcall(function() 
-						--lplr.PlayerGui.MobileUI['4'].Visible = false 
-					end) 
+			if canDebug then
+				if callback then
+					old = bedwars.SprintController.stopSprinting
+					bedwars.SprintController.stopSprinting = function(...)
+						local call = old(...)
+						bedwars.SprintController:startSprinting()
+						return call
+					end
+					Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+						task.delay(0.1, function() 
+							bedwars.SprintController:stopSprinting() 
+						end) 
+					end))
+					bedwars.SprintController:stopSprinting()
+				else
+					if inputService.TouchEnabled then 
+						pcall(function() 
+							lplr.PlayerGui.MobileUI['4'].Visible = true 
+						end) 
+					end
+					bedwars.SprintController.stopSprinting = old
+					bedwars.SprintController:stopSprinting()
 				end
-				old = bedwars.SprintController.stopSprinting
-				bedwars.SprintController.stopSprinting = function(...)
-					local call = old(...)
-					bedwars.SprintController:startSprinting()
-					return call
-				end
-				Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
-					task.delay(0.1, function() 
-						bedwars.SprintController:stopSprinting() 
-					end) 
-				end))
-				bedwars.SprintController:stopSprinting()
 			else
-				if inputService.TouchEnabled then 
-					pcall(function() 
-						lplr.PlayerGui.MobileUI['4'].Visible = true 
-					end) 
+				if callback then
+					repeat task.wait() until entitylib.isAlive or not Sprint.Enabled
+					if not Sprint.Enabled then return end
+					Sprint:Clean(lplr.Character.Humanoid:GetPropertyChangedSignal('WalkSpeed'):Connect(function()
+						if lplr.Character.Humanoid.WalkSpeed < 20 then
+							bedwars.SprintController:startSprinting()
+						end
+					end))
+					Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+						Sprint:Toggle()
+						Sprint:Toggle() 
+					end))
+					bedwars.SprintController:startSprinting()
 				end
-				bedwars.SprintController.stopSprinting = old
-				bedwars.SprintController:stopSprinting()
 			end
 		end,
 		Tooltip = 'Sets your sprinting to true.'
@@ -2571,6 +2509,14 @@ run(function()
 			updateVelocity()
 			if callback then
 				LongJump:Clean(vapeEvents.EntityDamageEvent.Event:Connect(function(damageTable)
+					if damageTable.entityInstance then
+						damageTable.entityInstance = typeof(damageTable.entityInstance) == 'string' and workspace[damageTable.entityInstance] or typeof(damageTable.entityInstance) == 'Instance' and damageTable.entityInstance
+					end
+
+					if damageTable.fromEntity then
+						damageTable.fromEntity = typeof(damageTable.fromEntity) == 'string' and workspace[damageTable.fromEntity] or typeof(damageTable.fromEntity) == 'Instance' and damageTable.fromEntity
+					end
+					
 					if damageTable.entityInstance == lplr.Character and damageTable.fromEntity == lplr.Character and (not damageTable.knockbackMultiplier or not damageTable.knockbackMultiplier.disabled) then
 						local knockbackBoost = bedwars.KnockbackUtil.calculateKnockbackVelocity(Vector3.one, 1, {
 							vertical = 0,
@@ -2748,151 +2694,7 @@ run(function()
 		Tooltip = 'Prevents slowing down when using items.'
 	})
 end)
-	
-run(function()
-	local SilentAim = {Enabled = true}
-	local TargetPart
-	local Targets
-	local FOV
-	local OtherProjectiles
-	local Blacklist
 
-	local rayCheck = RaycastParams.new()
-	rayCheck.FilterType = Enum.RaycastFilterType.Include
-	rayCheck.FilterDescendantsInstances = {workspace:FindFirstChild('Map')}
-	local old
-	
-	local ProjectileAimbot; ProjectileAimbot = vape.Categories.Blatant:CreateModule({
-		Name = 'Projectile Aimbot',
-		Function = function(callback)
-			if callback then
-				local newpos = nil
-				local canshoot = os.clock()
-				
-				old = bedwars.ProjectileController.calculateImportantLaunchValues
-				bedwars.ProjectileController.calculateImportantLaunchValues = function(...)	
-					local self, projmeta, worldmeta, origin, shootpos = ...
-					local plr = entitylib.EntityMouse({
-						Part = 'RootPart',
-						Range = FOV.Value,
-						Players = Targets.Players.Enabled,
-						NPCs = Targets.NPCs.Enabled,
-						Wallcheck = Targets.Walls.Enabled,
-						Origin = entitylib.isAlive and (shootpos or entitylib.character.RootPart.Position) or Vector3.zero
-					})
-	
-					if plr then
-						local pos = shootpos or self:getLaunchPosition(origin)
-						if not pos then
-							return old(...)
-						end
-	
-						if (not OtherProjectiles.Enabled) and not projmeta.projectile:find('arrow') then
-							return old(...)
-						end
-
-						if table.find(Blacklist.ListEnabled, projmeta.projectile) then
-							return old(...)
-						end
-	
-						local meta = projmeta:getProjectileMeta()
-						local lifetime = (worldmeta and meta.predictionLifetimeSec or meta.lifetimeSec or 3)
-						local gravity = (meta.gravitationalAcceleration or 196.2) * projmeta.gravityMultiplier
-						local projSpeed = (meta.launchVelocity or 100) 
-						local offsetpos = pos + (projmeta.projectile == 'owl_projectile' and Vector3.zero or projmeta.fromPositionOffset)
-						local balloons = plr.Character:GetAttribute('InflatedBalloons')
-						local playerGravity = workspace.Gravity
-	
-						if balloons and balloons > 0 then
-							playerGravity = (workspace.Gravity * (1 - ((balloons >= 4 and 1.2 or balloons >= 3 and 1 or 0.975))))
-						end
-	
-						if plr.Character.PrimaryPart:FindFirstChild('rbxassetid://8200754399') then
-							playerGravity = 6
-						end
-
-						if not plr.NPC and plr.Player:GetAttribute('IsOwlTarget') then
-							for _, owl in collectionService:GetTagged('Owl') do
-								if owl:GetAttribute('Target') == plr.Player.UserId and owl:GetAttribute('Status') == 2 then
-									playerGravity = 0
-								end
-							end
-						end
-	
-						local newlook = CFrame.new(offsetpos, plr[TargetPart.Value].Position) * CFrame.new(projmeta.projectile == 'owl_projectile' and Vector3.zero or Vector3.new(bedwars.BowConstantsTable.RelX, bedwars.BowConstantsTable.RelY, bedwars.BowConstantsTable.RelZ))
-						local calc = prediction.SolveTrajectory(newlook.p, projSpeed, gravity, plr[TargetPart.Value].Position, projmeta.projectile == 'telepearl' and Vector3.zero or plr[TargetPart.Value].Velocity, playerGravity, plr.HipHeight, plr.Jumping and 42.6 or nil, rayCheck, plr.Humanoid.MoveDirection ~= Vector3.zero, lplr:GetNetworkPing())
-						if calc then
-							targetinfo.Targets[plr] = os.clock() + 1
-							if not SilentAim.Enabled then
-								newpos = calc - Vector3.new(0, 4, 0)
-								canshoot = os.clock() + 0.1
-								return old(...)
-							end
-							return {
-								initialVelocity = CFrame.new(newlook.Position, calc).LookVector * projSpeed,
-								positionFrom = offsetpos,
-								deltaT = lifetime,
-								gravitationalAcceleration = gravity,
-								drawDurationSeconds = 5
-							}
-						end
-					end
-	
-					return old(...)
-				end
-
-				ProjectileAimbot:Clean(runService.PreRender:Connect(function(delta)
-					if canshoot > os.clock() and newpos and mousemoverel and not SilentAim.Enabled and entitylib.EntityMouse({
-						Part = 'RootPart',
-						Range = FOV.Value,
-						Players = Targets.Players.Enabled,
-						NPCs = Targets.NPCs.Enabled,
-						Wallcheck = Targets.Walls.Enabled
-					}) then
-						local pos, vis = workspace.CurrentCamera:WorldToViewportPoint(newpos)
-
-						if vis and isrbxactive() then
-							pos = (Vector2.new(pos.X, pos.Y) - game.UserInputService:GetMouseLocation()) * (100 * delta / 3)
-							mousemoverel(pos.X, pos.Y)
-						end
-					end
-				end))
-			else
-				bedwars.ProjectileController.calculateImportantLaunchValues = old
-			end
-		end,
-		Tooltip = 'Silently adjusts your aim towards the enemy'
-	})
-	Targets = ProjectileAimbot:CreateTargets({
-		Players = true,
-		Walls = true
-	})
-	TargetPart = ProjectileAimbot:CreateDropdown({
-		Name = 'Part',
-		List = {'RootPart', 'Head'}
-	})
-	FOV = ProjectileAimbot:CreateSlider({
-		Name = 'FOV',
-		Min = 1,
-		Max = 1000,
-		Default = 1000
-	})
-	--SilentAim = ProjectileAimbot:CreateToggle({Name = 'Silent aim', Default = true})
-	OtherProjectiles = ProjectileAimbot:CreateToggle({
-		Name = 'Other Projectiles',
-		Default = true,
-		Function = function(call)
-			if Blacklist then
-				Blacklist.Object.Visible = call
-			end
-		end
-	})
-	Blacklist = ProjectileAimbot:CreateTextList({
-		Name = 'Blacklist',
-		Darker = true,
-		Default = {'telepearl'}
-	})
-end)
 	
 run(function()
 	local Speed
