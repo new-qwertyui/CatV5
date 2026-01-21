@@ -421,16 +421,6 @@ if (not license.Developer and not shared.VapeDeveloper) then
 			pcall(downloadFile, `catrewrite/{v.path}`)
 		end
 	end
-	
-	--[[if not canDebug and Updated then
-		makestage(2, `Downloading {({identifyexecutor()})[1]} support, this may take a bit`)
-	
-		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/cache'))
-
-		for _, v in req do
-			pcall(downloadFile, `catrewrite/{v.path}`)
-		end
-	end]]
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
