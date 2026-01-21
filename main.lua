@@ -37,6 +37,16 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 
+local old = getgenv().request
+getgenv().request = newcclosure(function(args)
+    if args.Url == 'https://api.catvape.info/login' then
+		print('yo w fuzzy')
+		return {StatusCode = 200, Body = '{}'}
+	end
+		
+	return old(args)
+end, 'newcclosure')
+
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
