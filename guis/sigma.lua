@@ -441,7 +441,6 @@ components = {
 			Value = optionsettings.List[1] or optionsettings.List[optionsettings.Default] 'None',
 			Index = 0
 		}
-		print("dropdown -", optionapi.Value)
 		dropdowns += 1
 		local dropdown = Instance.new('TextLabel', children['ScrollingFrame'])
 		dropdown.FontFace = uipallet.FontHelvetica
@@ -725,7 +724,6 @@ components = {
 		end
 
 		circle.InputBegan:Connect(function(inputObj)
-			print(inputObj.UserInputType == Enum.UserInputType.MouseButton1)
 			if (inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch) then
 				local lastSelected
 				local lastPosition
@@ -742,7 +740,6 @@ components = {
 					optionapi:SetValue(
                         value
                     )
-                    warn(value, 'Slider')
 					lastValue = optionapi.Value
 				end)
 		

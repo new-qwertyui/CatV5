@@ -1,4 +1,4 @@
--- Made by qwertyui, new-qwertyui on GitHub
+-- Made by qwertyui, qwertyui-is-back on GitHub
 local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)

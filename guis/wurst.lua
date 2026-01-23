@@ -533,16 +533,6 @@ for _, v in {'Combat', 'Blatant', 'Render', 'Utility', 'World', 'Inventory', 'Mi
 	mainapi:CreateCategory({Name = v})
 end
 
-for i = 1, 60 do
-	local mod = mainapi.Categories.Combat:CreateModule({
-		Name = 'mod'..i,
-		Function = function(callback)
-			print('mod'..i, callback)
-		end,
-		Tooltip = 'testing!'
-	})
-end
-
 mainapi:Clean(clickgui.MouseButton1Click:Connect(function()
 	if expanded then expanded:Expand() end
 end))

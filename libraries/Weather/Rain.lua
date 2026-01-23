@@ -912,7 +912,6 @@ function Rain:SetDirection(direction, tweenInfo)
 	end
 	
 	if not (direction.unit.magnitude > 0) then -- intentional statement formatting since NaN comparison
-		warn("Attempt to set rain direction to a zero-length vector, falling back on default direction = (" .. tostring(RAIN_DEFAULT_DIRECTION) .. ")")
 		direction = RAIN_DEFAULT_DIRECTION
 	end
 	

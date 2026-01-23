@@ -18,10 +18,14 @@ end
 local cloneref = cloneref or function(obj)
 	return obj
 end
-local httpService = cloneref(game:GetService('HttpService'))
-local playersService = cloneref(game:GetService('Players'))
+local httpService: HttpService = cloneref(game:GetService('HttpService'))
+local playersService: Players = cloneref(game:GetService('Players'))
+local inputService: UserInputService = cloneref(game:GetService('UserInputService'))
+local coreGui: CoreGui = cloneref(game:GetService('CoreGui'))
 
-local function downloadFile(path, func)
+local game = cloneref(game)
+
+local function downloadFile(path: string, func): string?
 	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
@@ -35,20 +39,6 @@ local function downloadFile(path, func)
 		writefile(path, res)
 	end
 	return (func or readfile)(path)
-end
-
-local old = getgenv().request
-getgenv().request = newcclosure(function(args)
-    if args.Url == 'https://api.catvape.info/login' then
-		print('yo w fuzzy')
-		return {StatusCode = 200, Body = '{}'}
-	end
-		
-	return old(args)
-end, 'newcclosure')
-
-if not canDebug then
-	task.wait(1)
 end
 
 local function finishLoading()
@@ -70,10 +60,7 @@ local function finishLoading()
 				teleportedServers = true
 				local teleportScript = [[
 					shared.vapereload = true
-					loadstring(readfile('catrewrite/init.lua'), 'init.lua')({
-						Username = "tpusername",
-						Password = "tppassword"
-					})
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua', true), 'init.lua')()
 				]]
 				if getgenv().catvapedev then
 					teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
@@ -103,7 +90,7 @@ local function finishLoading()
 		if not vape.Categories then return end
 		task.spawn(pcall, function()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-				vape:CreateNotification('Finished Loading', cloneref(game:GetService('UserInputService')).TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
+				vape:CreateNotification('Finished Loading', inputService.TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
 				vape:CreateNotification('Cat', `Initialized as {(getgenv().username or 'Guest')} with role {getgenv().catrole or 'Basic'}`, 2.5, 'info')
 				task.wait(1)
@@ -117,13 +104,13 @@ local function finishLoading()
 							['Content-Type'] = 'application/json',
 							Origin = 'https://discord.com'
 						},
-						Body = cloneref(game:GetService('HttpService')):JSONEncode({
+						Body = httpService:JSONEncode({
 							invlink = 'catvape',
 							cmd = 'INVITE_BROWSER',
 							args = {
 								code = 'catvape'
 							},
-							nonce = cloneref(game:GetService('HttpService')):GenerateGUID(true)
+							nonce = httpService:GenerateGUID(true)
 						})
 					})
 				end
@@ -167,14 +154,8 @@ local function callback(func)
 end
 
 if not shared.VapeIndependent then
-	repeat task.wait() until shared.vape
-	
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	shared.vape.Libraries.Cat = true
-	makestage(4, 'Launching packages')
-	callback(function()
-		loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
-	end)
+	callback(function() loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login.lua')(); end)
 	local success, result = callback(function(...)
 		if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 			loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
@@ -191,7 +172,7 @@ if not shared.VapeIndependent then
 	end)
 
 	if success or not canDebug then
-		callback(function() loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'games/bedwars/init')() end)
+		loadstring(downloadFile('catrewrite/scripts/script.luau'), 'mainscript.luau')()
 		finishLoading()
 	else
 		task.spawn(error, result)
@@ -201,10 +182,9 @@ if not shared.VapeIndependent then
 					setthreadidentity(8)
 				end
 
-				local errorPrompt = getrenv().require(game:GetService('CoreGui').RobloxGui.Modules.ErrorPrompt)
-				local game = cloneref(game)
+				local errorPrompt = getrenv().require(coreGui:WaitForChild('RobloxGui', 9e9):WaitForChild('Modules', 9e9):WaitForChild('ErrorPrompt', 9e9))
 
-				local gui = Instance.new('ScreenGui', cloneref(game:GetService('CoreGui')))
+				local gui = Instance.new('ScreenGui', coreGui)
 				gui.OnTopOfCoreBlur = true
 
 

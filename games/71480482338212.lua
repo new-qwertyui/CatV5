@@ -169,8 +169,6 @@ run(function()
     local vm = bedwars.AnimationMeta.Swords.Swing.ViewModel
     local anim = bedwars.AnimationMeta.Swords.Swing.Animation
 
-    warn(anim.ClassName)
-
     Killaura = vape.Categories.Blatant:CreateModule({
         Name = 'Killaura',
         Tooltip = 'Automatically attacks entities around you.',
@@ -195,7 +193,6 @@ run(function()
                         for _, plr in plrs do
                             if switchItem(sword.tool) then
                                 if swingTime < os.clock() then
-                                    warn(bedwars.SwordController.Animations)
                                     bedwars.SwordController.LastDamage = time()
                                     lplr.Character.Humanoid:LoadAnimation(anim):Play()
                                     bedwars.ViewmodelUtil.LoadAnimation(vm):Play()
@@ -278,7 +275,6 @@ run(function() --> by max and monia
     end
 
     canShoot = function(item)
-        print(item[1].itemType)
         return 
     end
     

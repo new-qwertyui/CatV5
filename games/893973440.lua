@@ -887,7 +887,6 @@ run(function()
 									lplr.Character.HumanoidRootPart.CFrame = pod.PodTrigger.CFrame
 									store.Kills += 1
 								else
-									--print("beast")
 									target = nil
 									for i, v in entitylib.AllPosition({
 										Range = 300,
@@ -898,9 +897,7 @@ run(function()
 										Limit = 10
 									}) do
 										target = v
-										--print("targets")
 										if target ~= nil and not target.Player.TempPlayerStatsModule.Captured.Value then
-											--print("go!!!")
 											if not vape.Modules.Killaura.Enabled then vape.Modules.Killaura:Toggle() end
 											lplr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
 										end
@@ -1177,7 +1174,6 @@ run(function()
 												if tme > 13 then tme = 13 end
 												if saving then tme = 0 end
 												tween(currComputer.CFrame, tme, true)
-												print(currComputer.Object)
 												saving = false
 											end
 											if tick() - fhTime >= 5 and FastHack.Enabled then
@@ -1231,9 +1227,7 @@ run(function()
 									Limit = 10
 								}) do
 									target = v
-									--print("targets")
 									if target ~= nil and not target.Player.TempPlayerStatsModule.Captured.Value then
-										--print("go!!!")
 										if not vape.Modules.Killaura.Enabled then vape.Modules.Killaura:Toggle() end
 										lplr.Character.HumanoidRootPart.CFrame = target.HumanoidRootPart.CFrame * CFrame.new(0,0,4)
 									end

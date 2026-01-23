@@ -306,7 +306,6 @@ run(function()
 			local called = getfenv(3)
 			called = called and called.script
 			if called and (not rem) then print(id, 'called with', called:GetFullName()) end
-			print(id, rem or id, ...)
 		end
 
 		return hook(self, id, ...)
