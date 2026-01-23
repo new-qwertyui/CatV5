@@ -35,6 +35,7 @@ end
 
 local playersService = cloneref(game:GetService('Players'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+local proximityPromptService = cloneref(game:GetService('ProximityPromptService'))
 local runService = cloneref(game:GetService('RunService'))
 local inputService = cloneref(game:GetService('UserInputService'))
 local tweenService = cloneref(game:GetService('TweenService'))
