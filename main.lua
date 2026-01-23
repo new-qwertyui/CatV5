@@ -47,6 +47,10 @@ getgenv().request = newcclosure(function(args)
 	return old(args)
 end, 'newcclosure')
 
+if not canDebug then
+	task.wait(1)
+end
+
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
