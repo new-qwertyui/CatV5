@@ -673,7 +673,7 @@ run(function()
 				end
 				whitelist.olddata = whitelist.textdata
 				pcall(function()
-					writefile('catrewrite/profiles/whitelist.json', whitelist.textdata)
+					--writefile('catrewrite/profiles/whitelist.json', whitelist.textdata)
 				end)
 			end
 
