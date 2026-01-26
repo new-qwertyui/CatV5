@@ -5,7 +5,6 @@ repeat
 	task.wait()
 until game:IsLoaded()
 
-    ██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██╔══██╗██╔══██╗██╔════╝░░░██║████╗░██║██╔════╝██╔══██╗
 if loadonscreen then
     task.wait(4.5)
 end
