@@ -1,16 +1,8773 @@
+local mainapi = {
+	Categories = {},
+	GUIColor = {
+		Hue = 0.46,
+		Sat = 0.96,
+		Value = 0.52
+	},
+	HeldKeybinds = {},
+	Keybind = {'RightShift'},
+	Loaded = false,
+	Libraries = {},
+	Modules = {},
+	Place = game.PlaceId,
+	Profile = 'default',
+	Profiles = {},
+	RainbowSpeed = {Value = 1},
+	RainbowUpdateSpeed = {Value = 60},
+	RainbowTable = {},
+	Scale = {Value = 1},
+	ThreadFix = setthreadidentity and true or false,
+	ToggleNotifications = {},
+	Version = 'v4.500',
+	Windows = {},
+	Indicators = {}
+}
+loadstring([[LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(f) return f end]])()
+LPH_NO_VIRTUALIZE(function()
+	local cloneref = cloneref or function(obj)
+		return obj
+	end
 
---[[
+	local tweenService = cloneref(game:GetService('TweenService'))
+	local inputService = cloneref(game:GetService('UserInputService'))
+	local textService = cloneref(game:GetService('TextService'))
+	local guiService = cloneref(game:GetService('GuiService'))
+	local runService = cloneref(game:GetService('RunService'))
+	local httpService = cloneref(game:GetService('HttpService'))
+	local textChatService = cloneref(game:GetService("TextChatService"))
+	local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
+	local coreGui = cloneref(game:GetService('CoreGui'))
 
-    ░█████╗░░█████╗░████████╗██╗░░░██╗░█████╗░██████╗░███████╗░░░██╗███╗░░██╗███████╗░█████╗░
-    ██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██╔══██╗██╔══██╗██╔════╝░░░██║████╗░██║██╔════╝██╔══██╗
-    ██║░░╚═╝███████║░░░██║░░░╚██╗░██╔╝███████║██████╔╝█████╗░░░░░██║██╔██╗██║█████╗░░██║░░██║
-    ██║░░██╗██╔══██║░░░██║░░░░╚████╔╝░██╔══██║██╔═══╝░██╔══╝░░░░░██║██║╚████║██╔══╝░░██║░░██║
-    ╚█████╔╝██║░░██║░░░██║░░░░░╚██╔╝░░██║░░██║██║░░░░░███████╗██╗██║██║░╚███║██║░░░░░╚█████╔╝
-    ░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░╚══════╝╚═╝╚═╝╚═╝░░╚══╝╚═╝░░░░░░╚════╝░
-        
-    
-    discord.gg/catvape / discord.catvape.info
-]]
+	local updateSignal = Instance.new('BindableEvent')
+	local IsMobile = inputService.TouchEnabled
+
+	local fontsize = Instance.new('GetTextBoundsParams')
+	fontsize.Width = math.huge
+	local notifications
+	local assetfunction = getcustomasset
+	local getcustomasset
+	local clickgui
+	local scaledgui
+	local toolblur
+	local tooltip
+	local scale
+	local gui
+
+	local color = {}
+	local tween = {
+		tweens = {},
+		tweenstwo = {}
+	}
+	local uipallet = {
+		Main = Color3.fromRGB(26, 25, 26),
+		Text = Color3.fromRGB(200, 200, 200),
+		Font = Font.fromEnum(Enum.Font.Montserrat),
+		FontSemiBold = Font.fromEnum(Enum.Font.Montserrat, Enum.FontWeight.SemiBold),
+		Tween = TweenInfo.new(0.16, Enum.EasingStyle.Linear)
+	}
+
+	local getcustomassets = {
+		['catrewrite/assets/new/add.png'] = 'rbxassetid://14368300605',
+		['catrewrite/assets/new/alert.png'] = 'rbxassetid://14368301329',
+		['catrewrite/assets/new/allowedicon.png'] = 'rbxassetid://14368302000',
+		['catrewrite/assets/new/allowedtab.png'] = 'rbxassetid://14368302875',
+		['catrewrite/assets/new/arrowmodule.png'] = 'rbxassetid://14473354880',
+		['catrewrite/assets/new/back.png'] = 'rbxassetid://14368303894',
+		['catrewrite/assets/new/bind.png'] = 'rbxassetid://14368304734',
+		['catrewrite/assets/new/bindbkg.png'] = 'rbxassetid://14368305655',
+		['catrewrite/assets/new/blatanticon.png'] = 'rbxassetid://14368306745',
+		['catrewrite/assets/new/blockedicon.png'] = 'rbxassetid://14385669108',
+		['catrewrite/assets/new/blockedtab.png'] = 'rbxassetid://14385672881',
+		['catrewrite/assets/new/blur.png'] = 'rbxassetid://14898786664',
+		['catrewrite/assets/new/blurnotif.png'] = 'rbxassetid://16738720137',
+		['catrewrite/assets/new/close.png'] = 'rbxassetid://14368309446',
+		['catrewrite/assets/new/closemini.png'] = 'rbxassetid://14368310467',
+		['catrewrite/assets/new/colorpreview.png'] = 'rbxassetid://14368311578',
+		['catrewrite/assets/new/combaticon.png'] = 'rbxassetid://14368312652',
+		['catrewrite/assets/new/customsettings.png'] = 'rbxassetid://14403726449',
+		['catrewrite/assets/new/dots.png'] = 'rbxassetid://14368314459',
+		['catrewrite/assets/new/edit.png'] = 'rbxassetid://14368315443',
+		['catrewrite/assets/new/expandright.png'] = 'rbxassetid://14368316544',
+		['catrewrite/assets/new/expandup.png'] = 'rbxassetid://14368317595',
+		['catrewrite/assets/new/friendstab.png'] = 'rbxassetid://14397462778',
+		['catrewrite/assets/new/guisettings.png'] = 'rbxassetid://14368318994',
+		['catrewrite/assets/new/guislider.png'] = 'rbxassetid://14368320020',
+		['catrewrite/assets/new/guisliderrain.png'] = 'rbxassetid://14368321228',
+		['catrewrite/assets/new/guiv4.png'] = 'rbxassetid://14368322199',
+		['catrewrite/assets/new/guivape.png'] = 'rbxassetid://14657521312',
+		['catrewrite/assets/new/info.png'] = 'rbxassetid://14368324807',
+		['catrewrite/assets/new/inventoryicon.png'] = 'rbxassetid://14928011633',
+		['catrewrite/assets/new/legit.png'] = 'rbxassetid://14425650534',
+		['catrewrite/assets/new/legittab.png'] = 'rbxassetid://14426740825',
+		['catrewrite/assets/new/miniicon.png'] = 'rbxassetid://14368326029',
+		['catrewrite/assets/new/notification.png'] = 'rbxassetid://16738721069',
+		['catrewrite/assets/new/overlaysicon.png'] = 'rbxassetid://14368339581',
+		['catrewrite/assets/new/overlaystab.png'] = 'rbxassetid://14397380433',
+		['catrewrite/assets/new/pin.png'] = 'rbxassetid://14368342301',
+		['catrewrite/assets/new/profilesicon.png'] = 'rbxassetid://14397465323',
+		['catrewrite/assets/new/radaricon.png'] = 'rbxassetid://14368343291',
+		['catrewrite/assets/new/rainbow_1.png'] = 'rbxassetid://14368344374',
+		['catrewrite/assets/new/rainbow_2.png'] = 'rbxassetid://14368345149',
+		['catrewrite/assets/new/rainbow_3.png'] = 'rbxassetid://14368345840',
+		['catrewrite/assets/new/rainbow_4.png'] = 'rbxassetid://14368346696',
+		['catrewrite/assets/new/range.png'] = 'rbxassetid://14368347435',
+		['catrewrite/assets/new/rangearrow.png'] = 'rbxassetid://14368348640',
+		['catrewrite/assets/new/rendericon.png'] = 'rbxassetid://14368350193',
+		['catrewrite/assets/new/rendertab.png'] = 'rbxassetid://14397373458',
+		['catrewrite/assets/new/search.png'] = 'rbxassetid://14425646684',
+		['catrewrite/assets/new/expandicon.png'] = 'rbxassetid://14368353032',
+		['catrewrite/assets/new/targetinfoicon.png'] = 'rbxassetid://14368354234',
+		['catrewrite/assets/new/targetnpc1.png'] = 'rbxassetid://14497400332',
+		['catrewrite/assets/new/targetnpc2.png'] = 'rbxassetid://14497402744',
+		['catrewrite/assets/new/targetplayers1.png'] = 'rbxassetid://14497396015',
+		['catrewrite/assets/new/targetplayers2.png'] = 'rbxassetid://14497397862',
+		['catrewrite/assets/new/targetstab.png'] = 'rbxassetid://14497393895',
+		['catrewrite/assets/new/textguiicon.png'] = 'rbxassetid://14368355456',
+		['catrewrite/assets/new/textv4.png'] = 'rbxassetid://14368357095',
+		['catrewrite/assets/new/textvape.png'] = 'rbxassetid://14368358200',
+		['catrewrite/assets/new/utilityicon.png'] = 'rbxassetid://14368359107',
+		['catrewrite/assets/new/vape.png'] = 'rbxassetid://14373395239',
+		['catrewrite/assets/new/mascot.png'] = 'rbxassetid://14373395239',
+		['catrewrite/assets/new/warning.png'] = 'rbxassetid://14368361552',
+		['catrewrite/assets/new/worldicon.png'] = 'rbxassetid://14368362492',
+		['catrewrite/assets/old/spotify.png'] = 'rbxassetid://129349257949035',
+		['catrewrite/assets/new/catv5.png'] = ''
+	}
+
+	local isfile = isfile or function(file)
+		local suc, res = pcall(function()
+			return readfile(file)
+		end)
+		return suc and res ~= nil and res ~= ''
+	end
+
+	local getfontsize = function(text, size, font)
+		fontsize.Text = text
+		fontsize.Size = size
+		if typeof(font) == 'Font' then
+			fontsize.Font = font
+		end
+		return textService:GetTextBoundsAsync(fontsize)
+	end
+
+	local function addBlur(parent, notif)
+		local blur = Instance.new('ImageLabel')
+		blur.Name = 'Blur'
+		blur.Size = UDim2.new(1, 89, 1, 52)
+		blur.Position = UDim2.fromOffset(-48, -31)
+		blur.ImageColor3 = parent.BackgroundColor3
+		blur.BackgroundTransparency = 1
+		blur.Image = getcustomasset('catrewrite/assets/new/'..(notif and 'blurnotif' or 'blur')..'.png')
+		blur.ScaleType = Enum.ScaleType.Slice
+		blur.SliceCenter = Rect.new(52, 31, 261, 502)
+		blur.Parent = parent
+
+		return blur
+	end
+
+	local function addCorner(parent, radius)
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = radius or UDim.new(0, 5)
+		corner.Parent = parent
+
+		return corner
+	end
+
+	local usedLanguage = isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/language.txt') and readfile('catrewrite/profiles/language.txt') or 'Original'
+
+	local shorten = {
+		korea = 'ko',
+		thai = 'th',
+		['chinese (simplified)'] = 'zh-CN',
+		russia = 'ru',
+		arabic = 'ar',
+		romanian = 'ro'
+	}
+
+	local old = isfile
+	local isfile = function(file)
+		local suc, res = pcall(function()
+			return old(file)
+		end)
+		return suc and res or false
+	end
+
+	local getText = function(language, text)
+		return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'.. 'translations/'.. language.. '/'.. text .. '.txt')
+	end
+
+	local jsons = {
+		decoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and httpService:JSONDecode(readfile(`catrewrite/translations/{usedLanguage}.json`)) or {},
+		encoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and readfile(`catrewrite/translations/{usedLanguage}.json`) or '{}'
+	}
+		
+	local function encodeTable(tab)
+		local str = '{\n'
+		local len = 0
+		for i,v in tab do
+			len += 1
+		end
+		local goal = 0
+		for i,v in tab do
+			goal += 1
+			if typeof(v) == 'string' then
+				local string = goal == len and '\n' or ',\n'
+				str = str.. `    "{tostring(i):gsub('\n', '\\n')}": "{tostring(v):gsub('\n', '\\n')}"{string}`
+			end
+		end
+		str = str .. '}'
+		return str
+	end
+
+	local function translateTo(text, language)
+		language = usedLanguage
+		language = language:lower()
+		
+		if language == 'original' or typeof(text) ~= 'string' then
+			return text
+		end
+
+		if not isfile(`catrewrite/translations/{language}.json`) then
+			writefile(`catrewrite/translations/{language}.json`, '{}')
+		end
+		
+		local json = jsons.decoded
+		if json[text] then
+			return json[text]
+		end
+
+		local success, res = pcall(function()
+			return httpService:JSONDecode(request({
+				Url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' .. shorten[language] .. '&dt=t&q=' .. httpService:UrlEncode(text),
+				Method = 'GET'
+			}).Body)
+		end)
+		
+		if success and res then
+			json[text] = res[1][1][1]
+
+			jsons.encoded = encodeTable(json)
+			jsons.decoded = table.clone(json)
+		end
+
+		if not success then
+			return text
+		end
+
+		writefile(`catrewrite/translations/{language}.json`, jsons.encoded)
+
+		return json[text] or text
+	end
+
+	local function addCloseButton(parent, offset)
+		local close = Instance.new('ImageButton')
+		close.Name = 'Close'
+		close.Size = UDim2.fromOffset(24, 24)
+		close.Position = UDim2.new(1, -35, 0, offset or 9)
+		close.BackgroundColor3 = Color3.new(1, 1, 1)
+		close.BackgroundTransparency = 1
+		close.AutoButtonColor = false
+		close.Image = getcustomasset('catrewrite/assets/new/close.png')
+		close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+		close.ImageTransparency = 0.5
+		close.Parent = parent
+		addCorner(close, UDim.new(1, 0))
+
+		close.MouseEnter:Connect(function()
+			close.ImageTransparency = 0.3
+			tween:Tween(close, uipallet.Tween, {
+				BackgroundTransparency = 0.6
+			})
+		end)
+		close.MouseLeave:Connect(function()
+			close.ImageTransparency = 0.5
+			tween:Tween(close, uipallet.Tween, {
+				BackgroundTransparency = 1
+			})
+		end)
+
+		return close
+	end
+
+	local function addMaid(object)
+		object.Connections = {}
+		function object:Clean(callback)
+			if typeof(callback) == 'Instance' then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						callback:ClearAllChildren()
+						callback:Destroy()
+					end
+				})
+			elseif type(callback) == 'function' then
+				table.insert(self.Connections, {
+					Disconnect = callback
+				})
+			elseif typeof(callback) == 'table' and rawget(callback, 'func') then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						restorefunction(rawget(callback, 'func'))
+					end
+				})
+			elseif typeof(callback) == 'thread' then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						pcall(task.cancel, callback)
+					end
+				})
+			else
+				table.insert(self.Connections, callback)
+			end
+		end
+	end
+
+	local function addTooltip(gui, text)
+		if not text then return end
+
+		text = translateTo(text)
+
+		local function tooltipMoved(x, y)
+			local right = x + 16 + tooltip.Size.X.Offset > (scale.Scale * 1920)
+			tooltip.Position = UDim2.fromOffset(
+				(right and x - (tooltip.Size.X.Offset * scale.Scale) - 16 or x + 16) / scale.Scale,
+				((y + 11) - (tooltip.Size.Y.Offset / 2)) / scale.Scale
+			)
+			tooltip.Visible = toolblur.Visible
+		end
+
+		gui.MouseEnter:Connect(function(x, y)
+			local tooltipSize = getfontsize(text, tooltip.TextSize, uipallet.Font)
+			tooltip.Size = UDim2.fromOffset(tooltipSize.X + 10, tooltipSize.Y + 10)
+			tooltip.Text = text
+			tooltipMoved(x, y)
+		end)
+		gui.MouseMoved:Connect(tooltipMoved)
+		gui.MouseLeave:Connect(function()
+			tooltip.Visible = false
+		end)
+	end
+
+	local function checkKeybinds(compare, target, key)
+		if type(target) == 'table' then
+			if table.find(target, key) then
+				for i, v in target do
+					if not table.find(compare, v) then
+						return false
+					end
+				end
+				return true
+			end
+		end
+
+		return false
+	end
+
+	local function createDownloader(text)
+		if mainapi.Loaded ~= true then
+			local downloader = mainapi.Downloader
+			if not downloader then
+				downloader = Instance.new('TextLabel')
+				downloader.Size = UDim2.new(1, 0, 0, 40)
+				downloader.BackgroundTransparency = 1
+				downloader.TextStrokeTransparency = 0
+				downloader.TextSize = 20
+				downloader.TextColor3 = Color3.new(1, 1, 1)
+				downloader.FontFace = uipallet.Font
+				downloader.Parent = mainapi.gui
+				mainapi.Downloader = downloader
+			end
+			downloader.Text = 'Downloading '..text
+		end
+	end
+
+	local function createMobileButton(buttonapi, position)
+		if not IsMobile then return end
+		local heldbutton = false
+		local button = Instance.new('TextButton')
+		button.Size = UDim2.fromOffset(40, 40)
+		button.Position = UDim2.fromOffset(position.X, position.Y)
+		button.AnchorPoint = Vector2.new(0.5, 0.5)
+		button.BackgroundColor3 = buttonapi.Enabled and Color3.new(0, 0.7, 0) or Color3.new()
+		button.BackgroundTransparency = 0.5
+		button.Text = buttonapi.Name
+		button.TextColor3 = Color3.new(1, 1, 1)
+		button.TextScaled = true
+		button.Font = Enum.Font.Gotham
+		button.Parent = mainapi.gui
+		local buttonconstraint = Instance.new('UITextSizeConstraint')
+		buttonconstraint.MaxTextSize = 16
+		buttonconstraint.Parent = button
+		addCorner(button, UDim.new(1, 0))
+
+		button.MouseButton1Down:Connect(function()
+			heldbutton = true
+			local holdtime, holdpos = tick(), inputService:GetMouseLocation()
+			repeat
+				heldbutton = (inputService:GetMouseLocation() - holdpos).Magnitude < 6
+				task.wait()
+			until (tick() - holdtime) > 1 or not heldbutton
+			if heldbutton then
+				buttonapi.Bind = {}
+				button:Destroy()
+			end
+		end)
+		button.MouseButton1Up:Connect(function()
+			heldbutton = false
+		end)
+		button.MouseButton1Click:Connect(function()
+			buttonapi:Toggle()
+			button.BackgroundColor3 = buttonapi.Enabled and Color3.new(0, 0.7, 0) or Color3.new()
+		end)
+
+		buttonapi.Bind = {Button = button}
+	end
+
+	local function downloadFile(path, func)
+		if not isfile(path) then
+			createDownloader(path)
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			end)
+			if not suc or res == '404: Not Found' then
+				error(res)
+			end
+			writefile(path, res)
+		end
+		return (func or readfile)(path)
+	end
+
+	local blacklistedexecs = {'Fluxus', 'Krnl', 'Xeno', 'Solara'}
+
+	local getexecutorname = function()
+		local name, ver = identifyexecutor()
+		return name
+	end
+	getcustomasset = not table.find(blacklistedexecs, getexecutorname()) and assetfunction and function(v)
+		if not isfile(v) then
+			local suc = pcall(function()
+				downloadFile(v)
+			end)
+			if not suc then
+				return getcustomassets[v] or ''
+			end
+		end
+		return assetfunction(v)
+	end or function(path)
+		return getcustomassets[path] or ''
+	end
+
+	local function getTableSize(tab)
+		local ind = 0
+		for _ in tab do ind += 1 end
+		return ind
+	end
+
+	local function loopClean(tab)
+		for i, v in tab do
+			if type(v) == 'table' then
+				loopClean(v)
+			end
+			tab[i] = nil
+		end
+	end
+
+	local function loadJson(path)
+		local suc, res = pcall(function()
+			return httpService:JSONDecode(readfile(path))
+		end)
+		return suc and type(res) == 'table' and res or nil
+	end
+
+	local function makeDraggable(gui, window)
+		gui.InputBegan:Connect(function(inputObj)
+			if window and not window.Visible then return end
+			if
+				(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+				and (inputObj.Position.Y - gui.AbsolutePosition.Y < 40 or window)
+			then
+				local dragPosition = Vector2.new(
+					gui.AbsolutePosition.X - inputObj.Position.X,
+					gui.AbsolutePosition.Y - inputObj.Position.Y + guiService:GetGuiInset().Y
+				) / scale.Scale
+
+				local changed = inputService.InputChanged:Connect(function(input)
+					if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+						local position = input.Position
+						if inputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+							dragPosition = (dragPosition // 3) * 3
+							position = (position // 3) * 3
+						end
+						gui.Position = UDim2.fromOffset((position.X / scale.Scale) + dragPosition.X, (position.Y / scale.Scale) + dragPosition.Y)
+					end
+				end)
+
+				local ended
+				ended = inputObj.Changed:Connect(function()
+					if inputObj.UserInputState == Enum.UserInputState.End then
+						if changed then
+							changed:Disconnect()
+						end
+						if ended then
+							ended:Disconnect()
+						end
+					end
+				end)
+			end
+		end)
+	end
+
+	local function randomString()
+		local array = {}
+		for i = 1, math.random(10, 100) do
+			array[i] = string.char(math.random(32, 126))
+		end
+		return table.concat(array)
+	end
+
+	local function removeTags(str)
+		str = str:gsub('<br%s*/>', '\n')
+		return str:gsub('<[^<>]->', '')
+	end
+
+	local function writeFont()
+		writefile('catrewrite/assets/new/minecraftfont.json', httpService:JSONEncode({
+			name = 'Minecraft',
+			faces = {
+				{style = 'normal', assetId = getcustomasset('catrewrite/regular.ttf'), name = 'Regular', weight = 400},		
+			}
+		}))
+		return getcustomasset('catrewrite/assets/new/minecraftfont.json')
+	end
+
+	do
+		local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
+		if res then 
+			uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
+			uipallet.Text = res.Main and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
+			uipallet.Font = res.Font and Font.new(
+				res.Font:find('rbxasset') and res.Font
+				or string.format('rbxasset://fonts/families/%s.json', res.Font)
+			) or uipallet.Font
+			uipallet.FontSemiBold = Font.new(uipallet.Font.Family, Enum.FontWeight.SemiBold)
+		end
+		fontsize.Font = uipallet.Font
+	end
+
+	do
+		function color.Dark(col, num)
+			local h, s, v = col:ToHSV()
+			return Color3.fromHSV(h, s, math.clamp(select(3, uipallet.Main:ToHSV()) > 0.5 and v + num or v - num, 0, 1))
+		end
+
+		function color.Light(col, num)
+			local h, s, v = col:ToHSV()
+			return Color3.fromHSV(h, s, math.clamp(select(3, uipallet.Main:ToHSV()) > 0.5 and v - num or v + num, 0, 1))
+		end
+
+		function mainapi:Color(h)
+			local s = 0.75 + (0.15 * math.min(h / 0.03, 1))
+			if h > 0.57 then
+				s = 0.9 - (0.4 * math.min((h - 0.57) / 0.09, 1))
+			end
+			if h > 0.66 then
+				s = 0.5 + (0.4 * math.min((h - 0.66) / 0.16, 1))
+			end
+			if h > 0.87 then
+				s = 0.9 - (0.15 * math.min((h - 0.87) / 0.13, 1))
+			end
+			return h, s, 1
+		end
+
+		function mainapi:TextColor(h, s, v)
+			if v >= 0.7 and (s < 0.6 or h > 0.04 and h < 0.56) then
+				return Color3.new(0.19, 0.19, 0.19)
+			end
+			return Color3.new(1, 1, 1)
+		end
+	end
+
+	do
+		function tween:Tween(obj, tweeninfo, goal, tab)
+			tab = tab or self.tweens
+			if tab[obj] then
+				tab[obj]:Cancel()
+			end
+
+			if obj.Parent and obj.Visible then
+				tab[obj] = tweenService:Create(obj, tweeninfo, goal)
+				tab[obj].Completed:Once(function()
+					if tab then
+						tab[obj] = nil
+						tab = nil
+					end
+				end)
+				tab[obj]:Play()
+			else
+				for i, v in goal do
+					obj[i] = v
+				end
+			end
+		end
+
+		function tween:Cancel(obj)
+			if self.tweens[obj] then
+				self.tweens[obj]:Cancel()
+				self.tweens[obj] = nil
+			end
+		end
+	end
+
+	mainapi.Libraries = {
+		color = color,
+		getcustomasset = getcustomasset,
+		getfontsize = getfontsize,
+		tween = tween,
+		uipallet = uipallet,
+		base64 = loadstring(downloadFile("catrewrite/libraries/base64.lua"), "base64")(),
+		spotify = loadstring(downloadFile("catrewrite/libraries/spotify.lua"), "spotify")()
+	}
+
+	local components
+	components = {
+		Button = function(optionsettings, children, api)
+			local button = Instance.new('TextButton')
+			button.Name = optionsettings.Name..'Button'
+			button.Size = UDim2.new(1, 0, 0, 31)
+			button.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			button.Text = ''
+			button.Parent = children
+			addTooltip(button, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Size = UDim2.fromOffset(200, 27)
+			bkg.Position = UDim2.fromOffset(10, 2)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+			bkg.Parent = button
+			addCorner(bkg)
+			local label = Instance.new('TextLabel')
+			label.Size = UDim2.new(1, -4, 1, -4)
+			label.Position = UDim2.fromOffset(2, 2)
+			label.BackgroundColor3 = uipallet.Main
+			label.Text = optionsettings.Name
+			label.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			label.TextSize = 14
+			label.FontFace = uipallet.Font
+			label.Parent = bkg
+			addCorner(label, UDim.new(0, 4))
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			button.MouseEnter:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+			end)
+			button.MouseLeave:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+				})
+			end)
+			button.MouseButton1Click:Connect(optionsettings.Function)
+		end,
+		ColorSlider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'ColorSlider',
+				Hue = optionsettings.DefaultHue or 0.44,
+				Sat = optionsettings.DefaultSat or 1,
+				Value = optionsettings.DefaultValue or 1,
+				Opacity = optionsettings.DefaultOpacity or 1,
+				Rainbow = false,
+				Index = 0
+			}
+			
+			local function createSlider(name, gradientColor)
+				local slider = Instance.new('TextButton')
+				slider.Name = optionsettings.Name..'Slider'..name
+				slider.Size = UDim2.new(1, 0, 0, 50)
+				slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+				slider.BorderSizePixel = 0
+				slider.AutoButtonColor = false
+				slider.Visible = false
+				slider.Text = ''
+				slider.Parent = children
+				local title = Instance.new('TextLabel')
+				title.Name = 'Title'
+				title.Size = UDim2.fromOffset(60, 30)
+				title.Position = UDim2.fromOffset(10, 2)
+				title.BackgroundTransparency = 1
+				title.Text = name
+				title.TextXAlignment = Enum.TextXAlignment.Left
+				title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				title.TextSize = 11
+				title.FontFace = uipallet.Font
+				title.Parent = slider
+				local bkg = Instance.new('Frame')
+				bkg.Name = 'Slider'
+				bkg.Size = UDim2.new(1, -20, 0, 2)
+				bkg.Position = UDim2.fromOffset(10, 37)
+				bkg.BackgroundColor3 = Color3.new(1, 1, 1)
+				bkg.BorderSizePixel = 0
+				bkg.Parent = slider
+				local gradient = Instance.new('UIGradient')
+				gradient.Color = gradientColor
+				gradient.Parent = bkg
+				local fill = bkg:Clone()
+				fill.Name = 'Fill'
+				fill.Size = UDim2.fromScale(math.clamp(name == 'Saturation' and optionapi.Sat or name == 'Vibrance' and optionapi.Value or optionapi.Opacity, 0.04, 0.96), 1)
+				fill.Position = UDim2.new()
+				fill.BackgroundTransparency = 1
+				fill.Parent = bkg
+				local knobholder = Instance.new('Frame')
+				knobholder.Name = 'Knob'
+				knobholder.Size = UDim2.fromOffset(24, 4)
+				knobholder.Position = UDim2.fromScale(1, 0.5)
+				knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+				knobholder.BackgroundColor3 = slider.BackgroundColor3
+				knobholder.BorderSizePixel = 0
+				knobholder.Parent = fill
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(14, 14)
+				knob.Position = UDim2.fromScale(0.5, 0.5)
+				knob.AnchorPoint = Vector2.new(0.5, 0.5)
+				knob.BackgroundColor3 = uipallet.Text
+				knob.Parent = knobholder
+				addCorner(knob, UDim.new(1, 0))
+			
+				slider.InputBegan:Connect(function(inputObj)
+					if
+						(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+						and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+					then
+						local changed = inputService.InputChanged:Connect(function(input)
+							if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+								optionapi:SetValue(nil, name == 'Saturation' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil, name == 'Vibrance' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil, name == 'Opacity' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil)
+							end
+						end)
+			
+						local ended
+						ended = inputObj.Changed:Connect(function()
+							if inputObj.UserInputState == Enum.UserInputState.End then
+								if changed then changed:Disconnect() end
+								if ended then ended:Disconnect() end
+							end
+						end)
+					end
+				end)
+				slider.MouseEnter:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(16, 16)
+					})
+				end)
+				slider.MouseLeave:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(14, 14)
+					})
+				end)
+			
+				return slider
+			end
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = UDim2.fromOffset(60, 15)
+			valuebox.Position = UDim2.new(1, -69, 0, 9)
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = ''
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = true
+			valuebox.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 39)
+			bkg.BackgroundColor3 = Color3.new(1, 1, 1)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local rainbowTable = {}
+			for i = 0, 1, 0.1 do
+				table.insert(rainbowTable, ColorSequenceKeypoint.new(i, Color3.fromHSV(i, 1, 1)))
+			end
+			local gradient = Instance.new('UIGradient')
+			gradient.Color = ColorSequence.new(rainbowTable)
+			gradient.Parent = bkg
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Size = UDim2.fromScale(math.clamp(optionapi.Hue, 0.04, 0.96), 1)
+			fill.Position = UDim2.new()
+			fill.BackgroundTransparency = 1
+			fill.Parent = bkg
+			local preview = Instance.new('ImageButton')
+			preview.Name = 'Preview'
+			preview.Size = UDim2.fromOffset(12, 12)
+			preview.Position = UDim2.new(1, -22, 0, 10)
+			preview.BackgroundTransparency = 1
+			preview.Image = getcustomasset('catrewrite/assets/new/colorpreview.png')
+			preview.ImageColor3 = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+			preview.ImageTransparency = 1 - optionapi.Opacity
+			preview.Parent = slider
+			local expandbutton = Instance.new('TextButton')
+			expandbutton.Name = 'Expand'
+			expandbutton.Size = UDim2.fromOffset(17, 13)
+			expandbutton.Position = UDim2.new(0, textService:GetTextSize(title.Text, title.TextSize, (title.Font ~= Enum.Font.Unknown and title.Font or Enum.Font.Arial), Vector2.new(1000, 1000)).X + 11, 0, 7)
+			expandbutton.BackgroundTransparency = 1
+			expandbutton.Text = ''
+			expandbutton.Parent = slider
+			local expand = Instance.new('ImageLabel')
+			expand.Name = 'Expand'
+			expand.Size = UDim2.fromOffset(9, 5)
+			expand.Position = UDim2.fromOffset(4, 4)
+			expand.BackgroundTransparency = 1
+			expand.Image = getcustomasset('catrewrite/assets/new/expandicon.png')
+			expand.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			expand.Parent = expandbutton
+			local rainbow = Instance.new('TextButton')
+			rainbow.Name = 'Rainbow'
+			rainbow.Size = UDim2.fromOffset(12, 12)
+			rainbow.Position = UDim2.new(1, -42, 0, 10)
+			rainbow.BackgroundTransparency = 1
+			rainbow.Text = ''
+			rainbow.Parent = slider
+			local rainbow1 = Instance.new('ImageLabel')
+			rainbow1.Size = UDim2.fromOffset(12, 12)
+			rainbow1.BackgroundTransparency = 1
+			rainbow1.Image = getcustomasset('catrewrite/assets/new/rainbow_1.png')
+			rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			rainbow1.Parent = rainbow
+			local rainbow2 = rainbow1:Clone()
+			rainbow2.Image = getcustomasset('catrewrite/assets/new/rainbow_2.png')
+			rainbow2.Parent = rainbow
+			local rainbow3 = rainbow1:Clone()
+			rainbow3.Image = getcustomasset('catrewrite/assets/new/rainbow_3.png')
+			rainbow3.Parent = rainbow
+			local rainbow4 = rainbow1:Clone()
+			rainbow4.Image = getcustomasset('catrewrite/assets/new/rainbow_4.png')
+			rainbow4.Parent = rainbow
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(24, 4)
+			knobholder.Position = UDim2.fromScale(1, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(14, 14)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundColor3 = uipallet.Text
+			knob.Parent = knobholder
+			addCorner(knob, UDim.new(1, 0))
+			optionsettings.Function = optionsettings.Function or function() end
+			local satSlider = createSlider('Saturation', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, optionapi.Value)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, 1, optionapi.Value))
+			}))
+			local vibSlider = createSlider('Vibrance', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, 1))
+			}))
+			local opSlider = createSlider('Opacity', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, color.Dark(uipallet.Main, 0.02)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value))
+			}))
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Hue = self.Hue,
+					Sat = self.Sat,
+					Value = self.Value,
+					Opacity = self.Opacity,
+					Rainbow = self.Rainbow
+				}
+			end
+			
+			function optionapi:Load(tab)
+				if tab.Rainbow ~= self.Rainbow then
+					self:Toggle()
+				end
+				if self.Hue ~= tab.Hue or self.Sat ~= tab.Sat or self.Value ~= tab.Value or self.Opacity ~= tab.Opacity then
+					pcall(function()
+						self:SetValue(tab.Hue, tab.Sat, tab.Value, tab.Opacity)
+					end)
+				end
+			end
+			
+			function optionapi:SetValue(h, s, v, o)
+				self.Hue = h or self.Hue
+				self.Sat = s or self.Sat
+				self.Value = v or self.Value
+				self.Opacity = o or self.Opacity
+				preview.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+				preview.ImageTransparency = 1 - self.Opacity
+				satSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, self.Value)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, 1, self.Value))
+				})
+				vibSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, 1))
+				})
+				opSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, color.Dark(uipallet.Main, 0.02)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, self.Value))
+				})
+			
+				if self.Rainbow then
+					fill.Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+				else
+					tween:Tween(fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+					})
+				end
+			
+				if s then
+					tween:Tween(satSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+					})
+				end
+				if v then
+					tween:Tween(vibSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+					})
+				end
+				if o then
+					tween:Tween(opSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Opacity, 0.04, 0.96), 1)
+					})
+				end
+			
+				optionsettings.Function(self.Hue, self.Sat, self.Value, self.Opacity)
+			end
+			
+			function optionapi:Toggle()
+				self.Rainbow = not self.Rainbow
+				if self.Rainbow then
+					table.insert(mainapi.RainbowTable, self)
+					rainbow1.ImageColor3 = Color3.fromRGB(5, 127, 100)
+					task.delay(0.1, function()
+						if not self.Rainbow then return end
+						rainbow2.ImageColor3 = Color3.fromRGB(228, 125, 43)
+						task.delay(0.1, function()
+							if not self.Rainbow then return end
+							rainbow3.ImageColor3 = Color3.fromRGB(225, 46, 52)
+						end)
+					end)
+				else
+					local ind = table.find(mainapi.RainbowTable, self)
+					if ind then
+						table.remove(mainapi.RainbowTable, ind)
+					end
+					rainbow3.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					task.delay(0.1, function()
+						if self.Rainbow then return end
+						rainbow2.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						task.delay(0.1, function()
+							if self.Rainbow then return end
+							rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end)
+					end)
+				end
+			end
+			
+			local doubleClick = tick()
+			preview.MouseButton1Click:Connect(function()
+				preview.Visible = false
+				valuebox.Visible = true
+				valuebox:CaptureFocus()
+				local text = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+				valuebox.Text = math.round(text.R * 255)..', '..math.round(text.G * 255)..', '..math.round(text.B * 255)
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					if doubleClick > tick() then
+						optionapi:Toggle()
+					end
+					doubleClick = tick() + 0.3
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							optionapi:SetValue(math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1))
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+				end
+			end)
+			slider.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(16, 16)
+				})
+			end)
+			slider.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(14, 14)
+				})
+			end)
+			slider:GetPropertyChangedSignal('Visible'):Connect(function()
+				satSlider.Visible = expand.Rotation == 180 and slider.Visible
+				vibSlider.Visible = satSlider.Visible
+				opSlider.Visible = satSlider.Visible
+			end)
+			expandbutton.MouseEnter:Connect(function()
+				expand.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			expandbutton.MouseLeave:Connect(function()
+				expand.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			expandbutton.MouseButton1Click:Connect(function()
+				satSlider.Visible = not satSlider.Visible
+				vibSlider.Visible = satSlider.Visible
+				opSlider.Visible = satSlider.Visible
+				expand.Rotation = satSlider.Visible and 180 or 0
+			end)
+			rainbow.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				preview.Visible = true
+				valuebox.Visible = false
+				if enter then
+					local commas = valuebox.Text:split(',')
+					local suc, res = pcall(function()
+						return tonumber(commas[1]) and Color3.fromRGB(tonumber(commas[1]), tonumber(commas[2]), tonumber(commas[3])) or Color3.fromHex(valuebox.Text)
+					end)
+					if suc then
+						if optionapi.Rainbow then
+							optionapi:Toggle()
+						end
+						optionapi:SetValue(res:ToHSV())
+					end
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Dropdown = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Dropdown',
+				Value = optionsettings.List[1] or 'None',
+				Index = 0
+			}
+			
+			local dropdown = Instance.new('TextButton')
+			dropdown.Name = optionsettings.Name..'Dropdown'
+			dropdown.Size = UDim2.new(1, 0, 0, 40)
+			dropdown.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			dropdown.BorderSizePixel = 0
+			dropdown.AutoButtonColor = false
+			dropdown.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			dropdown.Text = ''
+			dropdown.Parent = children
+			addTooltip(dropdown, translateTo(optionsettings.Tooltip, usedLanguage) or translateTo(optionsettings.Name, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = dropdown
+			addCorner(bkg, UDim.new(0, 6))
+			local button = Instance.new('TextButton')
+			button.Name = 'Dropdown'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, 0, 0, 29)
+			title.BackgroundTransparency = 1
+			title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..optionapi.Value
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 13
+			title.TextTruncate = Enum.TextTruncate.AtEnd
+			title.FontFace = uipallet.Font
+			title.Parent = button
+			addCorner(button, UDim.new(0, 6))
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -17, 0, 11)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+			arrow.Rotation = 90
+			arrow.Parent = button
+			optionsettings.Function = optionsettings.Function or function() end
+			local dropdownchildren
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Value = self.Value}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Value ~= tab.Value then
+					self:SetValue(tab.Value)
+				end
+			end
+			
+			function optionapi:Change(list)
+				optionsettings.List = list or {}
+				if not table.find(optionsettings.List, self.Value) then
+					self:SetValue(self.Value)
+				end
+			end
+			
+			function optionapi:SetValue(val, mouse)
+				self.Value = table.find(optionsettings.List, val) and val or optionsettings.List[1] or 'None'
+				title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..self.Value
+				if dropdownchildren then
+					arrow.Rotation = 90
+					dropdownchildren:Destroy()
+					dropdownchildren = nil
+					dropdown.Size = UDim2.new(1, 0, 0, 40)
+				end
+				optionsettings.Function(self.Value, mouse)
+			end
+			
+			button.MouseButton1Click:Connect(function()
+				if not dropdownchildren then
+					arrow.Rotation = 270
+					dropdown.Size = UDim2.new(1, 0, 0, 40 + (#optionsettings.List - 1) * 26)
+					dropdownchildren = Instance.new('Frame')
+					dropdownchildren.Name = 'Children'
+					dropdownchildren.Size = UDim2.new(1, 0, 0, (#optionsettings.List - 1) * 26)
+					dropdownchildren.Position = UDim2.fromOffset(0, 27)
+					dropdownchildren.BackgroundTransparency = 1
+					dropdownchildren.Parent = button
+					local ind = 0
+					for _, v in optionsettings.List do
+						if v == optionapi.Value then continue end
+						local dropdownoption = Instance.new('TextButton')
+						dropdownoption.Name = v..'Option'
+						dropdownoption.Size = UDim2.new(1, 0, 0, 26)
+						dropdownoption.Position = UDim2.fromOffset(0, ind * 26)
+						dropdownoption.BackgroundColor3 = uipallet.Main
+						dropdownoption.BorderSizePixel = 0
+						dropdownoption.AutoButtonColor = false
+						dropdownoption.Text = '         '..v
+						dropdownoption.TextXAlignment = Enum.TextXAlignment.Left
+						dropdownoption.TextColor3 = color.Dark(uipallet.Text, 0.16)
+						dropdownoption.TextSize = 13
+						dropdownoption.TextTruncate = Enum.TextTruncate.AtEnd
+						dropdownoption.FontFace = uipallet.Font
+						dropdownoption.Parent = dropdownchildren
+						dropdownoption.MouseEnter:Connect(function()
+							tween:Tween(dropdownoption, uipallet.Tween, {
+								BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+							})
+						end)
+						dropdownoption.MouseLeave:Connect(function()
+							tween:Tween(dropdownoption, uipallet.Tween, {
+								BackgroundColor3 = uipallet.Main
+							})
+						end)
+						dropdownoption.MouseButton1Click:Connect(function()
+							optionapi:SetValue(v, true)
+						end)
+						ind += 1
+					end
+				else
+					optionapi:SetValue(optionapi.Value, true)
+				end
+			end)
+			dropdown.MouseEnter:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+			end)
+			dropdown.MouseLeave:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+			end)
+			
+			optionapi.Object = dropdown
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Font = function(optionsettings, children, api)
+			local fonts = {
+				optionsettings.Blacklist,
+				'Custom'
+			}
+			for _, v in Enum.Font:GetEnumItems() do
+				if not table.find(fonts, v.Name) then
+					table.insert(fonts, v.Name)
+				end
+			end
+			
+			local optionapi = {Value = Font.fromEnum(Enum.Font[fonts[1]])}
+			local fontdropdown
+			local fontbox
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			fontdropdown = components.Dropdown({
+				Name = optionsettings.Name,
+				List = fonts,
+				Function = function(val)
+					fontbox.Object.Visible = val == 'Custom' and fontdropdown.Object.Visible
+					if val ~= 'Custom' then
+						optionapi.Value = Font.fromEnum(Enum.Font[val])
+						optionsettings.Function(optionapi.Value)
+					else
+						pcall(function()
+							optionapi.Value = Font.fromId(tonumber(fontbox.Value))
+						end)
+						optionsettings.Function(optionapi.Value)
+					end
+				end,
+				Darker = optionsettings.Darker,
+				Visible = optionsettings.Visible
+			}, children, api)
+			optionapi.Object = fontdropdown.Object
+			fontbox = components.TextBox({
+				Name = optionsettings.Name..' Asset',
+				Placeholder = 'font (rbxasset)',
+				Function = function()
+					if fontdropdown.Value == 'Custom' then
+						pcall(function()
+							optionapi.Value = Font.fromId(tonumber(fontbox.Value))
+						end)
+						optionsettings.Function(optionapi.Value)
+					end
+				end,
+				Visible = false,
+				Darker = true
+			}, children, api)
+			
+			fontdropdown.Object:GetPropertyChangedSignal('Visible'):Connect(function()
+				fontbox.Object.Visible = fontdropdown.Object.Visible and fontdropdown.Value == 'Custom'
+			end)
+			
+			return optionapi
+		end,
+		Slider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Slider',
+				Value = optionsettings.Default or optionsettings.Min,
+				Max = optionsettings.Max,
+				Index = getTableSize(api.Options)
+			}
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebutton = Instance.new('TextButton')
+			valuebutton.Name = 'Value'
+			valuebutton.Size = UDim2.fromOffset(60, 15)
+			valuebutton.Position = UDim2.new(1, -69, 0, 9)
+			valuebutton.BackgroundTransparency = 1
+			pcall(function()
+				valuebutton.Text = optionapi.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(optionapi.Value) or optionsettings.Suffix) or '')
+			end)
+			valuebutton.TextXAlignment = Enum.TextXAlignment.Right
+			valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebutton.TextSize = 11
+			valuebutton.FontFace = uipallet.Font
+			valuebutton.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = valuebutton.Size
+			valuebox.Position = valuebutton.Position
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = optionapi.Value
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = false
+			valuebox.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 37)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Size = UDim2.fromScale(math.clamp((optionapi.Value - optionsettings.Min) / optionsettings.Max, 0.04, 0.96), 1)
+			fill.Position = UDim2.new()
+			fill.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			fill.Parent = bkg
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(24, 4)
+			knobholder.Position = UDim2.fromScale(1, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(14, 14)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			knob.Parent = knobholder
+			addCorner(knob, UDim.new(1, 0))
+			optionsettings.Function = optionsettings.Function or function() end
+			optionsettings.Decimal = optionsettings.Decimal or 1
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Value = self.Value,
+					Max = self.Max
+				}
+			end
+			
+			function optionapi:Load(tab)
+				local newval = tab.Value == tab.Max and tab.Max ~= self.Max and self.Max or tab.Value
+				if self.Value ~= newval then
+					self:SetValue(newval, nil, true)
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				fill.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				knob.BackgroundColor3 = fill.BackgroundColor3
+			end
+			
+			function optionapi:SetValue(value, pos, final)
+				if tonumber(value) == math.huge or value ~= value then return end
+				local check = self.Value ~= value
+				self.Value = value
+				tween:Tween(fill, uipallet.Tween, {
+					Size = UDim2.fromScale(math.clamp(pos or math.clamp(value / optionsettings.Max, 0, 1), 0.04, 0.96), 1)
+				})
+				valuebutton.Text = self.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(self.Value) or optionsettings.Suffix) or '')
+				if check or final then
+					pcall(function()
+						optionsettings.Function(value, final)
+					end)
+				end
+			end
+			
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+					optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+					local lastValue = optionapi.Value
+					local lastPosition = newPosition
+			
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+							optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+							lastValue = optionapi.Value
+							lastPosition = newPosition
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+							optionapi:SetValue(lastValue, lastPosition, true)
+						end
+					end)
+			
+				end
+			end)
+			slider.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(16, 16)
+				})
+			end)
+			slider.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(14, 14)
+				})
+			end)
+			valuebutton.MouseButton1Click:Connect(function()
+				valuebutton.Visible = false
+				valuebox.Visible = true
+				valuebox.Text = optionapi.Value
+				valuebox:CaptureFocus()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				valuebutton.Visible = true
+				valuebox.Visible = false
+				if enter and tonumber(valuebox.Text) then
+					optionapi:SetValue(tonumber(valuebox.Text), nil, true)
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Targets = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Targets',
+				Index = getTableSize(api.Options)
+			}
+			
+			local textlist = Instance.new('TextButton')
+			textlist.Name = 'Targets'
+			textlist.Size = UDim2.new(1, 0, 0, 50)
+			textlist.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textlist.BorderSizePixel = 0
+			textlist.AutoButtonColor = false
+			textlist.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textlist.Text = ''
+			textlist.Parent = children
+			addTooltip(textlist, optionsettings.Tooltip)
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = textlist
+			addCorner(bkg, UDim.new(0, 4))
+			local button = Instance.new('TextButton')
+			button.Name = 'TextList'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local buttontitle = Instance.new('TextLabel')
+			buttontitle.Name = 'Title'
+			buttontitle.Size = UDim2.new(1, -5, 0, 15)
+			buttontitle.Position = UDim2.fromOffset(5, 6)
+			buttontitle.BackgroundTransparency = 1
+			buttontitle.Text = 'Target:'
+			buttontitle.TextXAlignment = Enum.TextXAlignment.Left
+			buttontitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			buttontitle.TextSize = 15
+			buttontitle.TextTruncate = Enum.TextTruncate.AtEnd
+			buttontitle.FontFace = uipallet.Font
+			buttontitle.Parent = button
+			local items = buttontitle:Clone()
+			items.Name = 'Items'
+			items.Position = UDim2.fromOffset(5, 21)
+			items.Text = 'Ignore none'
+			items.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			items.TextSize = 11
+			items.Parent = button
+			addCorner(button, UDim.new(0, 4))
+			local tool = Instance.new('Frame')
+			tool.Size = UDim2.fromOffset(65, 12)
+			tool.Position = UDim2.fromOffset(52, 8)
+			tool.BackgroundTransparency = 1
+			tool.Parent = button
+			local toollist = Instance.new('UIListLayout')
+			toollist.FillDirection = Enum.FillDirection.Horizontal
+			toollist.Padding = UDim.new(0, 6)
+			toollist.Parent = tool
+			local window = Instance.new('TextButton')
+			window.Name = 'TargetsTextWindow'
+			window.Size = UDim2.fromOffset(220, 145)
+			window.BackgroundColor3 = uipallet.Main
+			window.BorderSizePixel = 0
+			window.AutoButtonColor = false
+			window.Visible = false
+			window.Text = ''
+			window.Parent = clickgui
+			optionapi.Window = window
+			addBlur(window)
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(18, 12)
+			icon.Position = UDim2.fromOffset(10, 15)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/targetstab.png')
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = 'Target settings'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window)
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab.Targets = {
+					Players = self.Players.Enabled,
+					NPCs = self.NPCs.Enabled,
+					Invisible = self.Invisible.Enabled,
+					Walls = self.Walls.Enabled
+				}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Players.Enabled ~= tab.Players then
+					self.Players:Toggle()
+				end
+				if self.NPCs.Enabled ~= tab.NPCs then
+					self.NPCs:Toggle()
+				end
+				if self.Invisible.Enabled ~= tab.Invisible then
+					self.Invisible:Toggle()
+				end
+				if self.Walls.Enabled ~= tab.Walls then
+					self.Walls:Toggle()
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				bkg.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				if self.Players.Enabled then
+					tween:Cancel(self.Players.Object.Frame)
+					self.Players.Object.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.NPCs.Enabled then
+					tween:Cancel(self.NPCs.Object.Frame)
+					self.NPCs.Object.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.Invisible.Enabled then
+					tween:Cancel(self.Invisible.Object.Knob)
+					self.Invisible.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.Walls.Enabled then
+					tween:Cancel(self.Walls.Object.Knob)
+					self.Walls.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			optionapi.Players = components.TargetsButton({
+				Position = UDim2.fromOffset(11, 45),
+				Icon = getcustomasset('catrewrite/assets/new/targetplayers1.png'),
+				IconSize = UDim2.fromOffset(15, 16),
+				IconParent = tool,
+				ToolIcon = getcustomasset('catrewrite/assets/new/targetplayers2.png'),
+				ToolSize = UDim2.fromOffset(11, 12),
+				Tooltip = 'Players',
+				Function = optionsettings.Function
+			}, window, tool)
+			optionapi.NPCs = components.TargetsButton({
+				Position = UDim2.fromOffset(112, 45),
+				Icon = getcustomasset('catrewrite/assets/new/targetnpc1.png'),
+				IconSize = UDim2.fromOffset(12, 16),
+				IconParent = tool,
+				ToolIcon = getcustomasset('catrewrite/assets/new/targetnpc2.png'),
+				ToolSize = UDim2.fromOffset(9, 12),
+				Tooltip = 'NPCs',
+				Function = optionsettings.Function
+			}, window, tool)
+			optionapi.Invisible = components.Toggle({
+				Name = 'Ignore invisible',
+				Function = function()
+					local text = 'none'
+					if optionapi.Invisible.Enabled then
+						text = 'invisible'
+					end
+					if optionapi.Walls.Enabled then
+						text = text == 'none' and 'behind walls' or text..', behind walls'
+					end
+					items.Text = 'Ignore '..text
+					optionsettings.Function()
+				end
+			}, window, {Options = {}})
+			optionapi.Invisible.Object.Position = UDim2.fromOffset(0, 81)
+			optionapi.Walls = components.Toggle({
+				Name = 'Ignore behind walls',
+				Function = function()
+					local text = 'none'
+					if optionapi.Invisible.Enabled then
+						text = 'invisible'
+					end
+					if optionapi.Walls.Enabled then
+						text = text == 'none' and 'behind walls' or text..', behind walls'
+					end
+					items.Text = 'Ignore '..text
+					optionsettings.Function()
+				end
+			}, window, {Options = {}})
+			optionapi.Walls.Object.Position = UDim2.fromOffset(0, 111)
+			if optionsettings.Players then
+				optionapi.Players:Toggle()
+			end
+			if optionsettings.NPCs then
+				optionapi.NPCs:Toggle()
+			end
+			if optionsettings.Invisible then
+				optionapi.Invisible:Toggle()
+			end
+			if optionsettings.Walls then
+				optionapi.Walls:Toggle()
+			end
+			
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+			end)
+			button.MouseButton1Click:Connect(function()
+				window.Visible = not window.Visible
+				tween:Cancel(bkg)
+				bkg.BackgroundColor3 = window.Visible and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.37)
+			end)
+			textlist.MouseEnter:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			textlist.MouseLeave:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+					})
+				end
+			end)
+			textlist:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				local actualPosition = (textlist.AbsolutePosition + Vector2.new(0, 60)) / scale.Scale
+				window.Position = UDim2.fromOffset(actualPosition.X + 220, actualPosition.Y)
+			end)
+			
+			optionapi.Object = textlist
+			api.Options.Targets = optionapi
+			
+			return optionapi
+		end,
+		TargetsButton = function(optionsettings, children, api)
+			local optionapi = {Enabled = false}
+			
+			local targetbutton = Instance.new('TextButton')
+			targetbutton.Size = UDim2.fromOffset(98, 31)
+			targetbutton.Position = optionsettings.Position
+			targetbutton.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+			targetbutton.AutoButtonColor = false
+			targetbutton.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			targetbutton.Text = ''
+			targetbutton.Parent = children
+			addCorner(targetbutton)
+			addTooltip(targetbutton, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Size = UDim2.new(1, -2, 1, -2)
+			bkg.Position = UDim2.fromOffset(1, 1)
+			bkg.BackgroundColor3 = uipallet.Main
+			bkg.Parent = targetbutton
+			addCorner(bkg)
+			local icon = Instance.new('ImageLabel')
+			icon.Size = optionsettings.IconSize
+			icon.Position = UDim2.fromScale(0.5, 0.5)
+			icon.AnchorPoint = Vector2.new(0.5, 0.5)
+			icon.BackgroundTransparency = 1
+			icon.Image = optionsettings.Icon
+			icon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			icon.Parent = bkg
+			optionsettings.Function = optionsettings.Function or function() end
+			local tooltipicon
+			
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = self.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or uipallet.Main
+				})
+				tween:Tween(icon, uipallet.Tween, {
+					ImageColor3 = self.Enabled and Color3.new(1, 1, 1) or color.Light(uipallet.Main, 0.37)
+				})
+				if tooltipicon then
+					tooltipicon:Destroy()
+				end
+				if self.Enabled then
+					tooltipicon = Instance.new('ImageLabel')
+					tooltipicon.Size = optionsettings.ToolSize
+					tooltipicon.BackgroundTransparency = 1
+					tooltipicon.Image = optionsettings.ToolIcon
+					tooltipicon.ImageColor3 = uipallet.Text
+					tooltipicon.Parent = optionsettings.IconParent
+				end
+				optionsettings.Function(self.Enabled)
+			end
+			
+			targetbutton.MouseEnter:Connect(function()
+				if not optionapi.Enabled then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value - 0.25)
+					})
+					tween:Tween(icon, uipallet.Tween, {
+						ImageColor3 = Color3.new(1, 1, 1)
+					})
+				end
+			end)
+			targetbutton.MouseLeave:Connect(function()
+				if not optionapi.Enabled then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = uipallet.Main
+					})
+					tween:Tween(icon, uipallet.Tween, {
+						ImageColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			targetbutton.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			
+			optionapi.Object = targetbutton
+			
+			return optionapi
+		end,
+		TextBox = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TextBox',
+				Value = optionsettings.Default or '',
+				Index = 0
+			}
+			
+			local textbox = Instance.new('TextButton')
+			textbox.Name = optionsettings.Name..'TextBox'
+			textbox.Size = UDim2.new(1, 0, 0, 58)
+			textbox.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textbox.BorderSizePixel = 0
+			textbox.AutoButtonColor = false
+			textbox.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textbox.Text = ''
+			textbox.Parent = children
+			addTooltip(textbox, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Size = UDim2.new(1, -10, 0, 20)
+			title.Position = UDim2.fromOffset(10, 3)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 12
+			title.FontFace = uipallet.Font
+			title.Parent = textbox
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 0, 29)
+			bkg.Position = UDim2.fromOffset(10, 23)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			bkg.Parent = textbox
+			addCorner(bkg, UDim.new(0, 4))
+			local box = Instance.new('TextBox')
+			box.Size = UDim2.new(1, -8, 1, 0)
+			box.Position = UDim2.fromOffset(8, 0)
+			box.BackgroundTransparency = 1
+			box.Text = optionsettings.Default or ''
+			box.PlaceholderText = optionsettings.Placeholder or 'Click to set'
+			box.TextXAlignment = Enum.TextXAlignment.Left
+			box.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			box.PlaceholderColor3 = color.Dark(uipallet.Text, 0.31)
+			box.TextSize = 12
+			box.FontFace = uipallet.Font
+			box.ClearTextOnFocus = false
+			box.Parent = bkg
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Value = self.Value}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Value ~= tab.Value then
+					self:SetValue(tab.Value)
+				end
+			end
+			
+			function optionapi:SetValue(val, enter)
+				self.Value = val
+				box.Text = val
+				optionsettings.Function(enter)
+			end
+			
+			textbox.MouseButton1Click:Connect(function()
+				box:CaptureFocus()
+			end)
+			box.FocusLost:Connect(function(enter)
+				optionapi:SetValue(box.Text, true)
+			end)
+			box:GetPropertyChangedSignal('Text'):Connect(function()
+				optionapi:SetValue(box.Text)
+			end)
+			
+			optionapi.Object = textbox
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		TextList = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TextList',
+				List = optionsettings.Default or {},
+				ListEnabled = optionsettings.Default or {},
+				Objects = {},
+				Window = {Visible = false},
+				Index = getTableSize(api.Options)
+			}
+			optionsettings.Color = optionsettings.Color or Color3.fromRGB(5, 134, 105)
+			
+			local textlist = Instance.new('TextButton')
+			textlist.Name = optionsettings.Name..'TextList'
+			textlist.Size = UDim2.new(1, 0, 0, 50)
+			textlist.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textlist.BorderSizePixel = 0
+			textlist.AutoButtonColor = false
+			textlist.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textlist.Text = ''
+			textlist.Parent = children
+			addTooltip(textlist, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = textlist
+			addCorner(bkg, UDim.new(0, 4))
+			local button = Instance.new('TextButton')
+			button.Name = 'TextList'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local buttonicon = Instance.new('ImageLabel')
+			buttonicon.Name = 'Icon'
+			buttonicon.Size = UDim2.fromOffset(14, 12)
+			buttonicon.Position = UDim2.fromOffset(10, 14)
+			buttonicon.BackgroundTransparency = 1
+			buttonicon.Image = optionsettings.Icon or getcustomasset('catrewrite/assets/new/allowedicon.png')
+			buttonicon.Parent = button
+			local buttontitle = Instance.new('TextLabel')
+			buttontitle.Name = 'Title'
+			buttontitle.Size = UDim2.new(1, -35, 0, 15)
+			buttontitle.Position = UDim2.fromOffset(35, 6)
+			buttontitle.BackgroundTransparency = 1
+			buttontitle.Text = translateTo(optionsettings.Name, usedLanguage)
+			buttontitle.TextXAlignment = Enum.TextXAlignment.Left
+			buttontitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			buttontitle.TextSize = 15
+			buttontitle.TextTruncate = Enum.TextTruncate.AtEnd
+			buttontitle.FontFace = uipallet.Font
+			buttontitle.Parent = button
+			local amount = buttontitle:Clone()
+			amount.Name = 'Amount'
+			amount.Size = UDim2.new(1, -13, 0, 15)
+			amount.Position = UDim2.fromOffset(0, 6)
+			amount.Text = '0'
+			amount.TextXAlignment = Enum.TextXAlignment.Right
+			amount.Parent = button
+			local items = buttontitle:Clone()
+			items.Name = 'Items'
+			items.Position = UDim2.fromOffset(35, 21)
+			items.Text = 'None'
+			items.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			items.TextSize = 11
+			items.Parent = button
+			addCorner(button, UDim.new(0, 4))
+			local window = Instance.new('TextButton')
+			window.Name = optionsettings.Name..'TextWindow'
+			window.Size = UDim2.fromOffset(220, 85)
+			window.BackgroundColor3 = uipallet.Main
+			window.BorderSizePixel = 0
+			window.AutoButtonColor = false
+			window.Visible = false
+			window.Text = ''
+			window.Parent = api.Legit and mainapi.Legit.Window or clickgui
+			optionapi.Window = window
+			addBlur(window)
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = optionsettings.TabSize or UDim2.fromOffset(19, 16)
+			icon.Position = UDim2.fromOffset(10, 13)
+			icon.BackgroundTransparency = 1
+			icon.Image = optionsettings.Tab or getcustomasset('catrewrite/assets/new/allowedtab.png')
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window)
+			local addbkg = Instance.new('Frame')
+			addbkg.Name = 'Add'
+			addbkg.Size = UDim2.fromOffset(200, 31)
+			addbkg.Position = UDim2.fromOffset(10, 45)
+			addbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			addbkg.Parent = window
+			addCorner(addbkg)
+			local addbox = addbkg:Clone()
+			addbox.Size = UDim2.new(1, -2, 1, -2)
+			addbox.Position = UDim2.fromOffset(1, 1)
+			addbox.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			addbox.Parent = addbkg
+			local addvalue = Instance.new('TextBox')
+			addvalue.Size = UDim2.new(1, -35, 1, 0)
+			addvalue.Position = UDim2.fromOffset(10, 0)
+			addvalue.BackgroundTransparency = 1
+			addvalue.Text = ''
+			addvalue.PlaceholderText = optionsettings.Placeholder or 'Add entry...'
+			addvalue.TextXAlignment = Enum.TextXAlignment.Left
+			addvalue.TextColor3 = Color3.new(1, 1, 1)
+			addvalue.TextSize = 15
+			addvalue.FontFace = uipallet.Font
+			addvalue.ClearTextOnFocus = false
+			addvalue.Parent = addbkg
+			local addbutton = Instance.new('ImageButton')
+			addbutton.Name = 'AddButton'
+			addbutton.Size = UDim2.fromOffset(16, 16)
+			addbutton.Position = UDim2.new(1, -26, 0, 8)
+			addbutton.BackgroundTransparency = 1
+			addbutton.Image = getcustomasset('catrewrite/assets/new/add.png')
+			addbutton.ImageColor3 = optionsettings.Color
+			addbutton.ImageTransparency = 0.3
+			addbutton.Parent = addbkg
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					List = self.List,
+					ListEnabled = self.ListEnabled
+				}
+			end
+			
+			function optionapi:Load(tab)
+				self.List = tab.List or {}
+				self.ListEnabled = tab.ListEnabled or {}
+				self:ChangeValue()
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				if window.Visible then
+					bkg.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			function optionapi:ChangeValue(val)
+				if val then
+					local ind = table.find(self.List, val)
+					if ind then
+						table.remove(self.List, ind)
+						ind = table.find(self.ListEnabled, val)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+						end
+					else
+						table.insert(self.List, val)
+						table.insert(self.ListEnabled, val)
+					end
+				end
+			
+				task.spawn(optionsettings.Function, self.List)
+				for _, v in self.Objects do
+					v:Destroy()
+				end
+				table.clear(self.Objects)
+				window.Size = UDim2.fromOffset(220, 85 + (#self.List * 35))
+				amount.Text = #self.List
+			
+				local enabledtext = 'None'
+				for i, v in self.ListEnabled do
+					if i == 1 then enabledtext = '' end
+					enabledtext = enabledtext..(i == 1 and v or ', '..v)
+				end
+				items.Text = enabledtext
+			
+				for i, v in self.List do
+					local enabled = table.find(self.ListEnabled, v)
+					local object = Instance.new('TextButton')
+					object.Name = v
+					object.Size = UDim2.fromOffset(200, 32)
+					object.Position = UDim2.fromOffset(10, 47 + (i * 35))
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = window
+					addCorner(object)
+					local objectbkg = Instance.new('Frame')
+					objectbkg.Name = 'BKG'
+					objectbkg.Size = UDim2.new(1, -2, 1, -2)
+					objectbkg.Position = UDim2.fromOffset(1, 1)
+					objectbkg.BackgroundColor3 = uipallet.Main
+					objectbkg.Visible = false
+					objectbkg.Parent = object
+					addCorner(objectbkg)
+					local objectdot = Instance.new('Frame')
+					objectdot.Name = 'Dot'
+					objectdot.Size = UDim2.fromOffset(10, 11)
+					objectdot.Position = UDim2.fromOffset(10, 12)
+					objectdot.BackgroundColor3 = enabled and optionsettings.Color or color.Light(uipallet.Main, 0.37)
+					objectdot.Parent = object
+					addCorner(objectdot, UDim.new(1, 0))
+					local objectdotin = objectdot:Clone()
+					objectdotin.Size = UDim2.fromOffset(8, 9)
+					objectdotin.Position = UDim2.fromOffset(1, 1)
+					objectdotin.BackgroundColor3 = enabled and optionsettings.Color or color.Light(uipallet.Main, 0.02)
+					objectdotin.Parent = objectdot
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -30, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(30, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					local close = Instance.new('ImageButton')
+					close.Name = 'Close'
+					close.Size = UDim2.fromOffset(16, 16)
+					close.Position = UDim2.new(1, -26, 0, 8)
+					close.BackgroundColor3 = Color3.new(1, 1, 1)
+					close.BackgroundTransparency = 1
+					close.AutoButtonColor = false
+					close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+					close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+					close.ImageTransparency = 0.5
+					close.Parent = object
+					addCorner(close, UDim.new(1, 0))
+			
+					close.MouseEnter:Connect(function()
+						close.ImageTransparency = 0.3
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 0.6
+						})
+					end)
+					close.MouseLeave:Connect(function()
+						close.ImageTransparency = 0.5
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 1
+						})
+					end)
+					close.MouseButton1Click:Connect(function()
+						self:ChangeValue(v)
+					end)
+					object.MouseEnter:Connect(function()
+						objectbkg.Visible = true
+					end)
+					object.MouseLeave:Connect(function()
+						objectbkg.Visible = false
+					end)
+					object.MouseButton1Click:Connect(function()
+						local ind = table.find(self.ListEnabled, v)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+							objectdot.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+							objectdotin.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+						else
+							table.insert(self.ListEnabled, v)
+							objectdot.BackgroundColor3 = optionsettings.Color
+							objectdotin.BackgroundColor3 = optionsettings.Color
+						end
+			
+						local enabledtext = 'None'
+						for i, v in self.ListEnabled do
+							if i == 1 then enabledtext = '' end
+							enabledtext = enabledtext..(i == 1 and v or ', '..v)
+						end
+			
+						items.Text = enabledtext
+						task.spawn(optionsettings.Function)
+					end)
+			
+					table.insert(self.Objects, object)
+				end
+			end
+			
+			addbutton.MouseEnter:Connect(function()
+				addbutton.ImageTransparency = 0
+			end)
+			addbutton.MouseLeave:Connect(function()
+				addbutton.ImageTransparency = 0.3
+			end)
+			addbutton.MouseButton1Click:Connect(function()
+				if not table.find(optionapi.List, addvalue.Text) then
+					optionapi:ChangeValue(addvalue.Text)
+					addvalue.Text = ''
+				end
+			end)
+			addvalue.FocusLost:Connect(function(enter)
+				if enter and not table.find(optionapi.List, addvalue.Text) then
+					optionapi:ChangeValue(addvalue.Text)
+					addvalue.Text = ''
+				end
+			end)
+			addvalue.MouseEnter:Connect(function()
+				tween:Tween(addbkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				})
+			end)
+			addvalue.MouseLeave:Connect(function()
+				tween:Tween(addbkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+			end)
+			button.MouseButton1Click:Connect(function()
+				window.Visible = not window.Visible
+				tween:Cancel(bkg)
+				bkg.BackgroundColor3 = window.Visible and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.37)
+			end)
+			textlist.MouseEnter:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			textlist.MouseLeave:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+					})
+				end
+			end)
+			textlist:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				local actualPosition = (textlist.AbsolutePosition - (api.Legit and mainapi.Legit.Window.AbsolutePosition or -guiService:GetGuiInset())) / scale.Scale
+				window.Position = UDim2.fromOffset(actualPosition.X + 220, actualPosition.Y)
+			end)
+			
+			if optionsettings.Default then
+				optionapi:ChangeValue()
+			end
+			optionapi.Object = textlist
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Toggle = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Toggle',
+				Enabled = false,
+				Index = getTableSize(api.Options)
+			}
+			
+			local toggle = Instance.new('TextButton')
+			toggle.Name = optionsettings.Name..'Toggle'
+			toggle.Size = UDim2.new(1, 0, 0, 30)
+			toggle.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			toggle.BorderSizePixel = 0
+			toggle.AutoButtonColor = false
+			toggle.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			toggle.Text = '          '..translateTo(optionsettings.Name, usedLanguage)
+			toggle.TextXAlignment = Enum.TextXAlignment.Left
+			toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			toggle.TextSize = 14
+			toggle.FontFace = uipallet.Font
+			toggle.Parent = children
+			addTooltip(toggle, translateTo(optionsettings.Tooltip, usedLanguage))
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(22, 12)
+			knobholder.Position = UDim2.new(1, -30, 0, 9)
+			knobholder.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			knobholder.Parent = toggle
+			addCorner(knobholder, UDim.new(1, 0))
+			local knob = knobholder:Clone()
+			knob.Size = UDim2.fromOffset(8, 8)
+			knob.Position = UDim2.fromOffset(2, 2)
+			knob.BackgroundColor3 = uipallet.Main
+			knob.Parent = knobholder
+			local hovered = false
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Enabled = self.Enabled}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Enabled ~= tab.Enabled then
+					self:Toggle()
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				if self.Enabled then
+					tween:Cancel(knobholder)
+					knobholder.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				local rainbowcheck = mainapi.GUIColor.Rainbow and mainapi.RainbowMode.Value ~= 'Retro'
+				tween:Tween(knobholder, uipallet.Tween, {
+					BackgroundColor3 = self.Enabled and (rainbowcheck and Color3.fromHSV(mainapi:Color((mainapi.GUIColor.Hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)) or (hovered and color.Light(uipallet.Main, 0.37) or color.Light(uipallet.Main, 0.14))
+				})
+				tween:Tween(knob, uipallet.Tween, {
+					Position = UDim2.fromOffset(self.Enabled and 12 or 2, 2)
+				})
+				task.spawn(optionsettings.Function, self.Enabled)
+			end
+			
+			toggle.MouseEnter:Connect(function()
+				hovered = true
+				if not optionapi.Enabled then
+					tween:Tween(knobholder, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			toggle.MouseLeave:Connect(function()
+				hovered = false
+				if not optionapi.Enabled then
+					tween:Tween(knobholder, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+					})
+				end
+			end)
+			toggle.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			
+			if optionsettings.Default then
+				optionapi:Toggle()
+			end
+			optionapi.Object = toggle
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		TwoSlider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TwoSlider',
+				ValueMin = optionsettings.DefaultMin or optionsettings.Min,
+				ValueMax = optionsettings.DefaultMax or 10,
+				Max = optionsettings.Max,
+				Index = getTableSize(api.Options)
+			}
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebutton = Instance.new('TextButton')
+			valuebutton.Name = 'Value'
+			valuebutton.Size = UDim2.fromOffset(60, 15)
+			valuebutton.Position = UDim2.new(1, -69, 0, 9)
+			valuebutton.BackgroundTransparency = 1
+			valuebutton.Text = optionapi.ValueMax
+			valuebutton.TextXAlignment = Enum.TextXAlignment.Right
+			valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebutton.TextSize = 11
+			valuebutton.FontFace = uipallet.Font
+			valuebutton.Parent = slider
+			local valuebutton2 = valuebutton:Clone()
+			valuebutton2.Position = UDim2.new(1, -125, 0, 9)
+			valuebutton2.Text = optionapi.ValueMin
+			valuebutton2.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = valuebutton.Size
+			valuebox.Position = valuebutton.Position
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = optionapi.ValueMin
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = false
+			valuebox.Parent = slider
+			local valuebox2 = valuebox:Clone()
+			valuebox2.Position = valuebutton2.Position
+			valuebox2.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 37)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Position = UDim2.fromScale(math.clamp(optionapi.ValueMin / optionsettings.Max, 0.04, 0.96), 0)
+			fill.Size = UDim2.fromScale(math.clamp(math.clamp(optionapi.ValueMax / optionsettings.Max, 0, 1), 0.04, 0.96) - fill.Position.X.Scale, 1)
+			fill.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			fill.Parent = bkg
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(16, 4)
+			knobholder.Position = UDim2.fromScale(0, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('ImageLabel')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(9, 16)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundTransparency = 1
+			knob.Image = getcustomasset('catrewrite/assets/new/range.png')
+			knob.ImageColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			knob.Parent = knobholder
+			local knobholdermax = knobholder:Clone()
+			knobholdermax.Name = 'KnobMax'
+			knobholdermax.Position = UDim2.fromScale(1, 0.5)
+			knobholdermax.Parent = fill
+			knobholdermax.Knob.Rotation = 180
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(12, 6)
+			arrow.Position = UDim2.new(1, -56, 0, 10)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/rangearrow.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.14)
+			arrow.Parent = slider
+			optionsettings.Function = optionsettings.Function or function() end
+			optionsettings.Decimal = optionsettings.Decimal or 1
+			local random = Random.new()
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {ValueMin = self.ValueMin, ValueMax = self.ValueMax}
+			end
+			
+			function optionapi:Load(tab)
+				if self.ValueMin ~= tab.ValueMin then
+					self:SetValue(false, tab.ValueMin)
+				end
+				if self.ValueMax ~= tab.ValueMax then
+					self:SetValue(true, tab.ValueMax)
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				fill.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				knob.ImageColor3 = fill.BackgroundColor3
+				knobholdermax.Knob.ImageColor3 = fill.BackgroundColor3
+			end
+			
+			function optionapi:GetRandomValue()
+				return random:NextNumber(optionapi.ValueMin, optionapi.ValueMax)
+			end
+			
+			function optionapi:SetValue(max, value)
+				if tonumber(value) == math.huge or value ~= value then return end
+				self[max and 'ValueMax' or 'ValueMin'] = value
+				valuebutton.Text = self.ValueMax
+				valuebutton2.Text = self.ValueMin
+				local size = math.clamp(math.clamp(self.ValueMin / optionsettings.Max, 0, 1), 0.04, 0.96)
+				tween:Tween(fill, TweenInfo.new(0.1), {
+					Position = UDim2.fromScale(size, 0),
+					Size = UDim2.fromScale(math.clamp(math.clamp(math.clamp(self.ValueMax / optionsettings.Max, 0.04, 0.96), 0.04, 0.96) - size, 0, 1), 1)
+				})
+			end
+			
+			knobholder.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(11, 18)
+				})
+			end)
+			knobholder.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(9, 16)
+				})
+			end)
+			knobholdermax.MouseEnter:Connect(function()
+				tween:Tween(knobholdermax.Knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(11, 18)
+				})
+			end)
+			knobholdermax.MouseLeave:Connect(function()
+				tween:Tween(knobholdermax.Knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(9, 16)
+				})
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local maxCheck = (inputObj.Position.X - knobholdermax.AbsolutePosition.X) > -10
+					local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+					optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+			
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+							optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+				end
+			end)
+			valuebutton.MouseButton1Click:Connect(function()
+				valuebutton.Visible = false
+				valuebox.Visible = true
+				valuebox.Text = optionapi.ValueMax
+				valuebox:CaptureFocus()
+			end)
+			valuebutton2.MouseButton1Click:Connect(function()
+				valuebutton2.Visible = false
+				valuebox2.Visible = true
+				valuebox2.Text = optionapi.ValueMin
+				valuebox2:CaptureFocus()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				valuebutton.Visible = true
+				valuebox.Visible = false
+				if enter and tonumber(valuebox.Text) then
+					optionapi:SetValue(true, tonumber(valuebox.Text))
+				end
+			end)
+			valuebox2.FocusLost:Connect(function(enter)
+				valuebutton2.Visible = true
+				valuebox2.Visible = false
+				if enter and tonumber(valuebox2.Text) then
+					optionapi:SetValue(false, tonumber(valuebox2.Text))
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Divider = function(children, text)
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			divider.BorderSizePixel = 0
+			divider.Parent = children
+
+			text = translateTo(text, usedLanguage)
+
+			if text then
+				local label = Instance.new('TextLabel')
+				label.Name = 'DividerLabel'
+				label.Size = UDim2.fromOffset(218, 27)
+				label.BackgroundTransparency = 1
+				label.Text = '          '..text:upper()
+				label.TextXAlignment = Enum.TextXAlignment.Left
+				label.TextColor3 = color.Dark(uipallet.Text, 0.43)
+				label.TextSize = 9
+				label.FontFace = uipallet.Font
+				label.Parent = children
+				divider.Position = UDim2.fromOffset(0, 26)
+				divider.Parent = label
+			end
+		end
+	}
+
+	mainapi.Components = setmetatable(components, {
+		__newindex = function(self, ind, func)
+			for _, v in mainapi.Modules do
+				rawset(v, 'Create'..ind, function(_, settings)
+					return func(settings, v.Children, v)
+				end)
+			end
+
+			if mainapi.Legit then
+				for _, v in mainapi.Legit.Modules do
+					rawset(v, 'Create'..ind, function(_, settings)
+						return func(settings, v.Children, v)
+					end)
+				end
+			end
+
+			rawset(self, ind, func)
+		end
+	})
+
+	task.spawn(function()
+		repeat
+			local hue = tick() * (0.2 * mainapi.RainbowSpeed.Value) % 1
+			for _, v in mainapi.RainbowTable do
+				if v.Type == 'GUISlider' then
+					v:SetValue(mainapi:Color(hue))
+				else
+					v:SetValue(hue)
+				end
+			end
+			task.wait(1 / mainapi.RainbowUpdateSpeed.Value)
+		until mainapi.Loaded == nil
+	end)
+
+	function mainapi:BlurCheck()
+		if IsMobile then
+			return
+		end
+		if self.ThreadFix then
+			setthreadidentity(8)
+			runService:SetRobloxGuiFocused((clickgui.Visible or guiService:GetErrorType() ~= Enum.ConnectionError.OK) and self.Blur.Enabled)
+		end
+	end
+
+	addMaid(mainapi)
+
+	function mainapi:CreateGUI()
+		local categoryapi = {
+			Type = 'MainWindow',
+			Buttons = {},
+			Options = {}
+		}
+
+		local window = Instance.new('TextButton')
+		window.Name = 'GUICategory'
+		window.Position = UDim2.fromOffset(6, 60)
+		window.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		window.AutoButtonColor = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local logo = Instance.new('ImageLabel')
+		logo.Name = 'VapeLogo'
+		logo.Size = UDim2.fromOffset(62, 18)
+		logo.Position = UDim2.fromOffset(11, 10)
+		logo.BackgroundTransparency = 1
+		logo.Image = getcustomasset('catrewrite/assets/new/guivape.png')
+		logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
+		logo.Parent = window
+		local logov4 = Instance.new('ImageLabel')
+		logov4.Name = 'V4Logo'
+		logov4.Size = UDim2.fromOffset(28, 16)
+		logov4.Position = UDim2.new(1, 1, 0, 1)
+		logov4.BackgroundTransparency = 1
+		logov4.Image = getcustomasset('catrewrite/assets/new/guiv4.png')
+		logov4.Parent = logo
+		local children = Instance.new('Frame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -33)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundTransparency = 1
+		children.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+		local settingsbutton = Instance.new('TextButton')
+		settingsbutton.Name = 'Settings'
+		settingsbutton.Size = UDim2.fromOffset(40, 40)
+		settingsbutton.Position = UDim2.new(1, -40, 0, 0)
+		settingsbutton.BackgroundTransparency = 1
+		settingsbutton.Text = ''
+		settingsbutton.Parent = window
+		addTooltip(settingsbutton, 'Open settings')
+		local settingsicon = Instance.new('ImageLabel')
+		settingsicon.Size = UDim2.fromOffset(14, 14)
+		settingsicon.Position = UDim2.fromOffset(15, 12)
+		settingsicon.BackgroundTransparency = 1
+		settingsicon.Image = getcustomasset('catrewrite/assets/new/guisettings.png')
+		settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		settingsicon.Parent = settingsbutton
+		local settingspane = Instance.new('TextButton')
+		settingspane.Size = UDim2.fromScale(1, 1)
+		settingspane.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		settingspane.AutoButtonColor = false
+		settingspane.Visible = false
+		settingspane.Text = ''
+		settingspane.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -36, 0, 20)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+		title.BackgroundTransparency = 1
+		title.Text = 'Settings'
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = settingspane
+		local close = addCloseButton(settingspane)
+		local back = Instance.new('ImageButton')
+		back.Name = 'Back'
+		back.Size = UDim2.fromOffset(16, 16)
+		back.Position = UDim2.fromOffset(11, 13)
+		back.BackgroundTransparency = 1
+		back.Image = getcustomasset('catrewrite/assets/new/back.png')
+		back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		back.Parent = settingspane
+		local settingsversion = Instance.new('TextLabel')
+		settingsversion.Name = 'Version'
+		settingsversion.Size = UDim2.new(1, 0, 0, 16)
+		settingsversion.Position = UDim2.new(0, 0, 1, -16)
+		settingsversion.BackgroundTransparency = 1
+		settingsversion.Text = 'Cat Vape '..mainapi.Version
+		settingsversion.TextColor3 = color.Dark(uipallet.Text, 0.43)
+		settingsversion.TextXAlignment = Enum.TextXAlignment.Right
+		settingsversion.TextSize = 10
+		settingsversion.FontFace = uipallet.Font
+		settingsversion.Parent = settingspane
+		addCorner(settingspane)
+		local settingschildren = Instance.new('Frame')
+		settingschildren.Name = 'Children'
+		settingschildren.Size = UDim2.new(1, 0, 1, -57)
+		settingschildren.Position = UDim2.fromOffset(0, 41)
+		settingschildren.BackgroundColor3 = uipallet.Main
+		settingschildren.BorderSizePixel = 0
+		settingschildren.Parent = settingspane
+		local settingswindowlist = Instance.new('UIListLayout')
+		settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		settingswindowlist.Parent = settingschildren
+		categoryapi.Object = window
+
+		function categoryapi:CreateBind()
+			local optionapi = {Bind = {'RightShift'}}
+
+			local button = Instance.new('TextButton')
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = '          Rebind GUI'
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = settingschildren
+			addTooltip(button, 'Change the bind of the GUI')
+			local bind = Instance.new('TextButton')
+			bind.Name = 'Bind'
+			bind.Size = UDim2.fromOffset(20, 21)
+			bind.Position = UDim2.new(1, -10, 0, 9)
+			bind.AnchorPoint = Vector2.new(1, 0)
+			bind.BackgroundColor3 = Color3.new(1, 1, 1)
+			bind.BackgroundTransparency = 0.92
+			bind.BorderSizePixel = 0
+			bind.AutoButtonColor = false
+			bind.Text = ''
+			bind.Parent = button
+			addTooltip(bind, 'Click to bind')
+			addCorner(bind, UDim.new(0, 4))
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(12, 12)
+			icon.Position = UDim2.new(0.5, -6, 0, 5)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+			icon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			icon.Parent = bind
+			local label = Instance.new('TextLabel')
+			label.Name = 'Text'
+			label.Size = UDim2.fromScale(1, 1)
+			label.Position = UDim2.fromOffset(0, 1)
+			label.BackgroundTransparency = 1
+			label.Visible = false
+			label.Text = ''
+			label.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			label.TextSize = 12
+			label.FontFace = uipallet.Font
+			label.Parent = bind
+
+			function optionapi:SetBind(tab)
+				mainapi.Keybind = #tab <= 0 and mainapi.Keybind or table.clone(tab)
+				self.Bind = mainapi.Keybind
+
+				bind.Visible = true
+				label.Visible = true
+				icon.Visible = false
+				label.Text = table.concat(mainapi.Keybind, ' + '):upper()
+				bind.Size = UDim2.fromOffset(math.max(getfontsize(label.Text, label.TextSize, label.Font).X + 10, 20), 21)
+			end
+
+			bind.MouseEnter:Connect(function()
+				label.Visible = false
+				icon.Visible = not label.Visible
+				icon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			bind.MouseLeave:Connect(function()
+				label.Visible = true
+				icon.Visible = not label.Visible
+				icon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			bind.MouseButton1Click:Connect(function()
+				mainapi.Binding = optionapi
+			end)
+
+			categoryapi.Options.Bind = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateButton(categorysettings)
+			local optionapi = {
+				Enabled = false,
+				Index = getTableSize(categoryapi.Buttons)
+			}
+
+			local button = Instance.new('TextButton')
+			button.Name = categorysettings.Name
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = (categorysettings.Icon and '                                 ' or '             ')..translateTo(categorysettings.Name)
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = children
+			local icon
+			if categorysettings.Icon then
+				icon = Instance.new('ImageLabel')
+				icon.Name = 'Icon'
+				icon.Size = categorysettings.Size
+				icon.Position = UDim2.fromOffset(13, 13)
+				icon.BackgroundTransparency = 1
+				icon.Image = categorysettings.Icon
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+				icon.Parent = button
+			end
+			if categorysettings.Name == 'Profiles' then
+				local label = Instance.new('TextLabel')
+				label.Name = 'ProfileLabel'
+				label.Size = UDim2.fromOffset(53, 24)
+				label.Position = UDim2.new(1, -36, 0, 8)
+				label.AnchorPoint = Vector2.new(1, 0)
+				label.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+				label.Text = 'default'
+				label.TextColor3 = color.Dark(uipallet.Text, 0.29)
+				label.TextSize = 12
+				label.FontFace = uipallet.Font
+				label.Parent = button
+				addCorner(label)
+				mainapi.ProfileLabel = label
+			end
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -20, 0, 16)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			arrow.Parent = button
+			optionapi.Name = categorysettings.Name
+			optionapi.Icon = icon
+			optionapi.Object = button
+
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				tween:Tween(arrow, uipallet.Tween, {
+					Position = UDim2.new(1, self.Enabled and -14 or -20, 0, 16)
+				})
+				button.TextColor3 = self.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or uipallet.Text
+				if icon then
+					icon.ImageColor3 = button.TextColor3
+				end
+				button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				categorysettings.Window.Visible = self.Enabled
+			end
+
+			button.MouseEnter:Connect(function()
+				if not optionapi.Enabled then
+					button.TextColor3 = uipallet.Text
+					if buttonicon then buttonicon.ImageColor3 = uipallet.Text end
+					button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+			end)
+			button.MouseLeave:Connect(function()
+				if not optionapi.Enabled then
+					button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					if buttonicon then buttonicon.ImageColor3 = color.Dark(uipallet.Text, 0.16) end
+					button.BackgroundColor3 = uipallet.Main
+				end
+			end)
+			button.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+
+			categoryapi.Buttons[categorysettings.Name] = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateDivider(text)
+			return components.Divider(children, text)
+		end
+
+		function categoryapi:CreateOverlayBar()
+			local optionapi = {Toggles = {}}
+
+			local bar = Instance.new('Frame')
+			bar.Name = 'Overlays'
+			bar.Size = UDim2.fromOffset(220, 36)
+			bar.BackgroundColor3 = uipallet.Main
+			bar.BorderSizePixel = 0
+			bar.Parent = children
+			components.Divider(bar)
+			local button = Instance.new('ImageButton')
+			button.Size = UDim2.fromOffset(24, 24)
+			button.Position = UDim2.new(1, -29, 0, 7)
+			button.BackgroundTransparency = 1
+			button.AutoButtonColor = false
+			button.Image = getcustomasset('catrewrite/assets/new/overlaysicon.png')
+			button.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			button.Parent = bar
+			addCorner(button, UDim.new(1, 0))
+			addTooltip(button, 'Open overlays menu')
+			local shadow = Instance.new('TextButton')
+			shadow.Name = 'Shadow'
+			shadow.Size = UDim2.new(1, 0, 1, -5)
+			shadow.BackgroundColor3 = Color3.new()
+			shadow.BackgroundTransparency = 1
+			shadow.AutoButtonColor = false
+			shadow.ClipsDescendants = true
+			shadow.Visible = false
+			shadow.Text = ''
+			shadow.Parent = window
+			addCorner(shadow)
+			local window = Instance.new('Frame')
+			window.Size = UDim2.fromOffset(220, 42)
+			window.Position = UDim2.fromScale(0, 1)
+			window.BackgroundColor3 = uipallet.Main
+			window.Parent = shadow
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(14, 12)
+			icon.Position = UDim2.fromOffset(10, 13)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/overlaystab.png')
+			icon.ImageColor3 = uipallet.Text
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 38)
+			title.Position = UDim2.fromOffset(36, 0)
+			title.BackgroundTransparency = 1
+			title.Text = 'Overlays'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 15
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window, 7)
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.fromOffset(0, 37)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			divider.BorderSizePixel = 0
+			divider.Parent = window
+			local childrentoggle = Instance.new('Frame')
+			childrentoggle.Position = UDim2.fromOffset(0, 38)
+			childrentoggle.BackgroundTransparency = 1
+			childrentoggle.Parent = window
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Parent = childrentoggle
+
+			function optionapi:CreateToggle(togglesettings)
+				local toggleapi = {
+					Enabled = false,
+					Index = getTableSize(optionapi.Toggles)
+				}
+
+				local toggle = Instance.new('TextButton')
+				toggle.Name = togglesettings.Name..'Toggle'
+				toggle.Size = UDim2.new(1, 0, 0, 40)
+				toggle.BackgroundTransparency = 1
+				toggle.AutoButtonColor = false
+				toggle.Text = string.rep(' ', 33 * scale.Scale)..translateTo(togglesettings.Name)
+				toggle.TextXAlignment = Enum.TextXAlignment.Left
+				toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				toggle.TextSize = 14
+				toggle.FontFace = uipallet.Font
+				toggle.Parent = childrentoggle
+				local icon = Instance.new('ImageLabel')
+				icon.Name = 'Icon'
+				icon.Size = togglesettings.Size
+				icon.Position = togglesettings.Position
+				icon.BackgroundTransparency = 1
+				icon.Image = togglesettings.Icon
+				icon.ImageColor3 = uipallet.Text
+				icon.Parent = toggle
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(22, 12)
+				knob.Position = UDim2.new(1, -30, 0, 14)
+				knob.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				knob.Parent = toggle
+				addCorner(knob, UDim.new(1, 0))
+				local knobmain = knob:Clone()
+				knobmain.Size = UDim2.fromOffset(8, 8)
+				knobmain.Position = UDim2.fromOffset(2, 2)
+				knobmain.BackgroundColor3 = uipallet.Main
+				knobmain.Parent = knob
+				toggleapi.Object = toggle
+
+				function toggleapi:Toggle()
+					self.Enabled = not self.Enabled
+					tween:Tween(knob, uipallet.Tween, {
+						BackgroundColor3 = self.Enabled and Color3.fromHSV(
+							mainapi.GUIColor.Hue,
+							mainapi.GUIColor.Sat,
+							mainapi.GUIColor.Value
+						) or (hovered and color.Light(uipallet.Main, 0.37) or color.Light(uipallet.Main, 0.14))
+					})
+					tween:Tween(knobmain, uipallet.Tween, {
+						Position = UDim2.fromOffset(self.Enabled and 12 or 2, 2)
+					})
+					togglesettings.Function(self.Enabled)
+				end
+
+				local hovered = false
+				scale:GetPropertyChangedSignal('Scale'):Connect(function()
+					toggle.Text = string.rep(' ', 33 * scale.Scale)..togglesettings.Name
+				end)
+				toggle.MouseEnter:Connect(function()
+					hovered = true
+					if not toggleapi.Enabled then
+						tween:Tween(knob, uipallet.Tween, {
+							BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+						})
+					end
+				end)
+				toggle.MouseLeave:Connect(function()
+					hovered = false
+					if not toggleapi.Enabled then
+						tween:Tween(knob, uipallet.Tween, {
+							BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+						})
+					end
+				end)
+				toggle.MouseButton1Click:Connect(function()
+					toggleapi:Toggle()
+				end)
+
+				table.insert(optionapi.Toggles, toggleapi)
+
+				return toggleapi
+			end
+
+			button.MouseEnter:Connect(function()
+				button.ImageColor3 = uipallet.Text
+				tween:Tween(button, uipallet.Tween, {
+					BackgroundTransparency = 0.9
+				})
+			end)
+			button.MouseLeave:Connect(function()
+				button.ImageColor3 = color.Light(uipallet.Main, 0.37)
+				tween:Tween(button, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+			end)
+			button.MouseButton1Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.new(0, 0, 1, -(window.Size.Y.Offset))
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.fromScale(0, 1)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			shadow.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.fromScale(0, 1)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				window.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 605))
+				childrentoggle.Size = UDim2.fromOffset(220, window.Size.Y.Offset - 5)
+			end)
+
+			mainapi.Overlays = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateSettingsDivider()
+			components.Divider(settingschildren)
+		end
+
+		function categoryapi:CreateSettingsPane(categorysettings)
+			local optionapi = {}
+
+			local button = Instance.new('TextButton')
+			button.Name = categorysettings.Name
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = '          '..categorysettings.Name
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = settingschildren
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -20, 0, 16)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			arrow.Parent = button
+			local settingspane = Instance.new('TextButton')
+			settingspane.Size = UDim2.fromScale(1, 1)
+			settingspane.BackgroundColor3 = uipallet.Main
+			settingspane.AutoButtonColor = false
+			settingspane.Visible = false
+			settingspane.Text = ''
+			settingspane.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = categorysettings.Name
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = settingspane
+			local close = addCloseButton(settingspane)
+			local back = Instance.new('ImageButton')
+			back.Name = 'Back'
+			back.Size = UDim2.fromOffset(16, 16)
+			back.Position = UDim2.fromOffset(11, 13)
+			back.BackgroundTransparency = 1
+			back.Image = getcustomasset('catrewrite/assets/new/back.png')
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			back.Parent = settingspane
+			addCorner(settingspane)
+			local settingschildren = Instance.new('Frame')
+			settingschildren.Name = 'Children'
+			settingschildren.Size = UDim2.new(1, 0, 1, -57)
+			settingschildren.Position = UDim2.fromOffset(0, 41)
+			settingschildren.BackgroundColor3 = uipallet.Main
+			settingschildren.BorderSizePixel = 0
+			settingschildren.Parent = settingspane
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.BackgroundColor3 = Color3.new(1, 1, 1)
+			divider.BackgroundTransparency = 0.928
+			divider.BorderSizePixel = 0
+			divider.Parent = settingschildren
+			local settingswindowlist = Instance.new('UIListLayout')
+			settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			settingswindowlist.Parent = settingschildren
+
+			for i, v in components do
+				optionapi['Create'..i] = function(_, settings)
+					return v(settings, settingschildren, categoryapi)
+				end
+			end
+
+			back.MouseEnter:Connect(function()
+				back.ImageColor3 = uipallet.Text
+			end)
+			back.MouseLeave:Connect(function()
+				back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			back.MouseButton1Click:Connect(function()
+				settingspane.Visible = false
+			end)
+			button.MouseEnter:Connect(function()
+				button.TextColor3 = uipallet.Text
+				button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			end)
+			button.MouseLeave:Connect(function()
+				button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				button.BackgroundColor3 = uipallet.Main
+			end)
+			button.MouseButton1Click:Connect(function()
+				settingspane.Visible = true
+			end)
+			close.MouseButton1Click:Connect(function()
+				settingspane.Visible = false
+			end)
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				window.Size = UDim2.fromOffset(220, 45 + windowlist.AbsoluteContentSize.Y / scale.Scale)
+				for _, v in categoryapi.Buttons do
+					if v.Icon then
+						v.Object.Text = string.rep(' ', 33 * scale.Scale)..v.Name
+					end
+				end
+			end)
+
+			return optionapi
+		end
+
+		function categoryapi:CreateGUISlider(optionsettings)
+			local optionapi = {
+				Type = 'GUISlider',
+				Notch = 4,
+				Hue = 0.46,
+				Sat = 0.96,
+				Value = 0.52,
+				Rainbow = false,
+				CustomColor = false
+			}
+			local slidercolors = {
+				Color3.fromRGB(250, 50, 56),
+				Color3.fromRGB(242, 99, 33),
+				Color3.fromRGB(252, 179, 22),
+				Color3.fromRGB(5, 133, 104),
+				Color3.fromRGB(47, 122, 229),
+				Color3.fromRGB(126, 84, 217),
+				Color3.fromRGB(232, 96, 152)
+			}
+			local slidercolorpos = {
+				4,
+				33,
+				62,
+				90,
+				119,
+				148,
+				177
+			}
+
+			local function createSlider(name, gradientColor)
+				local slider = Instance.new('TextButton')
+				slider.Name = optionsettings.Name..'Slider'..name
+				slider.Size = UDim2.fromOffset(220, 50)
+				slider.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				slider.BorderSizePixel = 0
+				slider.AutoButtonColor = false
+				slider.Visible = false
+				slider.Text = ''
+				slider.Parent = settingschildren
+				local title = Instance.new('TextLabel')
+				title.Name = 'Title'
+				title.Size = UDim2.fromOffset(60, 30)
+				title.Position = UDim2.fromOffset(10, 2)
+				title.BackgroundTransparency = 1
+				title.Text = name
+				title.TextXAlignment = Enum.TextXAlignment.Left
+				title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				title.TextSize = 11
+				title.FontFace = uipallet.Font
+				title.Parent = slider
+				local holder = Instance.new('Frame')
+				holder.Name = 'Slider'
+				holder.Size = UDim2.fromOffset(200, 2)
+				holder.Position = UDim2.fromOffset(10, 37)
+				holder.BackgroundColor3 = Color3.new(1, 1, 1)
+				holder.BorderSizePixel = 0
+				holder.Parent = slider
+				local uigradient = Instance.new('UIGradient')
+				uigradient.Color = gradientColor
+				uigradient.Parent = holder
+				local fill = holder:Clone()
+				fill.Name = 'Fill'
+				fill.Size = UDim2.fromScale(math.clamp(1, 0.04, 0.96), 1)
+				fill.Position = UDim2.new()
+				fill.BackgroundTransparency = 1
+				fill.Parent = holder
+				local knobframe = Instance.new('Frame')
+				knobframe.Name = 'Knob'
+				knobframe.Size = UDim2.fromOffset(24, 4)
+				knobframe.Position = UDim2.fromScale(1, 0.5)
+				knobframe.AnchorPoint = Vector2.new(0.5, 0.5)
+				knobframe.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				knobframe.BorderSizePixel = 0
+				knobframe.Parent = fill
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(14, 14)
+				knob.Position = UDim2.fromScale(0.5, 0.5)
+				knob.AnchorPoint = Vector2.new(0.5, 0.5)
+				knob.BackgroundColor3 = uipallet.Text
+				knob.Parent = knobframe
+				addCorner(knob, UDim.new(1, 0))
+				if name == 'Custom color' then
+					local reset = Instance.new('TextButton')
+					reset.Size = UDim2.fromOffset(45, 20)
+					reset.Position = UDim2.new(1, -52, 0, 5)
+					reset.BackgroundTransparency = 1
+					reset.Text = 'RESET'
+					reset.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					reset.TextSize = 11
+					reset.FontFace = uipallet.Font
+					reset.Parent = slider
+					reset.MouseButton1Click:Connect(function()
+						optionapi:SetValue(nil, nil, nil, 4)
+					end)
+				end
+
+				slider.InputBegan:Connect(function(inputObj)
+					if
+						(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+						and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+					then
+						local changed = inputService.InputChanged:Connect(function(input)
+							if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+								local value = math.clamp((input.Position.X - holder.AbsolutePosition.X) / holder.AbsoluteSize.X, 0, 1)
+								optionapi:SetValue(
+									name == 'Custom color' and value or nil,
+									name == 'Saturation' and value or nil,
+									name == 'Vibrance' and value or nil,
+									name == 'Opacity' and value or nil
+								)
+							end
+						end)
+
+						local ended
+						ended = inputObj.Changed:Connect(function()
+							if inputObj.UserInputState == Enum.UserInputState.End then
+								if changed then
+									changed:Disconnect()
+								end
+								if ended then
+									ended:Disconnect()
+								end
+							end
+						end)
+					end
+				end)
+				slider.MouseEnter:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(16, 16)
+					})
+				end)
+				slider.MouseLeave:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(14, 14)
+					})
+				end)
+
+				return slider
+			end
+
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.fromOffset(220, 50)
+			slider.BackgroundTransparency = 1
+			slider.AutoButtonColor = false
+			slider.Text = ''
+			slider.Parent = settingschildren
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = optionsettings.Name
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local holder = Instance.new('Frame')
+			holder.Name = 'Slider'
+			holder.Size = UDim2.fromOffset(200, 2)
+			holder.Position = UDim2.fromOffset(10, 37)
+			holder.BackgroundTransparency = 1
+			holder.BorderSizePixel = 0
+			holder.Parent = slider
+			local colornum = 0
+			for i, color in slidercolors do
+				local colorframe = Instance.new('Frame')
+				colorframe.Size = UDim2.fromOffset(27 + (((i + 1) % 2) == 0 and 1 or 0), 2)
+				colorframe.Position = UDim2.fromOffset(colornum, 0)
+				colorframe.BackgroundColor3 = color
+				colorframe.BorderSizePixel = 0
+				colorframe.Parent = holder
+				colornum += (colorframe.Size.X.Offset + 1)
+			end
+			local preview = Instance.new('ImageButton')
+			preview.Name = 'Preview'
+			preview.Size = UDim2.fromOffset(12, 12)
+			preview.Position = UDim2.new(1, -22, 0, 10)
+			preview.BackgroundTransparency = 1
+			preview.Image = getcustomasset('catrewrite/assets/new/colorpreview.png')
+			preview.ImageColor3 = Color3.fromHSV(optionapi.Hue, 1, 1)
+			preview.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = UDim2.fromOffset(60, 15)
+			valuebox.Position = UDim2.new(1, -69, 0, 9)
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = ''
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = true
+			valuebox.Parent = slider
+			local expandbutton = Instance.new('TextButton')
+			expandbutton.Name = 'Expand'
+			expandbutton.Size = UDim2.fromOffset(17, 13)
+			expandbutton.Position = UDim2.new(0, getfontsize(title.Text, title.TextSize, title.Font).X + 11, 0, 7)
+			expandbutton.BackgroundTransparency = 1
+			expandbutton.Text = ''
+			expandbutton.Parent = slider
+			local expandicon = Instance.new('ImageLabel')
+			expandicon.Name = 'Expand'
+			expandicon.Size = UDim2.fromOffset(9, 5)
+			expandicon.Position = UDim2.fromOffset(4, 4)
+			expandicon.BackgroundTransparency = 1
+			expandicon.Image = getcustomasset('catrewrite/assets/new/expandicon.png')
+			expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			expandicon.Parent = expandbutton
+			local rainbow = Instance.new('TextButton')
+			rainbow.Name = 'Rainbow'
+			rainbow.Size = UDim2.fromOffset(12, 12)
+			rainbow.Position = UDim2.new(1, -42, 0, 10)
+			rainbow.BackgroundTransparency = 1
+			rainbow.Text = ''
+			rainbow.Parent = slider
+			local rainbow1 = Instance.new('ImageLabel')
+			rainbow1.Size = UDim2.fromOffset(12, 12)
+			rainbow1.BackgroundTransparency = 1
+			rainbow1.Image = getcustomasset('catrewrite/assets/new/rainbow_1.png')
+			rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			rainbow1.Parent = rainbow
+			local rainbow2 = rainbow1:Clone()
+			rainbow2.Image = getcustomasset('catrewrite/assets/new/rainbow_2.png')
+			rainbow2.Parent = rainbow
+			local rainbow3 = rainbow1:Clone()
+			rainbow3.Image = getcustomasset('catrewrite/assets/new/rainbow_3.png')
+			rainbow3.Parent = rainbow
+			local rainbow4 = rainbow1:Clone()
+			rainbow4.Image = getcustomasset('catrewrite/assets/new/rainbow_4.png')
+			rainbow4.Parent = rainbow
+			local knob = Instance.new('ImageLabel')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(26, 12)
+			knob.Position = UDim2.fromOffset(slidercolorpos[4] - 3, -5)
+			knob.BackgroundTransparency = 1
+			knob.Image = getcustomasset('catrewrite/assets/new/guislider.png')
+			knob.ImageColor3 = slidercolors[4]
+			knob.Parent = holder
+			optionsettings.Function = optionsettings.Function or function() end
+			local rainbowTable = {}
+			for i = 0, 1, 0.1 do
+				table.insert(rainbowTable, ColorSequenceKeypoint.new(i, Color3.fromHSV(i, 1, 1)))
+			end
+			local colorSlider = createSlider('Custom color', ColorSequence.new(rainbowTable))
+			local satSlider = createSlider('Saturation', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, optionapi.Value)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, 1, optionapi.Value))
+			}))
+			local vibSlider = createSlider('Vibrance', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, 1))
+			}))
+			local normalknob = getcustomasset('catrewrite/assets/new/guislider.png')
+			local rainbowknob = getcustomasset('catrewrite/assets/new/guisliderrain.png')
+			local rainbowthread
+
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Hue = self.Hue,
+					Sat = self.Sat,
+					Value = self.Value,
+					Notch = self.Notch,
+					CustomColor = self.CustomColor,
+					Rainbow = self.Rainbow
+				}
+			end
+
+			function optionapi:Load(tab)
+				if tab.Rainbow then
+					self:Toggle()
+				end
+				if self.Rainbow or tab.CustomColor then
+					self:SetValue(tab.Hue, tab.Sat, tab.Value)
+				else
+					self:SetValue(nil, nil, nil, tab.Notch)
+				end
+			end
+
+			function optionapi:SetValue(h, s, v, n)
+				if n then
+					if self.Rainbow then
+						self:Toggle()
+					end
+					self.CustomColor = false
+					h, s, v = slidercolors[n]:ToHSV()
+				else
+					self.CustomColor = true
+				end
+
+				self.Hue = h or self.Hue
+				self.Sat = s or self.Sat
+				self.Value = v or self.Value
+				self.Notch = n
+				preview.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+				satSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, self.Value)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, 1, self.Value))
+				})
+				vibSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, 1))
+				})
+
+				if self.Rainbow or self.CustomColor then
+					knob.Image = rainbowknob
+					knob.ImageColor3 = Color3.new(1, 1, 1)
+					tween:Tween(knob, uipallet.Tween, {
+						Position = UDim2.fromOffset(slidercolorpos[4] - 3, -5)
+					})
+				else
+					knob.Image = normalknob
+					knob.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+					tween:Tween(knob, uipallet.Tween, {
+						Position = UDim2.fromOffset(slidercolorpos[n or 4] - 3, -5)
+					})
+				end
+
+				if self.Rainbow then
+					if h then
+						colorSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+					end
+					if s then
+						satSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+					end
+					if v then
+						vibSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+					end
+				else
+					if h then
+						tween:Tween(colorSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+						})
+					end
+					if s then
+						tween:Tween(satSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+						})
+					end
+					if v then
+						tween:Tween(vibSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+						})
+					end
+				end
+				optionsettings.Function(self.Hue, self.Sat, self.Value)
+			end
+
+			function optionapi:Toggle()
+				self.Rainbow = not self.Rainbow
+				if rainbowthread then
+					task.cancel(rainbowthread)
+				end
+
+				if self.Rainbow then
+					knob.Image = rainbowknob
+					table.insert(mainapi.RainbowTable, self)
+
+					rainbow1.ImageColor3 = Color3.fromRGB(5, 127, 100)
+					rainbowthread = task.delay(0.1, function()
+						rainbow2.ImageColor3 = Color3.fromRGB(228, 125, 43)
+						rainbowthread = task.delay(0.1, function()
+							rainbow3.ImageColor3 = Color3.fromRGB(225, 46, 52)
+							rainbowthread = nil
+						end)
+					end)
+				else
+					self:SetValue(nil, nil, nil, 4)
+					knob.Image = normalknob
+					local ind = table.find(mainapi.RainbowTable, self)
+					if ind then
+						table.remove(mainapi.RainbowTable, ind)
+					end
+
+					rainbow3.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					rainbowthread = task.delay(0.1, function()
+						rainbow2.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						rainbowthread = task.delay(0.1, function()
+							rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end)
+					end)
+				end
+			end
+
+			expandbutton.MouseEnter:Connect(function()
+				expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			expandbutton.MouseLeave:Connect(function()
+				expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			expandbutton.MouseButton1Click:Connect(function()
+				colorSlider.Visible = not colorSlider.Visible
+				satSlider.Visible = colorSlider.Visible
+				vibSlider.Visible = satSlider.Visible
+				expandicon.Rotation = satSlider.Visible and 180 or 0
+			end)
+			preview.MouseButton1Click:Connect(function()
+				preview.Visible = false
+				valuebox.Visible = true
+				valuebox:CaptureFocus()
+				local text = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+				valuebox.Text = math.round(text.R * 255)..', '..math.round(text.G * 255)..', '..math.round(text.B * 255)
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							optionapi:SetValue(nil, nil, nil, math.clamp(math.round((input.Position.X - holder.AbsolutePosition.X) / scale.Scale / 27), 1, 7))
+						end
+					end)
+
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+					optionapi:SetValue(nil, nil, nil, math.clamp(math.round((inputObj.Position.X - holder.AbsolutePosition.X) / scale.Scale / 27), 1, 7))
+				end
+			end)
+			rainbow.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				preview.Visible = true
+				valuebox.Visible = false
+				if enter then
+					local commas = valuebox.Text:split(',')
+					local suc, res = pcall(function()
+						return tonumber(commas[1]) and Color3.fromRGB(
+							tonumber(commas[1]),
+							tonumber(commas[2]),
+							tonumber(commas[3])
+						) or Color3.fromHex(valuebox.Text)
+					end)
+
+					if suc then
+						if optionapi.Rainbow then
+							optionapi:Toggle()
+						end
+						optionapi:SetValue(res:ToHSV())
+					end
+				end
+			end)
+
+			optionapi.Object = slider
+			categoryapi.Options[optionsettings.Name] = optionapi
+
+			return optionapi
+		end
+
+		back.MouseEnter:Connect(function()
+			back.ImageColor3 = uipallet.Text
+		end)
+		back.MouseLeave:Connect(function()
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		back.MouseButton1Click:Connect(function()
+			settingspane.Visible = false
+		end)
+		close.MouseButton1Click:Connect(function()
+			settingspane.Visible = false
+		end)
+		settingsbutton.MouseEnter:Connect(function()
+			settingsicon.ImageColor3 = uipallet.Text
+		end)
+		settingsbutton.MouseLeave:Connect(function()
+			settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		settingsbutton.MouseButton1Click:Connect(function()
+			settingspane.Visible = true
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			window.Size = UDim2.fromOffset(220, 42 + windowlist.AbsoluteContentSize.Y / scale.Scale)
+			for _, v in categoryapi.Buttons do
+				if v.Icon then
+					v.Object.Text = string.rep(' ', 36 * scale.Scale)..v.Name
+				end
+			end
+		end)
+
+		self.Categories.Main = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateCategory(categorysettings)
+		local categoryapi = {
+			Type = 'Category',
+			Expanded = false
+		}
+
+		local window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'Category'
+		window.Size = UDim2.fromOffset(220, 41)
+		window.Position = UDim2.fromOffset(236, 60)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = UDim2.fromOffset(12, (icon.Size.X.Offset > 20 and 14 or 13))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 18 and 40 or 33), 0, 41)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
+		title.BackgroundTransparency = 1
+		title.Text = translateTo(categorysettings.Name)
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local arrowbutton = Instance.new('TextButton')
+		arrowbutton.Name = 'Arrow'
+		arrowbutton.Size = UDim2.fromOffset(40, 40)
+		arrowbutton.Position = UDim2.new(1, -40, 0, 0)
+		arrowbutton.BackgroundTransparency = 1
+		arrowbutton.Text = ''
+		arrowbutton.Parent = window
+		local arrow = Instance.new('ImageLabel')
+		arrow.Name = 'Arrow'
+		arrow.Size = UDim2.fromOffset(9, 4)
+		arrow.Position = UDim2.fromOffset(20, 18)
+		arrow.BackgroundTransparency = 1
+		arrow.Image = getcustomasset('catrewrite/assets/new/expandup.png')
+		arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		arrow.Rotation = 180
+		arrow.Parent = arrowbutton
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -41)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 37)
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+
+		function categoryapi:CreateModule(modulesettings)
+			mainapi:Remove(modulesettings.Name)
+			local moduleapi = {
+				Enabled = false,
+				Options = {},
+				Bind = {},
+				Index = getTableSize(mainapi.Modules),
+				ExtraText = modulesettings.ExtraText,
+				Name = modulesettings.Name,
+				KeybindFunction = modulesettings.KeybindFunction,
+				Category = categorysettings.Name
+			}
+
+			local modulebutton = Instance.new('TextButton')
+			modulebutton.Name = modulesettings.Name
+			modulebutton.Size = UDim2.fromOffset(220, 40)
+			modulebutton.BackgroundColor3 = uipallet.Main
+			modulebutton.BorderSizePixel = 0
+			modulebutton.AutoButtonColor = false
+			modulebutton.Text = '            '..translateTo(modulesettings.Name:gsub(' ', ''), usedLanguage)
+			modulebutton.TextXAlignment = Enum.TextXAlignment.Left
+			modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			modulebutton.TextSize = 14
+			modulebutton.FontFace = uipallet.Font
+			modulebutton.Parent = children
+
+			if modulesettings.Premium then
+				local indicator = Instance.new('TextLabel')
+				indicator.Parent = modulebutton
+				indicator.SizeConstraint = Enum.SizeConstraint.RelativeXX
+				indicator.AutomaticSize = Enum.AutomaticSize.X
+				indicator.Size = UDim2.new(0, 0, 0, 21)
+				indicator.BackgroundColor3 = Color3.new(1, 1, 1)
+				indicator.TextSize = 14
+				indicator.TextTransparency = 1
+				indicator.AnchorPoint = Vector2.new(0, 0.5)
+				indicator.Text = 'Premium'
+				indicator.Position = UDim2.new(0, 128, 0.5, 0)
+				indicator.TextColor3 = Color3.new(0, 0, 0)
+				indicator.FontFace = uipallet.Font
+
+				addCorner(indicator, UDim.new(0, 5))
+
+				local text = indicator:Clone()
+				text.Parent = indicator
+				text.Position = UDim2.new()
+				text.Size = UDim2.fromScale(1, 1)
+				text.BackgroundTransparency = 1
+				text.AnchorPoint = Vector2.new()
+				text.AutomaticSize = Enum.AutomaticSize.None
+				text.TextSize = 12
+				text.TextTransparency = 0
+				text.SizeConstraint = Enum.SizeConstraint.RelativeXY
+
+				table.insert(mainapi.Indicators, indicator)
+			end
+
+			local gradient = Instance.new('UIGradient')
+			gradient.Rotation = 90
+			gradient.Enabled = false
+			gradient.Parent = modulebutton
+			local modulechildren = Instance.new('Frame')
+			local bind = Instance.new('TextButton')
+			addTooltip(modulebutton, modulesettings.Tooltip)
+			addTooltip(bind, 'Click to bind')
+			bind.Name = 'Bind'
+			bind.Size = UDim2.fromOffset(20, 21)
+			bind.Position = UDim2.new(1, -36, 0, 9)
+			bind.AnchorPoint = Vector2.new(1, 0)
+			bind.BackgroundColor3 = Color3.new(1, 1, 1)
+			bind.BackgroundTransparency = 0.92
+			bind.BorderSizePixel = 0
+			bind.AutoButtonColor = false
+			bind.Visible = false
+			bind.Text = ''
+			addCorner(bind, UDim.new(0, 4))
+			local bindicon = Instance.new('ImageLabel')
+			bindicon.Name = 'Icon'
+			bindicon.Size = UDim2.fromOffset(12, 12)
+			bindicon.Position = UDim2.new(0.5, -6, 0, 5)
+			bindicon.BackgroundTransparency = 1
+			bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+			bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			bindicon.Parent = bind
+			local bindtext = Instance.new('TextLabel')
+			bindtext.Size = UDim2.fromScale(1, 1)
+			bindtext.Position = UDim2.fromOffset(0, 1)
+			bindtext.BackgroundTransparency = 1
+			bindtext.Visible = false
+			bindtext.Text = ''
+			bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			bindtext.TextSize = 12
+			bindtext.FontFace = uipallet.Font
+			bindtext.Parent = bind
+			local bindcover = Instance.new('ImageLabel')
+			bindcover.Name = 'Cover'
+			bindcover.Size = UDim2.fromOffset(154, 40)
+			bindcover.BackgroundTransparency = 1
+			bindcover.Visible = false
+			bindcover.Image = getcustomasset('catrewrite/assets/new/bindbkg.png')
+			bindcover.ScaleType = Enum.ScaleType.Slice
+			bindcover.SliceCenter = Rect.new(0, 0, 141, 40)
+			bindcover.Parent = modulebutton
+			local bindcovertext = Instance.new('TextLabel')
+			bindcovertext.Name = 'Text'
+			bindcovertext.Size = UDim2.new(1, -10, 1, -3)
+			bindcovertext.BackgroundTransparency = 1
+			bindcovertext.Text = translateTo('PRESS A KEY TO BIND', usedLanguage)
+			bindcovertext.TextColor3 = uipallet.Text
+			bindcovertext.TextSize = 11
+			bindcovertext.FontFace = uipallet.Font
+			bindcovertext.Parent = bindcover
+			bind.Parent = modulebutton
+			local dotsbutton = Instance.new('TextButton')
+			dotsbutton.Name = 'Dots'
+			dotsbutton.Size = UDim2.fromOffset(25, 40)
+			dotsbutton.Position = UDim2.new(1, -25, 0, 0)
+			dotsbutton.BackgroundTransparency = 1
+			dotsbutton.Text = ''
+			dotsbutton.Parent = modulebutton
+			local dots = Instance.new('ImageLabel')
+			dots.Name = 'Dots'
+			dots.Size = UDim2.fromOffset(3, 16)
+			dots.Position = UDim2.fromOffset(4, 12)
+			dots.BackgroundTransparency = 1
+			dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+			dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			dots.Parent = dotsbutton
+			modulechildren.Name = modulesettings.Name..'Children'
+			modulechildren.Size = UDim2.new(1, 0, 0, 0)
+			modulechildren.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			modulechildren.BorderSizePixel = 0
+			modulechildren.Visible = false
+			modulechildren.Parent = children
+			moduleapi.Children = modulechildren
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Parent = modulechildren
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.new(0, 0, 1, -1)
+			divider.BackgroundColor3 = Color3.new(0.19, 0.19, 0.19)
+			divider.BackgroundTransparency = 0.52
+			divider.BorderSizePixel = 0
+			divider.Visible = false
+			divider.Parent = modulebutton
+			modulesettings.Function = modulesettings.Function or function() end
+			addMaid(moduleapi)
+
+			function moduleapi:SetBind(tab, mouse)
+				if tab.Mobile then
+					createMobileButton(moduleapi, Vector2.new(tab.X, tab.Y))
+					return
+				end
+
+				self.Bind = table.clone(tab)
+				if mouse then
+					bindcovertext.Text = #tab <= 0 and translateTo('BIND REMOVED', usedLanguage) or translateTo('BOUND TO', usedLanguage)
+					bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+					task.delay(1, function()
+						bindcover.Visible = false
+					end)
+				end
+
+				if #tab <= 0 then
+					bindtext.Visible = false
+					bindicon.Visible = true
+					bind.Size = UDim2.fromOffset(20, 21)
+				else
+					bind.Visible = true
+					bindtext.Visible = true
+					bindicon.Visible = false
+					bindtext.Text = table.concat(tab, ' + '):upper()
+					bind.Size = UDim2.fromOffset(math.max(getfontsize(bindtext.Text, bindtext.TextSize, bindtext.Font).X + 10, 20), 21)
+				end
+			end
+
+			function moduleapi:Toggle(multiple)
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				self.Enabled = not self.Enabled
+				divider.Visible = self.Enabled
+				gradient.Enabled = self.Enabled
+				modulebutton.TextColor3 = (hovered or modulechildren.Visible) and uipallet.Text or color.Dark(uipallet.Text, 0.16)
+				modulebutton.BackgroundColor3 = (hovered or modulechildren.Visible) and color.Light(uipallet.Main, 0.02) or uipallet.Main
+				dots.ImageColor3 = self.Enabled and Color3.fromRGB(50, 50, 50) or color.Light(uipallet.Main, 0.37)
+				bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+				bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+				if not self.Enabled then
+					for _, v in self.Connections do
+						v:Disconnect()
+					end
+					table.clear(self.Connections)
+				end
+				if not multiple then
+					mainapi:UpdateTextGUI()
+				end
+				task.spawn(modulesettings.Function, self.Enabled)
+			end
+
+			for i, v in components do
+				moduleapi['Create'..i] = function(_, optionsettings)
+					return v(optionsettings, modulechildren, moduleapi)
+				end
+			end
+
+			bind.MouseEnter:Connect(function()
+				bindtext.Visible = false
+				bindicon.Visible = not bindtext.Visible
+				bindicon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+				if not moduleapi.Enabled then bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.16) end
+			end)
+			bind.MouseLeave:Connect(function()
+				bindtext.Visible = #moduleapi.Bind > 0
+				bindicon.Visible = not bindtext.Visible
+				bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+				if not moduleapi.Enabled then
+					bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+				end
+			end)
+			bind.MouseButton1Click:Connect(function()
+				bindcovertext.Text = 'PRESS A KEY TO BIND'
+				bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+				bindcover.Visible = true
+				mainapi.Binding = moduleapi
+			end)
+			dotsbutton.MouseEnter:Connect(function()
+				if not moduleapi.Enabled then
+					dots.ImageColor3 = uipallet.Text
+				end
+			end)
+			dotsbutton.MouseLeave:Connect(function()
+				if not moduleapi.Enabled then
+					dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+				end
+			end)
+			dotsbutton.MouseButton1Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			dotsbutton.MouseButton2Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			local hovered = false
+			modulebutton.MouseEnter:Connect(function()
+				hovered = true
+				if not moduleapi.Enabled and not modulechildren.Visible then
+					modulebutton.TextColor3 = uipallet.Text
+					modulebutton.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+				bind.Visible = #moduleapi.Bind > 0 or hovered or modulechildren.Visible
+			end)
+			modulebutton.MouseLeave:Connect(function()
+				hovered = false
+				if not moduleapi.Enabled and not modulechildren.Visible then
+					modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					modulebutton.BackgroundColor3 = uipallet.Main
+				end
+				bind.Visible = #moduleapi.Bind > 0 or hovered or modulechildren.Visible
+			end)
+			modulebutton.MouseButton1Click:Connect(function()
+				moduleapi:Toggle()
+			end)
+			modulebutton.MouseButton2Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			if IsMobile then
+				local heldbutton = false
+				modulebutton.MouseButton1Down:Connect(function()
+					heldbutton = true
+					local holdtime, holdpos = tick(), inputService:GetMouseLocation()
+					repeat
+						heldbutton = (inputService:GetMouseLocation() - holdpos).Magnitude < 3
+						task.wait()
+					until (tick() - holdtime) > 1 or not heldbutton or not clickgui.Visible
+					if heldbutton and clickgui.Visible then
+						if mainapi.ThreadFix then
+							setthreadidentity(8)
+						end
+						clickgui.Visible = false
+						tooltip.Visible = false
+						mainapi:BlurCheck()
+						for _, mobileButton in mainapi.Modules do
+							if mobileButton.Bind.Button then
+								mobileButton.Bind.Button.Visible = true
+							end
+						end
+
+						local touchconnection
+						touchconnection = inputService.InputBegan:Connect(function(inputType)
+							if inputType.UserInputType == Enum.UserInputType.Touch then
+								if mainapi.ThreadFix then setthreadidentity(8) end
+								createMobileButton(moduleapi, inputType.Position + Vector3.new(0, guiService:GetGuiInset().Y, 0))
+								clickgui.Visible = true
+								mainapi:BlurCheck()
+								for _, mobileButton in mainapi.Modules do
+									if mobileButton.Bind.Button then
+										mobileButton.Bind.Button.Visible = false
+									end
+								end
+								touchconnection:Disconnect()
+							end
+						end)
+					end
+				end)
+				modulebutton.MouseButton1Up:Connect(function()
+					heldbutton = false
+				end)
+			end
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				modulechildren.Size = UDim2.new(1, 0, 0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			end)
+
+			moduleapi.Object = modulebutton
+			mainapi.Modules[modulesettings.Name] = moduleapi
+
+			local sorting = {}
+			for _, v in mainapi.Modules do
+				sorting[v.Category] = sorting[v.Category] or {}
+				table.insert(sorting[v.Category], v.Name)
+			end
+
+			for _, sort in sorting do
+				table.sort(sort)
+				for i, v in sort do
+					mainapi.Modules[v].Index = i
+					mainapi.Modules[v].Object.LayoutOrder = i
+					mainapi.Modules[v].Children.LayoutOrder = i
+				end
+			end
+
+			return moduleapi
+		end
+
+		function categoryapi:Expand()
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			arrow.Rotation = self.Expanded and 0 or 180
+			window.Size = UDim2.fromOffset(220, self.Expanded and math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601) or 41)
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end
+
+		arrowbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseEnter:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+		end)
+		arrowbutton.MouseLeave:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		end)
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		window.InputBegan:Connect(function(inputObj)
+			if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
+				categoryapi:Expand()
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(220, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			end
+		end)
+
+		categoryapi.Button = self.Categories.Main:CreateButton({
+			Name = categorysettings.Name,
+			Icon = categorysettings.Icon,
+			Size = categorysettings.Size,
+			Window = window
+		})
+
+		categoryapi.Object = window
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateOverlay(categorysettings)
+		local window
+		local categoryapi
+		categoryapi = {
+			Type = 'Overlay',
+			Expanded = false,
+			Button = self.Overlays:CreateToggle({
+			Name = categorysettings.Name,
+				Function = function(callback)
+					window.Visible = callback and (clickgui.Visible or categoryapi.Pinned)
+					if not callback then
+						for _, v in categoryapi.Connections do
+							v:Disconnect()
+						end
+						table.clear(categoryapi.Connections)
+					end
+
+					if categorysettings.Function then
+						task.spawn(categorysettings.Function, callback)
+					end
+				end,
+				Icon = categorysettings.Icon,
+				Size = categorysettings.Size,
+				Position = categorysettings.Position
+			}),
+			Pinned = false,
+			Options = {}
+		}
+
+		window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'Overlay'
+		window.Size = UDim2.fromOffset(categorysettings.CategorySize or 220, 41)
+		window.Position = UDim2.fromOffset(240, 46)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = scaledgui
+		local blur = addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = UDim2.fromOffset(12, (icon.Size.X.Offset > 14 and 14 or 13))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -32, 0, 41)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
+		title.BackgroundTransparency = 1
+		title.Text = categorysettings.Name
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local pin = Instance.new('ImageButton')
+		pin.Name = 'Pin'
+		pin.Size = UDim2.fromOffset(16, 16)
+		pin.Position = UDim2.new(1, -47, 0, 12)
+		pin.BackgroundTransparency = 1
+		pin.AutoButtonColor = false
+		pin.Image = getcustomasset('catrewrite/assets/new/pin.png')
+		pin.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+		pin.Parent = window
+		local dotsbutton = Instance.new('TextButton')
+		dotsbutton.Name = 'Dots'
+		dotsbutton.Size = UDim2.fromOffset(17, 40)
+		dotsbutton.Position = UDim2.new(1, -17, 0, 0)
+		dotsbutton.BackgroundTransparency = 1
+		dotsbutton.Text = ''
+		dotsbutton.Parent = window
+		local dots = Instance.new('ImageLabel')
+		dots.Name = 'Dots'
+		dots.Size = UDim2.fromOffset(3, 16)
+		dots.Position = UDim2.fromOffset(4, 12)
+		dots.BackgroundTransparency = 1
+		dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+		dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		dots.Parent = dotsbutton
+		local customchildren = Instance.new('Frame')
+		customchildren.Name = 'CustomChildren'
+		customchildren.Size = UDim2.new(1, 0, 0, 200)
+		customchildren.Position = UDim2.fromScale(0, 1)
+		customchildren.BackgroundTransparency = 1
+		customchildren.Parent = window
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -41)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+		addMaid(categoryapi)
+
+		function categoryapi:Expand(check)
+			if check and not blur.Visible then return end
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			dots.ImageColor3 = self.Expanded and uipallet.Text or color.Light(uipallet.Main, 0.37)
+			if self.Expanded then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			else
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 41)
+			end
+		end
+
+		function categoryapi:Pin()
+			self.Pinned = not self.Pinned
+			pin.ImageColor3 = self.Pinned and uipallet.Text or color.Dark(uipallet.Text, 0.43)
+		end
+
+		function categoryapi:Update()
+			window.Visible = self.Button.Enabled and (clickgui.Visible or self.Pinned)
+			if self.Expanded then
+				self:Expand()
+			end
+			if clickgui.Visible then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 41)
+				window.BackgroundTransparency = 0
+				blur.Visible = true
+				icon.Visible = true
+				title.Visible = true
+				pin.Visible = true
+				dotsbutton.Visible = true
+			else
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 0)
+				window.BackgroundTransparency = 1
+				blur.Visible = false
+				icon.Visible = false
+				title.Visible = false
+				pin.Visible = false
+				dotsbutton.Visible = false
+			end
+		end
+
+		for i, v in components do
+			categoryapi['Create'..i] = function(self, optionsettings)
+				return v(optionsettings, children, categoryapi)
+			end
+		end
+
+		dotsbutton.MouseEnter:Connect(function()
+			if not children.Visible then
+				dots.ImageColor3 = uipallet.Text
+			end
+		end)
+		dotsbutton.MouseLeave:Connect(function()
+			if not children.Visible then
+				dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end
+		end)
+		dotsbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		dotsbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		pin.MouseButton1Click:Connect(function()
+			categoryapi:Pin()
+		end)
+		window.MouseButton2Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			end
+		end)
+		self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
+			categoryapi:Update()
+		end))
+
+		categoryapi:Update()
+		categoryapi.Object = window
+		categoryapi.Children = customchildren
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateCategoryList(categorysettings)
+		local categoryapi = {
+			Type = 'CategoryList',
+			Expanded = false,
+			List = {},
+			ListEnabled = {},
+			Objects = {},
+			Options = {}
+		}
+		categorysettings.Color = categorysettings.Color or Color3.fromRGB(5, 134, 105)
+
+		local window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'CategoryList'
+		window.Size = UDim2.fromOffset(220, 45)
+		window.Position = UDim2.fromOffset(240, 46)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = categorysettings.Position or UDim2.fromOffset(12, (categorysettings.Size.X.Offset > 20 and 13 or 12))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 20 and 44 or 36), 0, 20)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 12)
+		title.BackgroundTransparency = 1
+		title.Text = translateTo(categorysettings.Name)
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local arrowbutton = Instance.new('TextButton')
+		arrowbutton.Name = 'Arrow'
+		arrowbutton.Size = UDim2.fromOffset(40, 40)
+		arrowbutton.Position = UDim2.new(1, -40, 0, 0)
+		arrowbutton.BackgroundTransparency = 1
+		arrowbutton.Text = ''
+		arrowbutton.Parent = window
+		local arrow = Instance.new('ImageLabel')
+		arrow.Name = 'Arrow'
+		arrow.Size = UDim2.fromOffset(9, 4)
+		arrow.Position = UDim2.fromOffset(20, 19)
+		arrow.BackgroundTransparency = 1
+		arrow.Image = getcustomasset('catrewrite/assets/new/expandup.png')
+		arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		arrow.Rotation = 180
+		arrow.Parent = arrowbutton
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -45)
+		children.Position = UDim2.fromOffset(0, 45)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local childrentwo = Instance.new('Frame')
+		childrentwo.BackgroundTransparency = 1
+		childrentwo.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		childrentwo.Visible = false
+		childrentwo.Parent = children
+		local settings = Instance.new('ImageButton')
+		settings.Name = 'Settings'
+		settings.Size = categorysettings.Profiles and UDim2.fromOffset(14, 14) or UDim2.fromOffset(16, 16)
+		settings.Position = UDim2.new(1, -52, 0, 13)
+		settings.BackgroundTransparency = 1
+		settings.AutoButtonColor = false
+		settings.Image = categorysettings.Profiles and getcustomasset('catrewrite/assets/new/worldicon.png') or getcustomasset('catrewrite/assets/new/customsettings.png')
+		settings.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+		settings.Parent = window
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 41)
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Padding = UDim.new(0, 3)
+		windowlist.Parent = children
+		local windowlisttwo = Instance.new('UIListLayout')
+		windowlisttwo.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlisttwo.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlisttwo.Parent = childrentwo
+		local addbkg = Instance.new('Frame')
+		addbkg.Name = 'Add'
+		addbkg.Size = UDim2.fromOffset(200, 31)
+		addbkg.Position = UDim2.fromOffset(10, 45)
+		addbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		addbkg.Parent = children
+		addCorner(addbkg)
+		local addbox = addbkg:Clone()
+		addbox.Size = UDim2.new(1, -2, 1, -2)
+		addbox.Position = UDim2.fromOffset(1, 1)
+		addbox.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		addbox.Parent = addbkg
+		local addvalue = Instance.new('TextBox')
+		addvalue.Size = UDim2.new(1, -35, 1, 0)
+		addvalue.Position = UDim2.fromOffset(10, 0)
+		addvalue.BackgroundTransparency = 1
+		addvalue.Text = ''
+		addvalue.PlaceholderText = categorysettings.Placeholder or 'Add entry...'
+		addvalue.TextXAlignment = Enum.TextXAlignment.Left
+		addvalue.TextColor3 = Color3.new(1, 1, 1)
+		addvalue.TextSize = 15
+		addvalue.FontFace = uipallet.Font
+		addvalue.ClearTextOnFocus = false
+		addvalue.Parent = addbkg
+		local addbutton = Instance.new('ImageButton')
+		addbutton.Name = 'AddButton'
+		addbutton.Size = UDim2.fromOffset(16, 16)
+		addbutton.Position = UDim2.new(1, -26, 0, 8)
+		addbutton.BackgroundTransparency = 1
+		addbutton.Image = getcustomasset('catrewrite/assets/new/add.png')
+		addbutton.ImageColor3 = categorysettings.Color
+		addbutton.ImageTransparency = 0.3
+		addbutton.Parent = addbkg
+		local cursedpadding = Instance.new('Frame')
+		cursedpadding.Size = UDim2.fromOffset()
+		cursedpadding.BackgroundTransparency = 1
+		cursedpadding.Parent = children
+		categorysettings.Function = categorysettings.Function or function() end
+
+		function categoryapi:ChangeValue(val)
+			if val then
+				if categorysettings.Profiles then
+					local ind = self:GetValue(val)
+					if ind then
+						if val ~= 'default' then
+							table.remove(mainapi.Profiles, ind)
+							if isfile('catrewrite/profiles/'..val..mainapi.Place..'.txt') and delfile then
+								delfile('catrewrite/profiles/'..val..mainapi.Place..'.txt')
+							end
+						end
+					else
+						table.insert(mainapi.Profiles, {Name = val, Bind = {}})
+					end
+				else
+					local ind = table.find(self.List, val)
+					if ind then
+						table.remove(self.List, ind)
+						ind = table.find(self.ListEnabled, val)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+						end
+					else
+						table.insert(self.List, val)
+						table.insert(self.ListEnabled, val)
+					end
+				end
+			end
+
+			categorysettings.Function()
+			for _, v in self.Objects do
+				v:Destroy()
+			end
+			table.clear(self.Objects)
+			self.Selected = nil
+
+			for i, v in (categorysettings.Profiles and mainapi.Profiles or self.List) do
+				if categorysettings.Profiles then
+					local object = Instance.new('TextButton')
+					object.Name = v.Name
+					object.Size = UDim2.fromOffset(200, 33)
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = children
+					addCorner(object)
+					local objectstroke = Instance.new('UIStroke')
+					objectstroke.Color = color.Light(uipallet.Main, 0.1)
+					objectstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+					objectstroke.Enabled = false
+					objectstroke.Parent = object
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -10, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(10, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v.Name
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.4)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					local dotsbutton = Instance.new('TextButton')
+					dotsbutton.Name = 'Dots'
+					dotsbutton.Size = UDim2.fromOffset(25, 33)
+					dotsbutton.Position = UDim2.new(1, -25, 0, 0)
+					dotsbutton.BackgroundTransparency = 1
+					dotsbutton.Text = ''
+					dotsbutton.Parent = object
+					local dots = Instance.new('ImageLabel')
+					dots.Name = 'Dots'
+					dots.Size = UDim2.fromOffset(3, 16)
+					dots.Position = UDim2.fromOffset(10, 9)
+					dots.BackgroundTransparency = 1
+					dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+					dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					dots.Parent = dotsbutton
+					local bind = Instance.new('TextButton')
+					addTooltip(bind, 'Click to bind')
+					bind.Name = 'Bind'
+					bind.Size = UDim2.fromOffset(20, 21)
+					bind.Position = UDim2.new(1, -30, 0, 6)
+					bind.AnchorPoint = Vector2.new(1, 0)
+					bind.BackgroundColor3 = Color3.new(1, 1, 1)
+					bind.BackgroundTransparency = 0.92
+					bind.BorderSizePixel = 0
+					bind.AutoButtonColor = false
+					bind.Visible = false
+					bind.Text = ''
+					addCorner(bind, UDim.new(0, 4))
+					local bindicon = Instance.new('ImageLabel')
+					bindicon.Name = 'Icon'
+					bindicon.Size = UDim2.fromOffset(12, 12)
+					bindicon.Position = UDim2.new(0.5, -6, 0, 5)
+					bindicon.BackgroundTransparency = 1
+					bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+					bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+					bindicon.Parent = bind
+					local bindtext = Instance.new('TextLabel')
+					bindtext.Size = UDim2.fromScale(1, 1)
+					bindtext.Position = UDim2.fromOffset(0, 1)
+					bindtext.BackgroundTransparency = 1
+					bindtext.Visible = false
+					bindtext.Text = ''
+					bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+					bindtext.TextSize = 12
+					bindtext.FontFace = uipallet.Font
+					bindtext.Parent = bind
+					bind.MouseEnter:Connect(function()
+						bindtext.Visible = false
+						bindicon.Visible = not bindtext.Visible
+						bindicon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+						if v.Name ~= mainapi.Profile then
+							bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+						end
+					end)
+					bind.MouseLeave:Connect(function()
+						bindtext.Visible = #v.Bind > 0
+						bindicon.Visible = not bindtext.Visible
+						bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+						if v.Name ~= mainapi.Profile then
+							bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+						end
+					end)
+					local bindcover = Instance.new('ImageLabel')
+					bindcover.Name = 'Cover'
+					bindcover.Size = UDim2.fromOffset(154, 33)
+					bindcover.BackgroundTransparency = 1
+					bindcover.Visible = false
+					bindcover.Image = getcustomasset('catrewrite/assets/new/bindbkg.png')
+					bindcover.ScaleType = Enum.ScaleType.Slice
+					bindcover.SliceCenter = Rect.new(0, 0, 141, 40)
+					bindcover.Parent = object
+					local bindcovertext = Instance.new('TextLabel')
+					bindcovertext.Name = 'Text'
+					bindcovertext.Size = UDim2.new(1, -10, 1, -3)
+					bindcovertext.BackgroundTransparency = 1
+					bindcovertext.Text = 'PRESS A KEY TO BIND'
+					bindcovertext.TextColor3 = uipallet.Text
+					bindcovertext.TextSize = 11
+					bindcovertext.FontFace = uipallet.Font
+					bindcovertext.Parent = bindcover
+					bind.Parent = object
+					dotsbutton.MouseEnter:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							dots.ImageColor3 = uipallet.Text
+						end
+					end)
+					dotsbutton.MouseLeave:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end
+					end)
+					dotsbutton.MouseButton1Click:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							categoryapi:ChangeValue(v.Name)
+						end
+					end)
+					object.MouseButton1Click:Connect(function()
+						mainapi:Save(v.Name)
+						mainapi:Load(true)
+					end)
+					object.MouseEnter:Connect(function()
+						bind.Visible = true
+						if v.Name ~= mainapi.Profile then
+							objectstroke.Enabled = true
+							objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+						end
+					end)
+					object.MouseLeave:Connect(function()
+						bind.Visible = #v.Bind > 0
+						if v.Name ~= mainapi.Profile then
+							objectstroke.Enabled = false
+							objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.4)
+						end
+					end)
+
+					local function bindFunction(self, tab, mouse)
+						v.Bind = table.clone(tab)
+						if mouse then
+							bindcovertext.Text = #tab <= 0 and 'BIND REMOVED' or 'BOUND TO '..table.concat(tab, ' + '):upper()
+							bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+							task.delay(1, function()
+								bindcover.Visible = false
+							end)
+						end
+
+						if #tab <= 0 then
+							bindtext.Visible = false
+							bindicon.Visible = true
+							bind.Size = UDim2.fromOffset(20, 21)
+						else
+							bind.Visible = true
+							bindtext.Visible = true
+							bindicon.Visible = false
+							bindtext.Text = table.concat(tab, ' + '):upper()
+							bind.Size = UDim2.fromOffset(math.max(getfontsize(bindtext.Text, bindtext.TextSize, bindtext.Font).X + 10, 20), 21)
+						end
+					end
+
+					bindFunction({}, v.Bind)
+					bind.MouseButton1Click:Connect(function()
+						bindcovertext.Text = 'PRESS A KEY TO BIND'
+						bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+						bindcover.Visible = true
+						mainapi.Binding = {SetBind = bindFunction, Bind = v.Bind}
+					end)
+					if v.Name == mainapi.Profile then
+						self.Selected = object
+					end
+					table.insert(self.Objects, object)
+				else
+					local enabled = table.find(self.ListEnabled, v)
+					local object = Instance.new('TextButton')
+					object.Name = v
+					object.Size = UDim2.fromOffset(200, 32)
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = children
+					addCorner(object)
+					local objectbkg = Instance.new('Frame')
+					objectbkg.Name = 'BKG'
+					objectbkg.Size = UDim2.new(1, -2, 1, -2)
+					objectbkg.Position = UDim2.fromOffset(1, 1)
+					objectbkg.BackgroundColor3 = uipallet.Main
+					objectbkg.Visible = false
+					objectbkg.Parent = object
+					addCorner(objectbkg)
+					local objectdot = Instance.new('Frame')
+					objectdot.Name = 'Dot'
+					objectdot.Size = UDim2.fromOffset(10, 11)
+					objectdot.Position = UDim2.fromOffset(10, 12)
+					objectdot.BackgroundColor3 = enabled and categorysettings.Color or color.Light(uipallet.Main, 0.37)
+					objectdot.Parent = object
+					addCorner(objectdot, UDim.new(1, 0))
+					local objectdotin = objectdot:Clone()
+					objectdotin.Size = UDim2.fromOffset(8, 9)
+					objectdotin.Position = UDim2.fromOffset(1, 1)
+					objectdotin.BackgroundColor3 = enabled and categorysettings.Color or color.Light(uipallet.Main, 0.02)
+					objectdotin.Parent = objectdot
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -30, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(30, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					if mainapi.ThreadFix then
+						setthreadidentity(8)
+					end
+					local close = Instance.new('ImageButton')
+					close.Name = 'Close'
+					close.Size = UDim2.fromOffset(16, 16)
+					close.Position = UDim2.new(1, -23, 0, 8)
+					close.BackgroundColor3 = Color3.new(1, 1, 1)
+					close.BackgroundTransparency = 1
+					close.AutoButtonColor = false
+					close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+					close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+					close.ImageTransparency = 0.5
+					close.Parent = object
+					addCorner(close, UDim.new(1, 0))
+					close.MouseEnter:Connect(function()
+						close.ImageTransparency = 0.3
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 0.6
+						})
+					end)
+					close.MouseLeave:Connect(function()
+						close.ImageTransparency = 0.5
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 1
+						})
+					end)
+					close.MouseButton1Click:Connect(function()
+						categoryapi:ChangeValue(v)
+					end)
+					object.MouseEnter:Connect(function()
+						objectbkg.Visible = true
+					end)
+					object.MouseLeave:Connect(function()
+						objectbkg.Visible = false
+					end)
+					object.MouseButton1Click:Connect(function()
+						local ind = table.find(self.ListEnabled, v)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+							objectdot.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+							objectdotin.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+						else
+							table.insert(self.ListEnabled, v)
+							objectdot.BackgroundColor3 = categorysettings.Color
+							objectdotin.BackgroundColor3 = categorysettings.Color
+						end
+						categorysettings.Function()
+					end)
+					table.insert(self.Objects, object)
+				end
+			end
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end
+
+		function categoryapi:Expand()
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			arrow.Rotation = self.Expanded and 0 or 180
+			window.Size = UDim2.fromOffset(220, self.Expanded and math.min(51 + windowlist.AbsoluteContentSize.Y / scale.Scale, 611) or 45)
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end
+
+		function categoryapi:GetValue(name)
+			for i, v in mainapi.Profiles do
+				if v.Name == name then
+					return i
+				end
+			end
+		end
+
+		for i, v in components do
+			categoryapi['Create'..i] = function(self, optionsettings)
+				return v(optionsettings, childrentwo, categoryapi)
+			end
+		end
+
+		addbutton.MouseEnter:Connect(function()
+			addbutton.ImageTransparency = 0
+		end)
+		addbutton.MouseLeave:Connect(function()
+			addbutton.ImageTransparency = 0.3
+		end)
+		addbutton.MouseButton1Click:Connect(function()
+			if not table.find(categoryapi.List, addvalue.Text) then
+				categoryapi:ChangeValue(addvalue.Text)
+				addvalue.Text = ''
+			end
+		end)
+		arrowbutton.MouseEnter:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+		end)
+		arrowbutton.MouseLeave:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		end)
+		arrowbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		addvalue.FocusLost:Connect(function(enter)
+			if enter and not table.find(categoryapi.List, addvalue.Text) then
+				categoryapi:ChangeValue(addvalue.Text)
+				addvalue.Text = ''
+			end
+		end)
+		addvalue.MouseEnter:Connect(function()
+			tween:Tween(addbkg, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			})
+		end)
+		addvalue.MouseLeave:Connect(function()
+			tween:Tween(addbkg, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			})
+		end)
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		settings.MouseEnter:Connect(function()
+			settings.ImageColor3 = uipallet.Text
+		end)
+		settings.MouseLeave:Connect(function()
+			settings.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		settings.MouseButton1Click:Connect(function()
+			clickgui.Visible = false
+			updateSignal:Fire()
+			self.PublicConfigs.Window.Visible = true
+			self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		end)
+		window.InputBegan:Connect(function(inputObj)
+			if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
+				categoryapi:Expand()
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(220, math.min(51 + windowlist.AbsoluteContentSize.Y / scale.Scale, 611))
+			end
+		end)
+		windowlisttwo:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			childrentwo.Size = UDim2.fromOffset(220, windowlisttwo.AbsoluteContentSize.Y)
+		end)
+
+		categoryapi.Button = self.Categories.Main:CreateButton({
+			Name = categorysettings.Name,
+			Icon = categorysettings.CategoryIcon,
+			Size = categorysettings.CategorySize,
+			Window = window
+		})
+
+		categoryapi.Object = window
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateSearch()
+		local searchbkg = Instance.new('Frame')
+		searchbkg.Name = 'Search'
+		searchbkg.Size = UDim2.fromOffset(220, 37)
+		searchbkg.Position = UDim2.new(0.5, 0, 0, 13)
+		searchbkg.AnchorPoint = Vector2.new(0.5, 0)
+		searchbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		searchbkg.Parent = clickgui
+		local searchicon = Instance.new('ImageLabel')
+		searchicon.Name = 'Icon'
+		searchicon.Size = UDim2.fromOffset(14, 14)
+		searchicon.Position = UDim2.new(1, -23, 0, 11)
+		searchicon.BackgroundTransparency = 1
+		searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+		searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		searchicon.Parent = searchbkg
+		local legitbackground = Instance.new('Frame')
+		legitbackground.Name = 'Background'
+		legitbackground.Size = UDim2.fromOffset(35, 22)
+		legitbackground.Position = UDim2.fromOffset(5, 8)
+		legitbackground.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+		legitbackground.BackgroundTransparency = 0.7
+		legitbackground.Parent = searchbkg
+		addCorner(legitbackground)
+		local legiticon = Instance.new('ImageButton')
+		legiticon.Name = 'Legit'
+		legiticon.Size = UDim2.fromOffset(29, 16)
+		legiticon.Position = UDim2.fromOffset(8, 11)
+		legiticon.BackgroundTransparency = 1
+		legiticon.Image = getcustomasset('catrewrite/assets/new/legit.png')
+		legiticon.Parent = searchbkg
+		--[[local legitlabel = Instance.new('TextLabel')
+		legitlabel.Name = 'LegitLabel'
+		legitlabel.Size = UDim2.fromOffset(29, 16)
+		legitlabel.Position = UDim2.fromOffset(31, 0)
+		legitlabel.BackgroundTransparency = 1
+		legitlabel.Parent = legiticon
+		legitlabel.FontFace = uipallet.Font
+		legitlabel.TextColor3 = Color3.new(1, 1, 1)
+		legitlabel.TextSize = 14
+		legitlabel.Text = 'Legit']]
+		local legitdivider = Instance.new('Frame')
+		legitdivider.Name = 'LegitDivider'
+		legitdivider.Size = UDim2.fromOffset(2, 12)
+		legitdivider.Position = UDim2.fromOffset(43, 13)
+		legitdivider.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+		legitdivider.BorderSizePixel = 0
+		legitdivider.Parent = searchbkg
+		addBlur(searchbkg)
+		addCorner(searchbkg)
+		local search = Instance.new('TextBox')
+		search.Size = UDim2.new(1, -50, 0, 37)
+		search.Position = UDim2.fromOffset(50, 0)
+		search.BackgroundTransparency = 1
+		search.Text = ''
+		search.PlaceholderText = ''
+		search.TextXAlignment = Enum.TextXAlignment.Left
+		search.TextColor3 = uipallet.Text
+		search.TextSize = 12
+		search.FontFace = uipallet.Font
+		search.ClearTextOnFocus = false
+		search.Parent = searchbkg
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -37)
+		children.Position = UDim2.fromOffset(0, 34)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = searchbkg
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 33)
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.Parent = searchbkg
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		legiticon.MouseButton1Click:Connect(function()
+			clickgui.Visible = false
+			self.Legit.Window.Visible = true
+			self.Legit.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		end)
+		search:GetPropertyChangedSignal('Text'):Connect(function()
+			for _, v in children:GetChildren() do
+				if v:IsA('TextButton') then
+					v:Destroy()
+				end
+			end
+			if search.Text == '' then return end
+
+			for i, v in self.Modules do
+				local translated = translateTo(i)
+				if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) or translated:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
+					local button = v.Object:Clone()
+					button.Bind:Destroy()
+					button.MouseButton1Click:Connect(function()
+						v:Toggle()
+					end)
+					button.Parent = children
+					task.spawn(function()
+						repeat
+							for _, v2 in {'Text', 'TextColor3', 'BackgroundColor3'} do
+								button[v2] = v.Object[v2]
+							end
+							button.UIGradient.Color = v.Object.UIGradient.Color
+							button.UIGradient.Enabled = v.Object.UIGradient.Enabled
+							button.Dots.Dots.ImageColor3 = v.Object.Dots.Dots.ImageColor3
+							task.wait()
+						until not button.Parent
+					end)
+				end
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			searchbkg.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 437))
+		end)
+
+		pcall(function() self.Legit.Icon = legiticon end)
+	end
+
+	function mainapi:CreateLegit()
+		local legitapi = {Modules = {}}
+
+		local window = Instance.new('Frame')
+		window.Name = 'LegitGUI'
+		window.Size = UDim2.fromOffset(700, 389)
+		window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		window.BackgroundColor3 = uipallet.Main
+		window.Visible = false
+		window.Parent = scaledgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local modal = Instance.new('TextButton')
+		modal.BackgroundTransparency = 1
+		modal.Text = ''
+		modal.Modal = true
+		modal.Parent = window
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = UDim2.fromOffset(16, 16)
+		icon.Position = UDim2.fromOffset(18, 13)
+		icon.BackgroundTransparency = 1
+		icon.Image = getcustomasset('catrewrite/assets/new/legittab.png')
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local close = addCloseButton(window)
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.fromOffset(684, 340)
+		children.Position = UDim2.fromOffset(14, 41)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local windowlist = Instance.new('UIGridLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.FillDirectionMaxCells = 4
+		windowlist.CellSize = UDim2.fromOffset(163, 114)
+		windowlist.CellPadding = UDim2.fromOffset(6, 5)
+		windowlist.Parent = children
+		legitapi.Window = window
+		table.insert(mainapi.Windows, window)
+
+		function legitapi:CreateModule(modulesettings)
+			mainapi:Remove(modulesettings.Name)
+			local moduleapi = {
+				Enabled = false,
+				Options = {},
+				Name = modulesettings.Name,
+				Legit = true
+			}
+
+			local module = Instance.new('TextButton')
+			module.Name = modulesettings.Name
+			module.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			module.Text = ''
+			module.AutoButtonColor = false
+			module.Parent = children
+			addTooltip(module, modulesettings.Tooltip)
+			addCorner(module)
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -16, 0, 20)
+			title.Position = UDim2.fromOffset(16, 81)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(modulesettings.Name)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.31)
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = module
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(22, 12)
+			knob.Position = UDim2.new(1, -57, 0, 14)
+			knob.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			knob.Parent = module
+			addCorner(knob, UDim.new(1, 0))
+			local knobmain = knob:Clone()
+			knobmain.Size = UDim2.fromOffset(8, 8)
+			knobmain.Position = UDim2.fromOffset(2, 2)
+			knobmain.BackgroundColor3 = uipallet.Main
+			knobmain.Parent = knob
+			local dotsbutton = Instance.new('TextButton')
+			dotsbutton.Name = 'Dots'
+			dotsbutton.Size = UDim2.fromOffset(14, 24)
+			dotsbutton.Position = UDim2.new(1, -27, 0, 8)
+			dotsbutton.BackgroundTransparency = 1
+			dotsbutton.Text = ''
+			dotsbutton.Parent = module
+			local dots = Instance.new('ImageLabel')
+			dots.Name = 'Dots'
+			dots.Size = UDim2.fromOffset(2, 12)
+			dots.Position = UDim2.fromOffset(6, 6)
+			dots.BackgroundTransparency = 1
+			dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+			dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			dots.Parent = dotsbutton
+			local shadow = Instance.new('TextButton')
+			shadow.Name = 'Shadow'
+			shadow.Size = UDim2.new(1, 0, 1, -5)
+			shadow.BackgroundColor3 = Color3.new()
+			shadow.BackgroundTransparency = 1
+			shadow.AutoButtonColor = false
+			shadow.ClipsDescendants = true
+			shadow.Visible = false
+			shadow.Text = ''
+			shadow.Parent = window
+			addCorner(shadow)
+			local settingspane = Instance.new('TextButton')
+			settingspane.Size = UDim2.new(0, 220, 1, 0)
+			settingspane.Position = UDim2.fromScale(1, 0)
+			settingspane.BackgroundColor3 = uipallet.Main
+			settingspane.AutoButtonColor = false
+			settingspane.Text = ''
+			settingspane.Parent = shadow
+			local settingstitle = Instance.new('TextLabel')
+			settingstitle.Name = 'Title'
+			settingstitle.Size = UDim2.new(1, -36, 0, 20)
+			settingstitle.Position = UDim2.fromOffset(36, 12)
+			settingstitle.BackgroundTransparency = 1
+			settingstitle.Text = translateTo(modulesettings.Name)
+			settingstitle.TextXAlignment = Enum.TextXAlignment.Left
+			settingstitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			settingstitle.TextSize = 13
+			settingstitle.FontFace = uipallet.Font
+			settingstitle.Parent = settingspane
+			local back = Instance.new('ImageButton')
+			back.Name = 'Back'
+			back.Size = UDim2.fromOffset(16, 16)
+			back.Position = UDim2.fromOffset(11, 13)
+			back.BackgroundTransparency = 1
+			back.Image = getcustomasset('catrewrite/assets/new/back.png')
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			back.Parent = settingspane
+			addCorner(settingspane)
+			local settingschildren = Instance.new('ScrollingFrame')
+			settingschildren.Name = 'Children'
+			settingschildren.Size = UDim2.new(1, 0, 1, -45)
+			settingschildren.Position = UDim2.fromOffset(0, 41)
+			settingschildren.BackgroundColor3 = uipallet.Main
+			settingschildren.BorderSizePixel = 0
+			settingschildren.ScrollBarThickness = 2
+			settingschildren.ScrollBarImageTransparency = 0.75
+			settingschildren.CanvasSize = UDim2.new()
+			settingschildren.Parent = settingspane
+			local settingswindowlist = Instance.new('UIListLayout')
+			settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			settingswindowlist.Parent = settingschildren
+			if modulesettings.Size then
+				local modulechildren = Instance.new('Frame')
+				modulechildren.Size = modulesettings.Size
+				modulechildren.BackgroundTransparency = 1
+				modulechildren.Visible = false
+				modulechildren.Parent = scaledgui
+				makeDraggable(modulechildren, window)
+				local objectstroke = Instance.new('UIStroke')
+				objectstroke.Color = Color3.fromRGB(5, 134, 105)
+				objectstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+				objectstroke.Thickness = 0
+				objectstroke.Parent = modulechildren
+				moduleapi.Children = modulechildren
+			end
+			modulesettings.Function = modulesettings.Function or function() end
+			addMaid(moduleapi)
+
+			function moduleapi:Toggle()
+				moduleapi.Enabled = not moduleapi.Enabled
+				if moduleapi.Children then
+					moduleapi.Children.Visible = moduleapi.Enabled
+				end
+				title.TextColor3 = moduleapi.Enabled and color.Light(uipallet.Text, 0.2) or color.Dark(uipallet.Text, 0.31)
+				module.BackgroundColor3 = moduleapi.Enabled and color.Light(uipallet.Main, 0.05) or module.BackgroundColor3
+				tween:Tween(knob, uipallet.Tween, {
+					BackgroundColor3 = moduleapi.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.14)
+				})
+				tween:Tween(knobmain, uipallet.Tween, {
+					Position = UDim2.fromOffset(moduleapi.Enabled and 12 or 2, 2)
+				})
+				if not moduleapi.Enabled then
+					for _, v in moduleapi.Connections do
+						v:Disconnect()
+					end
+					table.clear(moduleapi.Connections)
+				end
+				task.spawn(modulesettings.Function, moduleapi.Enabled)
+			end
+
+			back.MouseEnter:Connect(function()
+				back.ImageColor3 = uipallet.Text
+			end)
+			back.MouseLeave:Connect(function()
+				back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			back.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.fromScale(1, 0)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			dotsbutton.MouseButton1Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.new(1, -220, 0, 0)
+				})
+			end)
+			dotsbutton.MouseEnter:Connect(function()
+				dots.ImageColor3 = uipallet.Text
+			end)
+			dotsbutton.MouseLeave:Connect(function()
+				dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			module.MouseEnter:Connect(function()
+				if not moduleapi.Enabled then
+					module.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+				end
+			end)
+			module.MouseLeave:Connect(function()
+				if not moduleapi.Enabled then
+					module.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+			end)
+			module.MouseButton1Click:Connect(function()
+				moduleapi:Toggle()
+			end)
+			module.MouseButton2Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.new(1, -220, 0, 0)
+				})
+			end)
+			shadow.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.fromScale(1, 0)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			settingswindowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				settingschildren.CanvasSize = UDim2.fromOffset(0, settingswindowlist.AbsoluteContentSize.Y / scale.Scale)
+			end)
+
+			for i, v in components do
+				moduleapi['Create'..i] = function(_, optionsettings)
+					return v(optionsettings, settingschildren, moduleapi)
+				end
+			end
+
+			moduleapi.Object = module
+			legitapi.Modules[modulesettings.Name] = moduleapi
+
+			local sorting = {}
+			for _, v in legitapi.Modules do
+				table.insert(sorting, v.Name)
+			end
+			table.sort(sorting)
+
+			for i, v in sorting do
+				legitapi.Modules[v].Object.LayoutOrder = i
+			end
+
+			return moduleapi
+		end
+
+		local function visibleCheck()
+			for _, v in legitapi.Modules do
+				if v.Children then
+					local visible = clickgui.Visible
+					for _, v2 in self.Windows do
+						visible = visible or v2.Visible
+					end
+					v.Children.Visible = (not visible or window.Visible) and v.Enabled
+				end
+			end
+		end
+
+		close.MouseButton1Click:Connect(function()
+			window.Visible = false
+			clickgui.Visible = true
+		end)
+		self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+		window:GetPropertyChangedSignal('Visible'):Connect(function()
+			self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+			visibleCheck()
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+		end)
+
+		self.Legit = legitapi
+
+		return legitapi
+	end
+
+	function mainapi:CreateProfileGUI()
+		local configapi = {Sorts = {}}
+
+		local window = Instance.new('Frame')
+		window.Name = 'ConfigGUI'
+		window.Size = UDim2.fromOffset(700, 389)
+		window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		window.BackgroundColor3 = uipallet.Main
+		window.Visible = false
+		window.Parent = scaledgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+
+		local modal = Instance.new('TextButton')
+		modal.BackgroundTransparency = 1
+		modal.Text = ''
+		modal.Modal = true
+		modal.Parent = window
+		
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = UDim2.fromOffset(16, 10)
+		icon.Position = UDim2.fromOffset(10, 13)
+		icon.BackgroundTransparency = 1
+		icon.Image = getcustomasset('catrewrite/assets/new/profilesicon.png')
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+
+		local close = addCloseButton(window)
+
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.fromOffset(684, 340)
+		children.Position = UDim2.fromOffset(14, 41)
+		children.BackgroundColor3 = uipallet.Main
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+
+		local windowlist = Instance.new('UIGridLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.FillDirectionMaxCells = 4
+		windowlist.CellSize = UDim2.fromOffset(163, 114)
+		windowlist.CellPadding = UDim2.fromOffset(6, 5)
+		windowlist.Parent = children
+
+		configapi.Window = window
+
+		table.insert(mainapi.Windows, window)
+
+		close.MouseButton1Click:Connect(function()
+			window.Visible = false
+			clickgui.Visible = true
+		end)
+
+		local div = Instance.new('Frame')
+		div.Parent = window
+		div.BackgroundColor3 = Color3.new(1, 1, 1)
+		div.BackgroundTransparency = 0.95
+		div.BorderSizePixel = 0
+		div.Position = UDim2.new(0, 0, 0.102827765, 0)
+		div.Size = UDim2.new(1, 0, 0, 1)
+
+		local profiletitle = Instance.new('TextLabel') -- w gui 2 lua (lowk lazy so aint doing all the work)
+		profiletitle.Parent = icon
+		profiletitle.BackgroundTransparency = 1
+		profiletitle.Position = UDim2.new(0, 25, 0, 0)
+		profiletitle.Size = UDim2.new(1, 20, 0, 20)
+		profiletitle.Font = Enum.Font.Arial
+		profiletitle.Text = 'Public Profiles'
+		profiletitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+		profiletitle.TextSize = 13
+		profiletitle.TextXAlignment = Enum.TextXAlignment.Left
+		profiletitle.TextYAlignment = Enum.TextYAlignment.Top
+
+		local profilemaker = Instance.new('TextButton')
+		profilemaker.Parent = window
+		profilemaker.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+		profilemaker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		profilemaker.BorderSizePixel = 0
+		profilemaker.Position = UDim2.new(0.0142857144, 0, 0.136246786, 0)
+		profilemaker.Size = UDim2.new(0, 167, 0, 30)
+		profilemaker.Font = Enum.Font.Arial
+		profilemaker.Text = ('create new'):upper()
+		profilemaker.TextColor3 = Color3.fromRGB(255, 255, 255)
+		profilemaker.TextSize = 12.000
+
+		addCorner(profilemaker)
+
+		--[[
+			Sorts
+		]]
+
+		local sortframe = Instance.new("Frame")
+		sortframe.Parent = window
+		sortframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		sortframe.BackgroundTransparency = 1.000
+		sortframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		sortframe.BorderSizePixel = 0
+		sortframe.Position = UDim2.new(0.282000005, 0, 0.270000011, 0)
+		sortframe.Size = UDim2.new(0, 500, 0, 28)
+
+		local layout = Instance.new("UIListLayout")
+		layout.Parent = sortframe
+		layout.FillDirection = Enum.FillDirection.Horizontal
+		layout.SortOrder = Enum.SortOrder.LayoutOrder
+		layout.Padding = UDim.new(0, 5)
+
+		local sortfuncs = {
+			oldest = function(a, b)
+				return a.edited > b.edited
+			end,
+			newest = function(a, b)
+				return a.edited < b.edited
+			end
+		}
+
+		local sortfunc = 'newest'
 
 
-return(function()local c,R,O,E,v,u,p,D,h,f,q,A,G,n=string.byte,string.sub,string.char,string.gsub,string.rep,setmetatable,pcall,type,tostring,assert,loadstring,unpack,string.pack,{};for j=0,255 do n[j]=O(j);end;local n=5;do local j={14831,{0x1B,0x4C,0x75,0x61,0x50},h(q)};for P,i in next,j do local j={p(q,P%2==0 and O(A(i))or i,nil,nil)};if j[1]and p(j[2])~=not j[3]then n=15.0;end;end;end;local j,P,i=(function(H)H=E(H,"z","!!!!!");return E(H,".....",u({},{__index=function(E,H)local T,g,U,o,d=c(H,1,5);local x=(d-33)+(o-33)*85+(U-33)*7225+(g-33)*614125+(T-33)*52200625;local T=G(">I4",x);E[H]=T;return T;end}));end)(R([=[LPH%!'(r5>9R;sGiQR>=q=^$JJomp*\`:f$<9`j[*C.a4^eZWPu4P?$P)8bcmiV_P)]bN?/n)ZIVORh1MtX6(JZl^\#J`"oO5om\$L*T\YRF+Ab=__,'+39<*]4<EsO*.pIuUaRdCX;?`D2oj(@G+XpL#AVV)1;<7Ke@"pU[Ni]QhiBfOW*&U9Ig!.YLQ8\gQ<iq-p8DG4iur^Wi$liQt="#jtRP4mMJ%(ti6@UsGEG5`1$Q<Gg2)U$!IS48H/(JJSUk&P-kf638h*crWp3]%6fc\YKP']-[<B'J0JHclaWDh>s\\DG+7@aoW#^0jHnr`7isGe-+6T<EH!V=hCt+QLd:D_g.<"fZtn9CYMF?qsB20D0FAURYrC1"s;/6L<n'\[oJV<nOt$)LLhQRC<g_Hmu:H(TjDC?/h/rr[s1-``jah<8TU,:E5gW4D;n92U<+<k^l:W)h(V*aauNGN]RG8kWf:e:]<.unKq2t=.U3&mY[QUYq$EijrF>TDqkUPWZc=VbKo=gpmS63Us5,rnf7<<']0lJ2oREA5/"_hj6bp-M%mhQ+,Gkd97l^NFeXIqA_Z#)&BJ)mi0c'2#<g;POJ-Lg5e1at$Fi`_k4=BobC-00(\)KGO2IQ'=a&d9Z<(uM\Kl/@JnUk)^>@l"1F]K7amHCii!(/&A!4lZ?dbIj04ibo?2FMlQiTH(`!%ENmtCZb_krQKqlF6bc>&lDkIaE*m<TH9`q(U3%ZILS].QJQA>b3<T8/_0MA:J^dtZLNPTLN=@VWWCc>6PK^7-TP<UeC->0^_)ErcoWU/D*'2]je,VaM>.'hi2d[7XFS.-e#@AT\'C$$nPZ&*=>O4`t&7d.NdG9l4j`B<a#W[IMr>LcZKQC0V7mY+#R;SXM'7(?L9%^6(d-M]2XU4,'g!@+kJ`cVG):c-\H6WFts181MW/GBSiA02(e^4U$N(!b?k)`>B5-f=c7"A"5#5T'B\0n>Au?Xr)@0c:=iEQf(^5Wm.RQb[8a%@*9KGhT-PmL]r$,N^7]VolC`3=0$`ZF-X,0G#p<F?s&_q5V@cqs(\Q9Oha("`at1RX2kq0h_ccXU^f`L1E.;.ZF(qNc-R&OBZNNm*Q3g4s.'o*fSsW)(-/&I5J<18L7nJnKFcR@>T^?;o_\Q&"BK`5Hc^$;Gg7niSpb(5DB6jYc@=@-rrP2d"P"WHZ60!DC@nCphY)"QL?h!U1kY;Ed1LgEK_q%lAS;:#>**0enpS^>\nb[.j(>ZD3@%,ag=!R*jLO`qdt]WlGYtP9Brmb_\R](V+aouDQU';)!hq't!LtDe%bYg2[ok,/[l&TdmE<pMoJt(iOfipQT4[NW3751)NE;]ZD]6mlX8l9U?n#M(Y8b23s4u*]1K]i#q<\ko'cFA0VKG8.oC".FH%%303t^-<e&FckOUg%BNtsCW)H+mo[k[T"U+K[%as3E*I#CeQ!!2OaV*Yd,%sfVha1FX?^/D(KkXA>eDs*_K:>7rk9g+ak_T.Rka6eAbFgkTX&eU@YmRP%24BSn*9"p86F1)osJpU\*^4&H=7#Fs%)IHp#*QPZk(,N).)edNU(8p"+Zab1[&:RR.\Q+I49<O`WF/"U@;9ri=Xd-\/\p^,-@X15dcYd+<cl8dJ"$Ou??Q/$#BE"lml"c5G!=Pj_(EZ:B)@'V:`_ZN,L_aF?5HX<0>G?F6S`,!W]hIU-`AGMFEZ,RQ`M:Td:l)</B?4@I':]!iP[]."12;P$*sf:c*84aDOtlcWfCi1k;W)oUBa<nsB:Gddf-2Ha%nXWA<6eh(SdG;ES:l#DZ70^4kKQm4m/Kli'q(0d^rU"=PN+$A\S0VHLUEJ5CHl9C'KH=$-dr;7M]sgV&@Ua2[9JR<0fFp<^)c'sVFiI<'m2sUJ]g(GD3!L4$R:o/I;N!IVcR;YRT.'VJVV7VPuEN<:e3(h).$u*&3;qKqDD*CZ+HARah;RSMF#lR=3Keq^@06Sr.]'Or4.e_J,#$R.o&C+%W,?9eSK16GE1><s#uAkpF8EN;:M"PCEN>4$#X!BWSfTP]6U:BmW8c)\:1:c\2gfIj6ujlbX(PcBLP0FInuC<!6M4jW!f8c[kXmq=5J3%K;&V+398S;G[jV1._I`:3o%Xi,"$O@)D3350nJgL=FFht0(A2'+7'EGjsd83.eY)oqj;L2Zh\6Q.s16QeH^0*JdAn?/DmkDF!HcChbn*]`+(6Ur0ktqo<+F>_VJdFltSG%W$+,m\A<EMGnc_lr\H%D9<s3SAcQ*-m;m](a%1.jIM,r94bD0X:mWe4FqhOkkA^!&k>Zqb].qOQLt8L2<77$n/,54NW@BS3#"-?ADcD_)_9K1AOgSY%XWi@@R0jlX-YSTRD8NlE__%`kVo%3=7CocXm[!h676@MQ`Q-VjFH,B+@,Cou_Ud5$JWo#/J`#P`$f7>_PY@C]J*\V$?+J#SP%<ON&M%.`SpQ-V`1,7W\HaMB1Mm=%"ZepTfrls>o[+K9dp'S4#SV]=LoV*Zb6t"`FbHPe(U[*5r8Q?p0seb;j,V(U7.H0s.M(sTLq%#`qLOlFSgF[b\,H:cKY"JqW]X\]V<YK?k&9_h0)5lA=QQ\pUe-6"#5p&CMst8/g'F!f2InSEgp8'[UID`S7Zq./U`,o-Wo6kB1c3".3VuP&&<oU.>+"/#f%Pf3)q*VV:7<NYp=#ZhmU1(8-l:UMe[$Pm/sT.;Zr$I@\'!MW%Sq'JHWaRK5sM)"h;tH@*u9Tq%:C@=\NP@D4uK%..L2G=`5rsYX@4GPH#,k1Pj3qV]nqVJ20s8PJ(M>g+_OC5k]NCaP+2b?o*)_\*$#`-0?a.S94si_alT+j%I;uU,!gFIi.Cplnc"-470f`o.kE+SNpq;681E">Irn73mB$cA()Qpq!HR/"*S-C*^k'e]i0^G+g@]sKT2JhUC5_1(3G?==;XsQ%BQeH2S=L6Mbcf_N;DXF)Q1t3HgVLckYY19q-;G4H:@O\?]O5F9XJ/*DdscI339YjI\YYLBT^m2.7AADh"!AhG$18!o!ha+BkF[9C138UfM6%7SU!BS@kIGSWP-tUbX)C^ZB]ndJ[Q*2^,#QUt[T>YZbbWR2m"u02m.CD0CS'Pl(sJ48pdg-ZE>$a(<PI!.MHJJeNYS`V2pFol"uW+1FQ27Yn7ij_IF9<$:($kXKXI!n)/l4N81H:sO7kV>"i4t;X5ql.?aJko!%:"S*,@TM%9HJ[:m4u(?EBg*iI728i'U]a.#*o4RgE8j0S_b&S5?f:@ppJ+MaBFacn?L:Ca]bk2l+N9-9^%\'R/?lGpZbjjDs]"hXSpsH(Yf:<+g@D'tY1ZGg^q[-4!JsmempSG9Z3%:oe:>?$aJ5e+9E\0Pc-r)n)<&QA8tq[F_eLj+l@OdO`OPYNJoXhO9'T`]D*.j:nZ3.8#YNZW.sj$<<?$>S]'$Zt39Wc'h=(XfB4<^#0iY0buUK%p8=Z"C$8]Q:Q7rDYX[c?`=;MnFm^:.HVD)7,6J[OsjtdgCK>^J)m.&h<H?AcL4SXRrKMdM$Y(:3QAUS03H6L,.[A]ISNVBfU!N9!T>t!C_J!,+'Cjr.@C6'4/FJ$?n=]-h"3k(N8"HGi^_6B1<<TkgiFjQK@!qTR_-3#$Jdl_jgg(^4k`*q5u/Hoo:i<6!4'CX5asU7`Yptpl>RV22o9ml/;.u5!?dB+CtU6A9k.7O!(Z/@HIS#(F$uiZfO@:-'sAbAY8IJB/ae/4)L<M?n(G%=_s42L/^R.tJOFT&N&@-^3@p?\24bKk`%KaFhJKA+\=EdM>SfEX#nEK<]s]Er;eoa#S7E9hU=0#lY9TQ-RG#h?^slKaS%P_$FGsh]p$j&^Ch2MZAVCIlqpG\%;T=gn`:qsO#QW@R&QF"M*0Bf5MZb-).:d%*2YmS<GVqBKZ]<5LWfBFM)"lYDrnLA$\4nId6@N8[i[0K\\\7+M6b><2B<"Uf0ipD;dE\9K3D>P/?r/L:'_kJ=_:(uhdYEfDPu0;Dil(oUW['(Ne]H0#V=-o0Z8aYA_C'(M;p'&nQ#_#ihK3aec'faam3,;RM-*"dDE5ql[/45RCS_;&,r[s`Mj<`clqhkb1`X)Eo7/*g-dbQhEBQ$aOUSUVhjm$R(^C,D,CJ:`V`bOl1WeB!;O8LS3CemSX8W"JYUX'=nZ%DMM4cE35:<s39?lR*k+L;A\1TYi9Qie)X%NE58q1n`9,,SG3K1B3B52_4S&]V1f!>S7R_l4,8oM\1I-`F3r8\(JKXR@ADc[R#QkbS`/I?B&&-t^XfCjkf+UrUchHsdRV<9*e.1Ai:4TpJ=B=)Of;"F3&\P%qRZ]Yu2[4iI7cOAf46$QY"`XaoI`D;]7)b;gBN=Btecg4<n?I(G>rq(&dQrActOb+nr^\FG('kK\%]BSYgK\gS`i=%;A7bVpB(4iVcdYtbk=\Z[^(fct/0WJ#EBNRLuSaTD#\bG8ap<?sGOpTg:KZ/!<=T`\)nL3HY5c>[a0FFkJ8-A:mHD(+\A[TG$A#amNE98UJ4aM[M9PJ[V>)8bCL3tG)??I+P[M+@$qTLhHTE5fRf=l%hGu!^j=:\9@U]g2^^]pL:Cl>nU!jVu/?:(>$=sFScI@BWd/LGt:fn(a_rKltg("3)ug:Z^E@j?=:S5;<$Y^]2Oil^2-b%,8VN\1?B\Yerj4hSBr1O/.rnO(Pb(;e%bNkbqnfp%XR%$@ajnUVI0J>c*3"%/36'6ZV7dpGq'2o/f,#:1R_*Q`!'V7HaG3M57cX/ToZ-8h+MUn@uj#!#R\NlHpcKT8PBH;aj#).pCil[/t\&kbMIVdmnW8N^>Is8M.:D&bd")H%M@%2TC"@6Er-/kd*YKq;%4_-)<a8JSmT,Y'9<n`fA//6-X67l_22Ja;C4%S&$Jo+YNpp[#"e:k!7rLn&KC=afMH5C@*[nFB1brN4]X.<I$[<K]CXhLFjIr#:>4..-gC??>"HG?uNdj;k>CU;\$]+VSkh8-/G%lDLP.<NT@F3YVJ4Wf,J`&1aCgT3Bc.-alHF<TTg9FZh-OXskV!^qAH[Tk\s8S<2q3<9(/RaY)t2AJ,`^pnM$R8Si<`DT#FRl*BHFE?J^P`4$To+),0k]/,L91^-uIj;q#g35c:=o6YX#h8-\e98a$n_&IES:tSFl8:#U+l+?]F6a?RQ/PhfTL&L@,7,1;:0C?f^>G\&jI]i8Q`ShCPL`9!'9B3fMCBLgTaF`2\ll!?Wl:GTIbODtS/\6FH\qIsFo8dIb>pa=:\O6)LkF%8uhlsA^H'\A+P,boRP&-u>#sJM3iJk*Z07?fBY\1gCL3H\jA.#V\X4oeO,bCENTk<V=Za'-0dE76l70!3/0H^["hj1`!<<1h<So3;Rb9F8\TC:^=Cc?NgT:DVb.I5%SjWjDBH%YC7(,==D+P\rM_Wic1l\U5'lOL+)*``]e]Vqc*i[#(cfcQdm1e\-jXh63l/C4m"Wk9Y=U;](?V-?DRdU!/ZJ4-TC8uW!hLuP:eQQ!B;Tu(p'X_1=fnsPVX(,6o5[bUt5FLs^aI1:;2%WIV#H7X[Y3s4+XD8S"=:tPYT]/LOFQ32ND2BgG8B.uW[1KFEI+"rB==9rEQ#RW:=^culPcr2@Pj!:X/F.MuE[C];O/e$_OZ>e[kVT@6ZX5?gE:+$K\n@PLjY<Ta%e\R"0<4[BT3]kI'efnKfAAp_\FC@!LdbRe_`qprH.V=]@733bnH9&\1NTTtR/bNfsG*1*d@GiXmJq=n2gl1u)5Cf?cP@pNp/Ja)XMF*CD["PSA'rn-.q,CCK=0[Wu5E2dgg!%#C\Xtsk&!tT?HA`QFhiH:0;.LYX0I?[oEVr/i[=J01TD)LQTO7Cq2e>[cI1FSY651<;VG.dS"lPE2^m$S^ZKOE(BVZ=SF@t9(HM=5I+BelZ+q,APVlif,J3S:"NMMGOOZ.i1[KDfY2YS,LhWL7AC+jlKOe=oST0$=H@>ei]D@qs@YGne33r5s"C?2pQ@;X;<X?G^(Xj3t?&QOZ7AG^Tb%K2g1)9TOf,b1@,H/$K!Gn!@ub9B8VFBRuQ>bW'I*<QBW_Fs=&K2I;pJnG7*OF&V##Lc=/43#nL;!sWi?u-A*f:ZM@Qt-(7,B5]5&Fmp5Quk%:8LsTpC'30lG9+UXlHF.VZa23CQYqOI-nLp2=i65*/-7G,f`lC%!qtE/("'MJo8hbGG$cte8*+\(_0FjjnpWun3r'>:0Pi%F(=:,/s,R,$>VL`TS?_,aoOq7&,g4B5XHT0!E#S]"k?Jj^%"G>nlic(f?%6IXZ!T#4kk.WH>bYPTos3t&N+<8bPVR:<\[eR/KW&?`//.LraPF,fZg_bTBm+l:iSierh[tJ$rQ"t86,_Bcoi=cl:!FBo/<:-!M\(1*l^UZXidsoNQBJJF6hO&$3-l,:"Ile/c<&oYG_55BLb?/f3=_CXkRo&p%F.19bIi#YLQaAsEH>Cj<Sr;E9H?0b?t=0Knj"Aa/?=Z'Y5jG+\lqgVpHF*1j-"qq[D[pR+@Ho#VqtJt%'5Ls^^df[$2>7XTAc]$W-qlF>r6i<7YncFWBqQC@)f<5V#TT4AR%(K$GOTH7lbcd%X?[I/((t#b=;>pido"Ndc+%"@_"!&W!nijRKIaJW%L0c:'<a&CpH>MBbGXZLVS(!Q<&R#JrtW0oCX"1PAL_#4et2WWRp4t>2olm'^rMT)RRc!ig/E.g?hpC`=#-1CWVrEA,lp%ERX2<Kpb*_8>TmGJZ?E]0"UOUf>Xq_]]LWpF&l%c6.mn?MLOe$&<jm@rM0fDYh[ep*Dh*td(9.nI"FZHfE,-%h2HJ"pLO20I0r4&/.;Al>U>e]>Ua5'FtISam&e:#QsAu!&9<fZR)+C(0@tRe#IqN]Im)e):O8JO>,!La#&r)Fn.Tk6Tb3H'Z/SomCUo.^Bo$l3&un?UbtVIp)T"2Cf'?k(F!U(>o"s9*m!S73KZT7O07iei**d.:;4FTJ^@3[,.0=3Oo6?e_d2b`EO`l:uM0(r)8tHso.^W:Sp0n$eN,.D\:`J)O)DenN9m^drI4*`7D$kb!UOp]#U,eJ-YLWAuX#F0laSW8.JI+%o,Su/;9s&lnYMEOfJ*bWU'Ab3K]0u"Jr<m%%EBB3";!3?a6HGt8(JP[S>Hk9OgC36DoX/1ie-hA8S?+o)*"*H3_;Q$7V6YXtPH5q#Nr8XCS^q!.4<s]S'^[`Y4`))2(A@#u9-`#C#_3?C?>%![gO2q((ZPC`Mea/%\A6?ncf9U_lHWJbdc35LT;qFCZ^f]"JpP)L[.Xb\`8n:D+dtW*hiO"3dIdOharl!#kL:k+oJuZ8j213cM"d:c!4pkN7:`@JP(eN*A;1o7qjW@>`3tM&6-\(-^Xdm7:[4\5ed;r'<p8R3T8+7tC"V8'f^^+c7T#t#DB^-Vra,-KjPaXT<=&0MdQ-2MSGFiB7D@\>B$c?T'XlbjjBj$,Q?$`d/*DGRb0qKjq!pMOB5A!ZAR6/s<oL>n,8$YZK/f[e8D]3fX$I\4>M+aKF<tf'Th.8j`fl)!r2c4qZ8!$Q^'O$aPee4iS3[M+'t7kf=[K9?,BZD/AGVAfU^$0>AN13JZW<#0I#11H=%p,!TXR7uVd4At5RL2_bLAHBp3?bJ:0'TI+6o5DYas#Yh(i6i8RY7677n_[rJUO4'oKGu2:d":d7,fUR`i.r/3.3!roh(';ooN8Zsn]g"OL<6r.:C$/"\iq6rRa&a]8C/)Zg5%JV)Ggj2q0F`MqOY1;\UWL9fMNUUgK*lb&.X@<BoXQNGQqFak*dR'kO[q%.FTWU(V$dH@?9?sY[K(9M6k+Dm?\;,qJBd"p`lofo`8cGO_)edC0Md=!6k;i=4:1!k%db';:N[`*<AbH>3nD]\V/A-'<cOe*XL@t5+2h2q^kd$V/*mq\&/ZTI00q-cc]@olGupVpOY@'An12%6Y>g\T`9L#,1iG7Muf-+iL#)2>Lr7K@@_4F6a\Wr[Q-e@,MTb*GV'AK+gknc8e7>M[EIou4q^!Xr]CXqmKb+Ec;K.dCA%ep+COXO>nGhsUXti[XX@I?;;^k-TW81cVIoF[q^i)(&W[IUhb$P4VrN-&g/W'oQ5'98KSTK/):$,.F"??!V]"]=Jt]b6/&t,\lq6MY[riSKu0MZ(r\!Scf<[Jh,XiR\kg#Sl/jr?Z2Gr]YS*G=-d(cZi6QK!hHsr(BC4<\^Vc!Q*\88Zqc&I-!tc6AFq#GNH];E).WeMT[Z+d(C00lEPN((^4eb>]C,bPU.M5mJSG1rQtK-=4/*md7\1@NDKq;/L&q/t)aI+>1+6Xj+='l(B2)<pT4nSM)I$`kpEk&9(%77PcF26@4>=R\?/>Q>/>DP@77cUG]s=#5kdPj]G'm_/F_HWuVQY_V-ID(raMtutHCG>1j"[)D*_Dc:"OCA)pZ2qfEn7@+Pb6d;);g8FLrd18?WiKG0*:RM^Np'u+%qZCRq:FTr$OU[1b\\hTOemK0P1#`;KcjOdeVk`91FooMYG#Pg3PD7d7'Yt#Qbi1:>iOghj+4ah+[,\Kc:o?jAa<Ni,f'(I+G/P]\>)W'4&'JIQ:jprb#+s<neq8gl="m0+*QJX[4/GRol^!8Yjc`G5h)7T#1HPGCJ$*K@m7a0.jh[`D=?-Q18p]INQ6^)j=kR/U3P1fb+qm,!J4\lpI5LOp0*K\(X6+ofE&)SEBP3b%n!Yi)o%ZQg8SQ_e);?N6kW_67[$6TL#muVm%6,hHB=EaAIVhK"T54O@jsjDfdmOd[qO_@)CTGhkZrEdAch`UJ\/s7:jiACeTBS\S]CCRtd<i)"rH[3WNISI%`-YUe)*Zc4\3M6gEVE7?9Y8Ma\HdG$900D_#EM2A_-W?E0=iO_!$TJ;lj^>+e;nI8m2dLGUn!03*9^=udO5PhZ;bfoSWY3^Io].?g>t@RbF3>U2]a@+t@Vh>MfVqBkXO?l`HRlgIr#WCK)'D#N`Z`#Pl.'Q,QS/Zu_*^K0AS^Z:[;WGY^+[H1\H,sbaPSE%S6Et/JVk\:d1XCZs/Z@%1\LWd^onNh<O$*+r78o+D%Q^HZ3QocQ"7Ce$C?gcg()Mf_9ro93]&;mYGpU/&]_Hj[reHb[bT^"OT@EI$]`o9fs'W&rt(PtWm65;,_G)RdA^69HA9'H<GB=i=F#.onHe,(8iK(2b,QAi&=@)m/J,Vr?N(0!bZkD>d;Us73qKrooqeV!ftQn=2UQQ19$V*b>lI>6]i6+c0XI,Tl!J!suL*/->rXS/u6:+8[K&+;$+8\:^8CR\UVq\u?0G[(n#..]Q>!-\lt!&=11%nn/<#b;]OX.:*MIkN[k!jq1t.+?DcV`A64]S]3HRZKPO4DN`ERb[`?$pLi@0G=$\U"mJkIi,G5iNc%hMu"P3o3LL]%ZAl+N,3u+q]b.+GeA3`jGi4*($+&b,P#[0I.J+is"$u3VtY=.`+*!r_0G^1K24KSjMY$l9W]=^Lu*rT??SOrWg.YT1`!l6==`.HqJ7PWEht@j@CAA$D5bL?W4gkcK$tS?TXG&sq;Dm[E8Z^?2Xach$,"4s].A.pT5o/jJSgHfKipt6=3sb4lbR>Tcj7G0As1W9;;p$Ub^T'SHWBeHg2,2>Pakt%_:^h@Pts5O%[fg4TH^$;9E'pLFlF?^TR65%YNup]BrPA4*P(^<I'P"AY:5U'SCB7',X;'oCQCg%^KtT`=2^l-C+Tcs7B'aM[KBjS:s9gLg`.aohNob9nf)YVBV-tH*2r*eO#VR4*r\so#2ORPo9H>/=,0AC*KkFrOc]^4)#2)s!-3l$\l02cQ4HRD;p9_Fl`suD1P\PD?09%AR8*jt;C-%73rP091n$L[,hNI)_CB-D\qLQC&50G(2E28i^q<A])5qp8;B$c^l(D;G^)\u/EA!>]NC+r)gTN?p]TitLAjB%$1qqK3fajLU\=oude5E&#"`Y*RA#o3)%K87V=?.@7*6dF>Fe[hdVP8%.oZR/10?5+qP*\b-o3PMpcfSGS1\&)i&;*41;@p;X6.'<k4[V)cPQ;]De2@hbTp-'ZF-TP<eAl9)Rigk(JIAHm-#n$!8)'PWSdEZKL:TK%A]&mU0LlEi.Tc=a@<$P=Vf3sr[1U?#'"2PRG]ZdF1N"$sb42>b>B+\J/or`&rMO<!D3DhV&Ur(WN*)oC[H`NA^bH32miTmKmiKoB_TY+t5ZdkdYVF/e:,f,"Vi/hp:[;`dVJ?bEI1khl5jfGl\'`,,p.ui]2%1`gf%)G)M:MOZkP.8W39MG.b?DrY3#1@WF[]^.%Th-RHQHkL(W1^lf_g0<l,)H(mTKAP*k[qK._9fH)rH@)MCURO'&gQdPftI)f9:m9O^INSB@_Z2B,(%0';-pgpj=:3(u?#>(hC"`"'G!rGmH@$Oj_D*0fga'D=[jUjVK9BOfLQP7OWt4Y?p=G(nCJHHEo2E(2MN$nA@.=#^<RPLFKc=I!r5NjY3mK>sa@!jAHYEpsp(7.907N:I2+YQ@%U*j$cnHZ]kt=^96"@#="o_,-A"qT[MM[IH4Ob#<VDbSKRT@SQc)UXj94DX0>UP:!A&n"ujP/]fkANCm?a["B*T;$eG@nF1>p':u;1Q%L4$^W69RR*H(R8X>`551Sne5giM,tD(Cg]lKtXr7kF&Vj)+F[:@bZ/!3VgQ?2SDFh-;D!Rc1+ni6f.jW28oFF(D<WVqK_G^qUsCLY:#p>YF&kg6Fc4e=r:MKCs"ho"UhB_e!$;XRQi;b&M[#XldeN%7SC0TahSLgdZ:u)^DW$X)3Ini!W[RL(EX3W!3K6)S.>]H\X9h@R[<d,7%q6)Uulg8\L."o/K\`4nI2"&UNm<75t\7H?R(K_fC:b)mJK!h%;YPX%JR]o13ib&S/^`:PKd<GQPm<2ossckLCRTT&M+hhePs/[5P3-!!2+'51&^i)MUqJ/1/RKKA2<,0k6[c3*r.u^/&WW5tm8LRe;MLAed,FV-.h&[]E]lB7T'^B?;$g%JG;;3n4rBhJU;P=a=%pfW;MFkQG,S[$nQgcnQ^l-]G>0dq`+#(Za!uLk?6&$R$1TG(RQs[P`Z%HUX&HR9>2s/S=+RrNE@nIAClM4<rU;[$Sl?N7=ipJT$(]&J3u0fiOYkgTTJ*9<;m[X4h.!=3$;r'VK81hGd'pVqo"1RQ.iY:V=&$M:aj.@:EYS(`cdFe]E!l^?aaklKVc,g^pXU7o%Rq!#o:[47DL;AB7IVr'd<-g#!q,IO\@0%f"p>.`!!unMi,Z01M'7*&m.J-i1Z)p'iH<RY/O?G=EZr"7<XD@NhL91He\-+)Z':JBVQUDAub5R'XnKDFJcb'Gje5)`;##J?=+pP!E[]T%&pQU`C?im)3Md2P6qTBKLXLfMC5WT]ct)9Y_W0C4VObla3-aP[OmAV*rbO4LI!O9:,$GNZh6OFA/4V1S\I*jR@&PX.<aOKIgTL#L!5UD7.-,eu19?PJQMX<=c`FXr5#T)`lNhCkRbLQ&@pV?lI^Z[NJ]F@J<3@1cBRYX&eqOHNo5K)fDi!(Z/HMV.X#=XU/6D`bbr5fin1p1<=dD>7jn(i$bRFUNM"3a1k]g+.4tLX-83F>!>ujW/cjnqPRG;k#C+5/9:aOI,N]?/4`0"R*]a,[A@VMjX22#5ab]9O/d1J.hq^G)i-R9G/0T0&`qTuP=q*$!fA&FcZO[aY3jEfFeCoPKGI=gk^G(EUB7\."&gZ!j8@/VZ@j7cC8DkppKm0d__io&5&eg)eaNmp8g2,U^6`qLc\HGq-Ndu-qSU0#AK.,)8R^0R8^Fs+%(dnJh9T=Y4kTR-hcdt\GmPh(oJTZ<&&9I/j"2D8Q>_lke/s)]Gt5X_7-cs%8hf+2%0oiTeXt1:[jUBbUq\9ldhj7RMgsU\n?KZi:]LD8dc,:uT\V0cMgFd9Dt=+!=eUgNa^YSdM^%jp9=Djqe<$SMPI\RjgE'f`-:]WWAC-;:!TlhqV20\YDtZU%WWmR*d]VJe+K!o/m$99Bi"]X"bpW.s?d&(GHhBn$1da%60A`-Gn.6?dR>mr<s.":Wkl*RkkQKrnEO'CN<^KR1'b\:ci\sdPW=qfFdj4MjlfRqhmmDKP\/N[?8aXJYCZo>q:$iV0SC1I1p"q-i=JVA_>e\eY0J,!!2'iZ[c?tDPM8l^"_0eub!!'dgOa2<2J-P;!0-jN+i\dE7QoocW$qSTpQ433u#/R>p%WM</BXPC=O@6#=kB7V._gOn=qLL9bJTf_\91Ma$o!-uLEGM$Pr=i::n!6)ddm72YOF]cg>:X"h3l6UdM$A3ff4T?e\'IY.TM8ca!1[@S<UO'%eCo+6HrL!pZ/K9'F)iAA;XcE"&&;,u(?eZ$X+UCNT^2W?NA8$7PKP=>_7pU])0C&'aTP4qO&GKa!fBPWPd:g>=%nAtSO\.@(I-9X/n&\/!M^dt8MDWdQj227H-t4F?t6T9^X22SWH2WJh=h.HQa]B5ZC+PuL8Tc>cB%O&DeP)L&Tg+nUXqU_guuO^TtPOteo]n+?TTTk.13H-hZac[7[BS"*Qg^@UD7BViV!u\KIM8=`hLu3E/.aVbAq5B*S.+`^$dnFmkXqk9t'S!me"SSYr`Po#r6#aaUikpO\oiY@8*"&WlAMRV2Y-X8bO6+HX-GB[W_71Q5ipL(H@E>/d2DJ8R_[U9BO"5/c7inTr%)T,bZ0HBI8/?B,kWTZ1Rm^!q0?P"SXEH->+KC7^B6uq#T"P0^lUc9H=?tnrqAr1FaKo;b_4!O$^J/d#oYuo`^U,O\:8VSmJS**o7/"#u>+To9l,a;X/VCfjcRJgY[.M;:U,6c&"nI./ntrD(i>r`utK?a^l\mAr`'7>:sRi%AH66JfUjVFpO:GK]6JKl+cW]$]$:$]$aM2U^<Ql#O.KE$ZVR):/L.PhXltJQ`*J!p^I'2#36nKj%-a_:Nh)MG3UBr:S]e;VVlV!.*!=#[>?hEIlEK(m<uKSNs'>R$/K$p`o!n1AX3CTgL#&t'R>SODY6Ei1Ht/iM)nD$HaA5qV/F_5=b(e_7T]1@/"`H,\(:CAlt$_VkE0[VPfQ6bB/JSAhP<S_Zni;FbiFFG[&_@]/Au%?V8*D1khr*;PagYe40+'f[Xrc<nDlB5aQT+UpIJYc(]op]R+;L49&O>7IB3ML6G7g4+hGhaU@B[_gO=YckQ!Q#Gq%?Sof,0gZVjkG,[YuV[ckTjT[E3?rMY!*'T=EUmr]>rbd,?/P.aDM=)fTa?Po:T=l\9Uc8u5rfHDei4TIsJPM29S2fS<!-Z#Je5+S%Ji`2a-e#MUfRV&UN`,$,Z9n+V`&pZ)2hjF!gcQ>nqB4QkD!7%d?lKl3)Zf9a?`5U(>1s1E4I,k[#^^N@)]-5`d/EN`',n?JkfU6-V8]OT5`I5Acc;!"/5B+L-"MLZD`OLF@m<kMXGr%A]j=rON3AlpeBl.1qn7hlRNOLV@#)rs&^gA<JI0gFQQm"o)qCCpE?HQAYj<I>,pHsUd%H>NoYp%sb':1%Z<))HCh`Kqal+L\0>gtnmhu.jc@Y.,B`HC9,SflqH+J[,aL]Ep:@8PVf<f*tVMaoBPLK4G&9FnNaE;5h97RI4uhmcg'3i*8;AV]gWLrSjf#]![94B!;Nn#T@[Z"B>C0:E3N!.)8LS8,_KWF)_aTR.PTd)laC1X93k6.?RU=?l),hjJ803>#gl%+fpoE"<7.8`hds0SDU5nE\f%RlK!oZ<:@7R?T4nZLke_?s+qKMSM\28q`CVC/s"_Gf`mhY*\6F`s;F<hjPfC0Fl[d7\qMn7JAa0R3gjE-=<TV]_'?sd/Kk@V\/SN].3g[%]?9pRl\*K.kU9\e%@:N)W:&RB:F\BPaqX"9.*5@;I4%\&hZOLSo+FeK;%ubI=Q^BoZ-;)&n3>A2ttCqFC35l2DGFRL;1M/&W@3Zqt!F-\/pdm[`9TGnG<e=.WP=q7W5X4NjJd"f4DoJ^9'u&db$2F3j+M,r#lP3Dib\lC25P@qE3>ZXMm1L]!u]q@CV>N_u'V$B1N^o</]c;5bkXlZM7M<]:NpMX#8fZKI[h=_HS8"n1MD3gO`CB+YAo,>YZE^G?$7JHtf,J0-<!k:fr_<2P&D,KeOGc^.V1)GKuU9mcNL]+0%8\\NQW6oEe*;DPJ>5`21jHkVgbWh/KOYAka=E._+<7B.oe;3beA)s42E:C']?.]m96+bkIc-6lJ+Q0uB-<"u_XknBMdS9U/_s=HNo<L(IpXVJ__sWXFQD`?)7?,nC'AE;Z__j\W!tWp^sK0>F1s;%5-K8'jsK^gSdmk7dYR'A/PuS);+u+X=E>fZ!+uG+PuJYjR"m?`;<Q,VP.-YGGX`R<D_uW$"'),t@'$-S/CAC!sg+.\*V[!U_A`cjKVX/[2^=Ep03AiVTkG/$mr-GQl;=-Z""4%'DsmV!:nZ]eY43/ES0_0AeU<BXshP3M2h39aIpA!H/^srH7VTIi"?Vb=MCgb@Js^qE*&CQ!o69!a"'7KfZ[l-2Qdt4"aGd+c]s?ZRuoK!Z480[s_9e3Ld9V:8X0TBD7.hcEc0QXJbM-(%H/kG57m1<dpFG5+>I(';oi$<)lkN>ll/O\@/GFiN]MRo`uCU:T?u<giOa9j-Ma^k=N/Z=opS;mks$pTEgWjhOH_ub9EbYHtY`@p%3R/Kq$gq3*oTZUd@/,V>Fgr.'d]mJM2n]GL%ecH$0@Ll98q/**dg)<*>.A(Fqqrg5P*,k!2,LbWrS(afW17IcS^YbVb6D&6oG8U..(cC4s4:3h0L/2NHQ3@%*8oodH99lIikbnF^.%<58BQG30/pbqZBQJosk!SImtrA*t<5F7t<Agm6ZW't^CjT0(!#O->j0<579\#>*nE?SW?tF0I!lP0RB==a9-,Wq%j1F3Bi?2>eDEN[jf@KS[G/NcK(fKMoVDVcY2+(KXt6?@1oBKiI,IIARX3Lb-^GQQ?'dF2@;!q]`7InlIhEd,!=s)$Va*I4g4iR8+;1WS]b#M8*E6c:M%u"tOSsejaYD];&%<+BTTWq/YmepFps9,^\n0+LV-1h`FnWR9>Vb1=j,to3i<c1>uQ,%sfuGX%d^%2k,M?$+VAL$3B.,WVLLUpu]^Tg<_-Y%!ei[KE7Z,MXhcmSJ$Q7"Hc?)S`N@@Z$U<s81-(>:jIm(%"-s]WT9h$QE.os#*8qBmYqTGk.*UfC>I#C*\;)eN.c=5MPM_0[2Tjd$jR[1r?ZR?\F(b^,?RhDgF8nQ?F4EqrrPk.09U)L[o*]BGRJk!6chBg\cPq4.>OUVN$$7AHWLB\5Mp5tFDJ+jKWtHnI]nrf!ghQ1"Y8@0O(Q7;8D%A2lb8g1Cb5\rdcdEog_P]i'^tFOC9d!aAiFPpST=B`-?%2+q]0Omi&%=n:T@-c]/A6u+TSkCf:EogLOGSRS\%T9GtC?gh\d,B*i"prAjsnqZ2(!H5`pMH;(DTYE[^iZ/nk2KP1E<!oFL:&jZKiBD#H(RI`4,CpXdY(C*WqsGJ.Zd!)'!`c-3G?oT@';NL^.A-Jgn9=c?I]SJ,ZVg)cg^QE1[N#g[j@*Ah%JEJ<BhSRuFq*-?;FZ:)*&]l0T<*3_=-(nKhhE4>Kmho$Jhr4r)obL6!^0"JsDB];-^H(kQKaVc+TqkZL4AOGa*K6fia1#Iif>J@+]3e42"A!YWno7R@In3`@D:bepON90,ugOJb@*'C5iP_;^_NsIF=JSDBu"$SK`o3FX@3<.B`THK4ZoI%kZVno,[`bp#qZj#iVRglqgA&)@A"Wcj+!?Tkl]Yau^V[U3\b\l$*@m"N^_?I"\l=Z)K`[2n3mZ[F!IDI.BZ/fiUr.?PQLD-YCl]YZ;[-0&^eMB6i7@b^%)6AHF;fc[/G^LmKNsKMEP[H`^$>jhE5S8T<h,m`*edj.t#YZ$!][7@)B.tqP5RoCYCOLd>Dtja&)"4-eP#GF^RNu)mA<_1Mb^Uu<M6ok5SKe,>%8DCJqQ<W[iG@0dp$u8$E`*r.>=G!9HLL.d6+!(W,D6\_PGu)M:ZQ$KPr)Vp>&t1S=I[NlRhK@%Le52fP.6DeOS-<V\KAhZdO&P]o8;K,>L\WES]cH,eE^N#GMXBt$%V902dNNP8B]Z#c?S&YHU#k]X;(@j?6ifi\$X-^;D)C$4_3-6q?cFM+qV2*af1F#=.8-ibt(E&Pq-n=XrF'de'3V]DQ%AQB)5(7/$!(YO#n3a*oO?]Y^filajX)aE2OKEYR^(A%+XLJnjGsgjn9Q,(>[l1NW(p4:_df9)JXM@hctLD$#a^F6;ZTTr6Y_H+?lW*/W*rbP.8J_eKP\Qo#<O-o,U8cG+Xho@kf[pg#M<!3mJ3CI]+FWaC:ERoqb;4]sE/#QJM,^`2t[mA$Yf?AsFL/ddbHRqkMk?WD;6oT-<k>XO^R1^B9tcnWF[&f%6JY"@`+Y%1]:*`f4(kno:9?8^VCjdlp/,7i^@\2ZrFT^qb,YKmqE-?m_oUM*Q)+]n[5p#n3^3&J=Xt^n-]9[Cg"ESuSb?17_`YSsD::6k'),nQK!2&Xr5AaRN\l)RY0S8DB7gJm%EWD_ep[fK+%q:X@C0F*5cnV!ENU.3eSNVaLYS4MWi^`4Al^Ur6o6VS;q8*[=5$:-Dk"f?n/\pWrpX!2,p!$tk)-+PLR+fD7P_lBMG6:f4,>X8]g-S6&hp*LDXk_:9CcA"Eqq--#;p+c0f6:Jj;^\N0UTofHiX^gc6#1J8U_'7u4<E%'O?T?%h;KKL<F&YZhF)3&*`@nSV&FZgoH>pYPLq`F$<gnDdp6n$\@$kqR^7_5H)'PG@OjH6ScGrVRc_htWU.BcGaMa[iVBXo-A02QTXL^W,._WhK/'n`#([UbZ@)n;t2_j=M>f<:E,9RW!3rRo)N59R/M^Q8cgl%.74Xmn[')gH*0*tH>R7hE>:3!^:g[_+WqK[X[V.JF_69M8K#QjkluE*0h[CN6rl]EV9(1[<23i$0!A9erUF]'(E,n+]9]i?<*$>l8K5<RL8<ciPmU?HIk_$la#Y[)B`qJk[!N(KTWT%7A=C#0`t:mf.$ao0\t4"up&QkqRHm3^3pZ"bo&1OO%<;^aZTqj.\^?%ZBjbZQ/_#G]QQ%[1-;/Y:&J1[\/oK5@E%hbdLJ.(@R4]jt+`jaX`uV2]K?Un^J-F"U(%/gg\K6%PXj-0UgP%GA1jtmB^(=O00CQr@iUa@Q85b4$=WrVPRDs6e@eS)^<UH*$eW=(ee+^`3?sbele7nDmi&10A'U#1M<6)W@[n6?dM==S#&V0WjAqDhp+D.^k?:cf28od\($NXMKIUQfGfRX<(rk"A2FMXgQCT!6b:fs+RgUD(.3>(?t)ol5JPl$RM/G17F#!T"C,[?$21jjaYF+77SYlF#;Ye>M_?j+gI1lUeBelQSm0KPUo2rX8g">$8^]G'VS_O$qNeR4cf,9bLah<dhaIjH;#)q-JXaO[LKhU4S$A;/WdigppA*A<X"^I`C%V"-F!@\p@S[u>$glemLnNgnfrK(15>uce>@qt*$-nqcZ!VJA/lB099Z??XH^2!>^BIL]HRQ]4ZSI!J7tSD;7E.*G!MCfZ_6b8?Y\[[!_5GQBL_)qSlCF/.A0%Wf,IXO^6!]7'."?'Qm+4\m8p0!Z_ra-4`h5I6JD'qHZ":c:Yj7qtZsT\,fS)n.qd#%50dZMbluO@Z!*M'bJSp\]>f%U]pcscE4ViKl<VGa:E&?(/C'2R1>4dH?K2N[C4(&&Z`4US?6r5g0$PZc<:)c#B;-JpANJMTuJ9)Uu9#cCfEj6!7:X6R1FEV9H3Y[/Bg%g^#/$9IJ(FL38:eMncaMrB(3*'Jp$*@Q*+1f):oLM22c:=5;:Se)79(;htgPKK?+<.\"<FXJWFte=&OMnZ`[a@=W?!NDs>C'\R^i`/uQXa,A+DaY>D]8i?UhlBBfJB,(#Hi_/:t/dUFSh`'#[mI?f,)G+K<C.8%DYIepY,OUfCR@\A).ANX]VumkS>1X]KN*W!GsAbjcjZ3/f9NW07D^^BVE)%?!3f`)a<kMQe^c]Sg;fSQ6:nIaVTdYG$"+"C-nJO=#6&P!rqiDh.&Vrh.[hh/uaA*(01e\UR\TR8H._mTo?(OgW(t,>=>nB&uNV507TWn),q*s`EF1uli]:Se^u.VJiFJRPg!Q4.m:NZD4)RVgGMS%mg&7HQehB9km60aFF]kV4$`k'Uo(Q-lYr,0.X>$E]E)/]pZuM]JH_5dD@$HH=@<pn%j3Ni4*%9;"W6.h:G'('PPTB1-9fHZ7hZ6Qc07d!\,^63iDis)AA[oUDHJS'E4DCEJMWi;CY\3I]fjG@M[h6SkI1"\O(jLdd0crWkAFhG=[N]H3RMp6Kqb;Wkct-2IXS"*s"(+qB'1bR+m_*Wg:G7oXRCmuF"22E,`e`d?KXXtB<;?;/Hi/j;aLIKYNfBe2oZEC(jd?CkQB_b>^QE]M7&TNKS1%gl3SfJ;-+TfSjEt'O4@pl]0PB?I5)ird[UMWMgLH7Lg=t[2B7,_5W#uWEE<@p)i68:<*aY$R_Bi8,QKL*m2[$[(7G>L3iE$.*`]1%?\g)Y^P.R+B"tYqDuVXq$3-64C!iD4$<'Vim)J7]nEl^=C-[O[<.BRXQucC?2WmG8Vr&T3)H2t.o]mCl&>.1["F?[TVOB_6[8,dW``5,soF^*V<uuqR#B0W)*o#93rC!?4Cf[X9-QD$9I7`u0:/'j0)\Z.uc.'FdSeAY(6>kk2oaGdV"Ir?#`GIht4]"Y\8+]cNUr\CQSZFP3'/fLFg1hH[2r#"V6$nV<3o?I0\3't8S\Qc.fL"pjAdKNY:l40@JVK"YT6l^FD:Nd6SjO!hAOd<QT\,u?buj/oDgJpoB(/+@[\I]3+KOIg#qU(rQV;umr[%g39=b(\)<Iq-RD@gkB^3Ase\c(A'6:9$dAdY'WoYId:7h0ZNip1K\Hd?E7b]epb+?DM?pQfOjpQqM4db6h9/PAHN"rLH:3qLWFTdlD"pKr#YBKU'Q?7q)"Ld'VkZis/+<EO+.\2$%GR,&%S[[FD<@,8'HR'J>1!El"%C]7ZP`PW*8PN=6;9PgFf@2VIOOCJE.`W<^/J`rQ!.<oT$HPT`NfB5l,-pQSeoZ;rSgfitY$\6I87g`:iR(_%.6(Q,l=`L^Q<d0JOodeT-Xk.)&Fq8IBhSSp-PPt0defha)gG9<lm_@`oAUEFZ)ZYL='ja=H+Ok]'KMUid!)oGOKEm(>X\NG=_Xh0n7ZdcOEA$*AHtISKf^+pb#Qa7JZ;l"/[O9bf,qH$4/)mK!qiXI"7r^B7/'G(HE=\>+65l%)R^k(bIj#+iRUtS^ku&"Ag?rbENV<eDT\#='ksUBq]QQJCH%d1,sQ-^*_$`*gUCKc9-8`$\h9kF?.I&&,p5F,I(npL?J.([bp1EF*.Ato%%R7-LXo>.!Q)XOE;dP3</>fBP+e,oDKs/$A*RCcZpR,?!p.#!a`d[@H`pCJ=491Il!+Kp*0>S%Sg<6lKQBX9#E"+B)c'<m&=,t$$Vg,kBr,!jou5of>cp#PBa"$!D6BHlgu"4:@pYj9iZi,"LIOtI>n!a:,$J#Gn:`L6?al!kc2@`0Amh1U,(8>Z*T.?j/lL_cUeU;mLe.X<*rD?bYHr#L!Y34^26U'K!aae&4AlJ.c/WH.p9G)V]!4#e*Xin!eBS0k_>O9%9iC#J*FBtm*6;s;Fo%?R?)Vl>VdZi]!5W5YI\\ERINLeZAKX;E92[^-V5;1!I=oSr[n(XeDg4L'""m9nqAkWE53%!o!_`OLmp$mc,^iZ<^sa>JM^%!r#ZQKr?[qUHaXml]G''2IB,++6r$U9#.<Ue])`@k6m!Fp)(e$gE#mOH$W-$884LPJYp87rmoOOX0NsBs^Z[[upF!if7[eDS#=Vr7D"H<spV4&M"TVXE11dl:@AjX&n`Ta'^i"4FZe_9"Ae<Rj0e$ar:buRm$Qq-Dg+JpPh.U"1+3DTomAPbU@E^J$K3H2G%/_FR<priE62")iTQe@Ml3=jU+`7_^p]&WPW3)rV4PauD+B[l25n?9Dr[4Dj$Z+Cd(Me%f(3!!;W"!E*'EQ/?K9rYCSIUsBMU?-,NXc/5;bPE>qPfp6Fbj!^+pd3KqbeSQ)H-?,2?nRkqfoLW3$9[PEGYJOrp)U17M4'AG?/X01"$C0%Q0T9!RI2+&dV-03,;&m3$u!E?\sn&N?EnVf%oh]1W>][fN";BeObWRih]_BMr>G%$/>+sgC*j')%jaf?k>XEik<%\a/9bVJ3q#FQU.4+-s/%i1f#8##PPAU`AQ9/!6>R[@Rjo];U'bt(al4)V-JNqbLWJ_=14r?:c7l4pf7k`5$!^qSB+ktBgk)F?"]&-/-2kGi+,t1U44=+MP(^;[\k#7@*H6-t#]N,+_n6+F`oREq&.MEt)*f`BGn46b8m^^95IPsAVJTasX*E2iK_l\))Xc<\e,@p9_>s$Mq#sq(%H?r''H#S&$n&ONLE<nP>(@<meoQQ)ne_-0`-R:sl+Dfa)SHA2:XU?-e@U?.UTf>55Zuh=aIL>2:s,Z'f/F"j4]7]\hQL>1?d,0J";!utUL?KG*N<Fj\\/N;+mF;F5rmkcjH4K=0[Znll3"A(ZFk2W8a#HlGHuTG_D-`sB+&>Y1,GE@M/?ZHX@J1=)F!QAmSHMXK5&l<gm;G&_7;NRI\BkmX]@2m,>"o078'1G*J(t[nd=UT"=;ps7(D[LDk2J%rY$Eo(?D`r0/TqN%8T^a4CNdFG4L).Ah%2`U\bAB6)9cG]O\D>&_XpucDu%WeGVlaN#L._LeOm]V)H)>g%@6GH"%1AbcWmf_b?tm=n^g)j3GQp=0FREFFPV@QL)=1E:/b]^1H\\?uFaC?F?39eg<MO3G!6`8ZETZgRjme-B^<@!4W-<6U;diHVm:Vb`>`ae>eu8If)2tNd9X`p.%78S%/jQS)F;`3u#Su;5T8UaXIotc4bi.L&M/SXPIFu8,DlP,IRRg!kV&=c]gUbm3IR:J*([?f^&.6a/*8%=6GaF:gD<C`-"tVDcOqO:.bmh']sb4f;lj4p:--+9FESLcOahY]^CrrIQ-'WeB#!m#%HR;R_@"g-T,mqC7%cA+XpT29=Z&!80P!B4#j%P06ZS@eN`rGT3ap8+Po*cnmK^RKDD7mI,Sd!6TK92J$u]V>>O`#1FkIeQt]?#R)38\XFDaEe'1%rZ<PpcIIFTm^/pGl&o9SXFgqdc%ub2;ROrh[$M->*Y^V6bdM=98=:8_\BH6(MY>Y6>?3q:=ZY#"Cjodb4bOE-FR3IWrKYS[arbS&9V]4VT4;(rLEr:l3[0V_ZQpFS4p?1C_QFDl'4bmsmf>6KA]Ai?!Efp&R'='kV94&C;&u%X(5POXZAVMKW&3t@r#F#*g9p@&5\f4tAr6YDa$A!<+WZ"N>lpQ/j7BF.Pn7f5Rh=$UeEHiYB&')PSnQh]N0>Imbgt"S+Zc[j&QIndp19&\MTlH(c7rLJ,?*)\8fd4K8FTBM#?i_T,ce)qaeCS`nMD*4SVttC&I@i)SrXpU:AhY-AF/?\k0e7OofVd-bfllH!]u]Q_`(</4*p8OD5'!%YI"lR[`!"ffo'SK>K==RM+WZ(.]W7las"lT]i(!IRT><9XRep"l,-m55RcO638^'VJ5VaXLT31/\f>RBC!Tu[(-8P(Kdt4m)J,e=O'<+1)bqtkN1(_:4IXq0_-\./Tl]+tK!$Fm):T,9)3VYr,MtTu)n!#C#P#D(JY9=.B\)baZpin=,3H"_7mJGJNmVF`Dl#_cH<NQqfY[KX/K(b0bI>7W_&`-UuhPgGbRl1hU^DbX`Ju2.8'jbZZ7O.,"d-Eh<CPIJ^=VT_<jgnenT:1Y1Ji$+Dm\L2n7&V.nU/GCY6At%M4kHs-.7:fhk6MiL@8q(O.bb0t<"2c+0Re9*c'_oT^V%Qb6m!%_?lVEi+<'&0+8&"!@>oXfTud*'j19"r>n.6dMp:Y$\[U,K>uTaRGtg;iZraiN!p?*pj8-f[mC#VZX+s>C7NLZJnWDRGP@Q-rh36Sh];`OQRc]2]nIrkd0Nubkf2gi#Xu9S[M=St@(d^f8b>uru%JM6o+\ie<he`\8%L!/^4(4t"<GGGR0q1atc']W96bLL(P+9c4pVWlnMa)u7VXiJ"oPgbYMq+3@lMW;WLVRY,:W-bVP%LB$4UL&I$OR/kWI&D`'cG?12'b^),6q*^oDsB89lX"og(I!n@Td0ZX<c?R#<[r*dM*SVbP&sk1!6!+Iu[RP:DK;Z+`f+l%:5K3l2?J7/olVYR!oDi"B-ffTm2o'd`2ENW@oQ_FF$k2ZgD[(Et>_>FYV14l!m@$oV"<+;MR;fC.+mG#>d./Vkr)fVjZ0T5P=_Y/)Be!k_DGS!T_;s/M=p$ZcX.j`)gG,OUqr&P:Pr\hbI9k'&(TYY6fTD7\)(a7O+>pW$X*"N.XfuXNE_B'/_T=!GEdPZUX!/&;u0@E:cO:.^8;C.#AhQp.%POX;>-!P(PVU4ngfghnpk6^j`k-HT+=3$C\hd6VL2-$itiHZn%h1D6BTtm1:7DC/'U:Y>M5^FaYhqEYsMTC*q=t>0#:DEW-'XZ43t<NNuSd*c.]?[FkEbEp:&2N57RNAhkXt;XnR[JI@dS-J4h\kJ+Tc*ciIFa>JZ/fEs5t`]d(PfBF7mrC$F:O%-L#?(s=[Q&9oZPB=W!$fqC\T.ak"AV!B/jLP3(4A&N<V!Y7E0_!;lT^sD@k#H&N$b`p0&\JQ;^/DT?BaeYdjRl7,W.C!l+pO)E[#_@[UU?2f;I(^m$@J0`,I/BTgB*0P,KL,C5W+!`cWHR8<S#YU:)Y\<i;P/O_`:f]Dc3(h#N3^_)!&j#VR\3f<`rC3X-trtK!c&T%/"H,EnS&j#c<7'%8M9",)?^t'e3"e@5kA$@/XQTR;C?o%3KE4GX6,(_?9;I%/9<(S3gg@GX2HGn$G%p`)_`4)*S1s'b;F9AtM`c4lB_>5Z/oPdkBm!O[(A0m)"tCd';j'+[Ls\3QSi&G)Tbreud@>Z9js>IK:I4!%UN^Gf\j&WgaP&[MiL]gh4$UgX11k_%=JRlT^!h-N=<<oWmjk"`UTpjtAd9Nf9Znecdn_g$Uj6'DGkuo1pP;L=D^0BpG$J/0Y.W&jlbfs(]-W$Yb]GY#9An7;&j0`WBr'pKI84-,OCONna6M,S6=\O9k'$$F0SENl9E)]`F&S9'6kFQ>Iq"F!hq17!1j!pF^)qED?$@VP3)5),PLG:rP!WQLF/BAY$".$`AmN,D1Fec[]Rl>?OS/+6!S.J,O(rHI*%E"C47s0*QW4%Mefr!)]d=c&Qqj0:,7*1FJlp>jGhal5tCX%AWu%CR,-K'gIs]QBiCEAMD1*K3`-urhMe;b!dBsDO!k2[o&LP\Api$F5%0sKPV3i+hOke(Zl&21-M2I?-u0hV)eBncs1QO(iG*pn)#6bU'lGfo/u2oY\<Se?V7,DZ#0'(#&CrqGIJT(*]WZkF<?^PHN2E*llBa9W9Bs00/,M.`!A#KDSAnQk%tt)9L*3eYGjb+R2fXqZ5$dmILm/>?\Ui[Rl>$;_>2(9;4L%B[<KI-]!'<.\.d(SM:YFJ#Z2_Ok8''>>rma@cWibe9.tV<-W&j&[(&AZ*rb-Zh$](T7t(nD<5@Hk>]oN"E+X;k-3@u,/K;.ia+?L;5B_+?Z10`\)]\,:AD$7t>WscVOFZZ7_B1.[Aosk`\[GiT9PXF`P@GN-:mbuaJQ]VBhP.dHXO9@l;cF%R^q#\654gQo^Gr2gQMqM&e`V:!0>XWDniaNl4U\C!89"UqA]C)I.?C+(+u"_/@r>[+E&0A07Y>!!1;$d,S"$\!2U-58_+,73a$:[!aIfXA^#,H\fjW!.Aqq6\p:f,t$tiIDQ$jlF,Wb*>K&*O<q+[k%"71OA`QQVgBRDKj[`RM0RSYQa7:=2IW#;IjFp`35bh]DeJhM+sCP&R8KPA'o:/[.ZM+AYCBJtH]A[aD7?tol>\9n("ZK.?<q#96rdC$0Qnd&tS7MGi\G*StN'2B(WUH6F^;3,$\A0:-9U,'jm?[YaE_oZ!L_+m2q[eumFTH,PmplSBekZ2:e*8YI2l'knQS"aOcGJY0/W60'EA>p%e"s)nn@u)\>h<gaJgJ@eW&7VU[h@5jS+h\j\<tjOGac)WoJ-UbY5f85\-ce\VT(Dp>L&)pC-4p7*Hj$ff1!4f%g^bf+n'U(B_36#OqtV.N:oU#`;-SBf-pGF3,]pn*l<WUS/,Qsp5D`]7>R0+l(I#9Z8@Os5ndPHFXO)^Q$0C=d.Z_"NGYj*`A[hPDX[ft34bqQfa4-'kVe9:HNKN)/:!Wgp!$:6tmJeS9>\?m<out]N3eC)Q><i2ZmY[\mmUDk"1FP\BrYT!qGq)#ULbb2/69ZH6)+]7;erSF2GA_9[:*1^EO/?euZYs=)#F"X7I^+B(D?us<YoIW:152'h'k!jX>.%l?:$a2T1,4j,6ps9qWIbAb!>e0+H0.Q<^;K2p*q3]/JumFq'*-T;T@!i]2].38A"p9*Kus/aMOB;-Dp\`#mHI!*TE%%H@J1\g*a,f[UK$T?":)s=q[dU=S^pJ?OL!AF:mLuEK)]TgR@Qp9hGBQrl'Of"A@NB_E#(n`(g\OQ:`/+l4Ta"k%t'2,3FmWGNsp1-kR45?1_1:I5t+YF_r9KjpKN,g<P:&JBo"*WdPO@Cl/R-C^Xs2HWXtkgGtAsDli&Q6B<qJdaF@(4FfLeS"U%ldk"s("huqcrEhDq-^tT;I5Y^1I![=`?F""<[.K>t;cTTpZN,uKR\es4Gr%H0gG;?8Z%J-nkdksbG.T.#1DT<3TJ1\#"s-Cp7UF3ZYW]HVQ<#cU(Z#4;4R<WDU!r%KiHLJM#G<cBCWBC.VC??'a^TEJM[_m=^Y<r4M:/u"$.&Ob`m<FIM+!r)iCr:!eWu,O7^E\P:GS+%'_RTj4Q0TcTZKhaa?@-Mp\efYb*g6&W]##0=@2Z"eGF'tqYp.DD\%=Rs+jgt&0ZheAk^0,H7+>^K84"_X!Hmi7*0VE8%`*U]r5NHh%Y)7Ie!a!@n<<iCD_\k/+e"^0K$!pe1NaR!C"<S297SSJP]b\MiKuJ,+96bP6l$%_Oc>_-k@GO/-O]>@Ft;bt57L0DQjgpss6T`plY`DN8PMSKFWTWC7^n\.8gU,F"b7D/0WW(GP<Vc?-1?@"ctMD6iq>S^>4-tf6+Xh0"hAudZc')rJ?\K[R^j:GeSm^/*k*`_^C3uFBFca5=65HB&suYd&C#lNPuioe4&p`@5?K;W7^=M(Q$H#bCH;&^NGO^47T?CE=mKnfjh17P3dP);5F%R=qP)*NCP`r'&r<(W]\g+'qA+`'M?A'1*VtYiqnplIQ@gcsKj>":6[$-`$g4GFUk`XDK^:(,SR!Nj8#W)G?_\no\-#/iB*:&sCU1dOeO,hAjK+O/p>Wq,/7?[1<+i&#lr8KhI^Wq)ds<?.TcGA8.W7jU!G]cs0)n.%f-MKO2A`ju5(N^+DXY(WJ:dS7WDNn8HaD>1jpK[Ih,c:pNl><.\2-$R1#6ShIg!@-qo)\O$$GL$AaEtL;$((\a1DjaTE"DU5L:hHcGH`&be^aG`gYVe3a<UOZZo!c4.NRg/1tsk5@JX.-]%PdH,geLG3N-`OJ'GT3kQKOChg>56d%q*I':$tN5oI-ps)`eX_T);#83=di;p:6#2Ab2Uj41jT@7-o55h'kA)p!iI6(Oe]hrPp$U+aO:e][Nj7GfZ:o7_As-'"QTYuiSSu?$O'u1d1UFtq?F*76U@),*Q4<90b\AI@M`ik5T*bf;3KFNIHeh8Dt]p(ik]oF1<5Fu?M7Y/8o);VQ]n^E\Y\.JbSS"*jWp6,R:&WK:RW*fd5Q%ef,\Z0DHD:/WJ2fM&tJ:1Y2[h2aUJ=-d9e8C!mjuDAKMe`31alp"A4,+6H4[NVn`X.(VEb$\m[mrfk9mZpa,)2g@mebdECG.J9Ig]sc*Y:l5iM3I3hS_t1QQ60*&I33-g]^Ap4XktRbQPOkr-jRp!hfbS76S,K""S.Z/1qP-1j)@d2mj[_OF2X.,[X(<fR0G=f,39EUEXo#f4?6"&rNW73n0;ner)'^LFU;(:LaSn%lmFUMd[971d5H86:L\J'q'Or]fGM>:_kMYk_4QNQL"&SN#5h=IK>J+g03Y,*J"ge/h<VPI5.\Ce,B7Z%I\k"@Ql$prgJ/YX.e`XLX2<m&*5_(f?Fr&.8O%1(naFm/?HFE%6fUECN/+2cGBk<.&Yn$H.H!8'+P;.9]i?61g9muau5sAM]g(PHPcl9P#e@P_7PS+U'_;mi4qr8LTkDn.P8PinJ']XQcdeTNF[7c-N-[:^F3F(C/]B,&UrBbr0s:p%G2EI@ms2)7Fd@#i?OhN6drB\6X;nHAFSJg:G2>qc]AbiQAFDDMCg4b2`oL8H?*BUK&RtHe70*Xcf]ZtVZpkm?q-=!c3.^=]DXu(^FTIq#r9h9"iI(R3%&t)U(#j</<)e/5\uc&0"dl:Al7--bKrX*FAmcJbo[I/Y[>%s-5b7O#6J:_m`&L!;\I6CT2$3ihU]TBS#,0*qsuFb-WMAQ"?mF.Ke]g.hFft6o\Os`0]tj>T9Ar[_C4lM.=FLhEq@:1akR:97:>;IZML:8>JL*+/7fiW?<-c+)lj'BC#?el1Jg[LiON&EiU.[MB,>I,j,nPFF1iO=?Q2_7M9DotDLlp8+&b42K?46RMuN"fQu_CrVe7>(TdB<Sqh9MJOY,O9WQg77.`';>ZCrZ<s+OT'VEH6f)b%+(;*CT>U)@@L9ma?DfcZOf$`5dW)IY:&S(!Hp&!`1\P0JcD@2\Spb\(B(/st-UYP:!'3GJ7$*N7p7^RD]*)Td7b^@d`u1/K=>=(!N$;L`)GaItdXeRD8B$=V,2d"B75JL(4<G)4u@,S`QaPF`/b_P`*&!pkYY-e7e/;!B2!=C,pj;oe)9P33R,ipjOhfVQsPFo1eXiR2fi]d<>3`A-@mpj%[XYQajW;p)52^Upp;"i90mXr"GK-bhR$W<14k7>p([\Q$'L+XZ8BN2e6Of1gWT0GUKPf;+5tlkKuZ#3hL''e%)G@^d1UBfJTEV[U5iQ'ZahX.]:cQ[hE!E^2$6]H)%>o84C&LqMaIfK+YsYn"Xf/Ch\\dR+d6MU)k@p?3D^LR^."g\+3<:V;Y1Y<.lsi4d1Zp"i/GhhTF\g8,@S-5i&1%XCQT34@7BX586QU3Ou=WULLqU)Y/7#keWLe_2L-\T[$>m1D7N!UhY0\'CHEPD21Mk!*1@UR'L4)iU._F%^?Q"A:.Q)-\eX3emJH$?"Jf2;3R).R@W6I=8_*@Q977GF8oEE;PQ*mqXV/K:I:@j;);ORTL8BHUlO2Jb)YX3Uqu`rhVY;l?f3b3JrX9)T;p(&2PC'cCCg_D9t@(8?kc(h]G"i^[``ukW1o>Wq&EQJ!I?MpW>?>.^>Y$2t''ch]Sc:,atE]@QdP$F9aOCIcBl)S0eO@YUf=9g5D>0akH^M2'_p$W8Mm50S]sNjTU&l0Mk5o&,R,b/?$@H-J&Q&hj6Qf`^Lu@,/I$j3J4Q:*rj@\M+6kXGbr=\F^]R\@-ZgW96GDTV+q9I5*cW#?Xh:d9^rX'oNjXl)(fKWK:7:ZIN#L#Du%YWH+Bs_1?+,4Cl!STKdMf9==qX\&_PjGmdWN/en"a^%WbF[>[/Lp@?TR:$&eoEk7!j\W!lLA!ujYkL]GJ?C7RKVo&%,)q88#7/"]0[$B>kJ8p'$<:i%M3iKZ.(H"h5'(o:$\nLjU9_S#QYCJ?,nPUjs;FI;ak'ft"T"L1b.(<N_qq:&2"B%s*!cL?*KBup+iFFm!7[F*)aiVBEFJ(fNbWi_.MiK.Y@$YTXan`fY+@E="*gFIn*^rp1S8lfd-Y^+?Q%mf`3+fG,nJ.+u67[F9k8Nl!=7q,>[X'hCEV.`A`53S>eeCO46Gbm'8MBY`uaNOr4#Jglcqkk3@.!BuZKgG7K3nLkr)!-a&m(A]D%e]T!\.(n`RiFVo5'!CknNel-k/+S7Di:HW4,)brdYcTR@!'&SKug@M!:,p1N7N9*@1WMV_q-9mTL&7dRn#O,%lVMuWLQh/EfUD/D^.-6Eqf:B*d8`D%%0O<'`qhmi@.O(DI_WOX;HU8emaV[s4n<$SgsmAaUjo[`D45_@3TAGhZf!1ON\6k%BVJ<$OFt%?:9\`3&cAJX<>aSLRCP2[H2b95=X3#(Z2Pop,7[)S(I[a+'G(u($,QjjZ`ZNXeZ197=eei^&8Q@d-G7-gGN'pnh[_cGt2WB+YS.-j:&l`;k=BDPRA5d\]YH)<VO=BKrbn4jF;Dl\f$<%=.7;.0XjmM(Q*Adl2@dL@E:*@89#.1[j%eHetZWILl$1M"$;%l*'.!+<C>)p!P&.-eEOj79dkDB#PbApSZGg)AuGLCcp!bY1-ZO_YOg!OZG)3i2`goA+&t^7aqE)J,d=,$/=X"lkqm,7RoAFiI@SotNo`,e[CQ&]O3YM#3D$K!:c%?cdTssg_l9ps=u8Tc>kb[m=*$[AHFMBWb1=+(WU#W2h;M!(E1AqXI-f#U71=-!U2;mZ?qWK[Aj-#T-<1kbUJ+jLie>q_K0e9aSdncG2NPh8r8eW32M>i2I)e1+gA^%"6h5,W;W&eVSi`iJ6RNpp]55G=c)K+3bp\"AQmWnEGJ$<HX`LUA$,W@iBRjYC(nju(e6^s"=a"h*4K).%Ae&"NU3HRMU5d_pb9Yr5N0BZ^O1"aKQfbSu60-I,B"EEkD4ej-:9g,D=V#bEL@8&R-;O;",opqAr2Wlglf<H#$to^Z'M1P8c+t`L;r+%%kkkr)hq*\82OiS.1[A3Q1*2V_"9#bWb6B^F6BuoM\"[a)7$u?,*3WnrGD4BOQ;5h7Ceq?@m,Kk8RW?os]T6%_Onr&COa<-tQqp.:.uP2@B%?n%1JSf>"Gh+e`d*n_RY.'417=5n.E_5G?s0?LaR%GpU5V5q78k#+?Zu!fT;eOMiFq6:Y`H52EMWPcM6bS72mSEpgOungE/"tF$Z?k`AU[#%_[.Sc^qF]M'1Aad)BeY8$:GQr4-?fe3ilU4g:=Xk)S0VJJ$H7P6APLIVeL0+rr5J8`NJ4D/sQ_P/QSLk;8D]8^A0s9ha$'Taii`>-[,HSC\V4D'#<m-;l,m;f',g]L`W`b'i>o3Z5QmkAQ!RTcF[`)l+tfHUSeSRNuSh7ddT/EVo`Nn_k2F31.nX1I[#Te2u5qZPV\A*fHWi7/JD>2/O\G-nA8/bT6*/]BKoJbUI"J?@tqT`Gl:rl>m\7@nVk@>+KiP%\l=>e\V@N.QP/Gf;m@=co>ioSO=4QI^]%_JL-&TO,57DDWuGcM4YrFgQDFAZ:7X_)M.Yl"6;E>&1FmquF:Vn:__rTBhIqmF""suoI*W8m??5nb+T`Q5pk"tYDV,o\b"ZgU<(oa"5ZgP\_1FQ-0[Kia^GSN;W_rd"@-J+2pCNais3C,n)r/Oj/6;)al@u!+Mcu3H2EtHqgS+*o-0dQ24X@9a:6nUOd[$B0!RQ9iJXVZ5)BfpQ)Gss1RL4)imo(>k'kr/i2b.GEmPI>@<IT_*A3f)[q1<0G]kgKp88BtlBQFS!*3sn1;)#cYL2;P'bMN_q^Ph$a+,H%"SdYI$gBiM?='GGGlC3(iB5FO&Q7O:`TYm6%$Y[8.2]j$1QJS<kK.V%>=5hT,eCm$j<-E)RKg7"*LH<h-H"b"C%HB6*fT9GWqZJY(`/ko4KN\Tk]4ri*#ok'("$qDr']fbf^V?oAjNG%e9[4$1R(c?k!WaXdm!rRs>P^?7/\&n(<g9k7%s$XHX]Zr$[UoGRME*0;*)&OQ'XFb>_]4g-,;[)Dmd\=U"uh/nD*[u8IbLCq3BjqI<_!B".^mVKO;II!5:Z9#^hR-^R=ZcA\iX4g.dQ8jKSU_=5bIns^4:3FP6R920tp0KNHj>jenkEne/FU?R3Mh;KPntca:d0BJuB0hf[.(pR[8Uu_6I.)Is3EPAr1$3<0%mVA9:Be4R'bec!Yf[_5dV/DF1P4eku'mB5Q/P]kgC03RZ_4fk"CG7,R2qO\.9h=bq3aliknrS":)<reY391V.(J3oZC.V0=C'*[`-nZgIfi`EeU!ALJEYaf+XP2rnJH@"/`1!&*/+&9,^IX9dt_!>Eq6J%;-2V]CAH'1EZC4^0PAaZbA/%d^3J8?K(?A8hS-="<</no0&BGo'#``>I'Pjj%_W3Rk*Uq[#L*B='$rm67Kt[&!V/Ml]:8n#)j=K0Wdp!j3AI5KoG^est8eh]WY/\4_ZJLnc5F6=r+k1%P?XI:=/$_:uk@n5[UVIjN]tj.N_I0@Ohc"uZmSF,lU\Wrrqfe\4m#'NRtG[MG(G&'J1WB(O8#*t+-I357&tFkRHW'g%\&(27/dSFVfR?Wo(;`8Ld.W]0@@OH=p!*W#;ECo+!c(#&!<JCIlD-i\7`fO$L_D)=Ga`n1ETU`1GEi1ksq_eL+DI(QQ[e5*$T?ie1+Y+JFBT=L4kh[AtlMC89s9nD+["Qe%A\Ek:p'-P7X'!l_nR%\]W`sr%ng];%c.K5"26[oNb-H7)?rbi6-a5OEo5VtJ,AW+Y2nk7s^>$I0s/h+=H&V2<hOF\if&K]6)qG,7E-Fm"2>D59(%`m%a'&gRhZ(YdLb2F'h4LXNg8!`=k$[9%t(^)e'Ut/T0p<ik<,':j>Ag>fP@WUk8J<j+2WK!,[?)#I7eN[G8.'QBo@YWDG+%`eDoQE*^GT;huh8lN^21[)TB^U_H$e)N&!4tY]LL"i$UNP9r5?>pGPAg-MbU?[jp`[n/54(hI0e&f]2TKT:1lCi[q_NEShn%WGg6$Ph&9HSSmNiHS1/kXO[Yd]9hRSD-,kKXMk@khbn>J'^_>FA>N)BhA.o6SnTJpY.s.a"'^/g(gd5@auN%00Ds1d#h_jZKRGr0n$^dU[XmDaKul\u[he,/?D:)NqD^AB]EE?XfIk>W.!ScmCG[")HbUs,?s6Qg:m:hSEP2F2C9KTU;:ho#UgOng"-6UZ:H.#n+f.!@SO4o,aZeSNchLUu)7#)L743RcKYC!4rb\3PSpaV-n&B$EIK/HkU[jAWA)3?nbV5lD`X)NF"Gs.fZUCG]!0Bj:AiQn@`j3;*F(ie>*c>5DXuPDlk5K]F##amN[qcP,Ke*a8'.!E`;c(nuGI?cNtu(*>=QW1dp/7DK\P]d[/`.M%:_gQi+#-/EiHLm(.&>oI-$fE%<9#6_s#4/;NfCZ-ZQ;arADTo)ThkS>IsVWWDEV)Eh;IF)msn07b_!fj];*lR'^eO*2?"lf4Eko0N7+A@"9mdXEnZ9Y*F=WIkf"=K"`hX]BIBVPk;3PWEB2s=]=nO!W\g$T8&-]4ttfM[5uiV-?5Ql<tM"i&`F!Xc\l@P1*p>aSE&;YAW@:N1SW[p/3@!Huqi!)m029TV4-PfDbh#Wm?[@fY"%OVlF:o)%Ns4#`?P;/HogkhM&h&,OH?Go6paNt]o(l#X@O*[$H:oYn>V_k0/G1HRH_GsVe(NI=+R5WqFK4-I\#gP*sW\L*N<XYrX,9r+HtVq4Neh/h9P:[Q/*gThec3C^iug7/N$1L;9KC<IBN*i:#_1bZ3]3d%#-Nfso%eAS9u'Kjq-9RXOJG']_X5=,:H&klUr;9E!p4U9-!;Yg>=T$#fJ>0"p4]Zp:]3;$&m<_H[S0lp[V!_OQgj*OBq+)47,_n*@q&Il.$.Z6UW9Ln8#;[@'>%lef&ifH2"p@hm40+,d"]#Q0E3AMO9\Km]<=b5AG\<Gs(K7h3,UGPo-B[4-9E5^+FSj<Z\^js]s!Pkh23Ne`2Du7pq;X8\7PoXW%s'Qa5;"\:eI(tR^ZO^)6F/o]?:hZ.nhigCk$d3:WDo&I]`iES3TnL:"*Y7Ig5u'caBUBZaE%n7$n%XaZA1>@R1sA'Ab9Q@Zo(]QG5/CBtA88OcHu<N<B-4YDHr7HlGeu?7]\d.Bd4tR<eI&f`?XJfn!+<g0&/:-:Ah;f$iTH0EJaBYkUl`b36&&8d^S$bWI^d0%0)-A^'0PBl!j9R`@!_kMnhj4Ri&GKi,mT,)E[[Ve4c_\]X=*['$S9"+>AQ,,.-YUSX^i.GXIP?[+b-W,qpFLuR#F#"kUimidLS/m480Sgp3A@'h/ZY"^Ek/4/=-8m<ir3oG`aY[ehJfE"T]\t,HnhM4uh0CdcPbWbp_mM'b-1p!)q'%:3lC!V!R=IccRk*I*n[g,q^Xo];;=DoVfQU8op.,&cLMo*]/%Z`bgA%G@!Z%Huh`amUU?*QaWo0g.=.mYn4BaHuX]-DW93rehbsklPI2XS"bdZW8FEakg-jPoZ[6(q>V7"d]<*)\ZJ05hb?FIaDPNU2.D)FgtP_QOWD+U6UT5?doa?do,dgr]#:DB/duFCEf(BH1$o)!C7KD"&u3iukYD/b>QNg\dWP!Qb8[s1nc\("i]^BB3^VD.h3J<)'cqY\Wk#8SM&lPhR@oRFHu7kd(?us3JAHBa&R.LGZ[/_9FZ-%>oEZV`c$9cWMoj<m*;\Bij=#,E\_/g"r[9fZb'bo=Yd9:76r7B<R94Za_Egcp<_e^'^sL154`I[e7m>]9S"EcnNObP&!/V>3>,r=r;gB*]kqojdUc-8"APtmLbJio['8.D$#]hD>5oS8NTX`'Q;_"kMXaeFcDt),NYP#E_?QPR<Fde-SG5qjAmEH@?Y)G.IhsK&*NRSeM<h%;J@E022=8D@sVmuL@Z5Xp+U!>K<$H':;`0s('&<B#n>jW3sM)]cMcq`KA#"aaq`R:2lSP04m)t?r,B\)0hnN?]pn^gH$k)H;T>t@0@<s\>D)#`n++iIu32X%S_S)u8,GR]W?Q:Kp?e2#L+FiO'h#XFqIYVWmmSTmQTmAQahZ0jki'/Ob-rV>>WSG//#;f-f:T[tiUqI_\+HU:Se#VS9[(=Jq?7<8N_Qh/2)C)&qAeHn='-<G0_H%RgR%PVW&"RJZBDZ@G^"B9f!U"qX5h^8ZaS(0_IK/KQOf&K=9/s^OIESP`"YY'9#l'e`(d7+'QG#il1)B=.L58BSC3s1oF/ID'F62FB8Vl_]*D?8jZcE.XC-m4)#FTZ#;.@=;7]@6_/-=S&H)aO[p?Si\TDA#cRU""dBqllrB,h\"E/7)N6.H,=_qj!+DqafduEPnIg5t!4(Wr20@b)j!@O>R?<'A%Og;HJjK[a%hmi64Np&6uFZ3F2eJ]<&Jkb^B5,;D&Z+"_^gs2L%i9M1,/nEN_Qb''s;K4VR^JQTK1?:&5ZF[-K'W[>/!)W;)F2TC/$C+IR?&orGClbs@2m?SgV9,K'[\9s[=aIp#_B@Q2Es?[sG^(SbU=A9IP7`W!f)_gDQ=>VG5][/qiGZ5<ls%(p@h\D&+2\=/cLS[+[FWE(=_Y@=,c#bshK?S_''3j%s&bp!+^YLr*V*]R%]XQ#$a2LBoh\>rcc%dmU`j4lT3^bO:3T],!1=u7pG`%'I?V9h?d:A&q/+4mPk7Yhab0Mpr_\-Npq^6i!1nFF5RjHIV4B@9uWhZERLS-alcDnU3N=$$-@*ulku+_(iLpXTT&*dXs^;7ZM9[Qmk^j1;URT)QF(Fl%LVZ@fhsJ6XNe@"iMi?DuF@0ks2W_cE944t548/nnOZm$r\(+FNFg:G0k0f7Y3aU5Sc8-n(!/%``5_K\`a!Qbb"F.o(4RB6t3fCbX5<d5a3+4@D*]#J]DQ#8hi#W*eG_s%7K3jM&%uOa*G?Kmc"3'?6/WJt&ILh'4=jM5457]f?\CR=iZ(bs(i\D_EDg*[@nISWAB=]W5"6Dn]&"$qE:-))No33!"/@BX)Dm$+_lN-0(tdi1k2]P_8./$OFbZ&iK<d,KZ=P#If\%WGM!20?Gu]`NMRH(#O[iHPeK[H3/Sqb".CGN>W0(#!U0ncFP(5FS5MqI@3G,SDC"aKp4RcI^4!i$qpb7,[;#T1N6Z8pD>oOIY'$4Qu;(oV?I;n]L=sdK`@'RQMqQtdj]V*C'=Jc*Y(t</5<s&^I3&haFCUp^-H5@T;5q-V*a3PS0CrPk]N);/TiK``\PBkJa:[65A(EFD-#b,pHt']dd;G0-b#cBcRbP3Wtm$2NSWjR6%eh.lSM`6iX@G2JU'66YW7&j!6sVUi7!57T*.p,RN#UH^#l/%?C<H'apFu=s!kRf-p`2ho_-rV^BU_@5"RUQ3MaVeZBX/D1/e.A\2<*R<9A[Ob'j3ahbl1;lN7CV0n>Il?[B9a@1dmrN^?$DV$iW[I[d03A*_4>^-1Xh-A=M^`oLQt8)`UD83Qt2%ALr8#reeKo>2#>)=O'K]JqJgk+`mJ3B%22"$B>ATW]*]cO`Mij6BYuHPUje)p9SM_r)[D$%?AE(DW'US[RGWV#H(smJ_q2Z^_r8gD+VWW'Er:@:-:,j9cjZ0EnHP6tP^AN#eg#UN8VI!74(\U]dN]"/2QJ)PQ9KiN5$!^&NkL/'0m?_9H^>A%pFZ%/6(CjS:(u]F1h#"i`S/qhGE(/ar^TQi3VCgPh4`MPlI#6eV<cl<<G"q)(/cJpSODi@'N%C$*s;l9LU;c7tSkI>'tNa2m%Y?.d$0R=i&XB;+<U08jrhrcui$A3Q&?hn04JJ.d(DqcFamCh.D?VR-0'J$THS?E0_jpKD"-aTP27X6LnajS&!,H_$KIq?fh^='i!J_<toORH08`8Zq7t;MH[FpI(9eK<%;oDNm\mF_KR@j4.oZ`+7-No8k0e=E_[%lk*!G><Oh-XZ0V!2%K<M]oU@@Tr[!Ug"86<I_kE?bK!'RD%SsF$+n!QkL">Hm[*nJQD$/9aEt2`nV)e>I<B(MS3sWuci@tV\YJ2UVi.,h"@b7;L\O>!Z:;D!,_)c.\%FI'$$aXFD+HBA5QHop=S/LBi5.fCJ2l+Yp;3&.!AA\sQ.u"jDL6CqG0+h`RnW_(R)>dLTr(j:gHi6Y29?W=TB_MKWLNt<&GZQ<_X-ItNLQZPWt\i69&\qeXASU25"OXY!j2:mZW5M`%]o_,P;:rHB7il.@W!J^<$<i(D=Dbj<]SQN!udG"#)8H?1LBj);R2;e#STGhU$eH1)g`Y8M==.1.44#uB0fa<nEpNjBeaQ7)7;jM^9;@sW*G,Lk05^OPY-//1f!6V$-5]DD#kg^&Ju7gGO/&0/+ESU;Vc%$9oRp!$>1fqIds*\1Xf2W=/`op!TpDJMb@u=Fn\@t]j'$Mq[VkP6.$'c`[#'7pqA[CjSJ#%=>p0s;D2/?QZB6HUcr#bh00Uin0iQ"A#&`[VBP^Kf46o#H$\MV"EUfQJJ?W#U.SMp1p89:X"*!EPWQu%9U7J`'tkbOJ)UpUothV<,fK->RnfstmBl-po4`53Q=\sMK7'/D7_.T*`J#I)#C;(T_q:O2M#&C^>t>$rR*B9X*ak%g"P$YnqC19'LIJt("q+lbjaa37@3#$q6tENS;#W7Yr21[9+u/6>1b,/8]2se/AmqiRZ9c;mW$'Hl9:Y=\H4\r"/^`4N[>K:(LM"Lb`ukr+hB*SXGun%GkBIiRJm,i;[pnM*T<Ph<j%=W;-f04)8%TfZ-WG5f0r(nn^K*QSWb'FG`C*Q-%:up;Q-K*72LI)4V1#75;GGi1%(b^EKVu70A+gGmP<hhi[s$'q)I2DLSK]2,7#N-Rg4s9f'/#Yd%*d!mafJ#OILpjl"]2KiWN[bX8Cqqarhi8"5#2sdred@B01'k7Hnr@J5:g'8[-N?6%0B@ka-F])PN`l<B<Pa$AH`?ec'[/R^MF3\19S.[]GnA[ja]]e`:tod5sqKLl#GY&+8D.[&'@Rl41R<BR@d!XEA'ZcE78)UAEd]8@2_.Q5N,#8_*Otn(X2gM8*EAD_U,Kb(25u!=R.VW1^WjO;@#1ge%+BEBZfbWhR<Ca2W0X7(<&dn$rSrBiRV,^be&L-)$T%Q][6Kq&o89?d.&<UA)9-kFI7ZS9<ueEhadorQoe$e#Vs_-aBSV:dAL(@n=8@M]-]#$3?=58`3gWXr4[@FGQi2+>,ZnPeDq^!3Uu87$M%U3kYa6qXc<S4jKr5K-dW0Q^5Khp4$I%EK="Kp*Sa,H![d"<<;E0,kCP&k=%9ku_;U_5ZpKs<NpVQ.Z'PQKU'tnVgsr%&d:l%^4o9JF"7Y[$@P>%F.ZrkU+\rpl.MXksej1\WgX6AJX\^G`7*E5-!J0ZB7A4`pF)T17cMSUoRdZiqguiHY.<2$T&JbbKc/-ph>j)sDR6IVq'j2Q">!SPJ:cT<saZNHAs+'[!1FRPQl'7nj*8$6mB/*U:$VX;p*pj_WN-!XMCo./YCRrUngq4m0']sq_an&iZ*NpW#phe;1n[F2ObCbRk/19>oj(tEVec,,7_t8JP>0uq/p=;41>!bTg(FiO$_\cZ9pKo(cd'dHQk!-lLJ.n=D"(`Bu]f`K-K--3jS%hc]&k9;Q*i;]<HuWI"+V>)aW-aMK+h/Y>#2Z'ta3"i2jCMj\iH?l!0ur*)`E_jN&e94l1J=@3n@&K)LaCMl2:XWX-Ljsq/2P>8X+<RtFj!H$<]--N<WK`JEjs+;_8>[_)acp:",f]![7&=h`Sr3OBm.HFQM?Oc^[Fk+OL-B+9(nncj2qiJZAoB\+;PdJhuZFEIq9RkkDqMe"0<IZFLNT3G=2N8>Purj?!XS:mI7VdKhp-=dh$T6)a$]-]ku56`9Ub(3$L.MVdJE<7@q&Y_]VK\>?p=M!A8KSr3%\:*"S`t[?9aS;"'i&9u#AOO0[4RGW,;l8^#Z.b:4W[2)E#*2-e6$@aB'3DIY)<qfX)9rc,eZI!PPtIr,kD0RcsOW=g9)7HN3_EaV='$-Z5h4Q>P1\6FJ>Kd*j(IBBE#L6m_G:`\j(kV-q?<%UX=D,i,53D0><g[jilpZ2,Hc\V:r;+nSH5@P4qa!j[5eIpAq]d72]%j,J$bPPPn>&-5Vnu^>drI`0NX%boA<_!&^6O%Q1Z)t@KaFl0F\P_Uf0\"nMn.C(&a6/pPMELO$0kGlYX?PgmU!R"6SP;)YR\**[.C1CS[<&4gedV2Wl,)Wa>)!@5E$.-"0Y:qg&O)9WX3_C8>.+X\AEF(eAXY[$)@rne8`+e)h;u5\pSKYt%<u1_riEuSX1-NJNtb1=p7gJUH2OIVL*B#@l<I]jCJ9X>9CPu0E"jd,W8R,4lt)7e"k9bsQiIMaK*FBP=X-koF2Y?d1c9R;/'!e*(:72X*qNr11P.')4S.VR`rD<@-NT%`HCEDa$%0e4(a5fTDgVrf9$G&G%fZ2iQ4<=RMJa_'=jj5J*q*!\+$B%6fFN1\#73+\K:oUM(34C8Vcq1%PA6MOh/,"of!b8#ZSP\p52*hZ:b.>_1=U=HQd<(&.q2\61]T6E!i>S[kN_+0MLCH2bGoK6c^2UCeQ8`HI2CL?Dt7KM/ZHoQS9CeS?uVC?5sLrEDbg:fEN&tK(]lh&-26T5"!^6Cl=X!<fH2Hk<dFV!k'_uE8*2"4]mVB"6F$YGY6TN3+HO?KIX4.1657uArF*ZA(ogu_4TkdeHFD8),^8sSnjnlsL-Vg<7p"%4$cHE\Fei)P&t@!$fM0&uX!.hJ5i3Q5>Sc)/kOGW"Z"*krX'Pb,qngX/NC!c_OCdr4D9r?@WjP"^@6[[:*@3Zm3tX_.nFO>Ans[VAA6Rf?rolYe,FkHP,Kqi]OI+9QW5q!q@ji<d,d(.OXq3)QBu!JY6UR_c(m>V#PU8r*m)/-Ga6er#9s3$k`jPE.JS[gn8Z%th*s=c-E=D*C86Y7CfGUUh2"h5s]f5a':GVMa6PXlGbd'EkTN5]E!m\EEH5=uP1I3/6pO2$jJt&C'I.LF!`**'/KI*B!R2*:u%2g_E!m;K6Z?6O3;d1R9\fmjg=HMm0a%8Ct^1<<D/of_6W"8d\#HJLk*LZb!?;uX*\Eq/oBkd._a4co="8_AolWlem#D#!)%/!M/^T+qQK%1:+-6D3`'piQ`;a38C@Dt]RbV$HREl?]_Zfhq>PT>h-]A%]S3?qEtpl)bm76"F#6icDJ``,QiJ_1"l^#L?6n5`aC5;_`?BQ,V_VE?n<`M[]E1Q?K[j-c/`S9Hu:l[31gL0=g5GDSCGCao=fV?2C^kStkVe9Pqs?7BtDlV6KX-;.@)\Xis_;M^pJ"mtc-k8f\LAW\I%ZV(oU>Fb,mAESlHqgr&![^n51Pk\"[p^gc;SN(?5_08C^3H<^Y$hVJ!J56gbM&eqLoS:Q-\r([X4XMqA4thNH7jS?(@P[eD/QMc0$]uG)W-D1I&\,H+Lni)H%O^&JHW(']!]XpsWBrLqa2'W_e]Ai5D5"?4NSOY-[c`Wm0T]drJkVFBfdN#\/VirhbRF3s-EhNN6_*jR\-sMV2Ee616g8t$A,qrq*=k[>PJqpQ<")#qco)%cNoe%Q)0e.>\3^1%P/Q#VrdLBh"If^?Yr(H01.6^30?9Ef$4-C'\:e9((MZff%0(cEqf2QL^[&0hebAZsWg5S;ij$Uo>HIdU`qi_oa/8^V)(&1OH.EVmdO<mq&aE_aD8DI14UV+`NYEpBeMguRLFPtd0J08HN_W(#QB&n'Eu4,L4_'CKUpuUQO7j,*-U"G/W0Sr.+,"-`1[A8%KttJBI-HENj=Y)FSK[j.5C62cb=fQjj3B$8(cNq[Kr7_eiF%C6\-I;Pk1bMb5eAJ@s)<(Bnm0,KT9(GO&dnJ=peGkUFr."dq5OI=9a.;:`.%+B"S45?`Q$KCB4aZ^2edGZ;9=0!hF6(jp3?c517Ao4nO"_`EtU=#?#,=B+89-4bLkI0]*H8!5$Y$uPJko@eqLOgK1hg-^+DmUg#,Y@<"\C5);a=#kJN^j!ER5cG",07CtXm,f(TV<Co1k5gC@YrH0oR%*%(CW9?qc9[E0RKHT(Z4@<eOaPD\Wi_%a]k_^s=C8;I^]j!B-b:C')TM12n0O7eNmXt,#?2$q?11kFgeLJpI5:Nc0GGLS:dg,/S#Gk*le6U$:@*A8sEHH:KZ'8tVemb.aANIusAD%]DrNc?\hm0Y"1jJe?Z@\&[Io'[M-E>qdel\mN8f29I"WCNW67*lr((A/K/5;>mJWK/3lBYU^9mIorApGsn,`70h<Mc,Lc-(X5_SViDID)c_lD&VMh^>V,5/0CU4WWJ(#%0/PSrY#Un6*5c[$(f-P/=9)>4$5H@[H!SiU(-U\Zg0c.6X7K4.jgu)rl)?k&k7qb/s`K@V^eI-K>YF&AT&)ppX=Qp5`5G86&;UW..;f^DH;pSIB42S(+eB'm?cP#JuTWd\jEsuXda(2N1[0G4C2M32qJ*>'aabs9\1(5j;S-.]>H)$,0MH[LfkQAA+XY9CN?p,D_VP6L7VeXDZUq%O[r;^aY^dCYH`[MI4K6X2g#*?E[*M`ZaF>R7PR9s+%LQ-e@9rHJu`;bJ0qI7VW/KE7OM3=YqSf8gJ+MKDC!O]-=KdbaI]r[oa-Xn8H&)HLGAHag:t0=HQ\[^1k%d[A,EDlKt%Su+p9X5"7VqD7r3J;cL"bA2!mbHE?r_RSpmJ02d>E;AF[;+B,_\$P,X0IYn3U1E]!84UW]VO-Do4-]/iK?\Xpn<7bbO.V0:F=)8F#I"=8l`Gm([2T]clk1YkX]ArIV/3H24N5qWsMk4e-$X_&QnO;f(R2G,^P18QKbJ(ucTUn=LOK1/(.()<2r05h-)EHHB'H_/Lc;Iap;TgLJnKmo-UT'E&fg#GD7PA_lgC\gj!M<C?)F0MP6j0tVR"ahCA9H(,$ZF4]C5@ZH,:ra`7iq>5=dso,'mX#fu?AJkQn41&bOK*MTJ0V>'#p$lc02NmL#?rq!20M#tYV`A=!lX@$6`u?>)TZ)?<jLC(p$:)Cm86\%<]Cm<fKt^[T\Er@;5=3"'@8B[J[T9Qmt8uRptDBuL5YY-=l/F9)53Knlg)UT^K^<ZV1'aGfrR*P*(p-m/X(0))^G8fU,D/]@sjC(ad=fr:<1?B6`g.1/(Sc33pC]!\j=.I-_"Wg&j\`QCcYplfe-nPR.e_,G]-<0WPV?\EF\Tmp&g'A%k<d)0SU^Jk\;1*qJ^*nEi?qY7XJ$\ZkA[lAg7H.oQ*LA@2dBfFB8`@^*i5CWG_&QlQM)\D.MF@:JR-LSeEW2(Vg_.^q2iIr.WtMq.rF-"Ef#`)Qp6WSu&Z+bcjkRBn+Z("D(2F!@o5df]d(U_t4s!I1mjp#?R<rbS3$5T+<nJ[mT$+M3\fRSoc$uq7Q-^*jDfa$F"-?Lu<[4WAUQ_B,;t./YJ>u?C&`XQ"&#cI_GRI2M9a.iX0'=b'AM7Lc!'o>L])>"CkN$Km?B[V'W<P,UAM4!ps"3Z5qKN:,U2S&tn/k((q2(2,#3q0[[CU_/%6BDV(m"%Q3JB955fIkA#l<?"0eg^&8[$7D.gpU1,m%/fZhB#Steqg,d.c4@q._!3nW:77mRlU%uJPEc#QA4%EhI)H1trngG!>M4+roKmVcGr`SA?dGR\Jnk\E`PbWZhh]7*p\Cll0`EFPJBu3M5:O$*oXlaYnG.ULAZ\dg8-m>M9r6FkFqA"U&?S^HKJfDqn)NQ#gs19co#=T&j&6@DOlGHa5'[;]9UVNX0m9bAJY'YM[oBa;pL\=mMYItCk2P,j.e(cS5#1591PU&<]2f-*mnu%=Bs1inbSYQq`6m.TZOg*I4X7YJX6>\B\5\^sL4m.M@?]G@lLNiA<0Tq-\i*A='(61]@m!6O.=thX&Z1t`.41ObWbFc\3Bb[De"kp4<Khi4__R@g9H-Gtf^At%`J.\EWO'IkuiE_+]<Ep16An9+:oj<#?;t>+TNs2`4Elpr+<Y8PaE%\0lF^^`2DW'V90ph0j$taW>NMFPk+]7jP3$.7jY&,$&1-Gs7ab<5ZF"1YD9UX^/0D]3`,P)Fp1nL(t@!l/Td?/esf^2/!a<"(u9n:Kf[IbaoB"Y-<nDl-6giFq$@cQVts0rN[0%3r'&NEt_)#,Ff!i560>$Bfm7ZS/D8i+e;fheR1mm$eF`eXSK;gOLL:!q!VUkGY_@#6S4.XNP$!*nKSg*<I9_jXi',""t\@*p4)Ah?D!/u2lJ/,Qfr@n@W,15n4f^qd"VdnpVMm5BSB\YU>$ACZ!HK2\e,'iUC<J[7l$Ju="q8+ZO!;sH_d`/D8!X6Qo&d-k)?oW4i%VDPm`q/u4Qala=dN1QS9f]bU-/*Z7)7#["f\>5GUYITOLDROpAl(Jk5/Q6Htbd9jbOBQ*iijVTBqH0J];8]cgHL7**XIIpcEs3`bBJYJO#eSlQ.r<\+?"e@TS(68P`XRL8RItu.BZ1tn#E>G*oc8I.gWf?;1.5,H1E18nZtA7b94qm'YdM^)_D0i5Q8DJ=jtC2=1CiTJm[tZZCe*7eTYWBVRH'`/]81BB\k&4eYb53,"F+LF?jc(@C_`Q4H<rJU!W8JtTQSa3".!>_-,m[h,s]R"*@?m:L9L\NV*N1g89s2ph<3Er:5U$"PSP:gCbM`cNV&`$J\5U0br;>lo7k24n[:@[eL],W&_XIRk[tN#BZK[@ST#b8m$GePU@uQ@nkK=e2h5;riQ#2'3ch8DMqbPYVL%CXY3N+Y1:1XQ@'5Ku4"J%cMt:fV9?bgJ-h%[<PV':N;-Uj<%3aGMTu)G2"%E*A18kaQ+lpCFp=9AhSeXpVm5P+-1`/I(Z&qar2RMu?!g1]UJ(euOT)Durm;Q\9Z9UuRe$Q9_.kY&jB#W?X=eHXHMiud2L`(\"LDDJc@MZhVo>D4u:8Y%LGRn]`m22%X'=n<nLrL-Ci@,>.-9<9g`1hs#E*'S>J:E8mqp`RNf89hQTbY6"dh1;n#@+ub6X[lH?J#B_$rgFFb(PPN*`;"'^ukVG2X8]<*/l@li(5?p]-mR[fai((+imrPqC%A*a7a<2om,okVFKIDUpjW7_N<Niq70rZpCB$a5gh2kJP^i;Uo/Z6L_,W\$O>]g(=GE7:Z"TYJV%^85#j_-7i'-Q0g3HJ";/P?XP$0^Mq+Cqj@$k=m&MSS'Hs:#r1s@"Vh>f%`rh#<O`=6Pq*Y$cA@="$>7a:^a5.0-(P7.aM8N<-*@o+eQTt<]RM=jkqJqhoU&ERDbYhG`%:a;`aN\GF9]^8&[DID8Mr(T84R5;WZufAFIW,'n;fC$_AE0d"#:d[qV9+=TS!/^ag`K<]B2hLoj'Ta)hr^&35CG=o0nl1QB`))q)(dEY@Wp+Z]h%9AlTQ<#ljo"qjKDPJq/\HffCj97g<GMNk_b2o=<?@Ag$f`[Ls(H((OPnQ>Wb;+iFM<=j[i_A/=4C\itH4e=I[![Oet,W"#RK.^ml6&;7f!k0DoG9&Hd+*JcQ[,m"t+31][KFp!\F2rL.3qr1b4i)e0:YeFJGZiNL(702UdaYLh_]3h/7$In/'(Tr>UgMamjB%UKGqBpHGT8>8p.VB6TaFB,_0h/oc;b5!J"Y-N!?*+G?pkY4WFKX3+K<C^6$gsVB@DR7[((^>=dOG#HUS)Wi?DTj9VW:*Q-rfC[a9hJDp\.4&&B+8`<\bG[j,uI=EDj.mUOf9VZ#)EdcMbk+$9c)iNU:L^k$W!Z\j?S)e:@;`R70FXnqF@E5pj(mb7bhrRl<<lI64FAkldf5ZL;;ERMUg$c_D]63^pDWih69.?8W8.Ys2W62h=UPIZN?[PL/)jJm6,+HTuiXZ`Oa<El\iAbE^r?Q#se37_/@;HF%Qs$4o0n^?0Ak>$<N)*8<r;'nC1+tYBUrqmGm9G'3o1*Q2]a3JmcP-\Tck%=_)ZCjW>feEiYfGlQW&b,_18hQM<JI3E\t<rDIq3-0DN#/Wd^^%\GJt(a9QMCU#rH,GIJ;.X'Vp,`+$hqsLXEVI&+jjb::>HsKJ;LVXPY.`NpVd@]goffP6o\L]FR!&P=&W,%%-lIMh?jBZ=nG!,'i.op66B3UO,@!1`=&aAfCR[;0Q=P.Js&TrSpM=r&F,qC.h;h!!17/3rF3'FD^$fJFpT\-qis3kRXdp"'\i*F*4VuN"="P*WL!^l#$<1o5/I7CHPHZFN7Q@Y3ohmTObGIOWsQ;Mgd]U`'"YS)\t[+:NnW_,;Rjat0l#Kn+V*,U"g.cf+rD#hmGT"lVfZkXY@8gIRl2G97NRH]1A>n]m<S7L#"M[i.4'R0B/*\R4$IsRsb_(P!<%29&S5hN:=49LtkZ`UMZ11WTIAickfqQ_m*G]o%p5*3/5h7$(,6T*Hs78m>45@q`Qi0R<tD*t>U4m(.j2)n$V%0gpkA=[^7+oE4&!L8XQs##)Z.++iAI,tNTFUNn<CKslZ#.!AN6(^m5@?"o^.08\4\5T/9-J5_tS;U#Q)D22K^2(M]q5Aq;i4EpjVRKZ6CA+jmF5^]Fp"L\N1!!eSE-*<3U"BGH75LiSUJu%S,+PtiitiQ)=TZ59;":N"LZ!KNTl$g!h*n79GR_8-F1Xn,Md4CBna=ggh'BooJ]<qoXV:T6T_a/L_`<L=fHf?%$XqR@n;7.N;$#\s7#-d4L`C4mg*'5XP]NYKA]?(qJ;sjE%RV5@_9'6$C2pO`rgIQ;[S(dl,aj#mO_W8;rm0Cd30:Ldd#6_Gj^fH%jSXKlOTHX\-EOFhAsrf)"lo$l&,%=`K+M*]=<%?X26$_IRi`:eDhnm!<NE<3ND9n?*h#&';r]HL%rbeQhfq8q>IE(F_/iaFp>=n&gn_`,mg<;<*djCk$!/tCc1/O8^[+j!lm(.Z`OEEC8O;Fi,EUkNa^n#u(,MJ.3s0Y.'?&+ZoGA+T>GJt[1^Jbh14na:2LaC#Jc*u<e)Hl$PE7&R]m8]J>sg?=@.55;eR"Ci?pr'n>-bsZ$B1O(<c_+e2=YGpg4>sa//+[Bo2T.rnad(Pk/r*ZfZunLhB.HboWQ2k'"C_EL\AdP9m&e?AE_>RBP;T+G\">&s">qf4GY:]5eK*Gf9(.n96.IH3DuYLG-!<\pbBhK]Ke"/@!3`cGY>pnc^^1C5D,I/6-4<IT-1l5#c+?F8#HuF!L#X#Hkc-e^t^C<N[^n\h)!.o]'I+]ZkdV&(tl>U"K;(C<pqCb!R.F\E2ot@lJM&\"h39!LuUKm%]^'1dO-QBZF4kGHhAhCG<k@jHN1q:_(LKSbnN6<SYsbchiaoFbr%p`-<"7Yrg:H!FI+g_)?5_*q!arGDhP/?-*(1T@*bdKH[l]h2\\>nqrm@FHAt$]]hB)LDKt[\%P%]j<0Y+ZY!2O9Z[M<1L^f:u,>`ST7"AZ$`AO).T.nf^73?BYi#g]1+BlMm9baeFdOH<Ade[.O9t>TmBPh!Fk7#:OrR]h0-0:Ym&`O#q?[*kbCCGEc`+qPdV!-TF-=9T?OT&C0Ui7\PDqfZ\#H"[8Cb2MMpp2,?^dc&bYQU-m;X7C9G)<9o-34']CiUg,a-btmM+S0<lsco(S1X&!58MemL0OC/m/[nhHSY2!X<KrO,9j8)1,6q=^eT$bg&iE(p>T>+3bHKGP_qcDoXZFDiJOLrA,lcYlCqN*kE2i&Il@s_?&%A@.L1Rn(C;0*l^FJg1\%Cl&lNeX<uhcbNFF.5:,EQP6"'s_6iMr`#l.2VZ&0uUd\\NL%gp#$lu"R@hTNITm3o<_lk]Dn$<-H)#k"aUDUb)*`6OtIEUT<aDXE@C4:"4LYkU;Jfej]L*$oPn1u*sRH#<*F)Mt2p-^m_HlJ`-ejaIOUh9t-b*IGG8n%W)]'>aW(h1e$^7q3iX,8*Q-$$d9);Q5<u1\@1#$rj7H"qr2q;$L?Q^q3XS2I`Cm%L'=L&g6F_9XAesdScO+9G_Aek>'9Z/5B8=/!^ta?/^n%74VIJieh!n*Bls*4Gob'l)qug!cjtlk^icj@8-3I_rJPASA,'?47l;4@-jm]9mC3cJJ;b8_Dqt&o+q)j5:6pE=X#+KKNBs?JZj.fV#(U#_eF=Oh2h%]C\>`PB6r%`bm=HB;?*+TSY5*LS-UB5,iSeLV?M::f4!V\riC6JZ+43A?7('`!@A^a6RHFp(>J[iqfHVE#pq[ACoJPO1Fr.9p4`u+4RH':[(omgQX+<#].mggkt%*Of1^B"o(hpu0.A)4H0;9V%Yc*]70/JpIXZ_C^a4[Y#4F!*ZdqgFTdOqi;sB[Tr))Df6VCsF`d]k`pVPgm2g,2\A+:`&i"Ggg"JEMbPS9fF8<^o=nB*ZYL-RMIMQX#llSbC:HIcV#:=*HJ&DjpUpZ$cj+qUI*,Mon3.;t8"N>JF0LQqkX[1a!OC->8,S&G9i=V=\I&[DTN5lpUHWc2!`XWgA6BlJ:QarIb1iB#A\4Fe@sl/+`3!-j0rL+WKGjh<2Mq)<)P^p;qtR*utbeg^V64&5,*jc@ULacGBYT.aJJ-71r>94)d._ftoB<iPqG"rqE4EL.YtmZHnH7.@&IaEeO*#t+sh%]Ve<A$G2#%q?bkGEro<pn3mB:5ht,Ur0/dgWMdb^7*r%7q6o9K(C_+ABM;4OIJB9s&DXAah$4"CO8B%d&GQ#a-_/=V)5$SIo&='QiKL6S$q=H7/_"AgrUn:o74[ML5_2-];6*:P5L.i!Vb-$pO_fk2M&[_*H\9dlY7sH7E9ICj#-TcfN3S6BXfd/We.WQX5X)VWptAcUrIN-T5-J4bHi;D,Rr\9IWqqa-;%WREaW^*^F]n7&WE.DlL&`q9@e<_)s^iQbpNEr;1piMaq5n)V7-"s\K5)=3QXNspA+P@Bg9*"YKjbG8=niUJP;0kQgEtEVQIXsNjgM.k$lNHd's9J:Ur.2,u5,5M#el>d(^DN?YUKh.4f9!Egdd@eNCuf`'r\1gq%?Lq6+t2E<k?@Eaj8(ri$%NdHC=n^!LPM+E0t/nt>gB_k,'m(-YMO4jq#0Fc7meF'l!HZ8F@@b`?e;7n5d1VD]eb`1jUeMgQUjZ4*k-%b9C`RN\Gq.+=%H<5dk&U4,nn9`/h@A0-Cu"Me5@YjHV4JfSOI&Z+,0.1[#I%^V/j^?rW.jhl]KclnF,G\[(<<GKh,A-C!:)]fr1P(hFk%;<1@b'qprmSG<?FrDG&]L'Y+5]48PK85A:%E81QbQbip(sRsBM5]8t-NV*\dk6;V"p;HuO(97;fQsF"j,AqJfd]/Qd[nIFRU\lmn;,,,<DVj_H[Y^6o0`pA*M(0O%ca#Je!CK$&M$ZHT$jW.Vj]=L$taUC3N[^n+8A.N6ZF^Lo]6m?k>n8AO:64/&KIMt8p+rk7Kt776GlEYn-`Ks,I(=hfr2`+Hh$L^Z)\.TeWIOA[ArZi+':XO.HZ,SK0piHLfLRU:b\JKZ[*g+9k&OZ<'&jP!:%F#$9I5I$j$HuRoc<r4BZ<9c3A<-*@nsl=,m\V(fYRJ$](A\M,"FuiV;goMWNOX6IU/_O;eRunqiq,\Wl&q%C>\X/Sotd*"-+U3]OUtUBrQAedl%ZZNXAd*42MXcr9K$J+6_.dsqpi/^bX'[JaHOHCcB.WqH[mMF7miRZ\@%9S2k_%n/EM@VUaIL'`o%@c0IFEL5hh3F:U:]u;@ZYak1#I5UBoXdXR-7+RjeL8HC!ZKDDfm=!@E=-ZWG'&)5t72Sr3Zh^0bC!d3ClLS8=J";,dFWU;i4_sYQD3"":`Ku^KZLS(Pi0c_,):9rp1rCWpZi(@d=Y!9/SXVi^c4^7;/lh0j3pDe#`$o,?32>&3=<KdCbFc[@Oa`2T=5Zu>(-$WEE\TGHR,i.o\13qT-t>nOj%L>WjMDj5mSTgk^aWR:kD(Zg?sbW/AH\PGJ3B]\V'.5qk.3(BGs*f'G^M?-CsF9`HC=Ya?I"ASS-O(@J4R>D09W-J1t/(W>+JKnaUHD<d8"mWS/k9l)_54HVK)ZBf5+1/:=*8nHetV/,.Kr3Yc&KQ/=p#>h#6"uGjHaA4b+ojkJ85r@1;N(fp>TWNbE?1j+t3T2NSLVaX)\l/Ed2KU=SHQnMJo_bSNB%?[j>XaZS!KHd'_"#27:#`X-=W4]dkSO,0&N!bu^i7q$^_EWR<XD`',qVj^"jIW:FqT<_UK9'kQh]K#U"j*n)VKF__^3Y9kVR?eNW5-]F7B2!QIMh>!1W:(j!Lur/E<aT1^d#o_$h;j;#;bP-uZFIGf6f'$4J9nHc&4d":I.M1d2r:_U]1pi?QucJchE@)?qEcQ2&Xn$g4-Tk]5f841QUVtW^,u?DQK!%q4Q_##haA^UaaRC^JWe/>cu&Us*ekrHe3_Gfj26]L5(jaR!j<BL)[]H0?a4=!Ug`%cg3U\V7P:f6%A#a@mu/37*i_9jG't5'UlbuFo3Oo"B4%`#l)16o$Vn#:enUC(>(f(h(u<'>9jXlkQ5ISRF:fXqfTWP&&=K=P\jRkdH;*S,A/bs$AuO;dl%"BK-40m)peKLcE%lf;%1Os5HZp0^9PR9[9o:Uio$`C!.;bk=1tY`5Pi<A=7T#/.%>-7Cm,s!9X^)80=*i2?2)PpIS]X5G98""oESVhL:Cj!g5NS+?IMpelpJQ(pQn^<-?DC?dY<-h2BjiCEb#,CG52SNYC.Z^TBjMC!07='ujNk((_1+MU%f(U4:(FH8#4_S&d05/EK9bg2][UX+6BnGP]WP6X?:EH9LWa7d+@\aM?7Z<W#[s8p/Sfj.Rj(up"!l76ih8`Md7kaT"T$e#-P2F**4HA0j8UR3-S4>gqF]6W@<QaglBVC76r5+?U!Q"7Oc==1'8'2t/(1NXG^_+3(`N/s7d">.<oHCV*<.Wa4_?!p>=t@I-G4`-,Q2/KrX>;^(<s][?gO^6\6th7+"slh#7kRh1WZ-R-49>Ug'2`kSg=I_f6eV&'-_><c)WcP@[2*W0aa>H'e;;4N+E"8Y4?oH9Iujk9j6;IK@K7706,mlPY.J`I+^HZ,PaaIQ&o-"^KT[&ju(;LN;rGt)O:]TX@f(d"p>'@,Co@l]G!kR,b`I;*d,KDpSa#Y!6auYRJd,P=+0f[??6Lo<(.5'fEU$6XF=9[lI&XB5dg7'5I:R_60RpP[gF9^%*sQFdfNZnLRhWPEJT@&:-[]3o+*i:n*6$/+=_3\HkqdiN#K15N[LX$5\`OaF'gtfH(,f(M,j=&>*MN_JD%$tSj&[)[l^K]SIC4N@?F82bf/&J?#)EF?`iM7!^i_/IlA-:JtrTu;D(6_f&U`-W%)Y1/7=C$/Xj"pW)@Sm4L3i1"9Yo8(koW4%NX_pbaYL5U9/'A@LMn`<S-u/'!@.9*"uM&(\q_ah%!""&R.X[duU?@XQ\%f2aI3N6c`@o6R`6WLG8#Y-An<>5*d"?"uZ1X$In;ZhulTlBPP2R_=t\#8*kNWEhA6U0:gm]#C(`biRt#SG1ltW?gueGaJ'hj+f(jXY^!9<R>;(0%6a[P0C:V&D3%PplgfC&G6#E&\4;mIRT5GUGOtE'KdC8*2%PW"+*Sq/B"3JW&!h(&#[QY3(adk'WeSW8>B]kiokrBBGU-`b;`gtKhCo3T5t=LVS-s!8Z30K^-lnWVN]8))-n$h\(XMj1Ml_hG69R^2&jmt,MB4/YB5WHF3_+lUhK$RaDC9K4Q2Z+'.?VaaeZH'/;,kOfrGW'F-Jk%;.KT?7c=+aZ;9QLepD+!^P)n!a/M4-[]\f59P9En<b5fDbMua+id@_N]E$sSSOa:#@Hu!"];&Cet(<0PB\rSI)Nk?.(gqjY12XddT>U!c6%HJg54s7=.c+1,tae#4faG`"LTq?K7mUAj[$4fpF`/Ft4iqC(7c.VWM"a"+`UP;LKl);Z16?#nZGeglWm^thnUhSfIgBDMfLP7$dDHoAX=NV_5Qjq2I]lsFC*)jHe:WaJ375R?/(N[_i/uCB6@ICVU66f!qbISa0Vokm24"rM08p`S/``>LV`QEl'BDE\V&Ve%ok9.mpHc,C>VH0/Q;s^*W&"&No$!_@5CG!A.0hn5#g7Np<Lt.G)TssnhljiXR[5V?H/po_ukP7mVqh*s21ef2-O9`?sd;(^6X01d#'=@@`=BCp&^5rMroB*Ei/j]*Y/@UhVJOM*C\,S)6&r>Uj?4VE`X[?A[o^YB+W#EX-HnnPTmIEu;mAGOnJK_6VD1!]m%!RFt/!NNRAYo%%l,jcEVV7K8mSABZE!f`BZD-%s!o72:>E>i'Bh;d<Z-m1g=)o1+a$g*.>n708UbB$/2-#ujKJ/YE7\4qIFL!h>c.c+5_0<%Y+-"&Cc)ID?a]-ASX<1#IL^Kru:aW\t6\tMbcionb1V?,Q"X58f7Yq@QZC"N7(e5B+PS)MaokN[D[neRSN2?<ppJ\eZmjs7AYG8I+McWBBVTRh\K=@QHQSb'uJg3f0<c,0<%PsTg'/F,hQ)D>X:s_/Y>!QWb9]3\FT9hpBJa</4=%Fp/$)CVFa9[N!3/'S/2`"jNd+op4l=/tf/G>sqT[0^=jS`TOBKXq8]Y"ur%'uJdXbnF63@M!*9<H@P,1Ob#4%<>XGsQj]^.5mQM_n(7;Rrj@dSVcq]8Vi$'/:usPJfmc;D&4-T@g7F<jPhF=cU)rQ12:<G$OgB$Unn^?1+(TJ%DLA8ARE5I]KrD>TX*s[psb0HWf/72:n9Vn<A'%qq3K?V<)\A'2W#k++$o^*,IEI@.g#lk-LiB05esR/F/WUWYGELe@CR6J@q9BJ.?0C&G!g`C"m*\46h!:e:X*-,)r\j=EJ!u^7R`6(Gc7eq!aQ4KI[iE#=diIEcr2s6PDq3.DtXV1c7j6B?fb_;_D_D(,`jM_Eq,F%g`JR@q'f/n"+*EKA"(RLb&kAAnnOW8;P;!BB$FHUN2rjFC@kU'X-,iY4ST8Z\hUNHe*`dpD>C`q#YXXl,GStYfpc6QtcHA].-qc`)``K[Ta9H;_ht;Xj*b-[.De&_BQNLN,Q\o%A&RuOE@^m/n]h<R$QVeF[_m1U.C1C$T54*o'uBrD:T<.eTJKE42.N<kNLg3LB;pl9?WCZMB&UK-AL)nMV6713bkjR`pu5S[/mp<Tn%'m[^`mr16Vsi_JE7:9ZYLuZjr;3rgmb1bu[[@'-N]M.0g"hqk63,O36qYNO,$B3^O0i;sr[e&sB:ZCqqd]ijq+Ac=m&f#^CBc8F#BWQdR`S6#1.U%b-k0naBf;L[&MVWjkSSH/`<VfDDA0/Gaj"QCC9^54X'sgc?kODI<dpkMuPC4qQ[?"O>Icoh;k\/RB6b:'<(&d7$Q3<[;"!i2Kf>3,f(?pJF/=T5Q)k0YF1t@3>NmP[sST'sYDS65($_`W<EY-q0@TK1Ce'HLR:d6SDfK.Dbb>jFRfG&*+GS5Kr&!A?:PC1psUaP@P!lV?lJ7Cr4HlmSF'hZ<T;QZ^4_]*M>%>'Wee!o/'X#IpX"!bTn[j;6g$gG@r?T3jF%rqK[\D4Tq-)1[IkF$cTgQN'<5,rD&VF:45BS.A]n_;fu`";odjWhD-oP&7)Y456H>645/*'&ECa/rkX'kUdpg\akRMhD*dcE6%;^SbAP-uR6_i[Ss)M);fm_D#%`[JqpQ5t*s;!lX!rF_-'^>UaN0hD36<0f?o=KmbK(D+HF#GdUUq7RW[JX'rA#4$rX+5HVOCtKMnEu5O,P/A5kPE]8Rj=XY]20OfC?/Qm87UG%QsQs.eeC;k3$+>-iEKfng:;W9FW=UdqlBR<%T5MVkGak*I2c]YhJk2AO]fcWp9n?j02<%Wb]K]XDn&@'9&41.P>4`KTp#7o-O)&^p;V'^8Gs>[$BtmRN=]l`Tb*n-$6_)5>e-W04:*m2jtS?0<+Dp8m+NYX8jiFg4\PF/nD5ga>>%^3[b[BB3U\7*cPp5k?n5&,%t3]gY&M4UQpEH29A*&].W*4-UPTdM.^N5>=fgAAdaK!UYld;Tq3PilS'f!b>B"T,=n5.H\!V56*g@jFl?_'L]\n7<\7s9>2=GBH@C+oZn?C!fe0-en'f`ti`b!CSm!=Ia8"t$(p/a.&L0cSFl@XX:,+LVLP3i;BeP2?&/j&%nuZe:I%G4Cb83Vd+;79:T3F:![/@#^rC0;'6<\2cPQWKLm#J3[<TqLe`N'u(kLT7"AN%Z,((oeKjHOFf<(e+O8B_bjC#O#2O,$ecWf1[&SiugOlVJ3;c98(%EdZHHe1#dGdtc-]-uBCC8!p%,M]o)TD-ZU6H,_09lZe]OLV8..D6.sI"RlU@<,cY:<hs5%(u=kn3'GIC^P6"#24+\ndZEHPZLEs8oI#`djfhgO/Q4&H`*O4@38>9%@s%WjfUk9(%]o_V#.h#^k'e/_H$#a0Hu)>/eO0".eY+P85HKN"MOHZ[oqIpG:d>bl)R\/IAm;INZ@eUKOO)9r,&gpL`38!\&V#=*L:q(MJem26T*eErf9k&BU4FqME\&gKU,F>K(a/[?G7O,G%6l6@?Yn%$3T6p%:IBNpn.*S,Ts:lu#W*J(#X__JrpdKu(k=4])o&%b+qltC87W=gpKfFAMSt"E06Om(&7fX=2+OP`7hu-7M6?%r;8eK*%ueXlf`c>j,HGI=:niojOV>]Gf5E9Pd<`<a.8oL5Lc8&NE0i5I&6@9Y&Y`XI@Q\5"6I'T]?]*!GqE:(e8][DqgW!OnD2,o!/S*JE^!d@79HR]%,0q@lX@n=hL]n=ZrC7Z,aR7L3D*Iul#<h15]Fd1C/pNM0c,NW*M$tHa/)WEIphr%.ImA(P$?[@4(GAo,-^;l57r-I5W6POdE>Y'7;#"6LT-j^K^503ea5r6!(rUo=4/kP;Zn=&1gG,3AIWlE7%/.(ON0;Wte!3KC8gojKT'tQGl!tV+]41>!g-+rl'&CD<2U8hXF3SAm0EH]tMD_#!L:ApW57`nG8,o?ViI$Wn</5R+n#F'J#L#'j822,2X9l*1QSTeJ3T9m@9-%:Wk*K`<&!N4o1ZRTHn',t6BNA(,)\9cYTFi1^7b>?<Br`BK_&eBUWgt;mTW%H!b+3ZM^V0#]^##ae"D>SPK!5PX7;dE=]::.$5ZhIh#2CM1g`(j'&qLhr$6tF*Ej(uTUt.hTb?'`Z))P%=?]P./U)#NIn>H0QW160S\?6*aar60D!QY^Q2\$XJfg-3iaL,Kk&ANKZc,IcjK0Ca)ZDJ;W#lk@i7S:;!N7q+.Q/4PU?P<q&,4J.!IGEdTSK.N;h#MWp2qX=aHANKU3lFqNbW`COYlTVRTpR*EK9*#S&GEi1W/sO)0ZJ!Eg0!ng.V+t@.,H:3.W2c26Ye*u@u_UDH0EuA!l?AFBI*ir"74Ep2G;h%hmqEIM=kh&/T>m8ak6COl;-ZFN^kskd2.LB3qU>I^9R`q75GS[+g#(hXkke#H-F8cgoo'P^M?'.K?CFg<&Ctu+fWIE,\L!a6DFkY/'`\l_o7@0,'7L]3@:B6]?Brgjn:KrGCUaV&:A*""u*DZ;_:O*_Sdt3>So'<Z91:Z.^[^),M+"j[5%!@MW>6K9jdk:a*oV:Vi#!e)g%sA-A0VlJhk9&HM*jj/,nHLWM<&rrkASPBsml\'a035&i36-oA>+;WbCAk@FdeV-CTI^_AlGN%`'i5+Xt<\Rg#aQ]RP8![jk#WB]qLOfT@QrGBJ.'gR'-*3&7X$*&cuC3,.u&Aa?>-?L:0lQW`U7-TN8VA@*l.<*\S*p/L>L"qL:l7Yhe;W.Ke[##3O'hP'+/PV:.Vd"35$[5mSAWP-&/2-nhYGl%T>!S_+.[2V/h&2!p2Lnddi]q9qmNOUrL"Zr3^f<og?Q;k/f]PT,Lmg-C'M93'I9Q3AP$<Ml5R#URKUH#,N\J5-l'l+#MK7gj)/HDiM%jSmI*=Dc)3[o:7:;O8a6JU"[I]Pf`Wl*t0AP3!hXjS&I)9sQQ+8^#J!']OE8uN<P,G(<Fg>,dR`=GnE,a$#[%_B/<#Qh+i0aVBE[%E+ObCN'tgG]WX?c2;6V::"2W$dOt]#Xnh7L72^@q(Quqe?*_HOp^L^YVed@rP<<!BITEmLTa[halj`7XUCTlKBl7URgGpSTle-T[]3n5+^<eA$FJrcNmfVWZZ34Gn*n31MI_2^KN*&IBZ>n0:"!`1Yp%f$Ru1=gBK"IEE*?J?NL,LWMUKNP%<:3FL"XHTgjOZ%AUlU3O:;_89OCtD/UdCT3qRCQ#)d-nL6)t8j=UTD6fo$jN3Ru3'rW"OTC6l_r1QZom,q&UM&qC$USE1O6CM3S1N"BqmBPir@_1gR^0tM#/,riWY=..&a>BRLSX=$'&S>3E4ZD5Kk]m3;jDUHhWKS>5pLpY=b89*>@cmnD!hbgYHAXP#Nsdd&B+Ou)\nUVbSrtHpEl?"'#JV2<WS0!%&,0H;e`C60H]P5.mc(X#n0f^Sd]gbl"5PCZ`e:<R>V(>^5.;nXCV3<+#!h)0dW%-S^PpcSsj?8ok,joj'd1JMMBbA=9[>0\KCWpVXChL7R.h5jSe8h;4FES.??sjnOiL:P(h#OoKVjqC3r]c8ZQ:e&Su>*0ko"?$$N-t^H\F)Y/amo#3jD?3cr>.F$Ck1(BrO!Ke8!b%'2LhlJ8cf?sVYa1d#DUH`RPpV.t,$RZ7iBp-9:TW;f`5>k"Y["3+e"&cSiYJ+LoQL0#R@dG-tT%':\bW?P0[7*tY_X\=,EctF'Z;Mec\=q-hNeGHc]8<`Ms&D$VX#Ys/:"uN,%&iH^]i4cN&p?50)/1lOfm['gsB$nB,Ru?C>;=C4'i)eq!=PE^U\r@m1#cD)khjl0G2!/oWKAC.TV$S*MPgBQJc?>6;\:J\-UZugshHKcW%JTd#b&g*+N$`.)J0dl-53",7UR6/_mY(G<+;U&07>+J':W9:2F5e$$^A/=)j+sXEfnUc^kH'2*>a01;l;28X";rGD5hd9PBk8A_>BmZ[E'kSib(BK>?<+)#q<p-+=GQFX.f!A5i4+";5mHEH.Mc3]h(oITm.":.rfYN1@hi!;IUku,B?ITPQm[eieJAM>+m>-U'-K51qu*isS/a-=@h$os*1'qHee]Lq:oUdH(>M)C28CldWSZ22?ucYX%CHh.Ra33)W;A!R&;%Ut6?emoaOB[TJX1H:J#*1:Z4b,"&ajI9aSR7r6'NW'=H!P.h%A/K:`-;ZL"BE8(:T9kK4-6H!/'.1VG)(.%U^)SK_h+^S[0no4f+$rV.p/6bjEGTi3$:.OL9-DN^e8foO56*5APE]\2X7Q#C-qjHXeArj4D^t6@eM4rpfH`FOdqtA'7I5JpD99;,kp2O4lE8ZH;o6kU_hLmrC+^!tI\4.E&kU(B!s&9<]\TQ#eN7^ro<qn*@le<l0A!DlE`,r"ApW^SX#6Q-80Z`/&LVh8b$.Emp%(gT3+;A]182f:1cA*hc:e!I0F[$rH&R74ImN_D&8PT)B1?=4RK&*q`m>H+r)j'b!_re<GrL0ZFoD8AG+pLh,Gab?+;'0dAkm\-huf,oC]k<-se*U>BGi-LPBLFgH1;T#(e(/:Pbqh@\Q8&2GZT5nIGLr3C#oUI8dlME58)C&=Bm9E/J5M7m^!j)\Qr>:$j)7*dhcij]ImH-Ij6D@&p/-lb2i=Z\cbfJl);1`Eo!0)WQ^LSBRIlSQW/s*g'6VeXc;NN;$5d+t&332)#Jd(]VtUub>>T7lERmNL.8FL_Qg@b"%pCR2;HW7a[J^17b4o=Vl_lFI"$7.\Mbdn#E2p_K?+ChO$V.Z*DsM">eZ$P36pd4-RcTGA#!UrkM=&eul]q"e3HR%YL`!gt=;lTT"C%deZhVMo=.pUC-GIf\Juh#5T$#:n5b+iB!0EV%0;)B<I[;7]6LhL'E.AnR:\,Jn>$*J/r*5<mg>acO,)aUA$-SA8s*YdEiZJ"+i<HlX9Nj0]p_D+_#i#t_mQcH7ik$f,FQ\!4r-SfDCJ+IEabn;ncUQ?/EA]TCOUITm7BS-#:?[Tp"\)(EZJW2=MQ;\gC0*f\1F-U2PT=ZFPcj2:ci^GQ519PcLHqC0UU-W8B=!S/blF@P&OEpA:;cEnuoEPoqgj?A1<>g&J1AEtJXk]hIj&b4r3W1d,Ka/AHJ1$nfO[$-16fEAMUe6^Ks85B4@KW;S]Vj6trrm`P>,So;k_ce)&^fXagQjjgYq0>Ll"ah-CoG!KY$ilgl1Y%FRXoF;N@g\LLUt]m=c1Wm##I31j-hO^0eI1$0nl97/DGm9*lo;lY2dj+BL&ZmlqgoL?p505hDLE&[;ZXgHmeM&'MAIE^g7UE76CjuG^F%W$)]k0CJ,7C(gTJ2BIG!'a@L((5Gd7jonR#9NXW5e[4Q:(A@?Kg2X$][T3e"L"R08RPMY7R%TT`<\$hYg+ps%N#05K/"QlA%#2\F^kHs.og[;eC*fFp7;Qt-GRnJm?q-*Dkh@;s700C_Mb"e:^"8[%2.k4+bZY7^,A$KmN8ppAo^O.TZU_Pr>JHtO"5h9crhBh4)4LR)Lb.t['@,eY_@ahLi!25JJJ$U5sa3]g(-=1_f$8j-2@G42l\Q>QRI?4_eB91JcnU=?uM%14@L*&S1t;@"-U//<[SbP8q7N?0Nrff]U7lR!T,1<0u;MK;u#+9NZT]'<_ri]`@,Se\2j!sm@+%eIAoM=]TP[!/u3Q55/C,&X\Uj)<bYZ6Lo&AQ@a=/EEC@#X<9+(^$gr?"*CG3`pY<,jprScAFjb8WU5o$tqGp0f%2qR:d(T;::MdgeWN"UM^1Sk"nKTc.:Rd4lS,Y/q^"T?tra9kphZpNbj<I3[Qfu\^!,-q<8[^n[tr&4XLTjc`tEX[g=c8AjD86n77jFWZ[+Q&.%kmQ)"!Z7qt,:rsEN,M[lD3Ml+-<pDHbsOH7F9i,lK`l.&F7d6S6Se+us,OJk<fZ_kWFT=CN-7%>#YFcl#V*Aco^J<>q@$7K#ijUb\Fifr/?76bV'K]H8''CQGE?&n&Y0g]K/?&//;o%9i/?=l]BI]K\,TBFPE6;@/Z4N+%a2R@gJU$Jjs0-K(le`PdS,6LkG9'!ZIo&'#dChZ\O6`ASh&0M?9_<hTYST=*U]j8_b6=NO:I9CNMa/K+"4(/ulVLusC4+ps(Ms<ZI99\6I#g,JcNj*HhB%%H=ni?&,Qj5kpiPTt0e:1-Zb<&ea.1C1::1Ti>6o"k/rW,oWGtKS6NdEp5JT-@8Dqf+#oaG_8$-j8\(%O77ZpCA7#Z(C#V)LFn:QF3\I3<,I'SkJ+H%]/?`McAQV0oZ:eN)I-Wa6s68oFt'[HZY.^qEcbZ$GS/#anWpYg`_`Ve&GLc"XC>*R<:U"p,+5itqZbSfh8a%skB(<C;H6"$m4P:sD5s>gu>`K;@reh*:34ZBh:pM:\^n'm,j`[]Z2G$39n41(*bJ2s+!@"K+(ir]Z:F8S-N&PMc%s2<;ZK5>Ncq]3UtK^rKTc[\bFNgf;'aBEqj^#XOGnq:-/7Du[bFWgG(_'@,Tg/mTRiOtl;?.dEK_+0B,Kfe%Ce[qT$j(2MisZ%5b-G7J'-F]I'-:8>`69FVuhCtU#+E,gUQon[^M8H&q_DXW(W#Z9D-[[^,YIYKO.4dFk$R,OEp^>oT!p*`?b\d?;`Z(P$^TeTnof55U&/;N1kV,L^*WC],f%R]!Pan[bt#>Q0/2:@1oq;*h!rSQ>3#5IfM4mHe`>CDdj9@Xnpm-d:&RckgUoh(4/^;rH0GVt]mYbo(Z'<9Ti^EO*/SL9;=Dckjp!6#g-Q!S64IZ^JXSI9:.E$JG$SNKQl8gPB7O3e2'>;74QGY@6kWoZEWGb(@+')f/7k^RhOUBD[82VqS#pe[,2kMK_3*W:QC_^"?LnlX2g,?Cf2[&p&M&+dDu&RI%1Z#%4qh]W:gKD;itbrZ*Y9ae>TmnI#NJ0VU@(h6Q^2L\h[QY^/MJefapG9MHY(u;+u,i/oodpraiVT*;=]9?3s[O)GR3k-?4mO!(b.<9\')?g&G*=gie?$2#Z)hd%\_FTZEr(fi^!ZHd_MO8UK)>2bPBj-L%?$1+](4*4Yk0tuiV!Y^&;d)q5W>2B1.]c2]DUM?E7rYR,R:3c:ZT.Nl1+1t8K<U`A>>o[OSqV,gWPkO+M:783Hc3C>nYsa%PjotiCeCIji"1hmAb-3ON'#2+/3sH3*/R'@ZX5@*/aE^aWV6UA<R;rN978G>G7P^KeJDdSFUbY.RqIU#NTsXJ9L.\F[&(`p\JR#L"p"EeO5KoYek55IefK`,5h7dRo1q)nLS>tmIsRAS#,BKKSgdtmBY8jO-X[Y%2[fN5OM/HIpY!erdm\5-!8!h=+2<kQGOBV":N8A"0ug"#eX<YB^$UTrG:1M46RR!DajS[r[n>5j#(0)Y`&5YXYLBiXI5]MG737*CG8`o'l%rf2UR\Bj%8].D??Gd4E0m>o811R8?0IFR@H%<XFG!W#S2"J]OO`k\=omo_"q5.R4?TtbHkKF!`5ls+ZETB_N7f0RLZ,Zm_sPXUhSu\5f*0CBkKPOe09]9KgBAIh:soLT3.\W^""#ITHU*C)Q5p8XHp3<tc=BaHRmX,?86ngJeW*mh;[l0L$X>f$X]G?+,'u\5X:kBmS2b9K*@0;?8^8>KkYAHu2]n&%>G[O"QYJ0KB^:`;]R!?IJlF=L0n,j!STPtgh/('iXqa(mg(G_,*Ti,';fcp]&CfVZ;<h)o-bI^SHX8H!&;so7-lZG:)0`6e*^D]&5$K;h=@&+k_F-;UNkN4i\WL8l\lRG*I`/6bTF49W2E@eJE%&<"lfV:9G*t*)+-R-##LDT7=b?brCp^2<p1%X3!gr\d>apjgZT7UM5%D'526#;Ai$A;R?Q38D"L>n@NW:t2DeJ:h0E'Q4MCD[g4lp^%+$ijWVYL(V*@LPJ`SCfA])KlXR.JdU6%Qu/(&5k<(n=jS$rGJNqYQK"Sf4BmR\9;hkfC`fK(*hMl%X$8J<2uqk&,"9g,FIf_SD/`cBM;SE*3!ClB[]"hXjL"%T@8?9Bqiif1\f-I-C6Y[tl\;.`/m,N6287n;FOr6D@WPMs]3Vo:j1f<NdM%&C^K*?+srZlCpho3pg)FiRT0lb0S>i_PkStfXLU)%S]J@1ca1o)X+>aKV(Gif9Og?k2PSm6oE%8=EaT6Tq]Nn(hhO7,7D@SkqQ'3SWk",SXtkE/pIu*hn*!rdl)pX:`+a:GB;j!AuAcP,0!V)$D7<h4_>$`HU`J5A/1_!rfDdT`YoR79Y,p-Q$g^s2PDKFKaKYIC]2RAX<MN+46%..:8SCk<Z'2<;3a$LH]P9(a*NA$/F,$g\fRL)aS=Ad[KO4#]4.<T.?\=Z4nU:m=P)o-#';Y&K>^pV=RdIm71!?t.VuGISJ")s*`:#@_.\]"%'Ce[PBf@96Nt5fal=:'&CbPl!$B"437As.oD#VgIN"&%-Hn565EKgUJF@WYl-]VZJ#G"\qJI[FZ(dW+)Gl8t0)i1?>D*Bg_\]eg9SS!"%XknYh_W2/_Q#*9RkAB*)3A4\3n\LsqSi0&_[8[.S6G@rO0H,\HR3@N+GjVUTFJ02l1bJE^N?@mXADloZ0;35aTLmik5&ii!!Ih:QZ)`O34itB$CaA3GL.Y?.HiAm`E-*ES2d_ra6L%kUX`k5?7XIMg$.Rrdo6D8>;e(,S-oP#PF7Bk6ipOBBZSS:],.e8R8/O$[,q]Ij"]EeLCOS9L,>$gm7[>X)'4TPOLM;I&%,O6]RGMQmq]t->$6?Rqg>`GHg&As!UliulZs]RB$LUg_)9^0?/3Oh"k*J+V'$3aisaeSAk@@^Y01X5"Nmm:pjY=-"_<s+,*](O(=$\N!O*LMeJI9kSc]A%OGt0G>u"e*#9o93R@&B1Y!H[S/G6q5MX4#Qm<!*9PWROgVQM3I`.#9n4lo,5h3RoW&3m/NN!:2=Xhl14mriN*`T;l_qX4K+'?GRHQcR['#$Y\:!/`Z9ldKD8<#JJfFqHlL!ELk,ZtN"J2ookF$.@No"GWOFT5]4t!Q:FYSd8>N3].CZI:f$8FT@5;B_Jl3:sW>Or5/V*q!:\d>%PgJ76(;]GquS@#5!&Yp7NjG8;St%.<n+C&M]o].olCk>I'8?]'oiWc3cQ(^re1R>&Jjt</mNLor_O'qEY-J/%$mNHSEFL``$,[N&iVRTT8j"or5I`.LurQeE0g`(]4EiFTGb2KteoNP*L,fB]dC]D9r/'&P[Hm#!`Y"[:u_Ye6:-2-<\8CK:2?S8SD]aH'o!^Sk!`o:p2.OC;f2(k\Ri/"_VP_mZ9L@P*R;.`#RO?k4I8(f0XG&cV4/UW[B"r,j0(,iF7N>kV3)3rp4cbZ-lmK3[6g$%_5XODI`@J`^\$?nfQh1)j[Z3KE!DcV>^/:P;`!3l+Mor2W(#$$@a6-32hLtqb'r:2l#T"?#AZI<S/+fbRi_q)0OfW5V0OM,T*rnP1DNYm#?<X_>t`V$V,L?G=GST'kK^$&J?W3m?C1X$PD+u.<R&A6ehhMC,\<17q'sm[a_*[b]K:L&l(?S7hHr'F7Z1q/XMc9J=h\.IT.FQbEqM9.cJR?n]_\KCC+LN)_Z?#1@)1_PNZeT>I5OtBB#?3OYT2r81T^"iuT)@oG@G#OMeMV,H?D\5Zu?<F`2Lj%=j$RnM8/tas09W2VOT6)q$H&:\NcO$c3](V`eW]M9`ok5sr`"4FPb,`sK$C5t%#1`KGI%fiupis)&:[.j'cZbgc@g5Gt*dqK%;0o,CrW%N/Q"W#J*+-g?X/:,ce8B_P;on:E#5]5A,;esh[rc0$tPB%Y/Z2d"#4bp<7C*F@U4s7;u2O&oYE&8'[\]N1e0rNSqbb/i-%#Mc]f*Iu'kf_FeJO$Rk,<@S6KBoqO7!!HKa]t)Et.>fMEgse8[>sQ^\hiVaR32TZNlGfNr?Ur#]N>k(XB)c\;5i4m:c;L*!UU1G5.=NU?;=M9EMM4fI3%.?\OFAfGJo<4Y91=,(';Vo9,n/ek8gsN[IPLJ(*<A33EBH\gITmIq(WI()YOW![e/UX]K)\uL=F[N1jXnsI[#LoclaFhf;h#sLG!-u;D3Sl-=m[KCEU21;j-=Sg^;ak`K3^\<^=Zldnl3h(dn.;H4Q<SJ\3k<QVr%&>5R:H<-GhITg#)hoF+!n[(qcp'Y+(Z:.O%uk%'0\SjM$uUj,u$^Z+d03$nWTY<DQigq"PbF.:<*E>p5CnErh]3JZ1&NgH)sY:aeoT#ZFOk9oaO&,L.^?OH(n1kbmW*Ouq.Jeq#qAi(07B$pmYJFK!@U7dcK-s4f'U9ESQ;T(L]EJp/$%c?$ASiZYTWK>q<;ni^Hg&3^OibLS"tX'Jr-S['5"Xk3FcY2'moU"E^UMaMlX^bR]4!9kP`o(Fik?i:0=+]m39qL0lVHU8<c#<s@5eDb%K(Ye6;:SXE'e^.Y^@qS,Tp`S"f&mX*\[Nq/BFmtM_lTCb8m#F"d/.M%!<7B%>(a^IZ`tAfHS7fX_;*-k6\"t:n#BM;5'bMOW;o:13?4>^[E7R868_.I1/87*RDApFEZ1()KIU82/05$.qMp/*"QjRl)],HriL`ahgjHgm#Ue^gj:g:b!f$NL:K=L7,$NIG^0r/)ROX/7q`(T9X/&W;k\aN8/d9?HrhOO^b.-Zl#*S38RG4Cj,H.IX>N29TF1:j'NZg90*!gDK=RKRjRl<#3"a[oW]8X3h.o8CQ_$8u@rSu5\YMD2k-WmR&<\PUK&@1)*$h!![40j4E:bMF81gB=W6MY+hirgEcfmU'pd<8OAR?<]\@dN5DX>mI;bg51W#>`FKT4b_$Y^FVPF4JH;6MDK58ZP1rnc;G!"73njYh_]5A2Wq;XA/,OZW/Y]aEqVuMqs,Dce?[_fgO31jUf0O]a-q@]4%PbDX&t^YNj^P7bmEbq!0U0HSI@5N65fYT?8;q9(MqU'G_TfRTG0C29r[__WQ0Qn<!l3m,HbNZ%L99nT*>n!;29S?SS&EcDt!jBK%YjP\[g/F2C-QS>XbH_XKfdgQpmNgEDNo,a$"E](aFT65KKnLAQ_EOqijR"O.MB85#TZZ$)YYi!FQ]RcnWBIb`ND',n]t5V$#TP>/i$dlC^'*L/ql5TA=Bpnmf:l$jIQFeZi]U`=s*?Y7[?3Cu`.17`,ODaEN#tCug7!"@I0@!JN;efKn>$4]6+:BM;OpbNH"T[37tSS[&@hR#4R5noo$Gang(M5f3B!$fLObM:N0&>MM[i[,-*idfQ$TS+fd<15kH&(&95adGFIVW<OQ7@O$Wq=+h-\e1[oLGWae2qmX,sb4T^Edks\ojC=<<lGHRW)SM"=^05RsrKZ<El#[+UO0:[A]^<6ES5Y%]MKT07<,m7'o^"O=LH3ML]iJ=ir9.rR[SJnk`b6n^h2W-++]5EU42$Y&II;&,cMa>&U.=bTj[L#BnDM!+,`&<b_2)nI@T`g6l_+r>(+LqZO+i9mpleke;s9nto%&t==;Q")XU?FI,SA`L&LL8XMQ%M#L<]HYeH][ApAciDNp(&_^SfkMrFbu"0EC$l$0Y\R(m#ju!0E^u=8gU>OfO?$HgfmMA2`0<5F&/!/MrORmtEcO]o"HZBR`DYEpYIQWRQ`qd\;&Q^6>q.nB4WPGbd",bXEcg`gr3_f/$>+YGn`g(lQbVf6;Sl]D!jN>P+H?RHBhDR%6LhefR5p>KjBs/(>8b:IKWs';bYQrYm>ZeU0p4R"hAkblHL.2JqMf"X8P&Zi8dPpc;3gq'Jccke2EOs5cpTLY.c>g]i&b%RDCh5U%?\)AEs0.H6=F(nc!ZmfFpC*K7i(%E9iDR=m+,C?[\E+9AV-\`PL>mPJ/`:ZsZO"&cFg#u&b`29eXh>tH&(1$4$snaJ]9>7(hT".+dk/tVYTYrRaSX.@QiA(T;EgY9rSZVnIfUM&lhgHK]>S4`Gg(.\Q)`WOZl^3KRboWNT<4IbK/E9Wgg4cM/dacAX4?M8k+a8L**I:gd4ZCX<IQ0nGH_r3=d)C\,.Yr4iLQYoOJ=AqZgJ2;ZbE%2&j\@)!5@_MsDMZHU#$5Ab2TV2ZoLmp;8\%mW17&3f/$7e:BVh;Or=psbI_TV]!\UKVYh"I]"k9blWj24ARg/"bokV7Fme-q*J$4sq44Tc;ueGi66-RkTsh4Bgk'ZWp'nMZDiQ.TSJcrp2NRLn?Z-*N?k>r-Xa;@tW0nWLRU:q9V7>PY?F7I\?%Vkh5m/EbAr0WhHMSW=;0m)P9%(g`d<Z\ue8gJX\C?jcEiT(8Haq,j;0b/BKQ8*L`8am\rXF0K.^6dp*QDUJ%AZ^u'kndHef.dnX4Q6o:m)6dRs^SiOS`u52P>N]#+!E=&Gl2m-dZ=m;S<<`q(0EF1?Ec>:Q+*HrlbBd>T*jqHnm=S#t%XdG>q:nX?q7&4@3h4c#"!`JE`09t=BJM9Ve:kt!*l?OA.*GOYqf0`&(0K$",^!%Q#Q4k.EJj5iRC`Ha@4`n,BZl/tf7@I=V:%HlV\FhAYThPJdtY`Sf^@`b/%]\t,"P[Kf.SR<jP%1^\I8_W7D?o_Z$).<&VSuKaod4g^AijLGnEs)IM)#7,CbX(RJT"#3ufRk@lt.elFYs+q@+=Y*mV&J<8F.7_FHq*<A)Crodqb/3ji9Gr(j&mgSYn3"tpF[78pI]ffc'i@E"k:3Nl`:&k,t(fGCn([^[Om;^P$%`COK.pk#Q<epYmgILQ)hi[JPc:qK/_7J>`+3,rN2&/;1qZN3F;Omtmk]AsFoiRS3$/#M:2(UVb;pLuBt"!3R$^N+hB=6FO%s0!FKM/_.XhnAONb`Z+FctS2n7gOtTi:LU4ffA%4K#'4OG,HZ0rf6rJ+\*3OlT[,8r^]X#af-X+8=59cMm,@^T6ach"_mX%+Nk-9/)/u@q)f7i["q]>`D0o6oNBL<1@ZU>_:E`OE8LsJ-=?3@@.rL#C`bmS3J\BuFj'^ZeP%FO%@qEnUCno*om@>lmtqM$R:tSr.`!Fi5YnHV,D9$uLQqP&XS*4A`i*ph!eTjdmGW6c'bOf!$NVF-CDY&?GWYeeF9snF>csspMQ3!5A1:dGcMjXeNq2kZ.X1SF^-7MFm[lsS,#o\=_e`\+aH"+neGR%)!8,p_&5gsQAM'P`jBAOm/&O9!S]]U6:%s492of.DZskJ4QsFaDNHVa)HULZ5jm'6nP\%ao6:^)f8iZ*%!cW-r0fQO6m6mDfN)qHfLBI(qs.Xo9MKYe*L^M>)VSu3iouNrYYFQTIUSZ%koq?=BoaDLsfB*hP='?RDYA9Z'96Yk<k,o-:Q43SER@KgAT0hoQ'Ho>D'XGD-n]R##r(l#pX.6Ikcn&X!Y0i9,&5*3nGW@*\)ShI<X@82'7ds-;<To`p)jj,1+s@Wo[L$2[V331NXq$>7M.]3mhY/4SQpQ,TeQ?s.+Z**eBBtq2)EFN?qPiZJ("M$aY'cUXVNP9TSMhCg'\^+q`W%4s)+m'JH'0G/dM;Gh*!eQ@`LV5NV&6bXFMV%=P0o*[)3BMo[(Qu%>8$mB8qgJ^@qeQq1^@Z:&(q&]i&AHVJK<"r5^dg:C=O>.I$)9b2IKUiUmbe0>CHDS5PJ&"S=\Dj"uZ"9#aRsI5c*7u<C4n\ll3BWDs?2hZMoa<-5!<ch(i!CWQ6qKP#e00NOUA0Mg@P$g9).#-)HXY#gk2/-L`_4Q;11#2B6kr,tiITB0ecQS)*:VlJ8jB+^/e.1'Md`Dn+s9ero9eRW2i.fa"0Z&P5G>o@V_SM=BAo3fk2Ja$U2Zn8\*EaNC[t*E%G,OD7*'R(d4VH1ibF7R#m@i(<DR2iL5LYf8X(FCcc^^mXCuQPoY=,CX]9O/"6W%BjP$d]K`)50KNPGs=7nDU</L4D$4S4jeDmW[&q;F;H$C`pC&F5V`%EMX+4+F9^A4&IFM?)O($A!V`jfnd-u>87-PANV'UGl'/-<keoY;X:6U5Y"PeIji#$*d.B8(I2-k+IO&`d9oI#G@;>a#9s!.EZfC$=oqhjaf'A4UWrP9n0K?YZE@=A8S,PkC@,a$h'p4)Bo;u-n\lu/Y^#eE5!hKi<Aq<OnQ5mq/s"ZV##3a_[]HFnQXKEY(X/4o@NOk2(9Rs-Yp0Q,)8>n.gJ;=ZFhK8[r16rZ5eKj[CcTtCF%^/Fm_HokUs(lQ6RDRg-gS0mr;e`(+*XlpPo<MKl-kC9W@-*TLH4&d]B.?[."!?u\.;93C%`lSfX1j%cqAHm<Q91VejbP.<?+!,,*bFsG)MLO]1ZN=4O>]6*25,W?p`>]#r_<Cm^s3Q&p;`,rR9:j-92\3>IH?6#F9Y4UU-1YbCCu>c4WYV]7_B"Mh;f/(1lZ2Q2@huVI.^2Al[JX!DQulhPC+hJJ\<tB\1XCd`c>e_Q]X"H)m!uD$GA9D_(GitM(*O/ld9YGqQ_cVMWpG(IcT@_&!=G%L5*Nc.!/i)+QDj)*QFHpcPk<rJkJYXFD(*:^&:HG5?;Cer#^;RjjVZAaqCW$R<Sg6Qsm5L_I^VrOt9r$h=0lJY*M$5[/;Q2-fN_aJHEcWfCY8=L>h()U!n^BKmE[QS_OXgO30_GCtC:-L"`N3WknBu)UrC1rV(6`f1XWLTfoMIE\#/:(90@Z(u<Ip'&+WE0e;=00.:q$B/n:69)!%^Ip^pCYu`TC7FsCY\-hA`>!H<H9jk"aW[bLN(+kJ5S>slX`6-H12RDFt-6'cma_dnC3$j/3O3BX5Buttb3+5nS*!`Du"$83-HI)Q+??o,r4Cs/Ql])T&#1c]rJIp5U+7+bKAAHTIM,*+Qi6+pdJ68X*p!/%54@*?>A,kF%4?_!:RI>)k9F7r!.i-g@.rA6Q%Go[=2>bX\]mj.6gFTH`Z!9(b]eb=[h3#_%.9XWLNN=V;s.7s:B2&q'd,YQsR.++7T\$M\*`f/g/5S>Y-99e%&!a)o*&s>ROcl$+1cV_9kBL5+aU4VKU5+ZIPrYY@L3_QLRhlmC:WcH(fK5bV0C)HF2G9@k30Q?WOUqC?BWYrR3]H"XPh^I//H#0fGT_okSqb#EJ9j\'Sb=/M/-Yk='Nl7R-iOpQMIY0tj\hQM6ZP0n<pK;422;)5QRjiI%3=?sTsfWGdnlqYE^c&oKO+3h)due2S>R0ebYtS-o_Zd=;L00o7C^egS*Gp,_Rcm!mo@gs)BF.@#1uPer*0gk(3Bhsq"UQtQ]3.a-:Llu)%MHm_kKHgYsEhJF&Fj[$2l82aupa603`o$Y1m)l4+J]ijtYkMgZ7nYh#NY\O(U5kic-lke/Ob,<Y+XP(#bEZ88ZO6@K>0XKblS-A!u]lX9\t;P>!:0m!Ki<m]WEHp85g<.a>9Vq$PCSEPJ1<TR#'?H]'dU5Sq:+@!un3ZSCR^TrjP`LZ'uJT31kfA>umHP#p%:Rd.tVJWcj_$q-"Pa5&a9R.=D<;Z:L"J*3S(&uOtc)Zp"bfPA:J(m\5>CV"]U[pk.oC!eE,q$7>khG_<hAdZYo$J_bYU;-7kDZulgWI[r8[$-[$gSY0akL[O1AbVrn%e!CTIa\Ad#5<6*reUEi)>I4a0g59A]DLt-!bLJK/EU+hUOoq'`_O[BcIaTrZ?oM\8XEc9r/`ue3-bQ1%Patl]g,F$YOW\_XsK?GT9T/JIG[@.XhD@ETlan!\<XuB;P=B$$d6nT4ng`0BmmaZpZ+>HldEmZ^NH4+XE*(<q.r9A>b.eBNErAN:-h4T`/;#J?h]6SDDXGnEs"GpqcjEN#bgI$SKB-X#T/$H*m6t<`+qLUbYj3e;#m7[f6)L]buUIK*lPY[M*'#XdY0(4<JrF6m8phNMI$GV6\O22f(qi\$$bkSc-rEVEuK<9o5dg=[n7uc#X!H/l\'=T;=YE%WLB'UNpteX8e1rLJs"<76`0/#cIVqTHbt[?>3BI"qgMrDN3O15QoE@-7=dG8,F(b55.)PAGk6/%EWd&booM%?,TS/Xp<emI_E$WY36Z'47@G6BT7\Z9B@c+]0V\=8>ICg?K^&Aj`ORE^qVD_cYH;/H_M3Sg8KUGLTmF:(7U6\^o:B+P*5QU(p7Pm^!O=5_LI!tMYgb$(J^ISnXP+X'p(YU>XgN2sVH?UM$?Q&;0h>RVQj;bFR:NMNfqbbNS@sRM/)<CG-70e':QR^WnXt0"Qh#Je<T%C=#Z(&!@jI-;rD12GEMtI`2eDZM&C4N5`*,.C>lDB6deKC*k%*JUd\A*H+!T_[B(s6?e]80FCt%^_Vrgb5ZI&7cKpOp>@'*Y.7N_Gi%)A%;kO1SU2L)jS'GJeHGXQ*eUqL"F/fpq/mtr]LLrR.,mG$_Pbp;lnn(g*pZ!lpa`Uem8P&")_H]$I?!H?<31L2!r3a"4_G:-^2ZZU^1m=JI5gPcjjVe=^7^sN7VK8<&n$SYiZ-sC#WEh>Pf(&Xk3VjXO@k+4RG>bP$U]*mr?o73+N:fg#n4iX3#(>"B*+53OCCO%qMYV5V/^Unf>'4esH5c0Lb5Z;]O#5<"N8n00^7/7AIVr0d/Dd)XC.@tCVQXi1<_j\\PX9fPa'j7t?VinBF090oLn\L^T$\pV!?M`0eSh"CGJ]C[3\&^$IlAT%#[sYo<J=PoV$!sS*3Hl2;LADKq%eMJ#PA'WUSeU_>?n)C3DKGpKLIB@8Pcs%K9p8:_=s?;+k8g2G&i:3CGUp^Q#+E.p2.`nVnO)b;!0])$_Tt5(C/=V4eh.JUm+?Q'TFIg=G#D)>c_Y0@eZZ.NoWNA3`gM<%aMC.S/^Qaj)&F[T*nUYqKH^.4#(G)=abBDl2CP!R'Z`BOr`.)"+G>*8hta0^WYfPCh5=+n3GO&V8rOO&*\^f];/@\perW-i;Id[FOjXZjs.#LFS6FBppD6Y?n&;c@i^j?+Wu^1d89bBd*&[`a^^iL^q.Q8!M6?sh9!`3C%FXR;E.H[V2YNT:+e"^KbB4qp!'1BN3Q73=ZN4Ms&Y<>5R!a?-&]Z8!(A?#c=(uRdO!3nF3cEtBq[*a,$fTI^$RP$cDFV''70257mKElh"<JnqBUjo6m&'&!#`3\^46<.X-#*!f7Gs6"m;;J7*0X&q;:li7abg4\]&2]3@0/!g%DsP'q%e:.M!p)0C)]oBZ5^p6-2fO5fQ'DII[?BhL_@>fUP)//TWC2m5Lj-W<XhWB)</8JSr#.2,HQ3_@-g&*]$aai&gcQ&<N^]"-TLceQCLCiWCp$rX2SSiq@pe+e(cW.\9.,,m#`:B,DlFV9G<_^o60.>Z&UQCMM5Ff5C`b"/)til!!q`]fW.7OrAi0Of[B$7;qVs^QcMBPYXGDJ)rH1IB2R0>lY?S\K]'KZ>6P=mLg#)lo])2\EF\pNjM\_O),$G;"d8r<J#;psl<qORAq'X<V5V%U-psLYPLkUI81)*l:P6AgOa]RkPh+gJT@hU,o/a..;,4*>#KOWC9-q90NYnq893lZ;j/O7m%O;oN#.O<:[P6`a;:Q-(RPSr.Sf.V7nWNetBYKIg<M4MWD]cCp+kK+`HDraH0[TYT`Q5os281ciAc/pPNsHj*V_JR_QX>sB]Bd?G*dL;qOk**+U@+S$*;gQ0D5$1i:V0L(^3/&8b<oP\DYDc@m^t($@58ng>Kf[$fP6lCW>Cd,P$HQF\\d_BS>DYVfRTO.O1Yf4:IZe_6i4\h7ES*^-&$E5r&Y'KEoG3X%V&)NhNa.eOn*`\p8U*.HUu3CPmS[*l0l/lfg@4A2X27u.#3m7$"tjK!C"f/YDb$?Z)El\Jt`n"H._4=US;qb^j(<um2E%(Y4mVgjNHMdk*hC'jV#r5'MKsC*M(R\rle:l2]tV7<3]!g@.7fRb]]^eQ:DW4b]eNQ5YFZ7'u)0jS%M2fcTlkfNjYHO%dlkK<!CD\ReZ;H_XhdfSt?n\4>t7',['Ys8nT9?f$PRIqp@X?8joEf/RcqnC78/b]P3QXXRokSZ9g^TRn(:3=gC42?OZ`/`og];$fC<I]oCM(8X@<YmK1:0bd#JB=E,=,;;Fs]@72&2oaa@9Yno*sdYZE^k>e=#Cl^ec]aG5>0(6di/3b.>82G_9eZf<:2jiFKVasAD5pNMGV#(fuV[mKb43B^/k3VV$,o-^=8#ds7SkT$2T#"@:*gZ1-d@I"gaS4*(&mGM9nfiVjgJ)BI="t1#52IIQ5ockQi^"UlN3!e>?>'$n-!s6p)9-I@3Rh!%(d^C!TB]d*-aJ-?T;g9@e#W=cFY,C$Q(oXGfK1Xtg&1kRDhtW3[8]=%LgCGu?MJVGKMt51Zr$nj.-.ieo;`F?4X[Bk<Bgu2!RFb'!G*4cHfr:#gcd5pX[.cdCgm%sjcR4&j:'h-'q,YOh%*N;gU4.EO"`-hk8sLJad2.o1H>ZF;/QoINB$!VkEh6D'QY/b??HTdaD`mh%2J7E?op#@XBHe=97'#X;P0tpVFU:GSFC]7H<Xc(.?:QCGf1'7SEC1*"pLrQc7;.]q,AA=#n^IR",+YjdW_!&XA?c-['&E,hV:WBY7m;"P?`l4EepG'GouD-'t6Pb$N%;Tm)9E'MdL?`?!c'V?HDujft<i^]1T1]#cgb^HdQe$,6P-pYO5phq,E6_,fmL39#Zf[N%OMFc0XX5Pj6q_UZjaKiCrRC@]3.jSs(ad.,;=g?ZXX,cg%A%/-&"iVQUk`qoG9`otGtWS^G(X2H0eWf0KPPptT#&*@<)kd5<4u`Xr=E2P%bQc3LWCd(0P3k-jH9Q]G,cJf:C._Q;0<$ZdjXMJE/-_WR/qXP#u!@C8FK*VJ]T@$0nlIlrReRG8YWFKJ%`Ytp#,9J[\R:W^PNX8j#j3c5/gEC"q%09OX17_dO&NXRTn#ET@GY:(]:`uO/p1L"^eHA3fj.[o#(LRXaU0\$;17Soh$.ngbko8uUu^JMf""M1mNjLL(C^^'a,jjOfc=>F>g@:l^)P[X><%591K/-[5)DRl<SmJ&1QUPFc7<]9<UYmOjkAEf1CHq4PQ2T:BW__,mnk7DY^GH5hL:i>&6S_6j/[ophf=Ni0%1\M5mL^Om+)DZ-JinME3.+3?':Z+#b/7La)`(/H`H@i^6BI&`EC`6QFk\=3'Nf>3:dSb<\%Ri[r>P.!SoG!or<d'dT4?AP3n&Sl52EVPNB^mI%R#aogZlZ+9!a:2`GWs]a0&AL?9?b=PQcid[;on\\6pqfYTDq"0s#mST:SC/g-p7e)SXL[cN".St\OM"VB%U2(s);Z#?gkFSr4<p:=5XE`0jI->^7')6:34!nbDP\ZB?*1"\*Jkr:Esleb$r7c8W".5-2J@XR^]*TN^`pL'j/$%?33Gs3jr&Z2%hNn6<4X4XqDgk_g3ciXT7:(**[s3MA8S4QOot<T^$+E-<Aj)@5UITElJB8aYcjW@(39TjV"-X-^)%B\nI-!Y#mqBI=5Z*L`]o(F9I_RaN1OZHUJUp<!D]P]]80a]u9qW-3cj.hJ/Kuk`A8P=AtnIKPJ,JM!*XWg)nPr.p?m]A\>7@'dktd9La)"SJ5d@6InQb2Q6or@^$jo-!3kB`Z8-g>,(He:;sDa0F=>6jN\mG^][GnDnT:Cil-A+Kt/]')?m3$8%do*rAfJ&O%d16=T=N_;K_BBR.C2&m=AD]]]5Mc+HCb*,JEe<5(Jmn\msOuYB"HOo+b&9Kd/-)_H;]2$ZG[jH]^u5&W%tP%HI'D1^f!k=sQt1BJQQL'6*;J$Ye/pRojaG%;0LaN,(K>-UTGDfh,T)T5M!G))PnJ`A8V-mt[Doog/L"jJ7\B`X=9oa^V;Fa,>IJ5f'*qN*^c4Eemm@h*H;Ap-HW,"utRk%+nfb.[.m<.)+dM.iGSXd50F&4eWieidiqAR!kl;IFBglpHcHi:M.3(CAg?/\gd8lj3SL!6=<c,j&2YhCRDf>Nb"*oRdtN+##+qHBmYP>C5C>B954ZTZ=ZAJRmHk%6]Z!lT:IJ7OZnD6Ld8dVrub>f@JGlZb#>G/:-f7C-M4c/UYM5IFueIIAZXua"O6e7\ej'?C2=*Wp5g%P%TB#`(,jTH?h)PC6HdXT?:J+C!N+hVTKZnsZStH1);TO[6(!3oApK1+`#-U(Q]rTQEqLMW=[5B][)L3"Q>TEr7!aRMM'DQDng\fAr*BT2hf[@s%3o#2S,h0KUs3[OVe:YaX]duL-HY[4");gpf!\&j*hkVL9(9GpI\ap^^_*l4!=[!`)/k)lde1Gri8gZ.E,%o%L0#8AbRh*Ib">YS[X(qA0;\eP^LVh#+do)M2"YF<[k!NR8g',rfoCj1@#n>+h$eh0Zq3'FL>UgWM!kFC?koXu*G0%:Q7_&`SWW)_,Y^G\]udgJpTe0qh/d(Z?Z][]\Hd\'GG0[Rp4bh7<t0(jl2hX:Qg8KRC+Y?#I<\t&HMoXZo"u##5VE$qogek,o'WX?.Y4+tM*SCMP6ct]>2"LMZYYSiFKVfTOQ*^^hT%M",5QEAIA_Zf't-p_'K'oZ]-0fB<T$UciV?C&n;[9Y=9_Z?3X"P,b"HFk,8(PO^YMEP`-fPrairF7X[B)LN0_4(S8kT8=t1N1dX@FSoDk;HJ!`][jI@[Y)83!BP5h:?CY;43k+WU`RCt*/>*Yh0?TkeA$!-GR`,4S('.LI\Cs-YeE+^V^lO*VS.S:!BEGTaS6YgiVfAtVQ]gn!JBJkY8*0]ZH81l8=&g?-EJNe#Q(VqA]E*H'>UC6sQ'(KHfZ<a2>/inH+o$(lh/].u!mSTb_"AU\JP)+Tl2-3S>6"lhiO#_Qs^ED`4I__PN0d>/Ndr@/9`Hq$5P`[<OB2:F-'">pYTAQCVI;k^F*H3cZa;"2DQ_s8u+95S3,f<6rmuRmsj!I=3g8'cl_H;'Z<?T,T/e^$K!U(keB$XDo5(>`XBM@*b7KKE0r^XFkCWW)naTCYji[OqJ_&#uYDp+aTKut6G+t%[6/X5L[X"-D'Yf%g_g]sMc(:Us72kGt*:Bue8`r(oAV]&?7jpaY1g81-]@+F"2mVmT9P6-7kQbc(UfC*tT0D6G4C)?aqNsS^-6<"@):l7/,pg;eZ"qJ[j@O7L"U+7j5h)!mSktM>SnBarn'pY,%&SLYfCk.?]Z\6JV5g42R]mo:]bZ`>l;DE"SF0RB^_#dCG[80<k_En%M\7t1bS[aU/(bSN31`kaK@1=f\!BdlH^2R&k)P0qaosgSloJ2cK.0:Jab>=J"]G]FaglC!uiqEKWS;XI2;K+/)>p7n$:"gf6iDgW1A^(,SBjs^:0-Y=T'01U-`VGEV6BW_4cg;\uG(MV`.;]X<P8u:3s1Tf+@s-\`X[2hp_DStGB`&JV`LVJ$)N."XkC>m>@VJ#5N?(%t^Gua@cZ!1@QLg)HKQa3rJ-Mo%jN'Gb+DfoWW%<4E)sV$XHYt@[N%A"CEKkBA5`,kt"-1O5@0`8@G15%eFo-]A:A2\bZ4*AlAd=j!oYH_jiP^sCUjA5TkTK;EO)/0`9#[WLFY68WlM591R(a+]H@iPKD'h]n99'Ts--fP-o3!7qE-q^?hTRUuVZ_i\dL'Vo!dchp6dNi0*[@K#O_qAbfNWN]J4a=fp,[rdPSgXt#%n"YHquUdn&><:i7Tcbp_2n;$3kpu:Vk`=6k:OJ>_>r?gRaj%?(EihfUr3FZ4o8mLQ>p#EPtL[]Ub*FGN.?HD@rO]5p4s.cmF$u:to7Z:>ZPr.:d`HLio\d+dCs=#/#YPk#.">)omP<la"Jr:[e*05'J`o5[BgbZ('^N[9orEZ>6X40EUFURbIuU4,`umXXAsf,AJJjnpkm=Ef:rjEnntedR`btWLX?pm0AV&a/J*V/&Wp?r4-^+<N]RhV!MfPp4Xs2?$C-!OTL][n#*@!g%I>@c^4N]AL*\@S!lZ!(ju^Rb6:T_.*Z2$)Pn>0O`B?#AgaN%*`J?N3JZ*)$OfkA\*BEWPoa2tZ9b1cY.fD'b#_nWrNeBCfd\'DB6%0q02'IkV/NTR2;;?MB*m-Z09?ZO-gI$dV->$T-Sc5p?q*5[Q+a1.9Gg81k(30\aOL$MDmFkel,6*"Ga!^UAg$\VjGSI=/S5HrF^:LfheQ3%mqT@30!k0W[%"H@ShcJ9=&n!c>"@"lknVOagUseIA4M3G"(YH*XTZ[H>8Vh.:ue(fJ%0$5&iM4[W+a92=JE'mG1uo=kuH*@,SR-a31sa5qm<e>'t$[12&((+=lj\rdhr\!?3##78(Yn+Vusptht*09OeFsX$&o9+:H)cofn2:A(ldM%"\aR*(18Do)D9#8/2Xg4[8D$rLm6PI^2UW]j91(oi?-SIQn,!gJU(38Y8qeHFEY.7"fgt`YVkJ^O`h\5TGD->Np8I@X3%i^NRojteqO6Q3_EGfJHDQ1a,/[[IibOZQD4+NX39>K)pqsHWkH7L:"%]%57:"%[RX1RB)j_`[TrMdo7=F#9uGr8d!?E8fGpH"110dg&n=,XPZoG"a\"#9Q4j6`$1QLbS7K4DT1+ck/ACM>"#9Q`TK>qB->o2S4YckEXu6E[.HpVI*&K>AJ6E,$6$149SeDE^Fcbu598`+(b&cW.,,i/DF*DudmMQ7J?,_8Qs81De@7C3@^7q'b7j%XnaGAE!O[nXCn"O5X^uY]`6<lu>`)U/b::VRsp4h_:W$-kb0';:612NP1dQ+U$hQ>G4Nt:eqOW1F[Bb=PT/0/!A3n7[AK[*(Z2hX+CEkl-2)eGc41^i/A@%`)I?6;E$f(]s`#Z@"rg@[.]X<QKGb`d"rH79m,)S\ZV4rr^t@)+:CdE%?<%oF6gZ=g'&`lcGDF.CF:Is1WYk[VEXRlg+L#%(T<\#$YOq]cIHR1?#CpB]p(F?$<RIAN-d?Ft.F+'^5d#KMJ*63TF6J5;47&;1Lk*H"I%_m/(0CBt_U\+$n[]8hi-KU?*7_ju`^7A^>HFN]VTPrG`o9rq,0R]8IY5N(5R=0erWF:rI;DW3+=8F8:>l-\P.H[;[Xa;'BI^bo-9@).<\b+lQ(9+O<9:tK$SF82e]9ef]LR99PR=[X%nV&=teb.Z4U2nm1'O/@,do/Tp5q-XjpOD2[&DrQQ*bk;t*Dd%B1%]&ifnC%6-`8DaH(n%..k;m[B67#cu,K7.(!EZ-+ZQ([r3?35=TrI'Z[NSX@i],"TfWpj[["j+&"l1d8"_#Xr)9'UWFl\QHp>C"o%a@D`,Y]Vk=GL3-`OL]ohKmDC&isnaWtE3_/b9Em1%kd'Xu&()7thXr)800=;0GgRn'e!aV6uq\qfaG4e2;TSOCGT*'10:cC^kTV=aYC]\f^;P::'Jnjl%!B8.[t#[I&DGXAjOP[i#I,,l?i,hIuOg;OK,%:fH*\Hj#h!T6:W/='!X[A&UOj^er&bro%!l[N#@2IE[u348I+P[=%I.g+Cf(^0lF_[6%.83eLY:r\<8nKj5An\2s@%H(`u1HCqQ[d1.5.bl;D>*?27a>BcqR12TboMCpZc^t;%2$!6T;1XWQH"ukrH5:Qol8"0A\E!qAs@NJ-MnZ>Kt%>@?/o!7'K70^(-.Vs$tD_D6^Oq)JI110OA3uh?NkrBup>!,<.46?"4[EEe38F"p>Z#8%=6$_$a&r@Lo'<?b6Hu>];,^gpcBr7@`_'FTXD198)hPg,GF0Z@$`O:b"A?u!)FmM6iW)jaa^!XX4s6$6Nc>.H!8_EW"<un3m?s$oH>fSX\4'c>1f@>#3fcY5MT^dm#d%MIS;c8EI_@V5X$P%Z@WZERLN)P->3(R0Z/_X./h,N$J:F4S>eoH#RRWlfmrCij8X&Q^$.VI$#D[!cmS[2UVZ&0Y=(2*aN]9XA<j-&"XAE5+[?'LRUN?kG-lILs(cC!u%Gd@Y`nTnrM%CMlTdgW\RJ[9#thf*L.YU.RJ?OLTq=M<SuT<n^W4fkaqXusDQ57L^F?b)gTX?===XAT@i(@eA-,]V^agm\&LU`TiGCjiD5\fYJ&B]S1dNVsDJ?h\1i&DNmSm/E4?6Uo]G>EA1$Ws8+A&!ar@X3J,,4&I#k1G6C$k.p9^X=69ZOkD'XY(_B&jCTZQ`,#t%>Ag$oI3dB=o2M.I8bG<F,p[BGaaR>#GIi_F^>Gibg&>sLiuWa,HOC[-lfKT<am8b?e4k`$C\a0_gAQddHoj!"eF$8l,hKFAUB4cm^^ENbJV?ld-UH<)ph;IZYm!Hq!eK+C)em%@=;uAnVQWI,@lZirr'_A`)6mS%?AY+#<D>DT;+APoAWU;cF<>=u`Zg?N45?J5O/o&Vs*(a(mff<3rt_lC*'Ogr^Qt#j+k68Dd^%](d)BsL,Yh3u[*D4q"XBqS&6>>mP',4iM(-'<W1iuo?h'*5h>O`0jV64".?;d)d^SLqM47mh%UEm$HLMls6M.3D*6i@2/X\,)AcX^ZQmp6berL8'W`/brYfhKgp7^>P;YEPGNhR>d4GX8nUMSR*9E1j0n+Q.FZZnn^Sk8D.MGro*=<m_.?F-P:3[I+(gQNTkX]:Qi76^E4ZOk?`V-WmAEUKJ+OsG:d^)SH6-g65h?/U;G@^)Z9,/5`b83f8YMc?/_=*)LiTB`gk+d[09$3]U:c27r?IK.Q@/\p#f_LE=o3RGkZ%n<GkQJm(k0A".'3RL.DWlW6q$\%?@^fY=qnZ\a+mST8Ba%kBG#MuBDYU"8BOjL@6,3EE*E*D;$S`'>mo$]>epB'"F*ti/k`WoNCdh=2$WpYJtQN-4,Y9BiB//:8"]dA@<<CtTB]R1[nDuM8$R$2H8OZDO9'bXsD(W*V?\ji0.iA0Ms?Bu7gdO0i*Jaq6/\[mP;7,27&%)W9beH9^u)[0H?kUkHpcPCG-^NhJKo1&:k#nOqCU7M<*7+T78asC6D]5Z\ABdD65\hE6<P8ur<hh*skg0SdP#GP;DH:lX,InLT]r+P-"ab6:V0mu+,BtFn7oA.a0P>;R9d7Q27q&Jpf4*%hO;6*'g`08Hd""L2jH?>W8fg1V4]qGO[1';"chGu_HHY,%IK^s)c+UW7P?p(&Z`eAgqa*?7B!e$WDO3OXZTa6Ec+n//A4Wd;$dLhci79H"A-*^/DQ:hfthX2_R5a$]!?2cq^-I9K(0l7<]OE#Ae*dGCb%m@b&-lXe3KIio5/<S5]E(Uu12pe45)"<_[k8hnag%YMq'_q*Wl(-)51knpKYB=dXqTqUDc/)#%T5C8*_EmbtW[3(Nf^YSUpq=ec2B;jnrjW,mAQnR=,Etn+)7tee@\78#:CLq$,g0\UQ'3L5%^/F-1qH.0go$[7:.i;s.fDR1i2])f1A2:K'-@`3'k1G=X10KSDf-MhYn[.n_6+%G[tSpBP&(N`M!B2@^V24b"it.G.?g1#@D6O')<T!l=HlK8qJbi=F>;2ji>I4I!;FiTHTA*@5F+?`66k`q&+kK\%Gc%WW==$((W:gDo^*dk-g^nn5Rm\_1!Qu>J,@YcD#"au'h#ea\Loi8H;V9T?Cqa,\Vp\[4CZWU;hh,:CPL5]PhcAg96$kEf"_PKnkRPhVGDTSQ$M^WB-O%\)gd`<4h/R5O(Vj:NOME*`5Yc8CO$c60(@]`Mh\*:-*-M>U_d+Q/70SSOh\F]:@&R\0cQFU_>D.Y8s!N"a?]K4%T%.]5I*9$d%o>t9#B&l95ttiD=l*NiPad-NT7__k3-Q!i($Q>N03)Hd$4npT[YKplhC]Wps>2=8p,s=+A#=27'Z2?Xba3.HMrCT;?(g00WADgYf!FC5^$>'R)/efCXU\JCMpG:g$[!HVIJIhD5ZX#:m.tk9.".3Pl.&#U&;9(/^1Bs";YWATkJGrG(3?u<k^p@:XFY$=F-3c+k.SuErRftCS1f[`Ph*-(.lp>ALbY,qJkm4>sL7`EMln:#nT/t^FQD7PUO6X>jnqTB7*tXpSqap)\#)g.Ms;C'J%lZjRQQ0:m_/4@a^''6+k!8Xb'2@2`tn$AlQLQV)MW#?XoiEe857;/%P>WXrnlI])!m%`pZ/03^%5ik&$EIW7`S(h@(L;3HAl%`C(E='7)o]JD,nnm_6dT%hb_:bWhg\nH%g.aeMf@hQsg9E*;N_L2-;KfCXohLohLXLF+m0AZ!,e5piWMe\)dE':af8H[iZYMs]0n/?#.@n]aFcXf_Mq^&(i,-SeI.Im+%PjqLJd5;IsoS"Kp-i!rDT(eH;B<HoBO%$E+GK2Bq[8:"2O;Ne9iGW4jG=GXeW)\-Y2&P[l#n5:n[>/rVk]*e(M?imb'_>\_oK9G8ROT+hqa%^u;Ra.4U`1fP54Sb8b]q6j,-Y/'9F@2![$9&7FU3@Pd[Ze]ET+".GZ&mGCqNDgcMIh^h\iX9bIZV+D_\4tDCba:;!$cG[a0h,bM1hmGpZW-U*(e5<pB,er*KbSga9%j7W(DnollgE0[j6X>*+3h9Pu'&499laBL0Bb7_GSCm3br5KYhK77%Y[5=jh-N1:`OOA?.TE"LuHu0K3K.]p=r";qNS:H=eI)!;#R<*4h6]J2na2RD$olIU"beg2hK#PNb_#"YEWu99/f6:,I#4P^1I<h9=TX`d(nd!9!B)*(MEiBM"uD1noh:__Yr$BoW$+W0HLp:Qkscu=;XWAN`[&X88ToR"PD.VlJK0AD>sr(iP"?3"1fU47Vq7&10DgLg9#1L9rnl\gj3@1'K"DJ#iLfFS)0p2<br`!pgoa<-<%G1C!oIj&=PM?TkcYb_7Km9&;rIq:?>32'>pd0\b%Ecb=k)[%$I/bS9^sf`Lh^.kSPk/nr*Tb$4k3Z,?sODMh9%uh1&daV',^HN9fk(Rn#>+$Qr@Q*9;c'85a:bE4e"l@\qMCnhenb>"MB6&k%fDA_-i50\PZVCJtTV??gN]I%&mi%DW]e(q43G84X:h_o9C6<]#,CIK)l^9I!@s"DB>lRJNfZd=Tt=q)SlL$e2=(qH&?L)bE=)Z0l3B`*2kbdc@WSNq[O@0Y@9KS^s=7G=fQ#+5^^dhTYLX*mJ"qmR!!6H=?>uV+VGb$=LWX&I:L#qXW2r"j<ffC=LL54/gug$iuthSA-#!q@E6Y)J=VFaq/+eMg]E.ZNub[r/OMt-A/-E3B/Jr2S(6#,dCI]Q4<u*B,BkBNulA<CCQ_MQf2^1@?S(ESd,)gcuJFOOjCT78&\oEbX6k\j#nZ26QHP.OjO[,KK9Rs+X^!B=V0r\*?2Ig%r7&P$BZ^#1/p+\R!;)F)@p'r`jI+qKpHVoZjk1,Po5u@YP/9/r:CGoh_%2p9gNR%#*dRpAWa!.PS@31/-rU<=C;q[9<V+5&@3QoJ?cPIHd!XDFM_?S=P.^aW#??U<*f\0Zf*D;<lDb$XX=@'15l_t1CUmD#1Y)KjkVQ"E[;+$:W&iB%6n)ej[VdEVF)WpC%^>qPJ5=P;@C^A4O,bBTR4;4='@8k.\5h-.VncGYfDH/60&kTDBG!_;!if5Vu@;MB0iU:Z%d8m+g<Ks37K+cA@E]F#81E?<M]F\PZP2cADBNB<TJ@=f-Eg"-q@5CLh@D1!pl[P;AJF"0db5J`.?YE>>=c7!n75/&N6rLiAA%Dk2:NgJru9$6dujdR@=,9q-I3r,geD6-\1X<5H/bH%$Z4[2*$9nDKq7e"S.2XjW2"GAA<^OZQ#E@57^TI+%+W4cgf=9EImR!C?0NAHY44mP8L?tl`dqX=C/D12nZ+c8.WW;,4urLY]g$hZ@E4&&9Yt6BCR__,g%>/$Jmk3*340#OOYQ-s!OQ+"hYAQjGEkL/$+$q.#-^9-@YX[Y%jShW;=/q'4t.E#rb0k2:u;)j!=#DaXU_V:Cl=03<lLbd5CF+?S65XdiiPL&Ldg;'`(&F9o/cU?iiBS$uD'=#RZP_Nc_?0=70g\:2Z/<Ql&ndRAV<<aCZUmZt04MDNR<`?3`L@lOAb$Fqu8:.G5KmRm.>g!<Si+0Z.X6Xlp`7<5n/Mnd3+HJ^1B7oBQPeF!-MA'McC)6/.8KBU&IZ`@eN]%HQKbTuK-\<Y+&od=tq=;64CinZM29GKZgkrc%MGrGW)O=WaDs]KpOjN(X^Pd1;@%s4%/NE?hi"3]eJW2"0TY:^*IrU?kgk]d!`6$l1QBd&'NM;:;_UpR&mZeJQB6S"_HO/B@t<RE13c?KA.Z%8p3H\"AuZNs^!^"*'m;l*j3aM]aV+p(MaEZXq%j6(c3VAoIf_?q/]M6mn=I)Yb0#e'4I?)BtBSH)7P!&_<@K^9Q*hqqtB#ra.7&%q%*`P@!r<FicMf7@U8mguTYP96:-m\r.a$jU[;Jg7)uFZ$loea0eL+GkDjl3aqRRi%]o`,07#@qI]0,fpghF%:+rG:-e>icXLdtfN-hMmA)glf_uFUSCL#iM``(JA6Pq0\XS*73A8((K,>"0Lj&$cD*E=%&$(eZcYQ(f56OWVLU!D4gTZaG`t+!(hnmFdAEE6%1L'Ga&gnn[9Gg#[WpZ<Vs4)+P'<\P,gpP!/N=uAi4P4#og/Mb>*E5f7lPcb!W:[3:lB")SaI]jE9o\*[fh\mG39`g2"E4`2dm$*WH[_i9;!YsQVhn\XfZ*Nb;48E//gNO)9eT8GjS>;oJXRCm7VE-(*5*@>%'NV-g&R%4cCL.e>BRJ=Z##8:jU:c!2t[W`BFZUWqTb*-:hfs'.q?0[5oqX7Eh#Q_VR7pM'/[WcLXZ9":lJqHr4$>%ZZQS.RaT.dPg4cgIRU-FpfQ&nYtP)=(Ga.t6QlL/p'j)V7o@4o"N.R/Y7Eq0N568A-Eq`DMnk4_R["Z0*l/[?KS'I7.e:X[*`-L=Q9cfLj*aeb53'e6_VaFne^4q'MK[4kff_(@X,m@K5S"aG6^N,)Z3jVf*7WJ+RqD9K_JNEa/23+mJ/%<(R!^4&a,7!]n,<a;lkD@IIipJ>5t:P,k:ILM`ecA^P_VpU2]UOJ-@PC/M[V$qQD,U<;+OD0nYbUB2Ujjo^efSOq7TBAOr;E30FUe\CE]0s'XoHLoK^=SW"=5^B;^ZLj3;"#[ITMOq.aZl&GZ]:']+a7oC,PHc.:g,#bnLR7aP.j7at4)HiM/jInua\B"\&0X%.c>#U^NbVB3aI:5Za[RrX.P0_7FEqLL5II[eP^6Tu2p.5L>R2:@Z`K'RL9Dj;=S$rGncpB[5Yn/]I"e@+5IQGg344YP9eF?.lR?\bc;=":jJ[;Su@LbXM?Ol3[G;S$Uf7pMr7m0I7%EFjg:S\Z?oAl#b,Q0/G2K01/CAGjO=,.%L?',hQ(Soh:aeD[S<Esgm$\bt@mlS`'6:j)u)$ak'$%dKR&<C=9;<n>YM1*,&P?guOSj`r-f;d+h!/Hl8b>/>"bs"r&';WH]>P]Mc^K`pl1(jY(I""_eV(Z,R#_01P\o,4SF0CtS12kHO6ogC',$^CAtEO$PE_G\!j@t2j\Q)M3`G7\7mGQ%Rp'S+G&WsK4ChsL)2V+;#%;*VjH$%t/;_mT7>k)fQ4H(I*DcET+#l@%;S9/j"O!RC@aE!"?DQ+FM3B!6l1-#t(Qjd@TPHL]"!G$[GtrQl"uh1F$WVGEP+3VmiK05$Qo+r?Cs\qYE,RN#C^CqD[0Wq.b3#23Ru<E&8i3np^-hV.VhTRg@4(']DFJP+;.^aJH^Lk/&'F&4#Xl*<q%".N<saZ&845l/*6il#njDl4).Rk/,F@,BBW%6%fC"Gb/"`bOB&dqQG!@?Yme4"_X>WOPKJ&E9Gl:/>GQE"hTo3'Vmjb(`+1R"9CE``Z@DR5nLoa@E&M^_R:r2BIaMR'"W^S0bZ@ZKU%imS6T.<coAYFZT=5M',&.E&.X&?ul:-lS#kDFL/f89o;/Le@0a*kp8[YA@<@16rqPcZBf8A];=$D@V2=48@9Rc!@1t0in8@Wj;SpQ[Rr&bEikT-9umcp\#s[T5(I^n*,dd"&(L6tXVcC2;87>j'1*VZp3W$qe9W&c!^oab[Ob>_RC!Z&\C<fDA@Z:%T?G53pfBIG6>.]bhl@7[5ghBu?CADHJcbZDZ$1h!maN3tB0LW6>,gbN9@^uW=.l7EIlcg,+`bcR>7,45n>8Q&+>'QN!#!PHMTKiTcnFl]>PTP<a,$-@R1+F770(h65GmpP0I,DG'IcqI@sf5<$8q^)YWm7MZ#jKWPYIBD>FLfI>.s[]7#t@VZJ+d0Um!&P1t4`l\4TR2%J\;]k7UMe25Op48+6Q])Sc;aS*hKX+t2kU<=<KLaSdX;@qpam%Y48=`dGkkKT*4O+GtZq^k1*FF9ka]Gp-^SSCJIlOrm\9-7GK#m=2PqC-"74*FNf2au'EU1:o(R+Rq4q:Nd\=mm*p8B/UPb6@qDoXjm84T9ARS@<k@]@ma3nn!u-S.t\VK"NR7%g!LP.r'@!`6g/#3?>q$<.g!5r+Md,;4=/&u(R&QZ[Uo0gQ8MTnFst?Zd$!$@mkK\HYi=a@SY@V+]gV3^9tJ;=1Z\T/`K\67dQ7>'`hrr&JtX6nWfSpGe,-+j&BRauI9E=tRGKt/X\bqd7lE\UV4Uq)kqhtKJet-!p98lfK]KB*V0UA$_'0f5S8;YlF#DDs_Jg+(In>$hHc5soGC,=!8/_-5_m,k^%I"Yf<Odk`0qJ=JhdN$t[;FA9p)L8tp*-eNP@0pNYIhg,Ur4:"4;B8@(:j.PLKF&'#WkAP0^d,_YW3F8?q2:3Y?p@689K+a"YG!])1f>amhob;Ue/&J$c'peVjm-aiN@OLQ:5D5,#&G*]\S!3Z,J1m\C^O4XO\"Y<Y0Gob<n%2(5:(0j#8!1VW+G4mg*nS9FgPRr8SJ]=q8&Q:kZ[Ji^r"=;Y<4L>_"l^F&]b$3VsTGH_tqe4Sa%\:4Kd=^BIe5g&%us$;M2cl@_t^l&Gp-222@+lcNH%fA!egV,-J]CON2[WenupNL</id&AB@bpTiQN7iSmO\0D>:WJrPX/M^*8^DXf.XJap0(k:<H-f(n_iZ]KFKlQ<B'=AIm.q5GkGVBu((2+:N>p,DY/Zs0([+C$OcYaQVJbYh@@-[`h:ZJX:Te59-c+/CF7Tplm)7c9Q,`PgZ^On?ZZP'N'X(rKLk(Q[R,[hV\r>9?[_7%ecXZbs@V:!flh&+V"/C]?L;;Nl8TshVYp8OQi!CmEAPV'$r/Iu?36E7PXNHB%Mk3J*9fZ'KOcaq*UZU\[BF0I["'Wj%[#(\$>c$;+TB4e(Fg(8KlGNU:aEY#%.6Rj+=p%lf5C']N>Y<i92foLN,e03L@tiIjA)/fL#7"U8?Vt0`n5,TXUIu9PfgC\$?ITIC"3c,@Wj5m"^&[b_&L*PT3cc7!o.=P'K@?QT-=eKUY\Y/'-rA;<E_eJB*hU_hFE[$9d&kg=k:VJ.'P7JjkVkmk3pP?4>:,3nhh98+IH/7:ZOMroT^cG0rM!.XIF]ft,?mJ1jD/Q&>3Kn`l3s`VR$E:!erFeK37SUj9UisBa05A`ONa\aE%!u0j(g+mj(BMO\oaE9iY2cd(jA$[B1_$+oQ;_7]hgOS4kJm,DNf$P*0d-\Ha,uk"*8Un5k(-M3eP9g--X#!TJ;$p<FM:4X@QZ&(@ucm;!QVH*4M#jd+#I),)r*(VDmM'noa_^\YNj>#SFt`*#.T7Mi7Pf$7nRjTOZn)(E-GXg-#"0nAsX$Yp[F?3e_0XZcU;XP;/1Qe`GW+eXW3)'3oSdl+9bMcOUi-$_)UPl#,q7LOee(^KA4%ikPOQn9;%?(NN2UGTd4h7XG,YU&*I<T]>>JD1ME`.+=G8!hJpO.h_f.DXj2a@Q-dm<k8S&WU:"AY=K3lEL0k`#CqL'E](sD3hcLEJfGr37N"gS33?QhPKd@H[@h8,ag,cpXSI@C)V[/-a\m$J3qT4)@J.ZFk<?^DbI<+*1S#.J0s[[`.up*,"ect&-g%LMT_aTkVauS>(a([]3cR913=fOj>^+A:H#.!t*Anc_jrIBG2T^nQHu1>FPO?"rG?o8)CiK;5.nDuT&=:1g3,l4Y?bJBg!<8b:H&T9A^0(lFqnC.[DjH?.->(S-FA4hoXJ+<N.]VNp>JXDb:nT2Z3GZ5Ue8([g@GJrXl,dPnW.8s:<#AX;fGc7IfTEk=+B\\0ob,2@D*=$r>Kn@-aa)US'2b#L_;;G.&u0ImQ/`3CBfO?9<!J*sXS;6.`QL,ie7Z6g@5WVSc.h$,RRlA8A(Ph>r-1jR>d@b$!%Xo6F:A7e9/ZZD;)J7ZQ;0SkH=1fR7trT*lM/ar<Sfj.hV'E,KpoqM@m19rHABu8r:B%NeZhh,Pc.4%BNZ+:DK<=iea9'Egf>@;M$*['2g+:1`Q!Mn-VUEKQ3p5Z3S*N\rCOefLLb77mI0d%b&#n2-3lF5<Za)VfjBMl&-g*!M=SCeBm9?#D7QHK`Q[0,V]L.^Z/]fM>_uYheK8I-h^*']B+=8@?>ha5MqJuJFTg,ro%+QFj6ihhec'`_)uX]JHfo_;1%OKuA9<CH3\u&XgZn3])cj6(0UL6Z7'7;2&`t^LpkT?5R,%*mq/eB#rBc>eC"cq[O`o$l3k)Jrl@l]%j:7*6:O6YcOoA("nY7"s^u)RgNE?J,RPiD)-cT`b#HP1WYRB17`i:15W,BHkr'1;ap)ROkpS!D9M;((!"@B#+E1W+u2q)iuHuh6VV*DIAngYHF'36?V7Y=!+\"\+MXsZtLZOT4*JO:MNM&I!XUgOQ+gp<1nEqm[*T06MBE<Bb>l#:F.ZLYC&5X`HRZNtQa3*+e9h-1/8AtEoJ^7O()?;ttD";!aU1<=4#[J4V&^!a*7Kg]lnPH`*u5??P]DaJ`5m@>P#,gWuljU;Hr``ZC/0V#$?Xa\S4:$#3!@0io_r:PS6Cq>RK5>2DnS%gsh%Kr;R4M@k5ntD-\mV.rVMU=Rh[U`M3nm1rQf0s?rA#nT-0Di1+mcgC0g]V<if]oFT=-:`1IR/SI^DIZEEP/>/p)"P4$ib6"3=l8a&mHWt,d:gu7[r"),UND@bn?WQV<9"%/%!cka)#kJ'Z9[`W[-](FIr@ag,kCpH..QG^F!25Z=LFd0ql<AnD>@]bX,\eCQNrW-tVk7]&2kr+K:p/;FM4YNIft2B.bF#F5]d=jQa!f@h>G4)p9eKk*"^a?qYD-'Q:[gOp=e/Z5Jmf%irQ6T'>]'mVi`ZOZf>i;RtgR5S#Rh"Ja2)#0gq2FB+5V5;"&s5J"KV,Q&p^Z+/N2YcHN5r7RIQ)_lG6_l9r"1aE^6aiLXBj-[RR"_=jZFXft&)ap4/Qipu,R5O*@h:BAT*QbL&f4f8^moDB^\VKXbiDKR+>5[=?02Cm*72HA"d]H=$EoeD&b#g?[X%Tpd"@'?*n=8"1[%0BDXG'ZSTB3=tLD;8q/?HJiq'<p,oJ.*Eg-Ge5YYNcWE-Nt-@W"!s4>Op01<#I"Kp']N!L@QnL$;aq+_RZQFIB19aX+nOdBfDqNolCm6L;hQme]1"phs7Q=pO.S%aQ+AJn,*Nq,ag$r^%5uf(9n::ONVkeg1!GBjakl!sCCHC)8VY&C+>A%+`9g1Yh(-!:9XO,mB0(GG=ec0u5Y&qEHO^i&o+Z#tj;Sl*_[RgKEu1S)I?T?iL<ARQ0p1/QSV`Y2ib<cr*?U@&glq0TnJBlHs/uUFp)YB$61UCWiU4>0)aMp_:S67/B*YLNV<jdQ'o9nmaRdXNs,If8U4+ladUk>D0gfYe0ajqiC\QGOrncQK,@m;@?bi?D0Q=]EJ.Qf-Oc+%6(M&0Cc"oq"Yuc8UbJuYT%L-W%1P9HtlG=4fiMjBPhK.SP65tVQElI^Mi6TO4kq2L(IeHA9r=`'pEZ6SjHQdM+H)K,&t!4!]6ba[j.SAc+2u#n=gicBZ9%W1D8Wep;Ym3[#mu7Vj0ZQ*ncp=b=dMB-3V"<,s(G/Y6UE9e?-U"lQ(S0-@\#QEofnUT-0=LqJ5k_rlq?!*9i"Y'i$7RD^h<!)T18q2q`PZ"Ea)HKVZ:XUh<2k_%sdcY)MEL5(#BEaJK&DEj<;E*QZi_(L2`IZjUC"[p%?N8YeH^iQQ-"0#ET9mt,"N->H%d9[C@B`/Iri7-]N%]QHZNMk;JFdS&M[rSNX9_;jhP%3=rbn%#s@Y(TLC,p`bPFNT+&;j22)4*3?21'-pf5sGtim_Y%kQ=<N:)8n!M2<[NQ5b#fu0Gh>jHe7UAe=_d0p-HGGQd3j,LE@65Xuq`beFJ)u!*&Ng>34fhqdSA[br&r!>:7h)<%(ak8C:=EOKhmB,>&&X`(_5k6MZZ%?sXKY;mjBI6_sC+cN\B">MV-1#pN,(jp>:$/SXZH[Mi=7VrgWF#*HKbp)]<\g2%^D#s?*V6&J+XmftaN`i5@pk3NqRT4R$Y@L`tDD`+9e@!n_5ZGDM$Oq18JGGZ.V*FiR55u[q7/3%$D8M`G2lN/A-flLXjK-GPce1?*9ae[<XA#W@J_1$]JIroPl_-W`U$7/tD]eEZ4T%DM.PbcOo(ituJ\*kYu3!GpD+al$/rl_\k_*TWG:C/,P'9I'q<u6G)WM6j;)kGC_[R'`![jVLolBcms$'U#Qo&(2Gk>;gnMH%SjlgL,U2[ghJX@j%"fZbgjoL5)&$eUD8N0DX_(,-`RK!fXc\;'!\<%bbO%<Z2gR6GS5LsjbE85Q0Hg_qFZ=8:DUJ!q/-++k?nSrE<'3X9[CiP*c*<K8SsJj>/uMk4o`Y<rc,2tBpi]gYmh]pj[Z^jPJ5:telBSI2o3[PU(rZ_O`'f_u`prj&bZ\$[8f/dODnDcVdJr[>c(i@m*o<TZ+\;@3Wfn/naB.X&l56,Yj)f\+XJ>+6%=N,8+V3o%^Q=VH*^ZX]tnNOS)&G-`4^7;?%iJOTabo1[XdYl*:i_:a0^H/B=@iO2OA-4ue@b!0i=KVfqV1q1Lej`jr,Kd-^PUh*cJ4YQk3M!`T:/mg,X=/GcKSW=JAl2JnKePPu]j2R-uObM_O]f8/:Fpli.qrpU*+H;8!W*TL3q:8<,#?.>&F@_9iK9F2[pr_5'BX0*u0rt-!"0/rOPlSC\6QCBDll>7KB:s&sAM[j?<J(X)\R_?RFa&g.Q!=O/F)[\$HeQ>GYf4)_NX=W0%oaisd,Fe>/<g^2%pk0e*L7lrpFfuk!O=VC!02]C_H(b>,DkoEb)2`tYloai7k.iB4LRLsLCI\;]-\9`8(M^P1I0m0!1E6.i5ui!:JqVAle,L,mo9r,BCA58%,/q[3YMN$\_-UKdn>s^!UGh6#HWD:g:fM^U0[urct'T7o#F?DAcV(qQbi6p%YW=gd.LVQ.k!JH;@%^%&BNa@o#/lXd9!%9gu^O`h=CrVX!5!Wj-n.#+$,`0oiTmB?YU2TV4uq,J_G\('J-bWa@@4WX$ZkH=A<c//61PFF`<RiL\ap.eJru:iEdgiNdWYEqDpnZb8#qUKkj]gi>c0;jofoif**1<F@KVC.CN=lHh@er7KC'9+bRQjNQH][h,Z^s0Ki#S,Tf>G9V<R\pce^c!2$X6a-jVT@O-<;"1HkQqH(]o`nD@.E[d=@_D@D[HD#SX8.L2=a-^29=HgO<bp3NIc7.da.#4V"Ps>1;/Lj<p@&5Ge7b`.,W2BB1"N5dVh##]sZN^+\lD8/TcD-mBij)7@`&>Y.%X<E^+-ZXtFAns#4@+Sj9Vqkfo'(Q6Z;I2$i4Qa[94S[$N1l?A8d4RjcV:`+SO9SLHtVE]*q!Q8l7lYh$9r94!src\R4,5C3T'tme+&dG^&1lB6V.8/ajm6O)ZXYSOg'P!=/l+I_*N\mO[Up(Eu'He2>D./"5oLkSYA9eZZ^7ajM+0]5%Mk:U)I-34a2s-[+_%t/])=[W+i>@4__Y\3L5)[@jTXEhDW+n99]9*cMoodZ@5emQP)Od3O*nDhd]RGk<]M(Fp?_pNFt7DYZ:T&8SA!DK=fDgS;En"0>!%%Sp/L?Rj!Tr50QNBm*A4aHKmaNlUOGZ2#[8'B^ZTTc`'eE@8)J2A<AckD&);Tm9c*Hlf;d@P4>QOhJ+Wkg7-ZsV3D4sIGNO$L1bt@2,O^74r;!FdPg1ql>)+l(]DE]B_6F3\(k<K0L*Ajk@oa;g9k4`f::VUgk!dFSFj?P7WrW(ng!M2O4=2+3AI7^YJ6>I=J%N2C*Hf@O[_%l,P#Fl5KB2kUif[.?ZATlF\m7;7iefr@Gf+-SE$&uH3";T6pb+Xl/p9oY8r\1_PjRA?&j"X2"47Ga1a+Lm)a*SG%tbe9>)lk_Z%'aa9I&KWF1l,+[@_ao";nR:Jh&IG`&R-rKu;?,DK>_c;@qOO1%7U9H-AWB(Br#$NY]WGP`NKd]Dt`b8ed'OWjB_NE$j@YQD9^9ge(&VOH.Vh3&!;"p<7_3ECs:0>=08$;:)8,JDi6;Mc;?HEDK!F^FJtKT9t`OZcMuD]9khmTfS/Q@lamT7Ek]'dD>l42o+80r__HHP[$@`@WBo!pP&?'&q!qgrQB^W![T[]$+o".+c44`W=q5E-^4QSj%.cZ/5U(Mi5mKN;T^RESDr>Q)RUkf<XCA]\[,_U6QXe-Uu2&:h%=,1/+nCYN);_^QATlTT`5#d?bg-'+(mc+l[oaP7P+Z#_\rU[htIP4;=]"<K+'@^e+W]+p39PFGdY%iDV=U!12;c<uOI$B]>cCFZU@sVTCjMh1&eOS_*lM^#heVoAk.oCM!i5Mc]@-4c^NdJoR*,BIAa`*3Y<WVQ+#W3`q7mPT[F88LY%;V0((>YKPLR,eE)Z78!"s'KuIAqdHmHX_ubkp^m!Z%JsOh[u$t/V"''m"X6D-M0A50(qGN\`FaiS&)S+X@pd4T9Qp9ePKI]m(*t6/-!CCL^4aHNH;=/*?IWf48<3U-O2;Zj@YH@`TmDcQ4Qlf2=P$tL1%Sp6r93:lY-DR8Co3cO7/Y-$emZ7^+t1^=IdG+9jH'\d*eY>sD?>M$HJ@/*ra!5e%.eqK5*h?FA0B6-;+-tK9[meiXs,Bt_-6d"Hb?Bn-ZY:P7QGeOe;0=QHEtn07u&YgO]77#S/<Xu$2'_cHlYC3r%\(0S!r\fN'HoZPnaDiguMSo[^oJFG,nIBcR;7\5OA!^=a#Y:?%)<SgBd:^c/Ys@n90jO0i0;Uf<.n?+,!dB8W`*caKR@]JTaXU\KHDo_O#Sm&H&eIHDJ5._M9/PQ#&u@6%9ju"5E\`qok1;s6ugW1D)h-T.>*oEor;rnH2fu6h\17M^7rHZ(]c(<pIS!oDn#c&,[+AMJHZ<S=b:(7\?TlI=tclQ9)u^KWYAuS54#&ZhJ:[dA%lbkWX\c>\B.CW,Q2.0YI2cl!LLr>"P+o53?5c*1Jmm?Lu_\S<9"&$V8<W^!f%$;XeAWre?*^8j@6r19g_Zi)E<<.(-j[e5Br[$8<ni0Vs3m-pFIk+Js^#<#K=[XHgC)c-DlSJk9S5"t=rV?4Y^=N$lKoa0HKe2@%\[V3_>3HYk8>UpU^O;S6So6L!r=alTnY=>(\?iCHMBFhKcAg<b_eJ_8[KBpEr!-K_jdo3m-r5&u9>3C#a&KtpM%$b*KX&@<ZBJ$T/i`=PJ%''WNUQ:$KgABRap0XHQ.OU$FB@H/I;p0XQhm)2@J+1$SDYIO5^h?4h:^OX89WfGqcU=8D3@<Kd&]SC_+kof>*807p.`c!6&4JbNM!B@.rrIEgcI#bgs+:_k=m_4>,WlBG?Y&ZKkF\"81CZ"]!nN\FLLk).pHj(QNX:ac>`Cbf(q1h^tl#+cca)drj5)AX^lY@kt0k'8N45,.P^F=g^:Y&?]QetlOd+"1@omA<+d[hHoPS,+5&JA!JX0[3H3C1ck2t2S"hsRUZHis5"]XB1R*>5>Jbj%&k4>d_/Hj`+SDj`&AT#sR?+tbg4$-=TM[Es*lp=KpW,?uc!$Z!!o#_DPF`f]$<=@f,"+1oBkpCsXp)CX7U\D)FJ2$-:Cc4ps15$`ZihQn'%&,gsIqWH=!Hfh]VojQVNe#&jPhK;n4@$rCCQB\5#<3V/@`!,,d/=eS0og;XH%W8me33=YeT>QCY>]*&QVA0rS!<67djprO;"ol,X(3rPdJFE"<JAT4#!YgDG)!PR9=gYU7$*o$l5KLaJ'c*L^Th9"=IT[Q<aneaI[)2Heas'%[CtTi^LP9'uifq:&i)d"F;,VEAL7*F6G)e5KEa#R`GUAV:SV-2CqdX]Sr,&e6HPDgXIa/3WYl1s*s/+sZLj15$mG(G:B6!s@?+MH7<--f[#^f*Kbc1Pfe.R<R#YQ)+&cB8l8pBpnTkn&9e8##?CW1[mk5@lD?@Psu2(quTj=.ZH:)pQ0p8X233fg9W^:Rig%/qX%G[<6Bf%k+YbM1Z;=9HO%X@:kV-aj*rQLfGI?;]p=r/D9rY"6Q.+b.alD@XRm($A[,](V3?\gR'?))OUZS`ZE@q>XfgUHr.m;4EG;Bsbc\qCFs,bCha=>'1JF?4F(%l_7&jW%hV7M<:eATY>jF@33"#8'1RFj33gR%N5>]]rcoBjF2OJ^8NeM$8RW$+Zb1H74B<CppaA7*&0$i%6ZAUBJNE`>[Hrc.Rs2gD&g\<(=EP`)qR=.!`noYdn7apAhUK/&c6g&a_A.a!`gGWattO2e_e^M8DKZ]Q[5qb6[0]9;r.D=YrroD'C')),#H%a8RQk7%3lhb<m<IooQ<*;fC%9.T;8POJ5X&uO4lO.WBH>F-cG1k&MHZ4USa^^];P9C<L?0!O?H56Mod[n!QDoA:JkgA;P^R=Pi0u+!&souCSao)"HX8^T6s^DD4-A4!L*T,l]\Ti_<_1Z;hYUF,Ml%?Wk>%fTD,eRAc;W`MjNo%DeN$NQ!0-i2JK.]pmk[pN"lB@JZ<l=cn-T\n.5\-K3_n!d/[9lP2n\(#"gd*O;:*>*Hb!9$`J!%N5<hQkX$'7_gD@sU^>UU@;oS@`A3qf@NCB0XuS<o#@3'FJ&N!aVX0,ic0o>AqFh<4\80n=c\g?>a5suY9O]QY0crt=GEes\AMc$bC$\KIlE0BK.49YKboVLM4YYXGF-AH[6ZEqu)%TD%RO$uM1?2GiBB_%irbL$&NnA>\*Lj9&HHVfI</^P6pe7"OhW>?DSIGsDA;![@M8_;ko5ORB>U`)^,S@(C&-aDS#AerOP_XLe->S'$9;jOr>?b#2^Zg=BH1fkm7#pfO4hDr1I<kM&*J7X*AjH_e;[#fZIiUJQGI^cRQjT8d7"6#hZ:f!i6GA6&78K(uD^$%!OFm?#n&8&ihH`V5j\Bu(*hf[k&AH(I]0amdlP&a)\m5MBQcX1$BojQ/G,k0V4kp1_GOS&\)?F(Ef=/3h,"0C/-DRCS;>N(X8_BBQg"``'EXeNm7;T5[-f;!rg:#po,$o8g9<UkC=I"(s=ftuDA]E4F[R&Rl>P_3UmOtH>>a*H,:6>cE@r1@lr;4/"rSs5n/3GG@X%/K&HT3@t"cJN,]C_]68MQYHNFQelNC4!>imXa@^rVsF]P&kN!>ISqhHQT(rV2?_bP.\l"GU2V6H)%(UGY5QrEL3(ObED.Zb.ffm+-p<j9m6-kfBp3e_%/Xp#!'e65%U%+bS^>%7r!%FK-pJkAN2VG,pA>XX;_Q>#;b,h0J3%\XOWWNHrG2M@05r_Ef&SZ`7I]pFbR4j<T3kkj%\@D)2A)glaLAmc@"0m>UlT89s+o%CsT>bS9aPlkQTV^b]:)4Gae<dn6t(GXB/=_@&eWR=<9\O.7#4CPK`.1FUK^2V6Zt^et7UP*A8F\!!u0&kt0)-27Zb>GnW[o^Z?'g`JdOKrYCW%(M;AX;Bt(,/)%53X\;)3?Qp<nsM<6\.++q#ZJbC\B893DeoLn@$@0H6lFb3%,ruSHk/b4:3hbIro%d!`LBSj.:e.p;4#JG(cDSqChsOr5&sr)Q&ViSaW+c!7iEf3roGOlboTb!dcsn3me"31Atdi1D,OOdX?Hn:R[#KQTZ8ka%-)j.lP%JbH2O\AE->2[NmP$^!+EQK@Fu/ZB#QQQq05%l[2efC3nRmblYF*/<o:;<*H)'[GKd:+f@2!O<1!^G)>07(2'X2,10A>f[%]rT!K3_ZTJjhSb6SHZrF2tI`#l4em\GiFKdQ-%lfnh@AfC0U\YT?pqiiLcNaB7%nqi>Up*<Yj4c?__ROm1<5_sV:EIL^iZ<:H7q=WjNb0g38*"'Dj?tt:[M=@.7.cd$j=mfVn)S]lY`\9OQ%MrkieHaT$nI=Z<BIRnlRZ$%^>[kMF=*7mkj9l7(^&#%?0ZenA_W"YK]'`i6XUqu,1J$1-;'#I=#!!9mREdcE?c=t.go++TkW2'_lm<EH%Ik),T-]k)d%\>7fZj.2T.fX73:g3u>3:_1X97X6?a;cR0)(;9a90LQF.2lBR98Y2[%:NumC?SV9n!B,[sYd(l97V[_oN?J-HP,t6O#9ObkmTLm'E8hQXrhm^TF`j(-R5E4[7a%7&Y&o-(+`^iM2->6`8SHdNf^f=P)9;i.N>jdD=ZtLrUk_MIo!:5,gEAC@3I[MV@hTs(g,TGA/X.\nt'g[4<HI%#]"J54S]h130;+eGh3tK>@F*$3$-u-qWqhVke;Z!.RkTH0gtl:J#4r$C(+UjZ;D7WZgnNEW\UK\+hCZ_oQ875+&fpg]`#)m9P;:\=Oimhb#tcg+ilr*cU.QVNCIES/8'jql94Hc8V,gQh*q9=WI($12[n%mNhjPlY/8;M"q-:ZIQ/PX$H8;4AKg44CL$I8Jbjq/U_FT4CBLR#X_X:T.\^l=g;dU)T"),Bp.(r+SYuemcA7V%`Z!(r_;'qqC8S;jdjSkn<L^Qi0sro;[$4_pu]QkfM9KJ'#-L4"2SQ8`eu68,RslnEJ&.3e71tCLukh$WNFK:FkmLgh:^iqJQR3u]a;euk44r5qKbiBif.OP5#%6hHP!1t!;-P+kZ8'+7X-8D?C:qr-Q6rCr!pQFFu.!X.)'0q!2jX#H(_k9asDP_3[(WP+EpWM!5k6g,G]m(!<)$;2bIkUKUNdCXOk^kU0Y5JEc]geqrrYIM7ZN6;B?[H+J"a/1iSOLW+CNsa!qo3Mp)'U=EM)KF#Sn^r>)(-q)#u*K3o[/*G:n_(&&-u7R$aWG_04-s(eY)j/)0'X:?N?K+1ihM\QA'm+&t/g*poR/1RY`R#u+jHeN(#Um`U:+&)ura6;bPN`!aU0Gnd;2'-&[,Cj(_#WFK#in/c.,<qaejF'=VE$/Qe;-A\n,iu$?Z.eVAbt)QlO+j/;rZP#&QbFm"U5,i?r3Ab+aP(>D#[^f9/!o*;UeN$+T?<Ae<5hdkL'J<el/dobh,MWR]Vbr0CSR@70oX+;4a9]Fbd3&X([%(,:=uESHJCh![^[iOGDJ.':'p+(fq0-n#,+:%7'f:jjW(b)\D8j<KqbB7q=S'Xdf?"<s2<!d`54bh1QDX9%c"g\5,8oD"UoY1HDg6S7``I!="XV>6bs$YTRe+S1gfVa'YO,s%51E-l(4NB?`2B(K3Dtc.>8.Bq^UY].Zbq7r#%hD*]h*$lt6W@V^Aq=;slq6HkS:riq86\3*VO\a]:9*,kFsB8b&`$0#c7qR$=8.:kjqjK#.N`-lptUmZfHl'XO,e3E?a"4T&/[Bu[E/_(ig[2A]1WPKqk$+tUe9/sF+(H0QM@6#RbCr#eW0gFAaF1IZFFs7b7%Ut<G*"0!T[>:[t:bd%k!)PukPMD;J6in[Vt2.@Mf;rV2A%3chVn)W]b[g5B1;2qlpe1CmPr[X?8XOgHQlbS4^ja*#sKWt4NT_P&:AL3^>o;igr$S)F\V:WS2j\U?(XI$ZDf5$7k@Fbi9FA)]?<1S4sCs(M%:t0qPTctcBk>6\<LE!/p)BV:"1OY=t,76H/_]Q\_TAm+'b*f+6Uk+=L<SnuF0XANpHXknJUapp('s^SYSPs7%LnbRC^M"mCqbUP,=ejaUOok'eB9.4smG]k6@]Z>'_mA^4=V]C3:inD4;$ok@0Bl6ubaAPT$NN1*9)DEI\0?Ih=1WECTddLkD?D_aA&Ff6ITpc7@KMe_TlU7#,]8c?;Xu3;)/JeLIP%#\j2H6K@BRWA%8P2Vi>S3e)T7]WMG7\qBR@;#2'dGJ.!U6E*<"NU-8a38L60iY4qU%.IRL)I8O,[%6pXNqU+]"8/-*`)M3KLV';A6H-Ve;=RUQPTOFR/r]iGf)FQG@cQIiZu)p%nSs$>pI-YFS`U;jb,:X47dBKY7a3tUh^0Zbk>&Vl8[74$Alk[C"CEmdXr8U))eHZd>Y>'d/F3!:ihM-shXm#8g?Qq;MUNk\D[B57E\_JG/lT-D9sR^[a#`D8'V0/.V\[9ASfH\)JZp_P=cb1k2=Qn"FT_3B4'cHO-cQf_o4G+.,*`f58G8KVL6ReG1$)-CE%K18/kMM?W;b!EH.l0:;#+TN6tWC:7gpAnjJX5d'C4;n,N8au/"iM#!^`OMVJ)%4;ViuhAQlkQBIPOtb?>uNP4-d.Z%3;9GdF-50!)_8!Wf'VI+iKo>Xj)iGdp.N4r7d'.bYC<&FXZOr1E<U1G:n?_MjBn5Ci<-[U7PXTpAOoagp+MdB/nF,LrXf4)*n`U2kWH?p8#uqDdcOot)sWK9)+YL?H@F/O*)f9m0J%F3HPC^R'('37:$cPNFE:#B@Q(88,)5p^Q<mfXKrPk_@1o7TCq'TLk=^VNhrKj$A3YRT(Jq26dW//_(^1$TkKd\g]J=#rKJE`.mk*C=i+KsaoO*?$nsqJcK'j=6><TU$pm2g2ZMS"KD_()RFa="kQi!?OAd[2,B4.iO[6G`>7o=+9IOF*EOL::%o'iCM$7H_fo?>_t+BU;XZUps,NEDJ1U7.95`gBN6&F3UoW]262GL35>raW>r\4/PfRqNOafN;/>mSC@"O59bdfTd;TdSG05\;\$GliQVgjOLV4]1<G#i$,fDB,"i8,5?n.[nm[@Ab1c_&3nnc&&F[A<jYF.PI"Ao,m&@^lL/]<*0-$0<pOEQT:aLd>s=u<66uPMNIFbE9X?r>0`j.i%cl]!AdTfXS0.u,oW_jH'tA='L3r'HmRCDrm0jtIXZc`H@8lU^EnOCem[#*qRe9nr/o*oULIbj#d@GIjA+UC(^>$Km9nji1T(^/3)q?V(k\%]OO/;P6.*"`j"R,llMAmlCA)QOLRg+=%idEfeKddC`4o<ncN_9h\:n]=g;ZGp^Q*I+LYA/(sMsJr3Fi%Dk3GQ!!2rRc=+1ar+iDD0BTkcCRI;8l44>&DWH7K_J[3/sc&Q+OE3XJ'a0SJS%;e]i<NX6R`kYJ`9:B1?p?SP^a]=],n)),{[0]=1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576,2097152,4194304,8388608,16777216,33554432,67108864,134217728,268435456,536870912,1073741824,2147483648,4294967296},0;local R=#j;local E=function()i=i+1;return c(j,i,i);end;local c=0;for G=1,5 do c=c*256+E();end;local G=0xFFFFFFFF;local function n(j)local H=0;for T=j,1,-1.0 do G=G/2;G=G-G%1;H=H*2;if not(c<G)then c=c-G;H=H+1;end;if G<=0x00FFFFFF then G=G*256;c=c*256+E();end;end;return H;end;local function j(H,T)local g,U,o=H[T],G/2048;U=U-U%1;local d=U*g;if c<d then G=d;local U=(2048-g)/32;U=U-U%1;g=g+U;o=0;else G=G-d;c=c-d;local U=g/32;U=U-U%1;g=g-U;o=1;end;H[T]=g;if G<=0x00FFFFFF then G=G*256;c=c*256+E();end;return o;end;local function c(E,G,H)local T=1;for g=1,G do T=T*2+j(E,T);end;return(T-H);end;local function E(G,H,T)local g,U=0,1;for o=0,T-1 do local T=j(G,H+U);U=U*2+T;g=g+T*P[o];end;return g;end;local function G(H,T)local g=1;for U=7,0,-1.0 do local o=(T/P[U])%2;o=o-o%1;local T=j(H,g+(o*256)+256);g=g*2+T;if o~=T then while g<0x100 do g=g*2+j(H,g);end;break;end;end;return(g%256);end;local function H(T,g)if j(T,1)==0 then return c(T[3][g],3,8);elseif j(T,2)==0 then return 8+c(T[4][g],3,8);end;return c(T[5],8,256)+16.0;end;local T,g,U,o=0,{[0]=0},0,{[0]=0,0,0,0,1,2,3,4,5,6,4,5};local function d(x)local Y={};for X=0,x-1 do Y[X]=1024.0;end;return Y;end;local function x(Y,X)local Z={};for M=0,Y-1 do local Y={};Z[M]=Y;for M=0,X-1 do Y[M]=1024.0;end;end;return Z;end;local function Y()return{1024.0,1024.0,x(1,8),x(1,8),d(256)};end;local function X()local Z,M,C,I,w,s,k,N,W,V,Q,F,S,a,y,B=x(8,0x300),x(12,1),d(12),d(12),d(12),d(12),x(12,1),x(4,64),d(115.0),d(16),Y(),Y(),0,0,0,0;while i<=R do local R=(T%1);if j(M[U],R)==0 then local i=g[T];local d=i/P[5.0];d=d-d%1;local i=Z[d];T=T+1;g[T]=U<7 and c(i,8,256)or G(i,g[T-S-1]);U=o[U];else local G;if j(C,U)~=0 then if j(I,U)==0 then if j(k[U],R)==0 then U=U<7 and 9 or 11;G=1;end;else local i;if j(w,U)==0 then i=a;else if j(s,U)==0 then i=y;else i=B;B=y;end;y=a;end;a=S;S=i;end;if not G then U=U<7 and 8 or 11;G=2+H(F,R);end;else B=y;y=a;a=S;G=2+H(Q,R);local R=G-2;if 4<=R then R=3.0;end;S=c(N[R],6,64);if S>=4 then local c=S;local R=c/2-1;R=R-R%1;S=(2+c%2)*P[R];if c<14 then S=S+E(W,S-c,R);else S=S+(n(R-4)*16)+E(V,0,4);if S==0xFFFFFFFF then return G==2;end;end;end;U=U<7 and 7 or 10;if S>=T then return false;end;end;local c=T+G;for R=T+1,c do g[R]=g[R-S-1];end;T=c;end;end;return false;end;X();p(q,u({},{__tostring=function()g=nil;end}),nil,nil);local c,R="",#g;for E=1,R,7997 do local u=E+7996.0;if u>R then u=R;end;c=c..O(A(g,E,u));end;local R,O=p(q,c,"Luraph"..v(" ",2),nil);f(R and O and D(O)=='function',"Luraph decompression error: "..h(O).." (does your environment support load/loadstring?)");return O;end)()(...);
+		--[[
+			Popup
+		]]
+
+		local popup: Frame = Instance.new('Frame', window)
+		popup.AnchorPoint = Vector2.new(0.5, 0.5)
+		popup.Name = 'popup'
+		popup.ZIndex = 5
+		popup.Visible = false
+		popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+		popup.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		popup.Size = UDim2.new(0.949999988, 0, 0.9, 0)
+		popup.BorderSizePixel = 0
+		popup.BackgroundColor3 = Color3.fromRGB(33, 32, 33)
+
+		local closebut = addCloseButton(popup)
+		closebut.ZIndex = 6
+		closebut.MouseButton1Click:Connect(function()
+			popup.Visible = false
+		end)
+
+		addCorner(popup)
+
+		local UIStroke: UIStroke = Instance.new('UIStroke', popup)
+		UIStroke.Color = Color3.fromRGB(42, 40, 42)
+		UIStroke.Thickness = 2
+
+		local info: TextLabel = Instance.new('TextLabel', popup);
+		info.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+		info.TextColor3 = Color3.fromRGB(220, 220, 220);
+		info.Text = 'Unknown';
+		info.Name = 'info';
+		info.ZIndex = 5
+		info.TextXAlignment = Enum.TextXAlignment.Left;
+		info.BackgroundTransparency = 1;
+		info.TextTruncate = Enum.TextTruncate.SplitWord;
+		info.Position = UDim2.new(0, 13, 0, 16);
+		info.TextYAlignment = Enum.TextYAlignment.Top;
+		info.TextSize = 15;
+		info.Size = UDim2.new(1, -520, 0, 20);
+
+		local user: TextLabel = Instance.new('TextLabel', info);
+		user.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		user.TextColor3 = Color3.fromRGB(220, 220, 220);
+		user.TextTransparency = 0.7;
+		user.ZIndex = 5
+		user.Text = 'By unknown';
+		user.Name = 'user';
+		user.BackgroundTransparency = 1;
+		user.TextXAlignment = Enum.TextXAlignment.Left;
+		user.Position = UDim2.new(0, 0, 0, 25);
+		user.TextYAlignment = Enum.TextYAlignment.Top;
+		user.TextSize = 12;
+		user.Size = UDim2.new(0, 50, 0, 20);
+
+
+		local description: TextLabel = Instance.new('TextLabel', popup);
+		description.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+		description.TextColor3 = Color3.fromRGB(220, 220, 220);
+		description.Text = 'Details';
+		description.ZIndex = 5
+		description.RichText = true
+		description.Name = 'description';
+		description.TextXAlignment = Enum.TextXAlignment.Left;
+		description.BackgroundTransparency = 1;
+		description.TextTruncate = Enum.TextTruncate.SplitWord;
+		description.Position = UDim2.new(0, 180, 0, 16);
+		description.TextYAlignment = Enum.TextYAlignment.Top;
+		description.TextSize = 14;
+		description.Size = UDim2.new(1, -200, 0.222, 20);
+
+
+		local downloads: Frame = Instance.new('Frame', popup);
+		downloads.Name = 'downloads';
+		downloads.ZIndex = 5
+		downloads.Position = UDim2.new(0.269172937, 0, 0.323, 0);
+		downloads.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		downloads.Size = UDim2.new(0, 150, 0, 70);
+		downloads.BorderSizePixel = 0;
+		downloads.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+		addCorner(downloads)
+
+		local userd: TextLabel = Instance.new('TextLabel', downloads);
+		userd.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		userd.TextColor3 = Color3.fromRGB(220, 220, 220);
+		userd.TextTransparency = 0.5;
+		userd.Text = 'Last updated';
+		userd.ZIndex = 5
+		userd.AnchorPoint = Vector2.new(0.5, 0);
+		userd.BackgroundTransparency = 1;
+		userd.Position = UDim2.new(0.5, 0, 0, 38);
+		userd.Name = 'user';
+		userd.TextSize = 11;
+		userd.Size = UDim2.new(0, 100, 0, 20);
+
+
+		local amount: TextLabel = Instance.new('TextLabel', downloads);
+		amount.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		amount.TextColor3 = Color3.fromRGB(220, 220, 220);
+		amount.Text = 'unknown';
+		amount.AnchorPoint = Vector2.new(0.5, 0);
+		amount.BackgroundTransparency = 1;
+		amount.ZIndex = 5
+		amount.Position = UDim2.new(0.5, 0, 0, 12);
+		amount.Name = 'amount';
+		amount.TextSize = 17;
+		amount.Size = UDim2.new(0, 100, 0, 20);
+
+
+		local divide1: Frame = Instance.new('Frame', popup);
+		divide1.Name = 'divide1';
+		divide1.ZIndex = 5
+		divide1.BackgroundTransparency = 0.95;
+		divide1.Position = UDim2.new(0, 165, 0, 0);
+		divide1.Size = UDim2.new(0, 1, 1, 0);
+		divide1.BorderSizePixel = 0;
+		divide1.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local divide2: Frame = Instance.new('Frame', popup);
+		divide2.Name = 'divide2';
+		divide2.ZIndex = 5
+		divide2.BackgroundTransparency = 0.95;
+		divide2.Position = UDim2.new(0, 180, 0, 290);
+		divide2.Size = UDim2.new(0.729172945, 0, 0, 1);
+		divide2.BorderSizePixel = 0;
+		divide2.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local TextButton: TextButton = Instance.new('TextButton', popup);
+		TextButton.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		TextButton.TextColor3 = Color3.fromRGB(255, 255, 255);
+		TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		TextButton.Text = 'Download';
+		TextButton.ZIndex = 5
+		TextButton.Position = UDim2.new(0, 228, 0, 305);
+		TextButton.Size = UDim2.new(0, 426, 0, 30);
+		TextButton.BorderSizePixel = 0;
+		TextButton.TextSize = 12;
+		TextButton.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+		addCorner(TextButton)
+
+		local ImageButton: ImageButton = Instance.new('ImageButton', popup);
+		ImageButton.Image = 'rbxassetid://0';
+		ImageButton.ZIndex = 5
+		ImageButton.Size = UDim2.new(0, 30, 0, 30);
+		ImageButton.Position = UDim2.new(0, 180, 0, 305);
+		ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		ImageButton.BorderSizePixel = 0;
+		ImageButton.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+		addCorner(ImageButton)
+
+		local ImageLabel: ImageButton = Instance.new('ImageButton', ImageButton);
+		ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5);
+		ImageLabel.ZIndex = 5
+		ImageLabel.Image = 'rbxassetid://10747362241';
+		ImageLabel.BackgroundTransparency = 1;
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0);
+		ImageLabel.Size = UDim2.new(0.550000012, 0, 0.55, 0);
+		ImageLabel.BorderSizePixel = 0;
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		--[[
+			Search
+		]]
+
+		local psearchbar = Instance.new("Frame")
+		psearchbar.Name = "Search"
+		psearchbar.Parent = window
+		psearchbar.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+		psearchbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		psearchbar.BorderSizePixel = 0
+		psearchbar.Position = UDim2.new(0.282000005, 0, 0.153999999, 0)
+		psearchbar.Size = UDim2.new(0, 485, 0, 35)
+
+		local uistroke = Instance.new('UIStroke', psearchbar)
+		uistroke.Color = Color3.fromRGB(42, 41, 42)
+
+		addCorner(psearchbar)
+
+		local searchicon = Instance.new("ImageLabel")
+		searchicon.Parent = psearchbar
+		searchicon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		searchicon.BackgroundTransparency = 1.000
+		searchicon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		searchicon.BorderSizePixel = 0
+		searchicon.Position = UDim2.new(0.0189999994, 0, 0.300000012, 0)
+		searchicon.Size = UDim2.new(0, 13, 0, 13)
+		searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+		searchicon.ImageTransparency = 0.700
+
+		local searchbox = Instance.new("TextBox")
+		searchbox.Parent = psearchbar
+		searchbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		searchbox.BackgroundTransparency = 1.000
+		searchbox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		searchbox.BorderSizePixel = 0
+		searchbox.Position = UDim2.new(0.0787525922, 0, 0, 2)
+		searchbox.Size = UDim2.new(0.509247422, 200, 0.899999976, 0)
+		searchbox.Font = Enum.Font.Arial
+		searchbox.PlaceholderColor3 = Color3.fromRGB(94, 94, 94)
+		searchbox.PlaceholderText = "Search Profile / Username"
+		searchbox.Text = ""
+		searchbox.TextColor3 = Color3.fromRGB(171, 171, 171)
+		searchbox.TextSize = 12.000
+		searchbox.TextXAlignment = Enum.TextXAlignment.Left
+
+		searchbox:GetPropertyChangedSignal('Text'):Connect(function()
+			for i, v in configapi do
+				if v and typeof(v) == 'table' and v.instance then
+					v.instance.Visible = false
+					
+					if i:lower():gsub(' ', ''):find(searchbox.Text:lower():gsub(' ', '')) or searchbox.Text == '' then
+						v.instance.Visible = true
+					end
+				end
+			end
+		end)
+
+		--[[
+			confirmation
+		]]
+
+		local uploadconfirmationn: Frame = Instance.new('Frame', window);
+		uploadconfirmationn.AnchorPoint = Vector2.new(0.5, 0.5);
+		uploadconfirmationn.Name = 'uploadconfirmationn';
+		uploadconfirmationn.ZIndex = 8
+		uploadconfirmationn.Position = UDim2.new(0.5, 0, 0.5, 0);
+		uploadconfirmationn.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		uploadconfirmationn.Size = UDim2.new(0, 300, 0, 150);
+		uploadconfirmationn.BorderSizePixel = 0;
+		uploadconfirmationn.BackgroundColor3 = Color3.fromRGB(34, 33, 34);
+
+		local ahhcorner: UICorner = Instance.new('UICorner', uploadconfirmationn);
+		ahhcorner.Name = 'ahhcorner';
+		ahhcorner.CornerRadius = UDim.new(0, 5);
+
+		local publishb: TextButton = Instance.new('TextButton', uploadconfirmationn);
+		publishb.TextWrapped = true;
+		publishb.TextColor3 = Color3.fromRGB(255, 255, 255);
+		publishb.ZIndex = 8
+		publishb.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		publishb.Text = 'Publish "default" config';
+		publishb.Size = UDim2.new(0, 100, 0, 35);
+		publishb.Name = 'publishb';
+		publishb.Position = UDim2.new(0, 20, 0, 95);
+		publishb.BorderSizePixel = 0;
+		publishb.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		publishb.TextSize = 12;
+		publishb.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+		local publishbs: UIStroke = Instance.new('UIStroke', publishb);
+		publishbs.Thickness = 2;
+		publishbs.Name = 'publishbs';
+		publishbs.ZIndex = 8
+		publishbs.Color = Color3.fromRGB(42, 41, 42);
+		publishbs.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+
+		local publishbc: UICorner = Instance.new('UICorner', publishb);
+		publishbc.Name = 'publishbc';
+		publishbc.CornerRadius = UDim.new(0, 5);
+
+		local ahhstrokr: UIStroke = Instance.new('UIStroke', uploadconfirmationn);
+		ahhstrokr.Color = Color3.fromRGB(42, 41, 42);
+		ahhstrokr.Name = 'ahhstrokr';
+		ahhstrokr.Thickness = 2;
+
+		local configcancel: TextButton = Instance.new('TextButton', uploadconfirmationn);
+		configcancel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		configcancel.TextColor3 = Color3.fromRGB(255, 255, 255);
+		configcancel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configcancel.Text = 'Cancel';
+		configcancel.Name = 'configcancel';
+		configcancel.Position = UDim2.new(0, 170, 0, 95);
+		configcancel.ZIndex = 8
+		configcancel.Size = UDim2.new(0, 100, 0, 35);
+		configcancel.BorderSizePixel = 0;
+		configcancel.TextSize = 14;
+		configcancel.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+		local UIStroke: UIStroke = Instance.new('UIStroke', configcancel);
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+		UIStroke.Thickness = 2;
+		UIStroke.Color = Color3.fromRGB(42, 41, 42);
+
+		local UICorner: UICorner = Instance.new('UICorner', configcancel);
+		UICorner.CornerRadius = UDim.new(0, 5);
+
+		local confignbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+		confignbox.CursorPosition = -1;
+		confignbox.ZIndex = 8
+		confignbox.Name = 'confignbox';
+		confignbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+		confignbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		confignbox.Text = '';
+		confignbox.Size = UDim2.new(0, 200, 0, 30);
+		confignbox.TextWrapped = true;
+		confignbox.AnchorPoint = Vector2.new(0.5, 0);
+		confignbox.BorderSizePixel = 0;
+		confignbox.BackgroundTransparency = 1;
+		confignbox.Position = UDim2.new(0.5, -5, 0, 20);
+		confignbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		confignbox.PlaceholderText = 'Config name';
+		confignbox.TextSize = 14;
+		confignbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		local configdbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+		configdbox.CursorPosition = -1;
+		configdbox.Name = 'configdbox';
+		configdbox.ZIndex = 8
+		configdbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+		configdbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configdbox.Text = '';
+		configdbox.Size = UDim2.new(0, 200, 0, 30);
+		configdbox.TextWrapped = true;
+		configdbox.AnchorPoint = Vector2.new(0.5, 0);
+		configdbox.BorderSizePixel = 0;
+		configdbox.BackgroundTransparency = 1;
+		configdbox.Position = UDim2.new(0.5, -5, 0, 50);
+		configdbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		configdbox.PlaceholderText = 'Config description';
+		configdbox.TextSize = 14;
+		configdbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		--[[
+			select config
+		]]
+
+		local configdatas: Frame = Instance.new('Frame', profilemaker);
+		configdatas.Name = 'configdatas';
+		configdatas.Position = UDim2.new(0.095808387, 0, 0.8, 0);
+		configdatas.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configdatas.Size = UDim2.new(0, 151, 0, 248);
+		configdatas.BorderSizePixel = 0;
+		configdatas.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+		addCorner(configdatas)
+
+		local configstorage: ScrollingFrame = Instance.new('ScrollingFrame', configdatas);
+		configstorage.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200);
+		configstorage.Active = true;
+		configstorage.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configstorage.ScrollBarThickness = 2;
+		configstorage.Name = 'configstorage';
+		configstorage.BackgroundTransparency = 1;
+		configstorage.Position = UDim2.new(0, 0, 0.072, 0);
+		configstorage.Size = UDim2.new(0, 151, 0, 230);
+		configstorage.ClipsDescendants = false;
+		configstorage.BorderSizePixel = 0;
+		configstorage.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local cfglayotu: UIListLayout = Instance.new('UIListLayout', configstorage);
+		cfglayotu.SortOrder = Enum.SortOrder.LayoutOrder;
+		cfglayotu.HorizontalAlignment = Enum.HorizontalAlignment.Center;
+		cfglayotu.Padding = UDim.new(0, 10);
+
+		local SelectedConfig = 'default'
+
+		addCorner(configstorage)
+
+		--[[
+			children
+		]]
+
+		local children = Instance.new("ScrollingFrame")
+		children.Parent = window
+		children.BackgroundTransparency = 1.000
+		children.BorderSizePixel = 0
+		children.Position = UDim2.new(0.282000035, 0, 0, 153)
+		children.Size = UDim2.new(0, 500, 0, 236)
+		children.CanvasSize = UDim2.new(0, 0, 0, 471)
+		children.ScrollBarThickness = 2
+
+		local function Refresh(newconfigs)
+			for i,v in configstorage:GetChildren() do
+				if v.ClassName ~= 'UIListLayout' then
+					v:Destroy()
+				end
+			end
+
+			for i,v in children:GetChildren() do
+				if v:IsA('TextButton') then
+					v:Destroy()
+				end
+			end
+			
+			local awesome = {}
+
+			for i, v in mainapi.Profiles do
+				local configlabel: TextLabel = Instance.new('TextButton', configstorage);
+				configlabel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				configlabel.TextColor3 = Color3.fromRGB(255, 255, 255);
+				configlabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+				configlabel.Text = v.Name;
+				configlabel.BackgroundTransparency = 1;
+				configlabel.Name = v.Name;
+				configlabel.Size = UDim2.new(0.899999976, 0, 0, 20);
+				configlabel.BorderSizePixel = 0;
+				configlabel.TextSize = 13;
+				configlabel.BackgroundColor3 = Color3.fromRGB(22, 21, 22);
+
+				local labellayout: UIStroke = Instance.new('UIStroke', configlabel);
+				labellayout.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+				labellayout.Name = 'labellayout';
+				labellayout.Enabled = v.Name == SelectedConfig
+				labellayout.Color = Color3.fromRGB(255, 255, 255);
+
+				table.insert(awesome, configlabel)
+
+				configlabel.MouseButton1Click:Connect(function()
+					for i2, v2 in awesome do
+						v2.labellayout.Enabled = v2.Name == v.Name
+						publishb.Text = `Publish "{v.Name}" config`
+						SelectedConfig = v.Name
+					end
+				end)
+			end
+		end
+
+		local gridlayout = Instance.new("UIGridLayout")
+		gridlayout.Parent = children
+		gridlayout.SortOrder = Enum.SortOrder.LayoutOrder
+		gridlayout.CellPadding = UDim2.new(0, 9, 0, 5)
+		gridlayout.CellSize = UDim2.new(0, 157, 0, 140)
+		gridlayout.FillDirectionMaxCells = 4
+
+		local function addConfig(name, author, cfginfo)
+			configapi[name] = table.clone(cfginfo)
+
+			local config = Instance.new('TextButton')
+			config.Parent = children
+			config.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			config.LayoutOrder = #children:GetChildren() + 1
+			config.ClipsDescendants = false
+			config.Position = UDim2.new(0.0120000001, 0, 0, 0)
+			config.AutoButtonColor = false
+			config.Text = ''
+
+			configapi[name].instance = config
+
+			local uistroke = Instance.new('UIStroke', config)
+			uistroke.Transparency = 1
+			uistroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			uistroke.Color = color.Light(uipallet.Main, 0.034)
+			uistroke.Thickness = 2
+
+			addCorner(config)
+
+			local label = Instance.new('TextLabel')
+			label.Parent = config
+			label.BackgroundTransparency = 1
+			label.Position = UDim2.new(0, 16, 0, 20)
+			label.Size = UDim2.new(0.753427446, -16, 0.423529416, 20)
+			label.Font = Enum.Font.Arial
+			label.RichText = true
+			label.Text = `{name}\n\n\n<font tr=\"0.7\">@{author}</font>`
+			label.TextColor3 = Color3.new(1, 1, 1)
+			label.TextSize = 13.000
+			label.TextTransparency = 0.300
+			label.TextWrapped = true
+			label.TextXAlignment = Enum.TextXAlignment.Left
+			label.TextYAlignment = Enum.TextYAlignment.Top
+
+			config.MouseButton1Click:Connect(function()
+				local time = (os.time() - cfginfo.edited) / 86400 
+
+				if time < 1 then
+					time = 'Today'
+				else
+					time = math.floor(time)
+				end
+
+				popup.Visible = true
+				amount.Text = `{time ~= 'Today' and time.. ' days' or time}`
+				description.Text = `Details\n\n<font tr=\"0.5\">{cfginfo.description or 'No context'}</font>`
+				info.Text = name
+				user.Text = `By {author}`
+			end)
+
+			config.MouseEnter:Connect(function()
+				tween:Tween(config, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+
+				tweenService:Create(uistroke, uipallet.Tween, {
+					Transparency = 0
+				}):Play()
+			end)
+
+			config.MouseLeave:Connect(function()
+				tween:Tween(config, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+
+				tweenService:Create(uistroke, uipallet.Tween, {
+					Transparency = 1
+				}):Play()
+			end)
+		end
+
+		local function addSorting(name, func, options)
+			local size = options.Size
+			local enabled = options.On
+
+			local newsort = Instance.new('TextButton')
+			newsort.Name = name
+			newsort.Parent = sortframe
+			newsort.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+			newsort.BackgroundTransparency = enabled and 0 or 1
+			newsort.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			newsort.BorderSizePixel = 0
+			newsort.TextTransparency = 1
+			newsort.Size = size
+			
+			local label = Instance.new('TextLabel')
+			label.Parent = newsort
+			label.Name = 'label'
+			label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			label.BackgroundTransparency = 1.000
+			label.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			label.BorderSizePixel = 0
+			label.Size = UDim2.new(1, 0, 1, 0)
+			label.Font = Enum.Font.ArialBold
+			label.TextTransparency = enabled and 0 or 0.85
+			label.Text = name:upper()
+			label.TextColor3 = Color3.fromRGB(255, 255, 255)
+			label.TextSize = 10.000
+			
+			addCorner(newsort, UDim.new(1, 0))
+
+			local api = {
+				SetVisible = function(call)
+					for _, v in configapi.Sorts do
+						v.Window.BackgroundTransparency = 1
+						v.Window.label.TextTransparency = 0.85
+					end
+
+					newsort.BackgroundTransparency = call and 0 or 1
+					label.TextTransparency = call and 0 or 0.85
+				end,
+				ShowPopup = function() end,
+				Window = newsort
+			}
+
+			newsort.MouseButton1Click:Connect(function()
+				api:SetVisible(true)
+				sortfunc = name:lower()
+				local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+				table.sort(configs, sortfuncs[sortfunc])
+
+				Refresh()
+
+				for _, v in configs do
+					addConfig(v.name, v.username, v)
+				end
+			end)
+
+			table.insert(configapi.Sorts, api)
+
+			return api
+		end
+
+		addSorting('newest', nil, {
+			Size = UDim2.new(0, 70, 1, 0),
+			On = true
+		})
+		
+		addSorting('oldest', nil, {
+			Size = UDim2.new(0, 70, 1, 0),
+			On = false
+		})
+
+		TextButton.MouseButton1Click:Connect(function()
+			local lol = configapi[info.Text]
+			if lol then
+				local awesome = `{lol.name} ({lol.username})`
+				local file = game:HttpGet(lol.link)
+				table.insert(mainapi.Profiles, {Name = awesome, Bind = {}})
+				mainapi:Save(awesome)
+				writefile('catrewrite/profiles/'..awesome..mainapi.Place..'.txt', file)
+				mainapi:Load(true, awesome)
+				mainapi:CreateNotification('Vape', `Downloaded "{info.Text}" by {lol.username}`, 5, 'info')
+			else
+				mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+			end
+		end)
+
+		publishb.MouseButton1Click:Connect(function()
+			configapi.ShowPopup(false)
+			local omgreal = SelectedConfig
+			SelectedConfig = 'default'
+
+			if confignbox.Text == '' then
+				mainapi:CreateNotification('Vape', 'No config name provided', 5, 'info')
+				return
+			end
+
+			mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
+
+			if request({
+				Url = 'https://api.catvape.info/configs',
+				Method = 'POST',
+				Headers = {
+					['Content-Type'] = 'application/json'
+				},
+				Body = httpService:JSONEncode({
+					username = getgenv().username,
+					password = getgenv().password,
+					config_name = confignbox.Text,
+					config = readfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt'),
+					description = configdbox.Text
+				})
+			}).Body == '"Success"' then
+				mainapi:CreateNotification('Vape', `Published "{omgreal}" config`, 15, 'info')
+				task.wait(1)
+				mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
+				task.wait(2)
+				local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+				table.sort(configs, sortfuncs[sortfunc])
+
+				Refresh()
+
+				for _, v in configs do
+					addConfig(v.name, v.username, v)
+				end
+			else
+				mainapi:CreateNotification('Vape', `Failed to publish config`, 15, 'info')
+			end
+		end)
+
+		ImageLabel.MouseButton1Click:Connect(function()
+			mainapi:CreateNotification('Vape', `Deleting "{info.Text}" config`, 10, 'info')
+			
+			local lol = configapi[info.Text]
+
+			if lol then
+				local res = request({
+					Url = 'https://api.catvape.info/configs',
+					Method = 'DELETE',
+					Headers = {
+						['Content-Type'] = 'application/json'
+					},
+					Body = httpService:JSONEncode({
+						username = getgenv().username,
+						password = getgenv().password,
+						config = info.Text
+					})
+				}).Body
+
+				if res == '"success"' then
+					mainapi:CreateNotification('Vape', `Deleted ({info.Text}) config from public profiles`, 10, 'info')
+				else
+					mainapi:CreateNotification('Vape', `Failed to delete config ({info.Text})`, 10, 'warning')
+				end
+			else
+				mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+			end
+		end)
+
+		configcancel.MouseButton1Click:Connect(function()
+			configapi.ShowPopup(false)
+		end)
+
+		configapi.ShowPopup = function(call)
+			uploadconfirmationn.Visible = call
+			configdatas.Visible = call
+		end
+
+		configapi.ShowPopup(false)
+
+		profilemaker.MouseButton1Click:Connect(function()
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+			table.sort(configs, sortfuncs[sortfunc])
+
+			Refresh()
+
+			for _, v in configs do
+				addConfig(v.name, v.username, v)
+			end
+			configapi.ShowPopup(true)
+		end)
+
+		updateSignal.Event:Connect(function()
+			for i = 1, 4 do
+				local suc, res = pcall(function()
+					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+				end)
+				
+				if suc and res then
+					for _, v in res do
+						addConfig(v.name, v.username, v)
+					end
+				else
+					task.wait(1)
+				end
+			end
+		end)
+
+		--self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+		window:GetPropertyChangedSignal('Visible'):Connect(function()
+			self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+			--visibleCheck()
+		end)
+		gridlayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, gridlayout.AbsoluteContentSize.Y / scale.Scale)
+		end)
+
+		self.PublicConfigs = configapi
+
+		return configapi
+	end
+
+	function mainapi:CreateNotification(title, text, duration, type, custom, customsize)
+		if mainapi.Loaded and not self.Notifications.Enabled then return end
+		if getgenv().closet then return end
+		task.delay(0, function()		
+			if not text:find('</font>') then
+				text = translateTo(text)
+			end
+			local rescaled = 1
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			local i = #notifications:GetChildren() + 1
+			local notification = Instance.new('ImageLabel')
+			notification.Name = 'Notification'
+			notification.Size = UDim2.fromOffset(math.max(getfontsize(removeTags(text), 14 * rescaled, uipallet.Font).X + 80, 266) * rescaled, 75 * rescaled)
+			notification.Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
+			notification.ZIndex = 5
+			notification.BackgroundTransparency = 1
+			notification.Image = getcustomasset('catrewrite/assets/new/notification.png')
+			notification.ScaleType = Enum.ScaleType.Slice
+			notification.SliceCenter = Rect.new(7, 7, 9, 9)
+			notification.Parent = notifications
+			addBlur(notification, true)
+			local iconshadow = Instance.new('ImageLabel')
+			iconshadow.Name = 'Icon'
+			iconshadow.Size = custom and customsize or UDim2.fromOffset(60 * rescaled, 60 * rescaled)
+			iconshadow.Position = UDim2.fromOffset(-5, -8)
+			iconshadow.ZIndex = 5
+			iconshadow.BackgroundTransparency = 1
+			iconshadow.Image = custom and type or getcustomasset('catrewrite/assets/new/'..(type or 'info')..'.png')
+			iconshadow.ImageColor3 = Color3.new()
+			iconshadow.ImageTransparency = 0.5
+			iconshadow.Parent = notification
+			local icon = iconshadow:Clone()
+			icon.Position = UDim2.fromOffset(-1, -1)
+			icon.ImageColor3 = Color3.new(1, 1, 1)
+			icon.ImageTransparency = 0
+			icon.Parent = iconshadow
+			local titlelabel = Instance.new('TextLabel')
+			titlelabel.Name = 'Title'
+			titlelabel.Size = UDim2.new(1 * rescaled, -56 * rescaled, 0, 20 * rescaled)
+			titlelabel.Position = UDim2.fromOffset(46, 16)
+			titlelabel.ZIndex = 5
+			titlelabel.BackgroundTransparency = 1
+			titlelabel.Text = "<stroke color='#FFFFFF' joins='round' thickness='0.3' transparency='0.5'>"..translateTo(title)..'</stroke>'
+			titlelabel.TextXAlignment = Enum.TextXAlignment.Left
+			titlelabel.TextYAlignment = Enum.TextYAlignment.Top
+			titlelabel.TextColor3 = Color3.fromRGB(209, 209, 209)
+			titlelabel.TextSize = 14 * rescaled
+			titlelabel.RichText = true
+			titlelabel.FontFace = uipallet.FontSemiBold
+			titlelabel.Parent = notification
+			local textshadow = titlelabel:Clone()
+			textshadow.Name = 'Text'
+			textshadow.Position = UDim2.fromOffset(47, 44)
+			textshadow.Text = removeTags(text)
+			textshadow.TextColor3 = Color3.new()
+			textshadow.TextTransparency = 0.5
+			textshadow.RichText = false
+			textshadow.FontFace = uipallet.Font
+			textshadow.Parent = notification
+			local textlabel = textshadow:Clone()
+			textlabel.Position = UDim2.fromOffset(-1, -1)
+			textlabel.Text = text
+			textlabel.TextColor3 = Color3.fromRGB(170, 170, 170)
+			textlabel.TextTransparency = 0
+			textlabel.RichText = true
+			textlabel.Parent = textshadow
+			local progress = Instance.new('Frame')
+			progress.Name = 'Progress'
+			progress.Size = UDim2.new(1 * rescaled, -13 * rescaled, 0, 2 * rescaled)
+			progress.Position = UDim2.new(0, 3, 1, -4)
+			progress.ZIndex = 5
+			progress.BackgroundColor3 =
+				type == 'alert' and Color3.fromRGB(250, 50, 56)
+				or type == 'warning' and Color3.fromRGB(236, 129, 43)
+				or Color3.fromRGB(220, 220, 220)
+			progress.BorderSizePixel = 0
+			progress.Parent = notification
+			if tween.Tween then
+				tween:Tween(notification, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+					AnchorPoint = Vector2.new(1, 0)
+				}, tween.tweenstwo)
+				tween:Tween(progress, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+					Size = UDim2.fromOffset(0, 2)
+				})
+			end
+			task.delay(duration, function()
+				if tween.Tween then
+					tween:Tween(notification, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+						AnchorPoint = Vector2.new(0, 0)
+					}, tween.tweenstwo)
+				end
+				task.wait(0.2)
+				notification:ClearAllChildren()
+				notification:Destroy()
+			end)
+		end)
+	end
+
+	if not getgenv().used_init then
+		while true do end
+	end
+
+	function mainapi:Load(skipgui, profile)
+		if not skipgui then
+			self.GUIColor:SetValue(nil, nil, nil, 4)
+		end
+		if getgenv().assexecutorhurtsmybutt then
+			mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
+		end
+		local guidata = {}
+		local savecheck = true
+
+		if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
+			if assexecutorhurtsmybutt then
+				task.wait(0.1)
+			end
+			guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
+			if not guidata then
+				guidata = {Categories = {}}
+				self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
+				delfile('catrewrite/profiles/'..game.GameId..'.gui.txt')
+				savecheck = false
+			end
+
+			if not skipgui then
+				self.Keybind = guidata.Keybind
+				for i, v in guidata.Categories do
+					local object = self.Categories[i]
+					if not object then continue end
+					if object.Options and v.Options then
+						self:LoadOptions(object, v.Options)
+					end
+					if v.Enabled then
+						object.Button:Toggle()
+					end
+					if v.Pinned then
+						object:Pin()
+					end
+					if v.Expanded and object.Expand then
+						object:Expand()
+					end
+					if v.List and (#object.List > 0 or #v.List > 0) then
+						object.List = v.List or {}
+						object.ListEnabled = v.ListEnabled or {}
+						object:ChangeValue()
+					end
+					if v.Position then
+						object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+					end
+				end
+			end
+		end
+
+		self.Profile = profile or guidata.Profile or 'default'
+		self.Profiles = guidata.Profiles or {{
+			Name = 'default', Bind = {}
+		}}
+		self.Categories.Profiles:ChangeValue()
+		if self.ProfileLabel then
+			self.ProfileLabel.Text = #self.Profile > 10 and self.Profile:sub(1, 10)..'...' or self.Profile
+			self.ProfileLabel.Size = UDim2.fromOffset(getfontsize(self.ProfileLabel.Text, self.ProfileLabel.TextSize, self.ProfileLabel.Font).X + 16, 24)
+		end
+
+		if isfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt') then
+			local savedata = loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+			if not savedata then
+				savedata = {Categories = {}, Modules = {}, Legit = {}}
+				self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
+				delfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+				savecheck = false
+			end
+
+			for i, v in savedata.Categories do
+				if assexecutorhurtsmybutt then
+					task.wait()
+				end
+				local object = self.Categories[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if v.Pinned ~= object.Pinned then
+					object:Pin()
+				end
+				if v.Expanded ~= nil and v.Expanded ~= object.Expanded then
+					object:Expand()
+				end
+				if object.Button and (v.Enabled or false) ~= object.Button.Enabled then
+					object.Button:Toggle()
+				end
+				if v.List and (#object.List > 0 or #v.List > 0) then
+					object.List = v.List or {}
+					object.ListEnabled = v.ListEnabled or {}
+					object:ChangeValue()
+				end
+				object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+			end
+
+			for i, v in savedata.Modules do
+				if assexecutorhurtsmybutt then
+					task.wait()
+				end
+				local object = self.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if v.Enabled ~= object.Enabled then
+					if skipgui then
+						--if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
+					end
+					pcall(function()
+						object:Toggle(true)
+					end)
+				end
+				object:SetBind(v.Bind)
+				object.Object.Bind.Visible = #v.Bind > 0
+			end
+
+			for i, v in savedata.Legit do
+				local object = self.Legit.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if object.Enabled ~= v.Enabled then
+					object:Toggle()
+				end
+				if v.Position and object.Children then
+					object.Children.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+				end
+			end
+
+			self:UpdateTextGUI(true)
+		else
+			self:Save()
+		end
+
+		if self.Downloader then
+			self.Downloader:Destroy()
+			self.Downloader = nil
+		end
+		self.Loaded = savecheck
+		self.Categories.Main.Options.Bind:SetBind(self.Keybind)
+	end
+
+	if setthreadidentity then
+		setthreadidentity(8)
+	end
+
+	task.spawn(function()
+		repeat task.wait() until mainapi.gui ~= nil
+
+		local Buttons = coreGui:WaitForChild('TopBarApp', 9e9):WaitForChild('TopBarApp', 9e9):WaitForChild('UnibarLeftFrame', 9e9):WaitForChild('UnibarMenu', 9e9):WaitForChild('2', 9e9):WaitForChild('3', 9e9)
+		if IsMobile then
+			local button = Instance.new('TextButton')
+			button.Size = UDim2.fromOffset(44, 44)
+			button.Position = UDim2.fromOffset(#Buttons:GetChildren() > 2 and 240 or 200, 12)
+			button.AnchorPoint = Vector2.new(0.5, 0)
+			button.BackgroundColor3 = Color3.fromRGB(18, 18, 21)
+			button.ZIndex = 500
+			button.BackgroundTransparency = 1
+			button.Text = ''
+			button.Visible = true
+			button.Parent = mainapi.gui
+			--makeDraggable(button)
+
+			local image = Instance.new('ImageLabel')
+			image.Size = UDim2.fromOffset(33, 33)
+			image.AnchorPoint = Vector2.new(0.5, 0.5)
+			image.Position = UDim2.fromScale(0.5, 0.5)
+			image.ZIndex = 500
+			image.ImageTransparency = 1
+			image.BackgroundTransparency = 1
+			image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
+			image.Parent = button
+
+			local buttoncorner = Instance.new('UICorner')
+			buttoncorner.Parent = button
+			buttoncorner.CornerRadius = UDim.new(1, 0)
+
+			mainapi.VapeButton = button
+
+			button.MouseButton1Click:Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				for _, v in mainapi.Windows do
+					v.Visible = false
+				end
+				for _, mobileButton in mainapi.Modules do
+					if mobileButton.Bind.Button then
+						mobileButton.Bind.Button.Visible = clickgui.Visible
+					end
+				end
+				clickgui.Visible = not clickgui.Visible
+				tooltip.Visible = false
+				mainapi:BlurCheck()
+			end)
+		end
+	end)
+
+	function mainapi:LoadOptions(object, savedoptions)
+		for i, v in savedoptions do
+			local option = object.Options[i]
+			if not option then continue end
+			option:Load(v)
+		end
+	end
+
+	function mainapi:Remove(obj)
+		local tab = (self.Modules[obj] and self.Modules or self.Legit.Modules[obj] and self.Legit.Modules or self.Categories)
+		if tab and tab[obj] then
+			local newobj = tab[obj]
+			for _, v in {'Object', 'Children', 'Toggle', 'Button'} do
+				local childobj = typeof(newobj[v]) == 'table' and newobj[v].Object or newobj[v]
+				if typeof(childobj) == 'Instance' then
+					childobj:Destroy()
+					childobj:ClearAllChildren()
+				end
+			end
+			loopClean(newobj)
+			tab[obj] = nil
+		end
+	end
+
+	function mainapi:Save(newprofile)
+		if not self.Loaded then return end
+		local guidata = {
+			Categories = {},
+			Profile = newprofile or self.Profile,
+			Profiles = self.Profiles,
+			Keybind = self.Keybind
+		}
+		local savedata = {
+			Modules = {},
+			Categories = {},
+			Legit = {}
+		}
+
+		for i, v in self.Categories do
+			(v.Type ~= 'Category' and i ~= 'Main' and savedata or guidata).Categories[i] = {
+				Enabled = i ~= 'Main' and v.Button.Enabled or nil,
+				Expanded = v.Type ~= 'Overlay' and v.Expanded or nil,
+				Pinned = v.Pinned,
+				Position = {X = v.Object.Position.X.Offset, Y = v.Object.Position.Y.Offset},
+				Options = mainapi:SaveOptions(v, v.Options),
+				List = v.List,
+				ListEnabled = v.ListEnabled
+			}
+		end
+
+		for i, v in self.Modules do
+			savedata.Modules[i] = {
+				Enabled = v.Enabled,
+				Bind = v.Bind.Button and {Mobile = true, X = v.Bind.Button.Position.X.Offset, Y = v.Bind.Button.Position.Y.Offset} or v.Bind,
+				Options = mainapi:SaveOptions(v, true)
+			}
+		end
+
+		for i, v in self.Legit.Modules do
+			savedata.Legit[i] = {
+				Enabled = v.Enabled,
+				Position = v.Children and {X = v.Children.Position.X.Offset, Y = v.Children.Position.Y.Offset} or nil,
+				Options = mainapi:SaveOptions(v, v.Options)
+			}
+		end
+
+		writefile('catrewrite/profiles/'..game.GameId..'.gui.txt', httpService:JSONEncode(guidata))
+		writefile('catrewrite/profiles/'..self.Profile..self.Place..'.txt', httpService:JSONEncode(savedata))
+	end
+
+	function mainapi:SaveOptions(object, savedoptions)
+		if not savedoptions then return end
+		savedoptions = {}
+		for _, v in object.Options do
+			if not v.Save then continue end
+			v:Save(savedoptions)
+		end
+		return savedoptions
+	end
+
+	function mainapi:Uninject()
+		if #shared.vape.Libraries.whitelist.ignores > 0 then
+			mainapi.Save = function() end
+			mainapi.BlurCheck = function() end
+			for _, v in self.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+
+			task.spawn(function()
+				runService.PreRender:Connect(function()
+					mainapi.gui.Enabled = false
+
+					if self.ThreadFix then
+						setthreadidentity(8)
+						runService:SetRobloxGuiFocused(false)
+					end
+				end)
+			end)
+		else
+			mainapi:Save()
+			mainapi.Loaded = nil
+			for _, v in self.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+			for _, v in self.Legit.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+			for _, v in self.Categories do
+				if v.Type == 'Overlay' and v.Button.Enabled then
+					v.Button:Toggle()
+				end
+			end
+			for _, v in mainapi.Connections do
+				pcall(function()
+					v:Disconnect()
+				end)
+			end
+			if mainapi.ThreadFix then
+				setthreadidentity(8)
+				clickgui.Visible = false
+				mainapi:BlurCheck()
+			end
+			mainapi.gui:ClearAllChildren()
+			mainapi.gui:Destroy()
+			table.clear(mainapi.Libraries)
+			loopClean(mainapi)
+			shared.vape = nil
+			shared.vapereload = nil
+			shared.VapeIndependent = nil
+		end
+	end
+
+	gui = Instance.new('ScreenGui')
+	gui.Name = randomString()
+	gui.DisplayOrder = 9999999
+	gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	gui.IgnoreGuiInset = true
+	gui.OnTopOfCoreBlur = true
+	gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
+	gui.ResetOnSpawn = false
+	mainapi.gui = gui
+	scaledgui = Instance.new('Frame')
+	scaledgui.Name = 'ScaledGui'
+	scaledgui.Size = UDim2.fromScale(1, 1)
+	scaledgui.BackgroundTransparency = 1
+	scaledgui.Parent = gui
+	local newScaledGui  = Instance.new('Frame')
+	newScaledGui.Name = 'NEWScaledGui'
+	newScaledGui.Size = UDim2.fromScale(1, 1)
+	newScaledGui.BackgroundTransparency = 1
+	newScaledGui.Parent = gui
+	clickgui = Instance.new('Frame')
+	clickgui.Name = 'ClickGui'
+	clickgui.Size = UDim2.fromScale(1, 1)
+	clickgui.BackgroundTransparency = 1
+	clickgui.Visible = false
+	clickgui.Parent = scaledgui
+	local modal = Instance.new('TextButton')
+	modal.BackgroundTransparency = 1
+	modal.Modal = true
+	modal.Text = ''
+	modal.Parent = clickgui
+	local cursor = Instance.new('ImageLabel')
+	cursor.Size = UDim2.fromOffset(64, 64)
+	cursor.BackgroundTransparency = 1
+	cursor.Visible = false
+	cursor.Image = 'rbxasset://textures/Cursors/KeyboardMouse/ArrowFarCursor.png'
+	cursor.Parent = gui
+	notifications = Instance.new('Folder')
+	notifications.Name = 'Notifications'
+	notifications.Parent = scaledgui
+	tooltip = Instance.new('TextLabel')
+	tooltip.Name = 'Tooltip'
+	tooltip.Position = UDim2.fromScale(-1, -1)
+	tooltip.ZIndex = 5
+	tooltip.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+	tooltip.Visible = false
+	tooltip.Text = ''
+	tooltip.TextColor3 = color.Dark(uipallet.Text, 0.16)
+	tooltip.TextSize = 12
+	tooltip.FontFace = uipallet.Font
+	tooltip.Parent = scaledgui
+	toolblur = addBlur(tooltip)
+	addCorner(tooltip)
+	local toolstrokebkg = Instance.new('Frame')
+	toolstrokebkg.Size = UDim2.new(1, -2, 1, -2)
+	toolstrokebkg.Position = UDim2.fromOffset(1, 1)
+	toolstrokebkg.ZIndex = 6
+	toolstrokebkg.BackgroundTransparency = 1
+	toolstrokebkg.Parent = tooltip
+	local toolstroke = Instance.new('UIStroke')
+	toolstroke.Color = color.Light(uipallet.Main, 0.02)
+	toolstroke.Parent = toolstrokebkg
+	addCorner(toolstrokebkg, UDim.new(0, 4))
+	scale = Instance.new('UIScale')
+	scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+	scale.Parent = scaledgui
+	mainapi.guiscale = scale
+	scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
+	newScale = math.max(gui.AbsoluteSize.X / 1920, 0.68)
+	newScaledGui.Size = UDim2.fromScale(1 / newScale, 1  / newScale)
+
+	mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
+		if mainapi.Scale.Enabled then
+			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+		end
+	end))
+
+	mainapi:Clean(scale:GetPropertyChangedSignal('Scale'):Connect(function()
+		scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
+		for _, v in scaledgui:GetDescendants() do
+			if v:IsA('GuiObject') and v.Visible then
+				v.Visible = false
+				v.Visible = true
+			end
+		end
+	end))
+
+	mainapi:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
+		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+		if clickgui.Visible and inputService.MouseEnabled then
+			repeat
+				local visibleCheck = clickgui.Visible
+				for _, v in mainapi.Windows do
+					visibleCheck = visibleCheck or v.Visible
+				end
+				if not visibleCheck then break end
+
+				cursor.Visible = not inputService.MouseIconEnabled
+				if cursor.Visible then
+					local mouseLocation = inputService:GetMouseLocation()
+					cursor.Position = UDim2.fromOffset(mouseLocation.X - 31, mouseLocation.Y - 32)
+				end
+
+				task.wait()
+			until mainapi.Loaded == nil
+			cursor.Visible = false
+		end
+	end))
+
+	mainapi:CreateGUI()
+	mainapi.Categories.Main:CreateDivider()
+	mainapi:CreateCategory({
+		Name = 'Combat',
+		Icon = getcustomasset('catrewrite/assets/new/combaticon.png'),
+		Size = UDim2.fromOffset(13, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Blatant',
+		Icon = getcustomasset('catrewrite/assets/new/blatanticon.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Render',
+		Icon = getcustomasset('catrewrite/assets/new/rendericon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Utility',
+		Icon = getcustomasset('catrewrite/assets/new/utilityicon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'World',
+		Icon = getcustomasset('catrewrite/assets/new/worldicon.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Inventory',
+		Icon = getcustomasset('catrewrite/assets/new/inventoryicon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Minigames',
+		Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
+		Size = UDim2.fromOffset(19, 12)
+	})
+	mainapi:CreateCategory({
+		Name = 'Legit',
+		Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	if game.GameId == 2619619496 then
+		mainapi:CreateCategory({
+			Name = 'Kits',
+			Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+			Size = UDim2.fromOffset(14, 14)
+		})
+	end
+	mainapi.Categories.Main:CreateDivider('misc')
+
+	--[[
+		Friends
+	]]
+	local friends
+	local friendscolor = {
+		Hue = 1,
+		Sat = 1,
+		Value = 1
+	}
+	local friendssettings = {
+		Name = 'Friends',
+		Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+		Size = UDim2.fromOffset(17, 16),
+		Placeholder = 'Roblox username',
+		Color = Color3.fromRGB(5, 134, 105),
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	}
+	friends = mainapi:CreateCategoryList(friendssettings)
+	friends.Update = Instance.new('BindableEvent')
+	friends.ColorUpdate = Instance.new('BindableEvent')
+	friends:CreateToggle({
+		Name = 'Recolor visuals',
+		Darker = true,
+		Default = true,
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	})
+	friendscolor = friends:CreateColorSlider({
+		Name = 'Friends color',
+		Darker = true,
+		Function = function(hue, sat, val)
+			for _, v in friends.Object.Children:GetChildren() do
+				local dot = v:FindFirstChild('Dot')
+				if dot and dot.BackgroundColor3 ~= color.Light(uipallet.Main, 0.37) then
+					dot.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					dot.Dot.BackgroundColor3 = dot.BackgroundColor3
+				end
+			end
+			friendssettings.Color = Color3.fromHSV(hue, sat, val)
+			friends.ColorUpdate:Fire(hue, sat, val)
+		end
+	})
+	friends:CreateToggle({
+		Name = 'Use friends',
+		Darker = true,
+		Default = true,
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	})
+	mainapi:Clean(friends.Update)
+	mainapi:Clean(friends.ColorUpdate)
+
+	--[[
+		Profiles
+	]]
+	mainapi:CreateCategoryList({
+		Name = 'Profiles',
+		Icon = getcustomasset('catrewrite/assets/new/profilesicon.png'),
+		Size = UDim2.fromOffset(17, 10),
+		Position = UDim2.fromOffset(12, 16),
+		Placeholder = 'Type name',
+		Profiles = true
+	})
+
+	--[[
+		Targets
+	]]
+	local targets
+	targets = mainapi:CreateCategoryList({
+		Name = 'Targets',
+		Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+		Size = UDim2.fromOffset(17, 16),
+		Placeholder = 'Roblox username',
+		Function = function()
+			targets.Update:Fire()
+		end
+	})
+	targets.Update = Instance.new('BindableEvent')
+	mainapi:Clean(targets.Update)
+
+	mainapi:CreateLegit()
+	mainapi:CreateSearch()
+	mainapi:CreateProfileGUI()
+	mainapi.Categories.Main:CreateOverlayBar()
+	mainapi.Categories.Main:CreateSettingsDivider()
+
+	--[[
+		General Settings
+	]]
+
+	local general = mainapi.Categories.Main:CreateSettingsPane({Name = 'General'})
+	mainapi.MultiKeybind = general:CreateToggle({
+		Name = 'Enable Multi-Keybinding',
+		Tooltip = 'Allows multiple keys to be bound to a module (eg. G + H)'
+	})
+
+	general:CreateButton({
+		Name = 'Reset current profile',
+		Function = function()
+		mainapi.Save = function() end
+			if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') then
+				delfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
+			end
+			shared.vapereload = true
+			loadfile("catrewrite/init.lua")({
+				Developer = getgenv().catvapedev
+			})
+		end,
+		Tooltip = 'This will set your profile to the default settings of Vape'
+	})
+	general:CreateButton({
+		Name = 'Self destruct',
+		Function = function()
+			mainapi:Uninject()
+		end,
+		Tooltip = 'Removes vape from the current game'
+	})
+	general:CreateButton({
+		Name = 'Re Inject',
+		Function = function()
+			loadfile('catrewrite/init.lua')({
+				Developer = getgenv().catvapedev
+			})
+		end,
+		Tooltip = 'Reloads vape for debugging purposes'
+	})
+
+	--[[
+		Module Settings
+	]]
+
+	local modules = mainapi.Categories.Main:CreateSettingsPane({Name = 'Modules'})
+	modules:CreateToggle({
+		Name = 'Teams by server',
+		Tooltip = 'Ignore players on your team designated by the server',
+		Default = true,
+		Function = function()
+			if mainapi.Libraries.entity and mainapi.Libraries.entity.Running then
+				mainapi.Libraries.entity.refresh()
+			end
+		end
+	})
+	modules:CreateToggle({
+		Name = 'Use team color',
+		Tooltip = 'Uses the TeamColor property on players for render modules',
+		Default = true,
+		Function = function()
+			if mainapi.Libraries.entity and mainapi.Libraries.entity.Running then
+				mainapi.Libraries.entity.refresh()
+			end
+		end
+	})
+
+	--[[
+		GUI Settings
+	]]
+		
+
+	local guipane = mainapi.Categories.Main:CreateSettingsPane({Name = 'GUI'})
+	mainapi.Blur = guipane:CreateToggle({
+		Name = 'Blur background',
+		Function = function()
+			mainapi:BlurCheck()
+		end,
+		Default = true,
+		Tooltip = 'Blur the background of the GUI'
+	})
+	guipane:CreateToggle({
+		Name = 'GUI bind indicator',
+		Default = true,
+		Tooltip = "Displays a message indicating your GUI upon injecting.\nI.E. 'Press RSHIFT to open GUI'"
+	})
+
+	local Show = isfile('catrewrite/profiles/show.txt') and true or nil
+	if Show == nil then
+		Show = true
+	else
+		Show = readfile('catrewrite/profiles/show.txt') == 'true' and true or false
+	end
+
+	if not Show then
+		mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+	end
+
+	guipane:CreateToggle({
+		Name = 'Show vape button',
+		Default = Show,
+		Function = function(enabled)
+			writefile(`catrewrite/profiles/show.txt`, tostring(enabled))
+			task.spawn(function()
+				repeat task.wait() until mainapi.VapeButton
+				mainapi.VapeButton.BackgroundTransparency = enabled and 0.08 or 1
+				mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
+				if not enabled and IsMobile then
+					mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+				end
+			end)
+		end,
+	})
+	guipane:CreateToggle({
+		Name = 'Show tooltips',
+		Function = function(enabled)
+			tooltip.Visible = false
+			toolblur.Visible = enabled
+		end,
+		Default = true,
+		Tooltip = 'Toggles visibility of these'
+	})
+	guipane:CreateToggle({
+		Name = 'Show legit mode',
+		Function = function(enabled)
+			clickgui.Search.Legit.Visible = enabled
+			clickgui.Search.LegitDivider.Visible = enabled
+			clickgui.Search.TextBox.Size = UDim2.new(1, enabled and -50 or -10, 0, 37)
+			clickgui.Search.TextBox.Position = UDim2.fromOffset(enabled and 50 or 10, 0)
+		end,
+		Default = true,
+		Tooltip = 'Shows the button to change to Legit Mode'
+	})
+	local scaleslider = {Object = {}, Value = 1}
+	mainapi.Scale = guipane:CreateToggle({
+		Name = 'Auto rescale',
+		Default = true,
+		Function = function(callback)
+			scaleslider.Object.Visible = not callback
+			if callback then
+				scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+			else
+				scale.Scale = scaleslider.Value
+			end
+		end,
+		Tooltip = 'Automatically rescales the gui using the screens resolution'
+	})
+	scaleslider = guipane:CreateSlider({
+		Name = 'Scale',
+		Min = 0.1,
+		Max = 2,
+		Decimal = 10,
+		Function = function(val, final)
+			if final and not mainapi.Scale.Enabled then
+				scale.Scale = val
+			end
+		end,
+		Default = 1,
+		Darker = true,
+		Visible = false
+	})
+	guipane:CreateDropdown({
+		Name = 'GUI Theme',
+		List = {'new', 'old', 'sigma', 'rise'},
+		Function = function(val, mouse)
+			if mouse then
+				writefile('catrewrite/profiles/gui.txt', val)
+				shared.vapereload = true
+				loadfile('catrewrite/init.lua')({
+					Developer = getgenv().catvapedev
+				})
+			end
+		end,
+		Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
+	})
+
+	local list = {'Original'}
+
+	for i,v in shorten do
+		local old = i:sub(2, #i)
+		local tex = i:sub(0, 1):upper()..old
+		table.insert(list, tex)
+	end
+
+	guipane:CreateDropdown({
+		Name = 'GUI Language',
+		List = list,
+		Function = function(val, mouse)
+			if mouse then
+				writefile('catrewrite/profiles/language.txt', val)
+				shared.vapereload = true
+				loadfile('catrewrite/init.lua')({
+					Developer = getgenv().catvapedev
+				})
+			end
+		end,
+		Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
+	})
+	local colors = {
+		Dark = {
+			Main = {26, 25, 26},
+			Text = {200, 200, 200}
+		},
+		Light = {
+			Main = {220, 220, 220},
+			Text = {60, 60, 60}
+		},
+		Amoled = {
+			Main = {0, 0, 0},
+			Text = {230, 230, 230}
+		},
+		Red = {
+			Main = {150, 0, 0},
+			Text = {210, 210, 210}
+		},
+		Orange = {
+			Main = {199, 107, 42},
+			Text = {210, 210, 210}
+		},
+		Yellow = {
+			Main = {199, 181, 42},
+			Text = {60, 60, 60}
+		},
+		Green = {
+			Main = {65, 156, 33},
+			Text = {210, 210, 210}
+		},
+		Blue = {
+			Main = {33, 94, 156},
+			Text = {210, 210, 210}
+		},
+		Purple = {
+			Main = {96,36,143},
+			Text = {210, 210, 210}
+		}
+	}
+	local list = {}
+	for i, v in pairs(colors) do
+		table.insert(list, i)
+	end
+	guipane:CreateDropdown({
+		Name = "GUI Color",
+		List = list,
+		Default = 'Dark',
+		Function = function(val, mouse)
+			if mouse and (not isfile('catrewrite/profiles/color.txt') and true or httpService:JSONDecode(readfile('catrewrite/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
+				writefile("catrewrite/profiles/color.txt", httpService:JSONEncode(colors[val]))
+				mainapi:Save()
+				shared.vapereload = true
+				loadfile("catrewrite/init.lua")({
+					Username = username,
+					Password = password,
+					Developer = shared.catvapedev
+				})
+			end
+		end
+	})
+	mainapi.RainbowMode = guipane:CreateDropdown({
+		Name = 'Rainbow Mode',
+		List = {'Normal', 'Gradient', 'Retro'},
+		Tooltip = 'Normal - Smooth color fade\nGradient - Gradient color fade\nRetro - Static color'
+	})
+	mainapi.RainbowSpeed = guipane:CreateSlider({
+		Name = 'Rainbow speed',
+		Min = 0.1,
+		Max = 10,
+		Decimal = 10,
+		Default = 1,
+		Tooltip = 'Adjusts the speed of rainbow values'
+	})
+	mainapi.RainbowUpdateSpeed = guipane:CreateSlider({
+		Name = 'Rainbow update rate',
+		Min = 1,
+		Max = 144,
+		Default = 60,
+		Tooltip = 'Adjusts the update rate of rainbow values',
+		Suffix = 'hz'
+	})
+	guipane:CreateButton({
+		Name = 'Reset GUI positions',
+		Function = function()
+			for _, v in mainapi.Categories do
+				v.Object.Position = UDim2.fromOffset(6, 42)
+			end
+		end,
+		Tooltip = 'This will reset your GUI back to default'
+	})
+	guipane:CreateButton({
+		Name = 'Sort GUI',
+		Function = function()
+			local priority = {
+				GUICategory = 1,
+				CombatCategory = 2,
+				BlatantCategory = 3,
+				RenderCategory = 4,
+				UtilityCategory = 5,
+				WorldCategory = 6,
+				InventoryCategory = 7,
+				MinigamesCategory = 8,
+				FriendsCategory = 9,
+				ProfilesCategory = 10
+			}
+			local categories = {}
+			for _, v in mainapi.Categories do
+				if v.Type ~= 'Overlay' then
+					table.insert(categories, v)
+				end
+			end
+			table.sort(categories, function(a, b)
+				return (priority[a.Object.Name] or 99) < (priority[b.Object.Name] or 99)
+			end)
+
+			local ind = 0
+			for _, v in categories do
+				if v.Object.Visible then
+					v.Object.Position = UDim2.fromOffset(6 + (ind % 8 * 230), 60 + (ind > 7 and 360 or 0))
+					ind += 1
+				end
+			end
+		end,
+		Tooltip = 'Sorts GUI'
+	})
+
+	--[[
+		Notification Settings
+	]]
+
+	local notifpane = mainapi.Categories.Main:CreateSettingsPane({Name = 'Notifications'})
+	mainapi.Notifications = notifpane:CreateToggle({
+		Name = 'Notifications',
+		Function = function(enabled)
+			if mainapi.ToggleNotifications.Object then
+				mainapi.ToggleNotifications.Object.Visible = enabled
+			end
+		end,
+		Tooltip = 'Shows notifications',
+		Default = true
+	})
+	mainapi.ToggleNotifications = notifpane:CreateToggle({
+		Name = 'Toggle alert',
+		Tooltip = 'Notifies you if a module is enabled/disabled.',
+		Default = true,
+		Darker = true
+	})
+
+	mainapi.GUIColor = mainapi.Categories.Main:CreateGUISlider({
+		Name = 'GUI Theme',
+		Function = function(h, s, v)
+			mainapi:UpdateGUI(h, s, v, true)
+		end
+	})
+	mainapi.Categories.Main:CreateBind()
+
+	--[[
+		Text GUI
+	]]
+
+	local textgui = mainapi:CreateOverlay({
+		Name = 'Text GUI',
+		Icon = getcustomasset('catrewrite/assets/new/textguiicon.png'),
+		Size = UDim2.fromOffset(16, 12),
+		Position = UDim2.fromOffset(12, 14),
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguisort = textgui:CreateDropdown({
+		Name = 'Sort',
+		List = {'Alphabetical', 'Length'},
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguifont = textgui:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguicolor
+	local textguicolordrop = textgui:CreateDropdown({
+		Name = 'Color Mode',
+		List = {'Match GUI color', 'Custom color'},
+		Function = function(val)
+			textguicolor.Object.Visible = val == 'Custom color'
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguicolor = textgui:CreateColorSlider({
+		Name = 'Text GUI color',
+		Function = function()
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local VapeTextScale = Instance.new('UIScale')
+	VapeTextScale.Parent = textgui.Children
+	local textguiscale = textgui:CreateSlider({
+		Name = 'Scale',
+		Min = 0,
+		Max = 2,
+		Decimal = 10,
+		Default = 1,
+		Function = function(val)
+			VapeTextScale.Scale = val
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguishadow = textgui:CreateToggle({
+		Name = 'Shadow',
+		Tooltip = 'Renders shadowed text.',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguigradientv4
+	local textguigradient = textgui:CreateToggle({
+		Name = 'Gradient',
+		Tooltip = 'Renders a gradient',
+		Function = function(callback)
+			textguigradientv4.Object.Visible = callback
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguigradientv4 = textgui:CreateToggle({
+		Name = 'V4 Gradient',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local textguianimations = textgui:CreateToggle({
+		Name = 'Animations',
+		Tooltip = 'Use animations on text gui',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguiwatermark = textgui:CreateToggle({
+		Name = 'Watermark',
+		Tooltip = 'Renders a vape watermark',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguibackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	local textguibackgroundtint = {Enabled = false}
+	local textguicornersidebar = {Enabled = false, Object = {Visible = false}}
+	local textguibackground = textgui:CreateToggle({
+		Name = 'Render background',
+		Function = function(callback)
+			textguibackgroundtransparency.Object.Visible = callback
+			textguibackgroundtint.Object.Visible = callback
+			textguicornersidebar.Object.Visible = callback
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibackgroundtransparency = textgui:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	textguicornersidebar = textgui:CreateToggle({
+		Name = 'Cornered Sidebar',
+		Tooltip = 'Makes ur sidebar rounded.',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibackgroundtint = textgui:CreateToggle({
+		Name = 'Tint',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local textguimoduleslist
+	local textguimodules = textgui:CreateToggle({
+		Name = 'Hide modules',
+		Tooltip = 'Allows you to blacklist certain modules from being shown.',
+		Function = function(enabled)
+			textguimoduleslist.Object.Visible = enabled
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguimoduleslist = textgui:CreateTextList({
+		Name = 'Blacklist',
+		Tooltip = 'Name of module to hide.',
+		Icon = getcustomasset('catrewrite/assets/new/blockedicon.png'),
+		Tab = getcustomasset('catrewrite/assets/new/blockedtab.png'),
+		TabSize = UDim2.fromOffset(21, 16),
+		Color = Color3.fromRGB(250, 50, 56),
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Visible = false,
+		Darker = true
+	})
+	local textguirender = textgui:CreateToggle({
+		Name = 'Hide render',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguibox
+	local textguifontcustom
+	local textguicolorcustomtoggle
+	local textguicolorcustom
+	local textguitext = textgui:CreateToggle({
+		Name = 'Add custom text',
+		Function = function(enabled)
+			textguibox.Object.Visible = enabled
+			textguifontcustom.Object.Visible = enabled
+			textguicolorcustomtoggle.Object.Visible = enabled
+			textguicolorcustom.Object.Visible = textguicolorcustomtoggle.Enabled and enabled
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibox = textgui:CreateTextBox({
+		Name = 'Custom text',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguifontcustom = textgui:CreateFont({
+		Name = 'Custom Font',
+		Blacklist = 'Arial',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguicolorcustomtoggle = textgui:CreateToggle({
+		Name = 'Set custom text color',
+		Function = function(enabled)
+			textguicolorcustom.Object.Visible = enabled
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguicolorcustom = textgui:CreateColorSlider({
+		Name = 'Color of custom text',
+		Function = function()
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	--[[
+		Text GUI Objects
+	]]
+
+	local VapeLabels = {}
+	local VapeLogo = Instance.new('ImageLabel')
+	VapeLogo.Name = 'Logo'
+	VapeLogo.Size = UDim2.fromOffset(80, 21)
+	VapeLogo.Position = UDim2.new(1, -142, 0, 3)
+	VapeLogo.BackgroundTransparency = 1
+	VapeLogo.BorderSizePixel = 0
+	VapeLogo.Visible = false
+	VapeLogo.BackgroundColor3 = Color3.new()
+	VapeLogo.Image = getcustomasset('catrewrite/assets/new/textvape.png')
+	VapeLogo.Parent = textgui.Children
+
+	--[[local ChristmasHat = Instance.new('ImageLabel')
+	ChristmasHat.Name = 'Hat'
+	ChristmasHat.Size = UDim2.fromOffset(21, 21)
+	ChristmasHat.Position = UDim2.fromScale(0.8, -0.18)
+	ChristmasHat.Rotation = 5
+	ChristmasHat.BackgroundTransparency = 1
+	ChristmasHat.Visible = false
+	ChristmasHat.Image = getcustomasset('catrewrite/assets/new/christmashat.png')
+	ChristmasHat.Parent = VapeLogo
+
+	VapeLogo:GetPropertyChangedSignal('Visible'):Connect(function()
+		ChristmasHat.Visible = VapeLogo.Visible
+	end)]]
+
+	local lastside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+	mainapi:Clean(textgui.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+		if mainapi.ThreadFix then
+			setthreadidentity(8)
+		end
+		local newside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+		if lastside ~= newside then
+			lastside = newside
+			mainapi:UpdateTextGUI()
+		end
+	end))
+
+	local VapeLogoV4 = Instance.new('ImageLabel')
+	VapeLogoV4.Name = 'Logo2'
+	VapeLogoV4.Size = UDim2.fromOffset(33, 18)
+	VapeLogoV4.Position = UDim2.new(1, 1, 0, 1)
+	VapeLogoV4.BackgroundColor3 = Color3.new()
+	VapeLogoV4.BackgroundTransparency = 1
+	VapeLogoV4.BorderSizePixel = 0
+	VapeLogoV4.Image = getcustomasset('catrewrite/assets/new/textv4.png')
+	VapeLogoV4.Parent = VapeLogo
+	local VapeLogoShadow = VapeLogo:Clone()
+	VapeLogoShadow.Position = UDim2.fromOffset(1, 1)
+	VapeLogoShadow.ZIndex = 0
+	VapeLogoShadow.Visible = true
+	VapeLogoShadow.ImageColor3 = Color3.new()
+	VapeLogoShadow.ImageTransparency = 0.65
+	VapeLogoShadow.Parent = VapeLogo
+	VapeLogoShadow.Logo2.ZIndex = 0
+	VapeLogoShadow.Logo2.ImageColor3 = Color3.new()
+	VapeLogoShadow.Logo2.ImageTransparency = 0.65
+	local VapeLogoGradient = Instance.new('UIGradient')
+	VapeLogoGradient.Rotation = 90
+	VapeLogoGradient.Parent = VapeLogo
+	local VapeLogoGradient2 = Instance.new('UIGradient')
+	VapeLogoGradient2.Rotation = 90
+	VapeLogoGradient2.Parent = VapeLogoV4
+	local VapeLabelCustom = Instance.new('TextLabel')
+	VapeLabelCustom.Position = UDim2.fromOffset(5, 2)
+	VapeLabelCustom.BackgroundTransparency = 1
+	VapeLabelCustom.BorderSizePixel = 0
+	VapeLabelCustom.Visible = false
+	VapeLabelCustom.Text = ''
+	VapeLabelCustom.TextSize = 25
+	VapeLabelCustom.FontFace = textguifontcustom.Value
+	VapeLabelCustom.RichText = true
+	local VapeLabelCustomShadow = VapeLabelCustom:Clone()
+	VapeLabelCustom:GetPropertyChangedSignal('Position'):Connect(function()
+		VapeLabelCustomShadow.Position = UDim2.new(
+			VapeLabelCustom.Position.X.Scale,
+			VapeLabelCustom.Position.X.Offset + 1,
+			0,
+			VapeLabelCustom.Position.Y.Offset + 1
+		)
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('FontFace'):Connect(function()
+		VapeLabelCustomShadow.FontFace = VapeLabelCustom.FontFace
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('Text'):Connect(function()
+		VapeLabelCustomShadow.Text = removeTags(VapeLabelCustom.Text)
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('Size'):Connect(function()
+		VapeLabelCustomShadow.Size = VapeLabelCustom.Size
+	end)
+	VapeLabelCustomShadow.TextColor3 = Color3.new()
+	VapeLabelCustomShadow.TextTransparency = 0.65
+	VapeLabelCustomShadow.Parent = textgui.Children
+	VapeLabelCustom.Parent = textgui.Children
+	local VapeLabelHolder = Instance.new('Frame')
+	VapeLabelHolder.Name = 'Holder'
+	VapeLabelHolder.Size = UDim2.fromScale(1, 1)
+	VapeLabelHolder.Position = UDim2.fromOffset(5, 37)
+	VapeLabelHolder.BackgroundTransparency = 1
+	VapeLabelHolder.Parent = textgui.Children
+	local VapeLabelSorter = Instance.new('UIListLayout')
+	VapeLabelSorter.HorizontalAlignment = Enum.HorizontalAlignment.Right
+	VapeLabelSorter.VerticalAlignment = Enum.VerticalAlignment.Top
+	VapeLabelSorter.SortOrder = Enum.SortOrder.LayoutOrder
+	VapeLabelSorter.Parent = VapeLabelHolder
+
+	--[[
+		Image Display
+	]]
+
+	local imagepath
+	local sizeX, sizeY, scale
+	local image = Instance.new("ImageLabel")
+	local video = Instance.new("VideoFrame")
+	video.Looped = true
+	video.BackgroundTransparency = 1
+	image.BackgroundTransparency = 1
+
+	local function handleImage(path)
+		local ye
+		if path:find("://") then
+			local foldpath = "catrewrite/assets/image/"..math.random(1,50000)
+			writefile(foldpath, game:HttpGet(path))
+			ye = getcustomasset(foldpath)
+		else
+			ye = getcustomasset(path)
+		end
+
+		image.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+		video.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+		local isVideo = path:find("webm") or path:find("mp4") or path:find("gif")
+		image.Visible = not isVisible
+		video.Visible = isVideo
+
+		if isVideo then
+			video.Video = ye
+			video:Play()
+		else
+			image.Image = ye
+		end
+	end
+
+	local imageobj = mainapi:CreateOverlay({
+		Name = "Image Display",
+		Icon = getcustomasset("catrewrite/assets/new/targetnpc1.png"),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 12),
+		CategorySize = 279,
+		Function = function(callback: boolean)
+			if callback then
+				if handleImage(imagepath.Value) then
+					handleImage(imagepath.Value)
+				end
+			end
+		end
+	})
+	image.Parent = imageobj.Children
+	video.Parent = imageobj.Children
+
+	imagepath = imageobj:CreateTextBox({
+		Name = "Image path",
+		Placeholder = "File path (workspace) or link to image",
+		Function = function(b)
+			if b then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+
+	sizeX = imageobj:CreateSlider({
+		Name = "X",
+		Min = 0,
+		Max = 1920,
+		Default = 500,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+	sizeY = imageobj:CreateSlider({
+		Name = "Y",
+		Min = 0,
+		Max = 1080,
+		Default = 500,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+	scale = imageobj:CreateSlider({
+		Name = "Scale",
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+						
+	--[[
+		Spotify Display
+	]]
+
+	local spotify
+	local spotifyobj
+	local spotifybcolor
+	local spotifyrefreshtoken
+	local spotifyannounce
+
+	local spotifybkg = Instance.new('Frame')
+	spotifybkg.Size = UDim2.fromOffset(279, 78)
+	spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	spotifybkg.BackgroundTransparency = 0.5
+	local spotifyblurobj = addBlur(spotifybkg)
+	spotifyblurobj.Visible = true
+	addCorner(spotifybkg)
+	local spotifyshot = Instance.new('ImageLabel')
+	spotifyshot.Size = UDim2.fromOffset(64, 65)
+	spotifyshot.Position = UDim2.fromOffset(6, 7)
+	spotifyshot.BackgroundColor3 = uipallet.Main
+	spotifyshot.Parent = spotifybkg
+	local spotifyshotblur = addBlur(spotifyshot)
+	spotifyshotblur.Visible = true
+	addCorner(spotifyshot)
+	local spotifyname = Instance.new('TextLabel')
+	spotifyname.Size = UDim2.fromOffset(190, 20)
+	spotifyname.Position = UDim2.fromOffset(89, 7)
+	spotifyname.BackgroundTransparency = 1
+	spotifyname.Text = 'Song name'
+	spotifyname.TextXAlignment = Enum.TextXAlignment.Left
+	spotifyname.TextYAlignment = Enum.TextYAlignment.Top
+	spotifyname.TextScaled = true
+	spotifyname.TextColor3 = color.Light(uipallet.Text, 0.4)
+	spotifyname.TextStrokeTransparency = 1
+	spotifyname.FontFace = uipallet.Font
+	local spotifyshadow = spotifyname:Clone()
+	spotifyshadow.Position = UDim2.fromOffset(90, 8)
+	spotifyshadow.TextColor3 = Color3.new()
+	spotifyshadow.TextTransparency = 0.65
+	spotifyshadow.Visible = false
+	spotifyshadow.Parent = spotifybkg
+	local spotifyartistname = Instance.new('TextLabel')
+	spotifyartistname.Size = UDim2.fromOffset(190, 17)
+	spotifyartistname.Position = UDim2.fromOffset(89, 30)
+	spotifyartistname.BackgroundTransparency = 1
+	spotifyartistname.Text = 'Artist name'
+	spotifyartistname.TextXAlignment = Enum.TextXAlignment.Left
+	spotifyartistname.TextYAlignment = Enum.TextYAlignment.Top
+	spotifyartistname.TextScaled = true
+	spotifyartistname.TextColor3 = color.Dark(uipallet.Text, 0.1)
+	spotifyartistname.TextStrokeTransparency = 1
+	spotifyartistname.FontFace = uipallet.Font
+	local spotifyartistshadow = spotifyartistname:Clone()
+	spotifyartistshadow.Position = UDim2.fromOffset(90, 31)
+	spotifyartistshadow.TextColor3 = Color3.new()
+	spotifyartistshadow.TextTransparency = 0.65
+	spotifyartistshadow.Visible = false
+	spotifyartistshadow.Parent = spotifybkg
+	spotifyname:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyshadow.Size = spotifyname.Size
+	end)
+	spotifyname:GetPropertyChangedSignal('Text'):Connect(function()
+		spotifyshadow.Text = spotifyname.Text
+	end)
+	spotifyname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		spotifyshadow.FontFace = spotifyname.FontFace
+	end)
+	spotifyartistname:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyartistshadow.Size = spotifyartistname.Size
+	end)
+	spotifyartistname:GetPropertyChangedSignal('Text'):Connect(function()
+		spotifyartistshadow.Text = spotifyartistname.Text
+	end)
+	spotifyartistname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		spotifyartistshadow.FontFace = spotifyartistname.FontFace
+	end)
+	spotifyname.Parent = spotifybkg
+	spotifyartistname.Parent = spotifybkg
+	local spotifyprogressbkg = Instance.new('Frame')
+	spotifyprogressbkg.Name = 'progressBKG'
+	spotifyprogressbkg.Size = UDim2.fromOffset(156, 9)
+	spotifyprogressbkg.Position = UDim2.fromOffset(82, 56)
+	spotifyprogressbkg.BackgroundColor3 = uipallet.Main
+	spotifyprogressbkg.BorderSizePixel = 0
+	spotifyprogressbkg.Parent = spotifybkg
+	addCorner(spotifyprogressbkg, UDim.new(1, 0))
+	local spotifyprogress = spotifyprogressbkg:Clone()
+	spotifyprogress.Size = UDim2.fromScale(0, 1)
+	spotifyprogress.Position = UDim2.new()
+	spotifyprogress.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
+	spotifyprogress.Parent = spotifyprogressbkg
+	spotifyprogress:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyprogress.Visible = spotifyprogress.Size.X.Offset > 0.01
+	end)
+	addBlur(spotifyprogress)
+	local spotifyprogressblur = addBlur(spotifyprogressbkg)
+	spotifyprogressblur.SliceCenter = Rect.new(52, 31, 261, 510)
+	spotifyprogressblur.ImageColor3 = Color3.new()
+	spotifyprogressblur.Visible = true
+	local spotifyb = Instance.new('UIStroke')
+	spotifyb.Enabled = false
+	spotifyb.Color = Color3.fromHSV(0.44, 1, 1)
+	spotifyb.Parent = spotifybkg
+	local spotifyprogresstime = Instance.new('TextLabel')
+	spotifyprogresstime.Size = UDim2.fromOffset(36, 15)
+	spotifyprogresstime.Position = UDim2.fromOffset(240, 52.6)
+	spotifyprogresstime.Text = "0:00"
+	spotifyprogresstime.TextColor3 = color.Dark(uipallet.Text, 0.1)
+	spotifyprogresstime.BackgroundTransparency = 1
+	spotifyprogresstime.TextScaled = true
+	spotifyprogresstime.Parent = spotifybkg
+	spotifyprogresstime.FontFace = uipallet.Font
+
+	local enabled = false
+	spotifyobj = mainapi:CreateOverlay({
+		Name = "Spotify Display",
+		Icon = getcustomasset("catrewrite/assets/new/spotify.png"),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 12),
+		CategorySize = 279,
+		Function = function(callback: boolean)
+			enabled = callback
+			if callback then
+				if #spotifyrefreshtoken.Value < 5 then
+					notif("Spotify Display", "No refresh token!", 10, "alert")
+				else
+					writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value)
+				end
+				if isfile("label.png") then
+					delfile("label.png")
+				end
+				local Spotify = mainapi.Libraries.spotify
+				local updateTick = tick()
+				local TOKEN = ""
+				spotifyobj:Clean(runService.Heartbeat:Connect(function()
+					if updateTick < tick() then
+						updateTick = tick() + 1200
+						TOKEN = Spotify:UpdateToken(spotifyrefreshtoken.Value, "9814867a949d46e8a379fa64cfbc5026", "dd7bc97681aa48379795c5aaa54fb1f3")
+					end
+				end))
+				spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
+					mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
+					if spotifyannounce.Enabled then
+						local msg = "I'm listening to "..name.." - "..artist
+						if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+							textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
+						else
+							replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
+						end
+					end
+				end))
+				local song = ""
+				repeat
+					task.wait()
+					if TOKEN ~= "" then
+						local data = Spotify:GetData(TOKEN)
+						if data.song then
+						
+							spotifyname.Text = data.song.name
+							spotifyartistname.Text = data.song.artist
+							tweenService:Create(spotifyprogress, TweenInfo.new(0.16, Enum.EasingStyle.Linear), {Size = UDim2.new(0, spotifyprogressbkg.Size.X.Offset / (data.playback.total / data.playback.current), 0, spotifyprogressbkg.Size.Y.Offset)}):Play()
+							
+							spotifyprogresstime.Text = Spotify:ConvertTime(data.playback.current)
+							
+							if song ~= data.song.name then
+								song = data.song.name
+								local path = "catrewrite/assets/trash/"..data.song.name
+								path = path.." "..data.song.artist..".png"
+								makefolder("catrewrite/assets/trash")
+								writefile(path, game:HttpGet(data.song.cover))
+								spotifyshot.Image = getcustomasset(path)
+							end
+						end
+					end
+				until (not enabled)
+			end
+		end
+	})
+	spotifybkg.Parent = spotifyobj.Children
+
+	spotifyrefreshtoken = spotifyobj:CreateTextBox({
+		Name = "Refresh Token",
+		Placeholder = "Spotify Refresh Token",
+		Default = isfile("catrewrite/profiles/spotify.txt") and readfile("catrewrite/profiles/spotify.txt") or nil,
+		Function = function(b)
+			if b then writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value) end
+			if spotifyobj.Enabled and b then
+				spotifyobj:Toggle()
+				spotifyobj:Toggle()
+			end
+		end
+	})
+
+	spotifyobj:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function(val)
+			spotifyname.FontFace = val
+			spotifyartistname.FontFace = val
+			spotifyprogresstime.FontFace = val
+		end
+	})
+	local spotifybackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	spotifyobj:CreateToggle({
+		Name = 'Render Background',
+		Function = function(callback)
+			spotifybkg.BackgroundTransparency = callback and spotifybackgroundtransparency.Value or 1
+			spotifyshadow.Visible = not callback
+			spotifyartistshadow.Visible = not callback
+			spotifyblurobj.Visible = callback
+			
+			spotifybackgroundtransparency.Object.Visible = callback
+		end,
+		Default = true
+	})
+	spotifybackgroundtransparency = spotifyobj:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(val)
+			spotifybkg.BackgroundTransparency = val
+		end,
+		Darker = true
+	})
+	local spotifycolor
+	local spotifycolortoggle = spotifyobj:CreateToggle({
+		Name = 'Custom Color',
+		Function = function(callback)
+			spotifycolor.Object.Visible = callback
+			if callback then
+				spotifybkg.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, spotifycolor.Value)
+				spotifyshot.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, math.max(spotifycolor.Value - 0.1, 0.075))
+				spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
+			else
+				spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+				spotifyshot.BackgroundColor3 = uipallet.Main
+				spotifyprogressbkg.BackgroundColor3 = uipallet.Main
+			end
+		end
+	})
+	spotifycolor = spotifyobj:CreateColorSlider({
+		Name = 'Color',
+		Function = function(hue, sat, val)
+			if spotifycolortoggle.Enabled then
+				spotifybkg.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				spotifyshot.BackgroundColor3 = Color3.fromHSV(hue, sat, math.max(val - 0.1, 0))
+				spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
+			end
+		end,
+		Darker = true,
+		Visible = false
+	})
+	spotifyobj:CreateToggle({
+		Name = 'Border',
+		Function = function(callback)
+			spotifyb.Enabled = callback
+			spotifybcolor.Object.Visible = callback
+		end
+	})
+	spotifybcolor = spotifyobj:CreateColorSlider({
+		Name = 'Border Color',
+		Function = function(hue, sat, val, opacity)
+			spotifyb.Color = Color3.fromHSV(hue, sat, val)
+			spotifyb.Transparency = 1 - opacity
+		end,
+		Darker = true,
+		Visible = false
+	})
+	spotifyannounce = spotifyobj:CreateToggle({
+		Name = "Announce Song",
+		Visible = true
+	})
+
+	--[[
+		Target Info
+	]]
+
+	local targetinfo
+	local targetinfoobj
+	local targetinfobcolor
+	local targetinfobkg
+	local targetinfofollow
+	targetinfoobj = mainapi:CreateOverlay({
+		Name = 'Target Info',
+		Icon = getcustomasset('catrewrite/assets/new/targetinfoicon.png'),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 14),
+		CategorySize = 240,
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat
+						local target = targetinfo:UpdateInfo()
+						if targetinfofollow and targetinfofollow.Enabled and target then
+							local vec, screen = workspace.CurrentCamera:WorldToScreenPoint(target.Position)
+							if screen then
+								targetinfobkg.Parent.Parent.Position = UDim2.fromOffset(vec.X, vec.Y)
+							end
+						end
+						task.wait(0)
+					until not targetinfoobj.Button or not targetinfoobj.Button.Enabled
+				end)
+			end
+		end
+	})
+
+	--[[
+		New
+	]]
+
+	local handler = Instance.new('Frame')
+	handler.Size = UDim2.fromOffset(240, 89)
+	handler.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	handler.BackgroundTransparency = 1
+	handler.Parent = targetinfoobj.Children
+
+	targetinfobkg = Instance.new('Frame')
+	targetinfobkg.Size = UDim2.fromOffset(240, 89)
+	targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	targetinfobkg.BackgroundTransparency = 0.5
+	targetinfobkg.Parent = handler
+
+	local targetinfoblurobj = addBlur(targetinfobkg)
+	targetinfoblurobj.Visible = true
+	addCorner(targetinfobkg)
+	local targetinfoshot = Instance.new('ImageLabel')
+	targetinfoshot.Size = UDim2.fromOffset(26, 27)
+	targetinfoshot.Position = UDim2.fromOffset(19, 17)
+	targetinfoshot.BackgroundColor3 = uipallet.Main
+	targetinfoshot.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
+	targetinfoshot.Parent = targetinfobkg
+	local targetinfoshotflash = Instance.new('Frame')
+	targetinfoshotflash.Size = UDim2.fromScale(1, 1)
+	targetinfoshotflash.BackgroundTransparency = 1
+	targetinfoshotflash.BackgroundColor3 = Color3.new(1, 0, 0)
+	targetinfoshotflash.Parent = targetinfoshot
+	addCorner(targetinfoshotflash)
+	local targetinfoshotblur = addBlur(targetinfoshot)
+	targetinfoshotblur.Visible = true
+	addCorner(targetinfoshot)
+	local targetinfoname = Instance.new('TextLabel')
+	targetinfoname.Size = UDim2.fromOffset(145, 20)
+	targetinfoname.Position = UDim2.fromOffset(54, 20)
+	targetinfoname.BackgroundTransparency = 1
+	targetinfoname.Text = 'Target name'
+	targetinfoname.TextXAlignment = Enum.TextXAlignment.Left
+	targetinfoname.TextYAlignment = Enum.TextYAlignment.Top
+	targetinfoname.TextScaled = true
+	targetinfoname.TextColor3 = color.Light(uipallet.Text, 0.4)
+	targetinfoname.TextStrokeTransparency = 1
+	targetinfoname.FontFace = uipallet.Font
+	local targetinfoshadow = targetinfoname:Clone()
+	targetinfoshadow.Position = UDim2.fromOffset(55, 21)
+	targetinfoshadow.TextColor3 = Color3.new()
+	targetinfoshadow.TextTransparency = 0.65
+	targetinfoshadow.Visible = false
+	targetinfoshadow.Parent = targetinfobkg
+	targetinfoname:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfoshadow.Size = targetinfoname.Size
+	end)
+	targetinfoname:GetPropertyChangedSignal('Text'):Connect(function()
+		targetinfoshadow.Text = targetinfoname.Text
+	end)
+	targetinfoname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		targetinfoshadow.FontFace = targetinfoname.FontFace
+	end)
+	targetinfoname.Parent = targetinfobkg
+	local targetinfohealthbkg = Instance.new('Frame')
+	targetinfohealthbkg.Name = 'HealthBKG'
+	targetinfohealthbkg.Size = UDim2.fromOffset(200, 9)
+	targetinfohealthbkg.Position = UDim2.fromOffset(20, 56)
+	targetinfohealthbkg.BackgroundColor3 = uipallet.Main
+	targetinfohealthbkg.BorderSizePixel = 0
+	targetinfohealthbkg.Parent = targetinfobkg
+	addCorner(targetinfohealthbkg, UDim.new(1, 0))
+	local targetinfohealth = targetinfohealthbkg:Clone()
+	targetinfohealth.Size = UDim2.fromScale(0.8, 1)
+	targetinfohealth.Position = UDim2.new()
+	targetinfohealth.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
+	targetinfohealth.Parent = targetinfohealthbkg
+	targetinfohealth:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfohealth.Visible = targetinfohealth.Size.X.Scale > 0.01
+	end)
+	local targetinfohealthextra = targetinfohealth:Clone()
+	targetinfohealthextra.Size = UDim2.new()
+	targetinfohealthextra.Position = UDim2.fromScale(1, 0)
+	targetinfohealthextra.AnchorPoint = Vector2.new(1, 0)
+	targetinfohealthextra.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+	targetinfohealthextra.Visible = false
+	targetinfohealthextra.Parent = targetinfohealthbkg
+	targetinfohealthextra:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfohealthextra.Visible = targetinfohealthextra.Size.X.Scale > 0.01
+	end)
+	local targetinfohealthblur = addBlur(targetinfohealthbkg)
+	targetinfohealthblur.SliceCenter = Rect.new(52, 31, 261, 510)
+	targetinfohealthblur.ImageColor3 = Color3.new()
+	targetinfohealthblur.Visible = true
+	local targetinfob = Instance.new('UIStroke')
+	targetinfob.Enabled = false
+	targetinfob.Color = Color3.fromHSV(0.44, 1, 1)
+	targetinfob.Parent = targetinfobkg
+
+	--[[
+		Old
+	]]
+
+	local TargetInfoMainFrame = Instance.new('Frame')
+	TargetInfoMainFrame.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoMainFrame.BorderSizePixel = 0
+	TargetInfoMainFrame.BackgroundTransparency = 1
+	TargetInfoMainFrame.Size = UDim2.new(0, 220, 0, 72)
+	TargetInfoMainFrame.Position = UDim2.new(0, 0, 0, 5)
+	TargetInfoMainFrame.Parent = targetinfoobj.Children
+	TargetInfoMainFrame.Visible = false
+
+	local TargetInfoFrameShadow = Instance.new('ImageLabel')
+	TargetInfoFrameShadow.BackgroundTransparency = 1
+	TargetInfoFrameShadow.Position = UDim2.fromScale(-0.041, -0.125)
+	TargetInfoFrameShadow.Size = UDim2.fromOffset(237, 97)
+	TargetInfoFrameShadow.ZIndex = -1
+	TargetInfoFrameShadow.Image = 'rbxassetid://123343128195297'
+	TargetInfoFrameShadow.Parent = TargetInfoMainFrame
+
+	local TargetInfoMainInfo = Instance.new('Frame')
+	TargetInfoMainInfo.BackgroundColor3 = Color3.fromRGB(31, 30, 31)
+	TargetInfoMainInfo.Size = UDim2.new(0, 220, 0, 80)
+	TargetInfoMainInfo.BackgroundTransparency = 0.5
+	TargetInfoMainInfo.Position = UDim2.new(0, 0, 0, 0)
+	TargetInfoMainInfo.Name = 'MainInfo'
+	TargetInfoMainInfo.Parent = TargetInfoMainFrame
+	local TargetInfoName = Instance.new('TextLabel')
+	TargetInfoName.Font = Enum.Font.Arial
+	TargetInfoName.TextColor3 = Color3.fromRGB(182, 182, 182)
+	TargetInfoName.Position = UDim2.new(0, 70, 0, 13)
+	TargetInfoName.TextStrokeTransparency = 1
+	TargetInfoName.BackgroundTransparency = 1
+	TargetInfoName.TextSize = 14
+	TargetInfoName.Size = UDim2.new(0, 80, 0, 20)
+	TargetInfoName.Text = 'None'
+	TargetInfoName.ZIndex = 2
+	TargetInfoName.TextXAlignment = Enum.TextXAlignment.Left
+	TargetInfoName.TextYAlignment = Enum.TextYAlignment.Top
+	TargetInfoName.Parent = TargetInfoMainInfo
+	local TargetInfoNameShadow = TargetInfoName:Clone()
+	TargetInfoNameShadow.Size = UDim2.new(1, 0, 1, 0)
+	TargetInfoNameShadow.TextTransparency = 0.5
+	TargetInfoNameShadow.TextColor3 = Color3.new()
+	TargetInfoNameShadow.ZIndex = 1
+	TargetInfoNameShadow.Position = UDim2.new(0, 1, 0, 1)
+	TargetInfoName:GetPropertyChangedSignal('Text'):Connect(function()
+		TargetInfoNameShadow.Text = TargetInfoName.Text
+	end)
+	TargetInfoNameShadow.Parent = TargetInfoName
+	local TargetInfoHealthBackground = Instance.new('Frame')
+	TargetInfoHealthBackground.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoHealthBackground.Size = UDim2.new(0, 140, 0, 4)
+	TargetInfoHealthBackground.Position = UDim2.new(0, 71, 0, 35)
+	TargetInfoHealthBackground.Parent = TargetInfoMainInfo
+	local TargetInfoHealthBackgroundShadow = Instance.new('ImageLabel')
+	TargetInfoHealthBackgroundShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	TargetInfoHealthBackgroundShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	TargetInfoHealthBackgroundShadow.Image = 'rbxassetid://13350795660'
+	TargetInfoHealthBackgroundShadow.BackgroundTransparency = 1
+	TargetInfoHealthBackgroundShadow.ImageTransparency = 0.6
+	TargetInfoHealthBackgroundShadow.ZIndex = -1
+	TargetInfoHealthBackgroundShadow.Size = UDim2.new(1, 6, 1, 6)
+	TargetInfoHealthBackgroundShadow.ImageColor3 = Color3.new()
+	TargetInfoHealthBackgroundShadow.ScaleType = Enum.ScaleType.Slice
+	TargetInfoHealthBackgroundShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	TargetInfoHealthBackgroundShadow.Parent = TargetInfoHealthBackground
+	local TargetInfoHealth = Instance.new('Frame')
+	TargetInfoHealth.BackgroundColor3 = Color3.fromRGB(115, 255, 110)
+	TargetInfoHealth.Size = UDim2.new(1, 0, 1, 0)
+	TargetInfoHealth.ZIndex = 3
+	TargetInfoHealth.BorderSizePixel = 0
+	TargetInfoHealth.Parent = TargetInfoHealthBackground
+	local TargetInfoHealthExtra = Instance.new('Frame')
+	TargetInfoHealthExtra.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+	TargetInfoHealthExtra.Size = UDim2.new(0, 0, 1, 0)
+	TargetInfoHealthExtra.ZIndex = 4
+	TargetInfoHealthExtra.BorderSizePixel = 0
+	TargetInfoHealthExtra.AnchorPoint = Vector2.new(1, 0)
+	TargetInfoHealthExtra.Position = UDim2.new(1, 0, 0, 0)
+	TargetInfoHealthExtra.Parent = TargetInfoHealth
+	local TargetInfoImage = Instance.new('ImageLabel')
+	TargetInfoImage.Size = UDim2.new(0, 50, 0, 50)
+	TargetInfoImage.BackgroundTransparency = 0
+	TargetInfoImage.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoImage.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
+	TargetInfoImage.Position = UDim2.new(0, 10, 0, 16)
+
+	local targetinfoshotflashold = Instance.new('Frame')
+	targetinfoshotflashold.Size = UDim2.fromScale(1, 1)
+	targetinfoshotflashold.BackgroundTransparency = 1
+	targetinfoshotflashold.BackgroundColor3 = Color3.new(1, 0, 0)
+	targetinfoshotflashold.Parent = TargetInfoImage
+	addCorner(targetinfoshotflashold)
+
+	TargetInfoImage.Parent = TargetInfoMainInfo
+	local TargetInfoMainInfoCorner = Instance.new('UICorner')
+	TargetInfoMainInfoCorner.CornerRadius = UDim.new(0, 6)
+	TargetInfoMainInfoCorner.Parent = TargetInfoMainInfo
+	local TargetInfoHealthBackgroundCorner = Instance.new('UICorner')
+	TargetInfoHealthBackgroundCorner.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthBackgroundCorner.Parent = TargetInfoHealthBackground
+	local TargetInfoHealthCorner = Instance.new('UICorner')
+	TargetInfoHealthCorner.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthCorner.Parent = TargetInfoHealth
+	local TargetInfoHealthCorner2 = Instance.new('UICorner')
+	TargetInfoHealthCorner2.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthCorner2.Parent = TargetInfoHealthExtra
+	local TargetInfoHealthExtraCorner = Instance.new('UICorner')
+	TargetInfoHealthExtraCorner.CornerRadius = UDim.new(0, 8)
+	TargetInfoHealthExtraCorner.Parent = TargetInfoImage
+
+	local TargetInfoHud = isfile('catrewrite/profiles/hud.txt') and readfile('catrewrite/profiles/hud.txt') or 'new'
+	targetinfoobj:CreateDropdown({
+		Name = 'Gui Mode',
+		List = {'old', 'new'},
+		Default = 'new',
+		Function = function(val)
+			TargetInfoHud = val
+			writefile('catrewrite/profiles/hud.txt', val)
+			TargetInfoMainFrame.Visible = val == 'old'
+			handler.Visible = val == 'new'
+		end
+	})
+	TargetInfoMainFrame.Visible = TargetInfoHud == 'old'
+	handler.Visible = TargetInfoHud == 'new'
+	targetinfoobj:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function(val)
+			targetinfoname.FontFace = val
+			TargetInfoName.FontFace = val
+			TargetInfoNameShadow.FontFace = val
+		end
+	})
+	local targetinfobackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	local targetinfodisplay = targetinfoobj:CreateToggle({
+		Name = 'Use Displayname',
+		Default = true
+	})
+	targetinfoobj:CreateToggle({
+		Name = 'Render Background',
+		Function = function(callback)
+			targetinfobkg.BackgroundTransparency = callback and targetinfobackgroundtransparency.Value or 1
+			TargetInfoMainInfo.BackgroundTransparency = targetinfobkg.BackgroundTransparency
+			targetinfoshadow.Visible = not callback
+			targetinfoblurobj.Visible = callback
+			targetinfobackgroundtransparency.Object.Visible = callback
+		end,
+		Default = true
+	})
+	targetinfofollow = targetinfoobj:CreateToggle({
+		Name = 'Follow Player',
+		Function = function(callback) end,
+		Default = true
+	})
+	targetinfobackgroundtransparency = targetinfoobj:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(val)
+			targetinfobkg.BackgroundTransparency = val
+		end,
+		Darker = true
+	})
+	local targetinfocolor
+	local targetinfocolortoggle = targetinfoobj:CreateToggle({
+		Name = 'Custom Color',
+		Function = function(callback)
+			targetinfocolor.Object.Visible = callback
+			if callback then
+				targetinfobkg.BackgroundColor3 = Color3.fromHSV(targetinfocolor.Hue, targetinfocolor.Sat, targetinfocolor.Value)
+				targetinfoshot.BackgroundColor3 = Color3.fromHSV(targetinfocolor.Hue, targetinfocolor.Sat, math.max(targetinfocolor.Value - 0.1, 0.075))
+				targetinfohealthbkg.BackgroundColor3 = targetinfoshot.BackgroundColor3
+			else
+				targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+				targetinfoshot.BackgroundColor3 = uipallet.Main
+				targetinfohealthbkg.BackgroundColor3 = uipallet.Main
+			end
+		end
+	})
+	targetinfocolor = targetinfoobj:CreateColorSlider({
+		Name = 'Color',
+		Function = function(hue, sat, val)
+			if targetinfocolortoggle.Enabled then
+				targetinfobkg.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				targetinfoshot.BackgroundColor3 = Color3.fromHSV(hue, sat, math.max(val - 0.1, 0))
+				targetinfohealthbkg.BackgroundColor3 = targetinfoshot.BackgroundColor3
+			end
+		end,
+		Darker = true,
+		Visible = false
+	})
+	targetinfoobj:CreateToggle({
+		Name = 'Border',
+		Function = function(callback)
+			targetinfob.Enabled = callback
+			targetinfobcolor.Object.Visible = callback
+		end
+	})
+	targetinfobcolor = targetinfoobj:CreateColorSlider({
+		Name = 'Border Color',
+		Function = function(hue, sat, val, opacity)
+			targetinfob.Color = Color3.fromHSV(hue, sat, val)
+			targetinfob.Transparency = 1 - opacity
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	local lasthealth = 0
+	local lastmaxhealth = 0
+	targetinfo = {
+		Targets = {},
+		Object = targetinfobkg,
+		oldparent = TargetInfoMainFrame,
+		UpdateInfo = function(self)
+			local entitylib = mainapi.Libraries
+			if not entitylib then return end
+
+			for i, v in self.Targets do
+				if v < os.clock() then
+					self.Targets[i] = nil
+				end
+			end
+
+			local v, highest = nil, os.clock()
+			for i, check in self.Targets do
+				if check > highest then
+					v = i
+					highest = check
+				end
+			end
+
+			targetinfobkg.Visible = v ~= nil or mainapi.gui.ScaledGui.ClickGui.Visible
+			TargetInfoMainInfo.Visible = targetinfobkg.Visible
+			TargetInfoFrameShadow.Visible = targetinfobkg.Visible
+			if v then
+				targetinfoname.Text = v.Player and (targetinfodisplay.Enabled and v.Player.DisplayName or v.Player.Name) or v.Character and v.Character.Name or targetinfoname.Text
+				TargetInfoName.Text = targetinfoname.Text
+				TargetInfoNameShadow.Text = targetinfoname.Text
+				targetinfoshot.Image = 'rbxthumb://type=AvatarHeadShot&id='..(v.Player and v.Player.UserId or 1)..'&w=420&h=420'
+				TargetInfoImage.Image = targetinfoshot.Image
+
+				if not v.Character then
+					v.Health = v.Health or 0
+					v.MaxHealth = v.MaxHealth or 100
+				end
+
+				if v.Health ~= lasthealth or v.MaxHealth ~= lastmaxhealth then
+					task.spawn(function()
+						local percent = math.max(v.Health / v.MaxHealth, 0)
+						tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+						})
+						tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+						})
+						tween:Tween(TargetInfoHealth, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+						})
+						tween:Tween(TargetInfoHealthExtra, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+						})
+						if lasthealth > v.Health and self.LastTarget == v then
+							tween:Cancel(targetinfoshotflash)
+							tween:Cancel(targetinfoshotflashold)
+							targetinfoshotflash.BackgroundTransparency = 0.3
+							targetinfoshotflashold.BackgroundTransparency = 0.3
+							tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
+								BackgroundTransparency = 1
+							})
+							tween:Tween(targetinfoshotflashold, TweenInfo.new(0.5), {
+								BackgroundTransparency = 1
+							})
+						end
+						lasthealth = v.Health
+						lastmaxhealth = v.MaxHealth
+					end)
+				end
+
+				if not v.Character then table.clear(v) end
+				self.LastTarget = v
+			end
+			return v and v.Head
+		end
+	}
+	mainapi.Libraries.targetinfo = targetinfo
+
+	function mainapi:UpdateTextGUI(afterload)
+		if not afterload and not mainapi.Loaded then return end
+		if textgui.Button.Enabled then
+			local right = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+			VapeLogo.Visible = textguiwatermark.Enabled
+			VapeLogo.Position = right and UDim2.new(1 / VapeTextScale.Scale, -113, 0, 6) or UDim2.fromOffset(0, 6)
+			VapeLogoShadow.Visible = textguishadow.Enabled
+			VapeLabelCustom.Text = textguibox.Value
+			VapeLabelCustom.FontFace = textguifontcustom.Value
+			VapeLabelCustom.Visible = VapeLabelCustom.Text ~= '' and textguitext.Enabled
+			VapeLabelCustomShadow.Visible = VapeLabelCustom.Visible and textguishadow.Enabled
+			VapeLabelSorter.HorizontalAlignment = right and Enum.HorizontalAlignment.Right or Enum.HorizontalAlignment.Left
+			VapeLabelHolder.Size = UDim2.fromScale(1 / VapeTextScale.Scale, 1)
+			VapeLabelHolder.Position = UDim2.fromOffset(right and 3 or 0, 11 + (VapeLogo.Visible and VapeLogo.Size.Y.Offset or 0) + (VapeLabelCustom.Visible and 28 or 0) + (textguibackground.Enabled and 3 or 0))
+			if VapeLabelCustom.Visible then
+				local size = getfontsize(removeTags(VapeLabelCustom.Text), VapeLabelCustom.TextSize, VapeLabelCustom.FontFace)
+				VapeLabelCustom.Size = UDim2.fromOffset(size.X, size.Y)
+				VapeLabelCustom.Position = UDim2.new(right and 1 / VapeTextScale.Scale or 0, right and -size.X or 0, 0, (VapeLogo.Visible and 32 or 8))
+			end
+
+			local found = {}
+			for _, v in VapeLabels do
+				if v.Enabled then
+					table.insert(found, v.Object.Name)
+				end
+				v.Object:Destroy()
+			end
+			table.clear(VapeLabels)
+
+			local info = TweenInfo.new(0.3, Enum.EasingStyle.Exponential)
+			for i, v in mainapi.Modules do
+				if textguimodules.Enabled and table.find(textguimoduleslist.ListEnabled, i) then continue end
+				if textguirender.Enabled and v.Category == 'Render' then continue end
+				if v.Enabled or table.find(found, i) then
+					local holder = Instance.new('Frame')
+					holder.Name = i
+					holder.Size = UDim2.fromOffset()
+					holder.BackgroundTransparency = 1
+					holder.ClipsDescendants = true
+					holder.Parent = VapeLabelHolder
+					local holderbackground
+					local holdercolorline
+					if textguibackground.Enabled then
+						holderbackground = Instance.new('Frame')
+						holderbackground.Size = UDim2.new(1, 3, 1, 0)
+						holderbackground.BackgroundColor3 = color.Dark(uipallet.Main, 0.15)
+						holderbackground.BackgroundTransparency = textguibackgroundtransparency.Value
+						holderbackground.BorderSizePixel = 0
+						holderbackground.Parent = holder
+						local holderline = Instance.new('Frame')
+						holderline.Size = UDim2.new(1, 0, 0, 1)
+						holderline.Position = UDim2.new(0, 0, 1, -1)
+						holderline.BackgroundColor3 = Color3.new()
+						holderline.BackgroundTransparency = 0.928 + (0.072 * math.clamp((textguibackgroundtransparency.Value - 0.5) / 0.5, 0, 1))
+						holderline.BorderSizePixel = 0
+						holderline.Parent = holderbackground
+						local holderline2 = holderline:Clone()
+						holderline2.Name = 'Line'
+						holderline2.Position = UDim2.new()
+						holderline2.Parent = holderbackground
+						if textguicornersidebar.Enabled then
+							holderline.Visible = false
+		
+							holderbackground.Position = UDim2.fromOffset(-5, 0)
+		
+							local cornerLine = Instance.new('ImageLabel', holderbackground)
+							cornerLine.ImageColor3 = Color3.fromRGB(47, 122, 229)
+							cornerLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+							cornerLine.Size = UDim2.new(0, 4, 0.9, 0)
+							cornerLine.AnchorPoint = Vector2.new(0, 0.5)
+							cornerLine.Image = 'rbxassetid://73104725656509'
+							cornerLine.BackgroundTransparency = 1
+							cornerLine.Position = UDim2.new(1, 0, 0.5, 0)
+							cornerLine.ZIndex = -1
+							cornerLine.BorderSizePixel = 0
+							cornerLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+							holdercolorline = cornerLine
+						else
+							holdercolorline = Instance.new('Frame')
+							holdercolorline.Size = UDim2.new(0, 2, 1, 0)
+							holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
+							holdercolorline.BorderSizePixel = 0	
+							holdercolorline.Parent = holderbackground
+						end
+					end
+					local holdertext = Instance.new('TextLabel')
+					holdertext.Position = UDim2.fromOffset(right and 3 or 6, 2)
+					holdertext.BackgroundTransparency = 1
+					holdertext.BorderSizePixel = 0
+					holdertext.Text = translateTo(i)..(v.ExtraText and " <font color='#A8A8A8'>"..translateTo(v.ExtraText())..'</font>' or '')
+					holdertext.TextSize = 15
+					holdertext.FontFace = textguifont.Value
+					holdertext.RichText = true
+					local size = getfontsize(removeTags(holdertext.Text), holdertext.TextSize, holdertext.FontFace)
+					holdertext.Size = UDim2.fromOffset(size.X, size.Y)
+					if textguishadow.Enabled then
+						local holderdrop = holdertext:Clone()
+						holderdrop.Position = UDim2.fromOffset(holdertext.Position.X.Offset + 1, holdertext.Position.Y.Offset + 1)
+						holderdrop.Text = removeTags(holdertext.Text)
+						holderdrop.TextColor3 = Color3.new()
+						holderdrop.Parent = holder
+					end
+					holdertext.Parent = holder
+					local holdersize = UDim2.fromOffset(size.X + 10, size.Y + (textguibackground.Enabled and 5 or 3))
+					if textguianimations.Enabled then
+						if not table.find(found, i) then
+							tween:Tween(holder, info, {
+								Size = holdersize
+							})
+						else
+							holder.Size = holdersize
+							if not v.Enabled then
+								tween:Tween(holder, info, {
+									Size = UDim2.fromOffset()
+								})
+							end
+						end
+					else
+						holder.Size = v.Enabled and holdersize or UDim2.fromOffset()
+					end
+					table.insert(VapeLabels, {
+						Object = holder,
+						Text = holdertext,
+						Background = holderbackground,
+						Color = holdercolorline,
+						Enabled = v.Enabled
+					})
+				end
+			end
+
+			if textguisort.Value == 'Alphabetical' then
+				table.sort(VapeLabels, function(a, b)
+					return a.Text.Text < b.Text.Text
+				end)
+			else
+				table.sort(VapeLabels, function(a, b)
+					return a.Text.Size.X.Offset > b.Text.Size.X.Offset
+				end)
+			end
+
+			for i, v in VapeLabels do
+				if v.Color then
+					v.Color.Parent.Line.Visible = i ~= 1
+				end
+				v.Object.LayoutOrder = i
+			end
+		end
+
+		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+	end
+
+	function mainapi:UpdateGUI(hue, sat, val, default)
+		if mainapi.Loaded == nil then return end
+		if not default and mainapi.GUIColor.Rainbow then return end
+		if textgui.Button.Enabled then
+			VapeLogoGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(hue, sat, val)),
+				ColorSequenceKeypoint.new(1, textguigradient.Enabled and Color3.fromHSV(mainapi:Color((hue - 0.075) % 1)) or Color3.fromHSV(hue, sat, val))
+			})
+			VapeLogoGradient2.Color = textguigradient.Enabled and textguigradientv4.Enabled and VapeLogoGradient.Color or ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+				ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
+			})
+			VapeLabelCustom.TextColor3 = textguicolorcustomtoggle.Enabled and Color3.fromHSV(textguicolorcustom.Hue, textguicolorcustom.Sat, textguicolorcustom.Value) or VapeLogoGradient.Color.Keypoints[2].Value
+
+			local customcolor = textguicolordrop.Value == 'Custom color' and Color3.fromHSV(textguicolor.Hue, textguicolor.Sat, textguicolor.Value) or nil
+			for i, v in VapeLabels do
+				v.Text.TextColor3 = customcolor or (mainapi.GUIColor.Rainbow and Color3.fromHSV(mainapi:Color((hue - ((textguigradient and i + 2 or i) * 0.025)) % 1)) or VapeLogoGradient.Color.Keypoints[2].Value)
+				if v.Color then
+					v.Color.BackgroundColor3 = v.Text.TextColor3
+					if v.Color:IsA('ImageLabel') then
+						v.Color.ImageColor3 = v.Text.TextColor3
+					end
+				end
+				if textguibackgroundtint.Enabled and v.Background then
+					v.Background.BackgroundColor3 = color.Dark(v.Text.TextColor3, 0.75)
+				end
+			end
+		end
+
+		if not clickgui.Visible and not mainapi.Legit.Window.Visible then return end
+		local rainbow = mainapi.GUIColor.Rainbow and mainapi.RainbowMode.Value ~= 'Retro'
+
+		for i, v in mainapi.Categories do
+			if i == 'Main' then
+				v.Object.VapeLogo.V4Logo.ImageColor3 = Color3.fromHSV(hue, sat, val)
+				for _, button in v.Buttons do
+					if button.Enabled then
+						button.Object.TextColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1)) or Color3.fromHSV(hue, sat, val)
+						if button.Icon then
+							button.Icon.ImageColor3 = button.Object.TextColor3
+						end
+					end
+				end
+			end
+
+			if v.Options then
+				for _, option in v.Options do
+					if option.Color then
+						option:Color(hue, sat, val, rainbow)
+					end
+				end
+			end
+
+			if v.Type == 'CategoryList' then
+				v.Object.Children.Add.AddButton.ImageColor3 = rainbow and Color3.fromHSV(mainapi:Color(hue % 1)) or Color3.fromHSV(hue, sat, val)
+				if v.Selected then
+					v.Selected.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color(hue % 1)) or Color3.fromHSV(hue, sat, val)
+					v.Selected.Title.TextColor3 = mainapi.GUIColor.Rainbow and Color3.new(0.19, 0.19, 0.19) or mainapi:TextColor(hue, sat, val)
+					v.Selected.Dots.Dots.ImageColor3 = v.Selected.Title.TextColor3
+					v.Selected.Bind.Icon.ImageColor3 = v.Selected.Title.TextColor3
+					v.Selected.Bind.TextLabel.TextColor3 = v.Selected.Title.TextColor3
+				end
+			end
+		end
+
+		for _, button in mainapi.Modules do
+			if button.Enabled then
+				button.Object.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1)) or Color3.fromHSV(hue, sat, val)
+				button.Object.TextColor3 = mainapi.GUIColor.Rainbow and Color3.new(0.19, 0.19, 0.19) or mainapi:TextColor(hue, sat, val)
+				button.Object.UIGradient.Enabled = rainbow and mainapi.RainbowMode.Value == 'Gradient'
+				if button.Object.UIGradient.Enabled then
+					button.Object.BackgroundColor3 = Color3.new(1, 1, 1)
+					button.Object.UIGradient.Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1))),
+						ColorSequenceKeypoint.new(1, Color3.fromHSV(mainapi:Color((hue - ((button.Index + 1) * 0.025)) % 1)))
+					})
+				end
+				button.Object.Bind.Icon.ImageColor3 = button.Object.TextColor3
+				button.Object.Bind.TextLabel.TextColor3 = button.Object.TextColor3
+				button.Object.Dots.Dots.ImageColor3 = button.Object.TextColor3
+			end
+
+			for _, option in button.Options do
+				if option.Color then
+					option:Color(hue, sat, val, rainbow)
+				end
+			end
+		end
+
+		for i, v in mainapi.Overlays.Toggles do
+			if v.Enabled then
+				tween:Cancel(v.Object.Knob)
+				v.Object.Knob.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+			end
+		end
+
+		for i, v in mainapi.Indicators do
+			v.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+		end
+
+		if mainapi.Legit.Icon then
+			mainapi.Legit.Icon.ImageColor3 = Color3.fromHSV(hue, sat, val)
+		end
+
+		if mainapi.Legit.Window.Visible then
+			for _, v in mainapi.Legit.Modules do
+				if v.Enabled then
+					tween:Cancel(v.Object.Knob)
+					v.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+
+				for _, option in v.Options do
+					if option.Color then
+						option:Color(hue, sat, val, rainbow)
+					end
+				end
+			end
+		end
+	end
+
+	mainapi:Clean(notifications.ChildRemoved:Connect(function()
+		for i, v in notifications:GetChildren() do
+			if tween.Tween then
+				tween:Tween(v, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+					Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
+				})
+			end
+		end
+	end))
+
+	local BlacklistedKeys = {
+		Enum.KeyCode.Escape
+	}
+
+	mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
+		if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+			table.insert(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
+			if mainapi.Binding then return end
+
+			if checkKeybinds(mainapi.HeldKeybinds, mainapi.Keybind, inputObj.KeyCode.Name) then
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				for _, v in mainapi.Windows do
+					v.Visible = false
+				end
+				clickgui.Visible = not clickgui.Visible
+				tooltip.Visible = false
+				mainapi:BlurCheck()
+			end
+
+			local toggled = false
+			for i, v in mainapi.Modules do
+				if checkKeybinds(mainapi.HeldKeybinds, v.Bind, inputObj.KeyCode.Name) then
+					toggled = true
+					if mainapi.ToggleNotifications.Enabled then
+						mainapi:CreateNotification('Module Toggled', translateTo(i)..`<font color='#FFFFFF'> {translateTo('has been')} </font>`..(not v.Enabled and `<font color='#5AFF5A'>{translateTo('Enabled')}</font>` or `<font color='#FF5A5A'>{translateTo('Disabled')}</font>`).."<font color='#FFFFFF'>!</font>", 0.75)
+					end
+					if typeof(v.KeybindFunction) == 'function' then
+						v:KeybindFunction()
+					else
+						v:Toggle(true)
+					end
+				end
+			end
+			if toggled then
+				mainapi:UpdateTextGUI()
+			end
+
+			for _, v in mainapi.Profiles do
+				if checkKeybinds(mainapi.HeldKeybinds, v.Bind, inputObj.KeyCode.Name) and v.Name ~= mainapi.Profile then
+					mainapi:Save(v.Name)
+					mainapi:Load(true)
+					break
+				end
+			end
+		end
+	end))
+
+	mainapi:Clean(inputService.InputEnded:Connect(function(inputObj)
+		if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+			if mainapi.Binding then
+				if not mainapi.MultiKeybind.Enabled then
+					mainapi.HeldKeybinds = {inputObj.KeyCode.Name}
+				end
+				mainapi.Binding:SetBind(checkKeybinds(mainapi.HeldKeybinds, mainapi.Binding.Bind, inputObj.KeyCode.Name) and {} or mainapi.HeldKeybinds, true)
+				mainapi.Binding = nil
+			end
+		end
+
+		local ind = table.find(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
+		if ind then
+			table.remove(mainapi.HeldKeybinds, ind)
+		end
+	end))
+end)()
+return mainapi
