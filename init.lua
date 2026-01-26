@@ -22,4 +22,4 @@ commit = commit and subbed:sub(commit + 13, commit + 52) or nil
 commit = commit and #commit == 40 and commit or 'main'
 commit = commit:sub(1, 7)
 
-return loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(..., commit, 1, 2)
+return loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(..., commit, 3, 4)
