@@ -426,7 +426,12 @@ getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
 
 local success, err = pcall(function()
-	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+	local main
+	for i = 1, 2 do
+		main = downloadFile('catrewrite/main.lua')
+		task.wait(0.25)
+	end
+	loadstring(main, 'main')()
 end)
 
 createDownloader('')
