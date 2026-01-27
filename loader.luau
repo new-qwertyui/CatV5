@@ -8,7 +8,7 @@ until game:IsLoaded()
 if loadonscreen then
     task.wait(4.5)
 end
-
+--fr
 if shared.vape then
 	shared.vape:Uninject()
 end
