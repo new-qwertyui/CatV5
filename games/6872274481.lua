@@ -1,16 +1,7976 @@
+loadstring([[
+	LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(f) return f end
+]])()
 
---[[
+LPH_NO_VIRTUALIZE(function()
+	local run = function(func)
+		local suc, err = pcall(func)
 
-     █████╗  █████╗ ████████╗██╗   ██╗ █████╗ ██████╗ ███████╗   ██╗███╗  ██╗███████╗ █████╗ 
-    ██╔══██╗██╔══██╗╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██╔════╝   ██║████╗ ██║██╔════╝██╔══██╗
-    ██║  ╚═╝███████║   ██║   ╚██╗ ██╔╝███████║██████╔╝█████╗     ██║██╔██╗██║█████╗  ██║  ██║
-    ██║  ██╗██╔══██║   ██║    ╚████╔╝ ██╔══██║██╔═══╝ ██╔══╝     ██║██║╚████║██╔══╝  ██║  ██║
-    ╚█████╔╝██║  ██║   ██║     ╚██╔╝  ██║  ██║██║     ███████╗██╗██║██║ ╚███║██║     ╚█████╔╝
-     ╚════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝╚═╝╚═╝  ╚══╝╚═╝      ╚════╝ 
-        
-    
-    https://discord.gg/catvape / https://discord.catvape.info
-]]
+		if not suc then
+			task.spawn(error, err)
+		end
+	end
 
+	local cloneref = cloneref or function(obj)
+		return obj
+	end
 
-return(function()local J,B,j,G,t,c,p,C,o,A,Y=string.sub,string.byte,pcall,string.rep,string.char,string.gsub,5,{[0]=1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576,2097152,4194304,8388608,16777216,33554432,67108864,134217728,268435456,536870912,1073741824,2147483648,4294967296},{},string.pack,setmetatable;for _=0,255 do o[_]=t(_);end;local _,P=loadstring,unpack;o=tostring;local T=type;do local f={108,{0x1B,0x4C,0x75,0x61,0x50},o(_)};for w,D in f do local f={j(_,w%2==0 and t(P(D))or D,nil,nil)};if f[1]and j(f[2])~=not f[3]then p=15.0;end;end;end;local f=function(w)w=J(w,p);w=c(w,"z","!!!!!");return c(w,".....",Y({},{__index=function(J,c)local p,w,D,X,r=B(c,1,5);local h=(r-33)+(X-33)*85+(D-33)*7225+(w-33)*614125+(p-33)*52200625;p=A(">I4",h);J[c]=p;return p;end}));end;local J=f([=[LPH#!&bgp^"Q8n+3H^$fl*"PPe#>3`tN'3.=c7Vj:&tgDc2rinQ-Q3.+bkQ8L$7VE&FW"BR0n(%->BYr"\M^3&6N)i<,D.HLZPq4N:d4c'uU+"k$=:JtXH[!2WC[.WEZ$[CptLE)M5u#)D9ZO'kUJk$uu8eX=ot1b2(DG.?:D_n.^;DH5uNarZJFLF*iT>0sf1p@nnCGph?)/qblW6#m_'M8Bbf(U`#t0Sm@*q(3L9%Hi7PT.;'6"guT&fL(Ta8e4%W&aX*s'Adm6lRdYU@8J1,(7iWh:fZ%\QY,''<AjhnH5RdLJOh/BJ`VNR0=lHV&"iho<et,RBfB]556:e,qcCk(INZ4E/a4gh?V.#0`U'gNN$f(+)K"[u#>A>+V]*ObTBCY%D6*Y&#XpH/oK9=(q%Tpp15S!U>IKsf5U10uYJEAmJ`X[(<A6XUVJ-IGi`g<rN&!@?(mg$IGY6'Efl`5;J=`F8eu_oY1fu<e3#2j*E^Hn]Xrad.(m08qBm<#W(H&o:gm"Y'f([,=d7,d7DpU+hHrJS<poK>I\CrVa@=c51<_u6cZ;r>9OIM!N-(^-LKiu!_V%8n%Q59%#!&j<p<a>;K=+p85?A."fomriDm+!-3DDml59*7?=.\..enE"Y",Z]H!$=Z=H@KH2-Aj=_b"!l[]4OYf"C=%U:PFea]QBVuq#U!Go,30m_Mi`m.aCUcrIK1o;7_.]93ma'k3r9Dde_%T5\BnrufWlk_A@]LXKU&MC*s-]\re/[cgXRtE'KCi*.QJ[<T5A8!0LsP[e'\\aEI'5rQURVk6#*d1VVLUZMZ$8!rXp9fN4*55R<sVID?nN0Al0XKSZn(f+J#KHh2k6=,b*UtPPpc)iC*qT0)lb;-&;2pmiY2&!P%u)5)qN\$_n:?MboKE4/4;ZokkRks2_"XQ#i2Wi#Q&\nAG8KMsf;dAfhc15Cl^N!0/2dAT1_!_2YYYe@:jk#_boh4%IV*CqI;:<9oAVcP4EsHU07aR2]G.Z_,N).pKH+G$A_scj.PoM/?IWV2!QM](nhDehu)=f#9S!q]:<O<31FYa4;K0<A#:?$;@2EKXdGPrX6:_re@pQT&-kNrS_N4=0>HpVK.(o/@+S@4rHj-N1=fX![N(8?__nb@Y+3:IEP4/mR-f*(Df9AeU@f,8YT:\O_YOje[%?,cG?6?j?Z.!&I4nBO>;T=C+;fGiB.`qQ)<s[:a5-lpc4i7ZUk`--+:ODk@80k>$!r*dq'ZPd?R6jrL)V&O*+i6";@+o/#BWGOGM6f=($QS)+e\M"'k,E!=:7*p@EoC8T<PL)kjWKoAPR#ZrC<egP(k&7I'l3@Imr?D&V\M0"tP<cI."fP+6qF\T#MLkt6&b[\%H5fV/JY&(ldBV]U<a`!G\W,W5dQT72is;r4XY^ZO<CC"HJgKEI<hNRLLM/,o$_I3u"(EC'L0%FGO14[1\;:KXU3p:Si"l\L#l:h,Si>+cf('u)53Oq1's3TggQM9L?;K:@G*.47LM!A[:Xp'iFq'@h3.G;;WV**r:U_$']M"59`PKo_rQqjt$(p5KZXH,K<HgkFeO@!U-8?769#??rSY.\-ea[3?n(#8PLMbqGeL+6Pe2-Oh$0ESX_#DK!Xf86E2VA+h1:X$K_s_!]Q1YbRR0\ZVTB<Q;UIGQN07*PJY[p#Q1A]NhNgK@[a,)6ZqFmpt/sPsBf5-%Jl7UkQ7[P_etAnU3R(aa6RO:g)&.o]gQ^LB]*.OtjlY-/akP+m"0abX\F\7d(j`^lF^Fi^/in)e%9><VD\/rBEIn3C)Zbd)6S4l\3(b$"j!?ZgDCY#Pg=E2)I.pXY/J?LP]5>C`N^\CK>Z`O2m<-2%mS=oW9;@<i@j3D%`R;)Dh\)(H9Da8WdpfYnuSWB*,8g,/_qTN*8#^/9H>g,7A]tV[<ZdmB0DSag>p^HdN7@Z&HOmL4c42M7p0ENq-dOn<\d3GP9Y.p%*e+oLoAn"J*a=P7Et8gc3@mC>B1uT/(#a^0i(15%]'68%Vp10:NlcjeE'"GJ3]$k60N;MJ1:(i]@H5\7Z*mBs8+):E1nRV9NS:_3)&An(roP#98,-;Mq>k?A]USPQ@14hnS\1M2"`5nbe9LA:M/OVFXB[R+B9<SYsJb^rm3^X0i!Rk4qagK\8icB-PBOTXM1VWgo#rL`BJZDh>j@jPOKpnk<&FXrsFlE6g]TFq`NQ3:+<<OaFdE[o]`:*p(kY-.'%ebUcpO.(PB//qmHrPMr\fq_Du=[QH)4d12"L9CR":rVl3(g]j[IprNk[UoGbn#8]"@)pI2N?cnt,_HF9cCjJ6]216VD\k:Ze=*1bhQ1f-pT8kSEYX^BmMo_cu`-Ee3djHkb<bSsteUO:^aj)-L"maAuW?.nk5@A`h.Y\2s>;,7H(\bC.2R6>4V2[$4ee+Dc%dQuSfk/V051V7VT!^@r$6YJ?A$!d7U5I95!+F0n<IS@b'k(Tg\*)%u*A[>u1:OE.5)uO4h5;fIm+N(dKdrl'X#l]/$]pBVp^(04Vd1p`+(A?lr^.;H6?Kjd`<M)3\IJ!*$@9H_XeY_pfgb>2FVW0h\[1GEpV-VaFXPH.YMWCj%hd>(P]FkdBTdXj)dq6Q%+T*C$kpbgE=%!&O*/ogfuQ?96Wi)BG+6pu!p*<Aa7"Sk(_i3A-gH>^j`$*^-&e4bH]B9Pc\8K/@N`jlnSGiBqYQ,sqLKsI%^(/o%pB`/nEXR3FgH*u#Ah7*i4_e'H;Y9\jUqG>m%Tcm$%_#q-T"W\^Ok'"qR!BU,C\"#EW89K2HK^dc;G"2&LC1A>>+gdVBFt^O]C+jC/GoN,+n$72.KKi:<'4,1Yj-)$$$Wt&-.H_4>gg8>o>+:E79&kXH*2>)C\3g9#qgPS[EO+J=j38#6_=RDd1XUCS6fBiSdKV!/Wm2r?aj(+Cl#Bl]c#YOhO8PNb0ns@=7oA)h;m>30n%EWkPHp)dLX`:Q4P/>tR/9b^(rSC;]n/JQPM*G]&P=s4ac1=`d#^[,&kUP(.dGIKIZWIV3*_M!!li3Uk8-Jrc38%C2gM`+)._Brc3:Y=/C;:s#!_oo\)-jp'EI>KZ,s6D=12P>o%>P=M(!Hut-E?^O&]H[,<)LUU![2"^UT-UP?)^/r'M$+.3i$:P6S1cPJnd,qfZf(6e+0r3A=Fp_K1+[gPjf3RX$>+=(6+NCDQ?;@QBZWWHD1#:Mr5Y4`oO3N/%D+n%W':T<#r#7X]=+BdB;Za!^AK1[i3;4"1,DEDUHlocPh=Kl(H242[.RfUF-tag9$X;(\:?pdQ^'N_LSq5UJe45(bKM,\+?m0%4!.uX;c3;fuUHnOVVJ)WpP_B4=<mcQZ:k9;MO52YN'B#m/-T9"q*BoXaL.;+#J@71&E5`$=K+r8fK$3S]IoQ^09/cSV;:N1[$jP>)@35r3W8joA'H=62J=k"`6Q"&snk7TGoRXm5-8Bq!K%*#Zcqq.?f?Go;/fqKR&]1j[gFS3/6G0SC/;e_I^gA5#!p^,So(Eg:jA'f'+cVqi,DKS,H\oSAiR]*E_FAki%4^C%FT7$^"R4W5s"&6EY#L6Y2!J``ACXf.?JAn-hk&W%ei?'CN/".kK>"Pcd&q)W=lUI1-n!$`a8siODY@:BE*/I))DaTH#hGee\sE^ld*G7WN5mpde.Z=M%*KkJ-FaA3=<S^%SW6]+>0pkhPu+>m\n73a.miOnN(IFdVYOc4`*"g#F-u,`F4YSoLEA[7N2#2RAeQ#W$2$i`GlkXNo&UO,IiB]QJ/P(.l\`V^1Ushhf1Rnc/F_\*V&N^oW:]f^:`l9J(omh[YV1FF&<2QS<Ie+u`U0<\20W5"c%-Fi3[P+!Mem#m_'s!j3N[6eh:FAN;%Dsaf=O$Vjl=lJM)`*<>Mg9-gJJnp!ftT"1)%6@kC8$iK$@c.#p7EVl-:q[Op[e0*.sgSU\Bi:B!oaIm'KIBH"%?<erK+O5lp]^4"rjOhf)4b=i!N"P$B/Wqe8dU?@ek]K:LMi"Q35dV'?;4ro;jMffH%6KU>'3Zt%8UFg2KO,!b&'ps?(Cc-D(MWjKb[ZH0j%MbNsOPD6_D7R=kBm%4!Ndb^"!XZm2S(!EY3Xtdutn*d]'n#@bQP.kk3`8J%<21q?G)U\gUl6oSLUPs+Lm#&9Scjn^*8Jlsa;7Q0eqISA>,*YR,Y!9sHD>&Fh>EZ&Z94fPA42?qi85raMita6h":FVrU^KJA7HlSV2Dq36FhXTK./L9f/0.R]+LVdS3U`oHICOAA!BSI;)?%\5<XK#E#J3kC3j4KK7IBR'VjkTXf#.PEk(ii&(J/2_I(kEUkqe@dV>h^';h?$q>pR[)le:B3"<!PHggJUNeU45XLQcpbdd)+Xrmo)=SJQ(V:8p'MEk?=Gn@Lt[@MPVn<Wgb-C-@"@3O]-E?b7#2@e3T+a*gKT%(!CJNGS\$ma,=53:@F#\7@+iP6TCC8`FY4="8Y7l\Uq75r-7G7]()$\@<V6[odd'd4["@W7"k;7mBB"ZhJOWOpoKFEt+ch;V]qk,R,SS9&4QV#Y[GsJ6k0Zbe?7gkA(>[4@!.8]pM,iq(J)5H3qF/0T)i`OoT[0BcRtmY,U/JJsIY#3-fEgG&md8)0[;$Wo-"fi<\:%#lPUK[M&c,2hg8jT,4ZYJP%`SHSU\dkG03N\gqg"S#4q*@THHI.GdlHa,[iIiI_a"Xb-b*[=P5rW&?YT5L:=G!&/3Ms)*%VUG<re9]$j;>r?*"ibNEpK%IFl$Se@-N%hK<Po.X\\+6:q4gU1QV!)/tib\j:m_)dX)Ao4ND8u:+/I$NM?,!6s1(>4oltH?*DBft@4?hHO:Q1k*,*+Cd7?2)b2KYb/CbA8dLVbd6s#A&D'Z.8>Y4^5T?8?G![&MLKMgQb5FnO8kUsu4bJI4nu9a?,Zi&efg4P4*,aW&M$SjulS==&6g2;Z51U]]qr7';2qAS2PC8Lc4]2UF)Re!hK]ck#kdIYCdK/2=WhEon9t`Q(1IVU.F'mfsCf(a>)J`;=rKVN.oTS4OJa6t&oX#;BE-EWP>[;?:mf"`T[5s73`nW7coaC?%:c&rrH+P.Ea<JI`-:%8OLBG7=+E-\\glN):tcTQ[#V!.DW8Jsn.k98!<O+M482JqETO"/]Bd9_iLF6,%,O;)!<'a.\/,Rp-.3\%;1!eRNN%7LBRSk%:@eb":52.u[,Y.N[&Hft,P?\"cq6L.-o"_FbeA1kb<0,mm_>^IjDQ]gYkUH3S^Mfj3u"^W,EBNg;0sat!.D=k9Ybbb7`QHF+Q_26g%9&AbZ`RlM+-WX-</!B.e%d3(8WS'kC[i`M0?FCl)Mo)KQL/rj>':jti@I^"l=Ykq-,=i($D9%\1=e*\tgCY/,8UmVqpDQ?dOJjFE35<W\>8^jsY*Frn3[.@Zn;_OM*E)%`cJ)st/m`QBkn&ZV]#$u&*iM#:LLjd+ce7F9-p:MOu[:X;M$;SXBgZFhu`h8gGM@]@c$)5lEjkL1p2n'Bn#h.>=#*mu`Q`0BOIh\&m&>cd`([(aR>3\>;"]])="*Qf6rCOK!&!lW4cEfZ\Ct7(O(tYbGXQc.q4q"UhPg3SP72[?N8TUF:p'rCG1*%L*#N(*5Gu]1<1j(TdpMET5516K5Gb'(YO-]Z)k!p_Oj9E]($Oe8C2uqmMBlJR"2j/&7Xgl=KdRXEhe`MF2[OgUE?q[%,3/XQiDne>'cOop/H#TD(Hf@#1#'&R^h<AL%1V)/n_1@TLk&mM*7e5*i*5o#CWO'-+J0qCjn#'=<E=G]Hl>g4<kD%_gPS/+W\GNBpW*(M'XA1/R$+J0),;0Er&=+6-Si?uh`T3=0M8gs]%Y.)*8ib_'5jOZV9n<u0AJBGZdFDU'g_KB?NUDN#EjgqZ;#:\lU#Uoii#oF0b6JK%'aME.Yih0(8LYYt@.;&<`mYl#?F+P)2+X09]rMtEPU`XT9"M)V(]ml+OgJ(&H(K]U:h`!;YcJ%hqIC`Lhc"dc)bA'?>0=!@$&CT3;77$X8P`Y1J;=Pefo)loJ!3u22'>cDF]F-A'WQ)OgJk4NTPg<,=4+2Q5Fr:=X??_qe1me.a3(I=V80<AiTK86L_4hJ>Vb%b?9fDXgg6mj`eX=S#(Fgo%6LUT+9(uB>u;%jgCKkN-NoC1@Bf1l=lOI26^D_A#\e>5:.A17&.VX_MD,,l4m2]dP8`@1e(>1<NmR/aIU*0=38YsOV8_aA9Ug>6GaVP]^KU)oge6R<GrIm.^sF,IJ2DJ$=8]A&!tLo)!_-aK>^e8nqV-?(4*bXhdBJP10YP5JA>JL*6D']FYbMGi4A1'r;+h\Q!6Jgc-8$;M<Or]ZW=q_)UYM8p5GohhQ\'DQ5NH59.RJh7m]:oi4+2/Lp`6iEE#JlKJX>=bGKcqX_3ALuk6Fhii/mTH?;obFW4C4;dCZQB/^"!s!aCo!!;l3l&/,(_P8G:Kepe]Q)k?C%.K:.TNQ2_c=!H8"`KT-WdN)od_f%m&b9*Wa2-&<l61Q75MU%2N$0duZ!<14!VES"ae?YC:dnLadd;q]:8Og9\*MCj[+%bgu`(I!A(h2:(jM_[E9C-\loEsYJ>&H88Ao:XGL)Oo(5iCZ;Fe^6.d$M\.57cp,TURep3!siVi>1#Pa-+BU\0Atq\7%NGkNW.+"je;dW4]jl*VFp9DDThLQho25JQ`^rle\(4IECs>5rC9SKH3pj]Uid"huH?t#cI8OB9I[!_4-3fO\<U7fr/]fX_+oHi^GcNM&#=WXR9/hU#1^uOSne]n:10D-<iA9("uAAS0D`J2;MmZ4,$91WEm3+]US9K#GSlV&.37kA"WlY>^>U*+IJk4rp9t]^4X`4)XXbn6nj:8m-F'92_p>X6"(T/h#8lS>UT`e7LRIA=/d;5&X.;:&#4PI?_-N,Jm<"^*]N!``PbHP+Bf/n3[]n<$YeiR`[p<+^$bM*lOeAN")O.R$HWSIm5]DGWGR&;aTT1OQrTK,jja>=oY._;J<R'55Ld8ePhh4dgSX/Srl^_5Un<23dsD?3eBZh\+"<F?:K_&\=+p8XK-P_VN*K1-%QNf+Xmp\K!>TW=J;+oukcWqS$cqf=1a9g3>7;D`NlX%h(q8+"bAEAt068>N^W_A>*4W"D#eoC,D.5WQ9R,u,%oB(aBHKhXLtLqF!YckmRPHYAb5%t0>3aX>C[AUogpd["L)e")E-c$gWh2)rSCBo50;eF4:";Ke/`r9m=cK,VMo.uKBXV[+*Q[guD02::2n0W>$4^<hm'm,\JM6`:fc($'dJh4^J5VQL6fJQ_)!9i]M9B6b,0RR(Ig__E1jHE$4:1J9eUfcE4C]70!rSLo.m8/hh2RlA;N"Kp,2gc\!fRf46LRA,'nZ*nL:#Hu%&s;c20es[dSLL(@Y\Zm/4B&6>%T`pg957[O;l50#fJsSn]OMc\P_HZ$raN-4,U+2;;-:+THRqi9,%iTBd1/VU%=%;SObN_-=)=@-+0tpMPu0ZKRS\KRP'a`dK+uTHr>F.K1S<MM2b<*D.B<353?4>HmeEko3;-R=l@Z8&d,$Gg_a+=9&RE'IJGuigsS$&jMu&S5W8-e=:LJ9Z]5F322NoV+hF?`)-L*AVfih)\]lIPj;Zlu)U*%aMC3Nh6hjZd#Yu@fM2k(S=$'EaMk)A"]YhMpSc#4k0W12fPtPLBI]$2ulfE0d(p1Zi$H0Vl#(P,/hCPp%ZGX>Ca8F;lUYJj[rm/A3Z0Q]L`OAWICtWpXV5/(hC->+8#5_`MXRo,8>X9K))U?0#dOGW4rcC\!9XmI^dX6)dhA_WTPY.>HAg+I1E0W]LTL&Ybk@Vh]?g.F;2ATtB"JAsC2g[KSHhu-fot2GN*ect(PGbB#0%i(<30_;=!ck(`B#4e?>3Kq>_T#n<\_#<V8I*<+?!YleZUM5YeR<ds#Q#2MR*t;%s*Z)*`)*YQ^deJ=:_`RBBg)?'R9/JETX55$RQpksYess6!3"HF,'[]-=:PXFn3ijM3QtUhE%`G+07)Y.RRO/3FSG<oCe\cMcaaOU5X66I,A_CiE`<t&fSFl[W'<%*16g8rP99E)X=\6pB*j^KA5aZCoNbd^]iLB!=)6>R)_lGJ>6Q"0k,`*k&dAPf@$Q]b^&R:X')C!I;7/>le_5uRe\G?dD5ZT4ik!Lha<*RUqK5$-BBu+U5m&82n'r#QKMLf]IF#`_JW/._?_X-f[TN0_.79KZo5r$hf&kmIa8"h7o#_m/e5Z$H"9uA/<T3L-)<uu,&%lXs6.YJ+kp@(OT)(>IG:WJ`GN&XZV\7nWs1\.b((:`fMhYO`>C`idFO@GDMEjT'dB[8YI9aU!cC#u`Aiq6?<;'1XF?]Ig!Mi$mO2Q3a#K\M<eh]pR")U:30c`V\<<URBq2P]_D#ZVeHr=]>:^;G=7O"1,m.p_U'Gp9XNX1MHD8S;WqbIQi^opmnBVS8C*6R<I(gdbRo+%:C2=+MnI'O7[NhV'FPX2!%q4iGT$UHR(Bj<m^H`d$'UjN#%1Bm1;63S,=4P`g\PpFDaXVXV5;)WLY<5^MUH*YD\a_Nr!Gf3ZHbEr?b6^fK#k2$65b$!\An5cgC)o@LfZs*ci]r=5\Me(tei$p,&Z0bo/*+['.XmP5<e%'J]fanr^&3cLK[n@Et%G`=g__Eme!R""R0`5pqW>`\M[%dn+,b;j1].``&Uk?=*J56Q_ASSBV\7Yb^(tfRf3,R#XSnUP@9r'"uZA'%s59qW!X8NJOWB^+rleB2,C<0q/->g^&8D5c,``YhVdXCKCCqYr;DNSc"TMo&ZV$oqPrR*1%V./MP9@K,pf93,;:(YV?f9bJL2fcmC`9Z9;,'gZ>@'l5g6Cno-Q&aEc,0;QqpS@(LS%Sdlea1Z]$io&I5"oaH)?bkhA,kQJ.GP84Oh`s8JN<51U-Mt9^rSf8HG75!^XU<N22DI%=?:ie%/2j"7YC;6]Z0;.65)/&Iq%QBpY8'b*"4'QieD$7of-.ko;KrKS`EibA8F%dC^Rj;-Ug`AcNHKkkWET[Eu_`B@9q:=l?s:8Kd1?c39*pDmIE>tc*cVM6nW#*otf<(?#BSMN-hb+%h+D@&4h`pO:uR-cc&,pT<XY.1;E&ZL/RF$pZL^R(Nc.D&kK=08mIO2+!DD1>DC:JBn;I5;_M?Y)9-JYLFLNp02f@Foq2,aL>KJD1jqP6QJH&U2]KoPmkoiQ"*YOH>r1(r1.]NoTF?-8WCf$(3-&rU=UoqJ6PoZ@I6oGWp4KX-kauT5@-3nF\jO7JgM3;(p1#]J:H'nA-"ij<'b[Wo.R.$OOdMR=7aSGKNkKWA\CDS;7<cP>VQ.9Q?g_`BT%&LJ@2$^h80j$jl%!o$fRi6#!j7k"lhKg!iClDKRX\5j=L)bI2R:6B7"L5+Lt[h9_e;V7Z;p)b"iV^e"WOCR9LQH,F\OQSiEI<aJq&1!%$^'+@.WZ3JinO7.H45nY7Rmk=ikpn,&:-/?8i'T("T#Qgg(FXH&_:h8q3>[_(8T1$O-j1SZlE8PJ[XW!*)j.$IjI93Lu>c.(E1YCmuuQ(ulTAfJ?"G6F!MLd6\,m<<KR)#0EMQRFp^H]HURI2)jQ7n4s3g.A#V:[N8J7N&th2/VS>HgNnP:pW;5jOWaQ"UjaS$S"4Vr<D1Wk520kfgWWlP4Mt;R`>NJh=$MYQ9JjC+W)9gp_]Bj]Km_k_%QNXeB8DrN)n>sAIDSIkL,j]6!c3B[lY?<$?JSpiZt0W`C9RAjmD7kKU]99CL=^r([FQ(OQPYJ`I[*,61iZGmCN^"n#1+]?HW(U'd2bTre.8@3eCC?6D2JjBk9%[S5H8C[koh.e7(amOfe=C"pn:di>91AH(kI2o*aD(<l"<$!RiB5GecY7BZfasM`hGelLgGPQb`9@g*/&K/G@!a#UfNWo"mqpVeW/j0:![6-,HpZ]aIA%B-NVZ`/De0hWdu/a!VP6Phl2dD+5E6?]uBQcoaMn/,SE+&nqnYbRu)\hUsaU`dsaQ&j2XqZ6T"tJ6MllB.UU0bnke,a-[=DVbdMH$h>gWd_+^\OHGN!5V&5k]=VSrjVL(\hT]3>k+k^i5EE1;A]Cl:T;GRl]*)+%@gs-HS!RM4fKk[HO$L(s>+oU.gY6iM1Ze;aH-oK$jdZUng?CM3U,klJIOSM,*OCP$U?A>W-rgbX,3%8sW/6t`,Vd?Cc0Ja;`0>#Bu$j6Kai!Csn%+\I;qOq@1)`;8cV0@68=mSX4eFssXpdTk)O</c2BZT\>0D5M__lgu)&N+V7/Oes;$s?:qn.E/NiP.Rl9EK-IC4X$=[M5t.VFP-nb&bu>KQ5fk/7`g!)O9ol1I@"RhgFhTM,9uqh:Gb-e[ib5n*DI-#q:o7(%Nd38"Tdd/OK?2&H=Dj\8r;Eo_sZC?sQ"2)e7dh?5AXc@CM;.Bd\0DRKt(#CeD<p;aT4KFdk)46EeS-)2:/8\N(hA?l'A7s&npu_$PKKFD/o(W!f-/)@*r(Y4;;):pd2p(jTM)'&#NocVuYU6@$4I3Z0@'<!QQY+*aUi@gJMkOfZJMd<gR8>=9rEh3V3YN+#G,UEef':CE@R5O34LVcioDq3NE!lfYa*rJ7!@6b4#`+sBXi@/(>S8&n&CUI-:PcdH!5.jMJd^tX1@1)agh.ke)1cg'4YDd3oI(a3k%[[3;:i/NZo<H2=e=<'6.BTP8O<fE.i.YM,OFNK@>pi%Ms++AOHaltK6+jdW)=<UaZgIr8h%;fblR?o/W`f=fLX!X`$nodYG+P*Eu2V68T*e&436NSUa:j4i\HDaWB9H8<b\@Q.Lo.7k?=^OOr\j>*nQ0deBFU/?9_t#cs_tVk3M0`2$(PR`TNkI`q'4`2+Y@+o+##0]pKko>(2YE_nCIZU>i6T.cEU>IMbj`FhgNA<[8777445QP`>kc'D=rUg=-"Fe4_GgfR!\N0&i&[8*CVnDqS_]Tc?T$*OED\C/,6CF,DoQJBT2/<sk$)GSTFCTaJe8:0.earsN@a9V)QZXrhVIWjrZW(%kbgJWKP6:e!2R4c,D=\uCWdB++2G3nqo_p-T_^s$B1?+Z)\af5j7O'08=RTr4i1mPTfe;i5Z?&I1q^hIirij7@c\m4iid!Tj`O9o%.)$5n&]u]Wd$Ce'%b,U')kF'P,JFQjHhdR><;^1GdI&C^Er23OB&jH3pJEp4r.7[Uh8RrqOgDeF6bJ#E.MG]ZQkUbNKY^m\6g.p';mYi7Hb$CT0gHm?Pg)?h1"L6mPeGea1,1>6<(BT%t%-m4;sZm#L!05#IXX4EGU2_W4M^39u\JHH""$9RBW3b(1b:dX`lbl#oX(dT/at7L8;.aa&8^OGk?\:#=sNhGL/fDXL<[Hk?'IF7;gLQi&E;5PJ^YZU_L9iqg45e/>;*\bt2q@=05_]@C'PFlh>el8lo!#hibeA7\@k;OLNjto:U>BVLe?&D,#'=KgL%fYeGi&HZ0A(I/*`(&e+IcBl@ok3dc[[b,ku$pF.\BBt^,(K5;#*'R2Ds86'GOLG78RE_BKS+_j"?b,<2rl'Wd6^^I&gb4knQ/%`:`i%bd>$fh$,0#cpg+D*^b$_7:jAI*Z"NGm)/a8pqTg_1HD1mkYmDtZH.auO9:E5PW:CM)`iUp9mH3DK-dMW=+:O=:U:KKC-YF/mR]:XLhoL'-/>C@1@cf/['0`SE`P55cKu@.KQ,Z0[iaKTJdoCa+AWgrn>2]M?,5q?M/6eb,Z@e#@r/-"#N_.re@/h/"1tib=E1m1OT:?-2t``q%40W2bb6Oe>H[!(@T\KG%nWN;<'cK4(d_P9g+Z.D9i>dE(eOg+o5?2C*p(EmsbVNqG0,L9Hj1"mY8qPG*K+$[,E1;DZ*)p9#CDC>EmTo#C%XBASB@8fi#8T#H/(k(odhR.Xg=P&@?\RXPT^#(8#=<ZR\5:di-DKqPj7W@?j**@%h&Gu!t_^r8%#?iuI^TJAalZ*M]1[G<k2\&lh+_Q,?5MCku$M:3F2'pHARlnRd!.K!F`m28lOhrDJ&-C@&LMc[u1$)C/:2`IVic1e[tFC!P_Ts@>JS+C3U'>r%t,$,4roo0^2MKG6H/*<"l&_MPeE5JeY"4'2".WuDY\%fFPU^&`(dUgd8G#2Fq20^Lpa[em61!`chJ%VF;<W!.tV#"T9!(%ZgBa$Rj-jr//gFhSJf#p6V)Ce,c]XjtldU,0"@_^!$#/tjC)-OP2[O&Flk[,P*4JWgt((A*+m^^S3]Oh[?d0-s>E-C>E8tRHk6gBZ=P.QV@;b%u&SA`q)am;P%0]j'Afb*]XNAj^q48Sqc,+(.1HZKCD8=8mH['e@V=f2C#QOYQ,DpAGC"pZ_N.+idV[)+*>Rj.PB31Z(&!>.pN<GeRZ.5(uagK5CNbJq6AmlR0ZntOc@\p9qal_sk`-Jupa<+<Gjm^k5%Q;WV(=Va?2D>,51&"\RX2E&S^-UB$1rY'"Cr];3:mfPe\b;r>k420X#rM,[8p.NPU/#jKOm;3Z7^3TtMPBZ!)'"jP`C,'MU,jAnsV*#EiX<M(`d)pZo^E$89gLb"h'^f2W2&kXQ/UtCGfcO3>(6so@I1LQ616<![Fg'6HG5sfr2tFB<Pbm\6UDP#ciSX:k`*aL`>VW$JG4])#<m,QmUOVG#m3?cP>CF3s?0.d14eMq'D=>ptJc4rtichtiQ`6iL41dNoS&5)06ltJUea#7'6Ku_P$a8s<8BX`W-IRm_#l\I]4(k#R>8gZC(^\uGB\b")IoD^+GP"&^gMWZ9=E)f]YjjS[a<d>]-\3efIrHt+eT`;+5Y\TgfN7X2!SMoLL9tEIn"4pA9nQdnkT7P>T\P6COk>u7c,-.g2WUAk(iKf**2)kGbi\U'W28M[nuh,qg9(sYe:KnV,0^'%Yr/pI4="F/<u,(7Y_6jN!m8dIh@ej?D/s@FFDZD9Ai._2A43&Le(Plr%e]5sCsG$b:(P_EZ-#DgXp<Tkrc--#q\QQ]j4%]!6"p2f4+U$?9.jdWCr9*98;d;^!0lC#ee&]'3qX<uGp0M5lYJ?d!MjXAgm3_Pg.L8,C"`F+(eI?B43+5CDp-Fl>:m'NYI%6c.Tp"]&GY*:@bLKn:(j+Xc`-d1U_ZUjHAW^\8>Ub-0.)8/GEBfdLo%B2SAac(J2@53a+b1VR"\4gU&_Bt)Q<+J#r9.)#ZK;^[@XN$KMZ1!!=Y/f[!Ah5G1#CVb;kL,ffbKW@4gpg!WGt][mVKYP*/>;&ZbON>)fRU#>1AYF^9EFMKaDq%/=.H^/&m1"\DNJ'",\"_hOEj,"i#1Df9a;E`jBGlE$LH2boj(g4):jLkSCTMnEoh05d<>`">.=,DJ0Cq[NUXknm6&Ek@6C2EbR`cW$11oEj5n^>dK'P5P6%n&MD13m\P$kG'`b2Z(ebaD3Ok=YOnOe+j';q!a*q`Rjn#FlkYZ';7e:!b29W!eR7uWT=ZpA-Vif1^pb?f^DCi!e.5-N":9T*Pj(5,rV"o4iD?&%Dja$6'^6bVpaif)-*efYM;L05:KJ,h;$=JN:QVgi[B$^;A]XW_GhcpCA7_C+7`4]D&h7&T.BgW?n,A$Ton=AQYGi!.4<a8-Lc.#5DV&M8N&V(hd-VY^4uA*$ss%j^h(Kl5);8%6hHb'"1FX@*ArW1d]i>2d7Hc.(YF\^IZr"D#W'ed.K^sNQt8]*X1B1O8MdG,V87h7;O&4Z^T%77_(93J0Ad-R0gFM2C1t.Te'`^a357<#,rCct[P'=OJu5R@=$W<i3+1A:f`"3GPVd5&rAF$i$3mQW3gc?r:Ut7'T%BRmRNqS4nh:bTFhc<+9_4nV(J%c+9oj7D7kuPFl>ZCV^B.cOArK/Zn]\5feW&VMcOQpXGuRf*c[s.`!?G9Or]QA(<n>#H>V5qTqu/%_\e,S.=cfGT.T*ui"5um8j`<&e5`%_rP`<r3q_9-kLU\m:c\?,o-Bi#sd\`0-c$-a=""?HQcM&4AlA(o?`I:D;QWDWHZ-&q#$TVPrg_n*oUCUfHFY%^UR-)lMfh=$ED>ZLON$iMg!3g@PH1T0BO5d$1&^9<-ee]>5]P5TE'*(c!0]>o`=VrH0lLut:q0>i,-HCI'('`GY<eAj.C97.k3NT/L&3-VU(!4^Ij]lG.6FuN<@IK)sRkfJ?IffZWY_o?g1tgX2]-`4d8mYuO?G_\O=.:R:hD]tlFg`m_H^%f!PO%_A&M[I:[_7tL:sC%+-tEZNnk;H#WjLpE0mnp%oEOKI2nJFcJ%jsL%!lIgH'=,_@@P?;n>=!sPV%#TW7KZ6F?6Bf%"l(1goCMQ01%t((]ah4BC@VUMMWeS&hWS_O%C-FJm<K3'Bat8;,Z#;SZi5YF_Gk&o"-%YJG"Dk_ChA85)oB!Rb:t=NIFT5IGQ%(+.uGl>%/=TN[+@Hq@8'm59<n;6^O:@&_Z+]?m#"X*lOZ.D:,bV3M?On?lfH4r%C'nBku<QX_"SP8<"G5#I@E%W)%qs$@Qd&bn>E7a?)</R09=bbh!BkWFFkWn*@6V2HHq@6P,Wj:CGYU^.4B9>QWTk8#Gn&$::hn$N9,$(8/j'3$ZjB>3mD+J[?f;)R+>=E0AD9:>%N:&h![<c"SMB0Z"b`9#)Hf/Lk3BZh?3r@QS&6oqQ1rA!Cd$Pk5GRDni/(KeE=..a2?g$`"._?WGb*"fn;?B@k(k9L[UsRVuM-4__tg^GT9E%m+OS+HmU)q(;[G5dkEj]g:SV0K+48pdLFaE_bU^du]i$"!KufCCfV&LBDF,FEpnol+%YC8?=,I'b""PMI'VE6W$HdUT9?*ioJ0-s%=Zo##C_`VpplS#A]#@ID%$cD:97\RSYrYfes%<Q*X$Tc<Mjh%G8!Q,$d1-\;ctu:<_4[H+!$n1+Dgf:1'*$5'e;kH4Rb:Q%Pi;Abus;;^k#fC3hNAX^t;1O:5YKGj8UKI&=@q=+I)'eSp>rl_)CTP&p8[qF!u4EF40MEtA6.Z\!M[>F>\dhh5uf@I%DOk#Bu`:NC!eDP"%f5[lj(CF;UZOM!F<>cq3XWr!\%#_1#!RD+0aA;.Ni.isu<*WN!;ekhqY$Tsi4WCpge0L@o@]VRle9=*?61]SW:eothOhitASoB>%Am=]X6la[8FBM)>"T]gV.2iA/b8s^m;emrA^m(V6&Ls_H_>o[hVd-#THGLiS>W99+iLc&(s`kC5?d=?5DJi2MZ;N>Xtb5W)dqhe6p@B,agHuQ1+lmXg@D_s"A@k&hnnKg$`E"`(7A%s\fg"5QYr5;jrPL\(c<'1Sa.X$ctJ&?oR8Hl05K81B7!a-,lqGu=fqcM:(/dc\p_Vr6i4q$#sJnRcbb@l)\<bnCE8t[K$+!+BkY'0`gkKCim;53D8rnV6'"CB"B(Zl'Ce;JS0$a/Kc__cJmWI1ppc"At?Mrr3f3BD\1X>C4'%J:h9i=tA'KTKFNUW1)L0_oD/n_EX*ecbdcn)e'V]A7-!O77a01bV2dC(JE2EtM-B#EM:lj&TPWU>6!JI+UJlEqnTN,4.VL80<uM*GeF$RT2l='KJj'3*j.>aNl:=SV`3-kha[abd+$R+aG.@[o,of@4-n3[bN&]nsbp`hT&DS_?_2%1%HTC]Ol,"M7Y(QiEshdArB8FR2UR;m#*9g4o6Kna%tm[+Q`;%pD\C=qZB,$):IP_'O,Tu=Xfcf4@tY<gU-WKgEb]!W\!,'3[.a9:Sj7&>*1jS4Z';rK_<k0gSFDa.:ra]4ed1h(r/dQUs?fL`dknCBrE6kV:ll0W-;&V:-&'k[AMOIEht+R/:\548GcNu^a$Rc&VugY$=*:4PuV8lW8SOWC\H4nNP(ct4Z/_q>U/(`3fml#0l?L$GeF7%'%YoZ]1DO%ns:#D`2V:lpru<&J>c%52pEe.>Vpm`e1M;g8WIGBf`/"N>H(K$=8-9'R=rf!ON)b_O05g$Cm?=R19kYMW5*S@`L2%qhqt_N3Ohi2E%mil;,jEI>hN4_dQr<QXQgPDcUbmceZXHjg#B>D)*2FD#=74m^omJre7/bKY*<IV]D4n=4``V'diS.&.7^FS$SbPhDp4.#81Q]5"&oE@#rO-PFPV:G@Vr#dJBABF=Z^b@]H/r[_W4Z'P@Jt!6gi25=?n*Ok`BB[dU0TOY.V*Y]]ip'$2Ik\le"Cna^&NkT])iV$7$,#r5<o`1++tK+?"'2EMcAa1bYOglAJ/h4?_F;qq"U]:a1I#E!Wlqi6S*Wmgr=J*)dA4V=_(Y*#I#DcpZMV&qVnRK;sGtRot`TM%:K/NZf/rioe-U4AKq7\#]q7Q8[kB1-KSj*l9lf<^Om(i(g7MUPVR/La[-2:WV[E\I61HiXneOU8L^7]*Y-Mg-+%9SfC[k4/Ffo=).E[8IZ:`Jf.lCWVU3?(D7'JA1kFFNl%b"dFP/kI>.BgW6Mb.M;&uYrmdQpgaZ*RF1kWpEs+QBD<D[!UBoU4>H9=6?W$YmJ=nr@miokCU1kf=]C^=)T38O8,MNsM.bGVKIuCL^VnAb["(afN5*(F`8P43@<^]&pDO:+_@ZF-c*M]I6+&59i+EO'@jM<]^.^1_a>>P#5`,Vt#(DFW?"$.nP4&B)hr&Pm&`&J[!'.90Z2M/W/Y/=1*kG/qY(FttObYAl`50mN9KdCc6f@6/Gs!j9E;Ub&ucpWS,E?rV>J4Hi6CFjdfN#N8,r:poMYT*qb;0"BR3H!%4?H^neS@0g,!SH0Ge_nD^^;^&95_leJ>\kY=#g_Kdrj".>EU]\LTmY)YlEd7V]hpN`>&s[Nd-S8\C,QUPM=H&S["UCTVaGC5;D*:A?aE)qJ7j]H/9oIcS(gLc;%Z===(^B1jR</X?PXj^KgjZXRNICjeHXPtS."ZNL"FML;_#AM?cPGS+H$5!++b[oJ2u@#8_tf'3<(&mX+R4T/!Wcuqj([N\Na.-\1%khc-DKd9<?d^BnB\tiMAN[fFql'/PHJFN6M;\d>*#9kFQM!h+f:$D6$m,-?@%DLDbEcjGR"B\tI+5D1bO^UQ6T:UlFI(MVCXqhO<M#]R5oKZnOD/q.2CE2AfC2U#ps'7'D-bkhUR"b6G8s=h*KI,iJs!\V6@GOF='7U+gQL`,7`_0m7,X%oDp$5m%[p(W,^Eo9(AM48lqFC[EC#WXc1VC/YF4.pSj$po)me$KuQ[T[+I)*Pl0PolH9ta9"JV.NpV1,8mmS/W]R/.#V\hYB(`r\;pU"(I15RE\Bf[pk(7;f.n\2$>2C$@:9r*VOEIS!LQV9f<GO.ZCB$kC*5h7o>]Sr:5Y)GfX8N14_(R*#XHTZ/>q>mhYkXkh^hNY.f=d"#MsB?XP8LS0_o)L/NRYO6V,A!0b<0u^?jKE4jP>.cQSjP/bG;tS<'W#BBWtA3i/RFHeCRLR*0]h^&6t^F01m$;%-F':Bg;-l[\JJKE_X="sA"c#-kSnOs>,$)N(CTG\6B_:DO5!q'hiE>u_FhE\?o"@0[(]PLI5L?QbB]Q:#*)ZDJD0*0S/K<^c@*Ffn"_DF>Suc>O/=H@l87`&i_Fd2RsQ4EJd3Y+_;R6n,gG<j+$C7%C]>j;f>2(fN=r8P[*++h;?amNQd@Io_RQ,_>$[!kJ\L4D]"4/`*u;UMXGi=J_RLPg*gX]rsq=[t"jaLZr7#M*QrB:O)AhrU;?8E,1Yg?*Ss<=H=gT\Ia*#5abo,E9f)IJ:d^dB'ie:\;/RmE>AS88)@,##(\QF\(:m@LE>_0DDCP*Ifak\_US8K-$Y8RndJJ5<6)CYIcO<eb=lT_hiFl1%/4$kjjXVM*X*!Ui`(/`-(QRTH&T2A+c%,(Q(WI;d+:I.@%T4UIUmr"C.<IhBGJJ!H0+u+j@DnVP%%!8.YXs,+!f4sht(bG;s;nV:;&BVesst(1*DNog\Bt+9gI]nQ.t\7d$rHcrks,U3Ls[?]_p6i*d;L0E4.=)P(]MN;s^qjYlB]-k-`?%D-gD_5VY^t&%q59pI'>umB?;d1<ecTpSn*Y,iU2Za&8[=K+^1)dWgLS9[CT+UfDVti2fK'nmkoDI#+K+Y:,k6'*%a^jUXJi,XO'aohg1o(J8(r&E4p\DBSq?=FI`I@'""*&_#Nlpn']rBQ$Q91\831CuQjg6mjD(?KZ=3Qr)!Dm6^[]YuijUE/XUW=1`$JJEes;9.]]lHnfSqk@3CHkBPaPX^AS)#C]Zhp,,[pa(<Ju938!P'dN*-H?U;j-h"9^D)Lo3l:Y9*ngb$CmFd.%F[oLGLts_,BIbO^Q,O.D#qRau-0%C`"_Imr(36*t"p)OcJkW6%3`<Sho3($Y*CLT(U@7g*]3^PR<`j_.=e)PU.X$3%/M;"lG?q+d/!@\B&lOA0g!/C7'k.MXWgELEDI6BWQ.gFH5[#>ie)Y0-lD[7uQiMWbo'pQ7CN0T=@5>&;?E')`TjFGHrXVn)I(bQuq*YC.]1(ANkB,+Mab`F#2\T#F:16K2=jU^8]>44o\QEEc,"X7glA"O<2Yi+A)^Z:\d62"5Cn(L7U/`l"+B0TCjj.HG52DSo<8`(;OEg8Jce,S,iF_%\26&+9HX!32/]Vo4Srf$E]m!!?S,/8X8r]8@r_cRRSQQ82@4-FT#:(oDdaS`AEQ\E7U?N(dLXk(SdSss\WPkr$_bINK<UU4L8r,*:F;MJ)F:rP'48*OniH2o<_#fSX,'=_TWn^IYRIq!E"f5S'\qZ_;(h/hN9PlqMg0$?5Bn;"i/tOM8@HnBd413cPVGh4'Y2?2!\!o_,[42Cn)CA59a:)0D_cci,b2d.mP3p6f[IFeY,E<10iFm=eT5k/8F6%]%:lP!B#\NKVD2Vs)pA8R@>ZW]TZA-%#=,VB:_CjqX5JF/ifBS!*,8&]:p9U!VNl["d^#Tud&;ZAT$5*c7Bk]B1#7e_4"LqWZ+*-B`o@P+PP4iVE8&pU0"Yp#GG.]D#?S`f%!EXDT"igU5)oIcr9&S;Wbha0SdBYM%=a,kLd>o]i>]WY50Zn=..Y"YbqoOhr2'V5H'M1=4CEZ*u*I1?p7UcguR"WbA)(5]V)gaP7i7pKTo\E_[s!OIf&WPsqdNcUmqNBRsiAnL!Lo.=LmH[>U`n\C>'3:\'*]Ghc_=JB=&iaNHTj3rR'$s_#ARD5IIhh\F0/ApRlE:-H,FAS17H6R`F&1U6\*)lpW`GhiY?@%o]JaGO<V4AITS0<is3K=sbatGn-Q;lB:c8+X;!Ka!/12moQZ1V^cm%%Klu3-eiGW!;TNt60jW"qkZ`fI+0.6-C7Jpd0><02&LkE4;\h.Fu's_%`Fn&UL"lAYD54"Y=>d8.V0=6<r/TL*T<krl`Q#J''X3m7&#ErZ>rtUctE:G4"jhpUc#1S:+*6kWQeLhd4;@3EdD5t:gOI8``LT-E?i=_=RiKgFZ"RjKuLP_nUO1E,ZR,9q7YVbB[OO^4<9A0:dfVccNT_J0/+=31<F_9*i-ai1*]Jlu/5YYFojL^G)jo8-'c'0TZQh6-MN7&Yk!o:AQI+3R<f;7[O^2:1@q[b9eVRW85jA8qnqApADhjJR](2oR<EET!**",U7Y<SLka\3.]9"C(`fO149_46B439][AQl0*.K3tg/fM.L>7dq%IbA(sM4f07mr3/eGnko^8iCskd-j8M!MV]b:R[J^HJsU]nn]E/Q=RlunA\15#qEBqqQU;_Q!Ebl(dFO("a_=TI(2qDt="@h3kFkZH>XA0nFeLaLQ\=d.JfGVEPUs0?5ml,D$O.7]d/(L6WJhgf%e1#G>Et"Zh2,Pk4W4mi)%T!AK]5+?NP3Ul('`IBI9nf@&\m!&C?F@(lWg/WE?pj631L@D]@iBZ&dL5j"3=gDpmd,AO#HB%0B-!g:L#/)N$uDN3Z7;NDjUkmUEQodc4Qb72i`PqT[Fap-pX\/?1VkZ4:GWAd`]N..@"Ag;,(+oLK/=CVGtmuAE^(h.cE4ia.Zh-;B<<X8;j'$0/Z-iE0/XeHcs%AhI9l*M.pb0,u/FO`\'Vn$:d:7<c2HAGI#P>cfa6A]#*&)H5>dk2;`c`(;$R'$)Fc`A`D;J`"MC=.O(1c8=+IhmLZ\XF6'o];u@aIjKU+_;^Li/E_W-gde#j$HUo9^brW_TO[.m>6aPJJ!F'Fp!i>c*/=M16)5#%?^BpThYO*UH:;6XXg<A$#;5D6&ERf8M7L<_?`LNc#f`Z`Kn[s#>(Aq*\-n<5f@I/*\#r*>#\$+&WLrVasAF<[:qS*M.f]aA2k+a-)>I)-9pGu>S?ECI7Fr<_A'20qC`oqV?GLtB2^kWdW^J/3W'_n*]=?J^3j#Cg3/?q#$na*2gDo`::q]#CdFb>$D0G=>3@c]B<S/NKMk>m$)4!#I^$Prl(D=NLW*9uHQ0Q3cDMS#?hRjugk!Wh>DSoCEW0oa<kp\m-.A(FWkM:h.1)0=`6^+-_BfSKVq1F4lB'VttJGXDj;1!LL'3I9_kepnOWC\UR9d/UPJ!jTZ=\+mJU1j#5nRo4Yul2V:c]j8GUn"_kA:J-]:V=_ZK(51"oR,;!C.L1\D^0`X!_Qn9jVB;`5DAIu*$jtX"0(]hLd$Y+-!?:_P;g>`+CA=ieeE>VoM.DUHEgfSc<..jC:Y.n[Uie\s8\sqXeq/(jK%YDYo9".daR++qh_:PiZo9pSMeV@>hcVe#pOR0>?hu:4d3fF=d3LT"/=,Jerurj``0WCt;*K_K\SJVPHRA)%(EdQX;?u<$U_X/;pEe>Le?r:ShK#f8+@AY$g0nu6e*<^0)](Rqc@k\`+c1AX1P`@5*iqpdff4=K`d66gcccaC!3!=Og/@.<+i\*3!UdZfOFl*84mJLnG6-W2^\4jBo;^.T8PbK'Mp&&fL7N&1GpQm[SaR#CO)>nA#meAbN+H[4V4ON-j5L^/]aQe-8e<//Y!1gSgl@&Op_VQfIBgkZoS:bS!'R6mgum)&lNku[&HoCO$4Vs+5h9]?R&LW''33jW\uq(beo,rk8bWXr5HB>6?u5$$%n9:`Gs+A;USBQe!*,Rg6nqA`<0'C--46goLjEot'91-pdZ0$4#%Rce/.luqD2HNORbf-sB_5ED4fA83I-mL!G3CXXTnZX2'Y0c?!JMql4GKCqAKrVd&&CLD%lsQdG6G</#nPT4.aW?+[t7=O3^W/D89%!?%`-#C5_o\=mR//V&3X&rp5LtrdQYaDXfV52$*Bcue1bL[<r-Dge7][H<Ab:ul/+C*^T0DTC(c:)iSc.i/+Xd."N!)i_%[*o[A*5PGtcRHZ/#\&5oo"-%ZJL0Q'X9/*n."fdF#??N98I56]b&(8D:!k75O>7+nC8@amu]Q!]S5L2?sr"G".l2m1^EFbN*3KX8e-)lYOA3KR6R>S82S$SfG1_Pt,MZF'_[WWM%H8^g>s88>g$UC;.0FN*S2Yf;cg0`^0@F!/p-s<TmsHj57mnhr9g90.Gk7U3"c=kD9p*5=seQ@m:m59JiQ(G)IR5%1FIR&X:3bl&W[Ig.kEOR(,R(hfFjNbK:.uhFo@4nC777SQV%iE,[IRAeR1BL#Yu_c!5W,5Reoeb3sId?:3+_],`8C];n'+T'\pcBM9e,)l/R('s?.9B;jY.J?=Z0>?3o?e#($&7,!mtoU6B'UEmeqpQqke^bY*&$+;`GoPfc0'^d"amF;aTPLMB5T>Rj#&VT6N\,E<Y@k?HbV'L51/XOE8$NOAAHM$Oge*;.tK$GQs/s733?-a5p5.8t%L[j+mOASg`O>dEX]Hr0BmbjCuRs-ale4RM>>\5&0s(2ACJYXQjB//WW*`$)i(e0)Q:VAXC#GXGB"a;YU\Rd?Ip!UF+5PWNeF*eGMSdkLKm/ASlE&=Y9BFHr.FC\l1\u<t96Y\h4:=>QfkV`QZi:th8]H0=Zo54jo#<NUc&Qk*,6pZ(lEo*JXcTYprD>*Qaif<.VBTq(0")tPPUJrWt_?,HqJlokE\mlnma]Eg[JT9/%,pLiC%uKPTj\RPiV<(I;VQiU1jLis<Y^KL]_L^oPc!%G0#U4/Ne]Bo,'(8tF3?[&AA1c;=608SkT'=-R$?:GS05)o[S5:etkcBL53b'hW;.IHMT:n/TCa8$L9\&q-g0&3E.@OtGH[Sm!fD";:LUm%8Wf94fJ2H/mc?`,'-f7fFM>TIUoiUFe5<4W@;:]_%VFQ^:j+8EWlN%B5?L$41kuqWJ?,B[:!Z31Q1Hm4Ia,kDum'fM.p3I!?fNk>2iD<cK=ET:[`Ma>H3;NWFf`d5eIEflV1`neqe<?se<+`u\d-1%[FE9W`8r\S`-_T@d-*_u)"Bm+$P^Ral+o[#rmafrtLk@+_$XOj(G!"00Y:H2%Of;^5]JFOF[hLMF0VW4_FXLTJQK(^O1nj*pJc(SC2I5/;0TD:2RKN)ZEcX^m^9q7h]IU[,G]\oc347_ZosKg,ZKIA<_YT;Ho><cA!_r9`(%R:^lPI-]*7"_sJ0YH1]-Fa:cM5hW;\"O@jh22\TJMn(T8OPi7,@/Y>l5bheWRD$#^7%O2`#L2+KdKd>3)Uf$d^@!Uq*A"iSYjrJF@]@Ts07?gQB%d6%;BI)93q=YrjRV^N0:Nr0j'[rmP2@".5ls-fE>+Q;5UL$hCu(m17X+NL'hE1R6OD/1C*jH1&93%P%X)EGKaW?E!kraq[Qh2S878e)Th&0/!04p3tL]^#]<S%a?J@n'C'g2YYPYm)O_h;YQP<@P-AVPr/nT5I9;9=>"cCM_FG7_b*rM@?JM&M-LEl+mUEZ]Pi$<`b_>i9A)MNS?DDBKCcen>6t<A^8(0cAU&LF/,5(d=EUuT0e33apc$:KCHE'I'[iB0LfV3l@_/jLE--C!:.n_i;(/RoXt'#D35gI\)o\dgD*+d`Zjuk#5-I$h0XQb=Yj\9u(Z@-AL0'-l8-T<4Epc^1s!c[(7S]jFK\<c@1FAit<G641[-.sdP>Caj3E%(I9ni(`@MHL"7Z8!t3"<7&2H[Tg0H5Yu@6.F.<=CJ)^FTBclta>hN?A#h`%j>-S=A.2/^4iY*5R5_G.1PMNZ@:8$K7=c%f8#^F1`?5NkdEsZE5nYIgmRl";[mI`@*nDOMJOASL+O.3$d]daDO\9$T:ehru5BaUFnLnrm[PhG8D@$rQg_S)X[0s+!tYY&b%i?RAX+2HmoBZS?(Fq5SbEU"B,^JQHj%\G9Ud-!(,1`EXWN$$6ejn$@kVFTRC]oWm-,,U3DLOi[s0+[gYsX'b6(f!E4ViTc;dO<rbe!bFp[>0`>f$p(B@MUXoF`C)#a.oopCbO6g;flVA?D@PUdlPrX,3[9JJQTGaZU>JR`m05EI/pq/199k/$^Vd+A@SqP-+`FpfuEd&'[X"kF`0BBp-N_f:nR+.$8;![el`]XRcinA^D#S"=BNm9RIBBhT1A"11se`f,p!CYd>pmCaJ^c--f$<(F*0R;@1,b),4PXBT)d+h:1C^YJA0q_n;B)*N+\UiffF;?1I*Jtak!Un5qJ1iu;^TGB?3f5NtlE7dQ."-ZLO2gItftG5$i4d56km"WlA%Tpb?5KFoHag_+c)*Nl>p>CR0Pt;@d-+`ar?X#I3CA)C#!Wub;TAWU@0Ha`HKQW!\o%B@4R-5*%e6?TDb,?ke]dsZ,+*U1?Gaq,krTjK+Qb3T&)<Ti+]>E=lLF5Qq4],3[g6AG5>^)q[R*857%#kbH&;9rhr+Q#i28iPZ?H_C^N*0"F$HZJr$77rUNN\a`OFup<MIWY<GSRd'8l.98e2Q&nd^@3PQXNZ1p)Hh,W`o-d^trl1J2qu6u-3JWKXgKF_`+oX6;i:o8sE)"q9QB'/$`&-,ZlT9+sXdn@<qaIM-![V`oDS>$a]35n:Q<Gnu66s1'P1\oo]N#n";j:d?_;+rd""ffeHXS><bJaP&8\VsVhqJ]"'%XkJT3$)"9jB3@I0=@"U5;][sGXb-i20"<VV)GUYD+*M]*F9IlJ#s9ct^Z1JBF@K><HNT*LNF1JBkI.GLOTgpQ5'Y^j%OiB+]X(Q*9cWTUPhMcHXK3oO0`d`d=kC&G:2ui]jqGl05>6&\Ao71SqN0=);p#kB:8HhKB*4bL:V)2L:ktO+drA&k!VX;a&(?ll!F)f,BiqSV/TjLS$Ke>/;pd.nBl3r0C34#P*35-*7`tf!@2CRMNBab&m^l)-+'cu:N8,_<>)OqiQ[W4m3D"qSe(L_/lt83trFe8TIj">#:':R0`Jsk+]+95#p+a&Dk3RG&n^5I"P%Y4h^``uu&gJ=0qRX,r,BL"H5[dd"--aP]j`=IO5\f[9e;^nXO_$HHfmpZ[`$\)lqf`dbB0;#1,5<R8/q%9e^52@nEKdMok'P`s#7hr_A^7*:mtpuO(LsfhTrP[cC##">OUEgZr8[rP'HFn2iGrc/gG)(4KYf6R5Yd!LG`GNc_CJhYN;SNsAK_&j)S7'[L^HfN6^$DI(p!3;6)9"t#ql"m-IeN4gOAc_PuGd@K]%Zb@\ig?A]e*M6%!eX`QCGc)j3M,aWC%3BRe8Fjf>O)&-$3J`oQ.-o2T`ti\"RDJ+TJ[e$KUW;6ZPcDBeHY#6+qnR"bZ2h`HRdOk]"O9!dJ[IF2cUaC7$DekC&Z+,%0:p5tM[@R"SsN];[==9^[9jpp*VP?;n(UY)i_]V(melsX^s8mtR1aNVFm&u\nb8c`WVDlfsa>t"?^nu\iijOHSrli.Tb:o[eZpQM@WWP\?mo]aCt0E[GJ>ooCe\CsR;_6G\.>N$5.iLUqOL=!d<jl+,`Ol&Y7:jdO//G\/#d'7WVrVlN*I1VB(P$NETbnZDFppRHNZe(">!=<ZmOcW`BYZ+BG5>Vs$OH54D"UiHCm-m?RlVV#N^VT2X]LcUJW&eNTo(92t5,g"_L'(/0ha1PbG&Xhbaq_R]lnmX.ZA(_)Q,PBJFU;#WbEoW[jo9,EV^a1P4TTD?HA=T6a:0Hnf%G>\gImsF7WtM`DFSFufliggeiKrDZaN$kG![AY3>oe<rCNX8K(<\n!3NMi,9OkM3(E5Hq!DMAY-/[:ERpGM*."l\$o%4W.37+cqo#Si=/Np,mIkip9iI_(acVQuh"@3G<X?p.pf<*%ZSP-c$-%G"eFLdSROI!sKj7]lh9iR$im%'`^/gLNI"`BuIn[SlG5WP1K!iMaHheiK3gq<-JIdD#1[J6.'A&ISIMrCcE[N@;0Of@OK5t%"atL&I?TD0=Mlk$Z-?Tkb]`="33JYq(Q7ccZO*Q:V'-5=,<`6(8*[?>;-5-pNS*5,TB4!#K56RX%7pa`p6t9@`,Ojfg7*5Djb@"CRm[#B2+;8Jsf4XT?NC4qphEbPAo]X0BK3FD"=V#K?d=CnRH(.^EXD;HI7^Sj+`3Cm.+B2:nk6qUd#A\#PILf)E4IZh+9%Xq+RR@0BH@6%M+.R"lp4]5$(La#?"e5+b);KA8c((UTJ>Mc1YXDFaiKBCY3lL==W1Tce`?d1#U]hD1HZX1k=n:6N*kXXu;\b:E>YBAi9@>JQFt%/G*M'tE.b3GZS+(bn`W5PqQ%=uh9Ln/A[_D.O`3S"59sA;p:)=Wi98GIZ,N0Kd^MhF=iRXlu2`Y=HhR+5!^u+WlM.s_,GXc_r5J0O%6es8"23ZQ[@B>Sk,g+pV8q9-6_)1dX@gpdb>2)0]S%KWe-YI(F2NBlDAf4S:'SPG@Y_B)N$3t=gY9?!_$sMuJ<H-2f%NE=<N!9$bK<S+BCjHJ\8up9cZtM$]?O[,c+edqb,-p*[;L_!*MtVl5oJ%@t[VXS$h.+u]P-aJZP5BoI*4bDV76s5?HrXN0W%)l"bS"gf?A_IYk,Ig@FQm.1c9)^sQki9nnDmXrDA$j3+7dK%gZql7Z/ZV6E4;db,g12T[]@b^JgP"Oh2[3*X+:[_"H9$lP8Pq!!RPBf5Ol.CHGID]#.A-%%%OpOCj5JFbfRTq-a;58]uXLjU)G*RY>&1(;q!k*#mMoQ4Zf1RB:^."&/$>/4Eqd!dgI.O3hCne`0XFa(GV>6KoS;o`02O,+Q0<ud-V3ubGNFMi],h(kI5GUdS[s9iqi(4:bs44OLU'uo>>?f=8d7Z4ilrj=;`DlN&SZOFqo2H,Crs%/7oQ7g(oApKsad2e0^,!D@;@TENbQugUT6Sg0qdr8ci.8$q,4a6#jNbk[pX!Ar:AEQZ?@bPY@V"V#^XffUF.+-ZK4AUqrAIe*YWD7U`6A[JPH,-]E==[M_>\3oh:1g,K8kK/ajOg3a'rCb8\^7_+58FsQVM?Y75Tg'?-Q(!2-;[m\tI!Y?]O)+skj$9K7ZU9%jA/lm<En6P1P-^I#QcKCgib:)N8T<o8\mMatd/8AO7%#<,S<^dEI9Vrm]n0Dq!:J*/M.(6d)$fVNl\&pD=Y+dGO9lg*`?/&05;\oYK%FCKQ@:A@J)K:_tlFXUD@//<,Mt`_U0ac0ii]_W;X@MuV8b,k]Q\lmscu(J/]cfq9iK#hO+PRS%Li:!P-9,2g6Y_c;R"hL,-ndr.-&&ILd+m>f?%Bb8dL6H[fq(o^IW.HKCEdOo+q"?]>-pV9'P@DKD7@pCAHR\l@r;eB'+F;$''>nf"%N'IS(UAP#r)%UA7?]Q<PZ@:I,28BUjPrqER,4=.9puRQ36a,Z=9BPZfaC]!hIulV6p1raaP=sFbHKu)SKl6aQ6.H:Diq!nB]Ad;/O\KH#Ji_guUji7M+YQ1SRR8_No*:BT4+3(<+h,#ZTGFDSHG,@9iedZa6ZkfSc*=;p&]P5$<)%c,O=s`Nmt3DG5*3>P]=2e6"MOoUOL!.*Pd>=Do3kL5d/r85Bm#(oYkXnR,5WUa!Tb*Lj!]E+oNi#ka.rp=.ZnX2=k`e>j(HJ$I[t[?2qT0"LM.K$!_m"9_$BZp)OAGUZugXM]MGa!b!urn`5s23Q^Fs*AV.AO%O3ih?JNijK'R2RtB$'TacnP>peZmSAQ:h)Zf-&1')pc!C@+*1$Y7g/&r^^fE=NSMq9B'O#FjlG(`UFc&p-iQ2od-/g_fUCTPrRt`#;ro"oTBj1AUPAJBBJl9=6C!2TE$7IS6Q8SA(@L@1j)(0/&#5>_k?N/'+*J\uh8Ljj\=0&ki(kYqIW1_V1:/]8ol9+m,;7bs[)n95u\ZK>5b+qOj<HLNk4K,kMIQEcEom_ZY26Z2'Sil_t%MC*u)c/_4Xq/mZ33N38o2M&o8&$fFNSuHr9GDeFg/T_<j&@5K$WZ-K(:WK<)-"#VB8.pdq'k^hWB"f16)u#'XdgUI9?oVc1"rAErV9`(nekfk6ZC!nbdn9^e/K9SKWs4%=,VRSkCpNIIH0=7Q/k=u=qQTZ%_WB.Gt>$Zjo#6"cO-sACq^f1.6kCqgS\_b&W=8uZ8:plf)?*!i*nCCDM8f,HZDRB\VFK#++iqrVLd0FA$'eN/M#dR=@E&$#UZp%$@4nj<^fYI8KU@rHe%JbkND>'?p5CHQ3.j"5HaNpl/YuSF6=!lgdX0E1Z9NI+."7?Ejpfg@Rc,mU4iP>jY#l(37i=aHoVb`(9L/J6l>SjbU`(m'iiX]$0^G<8`U:i":LQ7.M.[F8]i&A%>dcKkt3"&Ki[s%a1W4J2fC#'9p%m/T31Qu_>##K_L-'%9&K.inHR'7YNE-^Ed-8YrW0oPLD#@Y=N>V2<*&T[[FbR1q0W>?=<jAUA`:HUTI4OoH?uV7o=5B5a88#%KrlT0G56;MiT#H4+o%A:oDL,fgfLI70T^CY&6YXsl_T`qM_!a,,W.1V=h)S%fKie54tHZlKS\X/L4)+=@pf.El!+s]K,*"1Ga<VuM9f^20/FS#&O6eiTb]quO.9)7>F[g[4UZ<Z3&=2;nC@4_%Z`^,.;uG'0mb7OcAI(<dSnDT9Cuo8LJ.3K=NiG$DYeKso0RTWVsjs"fb"B\A-=P0as8H\<4]3dhB`0)Dd8O:eH+pO5egT"U&gj#&Eu6ddpNu[jnCIO\nX9ZT,$]7Q(JPU/1su[_e+3^/nCn(11U$Cfpp?@Z2(^YIl5*!gh`.:6KtJ7`A*>IKDGaV>s#\Y?BhEgqo-Yo25Fr+"cYMF?io-,$#'g?"hkNc#lqWH,,Q#77GNtFMNVF!FElIp\Trg1#A3(@qU3.S]JHf*2l_PJKU0.]Z"f*IY2kl=76+67gKlbS')t%uELpW<L_ZbH\SO;cdh[qnQOSa:L&.N4:RQs;I^5L%Jd$SoA<MuD[[hu;<6rB69Je3Bj:]9t(AAp+':8F*7C$3pZ.*)g5H?B/W&g#j<Gl,NBn]MIo)?2).O#;T=sS['`>)<MMRm\DK)VdohB"P,C$/fZ!Eo'sX[dZ/$@K^jd.b)%EF_OA3`oX6>s]c2+rV)p1hG`MUNi?;O/*pTcr&Y`h)_<N]e",VRmr'SB_b&T(<+Kb3.4XFq<'jl$7;8;-JjtR_ZO\3\`B?g7,!640/-gBm)*^DCg'2!*i!Uu:&AH1T/XH'I/euuhCN=+Wo%gFPNKdVWJY>f.Am)F<Lue""ec5sr*r.dp*SXXh%\8/n'\Hb2=#JsKn@0,68IZ;)^W7[FB!t.,GLc=Cp2g\"sdk_?eBu?^uNW+^-M(uYt3gVGMIi<fh4<EP;cX!?cLs?mO.r!GZK?T<td/=0P\AL^sUMF6=Nsh173nF`3-8EWU^)p1=]MQU\e5Q`?];3D`QJ<YutIQ#_bg]i4H+I)Na4S<q[sT*&6H&:ZKpb1Zh@%`_/ReN/[W4QHJ,6Jq>m(T.sEWk%`rfTU;&^J7HJW<U.X@G.,0"['8`C;5]ZmM,PJr%<SUQJl"IH'e0[AjhT"pPO\iDM%Oha-r**#s/@'JQ0&+n^l4WNM7hX@gaWd%."raM>-'%i78`pYZB/\S-RtI!,L(q9@hRShpQq0s=dE,VMH;WJgS)>W4#-j_^+@9nCDsgtI,'f_"H_UoJ?F&c-^3n`%6[mk#;^cPg]<t'>,*UNU,%$QKQ2L4n?ij,8jBcah/J.5#9Q>c*H1L2hns#ZE8@!e_C.2]l]aV\Y3E?0D(fq^3(Qj0/Cs3P6D$YY+Jj!6CKgn7R*@6[$r2i$A?I1%Iof9AP:fC!JurA.V1>[fXD;d;FU-6l>Mi_D8r:A<YI1oPG!mlJXtpRFP;K<V:ObWB@IW6Fab,*W+rE3j2iO1P7SJVr<^a3-VHD(npRp#R%e>psq?9Sc&sb3#YF1<'QJE]_&Cg[1p0:mB,u5)K6*nA^US>Y*8#op].UE7d@>f1dS+6T/_2VZ4`rY4^5$q&pYsb5J1ZA%0ohS&><T`3>pS>onhC:@rkX%t26rj`6I\5-2$d3a&@B:(E<?KX3Bf[QB2*7SX`E98mCFe/%IA)Z09BuS'T_^TA2</@+jYUH5!\Jr-/\X,U4*(lF!NrOrJC65qqp%gdF$qr)H@G:@$W,*iX-q0<^`(23P7W=V*O5[b*n:B9V[VGp5'13)8ZcPo;tn;*GSl#?X@B3BX%rVjQ!mh=^*\V6*Ko`:X.?C=bjtQfD,]olLg!8n&_]s5glX+8`2ps7:t^"70J@mt[b.)fm!'l\W;,2qB[R"Mp^^4Z]=p9-#3\Mthd!Bd6lIj>.6rL2-1_*7HfcYrW;_bb9c'!jnhR4*PTKM"4a,^>emdUj)1fI>QL,nQ97d6,^T;p<7Z`Ao'V3MKW!:sLbYV5I1d)dajuB&#@+"dGnfaTudPQ*/eueIo-QLECUX3,>Ytk+'!HRP'd(G^L<eTWcSmL`eLp02.$sVMWbG_H7ChqKoT&eSR'H`>Fo^8SMT,lM-Gg'[#U3dKB1tB)W^)=]:3fu"VE_BA`hp@"!)DQ6=*,3l*^j@LUP4$MD16una8>nJ;6OGmG*0934$7C28Qr$gR*)Y0heiZ[<P,9r?^kn</68`ilNE[+H.]fea,9.Hjpfo;"Pq2SST8@a&.g86>@U:_=,LtSlQ;(dK6PW>>0$X7GXg`i%UQQ=gP3XA"X+X^qNu!R2;QX-;!s_Eu.,iSX#V]UP78JtsomkTD0a-0t=+JX3n'*Q/)WNS>j6:WU/%U7=YBX$j<gJr`84nYK*Hs"B\KE"IHOW5q*1rl4'\SiuJg-2H]na^\Uo$85p'HVf8pthnV:dKBGtGKL`rKCb0^5B#SrQ"ik)-E]mAm6A?"n8)5&a["P>e.51s\j0U#?@76eaVU5;SA&>M,>chrX?1:(C8)"hX;]<*Didb66.&ZX,s(X%o4rZ>Ko,q)mDPBje$JR=8][bR3BS($%`(\KrR+1uB-pbT]ud\tHC9LXV)@aZZQ-M#pe$9f#Up6:.--"`Ka$O'IDsA]\tT.i?51]%s_6Y0P]f;hH'tL]Lac+j+q6A"O?m9,/DVCR8YLrk1"%^!^TkDFtrkP962ZIIfb.d55CT7>0i2Onr<C(=iDL3YQE]<2Q]na?bC6pd0@H38YP&iWZ'p2[1*E=5n$P4Nc`>MeL"Y]_d'u*p`4XOO*ljqCi32d'6Qhm=97R"aP'X"esI*f!*J1IIJK8Mpso:";f^^[D<JMh6f`0>Xpi=+O`kf=R.p+.Oo^,P5Y3"T'-9rMh<(ZeTJ8m2isGclF*CP7U1Z0J"MI8F9"*gH."A_cM:+Pd5,F4&g!kP;%t8I24H0<bOSo.DZ)6D@&3?Ne0sp:.2[E!*\$qab+S_&Ff@#I,`-%8^(giHZ%33IXH,3V0>9[kkeU0!9IiRSM&4lg:GST_Mbb]cs(8OH91`+Q-F)lNU6gB'VHY[W,`l"$-Q$J<o9%#fH>dh8)r.:a(.;7YqLP3'cj,FA%<]NQC1Y*acFKYpl&]0$4)IoCEpHJSgr`)jR[JA0ZiiP]=T;oneLC4E>^4!hlpm7gk3X\ur]DWX/VXGH1ZogJ4"^(f;.6\06#u?-#=\W2TsXT@Z`J.F+2r>mGK<DhOlU6S^ck/t,WJ,QBJepRUV%^;oZgg<)oX2FSX808W3QOpcmn!OC'$td"g?.%;*0)UV9b9j7B4G)(j)P+i7bcYRGr-D>K$o<Oo#a0r@;Un<#4.bm_^6RH+5^.NdF*bhROn:fY,l_EBsfm/ODSS0E[<I;--NOq3U.'M3&s?i2iR\V3PZ]UcYCr2nOUS<7/Z^UEb:k;cee=?\.RkVrQ]!%X[^=MR6Z%8Yg\>=3A00[ieo2^%R/g/03gQSg"b`JW0W!oV]X4=dI+kO9RNRo1Y[BXO.,YhaRlDSSfKke('T*,gH@rqZ8b&q&\aGIt*tk.7`oZqGX$']k$MP`3OL+:a=@6qoMEPD[6`9jM2W%"MgAPKBl6]#_PS:1;+6C_d/nN.Hl$FH?g+M##1rup82e],"h:%CeGkPPJq6)5N'eYm+@B-A&tRqE5&S4BpmKtnaPOqF>DTX;gO`3=EL\9N.^mUO?e5l3+p1h>:.AFOBQu<@AS-f+f-jt2H:l5`^3K5hOEEOS'i*99U?[OPMZ07pj]>U_T'HEq)oC2`)'dkYEliPKrG`nQ*Y!-?%acdKl50i_t1AiUVS+rJ/<S$oURa>F+)Y!1&.;+JgIqAMGCJC0!up4EcYW\+Mn&?W(We3WH/#taRB]4eSDlKW!j(LLJq'2&=e#+;:\p,0PkS_h[l8`rc<=1-[?tL\A^fj_fW-\6mmG?ahDj7f[#d7Ds,Jd=?I>WLA"p=_bB%$m`Dn/r13h.?t)Md8#.f?+cb2;gPq#s[?F`lO_G4J7JGS6/:\_^0uYB1+FG"4eOu(]DV)is8GG_3daJ7@^h'[TC\lEk'aDh>,HVjFe*c,j-KDVeg-aXF@(4."gAcfKIOYc[SV((a)C(qeSqF>b6+j[p9(lU:.:MAK1&gM^,o*]@]9+D;>ahsDDS4Jo&_4;.dN1$tC#;>UT=;Z^l6pu^DJDY+^03SRlD,I.p^!.L4t^(a*pThQ@J=G\G(2Kf9ek#]dqH+73`R4;Zp1qs3)bc#J=</KX$X+HVtgu-1r.g("lE'2E6cR)g1-=i`YYEt8R$%hoG*R[b7NBT4U(Z^D7sC8AK:%O4?L=:qmTrl5_ha`dK[fA1(fV"NN,rnjppgY2NVfp92F-o:BF9d]MbV$mdK!0=up\Vfj'_'X35T7**(b/gr[IAE+[>C\!O&3F07'&NVStbXUDA@_edPX!&-K`&1sCu2BKF=4aKP3@T=4EPKc_X_Y#[`BWEK<ALR)Z<&XX125+HqWRla?T?uEEla?Jp$+Zs,bc<e7E]rE*K$B@b%/%k>%C$eCeoR\BEP*m)+nC$i7/=JSBl>NeIZsZk6!Ou@5DqM2d_GY7j'eu&V+unE(e$l5.pn_Kol8lhpVAW/r%(KMpmSO`'W%A)g09chr@[I=F/K(FC4jn,m75HsP%W"VELbX'T`/#I9^5s_$VUBa)!t(+aj-&[2g8"/jr1"H44`go5JsT.R)?0k)-nX1EKAf>*X/hL/gu)NGigd[GH\^%LC"@?7e3Fp'r-h<&bYOYi\=\R]MW=PEt+_!^oP-a;p6>1ZHUW^l`4MRkZXjG!iKH@6stEKM[mBJ8NJU--^`B7O`Vuf1tDrC5o'\;H9EZO2[8-q973@tCNL,'+%-Fiq4pp$JGbo%e-G:;Eqqs.rr!tKb_9.6Yum^'=e@<m#DCh!gSJ+-3GPOPCe7)EPiCAC8M88KI>*&dXWJYVegFT=/$L30_L=$=,R'bk*XK'?nDYN+.q,2QQe+Pq5._In$g18aHMIQQ@Ol[)6@>UnQt;?Y::YY\f0899r>38RBnDsE"Iof2f!ke"1ag:;eL1PMh,LoKls^-=jf-^3Ublul!/%d]hR$*!rU^Wu\u<+@h'Td)NK/"kTE?@Wr8qo1+IMj5Vc_r.-%BI_OEE>YVs!$Dc`7sV'=WmUT,)O77.l9W99dRs,eLeeq$7.%[L`>=9O+p_0F52+E(&:_A1D4Xl`9H\U9N[k3Li]ZW""cXs4ae<]1`(mMVH:/\`3;`*`\hpb;ng'kuF8>htD_\E4g0O04=h<&5'Yg4Z^#n<9/"p-kFNU[o\0A_Q1V"s3SeEFA<0pYS,6=3:Vto2kHH6*'`2)/FLFPI@5A.Wu0mc`u-D?UqqhYS&?CBd`<QE\+[gP>P8!en]5$u%-8c3irKaOIO@YW/iX1F=$/].]*0gL-qCf>_d$KPd"HX%XO#ZLh+e,>pB62!ZcP_aQj;:cVMh\K['W]d>\J'+.BWPjL\8.!%]-dc*&2@AV+Yi661"rKb0rd_Z:<$n+qkD#%(;K`&t6[,@(YbB68D-J(@K/3DD:LIg6mjtjU:+C@E1l*cpU/Y)+.Lp)(QU,7O7'1FG52m6sG9Al$N[>/f>4`(53i$3#"lH*NZ3aCs.B0?Vqm$`ZL&qk3*@<EVs;tVa/d(j6diE;KC>d>iHI=2eh,*\(As<2HRRGV[tk<//*lPPSL9[1V7`3NAhqKnriCCJ(99g,+Qpcihc@C8E%e$`t?-Qd55+d$&5LKii&AS]0j=Mn3\!A.SIg:YF=QK:Bf2iiuCG1^)`e$-ae\5^(d)#Ycf%9>S4MXCb]cK;Kaqqh'AZ,RnhMW_OMM"2UBN3qp?05[U-"YE_a1IcTF`V-m1t'+<mn^I7Xd^f*%N%m3IQSOL,M4BkT!M=/LcTE;rHZ1fgLJIOj6q!3+EB0/_*/A,;\L.,>^BG?n8Y]'Gt%@#U^]QZ)PDZUY2-QqX/H/+.ud94&iiVX9Co(,!\=#WEFD$6UX#%UX!1G)0D5VL!&]/O1ebg")"eS>K"Fm`1EMjT#cYfKq>/H+57;Hqk'A/o;u'X$L0q/un0Za_o(&*eKUEI:*9&ktiTC8L4pHm:<@g'tqf8)QmCPKa<T@H>;*+g1rG9L/Dc8NWB!uMe)%DC:Q[#(MFe7CkqLBb1KLSWcs+:1pd.]ABK$PS+\(:j:`$P)"1@q+AsUc](P'A):>N3r9;8%_"k"JgMb],eo_<UidgjO7_0p!dG=+%74&Tlf^<&J^0=rl*2aI"I#@0AZh?;*IJ&6A0fgm2n^ED"&eW=GPp\\XrB;3-<h'R\GP;J(o4d_:Q0MJ"N>]Ja0c;@"l'aMe*,8ST(ahHaCUC=]nFeH]UY!`&F["Z)?/k"XXp;cW:O>:H'%!,1[hAN7i*!XK1-;$)=*].H*sTl6H5?-11-]uL(GhI_lET:'5]_a;dZ;>>@"*O@p:_Qek?GK>^JUqg7grfV$q-8!6]sOb?53@58c]RF-cA8^a,+*LcMV66OX=54%Knb5dL19.&7\=iqp7ot1!6J3IEnGUK<qH&&&]'E(6T1L>D/NP%)c3u-]+Ts[c=EC86Nl:>cL$l>th6!!j2h/rD?u]]6Ot5EGKr^%[`Wne)o_A6]ZfS0f\O&*1Lg0ID)K$X\>Ihl)bRIG?:m5pXd!EJ(CeKVPEe1"7PN!NOm#mrcl8cBiKMaOsmHC1O!_!#4rG7ZnV:G9ARc[5t4\7l']"]ln[eH!K_Xf<.4k"K8)6>Lc**YoXC)?Y-^0'm!q:jJEJPIJHruf/+!G7S'u`MXs(O"6o/0VWl"Y.@.oXE;G*-?+`#VC&n)#3P5f`"XIt5#75\Y!Ou<,V[HASp[4fMcY-\X8#S1qUd3!#F$3NUP/FrknO=Y7;>l*alS'TiTQDY"kEg"H6p`\J-lZ(EOfU9HKMKl1aRWn4$.tmOS#=``f'CGiM5OTPmT"n4nds62_`Vgl$)*gao5ABZp)o*'L4]f:U?J3q>OZa6Tg@/<[I1s.oc_H'f]?E]m6'a6P=1qb_2fo$FHuuIR>P&ju1XYAQ!ZY>ODQC=`k>B=$8mc\S#P\OM9mo2,;=!U')l$r<&&,^CpII;+RiGDbRT?ha11!V.A,NH;'Y#a1)20jE<2CGC\7o)^g-\fk2G=X\5I-]0g,A9P-P/Y`irtenX04uc<CP3e>Lu*fRu3XL7iKijE!ttt"JLQ3L^hjtNlr];4';@l8t)5TR,s5mJC+087)dM!9aEu-$CW7b,3W%;YK-L4aq;c\Uq&V/OMZCd["l3\rl8)6+@CJ[n*RXn9n]OT\t(?8S2$3b#YGQCdOYuY0`XgpZ1bR:I%mmSHM]h2BQ#Ij`B3`hSLbthKdkrAHBV6o#<Mh+ZDDmg6qMU$f5I[6,+V&/o,LkJ--f]FNCcWCPesI3,7!;s40>=CfK(\)fai?lo'JW*0V1_;%IA+'L2KP*+u7_kQ#nD*FAa6C!sQ7^R219BG.M(!TG^n1^^f)h'4-:M!6OS#cO.TW;R>"_Mn&J;1E$@geh!9\T7P/(Oag*-Nq$!f^n=ERn@o*[TE:60\A.FGOsdH?THo5g%f%?DD[j>&!;gUT!>'K2`WWYI?ZS[&&d(-qk]NHqq<.:k[?In<G^!/Wm&,EZf>i71dE-TgE%*\K6%R]YAl]59GGQmQ3,rj<SPEfOFGrfXY!p8o\r$ge-kE_0^[k*M4d#hp:D&[p8SPgijC9MH:gNe*hl#foPP[@$52)L5A@A+<X^FB10M1e4!jG!I*DFkL*q0jJ;0q0XRc)GU'13:mju&.R]pch?K"N<rZGT0;^"aS9f8S!]B2?,tYH/T08'HrV_>"GZ3eCdac@J-tL&T@-.m$M=O92V&h"!m2/%G:gP#A;&TJsWdilNV>+HrI5;ag(R'Ng5[qYXD4,JJl(Z-:E57&BEXja!RR.P?G:arMkZIU\t:U"clWL6bYjQC,+LAt#Z.\#ZRp5hbpRrGR(NK8R4le_ERUl.d;Us*/E]"]tNAalBK?>%u4.OU38Enop`oY4<4SRh$9_ZbL;SZ3juJ-Ir+`n(Z`/VP2$R>-l6279^L(!"QCZZ6%u8C6+k!gHc+$R";6Hq&b@Y3$Hl[%o0fm9<)sY1Gl\Pdo^2%\A++BI&QVCE.L:hIln%FSB@mJIQ[*I\6h@,CDg43r$%b"Y&L:kEaDf)D#0gO=\mN9MDKX10TbPJ'.^tePkt".?uV]Xj">VQAJp^aMuG\V-guX5i.[0F_rKL.TO)%1LPCS=q_T93TTj!j>glO+oBk'W,$QC*44.32.cO!N:[Sr_otsp%@+4CHig*"fkXA,GD^/s#Rt*5W[elRdWr]SZLpf_W3LBce60a(eq\>3<3lFPj,E&6aKrKejh+Za*eSl63aC!UI9?G=F?2/>2^M9&[1*_H08,3PsVE+l$H%n?oZ+?9^W?,fS3bM=ZDp[)<^*q_?hhWr+S2JLSV?<<'*/k<T&6ou0Tk[Is9XKOJDF.c(QW=hX9E;3(5HlbI+V[fGroD&A:dP=_&XTQs*^Cm4m=3)lNI<)bhr`.%-1Hn4.Mj%.4#j,@.621Wrj\=f]r>frRO-4`&*k:>@`iW!qF7`5+V`HpfAg=^l9tXR/tNrHfZWBtF$H<[Z$SL!B'Y;&8e'4NVD25H$rHSK,I17@S_?#$.-W`O,J2TkU0'G")tNW2B!AO+9<-+U_Sg7620nM'W^>.Cr+>%f$M`B3\@sD+7cOOD[A(NAkn@m)3hu&'JY&Pts3pPGH*T*e_[b<V`ilO/POUl)6-1IeIb=ThA*C7e5@q2*_PGd+T*LJD?r.PcR$mZKp?El1]Qmsq,AEu3<RJEia0oE0Z._8s$/Eq*s6nsoXJ1J!RcO4W:'YnRs!W3\VT>&S0FeNL:Lm*&RK)cKGY;[UoHm:7nSW?UpV\[)SjgTYdDj\XKJaQN27Fg<L`LK>k]gCJ$$`2@>7\6W#jO#*0Z!#G)hcK';kjX/Wii;q'XC$C3kfo0qTANJ3>r$#RJ\"K))07W.g]-YEO/V=.ra&7k*esp4h^8&12rnKjumFdXJVeM>9khr?i3H^)Ph,BS9fQEjVHRi7EdQ"f34j_Ie8u\i\,I3CU&sc^ONW%"ch5NiW,9qcK4!s1P\G95YL3hA:R'Z*+9MQO%XK98KF]4OaRF->'P]S<9=`XWl<i_;gJ5lTn$<S<qm\q3JBdXgE+Ok`Kg/#bE%G(InRbq:Vkh`/ko^2a&6_/KRLK]^9enP-rAJ_)kE7Zp9A=?b:b%?Y=@>$-P$Qh(u^oITQ"\$/FJ\q74]t;%HYK"'5'_pS5-Thq=de0FfKB7UdE33[Re"]#,<i+S0B4_Lk%Ls`3Ekh-PNN:^O?t*\h.?qPl58si0VSGfWd%+pJK&.5m_@Vqm:cLmYh'>O-n8b/jk!5KNdVt@"h:g(<eSU1l]!2^k33C:Yj6e^84/X.3#2Nm7ja5(Y2-gi:<d72C'Lt"1$d,?!`cDN^e]U>dda\L:gG`+$Zg=;rK@l<Y+d*<EgZW?HdS<\dtY)n%.uL&ktD)&)+J1?0Z7]o0GoYoiN!Z*;`O%V7:OBXm8-NJ,dis&HIK=pGgrWaX5AK(#>SG.FB,%`3-"`rOZ5>1Ndg0@>duQof&/GI"-OX^em;9%pAj'J*(<Oesk%>Z-gblo/`5/=FISYkk\HimjgR70[,!@#[3;OUk]@LL:QdVdj1"BU&[fL&eN`[s4h@=*E?Z_]>aV5=5j1#Z9Aat-]PB#\;V+hH:f^/"9aq2l^k]`kr<9tC0!FEabL)^'bj6/.#OJPFqAc1Y5R((/1bHm639MG6M/s<8hNH1%G-p?R"X,[;t&Xg"67TIF7bq+*cB^^Ys=&H/U[o4p@7.\X:H)Da*s4?aga"MfLOX$Ql)$N4IkO>J9iKq8chnlZZ?<3beZ"[2jiQS1;5U%5q@%5Yt!Qs?uT?Ld5cZ4+9^gt?:PePcre09dj\cWeAe6A:-Tm]N>LLn[\)8YBdp0i:@fa:@u3FJ_FNWoaTq`@B?MO6A0u,A:`#L:aJgR%k&tUt[LVQ,OkRD=W<u]Q6^(lK%nm-LIqQM^e<023J,9D+;97MWO"i?P=^ti5lBBd,!Zo8`7LXVsPFgh3jS)FtH%:2D0"%m*W/<5[Ld_IKD</aKlfthG(^0&Y=)nBA0IZ#rle#.D,DmD/"'4e`(@9hFm4%T`A)-*<"8<og7u<".qRK_Ua&iaeNEua.VQfm1q8-Bo\ABIZIFTGJ9lB1n9XIc$''d3r%'ZB0J_F+6UN?=%FY]K+YN9cO)opuBA47,&k>=4HP-n+p4&A0A:[QgNcE[7%Ma]m-@%Z)/!:pER!K^Q*3idmNlX&TYl8_anYEG;a%0Jn?s,D:BKX(uiU1NZeZ%Ru_#CL$4EMQArD*/jXmm0DXbC+$@mBOL!=lLU6)JC\%P9E0'!Y2]2=eI)V='r*YE*6:R+Uf.P8GI6uN'^D[=M#S?dns!!'G:B!#_K11(!NXM,m8QLE3qu[2AHj"VoD3H,olO&V%_te=o$qmE&grb*gofD2W+DBB7*!3(tFK6;D$8!pkED,'6YaQjK>(p7)<_>s6o\kJP(D.c9KjeMC&pkn[aWr&%,<r1@Ve.N>;0-E=RK=-,;-F$V2EtbB'B&TCr>tm"I_U`)"KQ8;H<b1L+=lh$H.GlR`79=P`+UVaAPJ2'l'MLB@dC2m?l[ijNi_0Ne4t<)L@u1?\t8a('^XS`l;1@ML'2[*qAtS@5@hCR\N-T)CUWQmHNb[2.jX>=%!_)A[@k&IOL/kNRLJX9#8GL-buVUnakVDp*#)6e^&J:^=FA"]obar%<;-KFiRi#'P7s9ur?n.,cVik"!;b1=tomFN0aoN8*8!J7\9c18S%^5"H'/1!!!eSKYh.kUP)Dr0?$6dAak[4MtHe*/We4qKJ^5PfQ5n>C]DVB+Z<GH(U[2Crj>tXhUq;VO:d7J7_7D`N=+q+>5E/%K6CQec\%;fZahNQJ3cV#`j#"%,hkZ&m4ukUYM@HWjVP,4KW2Lenk>oXnUD!fH(N*%FTdPShnehW$RgJe902"Pg<'"m=MmC7h==a8o(`a4o>msKp^)=-K'kX)=<-Vq\/)-Da8Wu?9\(coV38?Q>s?U)TW_q#Y_,@*Hs9+J0h#aU86eDh"Bg19f<7Jf7>iKEUCq2RTYIKNpQsoW\=/**;AWARPrFt6Vml!Y-q>SifGe)RB65]DK.%^]rD%qqS;a,'ql@!=.:d$kYdRq@2PZ1D2Z2'L1HYcXX.=U![[8V$gNiB]A_Y@@'Idb!+V/5ZshUhPP-VD@e<,q4]3KrX,.Bb*I/BJH-1JWGM3RuYuf<@-TT91occW)pBEK(.R1q,f7:QE1>GhI\D)N)=0MYX@e:Jj$[jTUYT@LCN;@4E7$cs<-ASY\mU!eUIUFi[ND>D.K+&P+If2A0Tp76rLorIFLOY^sT(Y#SMZ*@MLZlSq!L)t3!YC\UG!QZkC``9TUd%4>M<`7$_sBGd%<ipBPB[7#./q50-udSnT7;VHn1o!-hs!&.0'"hq^#I-]_2/sdnQ$23$Xsj(B>a3)M_1/nF,iI/Wr*T3q,d%1Ffp3noaj7r'EYFER]Y0*Qj>6=m2?(>BedpnI3j?E6e5)>kWgr:IY3*'gh76P4XiKj8La6s*HM_o=.Osf2:,WO#<4]3'"7S%TS"R'c:>Ms;b_L:8M3_[2(cu8r4`KnS\*E]D4r97SIV6-s$RmfLFBjQ]hU%t0F:t,=l;:+7'$&c>-5a;6`s,7aMXC7+Km[1p$W=n8n2FPCYg+%8^!/BD[NnoT<8iY`9'Ga3eilg4YS5C)8?7fQfTML<$+B<=qV-G[VYaM0Jq^a5TQl&?H@AB;8gd:Z+$2:.#5*'/tRBTrX%,gamP8O5RsnMaQ(!gNsg7L?\+5C1m0SIfpHYU`da6\q)shipCA6cP2JLZ)eP?(g"u4^%XiK!^`'K,",V0/r[A"dHg\MH_e=!6I1gPo1f#t!3ig$]REi1:<Z]7FdRA@!ib//`ggPNOf+Yj00].!dI>;uXEDn5N"r.be@8/KHiIT!fci_g1$Lh`)?:F0G'A/5El+J:Ipek%GBq@p`4X^1Y1*`HlE5I/&5CkF'dY^q&L*J&J=uBjt\bsN?R_TA`)H-sFnRS\gI%^?b]:$('o:`A<2qDFErZaD&<b*%L)B<mj&UkgN"[ZViNA&?8kO1d!%DE.g&9fSaXsjT/=kgEp>pWH1Y?_Hj`\,*a$H`U!;p/0_8:mOJf)@ZT+TD;7ZL5o'"pV0N-YNJ6hj12BrNggt-k-]e__W?\@e0+rEsnFjRDuPX7#<WEfOed#1o4TD3gQ]WkW1^X<RLgf)j'2n/O=Dt="YWO4SOB.Y!`:ZgVh[E:8Xu-m)e"3H*&/Hnc,Mc5RQ#'^6Gp]':1(CJ%cHaJ?A6CCg3bbqOcC0&H[2l9kEnMCk;1)g#H:kb=k0"RM3>o\5L"=\'"4/fr<,cT5!Q9;8,Vq-XhFDQXL!Ykl4S*bgIgf9!7eWoEE!'V0t:8arGLbrRH^=#a`9rO4u\5iWiP;Do,OT/e`PB4Qf@A7?kjJa<s]_=A)>3?a5_%Tb0C=idiV^pp^dl9H2`4!tH^S^8Q<SN#8Yl^4cht,B"r<fB,[TG+]BZ,_IqUV)D&NR>.kM\sCJa$r9Hn]Y7d>c^U3[^@Oh9'Fso=<-9ckD\hVrJI0P*1oZQ%Kh7u+pu6R*8>9D%!_bf8KJbV$-<.a>`o+!jkMH%V.N3+ki=o5V2Q_eH:Q'Z6p43@\(cohAgR"-;<+8KB'U;[Zdd>)N7c9KZEQT4;o3%$jbL:[E$7ZDO)o/pdTmcPV-8?I16TMt%HVA:+Y3Z^AOk1C44&>clr#U%X/c;.pUP7MP)G-PV/"A3]O3oB?Vc-RQj@Sa?XCQed>o>*Be('hZUF[L@:47drJ7_>\IA&Kp\o+lJU'BY"R)UR-It*C*[=r_QTbT"+997[X%gH/^J5F!pHXm+R*[h<6oU\YcKkgl^L$qD@GFDt")r&iP[Dkb'5Pk40i3DntUL?_5clJW_>f*9;DXFuaG!jh>mZn(+D)n<4)C-FTJq(O\L7b2uGr_j@<\dA6Ns(M.]J?/rgqh_hl**KG#'Y)e8"/S#-&6)RW%m&\]4GA>UR8oU0N@\nZjD:_*F$di=;B=hNl(7;bmG*l]!=j%dgHuUJ@INtnqD0)ipL5Kl&<l!-A5+,6qW?<2[4^,*T"O1o6jI5W<q6;!2??#,LR=B,'&t^-9f_tE;9*\'ZMthh<T9=Q-9c,iG\aXQ,WQ08/SL4'MPB"B+(KRcKS&_rh0&Q$X`8)ir;u<b^tu9>@/M/e-V,*Q=R47:AnMUZ,"!MCkS3B''a,M>RKF@r"B)4\bTJDmg'80F(][^egRbZSJ;@^c+^+?Fs?1QI%mTS,fU^3W4icY(Q'IZOEcFV0O_.%[f3Do=EQhC.j]@j#R$ud1]ME?Xsp7NEr@=h$[%bVC=BR)EJC6><*t)K&<L1CErE(%VNJ37r\U+2H3GrVK_fWnmE0F^R(iid,C]Su`ctZu2N09Xm_m3/rP4Q(2,A?n3j\e+B'Z'2&24DQ-J4*YDi07@\Aj;ZJ.ujD>kMC+jGL05`'P3&I+RE=8"`/(rsA"(cEZi\-$h<=K*'Y8_Bh=D.QgA#RYtYAito7E7?lC.9ugRSJ9rFo.Ed;2r]?ABU%_.a9d3<4!D<G0Y8X;n#D$jRjAnBTNjrp+d<*-"17/m3o5O358YTIIoa-uQ@9$$VRchUC"G]4l<V61=BspOXW"O3g8.s5$Q('Ic7'na!Z`D2$PX6e(4EV4E8Oog2,peH)*&(aXWGLsJpM<p?ns"?>VV+f/E(tlo=b(q+16Tp\EA'Vk/Y7QmF(fmrE*e3ER+RR\mW4]BEq&)7p^_SlU.LcY:,jU0@0Ba*RJPh]2?FhW@RgPG_o2fM&s#k?aKEI<Yfa$)Q\%*BRTnrb52hp3c/U6_[m\I_Ar8:GGm-6Ob0,25QFOKtL-"ro!"Q]=*30nV-o8n+OiR>V!9i:8=p<JF491&t$6=,IO")9qbeCW.SlqYgkJuLjJXc?$.]<cKEq=<6]L[#%cZP'Am($^6^BbjG><V"47+&;Ri&dr(ggT2erLbdDlO2hW)7_GcU&.@6-gX^#Wt`DAO3PkWg]D:WirK*RCf<<2G9"_sQ6-Oer[iPrKW94$T*cUb.nW!VUHYkWX1+O_`/+63+2Lk=DbJ>32[r&Yb:i[BW)3VVd.puuBD[MIMj.4]Fi1AWN`:#G:d(\J3?/MV+W69F!]?l2)q'?A,ur#E@UPo+hckE6nG(Ti<>(K_AN4/Ejdu8ZX+XLtDFsdi,lIU?mS`)hD@_oZ$AL!T\%gFbg-IR.(gG*l6rsiUYGp(br7pj??R/iD<"\L-no(!2[ubdL\NutGI,E)lpQQ'pQ&RuMj"D*uSscmcg`jjI2ScU6nX+EB&HeM?\+4V+dM?2-DlY%kd4D%;#UUL2\pRPlImZ9*&-!+j;Mpa8rN4VVcZbLE$1trn]SoSZp17O$$+@lB_U\%o.AApJV&WgR(_Qm/'-9d?V@=lIMt\?9iD"B1*)lHdHuPOdg\;p7XQd$#Bm02&G=$VTGiNm+J#nP+AB$+rCn=C<gd*B.lhrJIK="Ji7=fhhr3jmZR>8YETbSs1P`I-$N;8TIfu1Znb@U5p>]<bFj`K<1#+fp&%,p<",WMHNVWcGRf(Z+jbh<IU'Y29H';J"pjH]1B\D?3D0'!aUZthb7kHlC_mY+@paPNgkfSM\6n&/;65k(KN9)2=s+]`=HoU'l.HPOdq#dobm+RBl)S1#_e-@XJG*M!H'_%kd=+pqRm8A?k)A/p<HUiIVm.]8K[`h$N'#jOB?Pt*Sfa5P4M./>R#Ng"E8OHo`26B$NXn=+pD&h/pF>V8\P"n6n:^Z9lN!?Rj@-mF,b7JWge>S!F.q(WduN%[8Eonp*K9iSpYpU$aB2OHHK^[2P/06m,]0k$%b#&U3P\<>_*-]o"o0WS*:Z=J<Zb$fMa=;WY?1.Z8'NOF8[DNc6tnf31D&#=DgThVcnIP"`,@;]EsF)c>XbBb.4[VIYkK0pj#VZm41ZD3<R+I$)J8RKct1FkM5D&B$8kYQ:J\ujLcY82CSTS8`2,H&*b1)%Jgb)&*NLp>9mXMR.pHHQ8O#6MdR&9/85]f$2^*TEZ1?MtpI)H67G$-bI[eks7>=D#5kaFoP8r,r@A6Zl[NIg<V>:!YF&8A9O5,+/cnZ8.Tk#R]-AoaE`j[aO#UkfL@MQCA]AAkk1q<RK0KcTr!,lL.]+?Y$I++#"p>&`!!,FH1bW'<HL4FLcRUhU3>f/Y$qLcGQi"/Wf&4?-]BUa4a-MW^qRXro_^,L?l1"`tMe8r:Ao22RXjl/JpRG\sB4IC5hZLYANh?:^Z3H.*(smMk@7mL%mQ&dd4G+[B@AHBggO69-#OkZ2,&0A?)=d@5cR#q2=u>!gMfms0l8_0GIpDJmR\,[i6)_mAr'*n%C<KFnW%W/[KmolFNgfLA#VQXX)7L,>io9ZOqeElqanQP1g!#]I@b/?J&bd4Ca,30Nq]"h/WCKc$$cdK@e3A.@gg4YkD--KB:QnBF$c`l&!B5Wc[fU`V!\L^,IXj./oM6QiU[:p8V3=_@Q(,HObmg;RC,2TPg(r<IUpkXJn5=0m7LaCN@cZ@'+/"[@mcTL?P?oK7:P63S-5)YS0DJ7'^dS4]9;Q?%Y<(CNl0?=44I?MLdShA2EFrG%QIh`;Q+J0E64h>lD$0HZq:$YflAt<%7$^Q*`+KC3nV(C<6b_GjdRC67@q6%_`POPUN<#bGC!C5<oPc*6!\rB7s#M!SE464k8EOA\Q370*.BI_SHgo(P2T$%>N(C2$MiWF:<&n<Xa/d%PqNTTRb@(F)blPT0@d*e%@c2H`IXI%hCH6D&ic#nmO5^^'5S+Dmk0&eNRjG-92[fFSO`F>b`l8G]j-a;`Pm26(lcj@'=gZ--ul:I9enB>]#A&oi_@Dg%6`8?=7.>.%[K<KX_ND4c_dca;R/q;._a#j,#^O_>qIN]QbE#;2jT#2mUE*+2Z!`H$L:r#Dr?-a0#/lfYp]eA+o,O=jdYqKrk?pOtiY#03\]bZ@3uNhAH?/AOc"Xk^+kd3'rIX@RQ`7e_tT[M[Uo-l+[]jgX$OBg"`\HJ!#[V2[VFL-Vf*2oLTbm5s=$@Wm$r@FsNJ@@RgM?5.>&:g]fsPXC7@JEXX[L_"u5'')`Q+UJ?Z20sfEl>cp#N:N+Rcob_K=!%?9:Eoo0rmOk*[")8C=!]/aD+hcgdTfA)'S;k.Hb3/[4$EIp00akP:5PkPJUG=`Y@=;mlTTg#;g9C@MS5M0*R>Zmj\sP+,DP"CiMqq"h5'E;R)=2L>Mj#pbW:]<5r[@$^@LTnPFQjJ5Z)/oUaZJ0g74rnf?had\f9Y>,R=&\c'$&Qt+r+eS!6$$qf8M)WQ&.-h^h8pTKn0(/PKnDX]Nom;>tQnCo!_R`b2UJA.'D9k\=H`5gV-mINr*.+V%oiXN][1.g+gAQUfORp@(-k$%GJ#rSXXr^prH)nIu;"TVnK(!iH?Z=_c(fcWbEHL('9IK)U:+G/Z@IX2>oj&QOC]*_13_eoi-$%;`rOEM-iFO!Ii&`]<"^>FUA'oYE`+(gAKF3b`D-qWZ*PPS"5M'F?5iDlY/R*gIKh\7?9na`Fp89\1OT"QZau2TdsQ0c/qql^jVX7Ei8,KGM3,575'^^/$,#1rp#XRgV)H\(OV-RIP+`m4"kNeqf6/L(CG%1ZC'5XDPO9diPIO"F+RR7&(ALK"pZLC@U2k.4MGk<PbY.FI\RE[Ir/a;1Vq#*"T1Up!R6NdO1Z>rs/cChH/Y9OT@7oDEu)27R0rl^fkE*"Ir^ludJa]08]YMkXbi(,NOsuXS`[]NAnRC)L7rdtJ<j0:LWr@'&A`[7pD_NfCAX<e)BLAP_,V^BJRVG='B64hC1pG7#lXXB$lTpFK8/^KMZS7o]N-,14A>SaNs-W&bnX4c#-iY5:F2\8dW"i+Nm.t101kCD`NuJBeO.;fH12P)OKu%&^NBE&>DNj1FZU;u'eo74H)U:i272-_i(3!Iou>Rqa7?@\;Z<ZkAhn.GGFZ#3IA!b)@bt8*-4m.025iCWe^tg8r)pWZ[;\'P@o"IDBp#G_HIRu/P.FDa#niSYIqO`<\BX4.@ZmhNm0qF1J7Ah6WmHj&^coH!c_=HA]b*lM94%Rdehi0.M'(]`fdrM'a`#T^?S`#AbcoeG@+&\H@`dG%B:=S,la@Lmo6'e*N1g.fc40T&Vk.fC'ShD,^Yi$'AR[@q)aW_PF-'6D#k62Ganu%He6Jd_7o)j_Qn[>=(n'pn#AEUo]]Oe"`/]HO!GIr8prsWbmWUu8@;Lc'2ED)a+5[QC_M0Jq81ubCZKD!E*C,VJ3WWgb+9##(HcA&9lbNpE5JjL3^CHj(V+e'48/K"JX,.(.+![YjKLJ0<I=T^HmTBg<b3A%#daK'e;U1%A_=*!E1$h7rU;%j7AVHY354`Z^"#p_4g)T=LShu-6(2\a9XUL0,CJ93:e!Li[7`2"3'n(\$o(cchKj7`d7%e:PEc8g^.BAAfjsqV:ma@[<eosNGbH:cePWu$#Egp#6\<e3B3`h-f%6\euqkEN&oKfn@kCt;1/D[oEIGJCcloNr=X(tk:$nd>qpk`qShA!8>DTe?"V;')`BMuE.S!o\VhXS[ie+(l,D;0^uVHu].a&iD3(WY4+H-<Gb`*TKWAg2<nCOgK_N=.H36r0_J"V!7J6\#afWqId`!X[_(QPnDFNWe3p].;G[i2@5C?8kp=Ds.=naT<tL"o^mNB612HB+0h"),e?=*0HEKNWiLt:WDBM*fp1rh]\CSlgu1\2Dq_'/mtF]Z<C37?N[+uH+>:EV8=WIdFUH?CS42j#sqI#Vi"uK&OU(U4+BkmG4tPZ_\C`h`*392T[qKM'GI/!!U?5"'4%NDp.P5o]'81YRf-H55gFFuf3iqJT6eP^b;Npcb\&$s.V>%1kC?:]ojl&/WC6QuN9elrnoj,`UbD"PA!J#?Il,]R"[]>6dIE*hf/+!+f1W"Db&^TI$'`=+&jlN<#6s'8.X7%W:9CQDqbD-VrGo0m"^f][h(IrfeaqV@RIG@P?-d'&d_f(`1SfW)-'PFDCSD<0\>l_!qrBuGd1'q:COJ\ImGe@Se2]I3mjd8rJ7Ymb-n1QG:fX:MWZ+l<b*3SHGanl1F<A\Oidiq@*IZCQIY=<cA$3J2qZ]S#FhrR#&Q7rVQWkYQ=N.QE)U^?b>qO<rljg)X\>DB1&_S!EN6=X7roG38R4DORb@/"-Vf%I/>T#L.g"8koHXNB#i#&G?-:\/SD/fZ,m!:0M-#UP/=>jMt%$t9Qb@)AA@GY+[ktVUFWEhGZWTNa<l8]skLstlZect=j&b!#<Sji/q*\<:R0YF:J_Ee8(i8$%aF<aGQ>[C`iIcC5Pq=kt'2g2%1ikEWm@#@lI@8-YFp,:cdc\aBl*G*TW:K[rEP@qn3oro1%.FRX&WZ3.&oha^!0>k##\2@NOal$/Kj5o6KNQm[[g(2*&,;n#0m4eHB5]I8%5<]b5;DS9uR^;&kbL/"7AIchuI6[p..=r`_aY4pc9Ao15)H)#*?K;&52np5aW6K^&_V#^PkjpOTHgUJnB)C5"*JND(O72pLFWUA"Pt@\5el,Q1d7<G\2gZ&E(k<,VVfSqkKi5Xga=uZEd973;%=E=fB!T#-r48Cjbg#RIn!!WZ$=L"riP.J'&@)/.DX`+lQ#Z!6;HCtqQid#,EN(_[V%'nq8d`iB@fcChF!3f_BHqO39A>*G_Gk<2r$Z5;_JYUr4WL'Hb)e7_mD5%Q83Sr]AuKDu@@%fI"#(kCk[L!d,mAIuM`Z(U^rTca:L4_1X$SW`Lk\\@D)ZV'Zh*X[P@2I+V``2iQbrf=JPuE>9Z3LqeCgSrmmh`l.1)Mp=6:j[:Q=0101lE/@u9tX(IjPeoORZ#6b;)i>@cf6&!\-UY0ram.\)#A\_e\5ob)5%Q(N0K(o$Yb6.;3ZB8kuAb^#m0a_`*`-`?]2LkeK1U'+ge<.@eMOeeP4<jP*L7#S#HNY!URF\a3W.F9K,UrlsbFCVB%R`pr'4#s4DaMnlDB!h"1Tp*XCh'?"K0GuFF#_I92A>Z@BZ-9;?G(Z`\;R"LURtG"50*salYG$P'C6foTjK$^<*FCAL:$fLU[`9m2%*hZW<JH&#&Q>VE3Zl\$g_[OY-*:FZ`78!lNicE8h8>L4MH,[FIf$`.(WV2uA;;@;k"O/cJb`M'Y@s!Y(c;*g>RnP;LEkQ5C^1BZK;6a$C\&)_G0*'-ebKC9/cF>.6&[$%#;2<D-u>^h*j&Z?keK./Jr.\[.'!8ol0DPhA@D5N(W.'E=70E?#M;1s5Lc]5\J^d?L^NJ]?:][5e5Mb:FC_0a&AA%Q`JGbmJ(QiT]"+YT[-jR$*D8@[3d;)A1qD2ioe3:E(9P=\hpeJ@&0B3ej!q2(+:Gdu/^o"=PO.0>(M_RB[S-Kf"_u&8#cc4VBPD&Xoa-pBo!_fY:Ds&IF*>5OCTXM^"E4q@p&urX^p;(Xq+)>5gK#@*1reNeJ&-e60PMOf3'H/c3s\J;+<-oSW?dsh=N_VF/5sd4A'[!PYFC+,73p7<qeInb9OJR6^C^A8'`S9JcHo[M%f]J0R:JZ*0QWP5oVj6'T?jLI\*R-fLiG2hdg8W$[j_td(ee&im(91d#hUu\M$2qeL^tF8LI(.f:!.9^i;d*o9Y?5Y"#Na\HMS0#/X]R>pk0GLALc]67d)J1:DJg*M=1`1LA/+Q.!Y=$6u;?L91Q!C]DuK.Eu"0bND)7dpEkW$+715TAa&jU=(+:3oXHMQJEldZV+>hZ;'uj?9jlHP"SO]9O:ssJE=?OUk]>#@]3Y/N3sVE&^0QK8)>.<ri.'%56Y1_5Ho.Q>L*Z@ZIIf5`bG@3\1/C:OR#IDi#Q!rpLHYJU/puMf]IJ4'MkW`UgUVbdep@(Z50[@,KDcU.%k@;`7(cB\?6<'=Q#8he_g/XX89\6sDFa<"#S"^bQS]R-i+mIDnWQM2Je^t*1hG0l+cCTLbrth1N0D-=!pY?#bc]"+KImo%1Wjc#9,ptO$f6].kt4tmM2Ok1f&:U/fN+PV.XYGE<A;Uoa4`)TcEb!C)2Pu)I"QKeq\!5S811SW`u6se`%W8A2#C"AB1Ig1.RB]VI/2PjMa*jW$\Lrlk711\S4amJMnGOfX)24biM.#d&>JR8,hKEb=3ml6dt>CTU9qpn$H"(CjZid=8%jeTToXV7C#'9Gp^qRuT@Ye9m$<r5OUrPY]mB#0ikMBa]D#j+"fQXVS^9s@HRJEc!n/s^-DRWd,`,B:S!Gh??c/SkZ=X1$lVG=ng=A_\\*_nGhdd^j3Sm[>7S/Le]UX?<p;BQUENo2E\=nO6]s[X&Srn4a<q2U0m<J<KoCRB7.B`!Trk_m4R\C!Y>P2Je&8oHI+pb&o9F#l+c/tj"a%k?1<7GT[lkF#r_q;d&bfn-b=f*<81);XA7YO4Bp`.53M.iWrboWMkEj[UZdOHgA1[5k[:]uKW<)_T%4P\o(7c*!01@JB'^U#*I\&C.V[H[V@TW>Q-c8YKeCVk2#e^ec%I\aQ-#!J6r!<I7n0ub!NndSr[)"L$0G]Q.qrPA:>M":1;=Oen*4/:fE$@tb%85iHro%"?s"fq^Lf"!;6P@6gcnK-?HGPF9eX#OQ3_S]Be^>^l'*Hn6ZDo.*d=SN7%JXT7CDP;TPfb7T1Ae,K_ThqJh0\nbA79HY.@]*ckdb&Q#^]Ldg@Vt*sV83)R0W&%M[Rue,b(*o!_La$;d)H9UEpHFA_d[KV3kXo?l@HO*4DW7Qh*/l>[EVr'H:b]8S^+fLCYsuuc%,<,hS`/`lc9V1g=1%n!UJ[`7:%l8_$7q@+Wl+M*$6t09AVt=1RQ16+pD;#AS8+CR*(+Pj?u_%\/dJsaFosSVk:DCHT%u,8"^ICA1W1_"3H$$NAMjPhrM^5/gf[aWeQdl#!duQ)+9Oki%@s*!A-'!]9fCLB*m7E-sO<]Q0D!WYc&eS#D/Tuf!g<YF#a'T_I!U(KY+QkPSQrY[:so1?K,JLZl5@YKXk#"T*'DGpV]g+`^H[NdunFf,93u0>Y.g(_!ITmYabupLh/f]6gbn12ZRYU1Q>0^$L@O-p_2i@U5,;R:?2)_R)058\\S.n'P[<PS=m%&G+Ot<=_kS*!bX6@LIT"He^#LocE6P.glHA)9W:@G5b1g<UV9W3E*h1J;F[S[Uo]&gh3Q]64[F52M2IGg-HMS\o><V;h.4TS2tM/oE<65RO+d=F=.e"7qf9aG.Wc<4/?jd)kO&5hU<5VeO/kqoeR^[k5<qB@!`DlFs.9:0ie6OUPXs,=]FI+ME$&LJ:(W!``USeWn*,t6qIKXeUf6X,odPHh"F3`3(_-jCNWmAG'2hQ/$juL":ref\;S7.7PP,VB-_<XNCX+nC#h^TtrPral>$15>rLX4L@ffb<DELO_1:PLKU;H&>F8tB1?2fke]1(AM_DP_4e0Lg&j8'S,?c/t9oY>*hl^J.aYBg4*cFY%g#`4erc84h(![TB\``_@VglHfs>/)*OcB]OBEK8$l)tNmPo5D/ZmR,TOKu][=+?-\I?p@m&/EKqRP1)F3Ml-27L)rV[WZ'1m,E@YARF!K-BM[8*"A"n7..8IF<j8Fi--r"F5S;(#d2Q;*/QE\][#dVHq!7b?9`N%%].E.Y:`[AfDUggc5h&=:'k\^0Pi2Op-cA0`'n$Rt2(@k`jUq!<33!Vt`9q[&ANN<rZFk7r,-n\c;tW"4a)9p/79n0e+"^Z2W,&A0gOJit]nI)3\2aW'>5cC^U["a!]PV0DDa,r0?#l8bGbV&^;O@gH8#=E)]asVCIc]WHqmS`(IA<i*)R?]2@8B,E7?B"]Ia3.^Ma.Yd8jDOuP]dqYBe;?nYfXU[Wf@H_'l,-,14E-e>f2-PEV:-R:Q@XTJUGL26qHX:Se?cC+VlVfg6nb1!88H<$tNP$0@t))Y-Ef)!2kWCM_"@Mm"&*Ok9/Jh<Uh__AU%k[5N1dd)@FF1PW$_l8Bq+>Ar:^;).t7r5`W,3B@<-d#!/DK+JXue<T:mHEi+u;/4u5#Vdk8El$68=@SV!2)e@E^@Xu7(bPS%79`Um?cSf@mjdq6qMY^2oM4\'e_:n(TYU+YTgOl&8cem;V34+7u\rLd^h.+nX5;^Ei#I7!gr)sXc%4#AeEa+Q<0.T%DgZLRV(3i*ab*tFmiXRX@!2#\<,)).n6]I+3Bg_R.Qr>O9mZbl"Z9g6?"#:V&l73r[DcJIC/JDoDIENs\:Hl,%Tu*?tF$&EO9jNS'1+E<SH`heml]D(Q-?4TR)_7QJC'mH`BOMl29_EAEkcn.%I/Jqqa>Ysg.Qg`$s5#uHb-qK-;"pZ*AWI7aMQKOL?9-VsL$b\*LT\!$.(,HaP2kcE`64Z.LSr?(P7AYjeY!801\sT34s*h;\(/fr#e@0)rqla*_@`:X6I^9A'V0o?Q-S>YCEo`T[nS>Igi8caK968-8)obRZ1hZ=iM9,H[!]B)Qb-;FVrDlD$0JrAl><,d8IQtf^=(8RDYcm_:Ha3V@^k=8e)l1MOW`,M=&2kg(MmV.KXO$1)hG8ldlXN?2F()FCa::9l[\0[M"[bss'm9"j6U!IA32RMS7\Mea7=<i<fJQ--Q>@+/L7gi%tTjcC%^WdnN$'4QlVt1PC(0Y=Ub+N2->h6%!$mgg:*$NYJ+Y)1tm)f<;"%5=KF`IJ@A6Ertu[5(AM1:F1,qQ8%XKU;)Yj#cHr)elK"1);kE$QWhp/h]NVud<Q%c@poOXBA<9&M1XAgm#fQ*4>c*es[n:jK]ISj6F&>rl>e=6FVg+jQP>`LVje!oGiMOPRFRR$^*Y8#i51X;O7l,]V>E1B3iLmrV=kd?jZOiE8jnAA,\5QAoc[J\I9fn!fc,0h_EF&*Gcc]h,K&03KFo4Jn"V\#]BM;LQ%(%[n9\tsKOJOY`:AM[Y/g&<'8<caLQohY"a+Y^%--jV<%7$^4TQ!b4.KRg)-^DVmQ,$fDi_Bl3<H%stD?K>SM'q"L_(1*02Y&;lf;c'=hb:G70Qe7%OLuF`7dD2SY<aNn_^%][G0@`&/WTj2=Fp>$]50Bs=CiT1_T('&Vdm)"*S2^S&QU?W&3aN?WoY-PSd0t\"e<Z%7p8C*;H,i;epAm6gVP-Pah$lIU_^KbqYhn)buSOYe'DF[!0=Z`7pTdU#S&DHjDdE7HHf9$K8_$tkLIe#JjF2qInuFWDoB.&WQBM;Os.Lr#94Jd(Rr<SYCfkd6W,-"NW<Q(_H1aCRDZ`CO]"uLota:Vm%l6;i*u[!:jhp90_+Q:Ju>8PX9&NR,1Q,[6ppNg>?1o<iO#2rPVV3;4edjCh'%eXcDWpT#84PBKQD-t#u.p_G<6\iXQXN?(!)ssP2/Y<o:_TQV,+si;5Hh68OA_$XGWj!63D!4pWF-,DB6`Q&?(Cj]TcW_pi3l]8T:<:A*d[K`uP1>8:O6(UJYL.qDnT^Fno;3Xdd+s;MgZJL905Sg\O*]];Fn3="^@(VUMD)/2c/t7giTsDd1N[N&Nh>S*7]T-V\!G:l4pFA*n&Le?WnqT.&rbmt'&qB)m-[*s95%LdMNAcj7^Rd#JcGWJ2$L<b\$g(p=sXX;1mtf:Omj;/Ma"]B',b4P/>r&=%jre'E-[bCd6.BgiilNfJ%)bEq*#H:cSEA"M:]*V.:bc`mJ8/TUn+5dH-S0uD3Rg-9KRn!m"N^'$:S5p86',Y9h(K!df+@[MF\[ph<Uh5(&P328nhKLUoA^:h_O9jD:YV<Q'lad`UgJ16`,H_7GsH0$'_"TkGfU>TTLeIn;n4^ge1!_jnK?^'9IM]RXTQ#0#$!Is]YBp4>`K[g[LE"$:3.3-)8S3[,D\XFZ2qaRKMoWGL[$tqe3HG*$_5f.RRMsqZeRS3VZ0j<[[#i#TJ*c64W3((QB=IW_f<A%bFdYGJb7E+h#g\4=<p%Gg&Q$S6"Z,,=Y59'il1B]5p1=t4kjZL.'#:=#"39q:g>pi$V9<L+/5i6gN&SI"Q&m(0[,/NL!QKg+C1;_LL^^8eL4lX^f0bSkjh``+b6:3QX(MHFH^c:fWegP3_)na<=RH3(_[^<h;_!iip64`S;<-9(a*715fNW"H(d"gcUPj044%oTN9Yp;5U%/]C9`jN1YS#F`shDTY,H2>+^5Og/3FD23>&`hd=kHh9oNnlq=R$)CYB,Q'e]if,5QX;1=l17pnHjO/#nj/qTjaQEUUV-.$Bd\iJ>iSIEM/fkC7qh!ur?E@Kh0K4o$atnCK1/tE7_KZ>^-(eK,,a;h2(%m_,,KCYKTT!0apsdE?U!N[:@bUl1.nu;biOgW$pBn1>Ei!C6^=#(i2-YL^^&TnB\d!]]U7M)9usOHJt=sNZUFudcdB'j/+Z"?KPjb*I6ku<,ecP@$UoU$+MB&*p'g!/;2.+]hG?NH2DH+nB9kTd9`)po09fns4[l/9Qo^#saC<KR=3(<d4F^)01GMZL`#5PV3;BtaAnQo^fD@.#;\95]1br76$pkn]jHdU%+&)J'J;(Xi`+d`/!=L1leLS*YCAMH*RYKOopH'8E@IX6kM<`"KoP@)BPP`EU!Oq(3<$,*A%pL6l2?=r'VCr)+CM_Gcm!!Eqk2[^BM&t8L'e"P!;8?30brK2?ll7`FihXLD)rPk4L`.!\2oJj\eHQ11m#@4l,r?r!IlR^3\nFNI7Apu?+nBs>JOQ+K)=[1*\ESM8!FZ"5^MjjsY'ju%O3R&Ne0&a)(ea/OA[W>[nJ;s5CK!U1^g>b(N.HP0bA7'_<"u9J,E&KXL*r[C1otO_XVU"7DhpQlA(tOg>K-*hqKc:jK$?I&8j,,s`aLnK3+DGE5O1t-:u>5kg1<Kkk2fN6I?[a87Gl/t/<t);/jX%$OA`C?*mDrggAQ!6l5\AcaiR),%?AB">h]gQDWo]%n-I/<LBI&gBoXg$o:sbO-GTK.gkFtjB6EC`l%?p&/3/D/[oa#Gkq@d\10+_]-!dam/Q9#"hFPiCmeE>sWjL-G4bM8O[HZHQbgS6%'%*)XXjQso.M]]NH1[\]$.+Q/E')/$o$1L^YaCi*A;f2,#CML<?8AnkhHh0i%TSf\<,Ih=>bnE-f!"='g/r)pIj8,YA7*+*@N,N8c7F9\?!?aPc(,-?&tnd6a`Bi.-^P47[C^6%K:Y!8`D"q)MUWPbLC\9!f$q\`'??!j!B4$:i%n.+!Ns.H-gIouCiOP2k*<VoBk-S^Z^h`Z`4I9$D(ji.N,U.Ub!o@u!Vj"?ghnP(ZE@a(jlAF)c@B4&'F4cPR_%7K[f^GGMp`9^2L#oo.D)ZXj5k'oR?9T;Ga0Td9XS;U*?uZe#:cknTVQCHVHL@7_RC.;g*injo8?BD72RKm`$LG%mh9"6BlIs+r.7jtA1j`Z)CbKK3/o[)l>o3WasIlji$r3^Lc#1kQ8]jeU`@_K.6JMAq&KALPkYp-JO<<;SdGJq&?uU6cr-"c(V[,p`Pf53^/LSC;SEQTs/g&J^1\;M4?9K]$HSkPksF66(9oKp)4TO"@9$S7TrMR6;4ef[6@[%5);UAn]"!%"E+4&G.]&)R*.pnMGZ*elYkYE[F>gU6UOiO=L0-q$.Br)h\Z]Mc0&oeFbZ0;(&Ie-l<r!./\/1FlA\5.L?f0:sM=d31e[:IjEdkI'1[7J?^,6ho)dDZ2We\Paj1e'j`$2b>JSEFg-S-=B&5@o=B@.Er8=N?U[@\V;M.F;Aghk$O*;B9,8L1XOpo3=4^a8SNNP.ICI#t%J_]LomBm/>96`(etZb^:.m5l9VmP7@VDYXC1blNG99P0PZdkc>84u\;N_`=*5202b1=\am6;is&W&]?sBX<CcWkY`6U"HWiZL-H5q7CuRZHYuX*5q7<]:#0s)5'CK7En"*oj-:7eZ[d;'UZ\CeZFB-AefQk6<IK_Il&l$]G[:U_"&O\gAudVG3V27:TI0=uRY353_nM40E0ui.Hn.Hu<M7KW'a,D]4C,@5.[_I2qrW;23<XihVC8L`bbB>EX_hdSM`/a3;W!Id?^<qa'!q$SXVug_*u,pK`pjVMqj8D(H]afUe0S1di59\hY@M[s]e2i)g<+0k#u?<]J<j9e1VgH&)[p(,j]lCtW`>)91o_]:#RtN669Nk]%g`PjV9$JLR0CH\=^qBrJ9@F#RQNKp!5Loj$+98fYa!f8:'k2A/GTd/m0`DT`K2Ct!Oe`P>ArW81q<iq`WP8RjMY"n[N$\;NX$'"p2BD&ip$Sjbf9BJ'.GYHr(?KlE/bmIihW/K;5)&iX"f]h=[OJ1h$oC\FHN`(!d_Yh(WtI$oj%j?@6cnakm,SFrPf3]G*\U#$iFt1]c<\#*=aV-\@88;JEMD\&h!rQWo)UQI"*JkC4>o`W9b/o!*W.%/k6R4DGI;&\j]4FOJO'Q!a3g"q5R8h%:6OH.&*#kW#%YR`$S"gA@^$K,j='cC.=e_G@H(Sl>UYV!Z)\SalDBb79[">a*]XKc@gm6(6q]FTI8c*C\*Ak4"ke(];Be?S]c5EXjg7tPSAFM<j,_QpISWDE$ISE&aUumorZhd;=g4N:=ZIOL3Nq`-FJV@bYsj8$*S;_l[j_EbZ/j$WT%P8/JA.Qdk=mKDo^&;)iP!En]K"i5IpggNY,hWLK_AH8TS$^W.8c4o6_Lbh[A?'C,4"`8_3WlZ5W<mH)P'Mf6A;pHh_Elcgd1$9T43$/R.+$aWI(EcXVZ7Xo;QH?/4RPAQ^3O)P/]Jl)E$X<]Ws/ZI]X7=Zu"B=,1Lb',>at71>8V>?@FhB=DWEqk4.'_S#eCWZ^nO)E3Y0(.h2,[+2[^er?;rYZn1E7a'*onZ.[!5pe_f5mn)=$!bCk)R1_bqXS;"%8,&Xq@8c_o?*3eVD;`D1.a)VW,*Tkmj/_h&<:neeH3F&AB"=TcjELU"(kN;3L[u_]9/hr3'91U<-Y6VV->(VN%>*+^K@`I6>TTA'h#C.FDO?ITtM,K:fRU7?p;Y.E06fG#FD6^CTVQD2)],aYNfP1l+9Q7Ek?*1jJ,--Gh\htY>CH<:>[o<M]SQ/r$2pEKjZ/Uk$57u(RH*fNJV@N;gU_M(M%A\rV,C\,<&>I)GQu".Fpi>ecR2ZQSttjbSD8%@Sc6gT9<f*0^i-(OZVZ?"sEp):^&OR.jJ7Befiil+m5R%<pE6Da%TMo6MJI3li`Qu#J&+KO_!/@,uA]2$#B-c1CM-S>XU69+`jWmgOjKWlq8k'r,c)R1kGDEZ^.oZoVa&tenTO<Zi,D\oaPJ?G=dfMI9Ql=e(\\FW_5\Ri'<mGp8dD0[hfsN1.I\-]b`qB$s^DB7(DD+VN>E,hRCj+0FWB-J+60QGOr<5X#9iNr5a3F=*jcl)gAu^&J@OBnT($'!;&G0/gZlcBrHPJ)AH/aba6nNidoa<:O@mjRpHtE7VhZldQLF"F=LTk[CZ*FT;XQH7(dE@#$.d^2ZM(7*u]+Y,)>nOcAo-4@kD%j`[tljF74S#">e&*]0nF2a06*[i_[`_IGnt`oPCV9.29L(*9N4sr&0IWpG]oX\F7&2j94P(eCa5!o]Q[N'usVES1Ie+>+d7,_;(\ODeCOiqB(AMWk3bXL>Eh6Tie7@qr-u^W\mgSroTZe7,f]$Y4ufk\`.+\;kkYCag9*=F0p]`1cNkm`8<PBDNrf&8,X/!Ac/b@KHM5j'QQJ:;t!!a^C`\K"<+bBeE(GV3:\rBZ[;/:d2dftHid)j'R!,1iI[%OR&m%d:C.aU<HI!5&)ggpLi;^bCl]7l/p)Duo:YR(kan9TW8p)g>\f4;*nMs2$m[b4VXrEn<7R9ARcOG.03`dP-VE;"qc3Nu#HDtNT$(KOrb`PIYlp.9VGQJ"`'.Hiq`%Yf]aNhpanLC[9l)Q4J7X>g";^PCcCf(,^/$;\=<cQc0X?"o@jo)1'.Lb<ai8o"mOdBBdm-TS5eZtQW5N\YV,,l=jb8_A(i$U-55nIbf!p%(S!<b:<(>0YqA&uSr$[u2A!`Ju95?(8IQqM`oNI&sf"c#=c[&U&c3l6s'&2Wibq&ic`WjY2'RgPf\>D3s4`<+(.9:"tGdH.m%fEiuqVqR;g?m=(qGS_g/tCV#'hfQm'9%_ZP%\/4Gah9nK./oEDOjHW78@7Ykr`sCrQ\A["8anfa$HU-fqR$X2A\&3WkK`l%;$e]Xt'T#W>#]EBIORhC6I*uqh)/AnL!9\W0GrDmRAX@3"?+7,%fPqft(Ok.-K-Y:S!Dkf?^WeT<dTB*qV"6k"_VW,BWg]*MW[/,e"X@Z@#K%bqW'QDZEf:mI8d.BL)rBV;D%T>#TbB1?KrAG1sBL>t;/\&[+&37@FZIIH-qJ!3;fpY..67r!jZJ_D0=^/klu+T]K8W,^='8VcX^80J-`dHD'jWML"h2e?$sr+(BXAmm;=1U8,lcHt1@2\9;s&77NhXCt]Eg/3ij[i8nK8CQ7LA8FX+cHZ3FCXL$(Q2^<DgPqfO/LfiZr!^t+P2Qfcj?+-u5R=ebA:R5F/&7P%HPe/lcFt13M1PA<_i_984p4*`P\5W!PIei-`)3MUH:ld9pWX.J$jp<m:r>90AHCgBni[*X@Pjb't.?)=$p*W\SY0`q7A5F2d-hk/p?o<@)F:]h;ic/l?#9thY)i?HD)U7D.%;p0SKjc"1X/9]?0,#\cahBjoCYlPPAmkhRGH-hq6Z@1R,"i;oYJ2UlQ)[*o:@[[E@3C)Qphd?r;F`@m6.>CW7[2`'9T90.Ua=8!XKuS0Zje\:WM_h("39KN%M'4=55cI]HJ$9f\i%V8T?M?8,3V/O2<#!;;h<PS^P,n.KB!1[&D7]3(\\X^'C<J>`Cpsk@L$jQpImdEkOpt?+Y9?<(=";":XES.,1HU]%"5q6\<KJ\@Guti<9R4\-k8sC8;9c<c6m0^#U;RiVoc`\^/YYijmIDCQuZqM0)m)<n0?I_V'l#/&;b+X,kR=#(AnaeII(3ckF[20&oI&q85UB<iU9V%kP#'9UL0UWd.!3BV1=nl"nf#`>RM8C_PO**Z&D5":c4_<>H=Zn(3.J2:5FT]Y%AQ7eiLO=1J\K+$32n02emJ"FouIi:JmCP(:uAOlkGch[f^TbmD\;Y)nXW/VlZ)[MQGdU*on)jfbAgs%pam#JS'7>s,uS[nHc^:>VPCG2N2[SBpbd_PO*R1fBU,O6*=Wg11FW/N6XclWN"@h1I<D5YONR=BcY_@(]ag&auXeo8U?CAV\K?VB\B20dbmEsNGS`/7Fte$oMF/,>2Idt,iHt_>`;;gl2-Tkh2EEW8WHZLeO?f/4"#i*5FecbBa9:`CpF1.C[RiqG1W%D>7+@bLa^N2nukoo$uiT$!SN?K46_Lt+em,9=_BObDKXOt7'>Iq!\:-LND`n-=,'fc"d1nFnt.Whgm@3KW;npd#o$_]cbSmm@@P3O6p;trZ1nM/L'biHkZ$oPGtge7T6?%hi5d^"3OLibdmgo%>$NulU@+W?)\#.ja]E1sf;XY,#VOjRl1@`c0Q=Yu5ui>0F@mI\Lbck^e1UTnd-`)\eY/)V0eliga;eP08.7>&%ZqKQd1L_@-h(o<UJnaeVj=9"HP7%FOm56]GDYLtDIGmbQVpSA[@1[o^n0CDQUu8lMHUqE+Kj@gKf$I"ft/D_i+!P$j0g5J[:XdpT`b%i(_P'kWcg;r+"ind9lj#Ci'1$jKL:n:P@&f_]#[Un=Rn8KjMt<<(tNZAO@4FRI%<gBL)@1V((ro!`t5%BKpR$\&m!Vc9)HEe?0Q6Z!rJbp$]g=%I'%:[cR>r2WjF'3?.=ke3(W5o7W!'',[$&`3))E8=>H\*/,1RrbX1(CF`o\^dEDSM?,p41eZ%sHQ/0(Bj;t$DDuS\:T1MqLls2L=#QWPt+RL%AD<#*:/KE33?Lp6<bdrK3'9lg:0<].3@]RUYWkAb&dJpOS/?r_;PQ0=T4lOG91SSZ7m,Wfi[:#LL9#qH?<ub70r-;W1i.-V)1M-9$kMNQ`]88Z,3heH!8U]3Fj!(CaKk(E5MS2>b04+pbfM.*CjhZhVaPa8)h+g'W-d#Z)oA@Y\e,!ruYH\<"c[;$5,q<WK&5),TmkF,m60rMoeV?at^Um6PjUQUM$herV)o,Y.7n]l_3h$5u'iq/bN:$qH<sY[PrDgEuiunA\TDYa>oX,i]4T\7rcTYH$/]7%$207lu/Od=kE%*`BU;sL'kS!D%1K5AbZ%2V*FM`o[1]]`9p%:Pp!msX1O/$f1>co]keH:n\q9)JRD<hU1EcD\>9JT$_*U@OR(0p\_!?D@8C9."BmK^And"S#0gNgb`OF%P2)h^"9<N[<7"4(>5"4LXP)_RAub4sdY1f4HDFemXAR)SkL/m'-i4j*V+:*gQY3!`M#:iAUg.m8T+mq%O9S;FrL.DrEc?AO!89^&)64('/#??2's%GpVbV;u>MG%6PQ0<*9#d%5g=.(Jc%-6H7b]@pqTM8l(4I3gH./V=gB^r!;F;<u1?ln:O^#E]_dG'+g*4iX1$nn23JpUlKc[D$Rq?0`*&K]Wae/kp]@&O2o^5cPa>Xc2_Bcc_]S:p*A8L2Q?dN(4A\j"7>pfr4.9`s9lOEp&\(Sb.rCU^E'-OU6Z[LntUhF`YqeI^2-Z%/+TB%k,TJ(_#k;RV0qhJn7RQ]8(\Oc7P&q?A@\YWe(R&Xq2qt]$Z41-qP\TdH=_kk)#=+<JO);ZZW`fiqqk00pW`@F8ECYP264m&o-\reU3r&1c-$TKI]9K_#<_jP;A*Ck%]<]=@M+Eq6fPZ4@R=;!:#;>Z+G%<O%8N#)^U8%ZSQ@H)itpiqoYAcVH511)B2o@%BTWsMi_EY?FD=7kj1kFY`R\O?9?QA5tu4?!JNI<QX9lQaru%JBH>]\@aCLG5^e?d$37p1I1Via9'L=Vg8<%<>(6K>kIu$-8cNQq[j_F)fM`eQRVL!Z/qU@+C_[Z?Mp*@hmgC?\<^jUuDCpX@bXbhRGB'rAY)'J'k;Iul'UA<-le7j5'Bk`$4]"YT>dBftJ</bV(]\jkSL%LE6W`AD?QW"5#_,!rG,VBuQ>Z5mKJ?2M@kD</=CFj^r(4-iF.9Rqfa#!,Z(!m]/%6$?-Jc`_Mce<c-;eTL/\p`BRbaA[RO8A&2U7:T_H,ds58$DBNY<3Ao_t#h6Zk,>[f)a.,<_99r@W(L`g[52_5:>Sho\1Q5cBgi%Z8b_!\<T:lqg,l6<eCq*c&d7K`ra0%`Z2ED0g[k.m2#qn$s..f^MqpUJ_O#:1(,e;Sg\g(&GAl^me)200_F4'u`21gbleYs5@9+Nh%[G@_XoQpW(3h&GBq:iPnsr?.d^.5rXW<,'kG6,E4%EG>Fr3"#%tKMY@D6l]CuT5H>)QfauCk]PYX[Oj7ib-*!Yur#8c[+.gu-Xk8qiau@:Z7h-,W&=K[>L%8?Pb8dlu4LU`+UuW0j3i&s8%ee@IDNWDi8d&@]FsG!\*OB$^hn?$QGa`6re$EZ[IfoscYC_%c@#n=>N#CTM^=6W3gL(eP5C1-e7BU^BUq;de]<rqieJ?i[^,cqY44$\[HCE9G10D&"HgbJmku-4\orKpV1tilqBReMpd\J-6l#no#)\Y+lqq>"fX&:qVKRH"%CHiHHj_uD.Mmcl:)40-)q>BCH%h>1ATY<N56-34DY)Fun[OQ#\3d[^lpbaT5p9$!h*ATC2!&:4)\?,pXb?<GfFNca9;-(j:8Vd%g_V%cd9\_MQ^eE_F3_:AFK=:D#Crs(:Y=VY\4$r^0:n39NTM8+Be8VGa+"'u>,l<SgVgF.R=op/Mc*5e\hLro68Ke,pU*6tj0BF5l?MOG*Uq(9>Pat&Y3e`K!W<`$NgJ+[c5N*VbOrj.$$ju#c"]iR6)&n<(>+`nk"La7\3Ck\u8W1fjZM-XW6#S^]h69:%_`[S!qPILC\kA#mpGkYcOMi&i^VeTQ+G71\I0rcmSDMQ3d%u+&)IsD+<H6Cn\WY_JBRZQ6iqaVX.A`8G?=WVLAqIIieBD="2.8Rm8@+SPC.ng(A33ea\kukl\I3@J87@cjDgF1t/JH]jh&.fu,eI4(.5sI0_hgR>d[G/fl>ff.;Z7o(CJs\g2)HG88[pC=JijQd&Ithh3u5,i=&C1G`Li]mY,mB2,63eI>uLpF7P:ecka#N%80q=B`[1Hf1(pR!I(VE0>Wp3%?1CFREPA<97W!\uEdA[nI#_-d<PQH6'=.M;"KU/U]W*1l5g:IfR&VJjX!a2jBPmm3<X_#3H,2:J//DNhU@hX!7aH`V(dP]U>qf>H1KEks.*Fi:.6olUqI6"=W_"ua4&bGA/0Xq9297i_<R/q\mY+Ko>^$,&[Fh4c;nc9F,!LJIZFV[K)(inP5f7dsqZ)$VLV9mGBt=3mf38.8LD8(9lmllY'XN>5#pWoBo19`c;_HJ'/C$dWj*/bm7YdT*;eF0T2NL)=ka3T&mbdqL4M-Q@5"nPJXC/7728qO]Rc7cBq#EhG;R;Lbjg\+/ZY,sfASjVAo%)R/YZ/R\9"Yd\-MN-j;rZ^om>o;%[@ELj_F+fX+b<+Xd!,!9lC0/VN%AG-*jL!Oi&p`idEmYQs.'IJ6Z=q*Y2idZF;;-CZ;Tq-e\MS</'r#HS@nfhdMUM^b!0Jm5sTh5/G_J.::@HoQm"i5oWHsQki-]5QF'6i;kUG<)r1jIbJod"aFD'9lq`]B"gfbQ&aDR!Ui(\9@TFYKC"(Hm\b2N^fF7@qg31E.p7Wdu\+0^3JpR^VEQ$[<$P&83e*.n<me\OL/e)EkBS45q4!5s&eBAq`>e'PB1-V_5abEq![$oJ5K".+l;2M+.-uc`+JJE,Jg-Yi[?k[KUS4T:!SfNJ\%D8gVIK!`8W9HGsh0JND[QSQG4@nDi8gM.\!7kmPUN&D#kl:;s*-Rd9-d$`g(a[ZT+(/s#c&1PGACnbA!dUSo2<aEI69O/&=[mi([.qNI8`X,&T@nG61^WQ0-]Y&?0BWM%L509R[p0g)k'aF=#K,?%>`J),#-WE3)?q]^_K-P>FF.]&`n;d#$qo$3Eu<8:Z9R\D+e75@3e6"_AEns`7!F_:s"7t:j'bXXa[K3nXcOQU#_n0P5"nOa>f^CbFnCEq)0L$Kn>jBs'8qW[O7R_X7P>?]:*\_Vnl]DLR\rRH/HYoG8Wn(L<*4PO.KN9C;[)M8R6?US:djZr+=abA2F9fBg7,T(JQVk\,`%t1<`ajqT??udfYp;-X"q2Z(YR&6P>iWqI0Hkbk?p'>k#gU`s2CdOqiNh+[_Ec^4!M4AVjsUGCkbK)^"BJ2"$AVc,-mt[X+H(b5FC,5R_ehT-Ve.[nb62tmVrcV_G]=&f=\j7%I9@n;O*5+0+Dch:$k*QhZ<K6"bX87[_Dk$V55'Hf=>*grW78K;4=$pZm/]]5QPo_/q`ke:i&tu]c!QY3r'BKYDV:(G<9p2EQTBDON<+no^cO]hr]ntquh&QlSc%aMt)n+Zj`u!d1GjF?9p9>F?2-nlA#gS0lq#gS,^(@*It2sN7Ah@rUl1&2WBcrLBgSqgM!H@J:sSaU,0B&<s-Q;UZ%]K?52*-NGu)(?[PP,0]0Eln(Zl\/3R<Lih.>R57-rEeHh@cSq6TEH4e0dq6T.Z6^4rAG>f/^</P`[68.=Ed?n8%#$V[33)g$7o<.Vk_4[tWGBYZ(:7F2W!2UeT@t=dBqe</Vq&foU@Ff(7U]oN*(=PLpAfYNG3EjJGFn/cQ)@B(EN7EI3W&tOg<qr]mR*4#Ms%h^Zl<N9*N9$64VIh!s<39:Q!K'/Cr9N,k?+-ZA7K0GqFX2t=EN=!@*[7jfoK"@E:AuRLg^s=c/##eI8K+VYOGUA%5:*REP'Xr^DDNX\T9e-[Ds#_bJ=@/tISLSMc"P6>$h&M)(0^FYX,jO02FNO[?eBjs_?_X_IlkQ:,d3:,gL&0FH-g`5kWljYB4*a<E`0k-91rsA&\U6%4kO)ldVgt_^8EAp=G%*p&;+IpSNs>mh[mg@L^QciT_U$gd?brL+lnSLQSKD`;5jl&QQ+U3-96G?T>WZ-^!6YL`$oba[-G%sIhk.R,rU.K,1N=Xi?sB7)+0@fPS7?+2Gg_2WGl</QIi6_q'6(ta]3;P[l@*_l%`l?;0U.7YAI\aGQ2*hd-!j`8!/*)>:H<Y4j;`G#ID6V'7$.UZdM,YpK5_mnTc3Hn9-\P&`/aSKK)3\C\%mK&(*h7S1Ql%6q3"d^H?Kk>IE/d:,kKd"kVBFO>4M@%:A7"e\,"tgr[h/Z-k!UM5nq]=nKuliZjYrODI!RNBodrmR=og*7)>hk\I1OUC^P!7hOOh&rSSML-n>@AqTC<?O@9rGY+*pMC=lYpC-(`b]Hb+cUV,_lZPGNe@-`X&t<Q?fLdb6eP,>9.=pl8/LEO]kUT?%=p<[l`%,t)R^)es>YQ%k.h64X`KZ2[8A`e('VTVcc%r?;g=IQjH4Pb3gZ`_;'hV#"dTkKe@(rE7n#0E>#n&)-L\uUG8RRSIiY5T/95_3#AUr1eX@[mu1?3t:]ho^Sj)-QslW3b.PMD%"#%j#b+lG%,?nJKebF,-L*,$i'e/7hJ,R0Q,Q<5_b)u8(-ATV`!Af+JTiht6)m(g]("(^RsJ^[29gcB_'jFedaGi^=Dnhk6(1<lGB&E+(XRA[SG"`UR?i_&S3LaO?VFhoVqZR_]q`G7[8J1rJEj+,1PopV>PJEm^V@72M#b5=YL$28W"A.%6[m7pWRYN5gg"VbS;P=8jFVg/g5cGGNfq2K)E7_[rRViR%%3JLFGs(1n!#>(f.?k@ni_TfImXiMW16Yu['Z&iagh=6/h#SMp,Bb+7*iOh4(c4[aNp;,g;EG&PU[l<<"5pdX)1haLTZF\]3F:*Q(4-mT=k^:7:_#SbjQ+38T'F<_EMk020;+NnjbOu?OURo%RW%$(!h!?"_eW=:?<om:=MLWC.lF:`-8-W;r!W]K/8"\r4g\#Z;.q:4lHa!<4nTV6UN*R83$:Zc!W.rgc(;[cCDPKKG!n]u)&t4nLF/4n.E]h'qjn!d10h;T?d@dWB'6OpjE2r2Q^Vc"\2&'P`/h15P";[=0Hj8B'ib%I+[BI,9'/'e7,%2rqk7Xh"-t+QP,CilqPZPrjg:$o\GC)Ud<8.Z&$o*[uKrGm!Zh&<?/DqMU\c0Zp\.]j>$s<15?3s;Q*tk[sJWeRL8Qa'c>PgE;"l:eqQX]$t-?n+E)iIQ[2.ZlHS2UGR"F`s+Y&i6=0N:>%F3p('G[MQ""jK_(6`#NDBGkT'H;IGDD8B%E.,+'t!Q>oN[(!AMPhA,IWBd*"Fd5?24d&$;E:.!Hi?&nmVhr:S;I+\G^+FRCDa^CX9G+ESRD8#&h0jOF+s7a7fLU_kXB`ao)q1;D&D,EX:KM=?,gklY%NT_O"Zf/8p/CqD"Puo$[,#e]R2ju/Coe-,`gk8ZR.F,sp`b36`s>.F(`1UF!:GQ8A^CBJNZ^YmXKB"g"G9Q@(e55_#'7GY/P$T:mMh>WjnVTYYL8YYY+Y\4^;W)Kf^#L;3MThOjF#m,?I3PnkMEfahp'e)7OuiE2jR[8b720jMKiB99ujajmm&5BeQmH=llcfJj19+>DO2&X+4?da:>A7&XQ6DKPr>oO'02plY+KH8r)kN?GuV:(P_L1CE*8s/C\2#jX1Uh3/9IIM^Su,qG\8\aG%&K-8;ig6)<IIU0^e4o%pq0X:#9W#Q%u#PqiIO8(/urs?o;$EVt[a.<V4s.P=c;h/@#DQFSNVs>"a%EIN.;8TlUh8`;j8Ta&AI,E;9ti*T$L^jo.+Mn$-t%UBJ=2pQpAC3=/_&7>t7I7=,JpK*5Vo[cbf40p$G!o(s4bGTEQL=*6>+OG,F[CAV6*OK=!@26il1[dZ;\A#-liALF8=EV.La_Ld1-/-8f?De+LJgA?NmBq4g<L^l$jhY+IgmY@ml+>W-JZ,@r]!R$huo-31W!M`=[lY&\#`uQ9_,T3@7W'BW('*e"kUS;*[I9cbTSn$\F_IHpiORV<A0PDZJhTL`<^im"$dthiQ"V$ucX(^`eqqo?4C:G2So7=.pV\91U7l4(E1?nY7=ta7;dcj:Yb-\Q8Z\L9UWNF'a1GAL@EXufeZ6L&O,')9MF:h1Z>K"L-:jW8:&n;Y1qK.hNeM"?0iKcr!["+nkLdOKXKY*f1^)XL?N6(2fCT;G3+n\(jYCjL<-O%][FdNu9O[33u]>g@!jL(%p*+iR!EL+2C7^gbNDl+5:3i[l8bA%p]:_dW4I_8/YHE/D"'>F@&m]OA%[]\+oKcY&a9D#4MW7i)okg(^W#n(Pu,f>17Eu#IGf<UJC1X[PC#@1(_hcXcUKeYq*))CMi/=\^%NBV2A6d:N]Tb=t@B9eUdbW\\<*&C%s*[o]o!Mr64M%\.5(b][ceCegL8Ib\f7sSLr?4%!4lnFNB9[hPaU&fh-V(ik_L]q;lXo8+5?OWK@MsfaE"29d78]nLANiHhW,_gqYp<tfDDa9]mMITc?kc_JHs.^uS*FUHM]f8,pp-TCCM!D"RGHTS9)**O%^sC5s2$rUA%C#<IG2,Z.8ureb@TRfLOC`Q:7NMWAUI&Enq:U;<Q#8J*%>]&:G]YQXB],(UTit39jp%#[ZMc?;A?pWWa)OZt4#9Z^<Rf@D1i%'qoOfaDP<9[/odt*I\VX++1puO`l1nBh>W3Z;paS-/eCGb^6GM2ZS*)sf[!go.o21fp9]G;C[nC$*i8B^%0,CE2Ok_8k.#0u.>F?:<-/;pi$T+FCn"g+!@I72:&*Smed`ZZP;Z<&E_MCn.VfHVfR4@YdJI;I2ci[uP@^!0n`jAr/253M/NS&%m:3/]_q1H$J.f:ANdKZ5u"l:kd+^OYL/0gd*TL^F*f=U<uIf7pjlNC+t)Qk],Qgf0s;(AFEDJpSG@%WG`Z0XYCFIS<0G7u4`FImbc[OkMnU0cjsYVhnZ%$82eADA;<GX5'<Fm&UqoWK\Rle8aV\VYJ'fJCm\G+\NmG3,)'(-R@R56WC4E9;R"0Hu>ArC49X(2//k9f.)F&egl[>V_'@;<$03B"O5&O*\'(Uc;/c\MIj!#tJp6Tbd?O;=s/Mct5#f`5)n)g]:S&%(3b&-Z<`!B%1V4,/#Z`h*D>Y_N^Nq"[.:qlGS#(o3?+n%rr6fieJnB0+=&^7-a_@0KGhI;TSbbF8k,)s(]qn`=\cD&N%4i/d3r]<$q.h@RFWC1A\llrO7<Q.T!S>cYV&a,57PhnaG:rrReg-q&eG*dQ"N<#q1_8qN`2tO)_<597O%PK0>nH,u^lbU+-=_<^me$PAEq=-F=C%VD2RG1T6jLQj0C6GBuhO"MbmF[?)KC;N[?T$,X567r#:Z`!fPYs0%TT*>]#FjD6HPk'AeIgDi(SB560m,!XQ6-4i(/BSmq-ogmblF%K0RYt-6O06NCm__L@KOTip[XFHSa4Ik1or>H]/l2uU$Zq2R?1_`$q7FhSL0-e"aYc2IHG*TQB\X^j*Kd@c#*!j.8:\=8gP;;"FiD3bu1:='.$VX"]$lM)WHLlPpB.\hKlPILa%et;2(ohT&fO&h7X]9rZF+rn0i"4mO^-*dUP\`j1J$d:YY8`8VbZ6#L:1SEc=j!Qi3A+m[2q_n']L,jNnrhcuOq3eOjH'ZSpHQ4)ppl4[ho\oL/1PGR3KWH3rr2hH_AC'%?_i;C.r8<[)CV*$k%W@;+5>\VUNdIjS=2]jE7]A.T'3o&&R9jDh_R=3)6nH5c>_BF5rN7%_E_BLJU#+&P?8ER#.:'2A8+-b^[[8gSN^hC$VX`ds"Z)o1s9Ei4*tKE7uFmT118U%Fu#NVGMWhMCg1O6+iT'"d?38uh(-p4:/*j_9b>*8T0])Q%O\F%_]=T6om`#EQ=`[>^2"8NN'iD]_>`6r=e^Mg(BfKP_E[Yu2/m\2.O%#*G$3:9l@EH&!Sub[RK:'j,cf]HPu`=[Xc`:1n7De:TH)*I,_S*hoPIg2cGh`XmfoCnU$Fa<0!^!5'j<"(#^GJY1Yjp%*f*lE#Ej.5%(f!bY81?m\E923U[X]7@sefHpLg?#T0047l2/e(p".AA!k.KCDXVt2P-eVqaj[=uFoF:iMqUIPg.)u>[In%DShAF,Fm/p]'7MUQj7c]k-rb,XRcUknduuV1*J!P43Uf[>)>rrSkd+!<kM'ZV"eLOa[IO;I=P$'4XV,:b_%&R"c6&Q=PECHd8smi9!ckYs#"lLT%S3pKQK</mJ77g0e6VR9RS-1n06QhVcGNO4^S`Lm[e3%;M.8MP.ou'\%o9%aPY/F/PbP+e)hhR<kF\)B]CWb_/-(!+24m6b<S#dtGgq*j]'I(@IK$!qgWWcjn]2?f_KoS50:27gH/`5eE&RJOf:9*%bSN6(ScWdlHPm@CL`'Wr62fV7/9s(p)[V07i_'2[hdSR&C'hk8rK>Y9&mQReUZ38YA&>P+M7B>RRt9^oPl*>H$JOO/SIKW#n[?U%>5Pu)C^,6B<)q9alM"sBZIi67U5'U&W=dGRDO"e\<7nTIeH$Y^)2L"%mB3q0Di744Q\,eXh.%AN-J+irEjF2NmHRfBe/Qg!%l/)$%Vq*?iIR>sC]oJFL%rgVj;bj*eZH/th>XrN:S&)K/:^775H[5iI[+Z8GO$[S[XY&C*.aG;CARJYT\t;i"W,*\hDRe<!Jd1u3.KE/\gjOMND-4#KaAXhJ[u_lZ&Qsb<;Cf:RZ%-,f85HW?OOrKrao-q['[D\d>\U>ZntJD/36+H>EJTK:)d+c!]q0?@YMB*/Qak6U<u?B]&cWqs-4O$e75J#:&](9;cjUO[b2>gG'EMj0%^[>[Xt\bS5*hX9?q51d_8Q?r,<nV&Kj^-F"m*FgE,H);rY7iT`hd[XAH*7J_OXL!R6VMROH1Z:+k`mC\Rj?[^11.>Pcr2p9]1rB;)3T/@Utm=\mD,9i(E<DhUi]p#K^r;*er=H/^7QJBk?HlUB8ZT>sA?KDR@mb)H`//X08P(On:PPlP5#:9ZiIO*$[;:s[lloE<ZJ5L<hWQ"5^o>,Rf?+h_n'o'B<1pVS7(:I<W<nggb!-?Ja8;LbF_TOE]LaU%iS0%Ejo$TrsN6okn:+3YU2Hi;OtIC.ggT?Dp%1-KfeF%W8BULeX5,9T[lC$7SiM:babo?&s%IHVg)>]4Y[ckD$W$ZI@<e@5[8`4!Im(^9O>=s8]G'.5^@^.=I05X/bPOi5c-!@9p,D\QcaoSi?\:2Ug`X>/p0Em-Rt`>51.BeRPSl%Wr84W_2kmPerfNP.N&GB@:hJ<5QVUKV_uDg?@%I:@14Ac:aRpuFdk_Vp6W9"bp#]_h.FF_U]o]>6,u3l6JA=RJt(5\j??"kg^"4M%\FbV=m-"Uu-u5l#7E@DHu,aZNcYA=?u;qn%!k93\VW]H)tiZ%IZJLs1.='BIYgO!*MU$-tFeI`hC>[4%sWao8:=WcO/IXU/$:WIm)9g!7X"2*%f9rZ<8#9_KZ"iK_HA?p;nZP[;KEotn-ndur&HV1g;;mTr3_iW)P4FHK<T3Yi$B6pF'>q:hOuPF*\o9Kb+:c@>n,ZTRP()L^Tco<6]2$R(Z62K/+U'eKf,[\uXmh6AD$nd>>kb',b_A0jGPG5pkTY3rQ:8<!lBB?5]>---8?EelFAi_DD_^j+kLI^FMZa_^\5oXmf;'dr,\Ch"3kQD8J@dK?Joe)""?Qr8#6Cj7[E1dC+/+@V,F@(d)J-,<t%N?5df1"'roYlUsaCk>ka=>5TGNad"1ffeXpQoj4hGji)/IROP!OmKMncEuM="S>'KXM+66hf/?o?n/>YW/ILt(>`-NEPHD!]mourK:56?q3%e`=n,g.*a%S,IC7WEGD*FTC#-GmqK,bA*U5**jLK&!RUVF/<.d%kk-Ir#XKE/$&i4;\X@gQfD9bk+hN].P(@^6L0LK6:6!-tq^On4[.dq%?>-krEPaQKn;nCU]/Pf^#Xe5^>D51&d4(NomT7^:1?tfI$LR\%aqQ*@W/fn<]'4P^3S,F6^a"FCO*nCEPGa(mRNJ$FDYt]d72<WQ/m3rq]%P;tp`C+'*P\OJ)1.Qia,Uos;S!C:,fn5RUiZ6]KO>poXk^h-(@ZoJ7an7Lg%usnta$F+l$t4$no5Hk,SUPG1:\,CiiRI1jNJ=-jY-L_+nJC."DShmO1rIAo(CP68O0F*8G3;MrATRL>ieY)6RM*"I(LH5,9Y'i<@B\\]O$W!2OkKo*34SVr;[6ek6`?OY&E@rB$&4_2Qn5.^!)0'PNAj%YW?=I+;"l:*L@NHZM5b'pq:j1ml;S*<ld$.,hbIHV\+f(K0NaMOY+Q&$d)^5d[to"m=fR?8@U0hEZ"O=UW@gL5kT+M@E&:fbitS]op;[8Dn8>En\Y%q,IBkih;?Wi%Q`8%5ME8%J)emi=E+&(EXgB7n,0te#?G4lI5F7!J\<?l\0F;LN6DD*lG1;TZh?qibIGS'k95hU_i`H#rRB%E#'$`9'@@&H7d9&OL5#PM5qggB82WmGd9b@o8!bjXPOeqWH]W[#2FfN]\AOUSMC7GOt/gr0n,t)#=?1ch,?(KL*[<<#()1d-ZU&d6l`2Z%Ae+D2nq8S0b'\U?.3tnG\c)HHC>#0pc`<$J^hgLWZINJ_YDSB+`QgFg1fG!5V@hd1S/-sP>o-&=;8K>!S&SKI$mqDPkpBV8HDkYha5h%=e4I!XD/3uLV/5@3^e"gD7j!tm?akfDnD-i.M?Wh[^.dA.Z[4d<O^SPgVCU(`oLo45&p6kM?%?Q?QG51%V6pd;Yp=_p-<U'BKrXtFL#p&IooY9Ij[u+unTliP;Kp:%M'+T!P?[B37F%[hUB@(B$I)]d2V@E?`$hV,MfOqEkHGKFjO6e8*RBH%Q`$N3abd,i"@g/;ifL.cRoOHl7fN>(?2He05WFHA##FhM?9D+sR\eniZQ?_oCln1oCP8eV(.`b,"-C5:NF@=d)9#u-l*_/t?JlcgN'GD<a[Y$Pkm(uF%<HBidFW4Wkjb9X,&3X@NdW^Ln4m^QJT#IEIEGD3X,(p!4n0rN_2jVeZn;dUOH8D7YS<=[PZ`R-9DAm<'_;.(J.c#kd,pWu)Uj1pqep9g')SrA2b8o=l'1U(QDT^7m;^@>r7"AW,_SC/K!15P16VUMFUeD']'<C6c(qCAMMo:N)AnR!ObB5E"j;kh<NU_\-`r[SI'^.PjJmbP/;9euK7HT[Oe%E@2(jJ:pI?Xk`?>@!WmdF2iL1?pA/DEZ"r"+SrVsff$*"qBTqEmk&>Da:8?ui\LjgT8ujP15!D%'ogTPAum,Eg-Li)=Sk/ffn$?3Oe\jfA"mHDnarEL+?EJREE<F9B?[Ri2p.D*Q.dO,-[b[l.'QpOE>6Mu)b!.Ycci'HrQ`*6JK5Y4]]EVMr9f[p]SH?ctZZ94M]Tc>pb">,F^B`&'K`^g[C6;Ur]?/)AD7'H2%9aq]R/2OWEBGr[$ob0@JT0dhC6hjFX$`:1h_VSZ!am,;Q)$::[K_mk5OmdW.$me[4ZG0QD\H'SFsOIcS6%:/Oo*VUFB8!uD6CmF6q96B[-f)/'IeH#TRS<.1-n>hQOX,_e.ZB.crRteYZb2It^H@7g$R]-GNn4D;b#9^2CX../RRAV)iUISPS^q3>RcJGM#O.U@0[QjJHs#-\(!)eDV_P08Kf,aPLN8J[nc?p.._X!If:;,U%.d\F(-=%j9A"rMqQ&4A8V4Kd/5>_AO\WoBZ5nMEuFFEWo9@+i"8`ZU1QolcV_TQd3PPHotj9!"<<<!P!]UQtJ%%<i2,#9QpY6^+6YJ2M3#9l?4J>uWfAPW-U<4qisrtPfZ+\K_74*$]6[H.O=p;A_nUBW(L*Xnjp*[H*6%)iZ.jlui)\QQkIh@(NiKf&l.Ef%U6(Gngua.)2\7l3i$LqTDaYG*12h@_E0'F\--__d:t4L]2:0O?de(g<+cMmSp:Qtn?CRCt^u2;UK#.b-B'0\H(BWl'oao.KS2@0'<9]Qq-)kV[thkb<S"iFLM]gDTIbHEXQ]_QeJm-7T!da_N3%3$'`6BBK01\5^6KcgELGrB<$?1(j<tpPb+Lne<rZAV<GHSd4%S@692`qr*MTFiC10hpRCV2e#,or+"`H$B(*\PP+JZfI8@L#bU+QI*B+toQnVB2[eOf"f3`&;6u89/keCF$+abQB7*rdd+54)+4A@e>h>SV`kV#/6_p).#Q<)B_gU0H-:+V0AriJU3oQ9ARRi'&"[i8T,$Ci9#?s=%Fh\,o<97D6673E-cM#_K$1"uqk:=^;T"?PfUZ!A+_$'YCOT?Q?Pu!qEGkQ;>:`.qlru]tZK*jlJdT5JVdZ='I%)$?^7:!YCjk%>@`K0gKPUIOEfrb#fIt^W<H7dI_`>b'C]<MM\P#.[iasX2l"?pX2J3f$*X4IM9f=6_Rl-CiQ+!Q1o$.`S9)Gl&QNWB&p3^(,>NnoAXo*mg/;6^(]@KicgSr-qjW#"EFTF&G6`YRAJ'oC.;T*GKd`\Lm$&l*8IF=p;imr7'2P7_=od@sGMAu9ef4brALh1Qd!,HmKg0"W`hPbe]ce.AG:jR!<R)G5fXDIL(qfFt(:BKo&9fj&G2G[GRbP41emRjYjsDP#eh5u@'lBB)m*r92sCm.W*c,TKE\#Z?g_4Yi:3%?<bO-d;SJH`O^tb1;RgJ:ZX6(6^bf.q6;!]SHI''g.?J[U;N@V=?8O'gT?p<-iO:1]hl-VX]W1?Y86EX1eYgKC=dgg9;_I[_/pp$ab7<:-+D1CR\Z$FmuqLrd;tq(1$u\I=tba4A9ZPiX*_Hq(A;KEVuj^03IQJVdp0KGt$e23*sVD1ReL>6gS4M2XR[k*CGpk>Ip\).O8FC+P8iH7L3,0W!!-O3kdKY<GU@=Wm:a`?ia?a'<'Nh'^E'u=3I';:Y5OC/Er6J@&`GPlTVon2(LA+]qRCZU?RMZ;K7fPSQ8I`4r#bUQeYRk0*[<8c4U"j!HUr!j\1g2(#fC7_/%ISlb,@ZCGY)P7i=2i5+*g%5n>6dNnUa2r)bIrKoq8/MYV0+d'_c:XW#J[OHT3RV[p_NohZi9R)",oHHPDjf@eSf7;HO/]S5GnY,?#1q9cppb)$^ZN<i'?qD1Q<V&s[_NK"lD&Vm0+EBrO"N9E[Y&U*-?pu8"k+_mu%U5^qS^=IkRlC."CKt?7SB2WW/k[J9DH[Q<$*YHQDi3lP!&d/ugXa3CD3/K\G\#HF:C`t^$CO0K-6,NY4F](Zb]>E0%OFM;Uh\C!B.Zr10&<#1&dAW&A+3GsH'7#e;_!JOOiGAZ<V=,)^A9+Bf=P+N$p.[>0ZpIl@b<l[NHE"EWZ"hFjYpRS)HQk.uObS?c$Xaaa1_kVD3REnQE/r(4bsbA!!u1>[>AUc'cFAgC#a#"IM_)I#f8bds]+'U!k9&\`!OKbTT@t8:=_#6ma<8bmh^@J:!/AK.f:YCeCP\pV[kg<1=?Zee)Y?doNjn7?Ec9E(FoWN?7r'F6_Nc>uL_rKA2kg&>*sTV/Xs<inr-ZC!R`26PVI]`''4mmrX0r<=hOra+H0@#=GV$/',QTT<?SQAe)eiC.Js`Sb:/md#MN[n&5'A1/%N8pljJKY*aJeZdmXbX6hMfX!NI%k45:?#JdQldIK**&8`?HnbJQGn#n6C$B-q6mRO+TMnZ:QMaI\Xm77j\:)QlZ9.o.6-n8bXU,bP:#LIh(Z$2-Afl8;_F"?hQEja@ZC/&+KB#(jTAnG46+rK<e,"UZT-BaQ6k(L^.$!_=bspC6I[jNhr1_H[.oq0)%cc;pTP33>0&8$fKNiL,UJoj7=7.GA>On5do46UXa;j6c>87`-H>9pn;(@5sG3l#!A)jBVQ1kgL76T[j*9Ua4tSSYH`ishjBT?^u<1%M2TJdpn(E'Thd%\5Y+!!UTA^'rVDPQ]8oA>c_<WBPT,$c-*j5lg%:0>3F9OD3_PnYf(d\I^sYa)I>:hjj+WqYRmoaR8l`STmq+sE^S_"D`mB"op`4o"%muEG&9oA.\ZZ-sXpIUFU/_m&cCQ"7SS?;`fD%Aj7]#^PiVJ#J!./s0UkM=#1lS0UdJ;7ZTS/I)AO`2=*\?N'4I)[A-!u\bM\/r5K?7&-`(JL.e5,?M;S=k)Jb;X47,ZQV)^ErYK];'W!Z:+RL>oU-hDXPq</<WgP4amo2J@>./X^BdB+2-][+5d+q@YPq@[5,pYRc3*=Q,3ANjI;-TY^otn=lB]*(3#mA8XMZDZr1#0`9Fe4R1G20^Ff?pV3cU0,V:J(_Jd2F,(@nJ1_VK8^WUG7mfOuA1A,%]``c[:f0PM/V`'H0A=!^b$HFQdiG\;Du@0'FB6U75&Kr4b&"-/<b#%g!r<_r7*k?9mgT<kF2XSr_$0#N653_g&q*3h#U@uYOb4q`Hg#iQAWKHQQg)32R7/AGACm'/qoNWLA(t'tR,H4J8t/?!Z[fCJ5#G"QUj$Y2>p`uV@BNfD6.FZPS^e4`r_Ol2:o(Xf#=!#p`"SK'CVaO%^Q@jR$31.eI]kth3IOV.VQ/GFI%a6$[F"&R7WVl(N1s)0fNWE+"ADHtq(+SC:eh,B)P4U)V5V);:PIo]`S9MMPl&\1rM+ZB_l7*-,gdbXr3ECc=GA]iK3&?M_q7"6<#jn.i?J:&jNgl9ZBTMkib4V/\-TUFL)U6tYtubb8`tYc)@LYY\^%VlIHaIc7Nd!ZA7BFW.r*c809P_Nn&J4h+0W>HnmM^s[YSB:i5rZP:h(\9MTn'O)!H!)CY.9sM#ZHWqA*KH/T-b<RLfO*V_2R@Prs8.&0?>m'4>4\Nt#hab)6J_\Mh&gpUQm3$+8a@`d4$U9g<r$RU+9[TLe"[;,Le=`iG?;FD$-Jj+]E:fO7._"m6lb&.4cQW'SS@KC&oS&&8)hs)1M6g/S711mhEIc<NXm1t)=Ym@NEADlEeBpCU6l-"X6FqM]o6bC]LHBf8F((!6MThu?o=Cm+0fp6VDu);)=/h($]^61F=/FF!eVcMcQ`;McV4q,7=``($-J"Z1rWl(XN!D?7<)^``#hGQ@O<8eu:`:])]F?DZ]Vg\qu85&_F%%@Q"`MukT;&1ComNK>Gr'$Wja9DYD?dX^_fGR%-($TEZHa_)*)P70'G!BX_:_2sQjJH(J[l.si\Y*.=#&-I[rX?Z1J-3,l\4LJ?;9T(%#hS3nV4d#4aGf!Ja\9;d@=a`.1Y-VHAI.BWH98XT8>c*ua^/tdP@`k![@)TEK@b"n;=LXf(<n8@j9&VNsoAFhpk^2uC-DO^=g0XJ;'5)f=96I]4\D],I&l-#3TMd#?7&e`V';dEK"iD=>lQX1m9ld8Z:!0)Heq)/FEN?N'*F-(uLNhKF\aEKK/JDbSG.p7=.dc.\ih:Y"j_/"7&M''fX8PQZ7dSR<U67B^^E>h3:_$82,.RGddLTnW^_B(!IEE\"F;/m:a&sA42sr7S7rea`'g_LPl[aib"D^gOJ1a_C&AIEd<50DRUMnN"^,<!&rrblT+EWg:YT0T;W(i&1G.QG/pO8eN2QAHC:W3)Kodt_Pj11R.G!fhZW.PHaGHI_^^SNqhq!Q`JA&f-QPgs"E56RiLj-%N]fV5aL4g=rGZS!Wol;X:O"SSDdf\8o.hX<79E]I5J(?LKX*-$,0e>;NOZV:XkT=2*C$Fj';A^5lXa&Un="l8h<d`W:>4B.O(?ps@SeSu7+hC",Q9HY*?Xm:ZMG"D3RpCBaPVbH>*O>_Vt!dGHACq;'i7GJPrYu'F*kI7?D.&1M@TmiTO`]m-'40WlVe]LiaUn(Q\]ouH3IHZ@1aBc,g2hdTIBT+PAItZS(ePVI+3h'te%>hh3T-WrG,-\9Q"fh&>chDe8*#%>;UPSdbr[3;<Ba(I3,m"TjV(iB_F!qe5'(CFBnD[fE0"*PXU-rKh5^@9oi.>3c915\LGRF%6qKHhtU)K5cASrpu%Cka5(dAqJRQOZ/*3O%kM5-kr0?Ico'9tDiM6,].))GB'cDliEI-V259.%aGI1GeX:05]u+\C-Vd@"A3UKg.a2ATUJ/&-=h<$Rl.12r`2rl<7p8pOQTdn>28pam>0ZWS8ehMKaQm;K9ns6^+A3rLuPIom_j=e8(FI9M7[U<&^gIhCBHPVS7#O-Gs>OM6I3YGQp<H44?GqrPB%!au)^EQfr'VsJr<<K5!LilUi=L$PD3@>#jQ%$fm6.Y"UQVB0[3TGhYA(?N6%q+(J8Z],'^6C5WCAmW6K)mNl.N8uMG9t7kM89Vs;<8`SQm*X^l12"_uC".4B:/!nH&r6gfYV-k/n!(eu0qee<ULb$AGI@ABW_)+JEnmXdGu)\;/<jS_ORb0%H9ZN+>]oBFE^c@Fj%W0kF3)_aa?!%u$WKIBF#Z-HbO@95huAp)n65am\l'UgC:[IOZd^bDMDC'1,QM!%nXPhp_.>G)]GMSrA+Q,B<$aTr(3l\Mm>o6141lcJArJJ?Du%hs,%ri^^B!TR9`R2[Ef;o<K^lg?0UL\^=p0+t$nUD>kWH+(41</DAmQFYCJ>02nT:63Oe+gWob1s<*>.f=\KkYMk<!juC-*E3C*o9,Aueat*$.?$Y'd/,C8"WScMLb;PR^[#1!Xtfmsi3:$X9(H[RE?*fc%E&P%o>]L_8n"`*8rnZjrAX:#Yi^NQ.\QPtH)a,qa_bYeQR%$=I0U^]f'K_/6A_3ag,PiZ7Q^C1c$2h/t@*ZW&MuqOq>iX?:IIXH)N\.`aYu%p@RiG=QAZ`L;qg*uJ'"B4)af(Ofr2J;4oA2(ZAG\l/VI*I3F>$QF^]"@MbR[%VSbE:(O=+&h4p*2QGZLQu"SaCA0>KC#jZ[@5Ng%DY-fVQJu&Wr:QP5Iu#\-'9$d&4a"u"p+p',\p\g,9SM-q9;9H5E8$.b+5[kN`sWc%MV'C/WTC;k9CH%\)=?#f18_784HT*k'A^,<$\ueQ`)Frn$"HZd5i(;aW)?Dip/Ot#(W9"<a!"ud;[TS<,`"BKW]s_#sds\/`7Zf4<D(5q2A`8LU8t5^s%?&-rLh&]A'/%An3e^@.79\-U?lF:f'>*1GO<mQWlO^ce]<<]f/gKg_#YfZ"L\E.J(VO?j:k(:Rbpa2N@&-N`CUDrKAG,_;uABfMd23M7MS\#-W^u"1gO9aT_R`%o^bX*A9+cfl8'+R;I,4Z9UQ\Y^g`^?tM1F]E_g5PRM\;G8^4-GCQ-Xc>l*IZ@l?CoZEVGotSeg[cDHPeqR5X:,u?XNAZ[M?1shnd15XM#]a9K>.W'p;C_AtDJn@E/.n06<i&!%DG([%0%#`/"SG)DO"LM!8XPa+\P`&pLSM<A_0kL&!!7`o3c2"9GjJH+"9-)2+KEi\f`c]1>,@,n\&Ut?r=:<$jmne>`-&(7H5JCo-ca)pkGe;5jse#b^WJgpf?^Wp%hR<9epBQ=H5PKL.<Co2M@SjQSXI9u_Ia+Rkjdd`6[f%E>&6>s+;[=+d*D#+(nQk`M@H?krtqVVr:o)C9eKenO&X`:G-,?=T?b&B]6N,9AoN/#g?hYS:>T@!U=m<KFSOgWkdgqrHpll6`O#6kTY(aeO=5VL'f<W=H_\t:[K?bkfX@@VJfSXe27McV_eS'tUSdAYHHerMlNbi+l6c7LUMN>H`P@5KXZpbX%lDM$^V@)'F+j]Xb3EcR)Kc6l6el:AEpe-petgKa3i%SQi^kb8Ro/94Hf2S53U)-ONMJ*VnRPaG(Ueh)a8jtJCE=sG+`ce=aG:!dU9_<o@5Kq3S=LP!N'O7^?\-'c?!TpBekZL4B*^A7+:EYW:EI'ci]RY4p)bIC(T5^oRFC772q-=R'pm!l_tEe2kXNf]M_AG$]j3sPZUUBWBn5S:#6rDQoe&WhhL%L-'%'jCX&_&'m=d=]<.>6*%u#M3_W0sA#=t4$;4C]781L=kC7]Bu/OV`>',8lc$.*:g<2ie2*&/5_DXHuDiZ6<D-rVYt<h5r>?`*h-\(,'iRD&24&OMlg<r&hTgLO#9Jsfim6g)0V@`EVCd+*i0O1R%LmLK=A!KJV;)oU!K&qA^fY^M=mGNf=BL.ru\Q0Ym_&ir5bqSM9^pons_maSCk)(*YTT<(EX\ZdAe&'M4&Pi3@=/M0rh?^A4Lr:047M>$TnDJBUG`30RFr,d+JTrUuO<J1;[J+<6,1dC9BF7aH:M6.:JjMq"8X5jruSEIOU=mBc![-A=MYuJ(9.l%T3Waa@Os0s0J6Ck0N8$Diq"5K>\b%p)VRE_*;pXoYV6SErAqqJecP?Nnc'MkGsnfnEa-It+\,3I@Zf>l6-g34o&reUEf\QBh**4DAW\W2P@NX&oV`Pr(b."^$j(kZ)*cu_D&OtZ;G$toF;>.R3W2a-ObiV7BF:R3#-SYETT]&*&WGsVJ0EPr5]e48^?&$\qhJXY`Ooj`2j0ThnI:C0m-KUj9$4q=q7@l,--NS``Vp(*:0_"BA>@;-[%Hq-.j]jAIp">>NMD.=sI+2')>QhHDj,[&i=@r(\X/M:nT0?Ffs#H1JOM+l12".,D;bES*oj:+4epqD287"1*?%jbJtn?:iDakE)<UU2qBAFn-dB+Ta8d'.@"Z]!SuY2!.#R*.!;hQFjuD(6>[4r"n^I72OSDd!r8c5Zh4DdaMsKb#&<^mk^$P*][L?1*ls.`io15tZBY8/[KJ>,Ztm;%lu7Fqo#K>en/?cYs+N]aHkK\hIR)Xi7$`-?qR:#;_"'7cI]Xb&faUgjdl83Or8mmP2eHl->I;Md7kmJ#S0BFRP=sf:?8lI'u;Ap;f%+ph5)`4)%@6BChlG<rIR%n)GXc^XD_#j.Nf#l9`"pf]BQLHVZ+hG6P[)8/q[`%PmH`7dngg(``O_cB0^:f]+in*s'+AgCEI$XEEUmW@#N;"N:cNrcF_CpS!gY8m`t,.Ypo3_7`ooS3GU]6n*]OMcB,T"P*C2?\C(T=]&9V=W!+`9Ee,'\8jqY?O8gBSL4].%gH:Jp(!n)e4n\1OW@H"Z_OjA<WK[YX2uI2N-Ymn?5ATm'/7CGi8=__Tt8FJ&Dk:E0RAH.=M#)agE.HpNAl!k+BBd%d+L"bl0l;q>JrT7IuU="Hprd!/gcC.ZZf4QddMqMj?%:@BBf`3Kd#oQomD*d1XO[K/f?)gIraGQc:7a.A<aW'LaLT6@FqL(X1F3X/0,Ng\i+EO[*qW!`VqZ[nP/Qnc2q2a]31gWP+'bT9s8ktVc`pIQ2HWfGpr_gXoIM7(ml*UmQLf:I0b9q&b4QB/<Bd,nrFF_Wr$>T<rd>A]`'Y:b/<(JiWd,X!qSBO\6VhG6Baf2oQEV0(Ld1(Et2Gghr!'OgUP'>AFP=+AS$j,-[#:jUK;.r)rg;jU(D4GEQ`p(l&HRM+TQPPW`5HCP&dR5b2+i*O/eA_QlkG1Op^pU0.4I3D"B,gm6&Fc*j%Zq;+-NK]Ms-fM6F!WMfhCW,W2m<\$-p3jZ6Z!`E7P$Z[#.[eX,'.+gXs"6<Df0>K9H43Fh?6O1*#c*jrKVj>$i]C!2VZo;F@FqJ\f2qoQ!<W#EECA$GJu\AP5_Xa1ihTI7_"2f&BcM2l'l>?8/r3ZWd`m\em'jR<gM,f0*&&@^Yt;&,L84+KhlGL1E8-f!Z6hqas0d2L3K[%;"epXjWR+%42a!q*;"ECiH=>Q10>/_F/;+/CTCB'E6%[6ojgE^QY^jK8D2598,N),g<`M!"4;9iS)QAN$s28b&qr/+!cBrlV^!1]eD@T@,'g-DAKZdI4IFMV<R&9jGu.Vn"g*gg/%6&l&YprC=C>T$Gl*i"WYnKRk3V)u>fE!'pVu16L>sK4')fZ"Gin31(l?@!mO`L.5r\WZ@]gM9jFs0l#<'L%=0b":?`5I=c]TK)+q&gmf*LbWS'HL-JfXX?d>FG>+$A`M8TF0Ca653:@"J,_!XG%2['9c2,P>2b"Zi%SW1p&A8D$#^S<>RBG;JQ!nUX;R*W:g;GP,J3bU.5ra#-Jt4&1hR,i=CeXKGbP3DVM9FDGN'BH=oTUlsFE:T7Eg&u,GZf9s@[gp4r>p6k9P9ul3dON3&WFqnE-<hSeNiS%]6VtENF_H0#,kZhknBPE;]Ob+D]i%[>$-Rf4?%hSd@L=jK]Bls4_D6]KbK)qPcr3\pZ)"2.LUbW$DdE3#<(>Fr)C.A]4d-V-VZI1-s3`4UQ0'/N/amgMbjQQD])5%:'bl,g$g_u"8W3_?iR/Hl,>a_E;Am254c#39rN33$=RnRY],rf%T9i%oYUSXT\e;d`S@6F11K$Tmig^E8P`E8Nd`2On0bT/lh7h_Ykpd-eJ6*oE&FbIX3KJUIa(e#n9n$@f1nuGTX/3^8V\Or]B0TW8T#9>rs=pW.jdRIcFLlj*7n]XiA,fTe,;C-"VIr!6/J<l1aMMPb)p\9GAF@?Q+l'o0O7LdHG5%]&Ket)nFubajQW93@#Lcn"K1=m'%,53?\0bmmQrc?a:*CEb"V/r'<C0@LM"\FXgqj<P(9Zl-`bYTfh=K@1eb8j'+n)"`b2>$J&%%!HT^^uMula'HDQ(AM[_Em7U&Xl[F%M57m)Z-$?/57&%^K:ZXA'dYtCW`(-O]m2=tJ7;`jaQROaZp!,Ogf?<LI%?n47LAIV_#^@9l[r'tC-i@#p],QY"9o)f@Qk^=0IZNY<NJ=ZWIALWDtX/5gg?CsQbO[^\hF't4phY3:JGPKh>aV-ZE.e*P3'8iGBd%p@r8"![Ie#^hG/7543?oDBTGHsELJU2VCY9:haG&]):K!nq'Nn5s1IXMJ/<4Ncd720SNoVV1G=-c8,9XsDB9lanL2jm2L+o$()r.H#Vl-LDs]3(iZ%754XH`L(M=0G]!.9b^u*V`[P2m2@_fIaS_X93W>B6K>I@BUOjSt3KI>L-uI)1fA.(@i4al5o^fIna'_caHk!d\B\fre2ioC^MZfge?aKGmkF83q6#q*m$j"`RrHGrfYWZdakuZnkSc?Pph>RM-9fTYrk<SZ+uj*hn5Dm&/U*:XU"-AoP!7&QM2cVdrr"q8Vc9:ep%_;Brig_Rr0u1lj6f*j^f6`-K_toiGXQ!]D0aO\.6hK\M"783?f*7S$qXbe:D<h<+fTbC4S\bVS6`cb'omMgsf,X1,`n4`U@AJmVD\f9<K"u&`+u<=hHF#'67_.(j<G&OkO*QH/NI3]QQ(oEK_]e4510FhlO6cNMGWtq@5I9U-<p0rp-k/i#Y/qe?j>/cYeShH)Jem@GNIq]tuSb],DHC7Hi;1-$2GS.Z*]iP[4r%!R'Yjg"r;sm`t:(rpKH"9P*VDg,9/DrK(p;Ccf"r$=cEX%^Q?&8hR3,>?e%X4)X)"Ea;M)e@Z$no''W1`?GI%6cdAHkooh@Gl'1(n:\+;eGjY?[(C#.Wu=Ce43TuN5Q`WQ"3J-V?^2<#f(Nu_+4lLI3*ASG/2M(Zh6:;n:@+:i]q#)SC+cRH/kTuE)FB>BO2UN.+Khebh?Kd>`=BNrgQ^rJ#dA=l&2;^3]W!1MdG4M)a$/`IR%:sb*44[gpoi#&5K'BA%ud<1TThj3+DKZDQ=$Usg7VJS&!lKheP:qZ2j@Vl53om#@6+[m:E[eoi+q-Y1NS4I/auu!S*pCg@5oFjX!*#u&sH2YCu?4bK7J,.=cPa63jqKW)?T/.S*Pm"%pdA6V9Jm7(N$Q4'RJ=_C->k@\&msa%8])i\V?#Ecj58I\jQHPY8_8&9knl6asQtZ+-jJO'H$G^K;.t?^+9/bh!NEd(m7gRe*$6q(Sf.7B3uF:;6id<1)I>`'OlZ>7`-Q1YA(@?@YGhd3#-8)E&u3R5Qn3lqfdZe!9uW[p]5pVd4(f'4d+cTDhaA58^+=8VW&'^ePU0%@^l">9@1j"O2oEpgS,L95(Zr*'pdV22ClY2</llmJisa0/K2)Gde-''S/+5u<YaOcJier*S7e"E6oYZ_7$X&)80j^<5h;EWo\\asV7fX];iX=Wr%9Lt@kV@1YG(G!:lnT07i4;rOM8DDV]qMi"U,+2J7<*&A.A1+o:CF$QZu.i^Z!Nabl"]m^?7Z'.'6,7FOMB%.5\jfOo@>aQ_O/Y;#ZF"%7>gq`NFkZMBFs0qdX?'A5Q@Og-mLND<%&./@GlQX[MT%g)Z5m89#hL`NkGWs1tE-gUL6oops2XE,<7#+:cL_K4`Wa&E-YhC5'$:oG\m^]YF!@V_r&YK"SA58,i%nE`J1!m>uTp8P?[&X&.WE?5akIJPUcPSoAsK)-r4":JS,AhDdTo$lE]-!(.o,i$%DaG3r``=M4MG]0.@qYMMjs`k,pZZ(2g1"c!eKB97('*he%fVU5@f\9f@^qdN2O`:8"'n.bcV4D?+=ld^EF1Ip:nEmp#j5Aq@!:ZZ7>S^SqL*X.2J_#cI"IW&Of#;Yq@!TlTT40:E^)6D:Y9]G6;.A?<f%#%-gJIk`*0YQi;r&R.r4mE@RF7s.&KbN9s!#?X052+dcc;n#$c%[dg@VY1FD(%G&f?i2s(7nTNGeMN5n:ntGV7L\UBu>l8RUg*Cn,5*0W!XodfTTf3Ahr#0o[p`<9rK97n=@3kJUD:,6S1GU@?b?MURr@"p2#=7E+Iup.Rd]9hGNBn@f!P/8Gd,4\Zfi`=%!u5+cUB@XmB.pBU3JU\cXfU4;2Tod[`fpd\ECA&$iXcK_E"U2e0t!RLo^I"ASq"f%.(<#>_H!9A\4*aH8HQF+m/FK)jp^Lk[EoF\':!6*Z$RPI5>H]dkSiQ#YF.G>+=P!+Z2#\"9WO4f!mV4h=s.)d$g[CX<Xs2%rN#V?+TeOmZp;6YJk^QKc1]'Y)iQ@aBY`ltan;f9C$7Y4A%Kbj)N1FY(!$`'%J_%"ufa(m&3\V>217W)[0P)&>OR1(NP6>@)F*ASP9BeFKN9<s(F#S0uD=kbL%eCK_T&,[o$&]Z@qlC2l[Z1R0+%DJ/kSS^H,@QspM!g7Si^+/sX=W#CO#')G3T(F^1nQUE47UHDmr-HmsY:4EsW<#aOJ-,bV/-qt=S;pIn$Z7dsKbPEp4Gle:.([9hiO1@L6Qo>6Cemc$OG?Qt,om#@'_6,X..TjBsL[uo:,pAkr,5AlWLosTC*Q>a]\IFe>"W`HW5S!Xa.JS^<r%[(2-g^UgmABZ*YdQApXgQJ[+@^DpN=I"lQgC<H,2mH]K82QWa7D+<Ir.k.2XgOX[2Q4S3@QC8HI);4#U5c?ilgl9*TOt6S(dm(W!)5lWdAV(241/0Q$R6B_35j[i+3lEk?Oq1D]OST!-:O)LBd70f;d5RYT1o?9G@Y8FKg[0'_GZ#c'Mr`\J';Y`OpTdN3p$h,J>_'iT2Hs%Ni+t]&sUC24A@IL`]Oc!OY09E<o0(r9j%kfk81ASWaO@=13(q6\R#k&_06ig1g$X,B*]!B9J6+4;1gOQmim)MM#0=0n$@eFN`8?DPFuIMI2f<Hn[U-jK)saYMFUI^qX4Jo98$TrCn&o3C(*7/4=8THD"F?I)GI+"X_@hLetSlWNdcVb.BnA(;_4Z)BA0tLWDt)8QX/nka8(N30)td`Tm=W:pIZ#]Y[oM,iHkq%@XupPMJENS<;<f02KF3Xl&_q^]YkR+$VKok:)8G@b,LRe6/(r?D6FL/s`a\Xq-pNWF-6>kfKUqpPlS%kn6)(HJ?+?6h[.Xi?(6"Kpdd:-M_]ESJpb-I@9bdrjl6fn=OOJ]9tU:e]&)_D/E'Jpf-.INgEsH6k*+?C?L\;6B[p*8$S=rA`\OJH1Rc:+A)3S?a`SgF$Q7N5Y"rmp]d!.'6?(emJC)'WgSWPb0f3JpdI.IJ_cdj;_/;h.3F_#N.dpd:(s<EIJ#WW\A-egqI>,,m#g/qjSq3q1aRP]56&`C).Yg^i)%t\ir"nK,qgl$-<D]I]%EQ:2J@a$]@UBcno@WuiaXJTF3r:*7pKhbQ'3H9S:1<K-VK&=[BMh*mM?^"T+or,QcdONNKL[WF9(2Y2Ue9ZB1U^=:"#;Xpfu4uUCn6?,:!SHOI-^q>goh'kR5"M/Qsl$GHPa"U\UaQ"?VtuBnlK7mSZ1s:Y,*OE7t0G#LRHoih9Zgrj_<_rOR5Sj3aQe%scI&dJ!#OU\tqcT>PTI]Li01c&/Vq1?[KVc:N=d#E9i?qa<T,;.f!!V,:k898KU$_MLdI`]8XIG%<'(i^%)C6j,]2l1[Rdl`^fFnaf##c9&S3_B1I1R8pJCDstkiYKrcFV.ltKpj#g-GZ$KLO+R-XXU=h>ck@"4=Js_I?)k2=$C8,*q4\s_s.!q:o)%DR%$^tf`,MQ*8*".USlbX:S9kfs-6?[mRemSoR!]\3Pu?-$NTI*#I`2r9:n8#A@D`sVH["s*ZIIot^"?QQ\(EaQG$1pZ/#5e5+$G@bFF4_<$:Q&G$sb<6GYh`a7G@`+dlY;MTCSN6@J-s\";:4s6n6&1Hik<$M&eXdM#ek^<NjM?-CLiPgj45q0%)BGfE>)ch!SN]!DRe&B)s0ZW!;G@q:-c?Q)6m5!MH%LR;%Ua&L`'k:4E4F-P[W#@OfYbp5ZAEFob,RgAJ>hgRh[]@>m=t8=oICm6Z^s?gCcoLe?BM7QZM%$l0-N(?,p"Wd#aIOO@bh[kS"'3Msoc'%RV)(QD`l;l]:gXf5ps%'>BM3B!4:oJc7I"riD;6R/2u7pM)G8tat8K(O"27q^G=DH%n-Br*9"lreVpf8XTF1HA&ig%)PgTM^Y3AL,,'?HR$-W/5#%/-geC"dF,WmaELEkN^8a^a7JY,jpZ]X4G>GMDWL#-;an3d_pf&G(ZV%OgJd)Ql(uYIGqmddG[0P]JIsT=K#bH0R3;&%sLa;nps?G(Nl&Ki<(Gd&N\P;RpR'3*lHWAY0t\YVGEE;CicA_+D(6jXiAT)P3rj+Gk<t_ghgPmn:YablVZsWXGm;,UXP^Jm^E@<fnhSB0+)kp.Xg)ja*r*^=e]'M$Y^#@Bq:Tj#^Hk6Uu=B0mfWo(a@YZn]BQc-(eqbhTucXPr(FcM-i]AdkF'rQ?Um\i4bOY]B/A!L"E1=[e60`kmY\s_;_l\adERH&\*%o"H"<O8UGe.&`_2Po$4%j!:l"Lo\:>$Xg#?l@4t8"h;@r&7DK16]ol3K$,ka';GCTaS(Ah*&QLSM^WBFY"i8TEs9!)T@e4JO)M'rsTKuJ3,DpuBKO[=]L:AnUq9)5ZoXT<nRFrNu=/GIqJCX4dMok5VAA:=D;^'4d:khbYV'm),/qDlKI]=]);local c=f([=[LPH>!.;@CWNN6s"&R:r2k#H:W<E85:fTJLphS#1r<NBr6Wd@q2jj,e,O<gKm/>qOdYs9Y2^&a3;rbCREb(D_&u\eO<>_sCSf7CFT\%0pH&mTVAqm6H/%rAid!YS,'ra(EaF[./@A]WeTDXAF93Lm:c%mh*#h#Q3[cqN0`L[k@\BD-T)no_o]^huGB/@uDeb1>e/.NfeJBX][m=h)M=7KmIZBE/Wo2Nn]L)P<?7N0fqm(bl$kV&\[a-N'>C[h*"=9>S&[\PJlKFR68>r7[2G*BuuePi]RC]Ng==S?]:+>;l82g.SmQ1:UNrOCAH`2#JQWF7I6m#u_hL7eQWf)5gR[:)I7"j&a;(LWARU@a0L(HiH4'p0)>OWs+l8H#PN6BsH)XMMD%6_#iamFmm<Q1-j+Lt*B):l+s9N8GSSUqT_B7a#Z%&<AkQ29nXA$FCg9XM=8\?A2C\137Vtd.s1M>Y;*PN,.X].uN"hOruG4\YXFP_r'H."_jfN.X@LmpYO9_mIg'-_*iU/]XSkoor$#;H3q8Xrm""b$s$_&4mUt'f+MIIfL.D;Z`X.+rP-qmZFn'q@1ZE18R-OT<\E#r#@2;bLt'2Y!,r!_G_l0pUNr.L4KL/F(0D+'!f,0QZ@?Z+A;.4fUiE17l!VE3X=.6sU?Jms(b5#.c@JW*Q#(k)6(M<0\uerloU<l)][]u4[al-J:W]$i1dV!n4Rb9:_4Y^(5,Ma%V!B&J9VM5(hc8UP>mNlCmoJPST4.dDc`6m,?g=.u0&d-BZAp&u.S$KG;P4<A^6ZU.Z<Fc^!$nF!6tYH=+hd(V9Hst]LH^im5uf;f;Pp)9G*(FbGV(">KmF-)F/9$_Rtku84F"q5"3r]<&HNLI%FkOkA9Bp\F*n;eM&+*pDJ-r)-ocJO."]aO\Z.=@2Qm)o]/'u[WB:r.>U3.Jj?;$_oFtrM=e/GV$;"GI+Ut/Y'rGtAoT1=l@90t\"X/D]s5OuL7d`&fD]:n_[uCfVV6f_F_gDOA&rV^/$T3n)A7Y)_8qsQuJ9@okT'M`I;@d4j13lC[!@$&VaEhLD!2C+U/L(?p2/fV)<'j(Qg?ChW<!5G'VcD8WT\1H8+g=c'hm\b>1s5/+o/*XFk%]g-M(n]qhY"u#_qMhM2DLb*?.4U*EO[')qDl#W%/e#Ji=UN5\1X(DZfK"urs8/4ER&IJOIfET.4XZ)%DeL-08psWV\)u&R8+_)$@HY?&?"BY&]4FGG9iGJi9S7Ug;;t>6/qS:BsA-F-+&h6enUjU(7OC#Bb'Hic-["LM(XNVeCgO?8*7r[YC=Wj/W;]BMg</k!!6VIO-T&2[!?aTB;I_K/0CdYcZr-X"A>drmB::f1V(!M5G#P9;npH;X"G3rdR&:l9'lR7m547,T;\hi9JQWTMrB[$9uHJM1=Y$f/eCp)p)UAo)JDQ!h;-S'Nl7QW/OjM>&rpbHUNtFpJ\N@09pJFk*KUJlci"$"I3_#Kgi6P5VJh0sX=98c$ML+p"LSa(,%c^5GprQBs)R5_BUifLPMs0IjZs;kk'(?^[nd.21WFYo->:BKQjP.([7D7-`=(<HCX*"Lb.sm%J!9Q"n5\1I%<+l*TJ1;gn^/>kT0`i5`t=ipC(BfMEr2@`h&``LO*FA2\a211GFZJ5CoaqZcEr!ScrW#l1I&WerE]57<aINeEO&`@Au"O"b9>9.op;oP@=2F0@Ce=I6g6>AW5#-4%@#7G^I2N-Z\2_q@S]VQ]B)'!Vb8Qe0(\6_7p&kbFeiYKbY8!C=$IakHe@mRJT+/i-u#;*jeVIpmJ4!Q#A$0]BaP#X71t^lk19KEI'Ga0'tp,E52r&`'/6gVj.&V'nqZc+)X#/\kCmAFmD>sN9u"BsdnB7obet+@GJ4pN54mtSs)Ymn!_#.bIY$at?Opac(5K]$)B6a+E#^,"VOOa?lV53!s8"anbVW',62iWL(N/UjGg?"_9U?+I4g['>M%/doETM5\Bbh@hKoZZa<:eL"FJlWWk(>bH'pJn-oGo?dN&b,Y4\lp+[I[FJ1HBGkH;lg0haP#DTtH3Jl=oAi2^YD`J!J$Z6Q*7)Lr`Z_(i!0XPM*.?oYWauiuA*_5WJRIj/qZo1dZA%I)81gG/&1Qa6Dt_i2U&@DnW^sPDEc9g,XN?oUG+<>]3a@mi"K57V+sa.faP>FGL#`jt`QDkGJnK>QaLaS5Mo='PYQ`*8L+<O`O#gWciBQY>`5Y>5nH<_B;ds^+_T)V(R"@?j]Tr9Qt?@qTT?lF?Q5dr6G.rJ4$%;Et%'HNK;HOkpK>o#P.+JO&bn"Z#<fS=<nFlgREcu&:)"]$"RkqPAD3j&U5LB2_;&Vdf0E,g(_B4Bo@*=f.QQARdpi&^cF:$&-IAP;ja&C>K*[F-;L,mJAh_.,,$a'm.hN?PW[UZQB]e-8(^!AY%P/.Ka'trfle78kof3Sc\R9aF;bT!AE6V-2DL+uc@&$jZ+$qVda$bZT[C:RGiZ4d>W.R8l[t1#+GfQu].hsO`FCq.coQ:j/CP^nU5hXk,403piZ!4O>9Kt+RkJ=);o5t":\Le%d3iO-S`-B>*BR"r1H^jt_FpH_J9.1UCY$>T:C`[$C$0sk2'E"+f&2*>FM\?0=d4Z?Jg\5JH4+cb7cj9,VWtt_Y!Q6*TRasJF&58h<A]uSV@'aXa[m?+XoPn<MFOF>[Y.,,P3T,dmDNQLZD#+1[)RIqHepiJFJ3!f!o<J#I8IPnWmZXG%sUMnesb^tH#L^M&7kgG!q-m]0esTKB@TF-9b)3X<ncCWP&%0'*8-K829=@S/\7,P5sOb0:q$4*JTt!]+aKG2;(L"jgbD7,eOV@Lo%cg,JBaVW,_4V+RkpO29Ra0Z[D?H%bhs^<FhoD=0on,`oV9Vme&*n0<oF@r[F8oRJbZr-$#TpGV-\2K,1_2S*?ZUb$lR??16dDOY7l1L[B?o]U:-06@_hFagBFRkWLD`,/'Nu)4gHj>nmX_CM9VNYKA[o[nI0+Nh^Eq5M<^bpIsPcBl(j[G"E8`C`5is2r2`Rp6?l4R!>L</$1[C7Z%FeJi?(Yd$!7Ia,J^fT&kfe!9u/#Xjrt^>J7e*BR2=:":TZZY;8&1uLD*#gWlP\U!^A.Np.2&=PG*ciO#u9b(I?kha^'Jd\:WZA^DEsOdc`ePLlm&ZU;ISi."N;r"pqX1qh[XgXEV&+A_.OhHMAW4B,>sKR5o*S4dT,Lmq)QQ;_!B(W1(bbUe)18XdUdGJ;706Q<b]MF!.e->f\KgZ3B8<]7o3IX/jigg7d#)Y".U%GCP1Pi6"C"]K+Y^@6.3#3k'Q-00VEZLX&RMo\'cDCgRDm-ms_Vd4M=UZC@TPA:g=<U.s[oOLU--e$C=F'(K)_3NPl.Ga32cd7>NWHri!24X=:MdGm@6NS(Eo''L0#aMP@#L[tC^&;n\e*`7#?4VCECHLHbLKU.DrJ%Ud7k_KA%G?hb^ajoPFSGNj=2OkE,;tDUW7>M$YMa*J]X?e-*KISu\OpW_>HmAG9D@ag6-aom$TA`mcnkd8Nh$XG(TKHk@ZWqT;2_\,3Aea5VD2&eP*k:lqP5L&OjVXYZQ750q:=#GQ'AH1F2&\U7laWnd;uDF;(TMEJm9B)KcI;4t9Lqm?1`'V3&IVbG0QKUjUp$;<1Z.$._E88(W.r'"N_3EDgK%=eon0sOqiu."VWk,Y*A2<*OtEDX"\J[V&]O`OI(R<&E[7mgVjB5H`9Sb%>t3!6Smg6IqC0?MG%]3O)27^V)c;Ot/rrQpG(PA-9g0GT!j7WX0..Ib':h7ckB%'WqWOW4cE^ioaJJ2G-[-k25kn)/9.m,)17>0=6=5Vrp2T,HBW@:ka[JsY7b7<Y.8)Nf8u8/cre1(U%8$$9;^rQc0k?Xs$/[EkP0=j(YFR7\o[J6ZXg8f9E`uR\-2;smO+"U!'\0PTJ-gn+ltqWr6*b(EaKBB,D8J9_0auSXR\'^I5a6J3aHYk]9bo4^ciQL4qm/<$WU0"@54f-Z^<\0jl#W2&VjNn(HMa]"`eAt8/nkr>qSGr9g(*B#Fg4i):<Z]kFoE^sR`U;:[Xau)fo1su]U5R,L#i^'-Qq^Eb/#UA?V>nK$P$M"aa!12Tt1c;$/&0Ofd/05m/nR<)KZUG.4U=t$'`@d+c4F_)_C3#f?8d97ZFU<.6bR<<?]erGdWCT):Mt.gU_WWGub?0$am,m_C+R,Urj!M[uTONACDYU9QKAX$/_`md_H<W_(i_\,fahjr,"Kqh>A&k7jAMBT\<TBcnM;'XL9b&ASleLb'^E29M\Irar*rIh.Snin0W2YfNF[Ig;a/N@Iu,R>*-:[,I3+?\C,t:V/PM!aVM[t[REo"0tGS#VoOGLp8J!`ht&"bj(Ml!qh&=T`hC\hIF'sM=RMe=$k1"B>Xs)R@XoR;iqUI5\@p?31ZnUl@;)';TJOCj1gH<,.'P&j;NqW/LC)0\BB59RS/;(If"q=P-q$PO,2kjEm-PWifKMp)JFZh/]d=<N`Seii+1e9jP742#Rq6u+0(ID/J&a1&PO1om[81!pQ@;P#[72@?ZUmoliE>?c3eu772HJ$7Q<aWD*hm5$TRWMJWhcS6XA2$(@?Y7R.KO)lYl#cX\fK3$am<]pQ7-@'[q0t>.REsG^qGD=S.ieLEcgM0^+gBH#n>N!FCR(72B75YE&,C5\&kd)V\OLe2J$^^1B#/k/3hZa-F%BeTmB!?7/$C0jPV)7n=c1n-uhC@iNLs,-:RIOP_Lpj,St:Y</Mj27UHVKdQO(hUh4.$<mA\@UFi2@Wk0%XF=>beEqr$:KE7B[(W<,;XK#o%:!>%?iV^`KbW<'0MSLmbqMAm:=UL?'%h`ojif`A;S2)8VGCn2P;W._]IXn&^FSGFYB/0:73!u@6N/EV/<q;<d^3pNRFV#Ls`>3BE9:o.!$?OK9I*SaZmNo]X'H8Bt-/'ZWI\k?=#?9:LkLXg>i&cUHUSm5XI+.!&ktX81@-Ai`/;Bb%"_p"TjBj^<-:>b0^B,:#k+#cORVC!*DAhteZJ24t&*o@OGKQ`Kr294jd_\21:+r]U%/h:rZS02'hC>;:*;%V4-fE7H6h6ko`GM'@n[4Ta7r.:_j7*ZA#/$-0X=.Q:<S\Y[7<LmWKUC$ui:?h&FfLP)Kc`kTj/b33a\&P7%&*_0DUT0:&pVUq'X"0%%uSh=:4W\)bI!,,)X)T=gX]gWXK=@5\"6>@VmpO/T"0!qGSi(<T+O6*DigK"re/aW/V+a:^&>tu6&LR>Xij]:>!F[?;CpirE=p,I[XWbAYBMFBoQR9OT+I4phH+2.^4j-RVfQ-R_qaj14D`[;U[-9`[V^MN=<Q9dVlPi($dOuD)]lIpLp-Xo<X-<"(Yq]a>s^U"G.Z`#7-jm`&1hC]$-".#U5Vh(I1oIPqC=Z%ct"fTi0-u3,[?l1&u^+cY\4T:-o"Xo=R$ak8V,`eLmpT;oW@fWP<f2tf*%%J!-0]eppV-/:TO&RXu-:C6:Db(Y0[k]WJ;EMgS#a_l?+^+FQ^2C&:#t=kme1\L4_N*?YN7+nk!]cfHVb*BiL>0QRR&j(4cOR<1@k`Z12*A*V$3J';b;Sc$H%uHBFa<[`U+-UsAlR*o45./\0gp_ZY6+?9m8\[;K#9QDSi.nlu&L*L01+ng]Ul@+a4^[6g3C[\7a"q6VS4['VDUD`lIr']Qg-'R<nr!V",K.0!;+<o'/r42VLt&d1c*FkK9<?78Xc8b?(=b1NmtRE3,ZE4>5<9CEdQb=1pgEqY.GOmS1/qKn&f?[5nYs*lN[#;bdu82B%Y=KMNu:6'p6^\q6t>sM%4!0EVD"db/Xrkahg2Zn05"*2^FeirS\VriH4+l`Qo1o1`1@1h7(j6:l2JJ<Y=.E06>=4m1o<S1%3.M%GuOY/9sW.5*:WZW43Y=9JV6o3$f=^RFmma2W(G)e%To;DIO*-J7[D=!<V9I=aH@2oKNK,l/6[YrQjMrNs)7lk.HL]U*QcJ*e\FCGO$/O4)/d]Y!&]s`&:;.%#H_@AJ1ZF@F%ZA!u>BuJp1Uda7OI^q"h7+1teE'X(f2fJ,_L]5/A]u9G"'Qosq8Ku)mWbZiKk#8l-Xi;,@b##OA:MYVIi@0#e"(>&0UXaB_XZ>@#H3#Si,b.c`LMm7jd(Nrt7IF;oR$sn[X8:I:NH065=&Q#+ike<-l-`HV?=8R5GBtg"%JJ-:b#QaT`g*a\s%1P6X&3`oK$0449>2_[YC*UFQ($JSN8G*Y'8t<pppu3RVa+0<cIetHrAG+ID:5d8S]_dar)Vr.-_G#-P)gDI:)\c[hhdO:ZQL]97m9C0Fr?P9'-`5@@F/,#a=,RhW#ZHDRGC7#L*<&!Fe='CqYK.W2BbA2<_:B0c4nGS%p1*:%!6:,M:d?Vr=,'BKoah#gqQ^DdE!^EHJSa?D53k+XC(Nh;%aP3lh*`WBFS*Za#r9?`t^_Lhr6nHY65Tj\.Ei(p[SVbk&RLm4_u,RZLg2;:%BA&E@UCeQ7FiGF!H$?`RYl=/qrRj:5$C5P(G+ardC@<J^!l&$Cs)B'_3Ru])E8"ME#1)VqouOCeJ.*(@%^#3*\W&>PIpE/Xn/6Nfh7P3daocVqOc"S1NT74eM(j`p!@AG)$d#1NoLeH>`)4phEDpQI_m)Df;ZSa7NpThuIL.hDTTQ[W7<gOVGYB^sNBds!n&AZ#qh:-E^*Ha>:0&I"]aHXcYT`8fK-0DZ+r7iQ3RA?h'4ARi>tpbVC`h-,mZFlPQ.ZGeoAq"LD>YGDCU)Ce3ch/T@)q3V1B.W^V$/HL&/*1AR2Z`dG"Rg&"(:h=-jVK($KkQY0/o\TIrCIF7G>(X[Bmc:V"W:9nhi%5BT0PQlk"T>5GI20pp3h78ACeaY4c>>gEo97H<d@RWbsn8Q#=n,9Hm"tXYS)'=TM36H"[>(cT,G.9=(LW)V70Tjr\9[D7l=+Dn:s#/$W2B50&05J$NKOm+HecZS+SqH"UgbM7naaKm)>5%M=T[O$3Y+hCu++HdDT[$QS\(aWE$X]KE3?GM-b=Y:3-V=A!b_cgC+@_#q3CkNi>Ni_0btE53_HfRY8t3;H[[)BlaPfm7V_X/WRK2Ca,GWqg_3P5jS.^eNU;kTV@c]`mJ##-Z?TFc[5[m099964ON+q\Da>n":X^Qo%*MoFal/]Kp%"GgeftBH@2sUe#6cH5%#QO$A9hP_<B5)'KZB#<sC?rG[OqMn6p5I-&d,J&u*1(@Mb%mQ94@glmV=MU*aWJ^-EnU@sfZ-!YD(^YC3H)!4DLo\eBj8h*`(rKhAW*U"cj4qlaN"8(Fds=F/8LaE-*Y,AD)?),4URP">>iRro]e#QE=LL->Gj'oT:dpGEO?<a[S.CdV:!!7aaN-$fGfP_rXT[/$7*]NkU>"cl@VfAC^Gi7boq0&7tooYP^\h?>NW"1D[t-m./8M31=hZSIK_F:IRA/j1etdBYf/a!2>jeDDs;pn^MU1"??1mDAa*iR6N4U9n,bGN$?XH7@8^n18I'WR3fS/Rhq[s.":M$%ZVh3?D;pS;NeS48'I:4uH\VL_nLP#_O(.c*oO+M,nf^]i_*t$/\8\gJGe'N:B%]eNSihl,`JF<hD/9=;?g3o:CFnXgXA`K]:BOU`I$QGNq(Ul2Nm4MK9g;PYk#l[hDu6/A8$EdSX4S^Gm^ii*r!m^>9IPPCg@?qB7"Z2=:i7VkG-N5Y'3.8TEXk#b]QJ$?,nqAA!b7?VlcPQG_#bDeom)'aQms1gJ!W2)IXUo<&CMXTf1W)?-'L^#pQZZ%Oa1C?A;^fr=\9pFf6ZcG8U`+tEXI<9>AhfTBH'Jj6;MMrY5G,FgVh%R62nTigR9/u$kFi\09dKTpn-:ef*2uu!/ea9!!<_ggNq22hJsqB:6DPrGNPR$%khDJKA,%;MW)U`I\;2Cpo+L]F9gmL]MnLAXUr8PA&ngB8MbN`7]2_JE-Mmc7.JbM,=9ZakX*u!Y.pr3X@""%dF_]r_4qKb$i"F+.HOW#leA9Lp2L;>Bu44Q)G#,B)n7;&jUC8&IL-I'E:U*&9t3?D[Cfk:Bmpr2IJZBY?'^mT9h!15nL90eUZ.Vm6k+8]'tpegbGB*Q^SjP>p32c2rt6]3%JRfmW)t)A#lqX?On%-bd72/C65X-J*^XD,m8i5;[AinXILJ.MA!iG$]LBmd@u;NFZ/8C1MVWA1N0Hq4^49SQ[rM47SuYu'?3aK@c-uEu$A9;kV;k7Z5E6Z*$;LO3_cU$</'nc>!O7]7k@eLGB4>"nT(.!JMqFEX:LOFR8]j<8L?(7a,q9nK_B!?gZ^7K`cPOe+rp+9k"k$sY0?+knV%tSf#Z3`:prroEq0>H8AU4$AeW-mn&[IFQ;bRltDLc8B"B*@Qd8t=\$;n<6.3>I21;:jM3-5NWk/M%<]0N<Y"en#\R;8K5m\ECI0Aqt)U9LWQl@DbqkI+"ojnZhjN*m4$OikI,e(cIC)*]b]IBQX_SRB6UjX2'_8mYBHD$E2[+,__uoXT6Rs05<W2j;hM=sdb#&"Dn>*oMTWr$USBHQarqhW&uokkP"8bY\8)&Cm5G1C7TA<kX%"%=cOsM*XWV>pk)O@peG^iaS3$'uDWd`@k3g<dN!!)7'"-S)(AN$g2o&3g3U8a&Nrdi^U]n@b8U&ccGlT_RW(=P#,&9V?/5H'0#%.dlU5*mZ#Lg+[Kd\[&n3B!00ncgGp=knCU!JgU*td,(>3K-:.1pq3Urblp<-LMuHZl@^&)L0qPiVruCWA-j7E;Ka@QuU=+u0_Ob/tU.Ad\P=^?33;NAQ!u74c&`tVRGCqflX'XMRd<VEh,.0V.KO@mmHkV5$`R(s++'MT_"Q&qnA&]ahGD]3F6WZ=0'k"&]^tRpOHNY5s-Wu!cKqk?@@Ng<rpl,)rrh?+icD+r>0:\:u`5%MGe>ZM##R_/Lf$dTqd(j5(>6,,odn"T4O3F4@*Ap3kS*.$`Qp12PElg8Cp=KL*B%Nm=f^VYGG3uie%3__dhaQ"_Z$@Qh34<FSlq'P6(Zs#>^*SN5O(/]kOTo5M@KNGTOG#I-8:P=;,Hf?m88^l^ZgfuWk2d"c7]9,mk18^i4A'FX:<OI1WML"ef)/I'^6r_>@'Qh/<%]'%_l_/RoPl)\HQf@#:.E*\^fG</ib&>`A^$D[/TajM>=+hk\32@U37o8KaCu4OeQW,Dk4,BkrPE5\/tqK<pgH5KlUK9`Z=,Y(/IeCKfhAm-I9hOX*)<##1bX;I5go`?(33-<h5-.7>pUOC>^SD[fh@I7Cu?$,Y@Uaa;APsQ2LIlAGE:Fo>"a.@QYguR8E<Fpm";hlNT<'%O3f;e2'XL?Z!Mj<Qda+Wk1B"ZA)mU5TttD)fh$\f$BEgVF/OH73BsVui\C/VATBAC\tJSans9TS\.?[7Zm%7no+ffVk.I\?YqOD6?,^`+56j-HDW)G9bu[,t!3:Elbh,g763YDtgb],u)?cO2.[?4)]$:[#Q=ZU<,ACF$hP>6V:/&R0+V:VoE+u=Q_pbN)a2#SCPl4HI1@2:JX.YQuNur"8^p<O<`u`[`j;,++N]_@Va=3#E%kCPC`@,1[].9d&$$+t0BX.]$2M,2T>P#ck=m,81;c*,&d6H-^9Qbc2F!KLDiK?AbF"'mn+*E#nGkg%MHQ^',4@%In(uFJGgT,pr71CUlqm1KEOe($(7.\Ih&#'pLHg@n^/0JrHrYZ5`Ag0p(&Tq7ld4].R^4r"M16RAt@.2DQ@K-Hhi=QJ6XF/:!4ZD?&ac3':CSM*$RXe!-QgVF7?WiM$i1[G^A;[^!Orrr$QCP_)='$'GK>SYcZP4pgEt3QN($O>j#Ib:BbA_j[CY5)qR5*a$oe7QD)!Jp\3:sh<PL30;nfL0/\cjHs*5.J&7qp$%M!2$?+R5DQ21+hKDk3eEFi'W%jjV/bs"V_#lPdm!UfsaU6C)'Ef>QW)pAX<"U#J.PTs2`]\nKH[P)b4K$B*F>&7oendJ[K$J.nY[0j+^n+T(fTU`c[`77>1Jm*/H(WD1Z>8Q.BZ>ST1!'7rLg9!A'S,pe5g/DJAuqJ^-h@<-ZmWg!=X)#FN9Z2P-cgVWMOY[/\dA/C=(NC=oZD:^8*H5^%sX,_+9i*DXM%q90bLs".JZR"@/_u/OonR7Wgh-$ScT91N7"6-Z_fC3\jMG%>h@DMm>/7kd8*Y'+?A6(GE$WH+<!J"Jo3*X"<g@?riEXFlTfD`A'hUmWe);<*sUk7gddo?j&]p)Od^S8QJS9k"t\<8L>qbrd2T_Q[>g>MAmO_uk3<i;bhEE`HXP)ET9_'4a:'%oL=bA.osLshrD3r_?F9&&E>(KaUFo3;.Afn99YQnp:P&,=^kU<U<4<gV[s9AYc@?"k[$'UUBf1=PPiTu$Y^oWmUO*iUZ8";2A+RQVJ<1`>P)?+qq$1dYlEO^A+pqU'fm<,MVSH>4mq)"&q:1eH>?PO'p0WuOhU9S<BF`X>`o3m`d24l=YHQ:B@7m,YZfnc89tG(ZBu%sBaBd0e[iWaFL1p*J=VcY$YdZ)d$:@iBa=+5`rKOge%(&>_5a;@tXLp/-kq3k.\q+"lTP=h@Wo3J^n6NVt2=*D%Q&kqf?NfK9RUNQfb0H;o,$5.32/f0PnNPfUpo<rbP-0VPX>YQsS3bLh-c.AhaNo'T<@bB%N7NU3DrcV5?Bq-EH&c.pi._Q"YgnNj`bXe*6(^DX1MH\;=M)"b[FA&1G4p,\1J*oQMp[YggbIF^^ibd]-sS+rJWCMMkuF5pB4]>ob/s1N`&D<Pk4L46\%Y,`!Y:/1_(CD8L_F\cA='=\UZ"pKn(L:^bfV%ZoF1Hn2ndo`e/:5@_]%O5s;)H`ETR!#<gN5p[+5L<Lke1S+473"@uF5'l?Qef*dVC_B=HV;Z'!+,.)gr&+L7H2(#*uqr>/r0ca+7]'T?%c]E(K=,`n93*_@H6s.OoYQ,1<WW-J7Ft>]@0bi2O=.\S&'6F[p[CsDIk'=k6XZpqB_*f7,.&pfQs(6M[F&8AV*"p@LZ[0Rq?HG7U=JRq@&'EOKB_rBj`[)P<M_es+iJUbGc]/)j[9a7@2(DHCmb!m??/Z#2B"(qk7MTaT3;!V2&H5BN.s*n5$j(hL:0C'\Tc-7q8:NWX$)ePsSM(df#*o0+Nc)T@+GD#H,lP<N@\0Il3K3%:mr4GXZ]*D0L4ea_2m3,[$9M%bLY.D!ImHZ4)=X<@ZX%)1kUA>4LATYd4h39>N&oA4dj?TjG]>fpsQ]A9',Kr'o+LL)Ih2$:*<ol`M=$e/.IV+Bulb_Z6nm&Fu(GY"]pULcQ;`l:Y9$Y!GBhH:X`:ja>=XmI=.g-im'u4?pJ%5VE-605E)mo+LI\C[<[fPT8UIK"T<T+'sL5/;-49*G'&AY&_D\kf(Z(C,U,UGTqW=G9A]q?HC4upJCS3e\p/C^P"dM0825s5Z+`L/<okph3X<=8/I?82[ND)>c9WA-#T."+ZScH#?1:W""?M'=)oMO5QX1[PfX@8]M1k-QK(*Dn7*'MeN0PG?4pnU<2HPPKu$c\DCGkpOi]LWaMX2PV5ik/g_!<UiQGSgbtkuRGI.%$0<Nha1)l*W_XemiP%5dn&9kMEF4sQ8HG*<1=`c0+[9BB;!T+aFK$N,4%>LR_l*@0Q[-[c)#K+Un3MO,e5LF?WTZg&3+gLOJq'Ie['k'r"[u%lbnA-oBZER7IGjWf^FoQipbs<aUh\YhJ7aM6Z#-ZKZL<ct+1=;fImGG:-Ig.(YC;Aj?KsiW;q,QJ8U8a]"Y!m6E]V9`chtsJVG*pGpF;)O4E$Q(uf_Z&5j?[<n`I*IV*a<r^]Eu8&C3T+hKhI-VeY#X7YB2P2gbZhg!G^SR*7bhDs/E5nL*Ipt!RfhW)&H/a$!;''0oiJtmTMkrfMoAjr@n[AV]7m.+"BEb=2M$Y[#%OV8,PfJ?NbP`GSM5H]6R"a<nXR>'pIBi7_\S<]C!1[YK*(-poo]@i(W),=oSL%b]`Z%B8C/fCZ[3>a([GuQ1Eq+OQg1k1e.Vce#n2hSGL=7W_FLT+cXF+jQ=s2GEo7]L3u@JjVO>a.L>D*96.V)kd8BZ&'<B=q@grBH<R!@h<k8+p">2b5Zp\oJur'LofKtDfnW^4hQKS^RNtu3Yl$qUaSReXHL8ef`bjJ9&"$F&.iUe(a2K<T]3C?bIN4%RSRk7chKd0kka@2I"*&h(+B6GjQ%;?\L%fLYSS$:[s!d'5#PO,od+XH=iS!nhf%rAMh0W9L[H*T[:6du!o"_I9;9j1<PK4-GRX-EF,\:-bjg=1fOnF]1nGU`O$\Kc))#P^CAGF$",n"(j6>Iii2_Wio'C5VJ$?Io;RQeR%7+]3T>[Z4C:l<3phn00W0.S/jF7[De$ls!&:)Rt>;.`)b7=5bG)0W?+*5B*JJ1*dsXf<d@/r<FO%AST@-o(\:k:P439V'O`$FX]]X/?bpp'TW<ntp].S3@ZK\7H;`BW,W$k]F=hSX7Lt(!?H4WVKhsk_!e;ZhAIC,]\@eZh<hFMrEcOR"X?n/,5gR.a>f+-h^?BHpotEZX;d9&5,3.nL\U>Lr;XRF9`u+K[6()9C5'+9F$=(FQg3[\oG\"*.=R:'=*ZM\KbBdIb""ePe]p-bb_=)qim'uj]efW,&iJ?N.o)@R)=uQ7;s<IOB6&tW0GQ&6@"S@mT$gV80t^4!GC&t5]4TUjS+)V,a=5t$O:%W_#G\pp/@fCg;S8b\e9u<*<4(iRudsc9,r5B-#^gHYN!-_j>4%^TsMb.+^%6!&oVJ5;Xe?CV[P1qZZ:>'=V)`'KT@N]#OQrDEEso:E5nIN=1T2kcIoJ"JB@]2ean7ohc1Ch.<dEG_2keQVu'HZ&;8P+3#0:"-q=XZ(Ncc-2lCqDae*T\]'F,opN8>7RI\n%/NWe=pg=Z7*!a+oCCI/L21lPfa6KT2Y[Yq4D/m5#Z#:69iOjZLDpr`7jGHoW,o"APd$`Vk%Pg'hj3/%NnG]ti*+fYY[6[&l)1Dm\P-BaB(3cH^BM:&sbaOFRKil-F$'R`$\,Tuc$[&$mI?PZ94IXm)-^#m!P"r4haNN1U`L8n3^[4`f[rHcD$`>im(6N"E^;mj"^$qjsp6=Oi"9adNUFq$WTd*7"L6OK9pnAdem3G_g'5(^r1uDB-)-Z[=nq]lnQ=g9V5$+*.BS!=^.W5n4C->#Or<R-<ZWQlta1<7p;nmc?ZDn`3h>,[H)O$=\W`D^bn:#Ok(IZ245fB)VD!8?n)e=iU,0`MHB>=kNb)H9Vo@HjK4_j;gY33I%Wtj(HHp3:&a&/U<LtuTn%l"].<`b87jYOV#>Tr^cMK;TeZ:!OHb0;L&CQ9$YUtujj`D\W0h,mlO'8[)QagJ$(S.YN(HqaC"0[e6O=[m5KK2tP1]<d7'UL2PRpZI1(ams]FegP%i0/9qMqr4Z*LatX+6)`VV?3:h(pYmX*Mj/=6a/F):p^l%K:MAjj#QIO9Eg@bBb*XX:\[ppS-)bIspC(O8iI+h=cKLnq02`lMQZ&`p1+$b]cc^,_Br_8HmaZ_.=tH"84+'p0P&JVK<=kn]>FI3s-k5ic3]j=UmC,[)SZ9brp?EC/Tj-5A7'(rNr'4'T^0N"+F_8`4(S;kCFp"%813o,99&@#=J`G;g/#=4Q'0,XRB8m%RUQXn9Ziqj[pVOE*.uYm'La!sc=<4LCYr>E`&*SPo!94^UlJ?JE<gT+K^>&`S\h>[G%*QDk]\k>>R"UIWs0Xp,pafpK7'!W`8aqIaT%]:u2Q0;k;nr^opb-J-.5s(oS=VPUo3dJP%q,HaA37\i<?hY@E)7QAeqQ=']P?=K:[-2i9L1e0b9&$A6V?ea74g)S6AgL&LG%_"+=8(0m+pR1lP2\`F<CB2(pcTIY.JI=B+J8p!^s]d.R!Bd,U2c[.=]P,ThSsZTmiU5-LPK`!fFf#\hf2oOS)IeR:cir>^T)7$ZGR.RPNo6T?GZ<lZ9DHT>J*oQe.F?h$TjsE@K(q78%RFnZmlPF4nm@:"W^4i2nmtfthgnkcV_tkmGX0BSo](TS;T.dD]m<qCs&fMb'n5%[2(ZcobghOs"!V/ASq!hC]MbJ4L4(5>N'/1[,U6<'NFPB/i!>4$L7%FB6IUJ`8[:?9V*O*.<(?RAJAF!HsjXA%IAB1%fG_:1Ko_JaF$$;.B$dpZ`N(X^YthI$e"4#ijQn/4TS>O:050`m]6g_?Db=TrS9aG5=YnKeW(6oE78qS"):u8j=h5JIRD^R.,IPAh*kZ7+a=a#.*&qNc3h5"fNV#S*KIa(6kGToo[K->Aat2M9Sp88Qot>fmtfrlmU3P!_jn4*$]oGqaIRiPc-'#+k@:(k)YE0VC5W/5&b3c9Qt<K6d'j6ZPZYu/sTBK;-*^5M).I::[.nLb=p-&TI'<@gQOkS9H2;=?ZIdspp7U2gc7B?!mMW/f>/mn<!(BL:TI2oTOT?2\I8`5-V&(*!9+K-PG5*c?>l0*qksMY#<326M7FrBQlss"FpS$:@Y(:.%=S<W:-hId`=Rd:a\E9u$_9:YaEKuKYl"T;/J$aP%7(2Z'-P'bB+b!!#QBntV$&OF<PL?l+PEpoEJJn,o2R\$JfO4f;J3l_O"UG(k8W<UE<7)!Iuf<HBQnErfZ'7"BRQ<A\(4Y5a5WK]%(uXt+uhsXlp)DlgKdcBratC[^f^-Nlp?`lE5;c6@U>G*Bg<Ug/#j=Mg.m+WQ6>nk3&9/eY^B/]fkPlkRYE@M13Scb"NO'O9.Z_p?_37d/(%YB8cJN=,IXb)I+fi4^dH+1cENBdao*Y'rNHSd3Y+d!.i#KSLI9t,cELP7<TpJ!3Q:Y/16M<JT'8GqM3(Ge9bC1I:fk8uWkc>cN^R8i%S>uh"n"7uC<_e*=L5T`*Q49Qoi"H?1S#g@EQ!T03XgLupjVOi*XIt'M!'2!lZo>uZ\a&iAa<CO!O">k!-:q>TN,q@--f7]V)neR&Gj,s1qX@T44rRf8Gn9(Gen6/49.H8+@F>(]7<bjZ,'FD^j&_n6CcNG!m9QSR^tps2.dom>=4.3V)7F)[sn,e((s]g2u<Kl[`2Q?kRO-_>9E`DKaT7;fjGK&Xk+.(`XhBu%`:ZZ?GDeX%GQr?8[?9H#3js!n-;bl\I4Ems2@;FX`#j8m*I-[FM%6-Sd\GfYF?g]DGpY1XQ)71!4?\-%?fId^[u(0C\eYS*HcO?]W4WYP\H;/$GeI(d6oHh#AmiA_B`Dr[f(B9q\si[0$el9ZAV*KNqkkn0INgtVHg9rPY.QFD_&8\&mXCZ9k-W2HihS(.g^!gFI^_S6$,XL/HrVin,dZu&YN((hE9du>>q!=@\[RZMin9'M$,I:9+jh_A''C[n;;nXa:2k6Y?FE%U>ocfD\!J7Q4e")ZZ6ei3q:g=GsnRR:u>K$i7>3?\t].):"F>%V@@FNQrm;/O5p1bjSr6]c&DV@Xbg9B=7@n7?_!qellAK![bO[Z<K!rA7)74n71hF:D)nFc)Ii?M1.(a9mJSL@6*mn;FQm(`bII)-A620*GYmmhNYjI2ni]gDP4459V3kF+'$m%_][O[_VW9NuY8U4>(qEYGA(/4l%nd8uQj\T.Pq!$Mn$%eH?a6.f?h\N<4,:6a>g6QaH+gK,5t#LqR;k\>WCn)CJ8I:g4U-"40A=C@q)L\K.[c%6L8T#B;B.Q7l$#j$MJH^_5K"p@E!b&0kZoaO`c%)!p>CO2eDAZ'g`+pTQUd6@1<<%M'//pW4G.@#NVugdEi5anWn\)2S.uqm[0?5TH<W?qkM\6M9\%O<_eZ34cb1KEfs11`K)B1N+gHlqdTKdNp5G."(g=Mu:@gn2*g44QOT+=ph/:qikQ`u4lN:Uf[9\dGW4T&H.DiSUjD_TlO;2UYPXE1KqTP6V-5kdW@No'&`J8V+qi!hYY(E2==,U@+3LNDhS"Z"UF%?hB)MaBV3W'hB=/<p:[iEROV,^7">"uNGr`K.+&5"iqer/lK=VYi"ePjB"M<#P7KG.&]#48KZH?rQj.BN@b(AmqdUPJWcDIYZs'h,*&huVor/_G^U([a!L=Y8Hoe1Zo!]0rNO*R13*'BdtG9,-\"cg,9q('\<l%FO(&=r:3RU>7>?QI^p!11)-oPm37Ia&Etbngj-fBOEJs*>A@U="P-5F1Nnu>_e1&'oaHF:E?JjY;k2Nb#G7cJQW+3*bDTQCu15(>dc,>M,5KDA6fVN8"#?_[t^1i^k_#0nNB,H@A3Chfrf6s12(sJ!o.SJ3R#M6;a`,YLENYf-I[PdMNga;2FAf5ml<iYbAPGl$NeNP;83dA(#cZXB>qNUpBsD0s0+Bc@mWX21XIX^B$PAmPo9C1RH?BWo*^1<Ch)U_)`SXLfL4NV]P6KTVh3)$n-Sp>=S>tNV5/X`!r&;J7qX(EcH&'7=cg&2a4YE!St?%uR#uIDk',-'<W;q4F<(-cL=B>/q,t7VGB8*U_kq_89hI4G&"[7;,AC/!Cqs\:<7)7u:V$fXpaJiAL#5=mRoPHGfiFc+M=_Me1?o7CL$6Il3+A*,p6.eL?u#,(6,QGpc\[]0qbM_JI?)H*25nrEe$9<`1]72pIOh:gQFm!`3P>0`TL`O,",C*;o#^lh3>)NCQ5%ZLIF,n?Ml"]]9tcKq1k:l/<?jjZ!maD5r'J-MLk$2Kc`fJD44D!rg\C(pSBSpkB3HM@7tXI&_43,?qG!11&MGaM4gl96)#Z^OKZM3Qn[enmH2`1a]8<eu/f_l19/TDG6qa<Ik%E.Jn@9EmfrMRj0R77+GWE?F1d"Fh6iPsqY^Z^%8N?'4<2HQNcT,#oZ*9H:-CPt[ki/eg4)$a#rf-IJn8Vm%E&1R1V(#OWqO">gM%_ZTh-B,5N,RQ"9#BKgl2Bm'_L]qo1Edk'9UY/PUPg?\XQ'*&ma=`&*r"O>Je'1fool(Tm(0H>=$=6k@=.C]YkIq07d$.Nb^k_iHf@_dI4P4:XX7jQ`(;&moOGIN$U,m+$^f$KDYe1(aLIgq@30AmRj94,@K7JWOeA2W^Xa*goZ7r[=r2gWS7SL-NIhibP0$H^A>#dGEkmlXW?:e1ANQD9K=(FXX0;'?ijk$nT56.D(E#27!X4m]jn,%m-/(lJ9:QfsIr@M)E8eQIjN7+<>SBZ0gNlJLlPLmKb!i^S%$kV*]52!\D&95FLSFNAV#c[4`gE+UV!^W@PXGHC\&B,P@LtRDQ4p0_\RD=#_5Ti^;qj-p]gVKYXE*@T$$R`3Q7\W[TY@D"0AF#R@)PZ1So"qbnbHbg*CU4!'jRn>SEQO:AahmkZkj+^bk)D%q.ei,<k1NR!EuqNO2e1cK&PiJ9MtQf3u6Q1:bg@<$KH@9rk3ZtWGnD!79#HqP;EYP+V--&H$U&!I69#=XA;,6I^PHmV.*3gW7LBa6KC?8>$XP>h/\`T(mu/3No`GJNpuO%RY/5`c%6u)/-FE)][ncr_ZrI%Z+CAaECRUs:&A'u:O#jo.hAaNPFVV\9Q7.ki[m#7buoYOkjn]_^c*RVRS[*[eRchR/3Di^%R[J^LO79\e<8j5J@S>`.I9uaStp=]jPD&EW0.R5X&Dq]]i"\JN(pq380?soS*VjfQ!"6f112e<8)%K6PbHJBh0ZM(ioMNHm6Zre.'043<F.HFI[g'R-EiTAe,RHWeXbh]\\$d-FttHl$9`42I!X$ordpu3`Pj\V:29h<0(mO@Ql#395D"tV.Q>)!4T9+Res4Z]l%qK%Vr7'ZM@MrB_,<PU>Ll]SBX)LaWlP8/Pl>k'=I(P_VJs:+(bh'Y@\-,n,\W11Yb`Cc4^C,5'2i[qP#!D<HaDgpQM./)nYa<Nf+TDeZfq;)Jkh/,e7">U.oC?+QA@)e_0@.ZC(>RP6"bOWXu7&poJ:>dXD8Y"FH#eb"s!V(!V!Pii)+[5KBo+^9;NN3(\a\WEL7T7.)5o_4"Lt'd=JS:aebTW0D"d5[P40aRj>:^I82!ZFL/[6XC'q#g;QT)*\8pFNdKY=for?EWArSF<e/q#VaqHrW$q%j2!T5%F"7k_-=lo0EpQ/gMn%,5!1fIsD%0dHN]7_n1MMImc(K.'Z8Y<'/pa*M!WBO&%7sHU%%t.W#7<md8+)XIc/K5cU>MiifQ#jK[N,1>K<;[R;\E4ae'ho,82B;;kt1s]!"Nj$:`"tUC).A2F(VK^Tp(W@;>AZ`-1q_>[0CTflb9e@NZ.kQ4IjkB:5[d?L,U7(p+DS=>+V`S4si;@fiZ\V3EAffWim%\<-!i#*^V&&V>)B5Wr\3?*l"V[YM0WR/k%`O]2>]u]R=",rOkc'\Ur98jF'q_;a9CAK5T9Z>E%Wh2dB6,&>pR6@r-9+BE;LRY+,OI"&N\+2O<rB$uM\e#r4*noW=Al^.#u?iS!P#XD<18]X'33O=SJC*#SQ]RB>,O.<dm$Y$qf8kR=CO%Vs.*9]i:f82B-Fk/;(Qh#3ij"Rg_\p_di`3M8m)%g.%$Gb\7T.jRY2d,'^@['>pRr:]U]f:08TZX6jKFnP:s.Al&3;!QmJcWI&l1Z6(_`$kJ:!5sii$Y4`@3,'4]>KptJ<LkrPgR6aDU.+aNA0_1GjU*cT4(fD"F5DI./dM%kY0lkGGM(@CS5$;YeKNKHrFgu_`q.$kh$rLH8emHK\&?C5\LLR%epEidJ^sNtQ_bhNd&"0!nY#+=84F:PGj8i]9B><!M50T4>49[0rjSB>qRk:gB#"Zt\s&WsE]+5=)NEk"[bY2JBKBT%Z<[b5Wbsae],YL4CZ.i')d5P(e%*UE<Od4D9^GJQ9s^AGmHo6d"'N(fWL!Oq_@O/^CkiXh\hqOhhbEu+QH&A\iGU//Je2QjhcYMS1&?=r,\#nI#c\o++id-?[M-O4G>AN?.B@P#^_Sn)nZ_W><o,ZIALEMkCMg//6m+n9]F:t.Qbi8]B]ho=DImBb@W+begu7QEB3ZZ0Lf-G6l`agS?e:];Ao<\k;WY_s>jn)7Q(#sSQuC:`<p:u.`3n8r?ju\D)0&L'(oE97]rS">-EFIq^R8lDI9l1`q90rq%R%_/:`RZ7*%.7PR=-U3"Ns;s;\S>UO:5Jn&TD:ua>Pq*FYZ5=3)!CnR2P5MqHc<o`Z]?fS%*PSh#O-:*uh&NRE\?E(KJqb,W\RIBljg^%SB;\I5aC4k:FDd;-M6*+`<#BCcQjH9D"Zi@*06`oP-TSAi]NZCA)0(qkDQq:M(HH;,]S$#T5s]8F..UFU$pP-WJ!9rT\ONBlXX"G-l^Q,@>C3g_:1+OYDul<No-iF\t"/V@gkVB9IrZ!'^6k1G\Ib*5MNC'D8@?E:n:#>?p]@5p?h9;TBlg&`WR;r"`-1\%+]P+/@\+N!50)*Y-MW&qu!NUn<bC#Pnp4HgkQMO13$%-)mG(([,Jl1Tf&TY4GFKI%fg8s'\'Z3:=h+DfP?>bEgTnhqu\1?bpj?J-pR\7%+#D5qklW?6$OK`1e?G#3B*V9po2@IX8oSZFl_"On`b!\H'B27j@!OfM(680X-:MitEuKL3B#/hOO.;7>C=C.l$/X2tE`*Ge=EjK/YZBI>nFS/kHo9@9X"(MmTAkI\sDLjRUgL2^kpl>;!r5p$[XW9V2M5hIal=.a$N.P9nZohh!S1RD>R(*1X.&/SI@")+.hX;M*^XB6M'b8WlD]:DETt,qaQ/d=mADDI71C87^u:N#ngH2k9Hq"QS&Ql8V6l^C\5-a)''&cUW;7J#.kP*:r1d'4DV8'"*PE![bf?WBEahk5WM^s6i<eU\t@colp`g_OO-*1-2(b>K85'ppF[moFXe102Vj@gdRDkocW\6k_X"a/R=!clE_2OMThuHSf&Y:67<JlH&loA,V`9ei8sXY5S=?9:&IW"G)`a:_;A_HPHErKZX%T),7]jT7n^DKI@$5P&L87M2XMLm27'FkD[XV>Q\S?'LPdhZ[6I5?$B]'%QLKV`.6E7O4)MoZ93.X]\r',Hc.W;Qm$PB#l4cs&hc?(XCZ,n6%QFQaF,c1U*#1!G^t&bk8[6e;feGRoQE@ZA]=Q,;XFK)YW<"tO'9aLBa9;N0bGhf2*]8sA:b29N2b$LnE>>JU7iAdXW/:02s8-E918Dr@mHS)g>!j.6188!\/n6m*:LS=qiX`aLi93N"*"n#L)9$H8SQ`RCWcabZhU7+le=knp8&W<T)QEL+V"b2,BBS7JpDaL'3*#]s&0M.bKKQ-R+9!cF=G^0[m3D;&f&l2=-TeG87QX7N.?6c0+j0Q*@me&+,a[O=j8[7=]5[fN]=]);f=function(p)local A,w,D,X,r,h=0,0,#p,{[0]=0},0xFFFFFFFF,{[0]=0,0,0,0,1,2,3,4,5,6,4,5};local g=function()A=A+1;return B(p,A,A);end;for B=1,5 do w=w*256+g();end;local function B(p)local E=0;for n=p,1,-1.0 do r=r/2;r=r-r%1;E=E*2;if not(w<r)then w=w-r;E=E+1;end;if r<=0x00FFFFFF then r=r*256;w=w*256+g();end;end;return E;end;local function p(E,n)local R,O,x=r/2048,n[E];R=R-R%1;local I=R*O;if w<I then r=I;R=(2048-O)/32;R=R-R%1;O=O+R;x=0;else r=r-I;local R=O/32;w=w-I;R=R-R%1;O=O-R;x=1;end;n[E]=O;if r<=0x00FFFFFF then r=r*256;w=w*256+g();end;return x;end;local w=0;local function r(g,E,n)local R=1;for O=1,E do R=R*2+p(R,n);end;return(R-g);end;local function g(E,n,R)local O,x=0,1;for I=0,E-1 do local E=p(n+x,R);x=x*2+E;O=O+E*C[I];end;return O;end;local function E(n,R)local O=1;for x=7,0,-1.0 do local I=(R/C[x])%2;I=I-I%1;x=p(O+(I*256)+256,n);O=O*2+x;if I~=x then while O<0x100 do O=O*2+p(O,n);end;break;end;end;return(O%256);end;local function n(R,O)if p(1,O)==0 then return r(8,3,O[3][R]);elseif p(2,O)==0 then return 8+r(8,3,O[4][R]);end;return r(256,8,O[5])+16.0;end;local R=0;local function O(x)local I={};for F=0,x-1 do I[F]=1024.0;end;return I;end;local function x(I,F)local a={};for u=0,I-1 do local I={};a[u]=I;for u=0,F-1 do I[u]=1024.0;end;end;return a;end;local function I()return{1024.0,1024.0,x(1,8),x(1,8),O(256)};end;local function F()local a,u,i,s,v,U,M,k,L,e,Z,q,m,V,K,S=x(8,0x300),x(12,1),O(12),O(12),O(12),O(12),x(12,1),x(4,64),O(115.0),O(16),0,I(),0,0,0,I();while A<=D do local A=(w%1);if p(A,u[R])==0 then local D=X[w];local O=D/C[5.0];O=O-O%1;D=a[O];w=w+1;X[w]=R<7 and r(256,8,D)or E(D,X[w-K-1]);R=h[R];else local D;if p(R,i)~=0 then if p(R,s)==0 then if p(A,M[R])==0 then R=R<7 and 9 or 11;D=1;end;else local h;if p(R,v)==0 then h=V;else if p(R,U)==0 then h=Z;else h=m;m=Z;end;Z=V;end;V=K;K=h;end;if not D then R=R<7 and 8 or 11;D=2+n(A,S);end;else m=Z;Z=V;V=K;D=2+n(A,q);local p=D-2;if 4<=p then p=3.0;end;K=r(64,6,k[p]);if K>=4 then p=K;local A=p/2-1;A=A-A%1;K=(2+p%2)*C[A];if p<14 then K=K+g(A,K-p,L);else K=K+(B(A-4)*16)+g(4,0,e);if K==0xFFFFFFFF then return D==2;end;end;end;R=R<7 and 7 or 10;if K>=w then return false;end;end;local B=w+D;for p=w+1,B do X[p]=X[p-K-1];end;w=B;end;end;return false;end;F();j(_,Y({},{__tostring=function()X=nil;end}),nil,nil);F="";local B=#X;for p=1,B,7997 do local C=p+7996.0;if C>B then C=B;end;F=F..t(P(X,p,C));end;return F;end;local B=f(J);J=f(c);f=assert;local t,c=j(_,B,"Luraph"..G(" ",3),nil);f(t and c and T(c)=='function',"Luraph decompression error: "..o(c).." (does your environment support load/loadstring?)");return c(J);end)()(...);
+	local vapeEvents = setmetatable({}, {
+		__index = function(self, index)
+			self[index] = Instance.new('BindableEvent')
+			return self[index]
+		end
+	})
+	getgenv().vapeEvents = vapeEvents
+
+	local playersService = cloneref(game:GetService('Players'))
+	local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+	local runService = cloneref(game:GetService('RunService'))
+	local inputService = cloneref(game:GetService('UserInputService'))
+	local tweenService = cloneref(game:GetService('TweenService'))
+	local httpService = cloneref(game:GetService('HttpService'))
+	local textChatService = cloneref(game:GetService('TextChatService'))
+	local collectionService = cloneref(game:GetService('CollectionService'))
+	local contextActionService = cloneref(game:GetService('ContextActionService'))
+	local guiService = cloneref(game:GetService('GuiService'))
+	local starterGui = cloneref(game:GetService('StarterGui'))
+
+	local isnetworkowner = isnetworkowner or function()
+		return true
+	end
+	local mouse1click = mouse1click or function() end
+	local gameCamera = workspace.CurrentCamera
+	local lplr = playersService.LocalPlayer
+	local assetfunction = getcustomasset
+
+	local vape = shared.vape
+	local entitylib = vape.Libraries.entity
+	local targetinfo = vape.Libraries.targetinfo
+	local sessioninfo = vape.Libraries.sessioninfo
+	local uipallet = vape.Libraries.uipallet
+	local tween = vape.Libraries.tween
+	local color = vape.Libraries.color
+	local whitelist = vape.Libraries.whitelist
+	local prediction = vape.Libraries.prediction
+	local getfontsize = vape.Libraries.getfontsize
+	local getcustomasset = vape.Libraries.getcustomasset
+
+	local loadstring = function(...)
+		local res, err = loadstring(...)
+		if err and vape then
+			vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+		end
+		return res
+	end
+
+	local store = {
+		contracts = {},
+		attackReach = 0,
+		attackReachUpdate = tick(),
+		damageBlockFail = tick(),
+		hand = {},
+		inventory = {
+			inventory = {
+				items = {},
+				armor = {}
+			},
+			hotbar = {}
+		},
+		inventories = {},
+		matchState = 0,
+		queueType = 'bedwars_test',
+		tools = {}
+	}
+	local HitBoxes = {}
+	local InfiniteFly = {}
+	local TrapDisabler
+	local AntiFallPart
+	local bedwars, remotes, sides, oldinvrender, oldSwing = nil, {}, {}
+
+	local function addBlur(parent)
+		local blur = Instance.new('ImageLabel')
+		blur.Name = 'Blur'
+		blur.Size = UDim2.new(1, 89, 1, 52)
+		blur.Position = UDim2.fromOffset(-48, -31)
+		blur.BackgroundTransparency = 1
+		blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
+		blur.ScaleType = Enum.ScaleType.Slice
+		blur.SliceCenter = Rect.new(52, 31, 261, 502)
+		blur.Parent = parent
+		return blur
+	end
+
+	local function downloadFile(path, func)
+		if not isfile(path) then
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			end)
+			if not suc or res == '404: Not Found' then
+				error(res)
+			end
+			if path:find('.lua') then
+				res = '\n'..res
+			end
+			writefile(path, res)
+		end
+		if isfile(path) then
+			return (func or readfile)(path)
+		end
+	end
+
+	local function collection(tags, module, customadd, customremove)
+		tags = typeof(tags) ~= 'table' and {tags} or tags
+		local objs, connections = {}, {}
+
+		for _, tag in tags do
+			table.insert(connections, collectionService:GetInstanceAddedSignal(tag):Connect(function(v)
+				if customadd then
+					customadd(objs, v, tag)
+					return
+				end
+				table.insert(objs, v)
+			end))
+			table.insert(connections, collectionService:GetInstanceRemovedSignal(tag):Connect(function(v)
+				if customremove then
+					customremove(objs, v, tag)
+					return
+				end
+				v = table.find(objs, v)
+				if v then
+					table.remove(objs, v)
+				end
+			end))
+
+			for _, v in collectionService:GetTagged(tag) do
+				if customadd then
+					customadd(objs, v, tag)
+					continue
+				end
+				table.insert(objs, v)
+			end
+		end
+
+		local cleanFunc = function(self)
+			for _, v in connections do
+				v:Disconnect()
+			end
+			table.clear(connections)
+			table.clear(objs)
+			table.clear(self)
+		end
+		if module then
+			module:Clean(cleanFunc)
+		end
+		return objs, cleanFunc
+	end
+	getgenv().collection = collection
+
+	local function getBestArmor(slot)
+		local closest, mag = nil, 0
+
+		for _, item in store.inventory.inventory.items do
+			local meta = item and bedwars.ItemMeta[item.itemType] or {}
+
+			if meta.armor and meta.armor.slot == slot then
+				local newmag = (meta.armor.damageReductionMultiplier or 0)
+
+				if newmag > mag then
+					closest, mag = item, newmag
+				end
+			end
+		end
+
+		return closest
+	end
+	getgenv().getBestArmor = getBestArmor
+
+	local function getBow()
+		local bestBow, bestBowSlot, bestBowDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			local bowMeta = bedwars.ItemMeta[item.itemType].projectileSource
+			if bowMeta and table.find(bowMeta.ammoItemTypes, 'arrow') then
+				local bowDamage = bedwars.ProjectileMeta[bowMeta.projectileType('arrow')].combat.damage or 0
+				if bowDamage > bestBowDamage then
+					bestBow, bestBowSlot, bestBowDamage = item, slot, bowDamage
+				end
+			end
+		end
+		return bestBow, bestBowSlot
+	end
+
+	local function getItem(itemName, inv)
+		for slot, item in (inv or store.inventory.inventory.items) do
+			if item.itemType == itemName then
+				return item, slot
+			end
+		end
+		return nil
+	end
+	getgenv().getItem = getItem
+
+	local function getRoactRender(func)
+		return debug.getupvalue(debug.getupvalue(debug.getupvalue(func, 3).render, 2).render, 1)
+	end
+
+	local function getSword()
+		local bestSword, bestSwordSlot, bestSwordDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			if store.equippedKit == 'summoner' then
+				if item.itemType:find('summoner_claw') then
+					bestSword, bestSwordSlot = item, slot
+					break
+				end
+			else
+				local swordMeta = bedwars.ItemMeta[item.itemType].sword
+				if swordMeta then
+					local swordDamage = swordMeta.damage or 0
+					if swordDamage > bestSwordDamage then
+						bestSword, bestSwordSlot, bestSwordDamage = item, slot, swordDamage
+					end
+				end
+			end
+		end
+		return bestSword, bestSwordSlot
+	end
+
+	getgenv().getSword = getSword
+
+	local function getTool(breakType)
+		local bestTool, bestToolSlot, bestToolDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			local toolMeta = bedwars.ItemMeta[item.itemType].breakBlock
+			if toolMeta then
+				local toolDamage = toolMeta[breakType] or 0
+				if toolDamage > bestToolDamage then
+					bestTool, bestToolSlot, bestToolDamage = item, slot, toolDamage
+				end
+			end
+		end
+		return bestTool, bestToolSlot
+	end
+
+	local function getWool()
+		for _, wool in (inv or store.inventory.inventory.items) do
+			if wool.itemType:find('wool') then
+				return wool and wool.itemType, wool and wool.amount
+			end
+		end
+	end
+	getgenv().getWool = getWool
+
+	local function getStrength(plr)
+		if not plr.Player then
+			return 0
+		end
+
+		local strength = 0
+		for _, v in (store.inventories[plr.Player] or {items = {}}).items do
+			local itemmeta = bedwars.ItemMeta[v.itemType]
+			if itemmeta and itemmeta.sword and itemmeta.sword.damage > strength then
+				strength = itemmeta.sword.damage
+			end
+		end
+
+		return strength
+	end
+
+	local function getPlacedBlock(pos)
+		if not pos then
+			return
+		end
+		local roundedPosition = bedwars.BlockController:getBlockPosition(pos)
+		return bedwars.BlockController:getStore():getBlockAt(roundedPosition), roundedPosition
+	end
+
+	getgenv().getPlacedBlock = getPlacedBlock
+
+	local function getBlocksInPoints(s, e)
+		local blocks, list = bedwars.BlockController:getStore(), {}
+		for x = s.X, e.X do
+			for y = s.Y, e.Y do
+				for z = s.Z, e.Z do
+					local vec = Vector3.new(x, y, z)
+					if blocks:getBlockAt(vec) then
+						table.insert(list, vec * 3)
+					end
+				end
+			end
+		end
+		return list
+	end
+
+	getgenv().getBlocksInPoints = getBlocksInPoints
+
+	local function getNearGround(range)
+		range = Vector3.new(3, 3, 3) * (range or 10)
+		local localPosition, mag, closest = entitylib.character.RootPart.Position, 60
+		local blocks = getBlocksInPoints(bedwars.BlockController:getBlockPosition(localPosition - range), bedwars.BlockController:getBlockPosition(localPosition + range))
+
+		for _, v in blocks do
+			if not getPlacedBlock(v + Vector3.new(0, 3, 0)) then
+				local newmag = (localPosition - v).Magnitude
+				if newmag < mag then
+					mag, closest = newmag, v + Vector3.new(0, 3, 0)
+				end
+			end
+		end
+
+		table.clear(blocks)
+		return closest
+	end
+
+	getgenv().getNearGround = getNearGround
+
+	local function getShieldAttribute(char)
+		local returned = 0
+		for name, val in char:GetAttributes() do
+			if name:find('Shield') and type(val) == 'number' and val > 0 then
+				returned += val
+			end
+		end
+		return returned
+	end
+
+	getgenv().getShieldAttribute = getShieldAttribute
+
+	local damagedata = {
+		lastHit = os.clock(),
+		Value = 0,
+		Custom = 0
+	}
+	getgenv().damagedata = damagedata
+
+	local speedBoosts = {
+		Value = 0
+	}
+	getgenv().speedBoosts = speedBoosts
+
+	local function getSpeed()
+		local multi, increase, modifiers = 0, true, bedwars.SprintController:getMovementStatusModifier():getModifiers()
+
+		for v in modifiers do
+			local val = v.constantSpeedMultiplier and v.constantSpeedMultiplier or 0
+			if val and val > math.max(multi, 1) then
+				increase = false
+				multi = val - (0.06 * math.round(val))
+			end
+		end
+
+		for v in modifiers do
+			multi += math.max((v.moveSpeedMultiplier or 0) - 1, 0)
+		end
+
+		if multi > 0 and increase then
+			multi += 0.16 + (0.02 * math.round(multi))
+		end
+
+		return (20 + speedBoosts.Value) * (multi + 1) + (damagedata.lastHit > os.clock() and damagedata.Value or 0) + damagedata.Custom
+	end
+	getgenv().getSpeed = getSpeed
+
+	local function getTableSize(tab)
+		local ind = 0
+		for _ in tab do
+			ind += 1
+		end
+		return ind
+	end
+
+	local function getHotbar(tool)
+		for i, v in store.inventory.hotbar do
+			if v.item and v.item.tool == tool then 
+				return i - 1
+			end
+		end
+	end
+	getgenv().getHotbar = getHotbar
+
+	local function hotbarSwitch(slot)
+		if slot and store.inventory.hotbarSlot ~= slot then
+			bedwars.Store:dispatch({
+				type = 'InventorySelectHotbarSlot',
+				slot = slot
+			})
+			vapeEvents.InventoryChanged.Event:Wait()
+			return true
+		end
+		return false
+	end
+	getgenv().hotbarSwitch = hotbarSwitch
+
+	local function isFriend(plr, recolor)
+		if vape.Categories.Friends.Options['Use friends'].Enabled then
+			local friend = table.find(vape.Categories.Friends.ListEnabled, plr.Name) and true
+			if recolor then
+				friend = friend and vape.Categories.Friends.Options['Recolor visuals'].Enabled
+			end
+			return friend
+		end
+		return nil
+	end
+
+	local function isTarget(plr)
+		return table.find(vape.Categories.Targets.ListEnabled, plr.Name) and true
+	end
+
+	local function notif(...) return
+		vape:CreateNotification(...)
+	end
+
+	local function removeTags(str)
+		str = str:gsub('<br%s*/>', '\n')
+		return (str:gsub('<[^<>]->', ''))
+	end
+
+	local function roundPos(vec)
+		return Vector3.new(math.round(vec.X / 3) * 3, math.round(vec.Y / 3) * 3, math.round(vec.Z / 3) * 3)
+	end
+	getgenv().roundPos = roundPos
+
+	local function switchItem(tool, delayTime)
+		if getgenv().CancelSwitch > os.clock() and tool and tool.Name ~= 'telepearl' then return end
+		delayTime = delayTime or 0.05
+		local check = lplr.Character and lplr.Character:FindFirstChild('HandInvItem') or nil
+		if check and check.Value ~= tool and tool.Parent ~= nil then
+			task.spawn(function()
+				bedwars.Client:Get(remotes.EquipItem):CallServerAsync({hand = tool})
+			end)
+			check.Value = tool
+			if delayTime > 0 then
+				task.wait(delayTime)
+			end
+			return true
+		end
+	end
+	getgenv().switchItem = switchItem
+
+	local function waitForChildOfType(obj, name, timeout, prop)
+		local check, returned = tick() + timeout
+		repeat
+			returned = prop and obj[name] or obj:FindFirstChildOfClass(name)
+			if returned and returned.Name ~= 'UpperTorso' or check < tick() then
+				break
+			end
+			task.wait()
+		until false
+		return returned
+	end
+
+	local frictionTable, oldfrict = {}, {}
+	local frictionConnection
+	local frictionState
+
+	local function modifyVelocity(v)
+		if v:IsA('BasePart') and v.Name ~= 'HumanoidRootPart' and not oldfrict[v] then
+			oldfrict[v] = v.CustomPhysicalProperties or 'none'
+			v.CustomPhysicalProperties = PhysicalProperties.new(0.0001, 0.2, 0.5, 1, 1)
+		end
+	end
+
+	local function updateVelocity(force)
+		local newState = getTableSize(frictionTable) > 0
+		if frictionState ~= newState or force then
+			if frictionConnection then
+				frictionConnection:Disconnect()
+			end
+			if newState then
+				if entitylib.isAlive then
+					for _, v in entitylib.character.Character:GetDescendants() do
+						modifyVelocity(v)
+					end
+					frictionConnection = entitylib.character.Character.DescendantAdded:Connect(modifyVelocity)
+				end
+			else
+				for i, v in oldfrict do
+					i.CustomPhysicalProperties = v ~= 'none' and v or nil
+				end
+				table.clear(oldfrict)
+			end
+		end
+		frictionState = newState
+	end
+
+	local kitorder = {
+		hannah = 5,
+		spirit_assassin = 4,
+		dasher = 3,
+		jade = 2,
+		regent = 1
+	}
+
+	local sortmethods = {
+		Damage = function(a, b)
+			return a.Entity.Character:GetAttribute('LastDamageTakenTime') < b.Entity.Character:GetAttribute('LastDamageTakenTime')
+		end,
+		Threat = function(a, b)
+			return getStrength(a.Entity) > getStrength(b.Entity)
+		end,
+		Kit = function(a, b)
+			return (a.Entity.Player and kitorder[a.Entity.Player:GetAttribute('PlayingAsKits')] or 0) > (b.Entity.Player and kitorder[b.Entity.Player:GetAttribute('PlayingAsKits')] or 0)
+		end,
+		Health = function(a, b)
+			return a.Entity.Health < b.Entity.Health
+		end,
+		Angle = function(a, b)
+			local selfrootpos = entitylib.character.RootPart.Position
+			local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
+			local angle = math.acos(localfacing:Dot(((a.Entity.RootPart.Position - selfrootpos) * Vector3.new(1, 0, 1)).Unit))
+			local angle2 = math.acos(localfacing:Dot(((b.Entity.RootPart.Position - selfrootpos) * Vector3.new(1, 0, 1)).Unit))
+			return angle < angle2
+		end
+	}
+	getgenv().sortmethods = sortmethods
+
+	run(function()
+		local connected = lplr:GetAttribute('PlayerConnected')
+		repeat
+			task.wait()
+		until lplr:GetAttribute('PlayerConnected') and entitylib
+
+		if not connected then
+			task.wait(2 :: number)
+		end
+
+		local oldstart = entitylib.start
+		local function customEntity(ent)
+			if ent:HasTag('inventory-entity') and not ent:HasTag('Monster') and not ent:HasTag('trainingRoomDummy') then
+				return
+			end
+
+			entitylib.addEntity(ent, nil, ent:HasTag('Drone') and function(self)
+				local droneplr = playersService:GetPlayerByUserId(self.Character:GetAttribute('PlayerUserId'))
+				return not droneplr or lplr:GetAttribute('Team') ~= droneplr:GetAttribute('Team')
+			end or function(self)
+				return lplr:GetAttribute('Team') ~= self.Character:GetAttribute('Team')
+			end)
+		end
+
+		entitylib.start = function()
+			oldstart()
+			if entitylib.Running then
+				for __, tag in {'entity'} do
+					for _, ent in collectionService:GetTagged(tag) do
+						customEntity(ent)
+					end
+					table.insert(entitylib.Connections, collectionService:GetInstanceAddedSignal(tag):Connect(customEntity))
+					table.insert(entitylib.Connections, collectionService:GetInstanceRemovedSignal(tag):Connect(function(ent)
+						entitylib.removeEntity(ent)
+					end))
+				end
+			end
+		end
+
+		entitylib.addPlayer = function(plr)
+			if plr.Character then
+				entitylib.refreshEntity(plr.Character, plr)
+			end
+			entitylib.PlayerConnections[plr] = {
+				plr.CharacterAdded:Connect(function(char)
+					entitylib.refreshEntity(char, plr)
+				end),
+				plr.CharacterRemoving:Connect(function(char)
+					entitylib.removeEntity(char, plr == lplr)
+				end),
+				plr:GetAttributeChangedSignal('Team'):Connect(function()
+					for _, v in entitylib.List do
+						if v.Targetable ~= entitylib.targetCheck(v) then
+							entitylib.refreshEntity(v.Character, v.Player)
+						end
+					end
+
+					if plr == lplr then
+						entitylib.start()
+					else
+						entitylib.refreshEntity(plr.Character, plr)
+					end
+				end)
+			}
+		end
+
+		entitylib.addEntity = function(char, plr, teamfunc)
+			if not char then return end
+			entitylib.EntityThreads[char] = task.spawn(function()
+				local hum, humrootpart, head
+				if plr then
+					hum = waitForChildOfType(char, 'Humanoid', 10)
+					humrootpart = hum and waitForChildOfType(hum, 'RootPart', workspace.StreamingEnabled and 9e9 or 10, true)
+					head = char:WaitForChild('Head', 10) or humrootpart
+				else
+					hum = {HipHeight = 0.5}
+					humrootpart = waitForChildOfType(char, 'PrimaryPart', 10, true)
+					head = humrootpart
+				end
+				local updateobjects = plr and plr ~= lplr and {
+					char:WaitForChild('ArmorInvItem_0', 5),
+					char:WaitForChild('ArmorInvItem_1', 5),
+					char:WaitForChild('ArmorInvItem_2', 5),
+					char:WaitForChild('HandInvItem', 5)
+				} or {}
+
+				if hum and humrootpart then
+					local entity = {
+						Connections = {},
+						Character = char,
+						Health = (char:GetAttribute('Health') or 100) + getShieldAttribute(char),
+						Head = head,
+						Humanoid = hum,
+						HumanoidRootPart = humrootpart,
+						HipHeight = hum.HipHeight + (humrootpart.Size.Y / 2) + (hum.RigType == Enum.HumanoidRigType.R6 and 2 or 0),
+						Jumps = 0,
+						JumpTick = tick(),
+						Jumping = false,
+						LandTick = tick(),
+						MaxHealth = char:GetAttribute('MaxHealth') or 100,
+						NPC = plr == nil,
+						Player = plr,
+						RootPart = humrootpart,
+						TeamCheck = teamfunc
+					}
+
+					if plr == lplr then
+						entity.AirTime = tick()
+						entitylib.character = entity
+						entitylib.isAlive = true
+						entitylib.Events.LocalAdded:Fire(entity)
+						table.insert(entitylib.Connections, char.AttributeChanged:Connect(function(attr)
+							vapeEvents.AttributeChanged:Fire(attr)
+						end))
+					else
+						entity.Targetable = entitylib.targetCheck(entity)
+
+						for _, v in entitylib.getUpdateConnections(entity) do
+							table.insert(entity.Connections, v:Connect(function()
+								entity.Health = (char:GetAttribute('Health') or 100) + getShieldAttribute(char)
+								entity.MaxHealth = char:GetAttribute('MaxHealth') or 100
+								entitylib.Events.EntityUpdated:Fire(entity)
+							end))
+						end
+
+						for _, v in updateobjects do
+							table.insert(entity.Connections, v:GetPropertyChangedSignal('Value'):Connect(function()
+								task.delay(0.1, function()
+									if bedwars.getInventory then
+										store.inventories[plr] = bedwars.getInventory(plr)
+										entitylib.Events.EntityUpdated:Fire(entity)
+									end
+								end)
+							end))
+						end
+
+						if plr then
+							local anim = char:FindFirstChild('Animate')
+							if anim then
+								pcall(function()
+									anim = anim.jump:FindFirstChildWhichIsA('Animation').AnimationId
+									table.insert(entity.Connections, hum.Animator.AnimationPlayed:Connect(function(playedanim)
+										if playedanim.Animation.AnimationId == anim then
+											entity.JumpTick = tick()
+											entity.Jumps += 1
+											entity.LandTick = tick() + 1
+											entity.Jumping = entity.Jumps > 1
+										end
+									end))
+								end)
+							end
+
+							task.delay(0.1, function()
+								if bedwars.getInventory then
+									store.inventories[plr] = bedwars.getInventory(plr)
+								end
+							end)
+						end
+						table.insert(entitylib.List, entity)
+						entitylib.Events.EntityAdded:Fire(entity)
+					end
+
+					table.insert(entity.Connections, char.ChildRemoved:Connect(function(part)
+						if part == humrootpart or part == hum or part == head then
+							if part == humrootpart and hum.RootPart then
+								humrootpart = hum.RootPart
+								entity.RootPart = hum.RootPart
+								entity.HumanoidRootPart = hum.RootPart
+								return
+							end
+							entitylib.removeEntity(char, plr == lplr)
+						end
+					end))
+				end
+				entitylib.EntityThreads[char] = nil
+			end)
+		end
+
+		entitylib.getUpdateConnections = function(ent)
+			local char = ent.Character
+			local tab = {
+				char:GetAttributeChangedSignal('Health'),
+				char:GetAttributeChangedSignal('MaxHealth'),
+				{
+					Connect = function()
+						ent.Friend = ent.Player and isFriend(ent.Player) or nil
+						ent.Target = ent.Player and isTarget(ent.Player) or nil
+						return {Disconnect = function() end}
+					end
+				}
+			}
+
+			if ent.Player then
+				table.insert(tab, ent.Player:GetAttributeChangedSignal('PlayingAsKits'))
+			end
+
+			for name, val in char:GetAttributes() do
+				if name:find('Shield') and type(val) == 'number' then
+					table.insert(tab, char:GetAttributeChangedSignal(name))
+				end
+			end
+
+			return tab
+		end
+
+		entitylib.targetCheck = function(ent)
+			if ent.TeamCheck then
+				return ent:TeamCheck()
+			end
+			if ent.NPC then return true end
+			if isFriend(ent.Player) then return false end
+			if not select(2, whitelist:get(ent.Player)) then return false end
+			return lplr:GetAttribute('Team') ~= ent.Player:GetAttribute('Team')
+		end
+		vape:Clean(entitylib.Events.LocalAdded:Connect(updateVelocity))
+	end)
+	entitylib.start()
+
+	local libraries = {}
+	local require = require
+	local canDebug = getgenv().canDebug or false	
+
+	if not canDebug then
+		local function cache(Name : string)
+			return libraries[Name]:await()
+		end
+
+		require = function(ins)
+			local Name = ins:GetFullName():gsub(lplr.Name, 'PlayerTemplate')
+			local Result = cache(Name)
+			
+			return Result
+		end
+		getgenv().require = require
+
+		libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
+
+		task.wait(1.5)
+	end
+
+	run(function()
+		local KnitInit, Knit
+
+		repeat
+			KnitInit, Knit = pcall(function()
+				return require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient 
+			end)
+			if KnitInit then break end
+			task.wait()
+		until KnitInit
+
+		if canDebug and not debug.getupvalue(Knit.Start, 1) then
+			repeat task.wait() until debug.getupvalue(Knit.Start, 1)
+		end
+
+		local Flamework = require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
+		local InventoryUtil = require(replicatedStorage.TS.inventory['inventory-util']).InventoryUtil
+		local Client = require(replicatedStorage.TS.remotes).default.Client
+		local OldGet, OldBreak = Client.Get, nil
+
+		bedwars = setmetatable({
+			Flamework = Flamework,
+			NotificationController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/notification-controller@NotificationController'),
+			AbilityController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/ability/ability-controller@AbilityController'),
+			AnimationType = require(replicatedStorage.TS.animation['animation-type']).AnimationType,
+			AnimationUtil = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out['shared'].util['animation-util']).AnimationUtil,
+			AppController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out.client.controllers['app-controller']).AppController,
+			BedBreakEffectMeta = require(replicatedStorage.TS.locker['bed-break-effect']['bed-break-effect-meta']).BedBreakEffectMeta,
+			BedwarsKitMeta = require(replicatedStorage.TS.games.bedwars.kit['bedwars-kit-meta']).BedwarsKitMeta,
+			BedwarsKitClass = require(replicatedStorage.TS.games.bedwars.kit.class['bedwars-class']).BedwarsClass,
+			BlockBreaker = Knit.Controllers.BlockBreakController.blockBreaker,
+			BlockController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out).BlockEngine,
+			BlockPlacer = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.client.placement['block-placer']).BlockPlacer,
+			BlockEngine = require(lplr.PlayerScripts.TS.lib['block-engine']['client-block-engine']).ClientBlockEngine,
+			BowConstantsTable = canDebug and debug.getupvalue(Knit.Controllers.ProjectileController.enableBeam, 8) or {
+				RelZ = 0,
+				CameraMultiplier = 10,
+				RelX = 0.8,
+				RelY = -0.6,
+				YTargetOffset = 0.05,
+				BeamGrowthMultiplier = 0.08
+			},
+			ClickHold = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out.client.ui.lib.util['click-hold']).ClickHold,
+			Client = Client,
+			ClientConstructor = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts'].net.out.client),
+			ClientDamageBlock = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.shared.remotes).BlockEngineRemotes.Client,
+			CombatConstant = require(replicatedStorage.TS.combat['combat-constant']).CombatConstant,
+			DamageIndicator = Knit.Controllers.DamageIndicatorController.spawnDamageIndicator,
+			DefaultKillEffect = require(lplr.PlayerScripts.TS.controllers.global.locker['kill-effect'].effects['default-kill-effect']),
+			EmoteType = require(replicatedStorage.TS.locker.emote['emote-type']).EmoteType,
+			EmoteImage = require(replicatedStorage.TS.locker.emote['emote-image']).EmoteImage,
+			EmoteMeta = require(replicatedStorage.TS.locker.emote['emote-meta']).EmoteMeta,
+			GamePlayer = require(replicatedStorage.TS.player['game-player']),
+			EffectUtil = require(replicatedStorage.TS.util.effect['effect-util']).EffectUtil,
+			GameAnimationUtil = require(replicatedStorage.TS.animation['animation-util']).GameAnimationUtil,
+			getIcon = function(item, showinv)
+				local itemmeta = bedwars.ItemMeta[item.itemType]
+				return itemmeta and showinv and itemmeta.image or ''
+			end,
+			getInventory = function(plr)
+				local suc, res = pcall(function()
+					return InventoryUtil.getInventory(plr)
+				end)
+				return suc and res or {
+					items = {},
+					armor = {}
+				}
+			end,
+			HudAliveCount = require(lplr.PlayerScripts.TS.controllers.global['top-bar'].ui.game['hud-alive-player-counts']).HudAlivePlayerCounts,
+			ItemMeta = require(replicatedStorage.TS.item['item-meta']).items,--debug.getupvalue(require(replicatedStorage.TS.item['item-meta']).getItemMeta, 1),
+			RecipeMeta = require(replicatedStorage.TS.recipe['recipe-meta']).recipes,-- debug.getupvalue(require(replicatedStorage.TS.recipe['recipe-meta']).getRecipeMeta, 1),
+			KillEffectMeta = require(replicatedStorage.TS.locker['kill-effect']['kill-effect-meta']).KillEffectMeta,
+			KillFeedController = Flamework.resolveDependency('client/controllers/game/kill-feed/kill-feed-controller@KillFeedController'),
+			Knit = Knit,
+			KnockbackUtil = require(replicatedStorage.TS.damage['knockback-util']).KnockbackUtil,
+			KnockbackUtilInstance = replicatedStorage.TS.damage['knockback-util'],
+			NametagController = Knit.Controllers.NametagController,
+			MageKitUtil = require(replicatedStorage.TS.games.bedwars.kit.kits.mage['mage-kit-util']).MageKitUtil,
+			ProjectileMeta = require(replicatedStorage.TS.projectile['projectile-meta']).ProjectileMeta,
+			QueryUtil = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).GameQueryUtil,
+			QueueCard = require(lplr.PlayerScripts.TS.controllers.global.queue.ui['queue-card']).QueueCard,
+			QueueMeta = require(replicatedStorage.TS.game['queue-meta']).QueueMeta,
+			Roact = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts']['roact'].src),
+			RuntimeLib = require(replicatedStorage['rbxts_include'].RuntimeLib),
+			SoundList = require(replicatedStorage.TS.sound['game-sound']).GameSound,
+			SoundManager = canDebug and require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).SoundManager or libraries.SoundUtil,
+			Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore,
+			TeamUpgradeMeta = canDebug and debug.getupvalue(require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).getTeamUpgradeMetaForQueue, 6) or require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).OGTeamUpgrades,
+			PyroUpgradeMeta = require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).FlamethrowerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).getFlamethrowerUpgradeMeta, 1),
+			AdetundeUpgradeMeta = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).FrostyHammerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).getFrostyHammerUpgradeMeta, 1),
+			AdetundeUtil = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-util']).FrostyHammerUtil,
+			UILayers = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).UILayers,
+			VisualizerUtils = require(lplr.PlayerScripts.TS.lib.visualizer['visualizer-utils']).VisualizerUtils,
+			WeldTable = require(replicatedStorage.TS.util['weld-util']).WeldUtil,
+			WinEffectMeta = require(replicatedStorage.TS.locker['win-effect']['win-effect-meta']).WinEffectMeta,
+			ZapNetworking = require(lplr.PlayerScripts.TS.lib.network),
+			BlockSelector = require(replicatedStorage.rbxts_include.node_modules['@easy-games']['block-engine'].out.client.select['block-selector']).BlockSelector
+		}, {
+			__index = function(self, ind)
+				rawset(self, ind, Knit.Controllers[ind])
+				return rawget(self, ind)
+			end
+		})
+
+		local function getproto(...)
+			local gp = debug.getproto or error
+
+			local suc, result = pcall(gp, ...)
+
+			return suc and result or function() end
+		end
+
+		local replacements = {
+			PickupItem = 'PickupItemDrop',
+			FireProjectile = 'ProjectileFire',
+			MinerDig = 'DestroyPetrifiedPlayer',
+			ResetCharacter = 'ResetCharacter',
+			WarlockTarget = 'WarlockLinkTarget',
+			ConsumeSoul = 'ConsumeGrimReaperSoul',
+			SummonerClawAttack = 'SummonerClawAttackRequest',
+			AfkStatus = 'AfkInfo',
+			SpawnRaven = 'SpawnRaven',
+			ReportPlayer = 'ReportPlayer',
+			PickupMetal = 'CollectCollectableEntity',
+			MageSelect = 'LearnElementTome',
+			KaliyahPunch = 'RequestDragonPunch',
+			DragonEndFly = 'VoidDragonEndFlying',
+			DepositPinata = 'DepositCoins',
+			CannonAim = 'AimCannon',
+			ConsumeBattery = 'ConsumeBattery',
+			HarvestCrop = 'CropHarvest',
+			EquipItem = 'SetInvItem',
+			DragonFly = 'DragonFlap',
+			BeePickup = 'PickUpBee',
+			CannonLaunch = 'LaunchSelfFromCannon',
+			ConsumeTreeOrb = 'ConsumeTreeOrb',
+			DropItem = 'DropItem',
+			HannahKill = 'HannahPromptTrigger',
+			ConsumeItem = 'ConsumeItem',
+			GuitarHeal = 'PlayGuitar',
+			GroundHit = 'GroundHit',
+			DragonBreath = 'DragonBreath',
+			AttackEntity = 'SwordHit'
+		}
+
+		local remoteNames = canDebug and {
+			AfkStatus = getproto(Knit.Controllers.AfkController.KnitStart, 1),
+			AttackEntity = Knit.Controllers.SwordController.sendServerRequest,
+			BeePickup = Knit.Controllers.BeeNetController.trigger,
+			CannonAim = getproto(Knit.Controllers.CannonController.startAiming, 5),
+			CannonLaunch = Knit.Controllers.CannonHandController.launchSelf,
+			ConsumeBattery = getproto(Knit.Controllers.BatteryController.onKitLocalActivated, 1),
+			ConsumeItem = getproto(Knit.Controllers.ConsumeController.onEnable, 1),
+			ConsumeSoul = Knit.Controllers.GrimReaperController.consumeSoul,
+			ConsumeTreeOrb = getproto(Knit.Controllers.EldertreeController.createTreeOrbInteraction, 1),
+			DepositPinata = getproto(getproto(Knit.Controllers.PiggyBankController.KnitStart, 2), 5),
+			DragonBreath = getproto(Knit.Controllers.VoidDragonController.onKitLocalActivated, 5),
+			DragonEndFly = getproto(Knit.Controllers.VoidDragonController.flapWings, 1),
+			DragonFly = Knit.Controllers.VoidDragonController.flapWings,
+			DropItem = Knit.Controllers.ItemDropController.dropItemInHand,
+			EquipItem = not canDebug and function() end or getproto(require(replicatedStorage.TS.entity.entities['inventory-entity']).InventoryEntity.equipItem, 3),
+			FireProjectile = canDebug and debug.getupvalue(Knit.Controllers.ProjectileController.launchProjectileWithValues, 2) or function() end,
+			GroundHit = Knit.Controllers.FallDamageController.KnitStart,
+			GuitarHeal = Knit.Controllers.GuitarController.performHeal,
+			HannahKill = getproto(Knit.Controllers.HannahController.registerExecuteInteractions, 1),
+			HarvestCrop = getproto(getproto(Knit.Controllers.CropController.KnitStart, 4), 1),
+			KaliyahPunch = getproto(Knit.Controllers.DragonSlayerController.onKitLocalActivated, 1),
+			MageSelect = getproto(Knit.Controllers.MageController.registerTomeInteraction, 1),
+			MinerDig = getproto(Knit.Controllers.MinerController.setupMinerPrompts, 1),
+			PickupItem = Knit.Controllers.ItemDropController.checkForPickup,
+			PickupMetal = getproto(Knit.Controllers.HiddenMetalController.onKitLocalActivated, 4),
+			ReportPlayer = not canDebug and function() end or require(lplr.PlayerScripts.TS.controllers.global.report['report-controller']).default.reportPlayer,
+			ResetCharacter = getproto(Knit.Controllers.ResetController.createBindable, 1),
+			SpawnRaven = getproto(Knit.Controllers.RavenController.KnitStart, 1),
+			SummonerClawAttack = Knit.Controllers.SummonerClawHandController.attack,
+			WarlockTarget = getproto(Knit.Controllers.WarlockStaffController.KnitStart, 2)
+		} or replacements
+
+		local function dumpRemote(tab)
+			local ind
+			for i, v in tab do
+				if v == 'Client' then
+					ind = i
+					break
+				end
+			end
+			return ind and tab[ind + 1] or ''
+		end
+
+		for i, v in remoteNames do
+			if canDebug then
+				local remote = dumpRemote(debug.getconstants(v)) or ''
+				if remote == '' and not replacements[i] then
+					notif('Vape', 'Failed to grab remote ('..i..')', 10, 'alert')
+				elseif replacements[i] then
+					remote = replacements[i]
+				end
+				remotes[i] = remote
+			else
+				remotes[i] = v
+			end
+		end
+			
+		OldBreak = bedwars.BlockController.isBlockBreakable
+
+		if canDebug then
+			Client.Get = function(self, remoteName)
+				local call = OldGet(self, remoteName)
+
+				if remoteName == remotes.AttackEntity then
+					return {
+						instance = call.instance,
+						SendToServer = function(_, attackTable, ...)
+							local suc, plr = pcall(function()
+								return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
+							end)
+
+							local selfpos = attackTable.validate.selfPosition.value
+							local targetpos = attackTable.validate.targetPosition.value
+							store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
+							store.attackReachUpdate = tick() + 1
+
+							if SilentAim and SilentAim.Enabled and SilentAim.Options.Sword.Enabled then
+								attackTable.validate.selfPosition.value = CFrame.lookAt(selfpos, targetpos)
+							end
+
+							if Reach and Reach.Enabled or HitBoxes.Enabled or Backtrack and Backtrack.Enabled then
+								attackTable.validate.raycast = attackTable.validate.raycast or {}
+								attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+							end
+
+							if suc and plr then
+								if not select(2, whitelist:get(plr)) then return end
+								if table.find(vape.Libraries.whitelist.ignores, plr) then return end
+
+								vapeEvents.Attacked:Fire(plr)
+							end
+
+							return call:SendToServer(attackTable, ...)
+						end
+					}
+				elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
+					return {SendToServer = function() end}
+				end
+
+				return call
+			end
+		end
+
+		bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
+			local obj = bedwars.BlockController:getStore():getBlockAt(breakTable.blockPosition)
+
+			if obj and obj.Name == 'bed' then
+				for _, plr in playersService:GetPlayers() do
+					if obj:GetAttribute('Team'..(plr:GetAttribute('Team') or 0)..'NoBreak') and not select(2, whitelist:get(plr)) then
+						return false
+					end
+				end
+			end
+
+			return OldBreak(self, breakTable, plr)
+		end
+
+		local cache, blockhealthbar = {}, {blockHealth = -1, breakingBlockPosition = Vector3.zero}
+		if canDebug then
+			store.blockPlacer = bedwars.BlockPlacer.new(bedwars.BlockEngine, 'wool_white')
+		end
+
+		local function getBlockHealth(block, blockpos)
+			local blockdata = bedwars.BlockController:getStore():getBlockData(blockpos)
+			return (blockdata and (blockdata:GetAttribute('1') or blockdata:GetAttribute('Health')) or block:GetAttribute('Health'))
+		end
+
+		local function getBlockHits(block, blockpos)
+			if not block then return 0 end
+			local breaktype = bedwars.ItemMeta[block.Name].block.breakType
+			local tool = store.tools[breaktype]
+			tool = tool and bedwars.ItemMeta[tool.itemType].breakBlock[breaktype] or 2
+			return getBlockHealth(block, bedwars.BlockController:getBlockPosition(blockpos)) / tool
+		end
+
+		--[[
+			Pathfinding using a luau version of dijkstra's algorithm
+			Source: https://stackoverflow.com/questions/39355587/speeding-up-dijkstras-algorithm-to-solve-a-3d-maze
+		]]
+
+		local function calculatePath(target, blockpos, wallcheck)
+			if cache[blockpos] then
+				return unpack(cache[blockpos])
+			end
+			local visited, unvisited, distances, air, path = {}, {{0, blockpos}}, {[blockpos] = 0}, {}, {}
+			local visibleAir = {}
+			for _ = 1, 10000 do
+				local _, node = next(unvisited)
+				if not node then break end
+				table.remove(unvisited, 1)
+				visited[node[2]] = true
+
+				for _, side in sides do
+					side = node[2] + side
+					if visited[side] then continue end
+
+					local block = getPlacedBlock(side)
+					if not block or block:GetAttribute('NoBreak') or block == target then
+						if not block then
+							air[node[2]] = true
+							visibleAir[node[2]] = true
+						end
+						continue
+					end
+
+					local curdist = getBlockHits(block, side) + node[1]
+
+					if curdist < (distances[side] or math.huge) then
+						table.insert(unvisited, {curdist, side})
+						distances[side] = curdist
+						path[side] = node[2]
+					end
+				end
+			end
+
+			local pos, cost = nil, math.huge
+			for node in visibleAir do
+				if distances[node] and distances[node] < cost then
+					pos, cost = node, distances[node]
+				end
+			end
+
+			if not pos then
+				for node in air do
+					if distances[node] and distances[node] < cost then
+						pos, cost = node, distances[node]
+					end
+				end
+			end
+
+			if pos then
+				cache[blockpos] = {
+					pos,
+					cost,
+					path
+				}
+				return pos, cost, path
+			end
+		end
+
+		bedwars.placeBlock = function(pos, item)
+			if getItem(item) then
+				store.blockPlacer.blockType = item
+				return store.blockPlacer:placeBlock(bedwars.BlockController:getBlockPosition(pos))
+			end
+		end
+
+		bedwars.breakBlock = function(block, effects, anim, customHealthbar, autotool, wallcheck, nobreak)
+			if lplr:GetAttribute('DenyBlockBreak') or not entitylib.isAlive then return end
+			local handler = bedwars.BlockController:getHandlerRegistry():getHandler(block.Name)
+			local cost, pos, target, path = math.huge
+			local mag = 9e9
+
+			local positions = (handler and handler:getContainedPositions(block) or {block.Position / 3})
+
+			if not canDebug then
+				pos = positions[2] or positions[1]
+				target = positions[2]
+				path = {}
+				if positions[2] then
+					path[positions[2]] = positions[2] - Vector3.new(0, 3, 0)
+				end
+
+				path[positions[1]] = positions[1] - Vector3.new(0, 3, 0)
+			else
+				for _, v in positions do
+					local dpos, dcost, dpath = calculatePath(block, v * 3)
+					local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
+					
+					if dpos then
+						if dcost < cost or (dcost == cost and dmag < mag) then
+							cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
+						end
+					end
+				end
+			end
+
+			if pos then
+				if (entitylib.character.RootPart.Position - pos).Magnitude > 30 then return end
+				local dblock, dpos = getPlacedBlock(pos)
+				if not dblock then return end
+
+				if not nobreak and (workspace:GetServerTimeNow() - bedwars.SwordController.lastAttack) > 0.2 then
+					local breaktype = bedwars.ItemMeta[dblock.Name].block.breakType
+					local tool = store.tools[breaktype]
+					if tool then
+						if autotool then
+							for i, v in store.inventory.hotbar do
+								if v.item and v.item.tool == tool.tool and i ~= (store.inventory.hotbarSlot + 1) then 
+									hotbarSwitch(i - 1)
+									break
+								end
+							end
+						else
+							switchItem(tool.tool)
+						end
+					end
+				end
+
+				if blockhealthbar.blockHealth == -1 or dpos ~= blockhealthbar.breakingBlockPosition then
+					blockhealthbar.blockHealth = getBlockHealth(dblock, dpos)
+					blockhealthbar.breakingBlockPosition = dpos
+				end
+
+				if not nobreak then
+					bedwars.ClientDamageBlock:Get('DamageBlock'):CallServerAsync({
+						blockRef = {blockPosition = dpos},
+						hitPosition = pos,
+						hitNormal = Vector3.FromNormalId(Enum.NormalId.Top)
+					}):andThen(function(result)
+						if result then
+							if result == 'cancelled' then
+								store.damageBlockFail = os.clock() + 1
+								table.clear(cache)
+								return
+							end
+
+							if effects then
+								local blockdmg = (blockhealthbar.blockHealth - (result == 'destroyed' and 0 or getBlockHealth(dblock, dpos)))
+								customHealthbar = customHealthbar or bedwars.BlockBreaker.updateHealthbar
+								customHealthbar(bedwars.BlockBreaker, {blockPosition = dpos}, blockhealthbar.blockHealth, dblock:GetAttribute('MaxHealth'), blockdmg, dblock)
+								blockhealthbar.blockHealth = math.max(blockhealthbar.blockHealth - blockdmg, 0)
+
+								pcall(function()
+									if blockhealthbar.blockHealth <= 0 then
+										bedwars.BlockBreaker.breakEffect:playBreak(dblock.Name, dpos, lplr)
+										bedwars.BlockBreaker.healthbarMaid:DoCleaning()
+										blockhealthbar.breakingBlockPosition = Vector3.zero
+									else
+										bedwars.BlockBreaker.breakEffect:playHit(dblock.Name, dpos, lplr)
+									end
+								end)
+							end
+
+							if anim then
+								local animation = bedwars.AnimationUtil:playAnimation(lplr, bedwars.BlockController:getAnimationController():getAssetId(1))
+								bedwars.ViewmodelController:playAnimation(15)
+								task.wait(0.3)
+								animation:Stop()
+								animation:Destroy()
+							end
+						end
+					end)
+				end
+
+				if effects then
+					return pos, path, target
+				end
+			end
+
+			return
+		end
+
+		for _, v in Enum.NormalId:GetEnumItems() do
+			table.insert(sides, Vector3.FromNormalId(v) * 3)
+		end
+
+		local function updateStore(new, old)
+			if new.Bedwars ~= old.Bedwars then
+				store.equippedKit = new.Bedwars.kit ~= 'none' and new.Bedwars.kit or ''
+			end
+
+			if new.Game ~= old.Game then
+				store.matchState = new.Game.matchState
+				store.queueType = new.Game.queueType or 'bedwars_test'
+			end
+
+			if new.Inventory ~= old.Inventory then
+				local newinv = (new.Inventory and new.Inventory.observedInventory or {inventory = {}})
+				local oldinv = (old.Inventory and old.Inventory.observedInventory or {inventory = {}})
+				store.inventory = newinv
+
+				if newinv ~= oldinv then
+					vapeEvents.InventoryChanged:Fire()
+				end
+
+				if newinv.inventory.items ~= oldinv.inventory.items then
+					vapeEvents.InventoryAmountChanged:Fire()
+					store.tools.sword = getSword()
+					for _, v in {'stone', 'wood', 'wool'} do
+						store.tools[v] = getTool(v)
+					end
+				end
+
+				if newinv.inventory.hand ~= oldinv.inventory.hand then
+					local currentHand, toolType = new.Inventory.observedInventory.inventory.hand, ''
+					if currentHand then
+						local handData = bedwars.ItemMeta[currentHand.itemType]
+						toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
+					end
+
+					store.hand = {
+						tool = currentHand and currentHand.tool,
+						amount = currentHand and currentHand.amount or 0,
+						toolType = toolType
+					}
+				end
+			end
+		end
+
+		local storeChanged = bedwars.Store.changed:connect(updateStore)
+		updateStore(bedwars.Store:getState(), {})
+
+		if not canDebug then
+			vape:Clean(task.spawn(function()
+				repeat
+					task.wait(0.1)
+					pcall(function() updateStore(bedwars.Store:getState(), {}); end);
+				until false
+			end))
+		end
+
+		for _, event in {'MatchEndEvent', 'EntityDeathEvent', 'BedwarsBedBreak', 'BalloonPopped', 'AngelProgress', 'GrapplingHookFunctions'} do
+			if not vape.Connections then return end
+			bedwars.Client:WaitFor(event):andThen(function(connection)
+				vape:Clean(connection:Connect(function(...)
+					vapeEvents[event]:Fire(...)
+				end))
+			end)
+		end
+
+		vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)		
+			vapeEvents.EntityDamageEvent:Fire({
+				entityInstance = ...,
+				damage = select(2, ...),
+				damageType = select(3, ...),
+				fromPosition = select(4, ...),
+				fromEntity = select(5, ...),
+				knockbackMultiplier = select(6, ...),
+				knockbackId = select(7, ...),
+				disableDamageHighlight = select(13, ...)
+			})
+		end))
+
+		if canDebug then
+			vape:Clean(bedwars.ZapNetworking.ProjectileLaunchZap.On(function(...)
+				vapeEvents.ProjectileLaunch:Fire({
+					raycastPosition = ...,
+					projectileType = select(3, ...),
+					fromPosition = select(2, ...),
+					fromEntity = select(7, ...),
+					id = select(4, ...),
+					projectileData = select(8, ...)
+				})
+			end))	
+		end
+
+		for _, event in {'PlaceBlockEvent', 'BreakBlockEvent'} do
+			vape:Clean(bedwars.ZapNetworking[event..'Zap'].On(function(...)
+				local data = {
+					blockRef = {
+						blockPosition = ...,
+					},
+					player = select(5, ...)
+				}
+				for i, v in cache do
+					if ((data.blockRef.blockPosition * 3) - v[1]).Magnitude <= 30 then
+						table.clear(v[3])
+						table.clear(v)
+						cache[i] = nil
+					end
+				end
+				vapeEvents[event]:Fire(data)
+			end))
+		end
+
+		store.blocks = collection('block', vape)
+		store.shop = collection({'BedwarsItemShop', 'TeamUpgradeShopkeeper'}, vape, function(tab, obj)
+			table.insert(tab, {
+				Id = obj.Name,
+				RootPart = obj,
+				Shop = obj:HasTag('BedwarsItemShop'),
+				Upgrades = obj:HasTag('TeamUpgradeShopkeeper')
+			})
+		end)
+		store.enchant = collection({'enchant-table', 'broken-enchant-table'}, vape, nil, function(tab, obj, tag)
+			if obj:HasTag('enchant-table') and tag == 'broken-enchant-table' then return end
+			obj = table.find(tab, obj)
+			if obj then
+				table.remove(tab, obj)
+			end
+		end)
+
+		local kills = sessioninfo:AddItem('Kills')
+		local beds = sessioninfo:AddItem('Beds')
+		local wins = sessioninfo:AddItem('Wins')
+		local games = sessioninfo:AddItem('Games')
+
+		local mapname = 'Unknown'
+		sessioninfo:AddItem('Map', 0, function()
+			return mapname
+		end, false)
+
+		task.delay(1, function()
+			games:Increment()
+		end)
+
+		task.spawn(function()
+			pcall(function()
+				repeat task.wait() until store.matchState ~= 0 or vape.Loaded == nil
+				if vape.Loaded == nil then return end
+				mapname = workspace:WaitForChild('Map', 5):WaitForChild('Worlds', 5):GetChildren()[1].Name
+				mapname = string.gsub(string.split(mapname, '_')[2] or mapname, '-', '') or 'Blank'
+			end)
+		end)
+
+		vape:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(bedTable)
+			if bedTable.player and bedTable.player.UserId == lplr.UserId then
+				beds:Increment()
+			end
+		end))
+
+		vape:Clean(vapeEvents.MatchEndEvent.Event:Connect(function(winTable)
+			if (bedwars.Store:getState().Game.myTeam or {}).id == winTable.winningTeamId or lplr.Neutral then
+				wins:Increment()
+			end
+		end))
+
+		vape:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+			pcall(function()
+				local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+				local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+				if not killed or not killer then return end
+
+				if killed ~= lplr and killer == lplr then
+					kills:Increment()
+				end
+			end)
+		end))
+
+		local rayCheck = RaycastParams.new()
+
+		task.spawn(function()
+			repeat
+				if entitylib.isAlive then
+					entitylib.character.AirTime = workspace:Raycast((store.rootpart or entitylib.character.RootPart).Position, Vector3.new(0, -6, 0), rayCheck) ~= nil and tick() or entitylib.character.AirTime
+				end
+
+				for _, v in entitylib.List do
+					v.LandTick = math.abs(v.RootPart.Velocity.Y) < 0.1 and v.LandTick or tick()
+					if (tick() - v.LandTick) > 0.2 and v.Jumps ~= 0 then
+						v.Jumps = 0
+						v.Jumping = false
+					end
+				end
+				task.wait()
+			until vape.Loaded == nil
+		end)
+
+		pcall(function()
+			if getthreadidentity and setthreadidentity then
+				local old = getthreadidentity()
+				setthreadidentity(2)
+
+				bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
+				bedwars.ShopItems = bedwars.Shop.ShopItems--debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+				bedwars.Shop.getShopItem('iron_sword', lplr)
+
+				setthreadidentity(old)
+				store.shopLoaded = true
+			else
+				task.spawn(function()
+					repeat
+						task.wait(0.1)
+					until vape.Loaded == nil or bedwars.AppController:isAppOpen('BedwarsItemShopApp')
+
+					bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
+					bedwars.ShopItems = bedwars.Shop.ShopItems--debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+					store.shopLoaded = true
+				end)
+			end
+		end)
+
+		vape:Clean(function()
+			Client.Get = OldGet
+			bedwars.BlockController.isBlockBreakable = OldBreak
+			store.blockPlacer:disable()
+			for _, v in vapeEvents do
+				pcall(function()
+					for __, con in getconnections(v.Event) do
+						con:Disconnect()
+					end
+				end)
+
+				v:Destroy()
+			end
+			for _, v in cache do
+				table.clear(v[3])
+				table.clear(v)
+			end
+			table.clear(store.blockPlacer)
+			table.clear(vapeEvents)
+			table.clear(bedwars)
+			table.clear(store)
+			table.clear(cache)
+			table.clear(sides)
+			table.clear(remotes)
+			storeChanged:disconnect()
+			storeChanged = nil
+		end)
+
+		vape:Clean(bedwars.Client:Get('BloodAssassinUpdateAvailableContracts'):Connect(function(con)
+			store.contracts = con.contracts
+			notif('Vape', 'Contract updated', 6, 'info')
+		end))
+
+		rayCheck = RaycastParams.new()
+		rayCheck.FilterType = Enum.RaycastFilterType.Exclude
+		rayCheck.RespectCanCollide = true
+
+		vape:Clean(task.spawn(function()
+			local items = collection('ItemDrop', vape)
+
+			repeat
+				if vape.Loaded and entitylib.isAlive and ((vape.Modules.Fly.Enabled and vape.Modules.Fly.Options['TP Down'].Enabled) or (vape.Modules['Infinite Jump'].Enabled and vape.Modules['Infinite Jump'].Options['TP Down'].Enabled) or vape.Modules['Long Jump'].Enabled) then
+					local excludes = items
+					table.insert(excludes, gameCamera)
+					table.insert(excludes, lplr.Character)
+					table.insert(excludes, AntiFallPart)
+
+					rayCheck.FilterDescendantsInstances = excludes
+					rayCheck.CollisionGroup = entitylib.character.RootPart.CollisionGroup
+
+					local lasty = entitylib.character.RootPart.CFrame.Y
+
+					if (tick() - entitylib.character.AirTime) > 1.7 then
+						local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), rayCheck)
+						if ray then
+							entitylib.character.RootPart.Velocity = Vector3.zero
+							entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.CFrame.X, ray.Position.Y + 1, entitylib.character.RootPart.CFrame.Z), entitylib.character.RootPart.CFrame.LookVector)
+							task.wait(0.1)
+							entitylib.character.RootPart.CFrame += Vector3.new(0, lasty - entitylib.character.RootPart.CFrame.Y, 0)
+						end
+					end
+				end
+				task.wait()
+			until false
+		end))
+
+		getgenv().remotes = remotes
+		getgenv().bedwars = bedwars
+		getgenv().store = store
+	end)
+
+	for _, v in {'Anti Ragdoll', 'Trigger Bot', 'Silent Aim', 'Auto Rejoin', 'Rejoin', 'Disabler', 'Timer', 'Server Hop', 'Mouse TP', 'Murder Mystery'} do
+		vape:Remove(v)
+	end
+
+	getgenv().swapping = os.clock()
+		
+	run(function()
+		local AutoClicker
+		local CPS
+		local BlockCPS = {}
+		local Thread
+		
+		local function AutoClick()
+			if Thread then
+				task.cancel(Thread)
+			end
+		
+			Thread = task.delay(1 / (store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue(), function()
+				repeat
+					if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
+						local blockPlacer = bedwars.BlockPlacementController.blockPlacer
+						if store.hand.toolType == 'block' and blockPlacer then
+							if canDebug then
+								if inputService.TouchEnabled then
+									task.spawn(function()
+										blockPlacer:autoBridge(workspace:GetServerTimeNow() - bedwars.KnockbackController:getLastKnockbackTime() >= 0.2)
+									end)
+								else
+									if (workspace:GetServerTimeNow() - bedwars.BlockCpsController.lastPlaceTimestamp) >= ((1 / 12) * 0.5) then
+										local mouseinfo = blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
+										if mouseinfo and mouseinfo.placementPosition == mouseinfo.placementPosition then
+											task.spawn(blockPlacer.placeBlock, blockPlacer, mouseinfo.placementPosition)
+										end
+									end
+								end
+							else
+								mouse1click()
+							end
+						elseif store.hand.toolType == 'sword' then
+							if canDebug then
+								bedwars.SwordController:swingSwordAtMouse(0.39)
+							else
+								mouse1click()
+							end
+						end
+					end
+		
+					task.wait(1 / (store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue())
+				until not AutoClicker.Enabled
+			end)
+		end
+		
+		AutoClicker = vape.Categories.Combat:CreateModule({
+			Name = 'Auto Clicker',
+			Function = function(callback)
+				if callback then
+					AutoClicker:Clean(inputService.InputBegan:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 then
+							AutoClick()
+						end
+					end))
+		
+					AutoClicker:Clean(inputService.InputEnded:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread and (os.clock() - getgenv().swapping) > 0.12 then
+							task.cancel(Thread)
+							Thread = nil
+						end
+					end))
+		
+					if inputService.TouchEnabled then
+						pcall(function()
+							for _, v in {'2', '5'} do
+								AutoClicker:Clean(lplr.PlayerGui.MobileUI[v].MouseButton1Down:Connect(AutoClick))
+								AutoClicker:Clean(lplr.PlayerGui.MobileUI[v].MouseButton1Up:Connect(function()
+									if Thread then
+										task.cancel(Thread)
+										Thread = nil
+									end
+								end))
+							end
+						end)
+					end
+				else
+					if Thread then
+						task.cancel(Thread)
+						Thread = nil
+					end
+				end
+			end,
+			Tooltip = 'Hold attack button to automatically click'
+		})
+		CPS = AutoClicker:CreateTwoSlider({
+			Name = 'CPS',
+			Min = 1,
+			Max = 9,
+			DefaultMin = 7,
+			DefaultMax = 7
+		})
+		AutoClicker:CreateToggle({
+			Name = 'Place Blocks',
+			Default = true,
+			Function = function(callback)
+				if BlockCPS.Object then
+					BlockCPS.Object.Visible = callback
+				end
+			end
+		})
+		BlockCPS = AutoClicker:CreateTwoSlider({
+			Name = 'Block CPS',
+			Min = 1,
+			Max = 12,
+			DefaultMin = 12,
+			DefaultMax = 12,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local old
+		
+		vape.Categories.Combat:CreateModule({
+			Name = 'No Click Delay',
+			Function = function(callback)
+				if callback then
+					old = bedwars.SwordController.isClickingTooFast
+					bedwars.SwordController.isClickingTooFast = function(self)
+						self.lastSwing = os.clock()
+						return false
+					end
+				else
+					bedwars.SwordController.isClickingTooFast = old
+				end
+			end,
+			Tooltip = 'Remove the CPS cap'
+		})
+	end)
+
+	run(function()
+		local Sprint
+		local old
+		
+		Sprint = vape.Categories.Combat:CreateModule({
+			Name = 'Sprint',
+			Function = function(callback)
+				if canDebug then
+					if callback then
+						old = bedwars.SprintController.stopSprinting
+						bedwars.SprintController.stopSprinting = function(...)
+							local call = old(...)
+							bedwars.SprintController:startSprinting()
+							return call
+						end
+						Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+							task.delay(0.1, function() 
+								bedwars.SprintController:stopSprinting() 
+							end) 
+						end))
+						bedwars.SprintController:stopSprinting()
+					else
+						if inputService.TouchEnabled then 
+							pcall(function() 
+								lplr.PlayerGui.MobileUI['4'].Visible = true 
+							end) 
+						end
+						bedwars.SprintController.stopSprinting = old
+						bedwars.SprintController:stopSprinting()
+					end
+				else
+					if callback then
+						repeat task.wait() until entitylib.isAlive or not Sprint.Enabled
+						if not Sprint.Enabled then return end
+						Sprint:Clean(lplr.Character.Humanoid:GetPropertyChangedSignal('WalkSpeed'):Connect(function()
+							if lplr.Character.Humanoid.WalkSpeed < 20 then
+								bedwars.SprintController:startSprinting()
+							end
+						end))
+						Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+							Sprint:Toggle()
+							Sprint:Toggle() 
+						end))
+						bedwars.SprintController:startSprinting()
+					end
+				end
+			end,
+			Tooltip = 'Sets your sprinting to true.'
+		})
+	end)
+		
+	run(function()
+		local TriggerBot
+		local CPS
+
+		local rayParams = RaycastParams.new()
+		
+		TriggerBot = vape.Categories.Combat:CreateModule({
+			Name = 'Trigger Bot',
+			Function = function(callback)
+				if callback then
+					repeat
+						local doAttack
+						if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
+							if entitylib.isAlive and store.hand.toolType == 'sword' and bedwars.DaoController.chargingMaid == nil then
+								local attackRange = bedwars.ItemMeta[store.hand.tool.Name].sword.attackRange
+								rayParams.FilterDescendantsInstances = {lplr.Character}
+		
+								local unit = lplr:GetMouse().UnitRay
+								local localPos = entitylib.character.RootPart.Position
+								local rayRange = (attackRange or 14.4)
+								local ray = bedwars.QueryUtil:raycast(unit.Origin, unit.Direction * 200, rayParams)
+								if ray and (localPos - ray.Instance.Position).Magnitude <= rayRange then
+									local limit = (attackRange)
+									for _, ent in entitylib.List do
+										doAttack = ent.Targetable and ray.Instance:IsDescendantOf(ent.Character) and (localPos - ent.RootPart.Position).Magnitude <= rayRange
+										if doAttack then
+											break
+										end
+									end
+								end
+		
+								doAttack = doAttack or bedwars.SwordController:getTargetInRegion(attackRange or 3.8 * 3, 0)
+								if doAttack then
+									bedwars.SwordController:swingSwordAtMouse()
+								end
+							end
+						end
+		
+						task.wait(doAttack and 1 / CPS.GetRandomValue() or 0.016)
+					until not TriggerBot.Enabled
+				end
+			end,
+			Tooltip = 'Automatically swings when hovering over a entity'
+		})
+		CPS = TriggerBot:CreateTwoSlider({
+			Name = 'CPS',
+			Min = 1,
+			Max = 9,
+			DefaultMin = 7,
+			DefaultMax = 7
+		})
+	end)
+		
+	run(function()
+		local Velocity
+		local Horizontal
+		local Vertical
+		local Air
+		local Ground
+		local Mode
+		local Chance
+		local TargetCheck
+		local rand, old = Random.new()
+		
+		local TakeKnockback = Instance.new('BindableEvent')
+
+		local Attributes = bedwars.KnockbackUtilInstance:GetAttributes()
+
+		Velocity = vape.Categories.Combat:CreateModule({
+			Name = 'Velocity',
+			Function = function(callback)
+				if callback then
+					if canDebug then
+						old = bedwars.KnockbackUtil.applyKnockback
+
+						Velocity:Clean(TakeKnockback.Event:Connect(function(root, mass, dir, knockback, ...)
+							local args = {...}
+
+							local air, ground
+
+							task.delay(Air:GetRandomValue() / 1000, function()
+								local clone = table.clone(knockback)
+								clone.horizontal = ground and 0.1 or 0
+								air = true
+								old(root, mass, dir, clone, unpack(args))
+							end)
+							task.delay(Ground:GetRandomValue() / 1000, function()
+								local clone = table.clone(knockback)
+								clone.vertical = air and 0.1 or 0
+								ground = true
+								old(root, mass, dir, clone, unpack(args))
+							end)
+						end))
+
+						bedwars.KnockbackUtil.applyKnockback = function(root, mass, dir, knockback, ...)
+							local chance = rand:NextNumber(0, 100)
+							if Mode.Value == 'Normal' then
+								if chance > Chance.Value then return end
+							end
+							
+							local check = (not TargetCheck.Enabled) or entitylib.EntityPosition({
+								Range = 50,
+								Part = 'RootPart',
+								Players = true
+							})
+			
+							if check then
+								knockback = knockback or {}
+								if Mode.Value == 'Lag' then
+									if chance < Chance.Value then
+										return TakeKnockback:Fire(root, mass, dir, knockback, ...)
+									end
+								else
+									if Horizontal.Value == 0 and Vertical.Value == 0 then return end
+									knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
+									knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+								end
+							end
+							
+							return old(root, mass, dir, knockback, ...)
+						end
+					else
+						for i in Attributes do
+							bedwars.KnockbackUtilInstance:SetAttribute(i, 0)
+						end
+					end
+				else
+					if canDebug then
+						bedwars.KnockbackUtil.applyKnockback = old
+					else
+						for i, v in Attributes do
+							bedwars.KnockbackUtilInstance:SetAttribute(i, v)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Reduces knockback taken',
+			ExtraText = function()
+				return canDebug and Mode.Value or 'No Knockback'
+			end
+		})
+		if canDebug then
+			Horizontal = Velocity:CreateSlider({
+				Name = 'Horizontal',
+				Min = 0,
+				Max = 100,
+				Default = 0,
+				Darker = true,
+				Suffix = '%'
+			})
+			Vertical = Velocity:CreateSlider({
+				Name = 'Vertical',
+				Min = 0,
+				Max = 100,
+				Default = 0,
+				Darker = true,
+				Suffix = '%'
+			})
+			Air = Velocity:CreateTwoSlider({
+				Name = 'Air delay',
+				Min = 0,
+				Max = 500,
+				Darker = true,
+				DefaultMin = 50,
+				DefaultMax = 150
+			})
+			Ground = Velocity:CreateTwoSlider({
+				Name = 'Ground delay',
+				Min = 0,
+				Max = 500,
+				Darker = true,
+				DefaultMin = 200,
+				DefaultMax = 250
+			})
+			Mode = Velocity:CreateDropdown({
+				Name = 'Mode',
+				Default = 'Normal',
+				List = {'Lag', 'Normal'},
+				Function = function(val)
+					Vertical.Object.Visible = val == 'Normal'
+					Horizontal.Object.Visible = val == 'Normal'
+					Air.Object.Visible = val == 'Lag'
+					Ground.Object.Visible = val == 'Lag'
+				end
+			})
+			Vertical.Object.Visible = Mode.Value == 'Normal'
+			Horizontal.Object.Visible = Mode.Value == 'Normal'
+			Air.Object.Visible = Mode.Value == 'Lag'
+			Ground.Object.Visible = Mode.Value == 'Lag'
+			Chance = Velocity:CreateSlider({
+				Name = 'Chance',
+				Min = 0,
+				Max = 100,
+				Default = 100,
+				Suffix = '%'
+			})
+			TargetCheck = Velocity:CreateToggle({Name = 'Only when targeting'})
+		end
+	end)
+		
+	local AntiFallDirection
+	run(function()
+		local AntiFall
+		local Mode
+		local Material
+		local Color
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+
+		local function getLowGround()
+			local mag = math.huge
+			for _, pos in bedwars.BlockController:getStore():getAllBlockPositions() do
+				pos = pos * 3
+				if pos.Y < mag and not getPlacedBlock(pos + Vector3.new(0, 3, 0)) then
+					mag = pos.Y
+				end
+			end
+			return mag
+		end
+
+		AntiFall = vape.Categories.Blatant:CreateModule({
+			Name = 'Anti Fall',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AntiFall.Enabled)
+					if not AntiFall.Enabled then return end
+
+					local pos, debounce = getLowGround(), tick()
+					if pos ~= math.huge then
+						AntiFallPart = Instance.new('Part')
+						AntiFallPart.Size = Vector3.new(10000, 1, 10000)
+						AntiFallPart.Transparency = 1 - Color.Opacity
+						AntiFallPart.Material = Enum.Material[Material.Value]
+						AntiFallPart.Color = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						AntiFallPart.Position = Vector3.new(0, pos - 2, 0)
+						AntiFallPart.CanCollide = Mode.Value == 'Collide'
+						AntiFallPart.Anchored = true
+						AntiFallPart.CanQuery = false
+						AntiFallPart.Parent = workspace
+						store.antifallpart = AntiFallPart
+						AntiFall:Clean(AntiFallPart)
+						AntiFall:Clean(AntiFallPart.Touched:Connect(function(touched)
+							if touched.Parent == lplr.Character and entitylib.isAlive and debounce < tick() then
+								debounce = tick() + 0.1
+								if Mode.Value == 'Normal' then
+									local top = getNearGround()
+									if top then
+										local lastTeleport = lplr:GetAttribute('LastTeleported')
+										local connection
+										connection = runService.PreSimulation:Connect(function()
+											if vape.Modules.Fly.Enabled or vape.Modules.InfiniteFly.Enabled or vape.Modules.LongJump.Enabled then
+												connection:Disconnect()
+												AntiFallDirection = nil
+												return
+											end
+
+											if entitylib.isAlive and lplr:GetAttribute('LastTeleported') == lastTeleport then
+												local delta = ((top - entitylib.character.RootPart.Position) * Vector3.new(1, 0, 1))
+												local root = entitylib.character.RootPart
+												AntiFallDirection = delta.Unit == delta.Unit and delta.Unit or Vector3.zero
+												root.Velocity *= Vector3.new(1, 0, 1)
+												rayCheck.FilterDescendantsInstances = {gameCamera, lplr.Character}
+												rayCheck.CollisionGroup = root.CollisionGroup
+
+												local ray = workspace:Raycast(root.Position, AntiFallDirection, rayCheck)
+												if ray then
+													for _ = 1, 10 do
+														local dpos = roundPos(ray.Position + ray.Normal * 1.5) + Vector3.new(0, 3, 0)
+														if not getPlacedBlock(dpos) then
+															top = Vector3.new(top.X, pos.Y, top.Z)
+															break
+														end
+													end
+												end
+
+												root.CFrame += Vector3.new(0, top.Y - root.Position.Y, 0)
+												if not frictionTable.Speed then
+													root.AssemblyLinearVelocity = (AntiFallDirection * getSpeed()) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+												end
+
+												if delta.Magnitude < 1 then
+													connection:Disconnect()
+													AntiFallDirection = nil
+												end
+											else
+												connection:Disconnect()
+												AntiFallDirection = nil
+											end
+										end)
+										AntiFall:Clean(connection)
+									end
+								elseif Mode.Value == 'Velocity' then
+									entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, 100, entitylib.character.RootPart.Velocity.Z)
+								end
+							end
+						end))
+					end
+				else
+					store.antifallpart = nil
+					AntiFallDirection = nil
+				end
+			end,
+			Tooltip = 'Help\'s you with your Parkinson\'s\nPrevents you from falling into the void.'
+		})
+		Mode = AntiFall:CreateDropdown({
+			Name = 'Move Mode',
+			List = {'Normal', 'Collide', 'Velocity'},
+			Function = function(val)
+				if AntiFallPart then
+					AntiFallPart.CanCollide = val == 'Collide'
+				end
+			end,
+		Tooltip = 'Normal - Smoothly moves you towards the nearest safe point\nVelocity - Launches you upward after touching\nCollide - Allows you to walk on the part'
+		})
+		local materials = {'ForceField'}
+		for _, v in Enum.Material:GetEnumItems() do
+			if v.Name ~= 'ForceField' then
+				table.insert(materials, v.Name)
+			end
+		end
+		Material = AntiFall:CreateDropdown({
+			Name = 'Material',
+			List = materials,
+			Function = function(val)
+				if AntiFallPart then
+					AntiFallPart.Material = Enum.Material[val]
+				end
+			end
+		})
+		Color = AntiFall:CreateColorSlider({
+			Name = 'Color',
+			DefaultOpacity = 0.5,
+			Function = function(h, s, v, o)
+				if AntiFallPart then
+					AntiFallPart.Color = Color3.fromHSV(h, s, v)
+					AntiFallPart.Transparency = 1 - o
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local FastBreak
+		local Time
+		
+		FastBreak = vape.Categories.Blatant:CreateModule({
+			Name = 'Fast Break',
+			Function = function(callback)
+				if callback then
+					repeat
+						bedwars.BlockBreakController.blockBreaker:setCooldown(Time.Value)
+						task.wait(0.1)
+					until not FastBreak.Enabled
+				else
+					bedwars.BlockBreakController.blockBreaker:setCooldown(0.3)
+				end
+			end,
+			Tooltip = 'Decreases block hit cooldown'
+		})
+		Time = FastBreak:CreateSlider({
+			Name = 'Break speed',
+			Min = 0,
+			Max = 0.3,
+			Default = 0.25,
+			Decimal = 100,
+			Suffix = 'seconds'
+		})
+	end)
+		
+	local Fly
+	local LongJump
+	run(function()
+		local Value
+		local VerticalValue
+		local WallCheck
+		local PopBalloons
+		local TP
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local up, down, old = 0, 0
+
+		Fly = vape.Categories.Blatant:CreateModule({
+			Name = 'Fly',
+			Function = function(callback)
+				frictionTable.Fly = callback or nil
+				updateVelocity()
+				if callback then
+					up, down, old = 0, 0, bedwars.BalloonController.deflateBalloon
+					bedwars.BalloonController.deflateBalloon = function() end
+					local tpTick, tpToggle, oldy = tick(), true
+
+					if lplr.Character and (lplr.Character:GetAttribute('InflatedBalloons') or 0) == 0 and getItem('balloon') then
+						bedwars.BalloonController:inflateBalloon()
+					end
+					Fly:Clean(vapeEvents.AttributeChanged.Event:Connect(function(changed)
+						if changed == 'InflatedBalloons' and (lplr.Character:GetAttribute('InflatedBalloons') or 0) == 0 and getItem('balloon') then
+							bedwars.BalloonController:inflateBalloon()
+						end
+					end))
+					Fly:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive and not InfiniteFly.Enabled and isnetworkowner(entitylib.character.RootPart) then
+							local flyAllowed = (lplr.Character:GetAttribute('InflatedBalloons') and lplr.Character:GetAttribute('InflatedBalloons') > 0) or store.matchState == 2
+							local mass = (1.5 + (flyAllowed and 6 or 0) * (tick() % 0.4 < 0.2 and -1 or 1))
+							local root, moveDirection = entitylib.character.RootPart, entitylib.character.Humanoid.MoveDirection
+							local velo = getSpeed()
+							local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
+							rayCheck.CollisionGroup = root.CollisionGroup
+
+							destination += Vector3.new(0, ((up + down) * VerticalValue.Value) / 150, 0)
+
+							if WallCheck.Enabled then
+								local ray = workspace:Raycast(root.Position, destination, rayCheck)
+								if ray then
+									destination = ((ray.Position + ray.Normal) - root.Position)
+								end
+							end
+
+							if not flyAllowed then
+								if tpToggle then
+									local airleft = (tick() - entitylib.character.AirTime)
+									if airleft > 2 then
+										if not oldy then
+											local ray = workspace:Raycast(root.Position, Vector3.new(0, -1000, 0), rayCheck)
+											if ray and TP.Enabled then
+												tpToggle = false
+												oldy = root.Position.Y
+												tpTick = tick() + 0.11
+												root.CFrame = CFrame.lookAlong(Vector3.new(root.Position.X, ray.Position.Y + entitylib.character.HipHeight, root.Position.Z), root.CFrame.LookVector)
+											end
+										end
+									end
+								else
+									if oldy then
+										if tpTick < tick() then
+											local newpos = Vector3.new(root.Position.X, oldy, root.Position.Z)
+											root.CFrame = CFrame.lookAlong(newpos, root.CFrame.LookVector)
+											tpToggle = true
+											oldy = nil
+										else
+											mass = 0
+										end
+									end
+								end
+							end
+
+							root.CFrame += destination
+							root.AssemblyLinearVelocity = (moveDirection * velo) + Vector3.new(0, mass, 0)
+						end
+					end))
+					Fly:Clean(inputService.InputBegan:Connect(function(input)
+						if not inputService:GetFocusedTextBox() then
+							if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+								up = 1
+							elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+								down = -1
+							end
+						end
+					end))
+					Fly:Clean(inputService.InputEnded:Connect(function(input)
+						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+							up = 0
+						elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+							down = 0
+						end
+					end))
+					if inputService.TouchEnabled then
+						pcall(function()
+							local jumpButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+							Fly:Clean(jumpButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+								up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
+							end))
+						end)
+					end
+				else
+					bedwars.BalloonController.deflateBalloon = old
+					if PopBalloons.Enabled and entitylib.isAlive and (lplr.Character:GetAttribute('InflatedBalloons') or 0) > 0 then
+						for _ = 1, 3 do
+							bedwars.BalloonController:deflateBalloon()
+						end
+					end
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Makes you go zoom.'
+		})
+		Value = Fly:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 23,
+			Default = 23,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		VerticalValue = Fly:CreateSlider({
+			Name = 'Vertical Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		WallCheck = Fly:CreateToggle({
+			Name = 'Wall Check',
+			Default = true
+		})
+		PopBalloons = Fly:CreateToggle({
+			Name = 'Pop Balloons',
+			Default = true
+		})
+		TP = Fly:CreateToggle({
+			Name = 'TP Down',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Mode
+		local Expand
+		local objects, set = {}
+		
+		local function createHitbox(ent)
+			if ent.Targetable and ent.Player then
+				local hitbox = Instance.new('Part')
+				hitbox.Size = Vector3.new(3, 6, 3) + Vector3.one * (Expand.Value / 5)
+				hitbox.Position = ent.RootPart.Position
+				hitbox.CanCollide = false
+				hitbox.Massless = true
+				hitbox.Transparency = 1
+				hitbox.Parent = ent.Character
+				local weld = Instance.new('Motor6D')
+				weld.Part0 = hitbox
+				weld.Part1 = ent.RootPart
+				weld.Parent = hitbox
+				objects[ent] = hitbox
+			end
+		end
+		
+		HitBoxes = vape.Categories.Blatant:CreateModule({
+			Name = 'Hit Boxes',
+			Function = function(callback)
+				if callback then
+					if Mode.Value == 'Sword' then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, (Expand.Value / 3))
+						set = true
+					else
+						HitBoxes:Clean(entitylib.Events.EntityAdded:Connect(createHitbox))
+						HitBoxes:Clean(entitylib.Events.EntityRemoving:Connect(function(ent)
+							if objects[ent] then
+								objects[ent]:Destroy()
+								objects[ent] = nil
+							end
+						end))
+						for _, ent in entitylib.List do
+							createHitbox(ent)
+						end
+					end
+				else
+					if set then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, 3.8)
+						set = nil
+					end
+					for _, part in objects do
+						part:Destroy()
+					end
+					table.clear(objects)
+				end
+			end,
+			Tooltip = 'Expands attack hitbox'
+		})
+		Mode = HitBoxes:CreateDropdown({
+			Name = 'Mode',
+			List = {'Sword', 'Player'},
+			Function = function()
+				if HitBoxes.Enabled then
+					HitBoxes:Toggle()
+					HitBoxes:Toggle()
+				end
+			end,
+			Tooltip = 'Sword - Increases the range around you to hit entities\nPlayer - Increases the players hitbox'
+		})
+		Expand = HitBoxes:CreateSlider({
+			Name = 'Expand amount',
+			Min = 0,
+			Max = 14.4,
+			Default = 14.4,
+			Decimal = 10,
+			Function = function(val)
+				if HitBoxes.Enabled then
+					if Mode.Value == 'Sword' then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, (val / 3))
+					else
+						for _, part in objects do
+							part.Size = Vector3.new(3, 6, 3) + Vector3.one * (val / 5)
+						end
+					end
+				end
+			end,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Blatant:CreateModule({
+			Name = 'KeepSprint',
+			Function = function(callback)
+				if canDebug then
+					debug.setconstant(bedwars.SprintController.startSprinting, 5, callback and 'blockSprinting' or 'blockSprint')
+					bedwars.SprintController:stopSprinting()
+				end
+			end,
+			Tooltip = 'Lets you sprint with a speed potion.'
+		})
+	end)
+		
+	run(function()
+		local Value
+		local CameraDir
+		local start
+		local JumpTick, JumpSpeed, Direction = tick(), 0
+		local projectileRemote = {InvokeServer = function() end}
+		task.spawn(function()
+			projectileRemote = bedwars.Client:Get(remotes.FireProjectile).instance
+		end)
+		
+		local function launchProjectile(item, pos, proj, speed, dir)
+			if not pos then return end
+		
+			pos = pos - dir * 0.1
+			local shootPosition = (CFrame.lookAlong(pos, Vector3.new(0, -speed, 0)) * CFrame.new(Vector3.new(-bedwars.BowConstantsTable.RelX, -bedwars.BowConstantsTable.RelY, -bedwars.BowConstantsTable.RelZ)))
+			switchItem(item.tool, 0)
+			task.wait(0.1)
+			bedwars.ProjectileController:createLocalProjectile(bedwars.ProjectileMeta[proj], proj, proj, shootPosition.Position, '', shootPosition.LookVector * speed, {drawDurationSeconds = 1})
+			if projectileRemote:InvokeServer(item.tool, proj, proj, shootPosition.Position, pos, shootPosition.LookVector * speed, httpService:GenerateGUID(true), {shotId = httpService:GenerateGUID(false), drawDurationSec = 1}, workspace:GetServerTimeNow() - 0.045) then
+				local shoot = bedwars.ItemMeta[item.itemType].projectileSource.launchSound
+				shoot = shoot and shoot[math.random(1, #shoot)] or nil
+				if shoot then
+					bedwars.SoundManager:playSound(shoot)
+				end
+			end
+		end
+		
+		local LongJumpMethods = {
+			cannon = function(_, pos, dir)
+				pos = pos - Vector3.new(0, (entitylib.character.HipHeight + (entitylib.character.RootPart.Size.Y / 2)) - 3, 0)
+				local rounded = Vector3.new(math.round(pos.X / 3) * 3, math.round(pos.Y / 3) * 3, math.round(pos.Z / 3) * 3)
+				bedwars.placeBlock(rounded, 'cannon', false)
+		
+				task.delay(0, function()
+					local block, blockpos = getPlacedBlock(rounded)
+					if block and block.Name == 'cannon' and (entitylib.character.RootPart.Position - block.Position).Magnitude < 20 then
+						local breaktype = bedwars.ItemMeta[block.Name].block.breakType
+						local tool = store.tools[breaktype]
+						if tool then
+							switchItem(tool.tool, 0.1)
+						end
+		
+						bedwars.Client:Get(remotes.CannonAim):SendToServer({
+							cannonBlockPos = blockpos,
+							lookVector = dir
+						})
+		
+						task.wait(0.2)
+
+						task.delay(0.05, function()
+							for i = 1, 2 do
+								bedwars.breakBlock(block, true, true)
+							end
+						end)
+		
+						for _ = 1, 3 do
+							local call = bedwars.Client:Get(remotes.CannonLaunch):CallServer({cannonBlockPos = blockpos})
+							if call then
+								JumpSpeed = 5.25 * Value.Value
+								JumpTick = tick() + 2.3
+								Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+								break
+							end
+							task.wait(0.1)
+						end
+					end
+				end)
+			end,
+			cat = function(_, _, dir)
+				LongJump:Clean(vapeEvents.CatPounce.Event:Connect(function()
+					JumpSpeed = 4 * Value.Value
+					JumpTick = tick() + 2.5
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+					entitylib.character.RootPart.Velocity = Vector3.zero
+				end))
+		
+				if not bedwars.AbilityController:canUseAbility('CAT_POUNCE') then
+					repeat task.wait() until bedwars.AbilityController:canUseAbility('CAT_POUNCE') or not LongJump.Enabled
+				end
+		
+				if bedwars.AbilityController:canUseAbility('CAT_POUNCE') and LongJump.Enabled then
+					bedwars.AbilityController:useAbility('CAT_POUNCE')
+				end
+			end,
+			fireball = function(item, pos, dir)
+				launchProjectile(item, pos, 'fireball', 60, dir)
+			end,
+			grappling_hook = function(item, pos, dir)
+				launchProjectile(item, pos, 'grappling_hook_projectile', 140, dir)
+			end,
+			jade_hammer = function(item, _, dir)
+				if not bedwars.AbilityController:canUseAbility(item.itemType..'_jump') then
+					repeat task.wait() until bedwars.AbilityController:canUseAbility(item.itemType..'_jump') or not LongJump.Enabled
+				end
+		
+				if bedwars.AbilityController:canUseAbility(item.itemType..'_jump') and LongJump.Enabled then
+					bedwars.AbilityController:useAbility(item.itemType..'_jump')
+					JumpSpeed = 1.4 * Value.Value
+					JumpTick = tick() + 2.5
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+				end
+			end,
+			tnt = function(item, pos, dir)
+				pos = pos - Vector3.new(0, (entitylib.character.HipHeight + (entitylib.character.RootPart.Size.Y / 2)) - 3, 0)
+				local rounded = Vector3.new(math.round(pos.X / 3) * 3, math.round(pos.Y / 3) * 3, math.round(pos.Z / 3) * 3)
+				start = Vector3.new(rounded.X, start.Y, rounded.Z) + (dir * (item.itemType == 'pirate_gunpowder_barrel' and 2.6 or 0.2))
+				bedwars.placeBlock(rounded, item.itemType, false)
+			end,
+			wood_dao = function(item, pos, dir)
+				if (lplr.Character:GetAttribute('CanDashNext') or 0) > workspace:GetServerTimeNow() or not bedwars.AbilityController:canUseAbility('dash') then
+					repeat task.wait() until (lplr.Character:GetAttribute('CanDashNext') or 0) < workspace:GetServerTimeNow() and bedwars.AbilityController:canUseAbility('dash') or not LongJump.Enabled
+				end
+		
+				if LongJump.Enabled then
+					bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
+					switchItem(item.tool, 0.1)
+					replicatedStorage['events-@easy-games/game-core:shared/game-core-networking@getEvents.Events'].useAbility:FireServer('dash', {
+						direction = dir,
+						origin = pos,
+						weapon = item.itemType
+					})
+					JumpSpeed = 4.5 * Value.Value
+					JumpTick = tick() + 2.4
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+				end
+			end
+		}
+		for _, v in {'stone_dao', 'iron_dao', 'diamond_dao', 'emerald_dao'} do
+			LongJumpMethods[v] = LongJumpMethods.wood_dao
+		end
+		LongJumpMethods.void_axe = LongJumpMethods.jade_hammer
+		LongJumpMethods.siege_tnt = LongJumpMethods.tnt
+		LongJumpMethods.pirate_gunpowder_barrel = LongJumpMethods.tnt
+		
+		LongJump = vape.Categories.Blatant:CreateModule({
+			Name = 'Long Jump',
+			Function = function(callback)
+				frictionTable.LongJump = callback or nil
+				updateVelocity()
+				if callback then
+					LongJump:Clean(vapeEvents.EntityDamageEvent.Event:Connect(function(damageTable)
+						if damageTable.entityInstance then
+							damageTable.entityInstance = typeof(damageTable.entityInstance) == 'string' and workspace[damageTable.entityInstance] or typeof(damageTable.entityInstance) == 'Instance' and damageTable.entityInstance
+						end
+
+						if damageTable.fromEntity then
+							damageTable.fromEntity = typeof(damageTable.fromEntity) == 'string' and workspace[damageTable.fromEntity] or typeof(damageTable.fromEntity) == 'Instance' and damageTable.fromEntity
+						end
+						
+						if damageTable.entityInstance == lplr.Character and damageTable.fromEntity == lplr.Character and (not damageTable.knockbackMultiplier or not damageTable.knockbackMultiplier.disabled) then
+							local knockbackBoost = bedwars.KnockbackUtil.calculateKnockbackVelocity(Vector3.one, 1, {
+								vertical = 0,
+								horizontal = (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal or 1)
+							}).Magnitude * 1.1
+
+							if knockbackBoost and not canDebug then
+								knockbackBoost = 42
+							end
+		
+							if knockbackBoost >= JumpSpeed or not canDebug then
+								local pos = damageTable.fromPosition and Vector3.new(damageTable.fromPosition.X, damageTable.fromPosition.Y, damageTable.fromPosition.Z) or damageTable.fromEntity and damageTable.fromEntity.PrimaryPart.Position
+								if not pos then return end
+								local vec = (entitylib.character.RootPart.Position - (pos - (canDebug and Vector3.zero or (entitylib.character.RootPart.CFrame.LookVector * 12))))
+								JumpSpeed = knockbackBoost
+								JumpTick = tick() + 2.5
+								Direction = Vector3.new(vec.X, 0, vec.Z).Unit
+							end
+						end
+					end))
+					LongJump:Clean(vapeEvents.GrapplingHookFunctions.Event:Connect(function(dataTable)
+						if dataTable.hookFunction == 'PLAYER_IN_TRANSIT' then
+							local vec = entitylib.character.RootPart.CFrame.LookVector
+							JumpSpeed = 2.5 * Value.Value
+							JumpTick = tick() + 2.5
+							Direction = Vector3.new(vec.X, 0, vec.Z).Unit
+						end
+					end))
+		
+					start = entitylib.isAlive and entitylib.character.RootPart.Position or nil
+					LongJump:Clean(runService.PreSimulation:Connect(function(dt)
+						local root = entitylib.isAlive and entitylib.character.RootPart or nil
+		
+						if root and isnetworkowner(root) then
+							if JumpTick > tick() then
+								root.AssemblyLinearVelocity = Direction * (getSpeed() + ((JumpTick - tick()) > 1.1 and JumpSpeed or 0)) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+								if entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and not start then
+									root.AssemblyLinearVelocity += Vector3.new(0, dt * (workspace.Gravity - 23), 0)
+								else
+									root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, 15, root.AssemblyLinearVelocity.Z)
+								end
+								start = nil
+							else
+								if start then
+									root.CFrame = CFrame.lookAlong(start, root.CFrame.LookVector)
+								end
+								root.AssemblyLinearVelocity = Vector3.zero
+								JumpSpeed = 0
+							end
+						else
+							start = nil
+						end
+					end))
+		
+					if store.hand and store.hand.tool and LongJumpMethods[store.hand.tool.Name] then
+						task.spawn(LongJumpMethods[store.hand.tool.Name], getItem(store.hand.tool.Name), start, (CameraDir.Enabled and gameCamera or entitylib.character.RootPart).CFrame.LookVector)
+						return
+					end
+		
+					for i, v in LongJumpMethods do
+						local item = getItem(i)
+						if item or store.equippedKit == i then
+							task.spawn(v, item, start, (CameraDir.Enabled and gameCamera or entitylib.character.RootPart).CFrame.LookVector)
+							break
+						end
+					end
+				else
+					JumpTick = tick()
+					Direction = nil
+					JumpSpeed = 0
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Lets you jump farther'
+		})
+		Value = LongJump:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 37,
+			Default = 37,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		CameraDir = LongJump:CreateToggle({
+			Name = 'Camera Direction'
+		})
+	end)
+
+	run(function() -- CATVAPE FEATURE
+		local NoFall
+		local DamageAccuracy
+
+		local rayParams = RaycastParams.new()
+		local rand = Random.new()
+
+		NoFall = vape.Categories.Blatant:CreateModule({ 
+			Name = 'No Fall',
+			Function = function(callback)
+				if callback then
+					local tracked, extraGravity, velocity = 0, 0, 0
+					NoFall:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive then
+							local root = store.rootpart or entitylib.character.RootPart
+							if root.AssemblyLinearVelocity.Y < -85 then
+								rayParams.FilterDescendantsInstances = {lplr.Character, gameCamera}
+								rayParams.CollisionGroup = root.CollisionGroup
+
+								local rootSize = root.Size.Y / 2.5 + entitylib.character.HipHeight
+								local ray = workspace:Blockcast(root.CFrame, Vector3.new(3, 3, 3), Vector3.new(0, (tracked * 0.1) - rootSize, 0), rayParams)
+								if not ray then
+									local Failed = rand:NextNumber(0, 100) < (DamageAccuracy.Value)
+									local velo = root.AssemblyLinearVelocity.Y
+
+									if Failed then 
+										root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, velo + 0.5, root.AssemblyLinearVelocity.Z)
+									else
+										root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, -86, root.AssemblyLinearVelocity.Z)
+									end
+
+									velocity = velo
+									root.CFrame = root.CFrame + Vector3.new(0, (Failed and -extraGravity or extraGravity) * dt, 0)
+									extraGravity = extraGravity + (Failed and workspace.Gravity or -workspace.Gravity) * dt
+								else
+									velocity = root.AssemblyLinearVelocity.Y
+								end
+							else
+								extraGravity = 0
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Prevents you from taking fall damage.'
+		})
+
+		DamageAccuracy = NoFall:CreateSlider({
+			Name = 'Damage Accuracy',
+			Min = 0,
+			Max = 100,
+			Suffix = '%',
+			Default = 0,
+			Decimal = 5
+		})
+	end)
+		
+	run(function()
+		local old
+		
+		vape.Categories.Blatant:CreateModule({
+			Name = 'No Slow',
+			Function = function(callback)
+				local modifier = bedwars.SprintController:getMovementStatusModifier()
+				if callback then
+					old = modifier.addModifier
+					modifier.addModifier = function(self, tab)
+						if tab.moveSpeedMultiplier then
+							tab.moveSpeedMultiplier = math.max(tab.moveSpeedMultiplier, 1)
+						end
+						return old(self, tab)
+					end
+		
+					for i in modifier.modifiers do
+						if (i.moveSpeedMultiplier or 1) < 1 then
+							modifier:removeModifier(i)
+						end
+					end
+				else
+					modifier.addModifier = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Prevents slowing down when using items.'
+		})
+	end)
+
+		
+	run(function()
+		local Speed
+		local Value
+		local WallCheck
+		local AutoJump
+		local AlwaysJump
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		
+		Speed = vape.Categories.Blatant:CreateModule({
+			Name = 'Speed',
+			Function = function(callback)
+				frictionTable.Speed = callback or nil
+				updateVelocity()
+				pcall(function()
+					debug.setconstant(bedwars.WindWalkerController.updateSpeed, 7, callback and 'constantSpeedMultiplier' or 'moveSpeedMultiplier')
+				end)
+		
+				if callback then
+					Speed:Clean(runService.PreSimulation:Connect(function(dt)
+						bedwars.StatefulEntityKnockbackController.lastImpulseTime = callback and math.huge or time()
+						if entitylib.isAlive and not Fly.Enabled and not (InfiniteFly or {}).Enabled and not LongJump.Enabled then
+							local state = entitylib.character.Humanoid:GetState()
+							if state == Enum.HumanoidStateType.Climbing then return end
+		
+							local root, velo = entitylib.character.RootPart, getSpeed()
+							local moveDirection = AntiFallDirection or entitylib.character.Humanoid.MoveDirection
+							local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+		
+							if WallCheck.Enabled then
+								rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+								rayCheck.CollisionGroup = root.CollisionGroup
+								local ray = workspace:Raycast(root.Position, destination, rayCheck)
+								if ray then
+									destination = ((ray.Position + ray.Normal) - root.Position)
+								end
+							end
+		
+							root.CFrame += destination
+							root.AssemblyLinearVelocity = (moveDirection * velo) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+							if AutoJump.Enabled and (state == Enum.HumanoidStateType.Running or state == Enum.HumanoidStateType.Landed) and moveDirection ~= Vector3.zero and (Attacking or AlwaysJump.Enabled) then
+								entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+							end
+						end
+					end))
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Increases your movement with various methods.'
+		})
+		Value = Speed:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 23,
+			Default = 23,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		WallCheck = Speed:CreateToggle({
+			Name = 'Wall Check',
+			Default = true
+		})
+		AutoJump = Speed:CreateToggle({
+			Name = 'AutoJump',
+			Function = function(callback)
+				AlwaysJump.Object.Visible = callback
+			end
+		})
+		AlwaysJump = Speed:CreateToggle({
+			Name = 'Always Jump',
+			Visible = false,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local BedESP
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function Added(bed)
+			if not BedESP.Enabled then return end
+			local BedFolder = Instance.new('Folder')
+			BedFolder.Parent = Folder
+			Reference[bed] = BedFolder
+			local parts = bed:GetChildren()
+			table.sort(parts, function(a, b)
+				return a.Name > b.Name
+			end)
+		
+			for _, part in parts do
+				if part:IsA('BasePart') and part.Name ~= 'Blanket' then
+					local handle = Instance.new('BoxHandleAdornment')
+					handle.Size = part.Size + Vector3.new(.01, .01, .01)
+					handle.AlwaysOnTop = true
+					handle.ZIndex = 2
+					handle.Visible = true
+					handle.Adornee = part
+					handle.Color3 = part.Color
+					if part.Name == 'Legs' then
+						handle.Color3 = Color3.fromRGB(167, 112, 64)
+						handle.Size = part.Size + Vector3.new(.01, -1, .01)
+						handle.CFrame = CFrame.new(0, -0.4, 0)
+						handle.ZIndex = 0
+					end
+					handle.Parent = BedFolder
+				end
+			end
+		
+			table.clear(parts)
+		end
+		
+		BedESP = vape.Categories.Render:CreateModule({
+			Name = 'Bed ESP',
+			Function = function(callback)
+				if callback then
+					BedESP:Clean(collectionService:GetInstanceAddedSignal('bed'):Connect(function(bed)
+						task.delay(0.2, Added, bed)
+					end))
+					BedESP:Clean(collectionService:GetInstanceRemovedSignal('bed'):Connect(function(bed)
+						if Reference[bed] then
+							Reference[bed]:Destroy()
+							Reference[bed] = nil
+						end
+					end))
+					for _, bed in collectionService:GetTagged('bed') do
+						Added(bed)
+					end
+				else
+					Folder:ClearAllChildren()
+					table.clear(Reference)
+				end
+			end,
+			Tooltip = 'Render Beds through walls'
+		})
+	end)
+		
+	run(function()
+		local Health
+		
+		Health = vape.Categories.Render:CreateModule({
+			Name = 'Health',
+			Function = function(callback)
+				if callback then
+					local label = Instance.new('TextLabel')
+					label.Size = UDim2.fromOffset(100, 20)
+					label.Position = UDim2.new(0.5, 6, 0.5, 30)
+					label.BackgroundTransparency = 1
+					label.AnchorPoint = Vector2.new(0.5, 0)
+					label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health'))..' ❤️' or ''
+					label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+					label.TextSize = 18
+					label.Font = Enum.Font.Arial
+					label.Parent = vape.gui
+					Health:Clean(label)
+					Health:Clean(vapeEvents.AttributeChanged.Event:Connect(function()
+						label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health'))..' ❤️' or ''
+						label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+					end))
+				end
+			end,
+			Tooltip = 'Displays your health in the center of your screen.'
+		})
+	end)
+		
+	run(function() -- CATVAPE FEATURE
+		local KitESP
+		local DistanceCheck
+		local Distance
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local ESPKits = {
+			alchemist = {'alchemist_ingedients', 'wild_flower'},
+			beekeeper = {'bee', 'bee'},
+			bigman = {'treeOrb', 'natures_essence_1'},
+			ghost_catcher = {'ghost', 'ghost_orb'},
+			metal_detector = {'hidden-metal', 'iron'},
+			sheep_herder = {'SheepModel', 'purple_hay_bale'},
+			sorcerer = {'alchemy_crystal', 'wild_flower'},
+			star_collector = {'stars', 'crit_star'}
+		}
+		
+		local function Added(v, icon)
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = icon
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			if DistanceCheck.Enabled then
+				billboard.Enabled = (entitylib.character.RootPart.Position - v:GetPivot().Position).Magnitude <= Distance.Value
+			end
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local image = Instance.new('ImageLabel')
+			image.Size = UDim2.fromOffset(36, 36)
+			image.Position = UDim2.fromScale(0.5, 0.5)
+			image.AnchorPoint = Vector2.new(0.5, 0.5)
+			image.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			image.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			image.BorderSizePixel = 0
+			image.Parent = billboard
+			local imgicon = image:Clone()
+			imgicon.Name = 'Icon'
+			imgicon.Parent = image
+			imgicon.ZIndex = 2
+			imgicon.BackgroundTransparency = 1
+			imgicon.Image = bedwars.getIcon({itemType = icon}, true)
+			imgicon.Size = UDim2.fromOffset(29, 29)
+
+			local uicorner = Instance.new('UICorner')
+			uicorner.CornerRadius = UDim.new(0, 6)
+			uicorner.Parent = image
+			Reference[v] = billboard
+		end
+		
+		local function addKit(tag, icon)
+			KitESP:Clean(collectionService:GetInstanceAddedSignal(tag):Connect(function(v)
+				Added(v.PrimaryPart, icon)
+			end))
+			KitESP:Clean(collectionService:GetInstanceRemovedSignal(tag):Connect(function(v)
+				if Reference[v.PrimaryPart] then
+					Reference[v.PrimaryPart]:Destroy()
+					Reference[v.PrimaryPart] = nil
+				end
+			end))
+			for _, v in collectionService:GetTagged(tag) do
+				Added(v.PrimaryPart, icon)
+			end
+		end
+		
+		KitESP = vape.Categories.Render:CreateModule({
+			Name = 'Kit ESP',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.equippedKit ~= '' or (not KitESP.Enabled)
+					local kit = KitESP.Enabled and ESPKits[store.equippedKit] or nil
+					if kit then
+						addKit(kit[1], kit[2])
+					end
+					repeat
+						if entitylib.isAlive then
+							for piv, v in Reference do
+								v.Enabled = not DistanceCheck.Enabled or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+							end
+						end
+						task.wait()
+					until not KitESP.Enabled
+				else
+					Folder:ClearAllChildren()
+					table.clear(Reference)
+				end
+			end,
+			Tooltip = 'ESP for certain kit related objects'
+		})
+		Background = KitESP:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then Color.Object.Visible = callback end
+				for _, v in Reference do
+					v.ImageLabel.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = KitESP:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.ImageLabel.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.ImageLabel.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+		DistanceCheck = KitESP:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(call)
+				if Distance then
+					Distance.Object.Visible = call
+				end
+				for piv, v in Reference do
+					v.Enabled = not call or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+				end
+			end
+		})
+		Distance = KitESP:CreateSlider({
+			Name = 'Distance',
+			Min = 0,
+			Max = 256,
+			Default = 50,
+			Darker = true
+		})
+		Distance.Object.Visible = false
+	end)
+		
+	run(function()
+		local NameTags
+		local Targets
+		local Color
+		local Background
+		local DisplayName
+		local Health
+		local Distance
+		local Equipment
+		local DrawingToggle
+		local Scale
+		local FontOption
+		local Teammates
+		local DistanceCheck
+		local DistanceLimit
+		local Strings, Sizes, Reference = {}, {}, {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		local methodused
+		
+		local Added = {
+			Normal = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+		
+				local nametag = Instance.new('TextLabel')
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+				if Health.Enabled then
+					local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+					Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(healthColor.R * 255))..','..tostring(math.floor(healthColor.G * 255))..','..tostring(math.floor(healthColor.B * 255))..')">'..math.round(ent.Health)..'</font>'
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+				end
+		
+				if Equipment.Enabled then
+					for i, v in {'Hand', 'Helmet', 'Chestplate', 'Boots', 'Kit'} do
+						local Icon = Instance.new('ImageLabel')
+						Icon.Name = v
+						Icon.Size = UDim2.fromOffset(30, 30)
+						Icon.Position = UDim2.fromOffset(-60 + (i * 30), -30)
+						Icon.BackgroundTransparency = 1
+						Icon.Image = ''
+						Icon.Parent = nametag
+					end
+				end
+		
+				nametag.TextSize = 14 * Scale.Value
+				nametag.FontFace = FontOption.Value
+				local size = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+				nametag.Name = ent.Player and ent.Player.Name or ent.Character.Name
+				nametag.Size = UDim2.fromOffset(size.X + 8, size.Y + 7)
+				nametag.AnchorPoint = Vector2.new(0.5, 1)
+				nametag.BackgroundColor3 = Color3.new()
+				nametag.BackgroundTransparency = Background.Value
+				nametag.BorderSizePixel = 0
+				nametag.Visible = false
+				nametag.Text = Strings[ent]
+				nametag.TextColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.RichText = true
+				nametag.Parent = Folder
+				Reference[ent] = nametag
+			end,
+			Drawing = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+		
+				local nametag = {}
+				nametag.BG = Drawing.new('Square')
+				nametag.BG.Filled = true
+				nametag.BG.Transparency = 1 - Background.Value
+				nametag.BG.Color = Color3.new()
+				nametag.BG.ZIndex = 1
+				nametag.Text = Drawing.new('Text')
+				nametag.Text.Size = 15 * Scale.Value
+				nametag.Text.Font = 0
+				nametag.Text.ZIndex = 2
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+				if Health.Enabled then
+					Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '[%s] '..Strings[ent]
+				end
+		
+				nametag.Text.Text = Strings[ent]
+				nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+				Reference[ent] = nametag
+			end
+		}
+		
+		local Removed = {
+			Normal = function(ent)
+				local v = Reference[ent]
+				if v then
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					v:Destroy()
+				end
+			end,
+			Drawing = function(ent)
+				local v = Reference[ent]
+				if v then
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					for _, obj in v do
+						pcall(function()
+							obj.Visible = false
+							obj:Remove()
+						end)
+					end
+				end
+			end
+		}
+		
+		local Updated = {
+			Normal = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+					if Health.Enabled then
+						local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+						Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(healthColor.R * 255))..','..tostring(math.floor(healthColor.G * 255))..','..tostring(math.floor(healthColor.B * 255))..')">'..math.round(ent.Health)..'</font>'
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+					end
+		
+					if Equipment.Enabled and store.inventories[ent.Player] then
+						local kit = ent.Player:GetAttribute('PlayingAsKits')
+						local inventory = store.inventories[ent.Player]
+						nametag.Hand.Image = bedwars.getIcon(inventory.hand or {itemType = ''}, true)
+						nametag.Helmet.Image = bedwars.getIcon(inventory.armor[4] or {itemType = ''}, true)
+						nametag.Chestplate.Image = bedwars.getIcon(inventory.armor[5] or {itemType = ''}, true)
+						nametag.Boots.Image = bedwars.getIcon(inventory.armor[6] or {itemType = ''}, true)
+						nametag.Kit.Image = bedwars.BedwarsKitMeta[kit].renderImage
+					end
+		
+					local size = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+					nametag.Size = UDim2.fromOffset(size.X + 8, size.Y + 7)
+					nametag.Text = Strings[ent]
+				end
+			end,
+			Drawing = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+					if Health.Enabled then
+						Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '[%s] '..Strings[ent]
+						nametag.Text.Text = entitylib.isAlive and string.format(Strings[ent], math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude)) or Strings[ent]
+					else
+						nametag.Text.Text = Strings[ent]
+					end
+		
+					nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+					nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				end
+			end
+		}
+		
+		local ColorFunc = {
+			Normal = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.TextColor3 = entitylib.getEntityColor(i) or color
+				end
+			end,
+			Drawing = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.Text.Color = entitylib.getEntityColor(i) or color
+				end
+			end
+		}
+		
+		local Loop = {
+			Normal = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled then
+						local mag = entitylib.isAlive and math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude) or 0
+						if Sizes[ent] ~= mag then
+							nametag.Text = string.format(Strings[ent], mag)
+							local ize = getfontsize(removeTags(nametag.Text), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+							nametag.Size = UDim2.fromOffset(ize.X + 8, ize.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.Position = UDim2.fromOffset(headPos.X, headPos.Y)
+				end
+			end,
+			Drawing = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Text.Visible = false
+							nametag.BG.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Text.Visible = headVis
+					nametag.BG.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled then
+						local mag = entitylib.isAlive and math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude) or 0
+						if Sizes[ent] ~= mag then
+							nametag.Text.Text = string.format(Strings[ent], mag)
+							nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.BG.Position = Vector2.new(headPos.X - (nametag.BG.Size.X / 2), headPos.Y - nametag.BG.Size.Y)
+					nametag.Text.Position = nametag.BG.Position + Vector2.new(4, 3)
+				end
+			end
+		}
+		
+		NameTags = vape.Categories.Render:CreateModule({
+			Name = 'Name Tags',
+			Function = function(callback)
+				if callback then
+					methodused = DrawingToggle.Enabled and 'Drawing' or 'Normal'
+					if Removed[methodused] then
+						NameTags:Clean(entitylib.Events.EntityRemoved:Connect(Removed[methodused]))
+					end
+					if Added[methodused] then
+						for _, v in entitylib.List do
+							if Reference[v] then
+								Removed[methodused](v)
+							end
+							Added[methodused](v)
+						end
+						NameTags:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+							if Reference[ent] then
+								Removed[methodused](ent)
+							end
+							Added[methodused](ent)
+						end))
+					end
+					if Updated[methodused] then
+						NameTags:Clean(entitylib.Events.EntityUpdated:Connect(Updated[methodused]))
+						for _, v in entitylib.List do
+							Updated[methodused](v)
+						end
+					end
+					if ColorFunc[methodused] then
+						NameTags:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+							ColorFunc[methodused](Color.Hue, Color.Sat, Color.Value)
+						end))
+					end
+					if Loop[methodused] then
+						NameTags:Clean(runService.RenderStepped:Connect(Loop[methodused]))
+					end
+				else
+					if Removed[methodused] then
+						for i in Reference do
+							Removed[methodused](i)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Renders nametags on entities through walls.'
+		})
+		Targets = NameTags:CreateTargets({
+			Players = true,
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		FontOption = NameTags:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Arial',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Color = NameTags:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if NameTags.Enabled and ColorFunc[methodused] then
+					ColorFunc[methodused](hue, sat, val)
+				end
+			end
+		})
+		Scale = NameTags:CreateSlider({
+			Name = 'Scale',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 1,
+			Min = 0.1,
+			Max = 1.5,
+			Decimal = 10
+		})
+		Background = NameTags:CreateSlider({
+			Name = 'Transparency',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 0.5,
+			Min = 0,
+			Max = 1,
+			Decimal = 10
+		})
+		Health = NameTags:CreateToggle({
+			Name = 'Health',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Distance = NameTags:CreateToggle({
+			Name = 'Distance',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Equipment = NameTags:CreateToggle({
+			Name = 'Equipment',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		DisplayName = NameTags:CreateToggle({
+			Name = 'Use Displayname',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true
+		})
+		Teammates = NameTags:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true
+		})
+		DrawingToggle = NameTags:CreateToggle({
+			Name = 'Drawing',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+		})
+		DistanceCheck = NameTags:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = NameTags:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local StorageESP
+		local List
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function nearStorageItem(item)
+			for _, v in List.ListEnabled do
+				if item:find(v) then return v end
+			end
+		end
+		
+		local function refreshAdornee(v)
+			local chest = v.Adornee:FindFirstChild('ChestFolderValue')
+			chest = chest and chest.Value or nil
+			if not chest then
+				v.Enabled = false
+				return
+			end
+		
+			local chestitems = chest and chest:GetChildren() or {}
+			for _, obj in v.Frame:GetChildren() do
+				if obj:IsA('ImageLabel') and obj.Name ~= 'Blur' then
+					obj:Destroy()
+				end
+			end
+		
+			v.Enabled = false
+			local alreadygot = {}
+			for _, item in chestitems do
+				if not alreadygot[item.Name] and (table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name)) then
+					alreadygot[item.Name] = true
+					v.Enabled = true
+					local blockimage = Instance.new('ImageLabel')
+					blockimage.Size = UDim2.fromOffset(31, 31)
+					blockimage.BackgroundTransparency = 1
+					blockimage.Image = bedwars.getIcon({itemType = item.Name}, true)
+					blockimage.Parent = v.Frame
+				end
+			end
+			table.clear(chestitems)
+		end
+		
+		local function Added(v)
+			local chest = v:WaitForChild('ChestFolderValue', 3)
+			if not (chest and StorageESP.Enabled) then return end
+			chest = chest.Value
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = 'chest'
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local frame = Instance.new('Frame')
+			frame.Size = UDim2.fromScale(1, 1)
+			frame.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			frame.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			frame.Parent = billboard
+			local layout = Instance.new('UIListLayout')
+			layout.FillDirection = Enum.FillDirection.Horizontal
+			layout.Padding = UDim.new(0, 4)
+			layout.VerticalAlignment = Enum.VerticalAlignment.Center
+			layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+			end)
+			layout.Parent = frame
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 6)
+			corner.Parent = frame
+			Reference[v] = billboard
+			StorageESP:Clean(chest.ChildAdded:Connect(function(item)
+				if table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name) then
+					refreshAdornee(billboard)
+				end
+			end))
+			StorageESP:Clean(chest.ChildRemoved:Connect(function(item)
+				if table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name) then
+					refreshAdornee(billboard)
+				end
+			end))
+			task.spawn(refreshAdornee, billboard)
+		end
+		
+		StorageESP = vape.Categories.Render:CreateModule({
+			Name = 'Storage ESP',
+			Function = function(callback)
+				if callback then
+					StorageESP:Clean(collectionService:GetInstanceAddedSignal('chest'):Connect(Added))
+					for _, v in collectionService:GetTagged('chest') do
+						task.spawn(Added, v)
+					end
+				else
+					table.clear(Reference)
+					Folder:ClearAllChildren()
+				end
+			end,
+			Tooltip = 'Displays items in chests'
+		})
+		List = StorageESP:CreateTextList({
+			Name = 'Item',
+			Function = function()
+				for _, v in Reference do
+					task.spawn(refreshAdornee, v)
+				end
+			end
+		})
+		Background = StorageESP:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then Color.Object.Visible = callback end
+				for _, v in Reference do
+					v.Frame.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = StorageESP:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.Frame.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local AutoBalloon
+		
+		AutoBalloon = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Balloon',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AutoBalloon.Enabled)
+					if not AutoBalloon.Enabled then return end
+		
+					local lowestpoint = math.huge
+					for _, v in store.blocks do
+						local point = (v.Position.Y - (v.Size.Y / 2)) - 50
+						if point < lowestpoint then 
+							lowestpoint = point 
+						end
+					end
+		
+					repeat
+						if entitylib.isAlive then
+							if entitylib.character.RootPart.Position.Y < lowestpoint and (lplr.Character:GetAttribute('InflatedBalloons') or 0) < 3 then
+								local balloon = getItem('balloon')
+								if balloon then
+									for _ = 1, 3 do 
+										bedwars.BalloonController:inflateBalloon() 
+									end
+								end
+								task.wait(0.1)
+							end
+						end
+						task.wait(0.1)
+					until not AutoBalloon.Enabled
+				end
+			end,
+			Tooltip = 'Inflates when you fall into the void'
+		})
+	end)
+		
+	run(function()
+		local AutoPearl
+		local LegitSwitch
+
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local projectileRemote = {InvokeServer = function() end}
+		task.spawn(function()
+			projectileRemote = bedwars.Client:Get(remotes.FireProjectile).instance
+		end)
+		
+		local function firePearl(pos, spot, item)
+			if LegitSwitch.Enabled then
+				for i, v in store.inventory.hotbar do
+					if v.item and v.item.tool == item.tool and i ~= (store.inventory.hotbarSlot + 1) then 
+						hotbarSwitch(i - 1)
+						task.wait(0.1)
+						break
+					end
+				end
+			else
+				switchItem(item.tool)
+			end
+			local meta = bedwars.ProjectileMeta.telepearl
+			local calc = prediction.SolveTrajectory(pos, meta.launchVelocity, meta.gravitationalAcceleration, spot, Vector3.zero, workspace.Gravity, 0, 0, nil, false, lplr:GetNetworkPing())
+
+			if calc then
+				local dir = CFrame.lookAt(pos, calc).LookVector * meta.launchVelocity
+				--bedwars.ProjectileController:createLocalProjectile(meta, 'telepearl', 'telepearl', pos, nil, dir, {drawDurationSeconds = 1})
+				projectileRemote:InvokeServer(item.tool, 'telepearl', 'telepearl', pos, pos, dir, httpService:GenerateGUID(true), {drawDurationSeconds = 1, shotId = httpService:GenerateGUID(false)}, workspace:GetServerTimeNow() - 0.045)
+			end
+		
+			if store.hand then
+				switchItem(store.hand.tool)
+			end
+		end
+		
+		AutoPearl = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Pearl',
+			Function = function(callback)
+				if callback then
+					local check
+					repeat
+						if entitylib.isAlive then
+							local root = entitylib.character.RootPart
+							local pearl = getItem('telepearl')
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
+							rayCheck.CollisionGroup = root.CollisionGroup
+		
+							if pearl and root.Velocity.Y < -80 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
+								if not check then
+									check = true
+									local ground = getNearGround(20)
+		
+									if ground then
+										getgenv().CancelSwitch = os.clock() + 0.3
+										firePearl(root.Position, ground, pearl)
+									end
+								end
+							else
+								check = false
+							end
+						end
+						task.wait(0.1)
+					until not AutoPearl.Enabled
+				end
+			end,
+			Tooltip = 'Automatically throws a pearl onto nearby ground after\nfalling a certain distance.'
+		})
+
+		LegitSwitch = AutoPearl:CreateToggle({
+			Name = 'Legit Switch'
+		})
+	end)
+		
+	run(function()
+		local AutoPlay
+		local Random
+		
+		local function isEveryoneDead()
+			return #bedwars.Store:getState().Party.members <= 0
+		end
+		
+		local function joinQueue()
+			if not bedwars.Store:getState().Game.customMatch and bedwars.Store:getState().Party.leader.userId == lplr.UserId and bedwars.Store:getState().Party.queueState == 0 then
+				if Random.Enabled then
+					local listofmodes = {}
+					for i, v in bedwars.QueueMeta do
+						if not v.disabled and not v.voiceChatOnly and not v.rankCategory then 
+							table.insert(listofmodes, i) 
+						end
+					end
+					bedwars.QueueController:joinQueue(listofmodes[math.random(1, #listofmodes)])
+				else
+					bedwars.QueueController:joinQueue(store.queueType)
+				end
+			end
+		end
+		
+		AutoPlay = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Queue',
+			Function = function(callback)
+				if callback then
+					AutoPlay:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+						if deathTable.finalKill and deathTable.entityInstance == lplr.Character and isEveryoneDead() and store.matchState ~= 2 then
+							joinQueue()
+						end
+					end))
+					AutoPlay:Clean(vapeEvents.MatchEndEvent.Event:Connect(joinQueue))
+				end
+			end,
+			Tooltip = 'Automatically queues after the match ends.'
+		})
+		Random = AutoPlay:CreateToggle({
+			Name = 'Random',
+			Tooltip = 'Chooses a random mode'
+		})
+	end)
+		
+	run(function()
+		local shooting, old = false
+		
+		local function getCrossbows()
+			local crossbows = {}
+			for i, v in store.inventory.hotbar do
+				if v.item and v.item.itemType:find('crossbow') and i ~= (store.inventory.hotbarSlot + 1) then table.insert(crossbows, i - 1) end
+			end
+			return crossbows
+		end
+		
+		vape.Categories.Utility:CreateModule({
+			Name = 'Auto Shoot',
+			Function = function(callback)
+				if callback then
+					old = bedwars.ProjectileController.createLocalProjectile
+					bedwars.ProjectileController.createLocalProjectile = function(...)
+						local source, data, proj = ...
+						if source and (proj == 'arrow' or proj == 'fireball') and not shooting then
+							task.spawn(function()
+								local bows = getCrossbows()
+								if #bows > 0 then
+									shooting = true
+									task.wait(0.15)
+									local selected = store.inventory.hotbarSlot
+									for _, v in getCrossbows() do
+										if hotbarSwitch(v) then
+											task.wait(0.05)
+											mouse1click()
+											task.wait(0.05)
+										end
+									end
+									hotbarSwitch(selected)
+									shooting = false
+								end
+							end)
+						end
+						return old(...)
+					end
+				else
+					bedwars.ProjectileController.createLocalProjectile = old
+				end
+			end,
+			Tooltip = 'Automatically crossbow macro\'s'
+		})
+		
+	end)
+		
+	run(function()
+		local AutoToxic
+		local GG
+		local Toggles, Lists, said, dead = {}, {}, {}
+		
+		local function sendMessage(name, obj, default)
+			local tab = Lists[name].ListEnabled
+			local custommsg = #tab > 0 and tab[math.random(1, #tab)] or default
+			if not custommsg then return end
+			if #tab > 1 and custommsg == said[name] then
+				repeat 
+					task.wait() 
+					custommsg = tab[math.random(1, #tab)] 
+				until custommsg ~= said[name]
+			end
+			said[name] = custommsg
+		
+			custommsg = custommsg and custommsg:gsub('<obj>', obj or '') or ''
+			if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+				textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(custommsg)
+			else
+				replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(custommsg, 'All')
+			end
+		end
+		
+		AutoToxic = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Toxic',
+			Function = function(callback)
+				if callback then
+					AutoToxic:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(bedTable)
+						if Toggles.BedDestroyed.Enabled and bedTable.brokenBedTeam.id == lplr:GetAttribute('Team') then
+							sendMessage('BedDestroyed', (bedTable.player.DisplayName or bedTable.player.Name), 'how dare you >:( | <obj>')
+						elseif Toggles.Bed.Enabled and bedTable.player.UserId == lplr.UserId then
+							local team = bedwars.QueueMeta[store.queueType].teams[tonumber(bedTable.brokenBedTeam.id)]
+							sendMessage('Bed', team and team.displayName:lower() or 'white', '<obj> bed has been sent to the abyss...')
+						end
+					end))
+					AutoToxic:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+						if deathTable.finalKill then
+							local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+							local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+							if not killed or not killer then return end
+							if killed == lplr then
+								if (not dead) and killer ~= lplr and Toggles.Death.Enabled then
+									dead = true
+									sendMessage('Death', (killer.DisplayName or killer.Name), 'my gaming chair subscription expired :( | <obj>')
+								end
+							elseif killer == lplr and Toggles.Kill.Enabled then
+								sendMessage('Kill', (killed.DisplayName or killed.Name), 'imagine dying <obj>, get catvape lol!')
+							end
+						end
+					end))
+					AutoToxic:Clean(vapeEvents.MatchEndEvent.Event:Connect(function(winstuff)
+						if GG.Enabled then
+							if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+								textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync('gg')
+							else
+								replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('gg', 'All')
+							end
+						end
+						
+						local myTeam = bedwars.Store:getState().Game.myTeam
+						if myTeam and myTeam.id == winstuff.winningTeamId or lplr.Neutral then
+							if Toggles.Win.Enabled then 
+								sendMessage('Win', nil, 'yall garbage') 
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Says a message after a certain action'
+		})
+		GG = AutoToxic:CreateToggle({
+			Name = 'AutoGG',
+			Default = true
+		})
+		for _, v in {'Kill', 'Death', 'Bed', 'BedDestroyed', 'Win'} do
+			Toggles[v] = AutoToxic:CreateToggle({
+				Name = v..' ',
+				Function = function(callback)
+					if Lists[v] then
+						Lists[v].Object.Visible = callback
+					end
+				end
+			})
+			Lists[v] = AutoToxic:CreateTextList({
+				Name = v,
+				Darker = true,
+				Visible = false
+			})
+		end
+	end)
+		
+	run(function()
+		local AutoVoidDrop
+		local OwlCheck
+		
+		AutoVoidDrop = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Void Drop',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AutoVoidDrop.Enabled)
+					if not AutoVoidDrop.Enabled then return end
+		
+					local lowestpoint = math.huge
+					for _, v in store.blocks do
+						local point = (v.Position.Y - (v.Size.Y / 2)) - 50
+						if point < lowestpoint then
+							lowestpoint = point
+						end
+					end
+		
+					repeat
+						if entitylib.isAlive then
+							local root = entitylib.character.RootPart
+							if root.Position.Y < lowestpoint and (lplr.Character:GetAttribute('InflatedBalloons') or 0) <= 0 and not getItem('balloon') then
+								if not OwlCheck.Enabled or not root:FindFirstChild('OwlLiftForce') then
+									for _, item in {'iron', 'diamond', 'emerald', 'gold'} do
+										item = getItem(item)
+										if item then
+											item = bedwars.Client:Get(remotes.DropItem):CallServer({
+												item = item.tool,
+												amount = item.amount
+											})
+		
+											if item then
+												item:SetAttribute('ClientDropTime', tick() + 100)
+											end
+										end
+									end
+								end
+							end
+						end
+		
+						task.wait(0.1)
+					until not AutoVoidDrop.Enabled
+				end
+			end,
+			Tooltip = 'Drops resources when you fall into the void'
+		})
+		OwlCheck = AutoVoidDrop:CreateToggle({
+			Name = 'Owl check',
+			Default = true,
+			Tooltip = 'Refuses to drop items if being picked up by an owl'
+		})
+	end)
+		
+	run(function()
+		local MissileTP
+		
+		MissileTP = vape.Categories.Utility:CreateModule({
+			Name = 'Missile TP',
+			Function = function(callback)
+				if callback then
+					MissileTP:Toggle()
+					local plr = entitylib.EntityMouse({
+						Range = 1000,
+						Players = true,
+						Part = 'RootPart'
+					})
+		
+					if getItem('guided_missile') and plr then
+						local projectile = bedwars.RuntimeLib.await(bedwars.GuidedProjectileController.fireGuidedProjectile:CallServerAsync('guided_missile'))
+						if projectile then
+							local projectilemodel = projectile.model
+							if not projectilemodel.PrimaryPart then
+								projectilemodel:GetPropertyChangedSignal('PrimaryPart'):Wait()
+							end
+		
+							local bodyforce = Instance.new('BodyForce')
+							bodyforce.Force = Vector3.new(0, projectilemodel.PrimaryPart.AssemblyMass * workspace.Gravity, 0)
+							bodyforce.Name = 'AntiGravity'
+							bodyforce.Parent = projectilemodel.PrimaryPart
+		
+							repeat
+								projectile.model:SetPrimaryPartCFrame(CFrame.lookAlong(plr.RootPart.CFrame.p, gameCamera.CFrame.LookVector))
+								task.wait(0.1)
+							until not projectile.model or not projectile.model.Parent
+						else
+							notif('MissileTP', 'Missile on cooldown.', 3)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Spawns and teleports a missile to a player\nnear your mouse.'
+		})
+	end)
+		
+	run(function()
+		local PickupRange
+		local Range
+		local Network
+		local Lower
+		
+		PickupRange = vape.Categories.Utility:CreateModule({
+			Name = 'Pickup Range',
+			Function = function(callback)
+				if callback then
+					local items = collection('ItemDrop', PickupRange)
+					repeat
+						if entitylib.isAlive then
+							local localPosition = entitylib.character.RootPart.Position
+							for _, v in items do
+								if tick() - (v:GetAttribute('ClientDropTime') or 0) < 2 then continue end
+								if isnetworkowner(v) and Network.Enabled and entitylib.character.Humanoid.Health > 0 then 
+									v.CFrame = CFrame.new(localPosition - Vector3.new(0, 3, 0)) 
+								end
+								
+								if (localPosition - v.Position).Magnitude <= Range.Value then
+									if Lower.Enabled and (localPosition.Y - v.Position.Y) < (entitylib.character.HipHeight - 1) then continue end
+									task.spawn(function()
+										bedwars.Client:Get(remotes.PickupItem):CallServerAsync({
+											itemDrop = v
+										}):andThen(function(suc)
+											if suc and bedwars.SoundList then
+												bedwars.SoundManager:playSound(bedwars.SoundList.PICKUP_ITEM_DROP)
+												local sound = bedwars.ItemMeta[v.Name].pickUpOverlaySound
+												if sound then
+													bedwars.SoundManager:playSound(sound, {
+														position = v.Position,
+														volumeMultiplier = 0.9
+													})
+												end
+											end
+										end)
+									end)
+								end
+							end
+						end
+						task.wait(0.1)
+					until not PickupRange.Enabled
+				end
+			end,
+			Tooltip = 'Picks up items from a farther distance'
+		})
+		Range = PickupRange:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 10,
+			Default = 10,
+			Suffix = function(val) 
+				return val == 1 and 'stud' or 'studs' 
+			end
+		})
+		Network = PickupRange:CreateToggle({
+			Name = 'Network TP',
+			Default = true
+		})
+		Lower = PickupRange:CreateToggle({Name = 'Feet Check'})
+	end)
+		
+	run(function()
+		local RavenTP
+		
+		RavenTP = vape.Categories.Utility:CreateModule({
+			Name = 'Raven TP',
+			Function = function(callback)
+				if callback then
+					RavenTP:Toggle()
+					local plr = entitylib.EntityMouse({
+						Range = 1000,
+						Players = true,
+						Part = 'RootPart'
+					})
+		
+					if getItem('raven') and plr then
+						bedwars.Client:Get(remotes.SpawnRaven):CallServerAsync():andThen(function(projectile)
+							if projectile then
+								local bodyforce = Instance.new('BodyForce')
+								bodyforce.Force = Vector3.new(0, projectile.PrimaryPart.AssemblyMass * workspace.Gravity, 0)
+								bodyforce.Parent = projectile.PrimaryPart
+		
+								if plr then
+									task.spawn(function()
+										for _ = 1, 20 do
+											if plr.RootPart and projectile then
+												projectile:SetPrimaryPartCFrame(CFrame.lookAlong(plr.RootPart.Position, gameCamera.CFrame.LookVector))
+											end
+											task.wait(0.05)
+										end
+									end)
+									task.wait(0.3)
+									bedwars.RavenController:detonateRaven()
+								end
+							end
+						end)
+					end
+				end
+			end,
+			Tooltip = 'Spawns and teleports a raven to a player\nnear your mouse.'
+		})
+	end)
+		
+	run(function()
+		local Scaffold
+		local Mounting
+		local Expand
+		local Tower
+		local Downwards
+		local Diagonal
+		local LimitItem
+		local AutoSwitch
+		local SwitchBack
+		local Mouse
+		local Blacklist
+
+		local adjacent, lastpos, label = {}, Vector3.zero
+		
+		for x = -3, 3, 3 do
+			for y = -3, 3, 3 do
+				for z = -3, 3, 3 do
+					local vec = Vector3.new(x, y, z)
+					if vec ~= Vector3.zero then
+						table.insert(adjacent, vec)
+					end
+				end
+			end
+		end
+		
+		local function nearCorner(poscheck, pos)
+			local startpos = poscheck - Vector3.new(3, 3, 3)
+			local endpos = poscheck + Vector3.new(3, 3, 3)
+			local check = poscheck + (pos - poscheck).Unit * 100
+			return Vector3.new(math.clamp(check.X, startpos.X, endpos.X), math.clamp(check.Y, startpos.Y, endpos.Y), math.clamp(check.Z, startpos.Z, endpos.Z))
+		end
+		getgenv().nearCorner = nearCorner
+		
+		local function blockProximity(pos)
+			local mag, returned = 60
+			local tab = getBlocksInPoints(bedwars.BlockController:getBlockPosition(pos - Vector3.new(21, 21, 21)), bedwars.BlockController:getBlockPosition(pos + Vector3.new(21, 21, 21)))
+			for _, v in tab do
+				local blockpos = nearCorner(v, pos)
+				local newmag = (pos - blockpos).Magnitude
+				if newmag < mag then
+					mag, returned = newmag, blockpos
+				end
+			end
+			table.clear(tab)
+			return returned
+		end
+		getgenv().blockProximity = blockProximity
+		
+		local function checkAdjacent(pos)
+			for _, v in adjacent do
+				if getPlacedBlock(pos + v) then
+					return true
+				end
+			end
+			return false
+		end
+		getgenv().checkAdjacent = checkAdjacent
+		
+		local function getScaffoldBlock()
+			if store.hand.toolType == 'block' and not table.find(Blacklist.ListEnabled, store.hand.tool.Name) then
+				return store.hand.tool.Name, store.hand.amount
+			elseif (not LimitItem.Enabled) then
+				local wool, amount = getWool()
+				if wool and not table.find(Blacklist.ListEnabled, wool) then
+					return wool, amount
+				else
+					for _, item in store.inventory.inventory.items do
+						if bedwars.ItemMeta[item.itemType].block and not table.find(Blacklist.ListEnabled, item.itemType) then
+							return item.itemType, item.amount
+						end
+					end
+				end
+			end
+		
+			return nil, 0
+		end
+
+		local switchTime, Scaffolding = tick(), false
+		local Last = 0
+		
+		Scaffold = vape.Categories.Utility:CreateModule({
+			Name = 'Scaffold',
+			Function = function(callback)
+				if label then
+					label.Visible = callback
+				end
+		
+				if callback then
+					repeat
+						if entitylib.isAlive and (not Mounting.Enabled or not lplr.Character:FindFirstChild('elk')) then
+							local wool, amount = getScaffoldBlock()
+		
+							if Mouse.Enabled then
+								if not inputService:IsMouseButtonPressed(0) then
+									wool = nil
+								end
+							end
+		
+							if label then
+								amount = amount or 0
+								label.Text = amount..' <font color="rgb(170, 170, 170)">(Scaffold)</font>'
+								label.TextColor3 = Color3.fromHSV((amount / 128) / 2.8, 0.86, 1)
+							end
+		
+							if wool then
+								local root = entitylib.character.RootPart
+								if Tower.Enabled and inputService:IsKeyDown(Enum.KeyCode.Space) and (not inputService:GetFocusedTextBox()) then
+									root.Velocity = Vector3.new(root.Velocity.X, 38, root.Velocity.Z)
+								end
+		
+								for i = Expand.Value, 1, -1 do
+									if not Scaffolding then
+										if store.hand and store.hand.tool then
+											Last = getHotbar(store.hand.tool)
+										else
+											Last = nil
+										end
+									end
+									
+									local currentpos = roundPos(root.Position - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0) + entitylib.character.Humanoid.MoveDirection * (i * 3))
+									if Diagonal.Enabled then
+										if math.abs(math.round(math.deg(math.atan2(-entitylib.character.Humanoid.MoveDirection.X, -entitylib.character.Humanoid.MoveDirection.Z)) / 45) * 45) % 90 == 45 then
+											local dt = (lastpos - currentpos)
+											if ((dt.X == 0 and dt.Z ~= 0) or (dt.X ~= 0 and dt.Z == 0)) and ((lastpos - root.Position) * Vector3.new(1, 0, 1)).Magnitude < 2.5 then
+												currentpos = lastpos
+											end
+										end
+									end
+		
+									if canDebug then
+										local block, blockpos = getPlacedBlock(currentpos)
+										if not block then
+											blockpos = checkAdjacent(blockpos * 3) and blockpos * 3 or blockProximity(currentpos)
+											if blockpos then
+												if AutoSwitch.Enabled then
+													hotbarSwitch(getHotbar(getItem(wool).tool))
+												end
+												task.spawn(bedwars.placeBlock, blockpos, wool, false)
+												switchTime = tick() + 0.25
+												Scaffolding = true
+											end
+										end
+									end
+									lastpos = currentpos
+								end
+							end
+						end
+
+						if entitylib.isAlive and Scaffolding and tick() > switchTime then
+							Scaffolding = false
+
+							if (AutoSwitch.Enabled and SwitchBack.Enabled) and Last then
+								hotbarSwitch(Last)
+							end
+						end
+		
+						task.wait(0.03)
+					until not Scaffold.Enabled
+				else
+					Label = nil
+					if entitylib.isAlive and Scaffolding then
+						Scaffolding = false
+
+						if (AutoSwitch.Enabled and SwitchBack.Enabled) and Last then
+							hotbarSwitch(Last)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Helps you make bridges/scaffold walk.'
+		})
+		Expand = Scaffold:CreateSlider({
+			Name = 'Expand',
+			Min = 1,
+			Max = 6
+		})
+		Tower = Scaffold:CreateToggle({
+			Name = 'Tower',
+			Default = true
+		})
+		Downwards = Scaffold:CreateToggle({
+			Name = 'Downwards',
+			Default = true
+		})
+		Diagonal = Scaffold:CreateToggle({
+			Name = 'Diagonal',
+			Default = true
+		})
+		Mounting = Scaffold:CreateToggle({Name = 'Mount Check'})
+		LimitItem = Scaffold:CreateToggle({Name = 'Limit to items'})
+		AutoSwitch = Scaffold:CreateToggle({
+			Name = 'Auto Switch',
+			Function = function(call)
+				if SwitchBack then
+					SwitchBack.Object.Visible = call
+				end
+			end
+		})
+		SwitchBack = Scaffold:CreateToggle({
+			Name = 'Switch Back',
+			Darker = true,
+			Visible = false
+		})
+		Mouse = Scaffold:CreateToggle({Name = 'Require mouse down'})
+		Count = Scaffold:CreateToggle({
+			Name = 'Block Count',
+			Function = function(callback)
+				if callback then
+					label = Instance.new('TextLabel')
+					label.Size = UDim2.fromOffset(100, 20)
+					label.Position = UDim2.new(0.5, 6, 0.5, 60)
+					label.BackgroundTransparency = 1
+					label.AnchorPoint = Vector2.new(0.5, 0)
+					label.Text = '0'
+					label.TextColor3 = Color3.new(0, 1, 0)
+					label.TextSize = 18
+					label.RichText = true
+					label.Font = Enum.Font.Arial
+					label.Visible = Scaffold.Enabled
+					label.Parent = vape.gui
+				else
+					label:Destroy()
+					label = nil
+				end
+			end
+		})
+		Blacklist = Scaffold:CreateTextList({
+			Name = 'Block Blacklist',
+			Placeholder = 'block_name'
+		})
+	end)
+		
+	run(function()
+		local ShopTierBypass
+		local tiered, nexttier = {}, {}
+		local old
+		
+		ShopTierBypass = vape.Categories.Utility:CreateModule({
+			Name = 'Shop Tier Bypass',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.shopLoaded or not ShopTierBypass.Enabled
+					if ShopTierBypass.Enabled then
+						for _, v in bedwars.Shop.ShopItems do
+							tiered[v] = v.tiered
+							nexttier[v] = v.nextTier
+							v.nextTier = nil
+							v.tiered = nil
+						end
+
+						old = bedwars.Shop.getShop
+						bedwars.Shop.getShop = function(...)
+							local res = {old(...)}
+
+							for i, v in res[1] do
+								v.nextTier = nil
+								v.tiered = nil
+							end
+
+							return unpack(res)
+						end
+					end
+				else
+					for i, v in tiered do
+						i.tiered = v
+					end
+					for i, v in nexttier do
+						i.nextTier = v
+					end
+					if old then
+						bedwars.Shop.getShop = old
+						old = nil
+					end
+					table.clear(nexttier)
+					table.clear(tiered)
+				end
+			end,
+			Tooltip = 'Lets you buy things like armor early.'
+		})
+	end)
+		
+	run(function()
+		local StaffDetector
+		local Mode
+		local Clans
+		local Party
+		local Profile
+		local Users
+		local blacklistedclans = {'gg', 'gg2', 'DV', 'DV2'}
+		local blacklisteduserids = {1502104539, 3826146717, 4531785383, 1049767300, 4926350670, 653085195, 184655415, 2752307430, 5087196317, 5744061325, 1536265275}
+		local blacklistedacmods = {}
+		for _, v in {2441909268, 4662011728} do
+			table.insert(blacklistedacmods, v)
+		end
+
+		local joined = {}
+		
+		local function getRole(plr, id)
+			local suc, res = pcall(function()
+				return plr:GetRankInGroup(id)
+			end)
+			if not suc then
+				notif('StaffDetector', res, 30, 'alert')
+			end
+			return suc and res or 0
+		end
+		
+		local function staffFunction(plr, checktype)
+			if not vape.Loaded then
+				repeat task.wait() until vape.Loaded
+			end
+		
+			notif('StaffDetector', 'Staff Detected ('..checktype..'): '..plr.Name..' ('..plr.UserId..')', 60, 'alert')
+			whitelist.customtags[plr.Name] = {{text = 'GAME STAFF', color = Color3.new(1, 0, 0)}}
+		
+			if Party.Enabled and not checktype:find('clan') then
+				bedwars.PartyController:leaveParty()
+			end
+		
+			if Mode.Value == 'Uninject' then
+				task.spawn(function()
+					vape:Uninject()
+				end)
+				game:GetService('StarterGui'):SetCore('SendNotification', {
+					Title = 'StaffDetector',
+					Text = 'Staff Detected ('..checktype..')\n'..plr.Name..' ('..plr.UserId..')',
+					Duration = 60,
+				})
+			elseif Mode.Value == 'Requeue' then
+				bedwars.QueueController:joinQueue(store.queueType)
+			elseif Mode.Value == 'Profile' then
+				vape.Save = function() end
+				if vape.Profile ~= Profile.Value then
+					vape:Load(true, Profile.Value)
+				end
+			elseif Mode.Value == 'AutoConfig' then
+				local safe = {'AutoClicker', 'Reach', 'Sprint', 'HitFix', 'StaffDetector'}
+				vape.Save = function() end
+				for i, v in vape.Modules do
+					if not (table.find(safe, i) or v.Category == 'Render') then
+						if v.Enabled then
+							v:Toggle()
+						end
+						v:SetBind('')
+					end
+				end
+			end
+		end
+		
+		local function checkFriends(list)
+			for _, v in list do
+				if joined[v] then
+					return joined[v]
+				end
+			end
+			return nil
+		end
+		
+		local function checkJoin(plr, connection)
+			if not plr:GetAttribute('Team') and plr:GetAttribute('Spectator') and not bedwars.Store:getState().Game.customMatch then
+				connection:Disconnect()
+				local tab, pages = {}, playersService:GetFriendsAsync(plr.UserId)
+				pcall(function()
+					for _ = 1, 12 do
+						for _, v in pages:GetCurrentPage() do
+							table.insert(tab, v.Id)
+						end
+						if pages.IsFinished then break end
+						pages:AdvanceToNextPageAsync()
+					end
+				end)
+		
+				local friend = checkFriends(tab)
+				if not friend then
+					staffFunction(plr, 'impossible_join')
+					return true
+				else
+					notif('StaffDetector', string.format('Spectator %s joined from %s', plr.Name, friend), 20, 'warning')
+				end
+			end
+		end
+		
+		local function playerAdded(plr)
+			joined[plr.UserId] = plr.Name
+			if plr == lplr then return end
+
+			if table.find(blacklisteduserids, plr.UserId) or table.find(Users.ListEnabled, tostring(plr.UserId)) then
+				staffFunction(plr, 'blacklisted_user')
+			elseif getRole(plr, 5774246) >= 100 or table.find(blacklistedacmods, plr.UserId) then
+				staffFunction(plr, 'staff_role')
+			else
+				local connection
+				connection = plr:GetAttributeChangedSignal('Spectator'):Connect(function()
+					checkJoin(plr, connection)
+				end)
+				StaffDetector:Clean(connection)
+				if checkJoin(plr, connection) then
+					return
+				end
+		
+				if not plr:GetAttribute('ClanTag') then
+					plr:GetAttributeChangedSignal('ClanTag'):Wait()
+				end
+		
+				if table.find(blacklistedclans, plr:GetAttribute('ClanTag')) and vape.Loaded and Clans.Enabled then
+					connection:Disconnect()
+					staffFunction(plr, 'blacklisted_clan_'..plr:GetAttribute('ClanTag'):lower())
+				end
+			end
+		end
+		
+		StaffDetector = vape.Categories.Utility:CreateModule({
+			Name = 'Staff Detector',
+			Function = function(callback)
+				if callback then
+					StaffDetector:Clean(playersService.PlayerAdded:Connect(playerAdded))
+					for _, v in playersService:GetPlayers() do
+						task.spawn(playerAdded, v)
+					end
+				else
+					table.clear(joined)
+				end
+			end,
+			Tooltip = 'Detects people with a staff rank ingame'
+		})
+		Mode = StaffDetector:CreateDropdown({
+			Name = 'Mode',
+			List = {'Uninject', 'Profile', 'Requeue', 'AutoConfig', 'Notify'},
+			Function = function(val)
+				if Profile.Object then
+					Profile.Object.Visible = val == 'Profile'
+				end
+			end
+		})
+		Clans = StaffDetector:CreateToggle({
+			Name = 'Blacklist clans',
+			Default = true
+		})
+		Party = StaffDetector:CreateToggle({
+			Name = 'Leave party'
+		})
+		Profile = StaffDetector:CreateTextBox({
+			Name = 'Profile',
+			Default = 'default',
+			Darker = true,
+			Visible = false
+		})
+		Users = StaffDetector:CreateTextList({
+			Name = 'Users',
+			Placeholder = 'player (userid)'
+		})
+	end)
+		
+	run(function()
+		TrapDisabler = vape.Categories.Utility:CreateModule({
+			Name = 'TrapDisabler',
+			Tooltip = 'Disables Snap Traps'
+		})
+	end)
+		
+	run(function()
+		local AutoSuffocate
+		local Solutions
+		local Range
+		local LimitItem
+		local Prediction
+		local SmartSpread
+
+		local function fixPosition(pos)
+			return bedwars.BlockController:getBlockPosition(pos) * 3
+		end
+
+		local function isOpen(pos)
+			return not getPlacedBlock(pos)
+		end
+
+		local function hasAdjacent(pos)
+			local offsets = {
+				Vector3.new(3, 0, 0),
+				Vector3.new(-3, 0, 0),
+				Vector3.new(0, 0, 3),
+				Vector3.new(0, 0, -3),
+				Vector3.new(0, -3, 0)
+			}
+			for _, off in offsets do
+				if not isOpen(pos + off) then
+					return true
+				end
+			end
+			return false
+		end
+
+		local function buildSupportPath(targetPos, item, maxLength)
+			local start = fixPosition(targetPos - Vector3.new(0, 3, 0))
+			local bestAnchor = nil
+			local found = false
+
+			for y = 0, 12, 3 do
+				for x = -9, 9, 3 do
+					for z = -9, 9, 3 do
+						local check = start + Vector3.new(x, -y, z)
+						if not isOpen(check) then
+							bestAnchor = check
+							found = true
+							break
+						end
+					end
+					if found then break end
+				end
+				if found then break end
+			end
+
+			if not bestAnchor then return false end
+
+			local dir = (targetPos - bestAnchor).Unit
+			local step = dir * 3
+			local current = bestAnchor
+			local placed = 0
+
+			while (current - targetPos).Magnitude > 3 and placed < maxLength do
+				current += step
+				local pos = fixPosition(current)
+				if isOpen(pos) and hasAdjacent(pos) then
+					task.spawn(bedwars.placeBlock, pos, item)
+					placed += 1
+				end
+				task.wait()
+			end
+
+			return true
+		end
+
+		AutoSuffocate = vape.Categories.World:CreateModule({
+			Name = 'Auto Suffocate',
+			Function = function(callback)
+				if callback then
+					repeat
+						local item = store.hand.toolType == 'block' and store.hand.tool.Name or not LimitItem.Enabled and getWool()
+						if item then
+							local plrs = entitylib.AllPosition({
+								Part = 'RootPart',
+								Range = Range.Value,
+								Players = true
+							})
+
+							for _, ent in plrs do
+								if not ent or not ent.RootPart then continue end
+
+								local velocity = ent.RootPart.Velocity or Vector3.zero
+								local predicted = ent.RootPart.Position + velocity * Prediction.Value
+								local center = fixPosition(predicted)
+								local insidePos = center
+								local topPos = fixPosition(predicted + Vector3.new(0, 3, 0))
+
+								if not hasAdjacent(center) then
+									buildSupportPath(center, item, 10)
+								end
+
+								local needPlaced = {}
+								local placed = 0
+
+								local sideOffsets = {
+									Vector3.new(3, 0, 0),
+									Vector3.new(-3, 0, 0),
+									Vector3.new(0, 0, 3),
+									Vector3.new(0, 0, -3)
+								}
+								local cornerOffsets = {
+									Vector3.new(3, 0, 3),
+									Vector3.new(-3, 0, 3),
+									Vector3.new(3, 0, -3),
+									Vector3.new(-3, 0, -3)
+								}
+
+								if SmartSpread.Enabled then
+									for _, off in cornerOffsets do
+										local pos = center + off
+										if isOpen(pos) and hasAdjacent(pos) then
+											table.insert(needPlaced, pos)
+										end
+									end
+								end
+
+								for _, off in sideOffsets do
+									local pos = center + off
+									if isOpen(pos) and hasAdjacent(pos) then
+										table.insert(needPlaced, pos)
+									end
+								end
+
+								if isOpen(topPos) and hasAdjacent(topPos) then
+									table.insert(needPlaced, topPos)
+								end
+
+								if not isOpen(insidePos) or not hasAdjacent(insidePos) then
+								else
+									table.insert(needPlaced, insidePos)
+								end
+
+								for _, pos in needPlaced do
+									if placed >= Solutions.Value then break end
+									if isOpen(pos) then
+										task.spawn(bedwars.placeBlock, pos, item)
+										placed += 1
+									end
+								end
+							end
+						end
+						task.wait(0.09)
+					until not AutoSuffocate.Enabled
+				end
+			end,
+			Tooltip = 'Builds support blocks if needed, then creates adaptive suffocation cages around players'
+		})
+
+		Range = AutoSuffocate:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 20,
+			Default = 20,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+
+		Solutions = AutoSuffocate:CreateSlider({
+			Name = 'Solutions',
+			Min = 1,
+			Max = 10,
+			Default = 6
+		})
+
+		Prediction = AutoSuffocate:CreateSlider({
+			Name = 'Prediction',
+			Min = 0,
+			Max = 1,
+			Suffix = 's',
+			Default = 0.7,
+			Decimal = 5,
+			Tooltip = 'Predict player movement forward in seconds'
+		})
+
+		SmartSpread = AutoSuffocate:CreateToggle({
+			Name = 'Smart Spread',
+			Default = true,
+			Tooltip = 'Places corners first and builds support if air placement needed'
+		})
+
+		LimitItem = AutoSuffocate:CreateToggle({
+			Name = 'Limit to Items',
+			Default = true
+		})
+	end)
+
+	run(function()
+		local AutoTool
+		local old, event
+		
+		local function switchHotbarItem(block)
+			if block and not block:GetAttribute('NoBreak') and not block:GetAttribute('Team'..(lplr:GetAttribute('Team') or 0)..'NoBreak') then
+				local tool, slot = store.tools[bedwars.ItemMeta[block.Name].block.breakType], nil
+				if tool then
+					for i, v in store.inventory.hotbar do
+						if v.item and v.item.itemType == tool.itemType then slot = i - 1 break end
+					end
+		
+					if hotbarSwitch(slot) then
+						if inputService:IsMouseButtonPressed(0) then 
+							event:Fire() 
+						end
+						return true
+					end
+				end
+			end
+		end
+		
+		AutoTool = vape.Categories.World:CreateModule({
+			Name = 'Auto Tool',
+			Function = function(callback)
+				if callback then
+					event = Instance.new('BindableEvent')
+					AutoTool:Clean(event)
+					AutoTool:Clean(event.Event:Connect(function()
+						contextActionService:CallFunction('block-break', Enum.UserInputState.Begin, newproxy(true))
+					end))
+					old = bedwars.BlockBreaker.hitBlock
+					bedwars.BlockBreaker.hitBlock = function(self, maid, raycastparams, ...)
+						local block = self.clientManager:getBlockSelector():getMouseInfo(1, {ray = raycastparams})
+						if switchHotbarItem(block and block.target and block.target.blockInstance or nil) then return end
+						return old(self, maid, raycastparams, ...)
+					end
+				else
+					bedwars.BlockBreaker.hitBlock = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Automatically selects the correct tool'
+		})
+	end)
+		
+	run(function()
+		local BedProtector
+		
+		local function getBedNear()
+			local localPosition = entitylib.isAlive and entitylib.character.RootPart.Position or Vector3.zero
+			for _, v in collectionService:GetTagged('bed') do
+				if (localPosition - v.Position).Magnitude < 20 and v:GetAttribute('Team'..(lplr:GetAttribute('Team') or -1)..'NoBreak') then
+					return v
+				end
+			end
+		end
+		
+		local function getBlocks()
+			local blocks = {}
+			for _, item in store.inventory.inventory.items do
+				local block = bedwars.ItemMeta[item.itemType].block
+				if block then
+					table.insert(blocks, {item.itemType, block.health})
+				end
+			end
+			table.sort(blocks, function(a, b) 
+				return a[2] > b[2]
+			end)
+			return blocks
+		end
+		
+		local function getPyramid(size, grid)
+			local positions = {}
+			for h = size, 0, -1 do
+				for w = h, 0, -1 do
+					table.insert(positions, Vector3.new(w, (size - h), ((h + 1) - w)) * grid)
+					table.insert(positions, Vector3.new(w * -1, (size - h), ((h + 1) - w)) * grid)
+					table.insert(positions, Vector3.new(w, (size - h), (h - w) * -1) * grid)
+					table.insert(positions, Vector3.new(w * -1, (size - h), (h - w) * -1) * grid)
+				end
+			end
+			return positions
+		end
+		
+		BedProtector = vape.Categories.World:CreateModule({
+			Name = 'Bed Protector',
+			Function = function(callback)
+				if callback then
+					local bed = getBedNear()
+					bed = bed and bed.Position or nil
+					if bed then
+						for i, block in getBlocks() do
+							for _, pos in getPyramid(i, 3) do
+								if not BedProtector.Enabled then break end
+								if getPlacedBlock(bed + pos) then continue end
+								bedwars.placeBlock(bed + pos, block[1], false)
+							end
+						end
+						if BedProtector.Enabled then 
+							BedProtector:Toggle() 
+						end
+					else
+						notif('BedProtector', 'Unable to locate bed', 5)
+						BedProtector:Toggle()
+					end
+				end
+			end,
+			Tooltip = 'Automatically places strong blocks around the bed.'
+		})
+	end)
+		
+	run(function()
+		local ChestSteal
+		local Delay
+		local Range
+		local Open
+		local Skywars
+		local Delays = {}
+		
+		local function lootChest(chest)
+			chest = chest and chest.Value or nil
+			local chestitems = chest and chest:GetChildren() or {}
+			if #chestitems > 1 and (Delays[chest] or 0) < tick() then
+				Delays[chest] = tick() + 0.2
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(chest)
+		
+				for _, v in chestitems do
+					if v:IsA('Accessory') then
+						task.spawn(function()
+							pcall(function()
+								bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
+							end)
+						end)
+
+						if Delay.Value > 0 then
+							task.wait(Delay.Value)
+						end
+					end
+				end
+		
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
+			end
+		end
+		
+		ChestSteal = vape.Categories.World:CreateModule({
+			Name = 'Chest Steal',
+			Function = function(callback)
+				if callback then
+					local chests = collection('chest', ChestSteal)
+					repeat task.wait() until store.queueType ~= 'bedwars_test'
+					if (not Skywars.Enabled) or store.queueType:find('skywars') then
+						repeat
+							if entitylib.isAlive and store.matchState ~= 2 then
+								if Open.Enabled then
+									if bedwars.AppController:isAppOpen('ChestApp') then
+										lootChest(lplr.Character:FindFirstChild('ObservedChestFolder'))
+									end
+								else
+									local localPosition = entitylib.character.RootPart.Position
+									for _, v in chests do
+										if (localPosition - v.Position).Magnitude <= Range.Value then
+											lootChest(v:FindFirstChild('ChestFolderValue'))
+										end
+									end
+								end
+							end
+							task.wait(0.1)
+						until not ChestSteal.Enabled
+					end
+				end
+			end,
+			Tooltip = 'Grabs items from near chests.'
+		})
+		Range = ChestSteal:CreateSlider({
+			Name = 'Range',
+			Min = 0,
+			Max = 18,
+			Default = 18,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Delay = ChestSteal:CreateSlider({
+			Name = 'Loot Delay',
+			Min = 0,
+			Max = 10,
+			Default = 0,
+			Suffix = function(val)
+				return val == 1 and 'sec' or 'secs'
+			end,
+			Decimal = 5
+		})
+		Open = ChestSteal:CreateToggle({Name = 'GUI Check'})
+		Skywars = ChestSteal:CreateToggle({
+			Name = 'Only Skywars',
+			Function = function()
+				if ChestSteal.Enabled then
+					ChestSteal:Toggle()
+					ChestSteal:Toggle()
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Schematica
+		local File
+		local Mode
+		local Transparency
+		local parts, guidata, poschecklist = {}, {}, {}
+		local point1, point2
+		
+		for x = -3, 3, 3 do
+			for y = -3, 3, 3 do
+				for z = -3, 3, 3 do
+					if Vector3.new(x, y, z) ~= Vector3.zero then
+						table.insert(poschecklist, Vector3.new(x, y, z))
+					end
+				end
+			end
+		end
+		
+		local function checkAdjacent(pos)
+			for _, v in poschecklist do
+				if getPlacedBlock(pos + v) then return true end
+			end
+			return false
+		end
+		
+		local function getPlacedBlocksInPoints(s, e)
+			local list, blocks = {}, bedwars.BlockController:getStore()
+			for x = (e.X > s.X and s.X or e.X), (e.X > s.X and e.X or s.X) do
+				for y = (e.Y > s.Y and s.Y or e.Y), (e.Y > s.Y and e.Y or s.Y) do
+					for z = (e.Z > s.Z and s.Z or e.Z), (e.Z > s.Z and e.Z or s.Z) do
+						local vec = Vector3.new(x, y, z)
+						local block = blocks:getBlockAt(vec)
+						if block and block:GetAttribute('PlacedByUserId') == lplr.UserId then
+							list[vec] = block
+						end
+					end
+				end
+			end
+			return list
+		end
+		
+		local function loadMaterials()
+			for _, v in guidata do 
+				v:Destroy() 
+			end
+			local suc, read = pcall(function() 
+				return isfile(File.Value) and httpService:JSONDecode(readfile(File.Value)) 
+			end)
+		
+			if suc and read then
+				local items = {}
+				for _, v in read do 
+					items[v[2]] = (items[v[2]] or 0) + 1 
+				end
+				
+				for i, v in items do
+					local holder = Instance.new('Frame')
+					holder.Size = UDim2.new(1, 0, 0, 32)
+					holder.BackgroundTransparency = 1
+					holder.Parent = Schematica.Children
+					local icon = Instance.new('ImageLabel')
+					icon.Size = UDim2.fromOffset(24, 24)
+					icon.Position = UDim2.fromOffset(4, 4)
+					icon.BackgroundTransparency = 1
+					icon.Image = bedwars.getIcon({itemType = i}, true)
+					icon.Parent = holder
+					local text = Instance.new('TextLabel')
+					text.Size = UDim2.fromOffset(100, 32)
+					text.Position = UDim2.fromOffset(32, 0)
+					text.BackgroundTransparency = 1
+					text.Text = (bedwars.ItemMeta[i] and bedwars.ItemMeta[i].displayName or i)..': '..v
+					text.TextXAlignment = Enum.TextXAlignment.Left
+					text.TextColor3 = uipallet.Text
+					text.TextSize = 14
+					text.FontFace = uipallet.Font
+					text.Parent = holder
+					table.insert(guidata, holder)
+				end
+				table.clear(read)
+				table.clear(items)
+			end
+		end
+		
+		local function save()
+			if point1 and point2 then
+				local tab = getPlacedBlocksInPoints(point1, point2)
+				local savetab = {}
+				point1 = point1 * 3
+				for i, v in tab do
+					i = bedwars.BlockController:getBlockPosition(CFrame.lookAlong(point1, entitylib.character.RootPart.CFrame.LookVector):PointToObjectSpace(i * 3)) * 3
+					table.insert(savetab, {
+						{
+							x = i.X, 
+							y = i.Y, 
+							z = i.Z
+						}, 
+						v.Name
+					})
+				end
+				point1, point2 = nil, nil
+				writefile(File.Value, httpService:JSONEncode(savetab))
+				notif('Schematica', 'Saved '..getTableSize(tab)..' blocks', 5)
+				loadMaterials()
+				table.clear(tab)
+				table.clear(savetab)
+			else
+				local mouseinfo = bedwars.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0)
+				if mouseinfo and mouseinfo.target then
+					if point1 then
+						point2 = mouseinfo.target.blockRef.blockPosition
+						notif('Schematica', 'Selected position 2, toggle again near position 1 to save it', 3)
+					else
+						point1 = mouseinfo.target.blockRef.blockPosition
+						notif('Schematica', 'Selected position 1', 3)
+					end
+				end
+			end
+		end
+		
+		local function load(read)
+			local mouseinfo = bedwars.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0)
+			if mouseinfo and mouseinfo.target then
+				local position = CFrame.new(mouseinfo.placementPosition * 3) * CFrame.Angles(0, math.rad(math.round(math.deg(math.atan2(-entitylib.character.RootPart.CFrame.LookVector.X, -entitylib.character.RootPart.CFrame.LookVector.Z)) / 45) * 45), 0)
+		
+				for _, v in read do
+					local blockpos = bedwars.BlockController:getBlockPosition((position * CFrame.new(v[1].x, v[1].y, v[1].z)).p) * 3
+					if parts[blockpos] then continue end
+					local handler = bedwars.BlockController:getHandlerRegistry():getHandler(v[2]:find('wool') and getWool() or v[2])
+					if handler then
+						local part = handler:place(blockpos / 3, 0)
+						part.Transparency = Transparency.Value
+						part.CanCollide = false
+						part.Anchored = true
+						part.Parent = workspace
+						parts[blockpos] = part
+					end
+				end
+				table.clear(read)
+		
+				repeat
+					if entitylib.isAlive then
+						local localPosition = entitylib.character.RootPart.Position
+						for i, v in parts do
+							if (i - localPosition).Magnitude < 60 and checkAdjacent(i) then
+								if not Schematica.Enabled then break end
+								if not getItem(v.Name) then continue end
+								bedwars.placeBlock(i, v.Name, false)
+								task.delay(0.1, function()
+									local block = getPlacedBlock(i)
+									if block then
+										v:Destroy()
+										parts[i] = nil
+									end
+								end)
+							end
+						end
+					end
+					task.wait()
+				until getTableSize(parts) <= 0
+		
+				if getTableSize(parts) <= 0 and Schematica.Enabled then
+					notif('Schematica', 'Finished building', 5)
+					Schematica:Toggle()
+				end
+			end
+		end
+		
+		Schematica = vape.Categories.World:CreateModule({
+			Name = 'Schematica',
+			Function = function(callback)
+				if callback then
+					if not File.Value:find('.json') then
+						notif('Schematica', 'Invalid file', 3)
+						Schematica:Toggle()
+						return
+					end
+		
+					if Mode.Value == 'Save' then
+						save()
+						Schematica:Toggle()
+					else
+						local suc, read = pcall(function() 
+							return isfile(File.Value) and httpService:JSONDecode(readfile(File.Value)) 
+						end)
+		
+						if suc and read then
+							load(read)
+						else
+							notif('Schematica', 'Missing / corrupted file', 3)
+							Schematica:Toggle()
+						end
+					end
+				else
+					for _, v in parts do 
+						v:Destroy() 
+					end
+					table.clear(parts)
+				end
+			end,
+			Tooltip = 'Save and load placements of buildings'
+		})
+		File = Schematica:CreateTextBox({
+			Name = 'File',
+			Function = function()
+				loadMaterials()
+				point1, point2 = nil, nil
+			end
+		})
+		Mode = Schematica:CreateDropdown({
+			Name = 'Mode',
+			List = {'Load', 'Save'}
+		})
+		Transparency = Schematica:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Default = 0.7,
+			Decimal = 10,
+			Function = function(val)
+				for _, v in parts do 
+					v.Transparency = val 
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local ArmorSwitch
+		local Mode
+		local Targets
+		local Range
+		
+		ArmorSwitch = vape.Categories.Inventory:CreateModule({
+			Name = 'Armor Switch',
+			Function = function(callback)
+				if callback then
+					if Mode.Value == 'Toggle' then
+						repeat
+							local state = entitylib.EntityPosition({
+								Part = 'RootPart',
+								Range = Range.Value,
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled,
+								Wallcheck = Targets.Walls.Enabled
+							}) and true or false
+		
+							for i = 0, 2 do
+								if (store.inventory.inventory.armor[i + 1] ~= 'empty') ~= state and ArmorSwitch.Enabled then
+									bedwars.Store:dispatch({
+										type = 'InventorySetArmorItem',
+										item = store.inventory.inventory.armor[i + 1] == 'empty' and state and getBestArmor(i) or nil,
+										armorSlot = i
+									})
+									vapeEvents.InventoryChanged.Event:Wait()
+								end
+							end
+							task.wait(0.1)
+						until not ArmorSwitch.Enabled
+					else
+						ArmorSwitch:Toggle()
+						for i = 0, 2 do
+							bedwars.Store:dispatch({
+								type = 'InventorySetArmorItem',
+								item = store.inventory.inventory.armor[i + 1] == 'empty' and getBestArmor(i) or nil,
+								armorSlot = i
+							})
+							vapeEvents.InventoryChanged.Event:Wait()
+						end
+					end
+				end
+			end,
+			Tooltip = 'Puts on / takes off armor when toggled for baiting.'
+		})
+		Mode = ArmorSwitch:CreateDropdown({
+			Name = 'Mode',
+			List = {'Toggle', 'On Key'}
+		})
+		Targets = ArmorSwitch:CreateTargets({
+			Players = true,
+			NPCs = true
+		})
+		Range = ArmorSwitch:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 30,
+			Default = 30,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local AutoBank
+		local UIToggle
+		local UI
+		local Chests
+		local Items = {}
+		
+		local function addItem(itemType, shop)
+			local item = Instance.new('ImageLabel')
+			item.Image = bedwars.getIcon({itemType = itemType}, true)
+			item.Size = UDim2.fromOffset(32, 32)
+			item.Name = itemType
+			item.BackgroundTransparency = 1
+			item.LayoutOrder = #UI:GetChildren()
+			item.Parent = UI
+			local itemtext = Instance.new('TextLabel')
+			itemtext.Name = 'Amount'
+			itemtext.Size = UDim2.fromScale(1, 1)
+			itemtext.BackgroundTransparency = 1
+			itemtext.Text = ''
+			itemtext.TextColor3 = Color3.new(1, 1, 1)
+			itemtext.TextSize = 16
+			itemtext.TextStrokeTransparency = 0.3
+			itemtext.Font = Enum.Font.Arial
+			itemtext.Parent = item
+			Items[itemType] = {Object = itemtext, Type = shop}
+		end
+		
+		local function refreshBank(echest)
+			for i, v in Items do
+				local item = echest:FindFirstChild(i)
+				v.Object.Text = item and item:GetAttribute('Amount') or ''
+			end
+		end
+		
+		local function nearChest()
+			if entitylib.isAlive then
+				local pos = entitylib.character.RootPart.Position
+				for _, chest in Chests do
+					if (chest.Position - pos).Magnitude < 20 then
+						return true
+					end
+				end
+			end
+		end
+		
+		local function handleState()
+			local chest = replicatedStorage.Inventories:FindFirstChild(lplr.Name..'_personal')
+			if not chest then return end
+		
+			local mapCF = workspace.MapCFrames:FindFirstChild((lplr:GetAttribute('Team') or 1)..'_spawn')
+			if mapCF and (entitylib.character.RootPart.Position - mapCF.Value.Position).Magnitude < 80 then
+				for _, v in chest:GetChildren() do
+					local item = Items[v.Name]
+					if item then
+						task.spawn(function()
+							bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
+							refreshBank(chest)
+						end)
+					end
+				end
+			else
+				for _, v in store.inventory.inventory.items do
+					local item = Items[v.itemType]
+					if item then
+						task.spawn(function()
+							bedwars.Client:GetNamespace('Inventory'):Get('ChestGiveItem'):CallServer(chest, v.tool)
+							refreshBank(chest)
+						end)
+					end
+				end
+			end
+		end
+		
+		AutoBank = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Bank',
+			Function = function(callback)
+				if callback then
+					Chests = collection('personal-chest', AutoBank)
+					UI = Instance.new('Frame')
+					UI.Size = UDim2.new(1, 0, 0, 32)
+					UI.Position = UDim2.fromOffset(0, -240)
+					UI.BackgroundTransparency = 1
+					UI.Visible = UIToggle.Enabled
+					UI.Parent = vape.gui
+					AutoBank:Clean(UI)
+					local Sort = Instance.new('UIListLayout')
+					Sort.FillDirection = Enum.FillDirection.Horizontal
+					Sort.HorizontalAlignment = Enum.HorizontalAlignment.Center
+					Sort.SortOrder = Enum.SortOrder.LayoutOrder
+					Sort.Parent = UI
+					addItem('iron', true)
+					addItem('gold', true)
+					addItem('diamond', false)
+					addItem('emerald', true)
+					addItem('void_crystal', true)
+		
+					repeat
+						local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
+						hotbar = hotbar and hotbar['1']:FindFirstChild('HotbarHealthbarContainer')
+						if hotbar then
+							UI.Position = UDim2.fromOffset(0, (hotbar.AbsolutePosition.Y + guiService:GetGuiInset().Y) - 40)
+						end
+		
+						local newState = nearChest()
+						if newState then
+							handleState()
+						end
+		
+						task.wait(0.1)
+					until (not AutoBank.Enabled)
+				else
+					table.clear(Items)
+				end
+			end,
+			Tooltip = 'Automatically puts resources in ender chest'
+		})
+		UIToggle = AutoBank:CreateToggle({
+			Name = 'UI',
+			Function = function(callback)
+				if AutoBank.Enabled then
+					UI.Visible = callback
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local AutoBuy
+		local Sword
+		local Armor
+		local Upgrades
+		local TierCheck
+		local BedwarsCheck
+		local GUI
+		local SmartCheck
+		local Delay
+		local Custom = {}
+		local CustomPost = {}
+		local UpgradeToggles = {}
+		local Functions, id = {}
+		local Callbacks = {Custom, Functions, CustomPost}
+		local npctick, purchasetick = tick(), tick()
+		
+		local swords = {
+			'wood_sword',
+			'stone_sword',
+			'iron_sword',
+			'diamond_sword',
+			'emerald_sword'
+		}
+		
+		local armors = {
+			'none',
+			'leather_chestplate',
+			'iron_chestplate',
+			'diamond_chestplate',
+			'emerald_chestplate'
+		}
+		
+		local axes = {
+			'none',
+			'wood_axe',
+			'stone_axe',
+			'iron_axe',
+			'diamond_axe'
+		}
+		
+		local pickaxes = {
+			'none',
+			'wood_pickaxe',
+			'stone_pickaxe',
+			'iron_pickaxe',
+			'diamond_pickaxe'
+		}
+		
+		local function getShopNPC()
+			local shop, items, upgrades, newid = nil, false, false, nil
+			if entitylib.isAlive then
+				local localPosition = entitylib.character.RootPart.Position
+				for _, v in store.shop do
+					if (v.RootPart.Position - localPosition).Magnitude <= 20 then
+						shop = v.Upgrades or v.Shop or nil
+						upgrades = upgrades or v.Upgrades
+						items = items or v.Shop
+						newid = v.Shop and v.Id or newid
+					end
+				end
+			end
+			return shop, items, upgrades, newid
+		end
+		
+		local function canBuy(item, currencytable, amount)
+			amount = amount or 1
+			if not currencytable[item.currency] then
+				local currency = getItem(item.currency)
+				currencytable[item.currency] = currency and currency.amount or 0
+			end
+			if item.ignoredByKit and table.find(item.ignoredByKit, store.equippedKit or '') then return false end
+			if item.lockedByForge or item.disabled then return false end
+			if item.require and item.require.teamUpgrade then
+				if (bedwars.Store:getState().Bedwars.teamUpgrades[item.require.teamUpgrade.upgradeId] or -1) < item.require.teamUpgrade.lowestTierIndex then
+					return false
+				end
+			end
+			return currencytable[item.currency] >= (item.price * amount)
+		end
+		
+		local function buyItem(item, currencytable)
+			if not id then return end
+			notif('AutoBuy', 'Bought '..bedwars.ItemMeta[item.itemType].displayName, 3)
+			bedwars.Client:Get('BedwarsPurchaseItem'):CallServerAsync({
+				shopItem = item,
+				shopId = id
+			}):andThen(function(suc)
+				if suc then
+					bedwars.SoundManager:playSound(bedwars.SoundList.BEDWARS_PURCHASE_ITEM)
+					bedwars.Store:dispatch({
+						type = 'BedwarsAddItemPurchased',
+						itemType = item.itemType
+					})
+					bedwars.BedwarsShopController.alreadyPurchasedMap[item.itemType] = true
+				end
+			end)
+			currencytable[item.currency] -= item.price
+		end
+		
+		local function buyUpgrade(upgradeType, currencytable)
+			if not Upgrades.Enabled then return end
+			local upgrade = bedwars.TeamUpgradeMeta[upgradeType]
+			local currentUpgrades = bedwars.Store:getState().Bedwars.teamUpgrades[lplr:GetAttribute('Team')] or {}
+			local currentTier = (currentUpgrades[upgradeType] or 0) + 1
+			local bought = false
+		
+			for i = currentTier, #upgrade.tiers do
+				local tier = upgrade.tiers[i]
+				if tier.availableOnlyInQueue and not table.find(tier.availableOnlyInQueue, store.queueType) then continue end
+		
+				if canBuy({currency = 'diamond', price = tier.cost}, currencytable) then
+					notif('AutoBuy', 'Bought '..(upgrade.name == 'Armor' and 'Protection' or upgrade.name)..' '..i, 3)
+					bedwars.Client:Get('RequestPurchaseTeamUpgrade'):CallServerAsync(upgradeType)
+					currencytable.diamond -= tier.cost
+					bought = true
+				else
+					break
+				end
+			end
+		
+			return bought
+		end
+		
+		local function buyTool(tool, tools, currencytable)
+			local bought, buyable = false
+			tool = tool and table.find(tools, tool.itemType) and table.find(tools, tool.itemType) + 1 or math.huge
+		
+			for i = tool, #tools do
+				local v = bedwars.Shop.getShopItem(tools[i], lplr)
+				if canBuy(v, currencytable) then
+					if SmartCheck.Enabled and bedwars.ItemMeta[tools[i]].breakBlock and i > 2 then
+						if Armor.Enabled then
+							local currentarmor = store.inventory.inventory.armor[2]
+							currentarmor = currentarmor and currentarmor ~= 'empty' and currentarmor.itemType or 'none'
+							if (table.find(armors, currentarmor) or 3) < 3 then break end
+						end
+						if Sword.Enabled then
+							if store.tools.sword and (table.find(swords, store.tools.sword.itemType) or 2) < 2 then break end
+						end
+					end
+					bought = true
+					buyable = v
+				end
+				if TierCheck.Enabled and v.nextTier then break end
+			end
+		
+			if buyable then
+				buyItem(buyable, currencytable)
+			end
+		
+			return bought
+		end
+		
+		AutoBuy = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Buy',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.queueType ~= 'bedwars_test'
+					if BedwarsCheck.Enabled and not store.queueType:find('bedwars') then return end
+		
+					local lastupgrades
+					AutoBuy:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(function()
+						if (npctick - tick()) > 1 then npctick = tick() end
+					end))
+		
+					repeat
+						local npc, shop, upgrades, newid = getShopNPC()
+						id = newid
+						if GUI.Enabled then
+							if not (bedwars.AppController:isAppOpen('BedwarsItemShopApp') or bedwars.AppController:isAppOpen('TeamUpgradeApp')) then
+								npc = nil
+							end
+						end
+		
+						if npc and lastupgrades ~= upgrades then
+							if (npctick - tick()) > 1 then npctick = tick() end
+							lastupgrades = upgrades
+						end
+		
+						if npc and npctick <= tick() and store.matchState ~= 2 and store.shopLoaded then
+							local currencytable = {}
+							local waitcheck
+							for _, tab in Callbacks do
+								for _, callback in tab do
+									if callback(currencytable, shop, upgrades) then
+										waitcheck = true
+										purchasetick = tick()
+										task.wait(Delay.Value)
+									end
+								end
+							end
+							npctick = tick() + (waitcheck and 0.4 or math.huge)
+						end
+		
+						task.wait(0.1)
+					until not AutoBuy.Enabled
+				else
+					npctick = tick()
+				end
+			end,
+			Tooltip = 'Automatically buys items when you go near the shop'
+		})
+		Sword = AutoBuy:CreateToggle({
+			Name = 'Buy Sword',
+			Function = function(callback)
+				npctick = tick()
+				Functions[2] = callback and function(currencytable, shop)
+					if not shop then return end
+		
+					if store.equippedKit == 'dasher' then
+						swords = {
+							[1] = 'wood_dao',
+							[2] = 'stone_dao',
+							[3] = 'iron_dao',
+							[4] = 'diamond_dao',
+							[5] = 'emerald_dao'
+						}
+					elseif store.equippedKit == 'ice_queen' then
+						swords[5] = 'ice_sword'
+					elseif store.equippedKit == 'ember' then
+						swords[5] = 'infernal_saber'
+					elseif store.equippedKit == 'lumen' then
+						swords[5] = 'light_sword'
+					end
+		
+					return buyTool(store.tools.sword, swords, currencytable)
+				end or nil
+			end
+		})
+		Armor = AutoBuy:CreateToggle({
+			Name = 'Buy Armor',
+			Function = function(callback)
+				npctick = tick()
+				Functions[1] = callback and function(currencytable, shop)
+					if not shop then return end
+					local currentarmor = store.inventory.inventory.armor[2] ~= 'empty' and store.inventory.inventory.armor[2] or getBestArmor(1)
+					currentarmor = currentarmor and currentarmor.itemType or 'none'
+					return buyTool({itemType = currentarmor}, armors, currencytable)
+				end or nil
+			end,
+			Default = true
+		})
+		AutoBuy:CreateToggle({
+			Name = 'Buy Axe',
+			Function = function(callback)
+				npctick = tick()
+				Functions[3] = callback and function(currencytable, shop)
+					if not shop then return end
+					return buyTool(store.tools.wood or {itemType = 'none'}, axes, currencytable)
+				end or nil
+			end
+		})
+		AutoBuy:CreateToggle({
+			Name = 'Buy Pickaxe',
+			Function = function(callback)
+				npctick = tick()
+				Functions[4] = callback and function(currencytable, shop)
+					if not shop then return end
+					return buyTool(store.tools.stone, pickaxes, currencytable)
+				end or nil
+			end
+		})
+		Upgrades = AutoBuy:CreateToggle({
+			Name = 'Buy Upgrades',
+			Function = function(callback)
+				for _, v in UpgradeToggles do
+					v.Object.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		local count = 0
+		for i, v in bedwars.TeamUpgradeMeta do
+			local toggleCount = count
+			table.insert(UpgradeToggles, AutoBuy:CreateToggle({
+				Name = 'Buy '..(v.name == 'Armor' and 'Protection' or v.name),
+				Function = function(callback)
+					npctick = tick()
+					Functions[5 + toggleCount + (v.name == 'Armor' and 20 or 0)] = callback and function(currencytable, shop, upgrades)
+						if not upgrades then return end
+						if v.disabledInQueue and table.find(v.disabledInQueue, store.queueType) then return end
+						return buyUpgrade(i, currencytable)
+					end or nil
+				end,
+				Darker = true,
+				Default = (i == 'ARMOR' or i == 'DAMAGE')
+			}))
+			count += 1
+		end
+		TierCheck = AutoBuy:CreateToggle({Name = 'Tier Check'})
+		BedwarsCheck = AutoBuy:CreateToggle({
+			Name = 'Only Bedwars',
+			Function = function()
+				if AutoBuy.Enabled then
+					AutoBuy:Toggle()
+					AutoBuy:Toggle()
+				end
+			end,
+			Default = true
+		})
+		GUI = AutoBuy:CreateToggle({Name = 'GUI check'})
+		SmartCheck = AutoBuy:CreateToggle({
+			Name = 'Smart check',
+			Default = true,
+			Tooltip = 'Buys iron armor before iron axe'
+		})
+		AutoBuy:CreateTextList({
+			Name = 'Item',
+			Placeholder = 'priority/item/amount/after',
+			Function = function(list)
+				table.clear(Custom)
+				table.clear(CustomPost)
+				for _, entry in list do
+					local tab = entry:split('/')
+					local ind = tonumber(tab[1])
+					if ind then
+						(tab[4] and CustomPost or Custom)[ind] = function(currencytable, shop)
+							if not shop then return end
+		
+							local v = bedwars.Shop.getShopItem(tab[2], lplr)
+							if v then
+								local item = getItem(tab[2] == 'wool_white' and bedwars.Shop.getTeamWool(lplr:GetAttribute('Team')) or tab[2])
+								item = (item and tonumber(tab[3]) - item.amount or tonumber(tab[3])) // v.amount
+								if item > 0 and canBuy(v, currencytable, item) then
+									for _ = 1, item do
+										buyItem(v, currencytable)
+									end
+									return true
+								end
+							end
+						end
+					end
+				end
+			end
+		})
+		Delay = AutoBuy:CreateSlider({
+			Name = 'Delay',
+			Min = 0,
+			Max = 2,
+			Default = 0,
+			Suffix = function(val)
+				return val == 1 and 'sec' or 'secs'
+			end,
+			Decimal = 5
+		})
+	end)
+		
+	run(function()
+		local AutoConsume
+		local Health
+		local SpeedPotion
+		local Apple
+		local ShieldPotion
+		
+		local function consumeCheck(attribute)
+			if entitylib.isAlive then
+				if SpeedPotion.Enabled and (not attribute or attribute == 'StatusEffect_speed') then
+					local speedpotion = getItem('speed_potion')
+					if speedpotion and (not lplr.Character:GetAttribute('StatusEffect_speed')) then
+						for _ = 1, 4 do
+							if bedwars.Client:Get(remotes.ConsumeItem):CallServer({item = speedpotion.tool}) then break end
+						end
+					end
+				end
+		
+				if Apple.Enabled and (not attribute or attribute:find('Health')) then
+					if (lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) <= (Health.Value / 100) then
+						local apple = getItem('orange') or (not lplr.Character:GetAttribute('StatusEffect_golden_apple') and getItem('golden_apple')) or getItem('apple')
+						
+						if apple then
+							bedwars.Client:Get(remotes.ConsumeItem):CallServerAsync({
+								item = apple.tool
+							})
+						end
+					end
+				end
+		
+				if ShieldPotion.Enabled and (not attribute or attribute:find('Shield')) then
+					if (lplr.Character:GetAttribute('Shield_POTION') or 0) == 0 then
+						local shield = getItem('big_shield') or getItem('mini_shield')
+		
+						if shield then
+							bedwars.Client:Get(remotes.ConsumeItem):CallServerAsync({
+								item = shield.tool
+							})
+						end
+					end
+				end
+			end
+		end
+		
+		AutoConsume = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Consume',
+			Function = function(callback)
+				if callback then
+					AutoConsume:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(consumeCheck))
+					AutoConsume:Clean(vapeEvents.AttributeChanged.Event:Connect(function(attribute)
+						if attribute:find('Shield') or attribute:find('Health') or attribute == 'StatusEffect_speed' then
+							consumeCheck(attribute)
+						end
+					end))
+					consumeCheck()
+				end
+			end,
+			Tooltip = 'Automatically heals for you when health or shield is under threshold.'
+		})
+		Health = AutoConsume:CreateSlider({
+			Name = 'Health Percent',
+			Min = 1,
+			Max = 99,
+			Default = 70,
+			Suffix = '%'
+		})
+		SpeedPotion = AutoConsume:CreateToggle({
+			Name = 'Speed Potions',
+			Default = true
+		})
+		Apple = AutoConsume:CreateToggle({
+			Name = 'Apple',
+			Default = true
+		})
+		ShieldPotion = AutoConsume:CreateToggle({
+			Name = 'Shield Potions',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local AutoHotbar
+		local Mode
+		local Clear
+		local List
+		local Active
+		
+		local function CreateWindow(self)
+			local selectedslot = 1
+			local window = Instance.new('Frame')
+			window.Name = 'HotbarGUI'
+			window.Size = UDim2.fromOffset(660, 465)
+			window.Position = UDim2.fromScale(0.5, 0.5)
+			window.BackgroundColor3 = uipallet.Main
+			window.AnchorPoint = Vector2.new(0.5, 0.5)
+			window.Visible = false
+			window.Parent = vape.gui.ScaledGui
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -10, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 12)
+			title.BackgroundTransparency = 1
+			title.Text = 'AutoHotbar'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.fromOffset(0, 40)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+			divider.BorderSizePixel = 0
+			divider.Parent = window
+			addBlur(window)
+			local modal = Instance.new('TextButton')
+			modal.Text = ''
+			modal.BackgroundTransparency = 1
+			modal.Modal = true
+			modal.Parent = window
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 5)
+			corner.Parent = window
+			local close = Instance.new('ImageButton')
+			close.Name = 'Close'
+			close.Size = UDim2.fromOffset(24, 24)
+			close.Position = UDim2.new(1, -35, 0, 9)
+			close.BackgroundColor3 = Color3.new(1, 1, 1)
+			close.BackgroundTransparency = 1
+			close.Image = getcustomasset('catrewrite/assets/new/close.png')
+			close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+			close.ImageTransparency = 0.5
+			close.AutoButtonColor = false
+			close.Parent = window
+			close.MouseEnter:Connect(function()
+				close.ImageTransparency = 0.3
+				tween:Tween(close, TweenInfo.new(0.2), {
+					BackgroundTransparency = 0.6
+				})
+			end)
+			close.MouseLeave:Connect(function()
+				close.ImageTransparency = 0.5
+				tween:Tween(close, TweenInfo.new(0.2), {
+					BackgroundTransparency = 1
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+				vape.gui.ScaledGui.ClickGui.Visible = true
+			end)
+			local closecorner = Instance.new('UICorner')
+			closecorner.CornerRadius = UDim.new(1, 0)
+			closecorner.Parent = close
+			local bigslot = Instance.new('Frame')
+			bigslot.Size = UDim2.fromOffset(110, 111)
+			bigslot.Position = UDim2.fromOffset(11, 71)
+			bigslot.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			bigslot.Parent = window
+			local bigslotcorner = Instance.new('UICorner')
+			bigslotcorner.CornerRadius = UDim.new(0, 4)
+			bigslotcorner.Parent = bigslot
+			local bigslotstroke = Instance.new('UIStroke')
+			bigslotstroke.Color = color.Light(uipallet.Main, 0.034)
+			bigslotstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			bigslotstroke.Parent = bigslot
+			local slotnum = Instance.new('TextLabel')
+			slotnum.Size = UDim2.fromOffset(80, 20)
+			slotnum.Position = UDim2.fromOffset(25, 200)
+			slotnum.BackgroundTransparency = 1
+			slotnum.Text = 'SLOT 1'
+			slotnum.TextColor3 = color.Dark(uipallet.Text, 0.1)
+			slotnum.TextSize = 12
+			slotnum.FontFace = uipallet.Font
+			slotnum.Parent = window
+			for i = 1, 9 do
+				local slotbkg = Instance.new('TextButton')
+				slotbkg.Name = 'Slot'..i
+				slotbkg.Size = UDim2.fromOffset(51, 52)
+				slotbkg.Position = UDim2.fromOffset(89 + (i * 55), 382)
+				slotbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				slotbkg.Text = ''
+				slotbkg.AutoButtonColor = false
+				slotbkg.Parent = window
+				local slotimage = Instance.new('ImageLabel')
+				slotimage.Size = UDim2.fromOffset(32, 32)
+				slotimage.Position = UDim2.new(0.5, -16, 0.5, -16)
+				slotimage.BackgroundTransparency = 1
+				slotimage.Image = ''
+				slotimage.Parent = slotbkg
+				local slotcorner = Instance.new('UICorner')
+				slotcorner.CornerRadius = UDim.new(0, 4)
+				slotcorner.Parent = slotbkg
+				local slotstroke = Instance.new('UIStroke')
+				slotstroke.Color = color.Light(uipallet.Main, 0.04)
+				slotstroke.Thickness = 2
+				slotstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+				slotstroke.Enabled = i == selectedslot
+				slotstroke.Parent = slotbkg
+				slotbkg.MouseEnter:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				end)
+				slotbkg.MouseLeave:Connect(function()
+					slotbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				end)
+				slotbkg.MouseButton1Click:Connect(function()
+					window['Slot'..selectedslot].UIStroke.Enabled = false
+					selectedslot = i
+					slotstroke.Enabled = true
+					slotnum.Text = 'SLOT '..selectedslot
+				end)
+				slotbkg.MouseButton2Click:Connect(function()
+					local obj = self.Hotbars[self.Selected]
+					if obj then
+						window['Slot'..i].ImageLabel.Image = ''
+						obj.Hotbar[tostring(i)] = nil
+						obj.Object['Slot'..i].Image = '	'
+					end
+				end)
+			end
+			local searchbkg = Instance.new('Frame')
+			searchbkg.Size = UDim2.fromOffset(496, 31)
+			searchbkg.Position = UDim2.fromOffset(142, 80)
+			searchbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			searchbkg.Parent = window
+			local search = Instance.new('TextBox')
+			search.Size = UDim2.new(1, -10, 0, 31)
+			search.Position = UDim2.fromOffset(10, 0)
+			search.BackgroundTransparency = 1
+			search.Text = ''
+			search.PlaceholderText = ''
+			search.TextXAlignment = Enum.TextXAlignment.Left
+			search.TextColor3 = uipallet.Text
+			search.TextSize = 12
+			search.FontFace = uipallet.Font
+			search.ClearTextOnFocus = false
+			search.Parent = searchbkg
+			local searchcorner = Instance.new('UICorner')
+			searchcorner.CornerRadius = UDim.new(0, 4)
+			searchcorner.Parent = searchbkg
+			local searchicon = Instance.new('ImageLabel')
+			searchicon.Size = UDim2.fromOffset(14, 14)
+			searchicon.Position = UDim2.new(1, -26, 0, 8)
+			searchicon.BackgroundTransparency = 1
+			searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+			searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			searchicon.Parent = searchbkg
+			local children = Instance.new('ScrollingFrame')
+			children.Name = 'Children'
+			children.Size = UDim2.fromOffset(500, 240)
+			children.Position = UDim2.fromOffset(144, 122)
+			children.BackgroundTransparency = 1
+			children.BorderSizePixel = 0
+			children.ScrollBarThickness = 2
+			children.ScrollBarImageTransparency = 0.75
+			children.CanvasSize = UDim2.new()
+			children.Parent = window
+			local windowlist = Instance.new('UIGridLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.FillDirectionMaxCells = 9
+			windowlist.CellSize = UDim2.fromOffset(51, 52)
+			windowlist.CellPadding = UDim2.fromOffset(4, 3)
+			windowlist.Parent = children
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / vape.guiscale.Scale)
+			end)
+			table.insert(vape.Windows, window)
+		
+			local function createitem(id, image)
+				local slotbkg = Instance.new('TextButton')
+				slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				slotbkg.Text = ''
+				slotbkg.AutoButtonColor = false
+				slotbkg.Parent = children
+				local slotimage = Instance.new('ImageLabel')
+				slotimage.Size = UDim2.fromOffset(32, 32)
+				slotimage.Position = UDim2.new(0.5, -16, 0.5, -16)
+				slotimage.BackgroundTransparency = 1
+				slotimage.Image = image
+				slotimage.Parent = slotbkg
+				local slotcorner = Instance.new('UICorner')
+				slotcorner.CornerRadius = UDim.new(0, 4)
+				slotcorner.Parent = slotbkg
+				slotbkg.MouseEnter:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+				end)
+				slotbkg.MouseLeave:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end)
+				slotbkg.MouseButton1Click:Connect(function()
+					local obj = self.Hotbars[self.Selected]
+					if obj then
+						window['Slot'..selectedslot].ImageLabel.Image = image
+						obj.Hotbar[tostring(selectedslot)] = id
+						obj.Object['Slot'..selectedslot].Image = image
+					end
+				end)
+			end
+		
+			local function indexSearch(text)
+				for _, v in children:GetChildren() do
+					if v:IsA('TextButton') then
+						v:ClearAllChildren()
+						v:Destroy()
+					end
+				end
+		
+				if text == '' then
+					for _, v in {'diamond_sword', 'diamond_pickaxe', 'diamond_axe', 'shears', 'wood_bow', 'wool_white', 'fireball', 'apple', 'iron', 'gold', 'diamond', 'emerald'} do
+						createitem(v, bedwars.ItemMeta[v].image)
+					end
+					return
+				end
+		
+				for i, v in bedwars.ItemMeta do
+					if text:lower() == i:lower():sub(1, text:len()) then
+						if not v.image then continue end
+						createitem(i, v.image)
+					end
+				end
+			end
+		
+			search:GetPropertyChangedSignal('Text'):Connect(function()
+				indexSearch(search.Text)
+			end)
+			indexSearch('')
+		
+			return window
+		end
+		
+		vape.Components.HotbarList = function(optionsettings, children, api)
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+			local optionapi = {
+				Type = 'HotbarList',
+				Hotbars = {},
+				Selected = 1
+			}
+			local hotbarlist = Instance.new('TextButton')
+			hotbarlist.Name = 'HotbarList'
+			hotbarlist.Size = UDim2.fromOffset(220, 40)
+			hotbarlist.BackgroundColor3 = optionsettings.Darker and (children.BackgroundColor3 == color.Dark(uipallet.Main, 0.02) and color.Dark(uipallet.Main, 0.04) or color.Dark(uipallet.Main, 0.02)) or children.BackgroundColor3
+			hotbarlist.Text = ''
+			hotbarlist.BorderSizePixel = 0
+			hotbarlist.AutoButtonColor = false
+			hotbarlist.Parent = children
+			local textbkg = Instance.new('Frame')
+			textbkg.Name = 'BKG'
+			textbkg.Size = UDim2.new(1, -20, 0, 31)
+			textbkg.Position = UDim2.fromOffset(10, 4)
+			textbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			textbkg.Parent = hotbarlist
+			local textbkgcorner = Instance.new('UICorner')
+			textbkgcorner.CornerRadius = UDim.new(0, 4)
+			textbkgcorner.Parent = textbkg
+			local textbutton = Instance.new('TextButton')
+			textbutton.Name = 'HotbarList'
+			textbutton.Size = UDim2.new(1, -2, 1, -2)
+			textbutton.Position = UDim2.fromOffset(1, 1)
+			textbutton.BackgroundColor3 = uipallet.Main
+			textbutton.Text = ''
+			textbutton.AutoButtonColor = false
+			textbutton.Parent = textbkg
+			textbutton.MouseEnter:Connect(function()
+				tween:Tween(textbkg, TweenInfo.new(0.2), {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				})
+			end)
+			textbutton.MouseLeave:Connect(function()
+				tween:Tween(textbkg, TweenInfo.new(0.2), {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+			end)
+			local textbuttoncorner = Instance.new('UICorner')
+			textbuttoncorner.CornerRadius = UDim.new(0, 4)
+			textbuttoncorner.Parent = textbutton
+			local textbuttonicon = Instance.new('ImageLabel')
+			textbuttonicon.Size = UDim2.fromOffset(12, 12)
+			textbuttonicon.Position = UDim2.fromScale(0.5, 0.5)
+			textbuttonicon.AnchorPoint = Vector2.new(0.5, 0.5)
+			textbuttonicon.BackgroundTransparency = 1
+			textbuttonicon.Image = getcustomasset('catrewrite/assets/new/add.png')
+			textbuttonicon.ImageColor3 = Color3.fromHSV(0.46, 0.96, 0.52)
+			textbuttonicon.Parent = textbutton
+			local childrenlist = Instance.new('Frame')
+			childrenlist.Size = UDim2.new(1, 0, 1, -40)
+			childrenlist.Position = UDim2.fromOffset(0, 40)
+			childrenlist.BackgroundTransparency = 1
+			childrenlist.Parent = hotbarlist
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Padding = UDim.new(0, 3)
+			windowlist.Parent = childrenlist
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				hotbarlist.Size = UDim2.fromOffset(220, math.min(43 + windowlist.AbsoluteContentSize.Y / vape.guiscale.Scale, 603))
+			end)
+			textbutton.MouseButton1Click:Connect(function()
+				optionapi:AddHotbar()
+			end)
+			optionapi.Window = CreateWindow(optionapi)
+		
+			function optionapi:Save(savetab)
+				local hotbars = {}
+				for _, v in self.Hotbars do
+					table.insert(hotbars, v.Hotbar)
+				end
+				savetab.HotbarList = {
+					Selected = self.Selected,
+					Hotbars = hotbars
+				}
+			end
+		
+			function optionapi:Load(savetab)
+				for _, v in self.Hotbars do
+					v.Object:ClearAllChildren()
+					v.Object:Destroy()
+					table.clear(v.Hotbar)
+				end
+				table.clear(self.Hotbars)
+				for _, v in savetab.Hotbars do
+					self:AddHotbar(v)
+				end
+				self.Selected = savetab.Selected or 1
+			end
+		
+			function optionapi:AddHotbar(data)
+				local hotbardata = {Hotbar = data or {}}
+				table.insert(self.Hotbars, hotbardata)
+				local hotbar = Instance.new('TextButton')
+				hotbar.Size = UDim2.fromOffset(200, 27)
+				hotbar.BackgroundColor3 = table.find(self.Hotbars, hotbardata) == self.Selected and color.Light(uipallet.Main, 0.034) or uipallet.Main
+				hotbar.Text = ''
+				hotbar.AutoButtonColor = false
+				hotbar.Parent = childrenlist
+				hotbardata.Object = hotbar
+				local hotbarcorner = Instance.new('UICorner')
+				hotbarcorner.CornerRadius = UDim.new(0, 4)
+				hotbarcorner.Parent = hotbar
+				for i = 1, 9 do
+					local slot = Instance.new('ImageLabel')
+					slot.Name = 'Slot'..i
+					slot.Size = UDim2.fromOffset(17, 18)
+					slot.Position = UDim2.fromOffset(-7 + (i * 18), 5)
+					slot.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+					slot.Image = hotbardata.Hotbar[tostring(i)] and bedwars.getIcon({itemType = hotbardata.Hotbar[tostring(i)]}, true) or ''
+					slot.BorderSizePixel = 0
+					slot.Parent = hotbar
+				end
+				hotbar.MouseButton1Click:Connect(function()
+					local ind = table.find(optionapi.Hotbars, hotbardata)
+					if ind == optionapi.Selected then
+						vape.gui.ScaledGui.ClickGui.Visible = false
+						optionapi.Window.Visible = true
+						for i = 1, 9 do
+							optionapi.Window['Slot'..i].ImageLabel.Image = hotbardata.Hotbar[tostring(i)] and bedwars.getIcon({itemType = hotbardata.Hotbar[tostring(i)]}, true) or ''
+						end
+					else
+						if optionapi.Hotbars[optionapi.Selected] then
+							optionapi.Hotbars[optionapi.Selected].Object.BackgroundColor3 = uipallet.Main
+						end
+						hotbar.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+						optionapi.Selected = ind
+					end
+				end)
+				local close = Instance.new('ImageButton')
+				close.Name = 'Close'
+				close.Size = UDim2.fromOffset(16, 16)
+				close.Position = UDim2.new(1, -23, 0, 6)
+				close.BackgroundColor3 = Color3.new(1, 1, 1)
+				close.BackgroundTransparency = 1
+				close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+				close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+				close.ImageTransparency = 0.5
+				close.AutoButtonColor = false
+				close.Parent = hotbar
+				local closecorner = Instance.new('UICorner')
+				closecorner.CornerRadius = UDim.new(1, 0)
+				closecorner.Parent = close
+				close.MouseEnter:Connect(function()
+					close.ImageTransparency = 0.3
+					tween:Tween(close, TweenInfo.new(0.2), {
+						BackgroundTransparency = 0.6
+					})
+				end)
+				close.MouseLeave:Connect(function()
+					close.ImageTransparency = 0.5
+					tween:Tween(close, TweenInfo.new(0.2), {
+						BackgroundTransparency = 1
+					})
+				end)
+				close.MouseButton1Click:Connect(function()
+					local ind = table.find(self.Hotbars, hotbardata)
+					local obj = self.Hotbars[self.Selected]
+					local obj2 = self.Hotbars[ind]
+					if obj and obj2 then
+						obj2.Object:ClearAllChildren()
+						obj2.Object:Destroy()
+						table.remove(self.Hotbars, ind)
+						ind = table.find(self.Hotbars, obj)
+						self.Selected = table.find(self.Hotbars, obj) or 1
+					end
+				end)
+			end
+		
+			api.Options.HotbarList = optionapi
+		
+			return optionapi
+		end
+		
+		local function getBlock()
+			local clone = table.clone(store.inventory.inventory.items)
+			table.sort(clone, function(a, b)
+				return a.amount < b.amount
+			end)
+		
+			for _, item in clone do
+				local block = bedwars.ItemMeta[item.itemType].block
+				if block and not block.seeThrough then
+					return item
+				end
+			end
+		end
+		
+		local function getCustomItem(v)
+			if v == 'diamond_sword' then
+				local sword = store.tools.sword
+				v = sword and sword.itemType or 'wood_sword'
+			elseif v == 'diamond_pickaxe' then
+				local pickaxe = store.tools.stone
+				v = pickaxe and pickaxe.itemType or 'wood_pickaxe'
+			elseif v == 'diamond_axe' then
+				local axe = store.tools.wood
+				v = axe and axe.itemType or 'wood_axe'
+			elseif v == 'wood_bow' then
+				local bow = getBow()
+				v = bow and bow.itemType or 'wood_bow'
+			elseif v == 'wool_white' then
+				local block = getBlock()
+				v = block and block.itemType or 'wool_white'
+			end
+		
+			return v
+		end
+		
+		local function findItemInTable(tab, item)
+			for slot, v in tab do
+				if item.itemType == getCustomItem(v) then
+					return tonumber(slot)
+				end
+			end
+		end
+		
+		local function findInHotbar(item)
+			for i, v in store.inventory.hotbar do
+				if v.item and v.item.itemType == item.itemType then
+					return i - 1, v.item
+				end
+			end
+		end
+		
+		local function findInInventory(item)
+			for _, v in store.inventory.inventory.items do
+				if v.itemType == item.itemType then
+					return v
+				end
+			end
+		end
+		
+		local function dispatch(...)
+			bedwars.Store:dispatch(...)
+			vapeEvents.InventoryChanged.Event:Wait()
+		end
+		
+		local function sortCallback()
+			if Active then return end
+			Active = true
+			local items = (List.Hotbars[List.Selected] and List.Hotbars[List.Selected].Hotbar or {})
+		
+			for _, v in store.inventory.inventory.items do
+				local slot = findItemInTable(items, v)
+				if slot then
+					local olditem = store.inventory.hotbar[slot]
+					if olditem.item and olditem.item.itemType == v.itemType then continue end
+					if olditem.item then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = slot - 1
+						})
+					end
+		
+					local newslot = findInHotbar(v)
+					if newslot then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = newslot
+						})
+						if olditem.item then
+							dispatch({
+								type = 'InventoryAddToHotbar',
+								item = findInInventory(olditem.item),
+								slot = newslot
+							})
+						end
+					end
+		
+					dispatch({
+						type = 'InventoryAddToHotbar',
+						item = findInInventory(v),
+						slot = slot - 1
+					})
+				elseif Clear.Enabled then
+					local newslot = findInHotbar(v)
+					if newslot then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = newslot
+						})
+					end
+				end
+			end
+		
+			Active = false
+		end
+		
+		AutoHotbar = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Hotbar',
+			Function = function(callback)
+				if callback then
+					task.spawn(sortCallback)
+					if Mode.Value == 'On Key' then
+						AutoHotbar:Toggle()
+						return
+					end
+		
+					AutoHotbar:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(sortCallback))
+				end
+			end,
+			Tooltip = 'Automatically arranges hotbar to your liking.'
+		})
+		Mode = AutoHotbar:CreateDropdown({
+			Name = 'Activation',
+			List = {'Toggle', 'On Key'},
+			Function = function()
+				if AutoHotbar.Enabled then
+					AutoHotbar:Toggle()
+					AutoHotbar:Toggle()
+				end
+			end
+		})
+		Clear = AutoHotbar:CreateToggle({Name = 'Clear Hotbar'})
+		List = AutoHotbar:CreateHotbarList({})
+	end)
+		
+	run(function()
+		local Value
+		local oldclickhold, oldshowprogress
+		
+		local FastConsume = vape.Categories.Inventory:CreateModule({
+			Name = 'Fast Consume',
+			Function = function(callback)
+				if callback then
+					oldclickhold = bedwars.ClickHold.startClick
+					oldshowprogress = bedwars.ClickHold.showProgress
+					bedwars.ClickHold.startClick = function(self)
+						self.startedClickTime = tick()
+						local handle = self:showProgress()
+						local clicktime = self.startedClickTime
+						bedwars.RuntimeLib.Promise.defer(function()
+							task.wait(self.durationSeconds * (Value.Value / 40))
+							if handle == self.handle and clicktime == self.startedClickTime and self.closeOnComplete then
+								self:hideProgress()
+								if self.onComplete then self.onComplete() end
+								if self.onPartialComplete then self.onPartialComplete(1) end
+								self.startedClickTime = -1
+							end
+						end)
+					end
+		
+					if canDebug then
+						bedwars.ClickHold.showProgress = function(self)
+							local roact = debug.getupvalue(oldshowprogress, 1)
+							local countdown = roact.mount(roact.createElement('ScreenGui', {}, { roact.createElement('Frame', {
+								[roact.Ref] = self.wrapperRef,
+								Size = UDim2.new(),
+								Position = UDim2.fromScale(0.5, 0.55),
+								AnchorPoint = Vector2.new(0.5, 0),
+								BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+								BackgroundTransparency = 0.8
+							}, { roact.createElement('Frame', {
+								[roact.Ref] = self.progressRef,
+								Size = UDim2.fromScale(0, 1),
+								BackgroundColor3 = Color3.new(1, 1, 1),
+								BackgroundTransparency = 0.5
+							}) }) }), lplr:FindFirstChild('PlayerGui'))
+			
+							self.handle = countdown
+							local sizetween = tweenService:Create(self.wrapperRef:getValue(), TweenInfo.new(0.1), {
+								Size = UDim2.fromScale(0.11, 0.005)
+							})
+							local countdowntween = tweenService:Create(self.progressRef:getValue(), TweenInfo.new(self.durationSeconds * (Value.Value / 100), Enum.EasingStyle.Linear), {
+								Size = UDim2.fromScale(1, 1)
+							})
+			
+							sizetween:Play()
+							countdowntween:Play()
+							table.insert(self.tweens, countdowntween)
+							table.insert(self.tweens, sizetween)
+							
+							return countdown
+						end
+					end
+				else
+					bedwars.ClickHold.startClick = oldclickhold
+					bedwars.ClickHold.showProgress = oldshowprogress
+					oldclickhold = nil
+					oldshowprogress = nil
+				end
+			end,
+			Tooltip = 'Use/Consume items quicker.'
+		})
+		Value = FastConsume:CreateSlider({
+			Name = 'Multiplier',
+			Min = 0,
+			Max = 100
+		})
+	end)
+		
+	run(function()
+		local FastDrop
+		
+		FastDrop = vape.Categories.Inventory:CreateModule({
+			Name = 'Fast Drop',
+			Function = function(callback)
+				if callback then
+					repeat
+						if entitylib.isAlive and (not store.inventory.opened) and (inputService:IsKeyDown(Enum.KeyCode.H) or inputService:IsKeyDown(Enum.KeyCode.Backspace)) and inputService:GetFocusedTextBox() == nil then
+							task.spawn(bedwars.ItemDropController.dropItemInHand)
+							task.wait()
+						else
+							task.wait(0.1)
+						end
+					until not FastDrop.Enabled
+				end
+			end,
+			Tooltip = 'Drops items fast when you hold Q'
+		})
+	end)
+		
+	run(function()
+		local BedPlates
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function scanSide(self, start, tab)
+			for _, side in sides do
+				for i = 1, 15 do
+					local block = getPlacedBlock(start + (side * i))
+					if not block or block == self then break end
+					if not block:GetAttribute('NoBreak') and not table.find(tab, block.Name) then
+						table.insert(tab, block.Name)
+					end
+				end
+			end
+		end
+		
+		local function refreshAdornee(v)
+			for _, obj in v.Frame:GetChildren() do
+				if obj:IsA('ImageLabel') and obj.Name ~= 'Blur' then
+					obj:Destroy()
+				end
+			end
+		
+			local start = v.Adornee.Position
+			local alreadygot = {}
+			scanSide(v.Adornee, start, alreadygot)
+			scanSide(v.Adornee, start + Vector3.new(0, 0, 3), alreadygot)
+			table.sort(alreadygot, function(a, b)
+				return (bedwars.ItemMeta[a].block and bedwars.ItemMeta[a].block.health or 0) > (bedwars.ItemMeta[b].block and bedwars.ItemMeta[b].block.health or 0)
+			end)
+			v.Enabled = #alreadygot > 0
+		
+			for _, block in alreadygot do
+				local blockimage = Instance.new('ImageLabel')
+				blockimage.Size = UDim2.fromOffset(29, 29)
+				blockimage.BackgroundTransparency = 1
+				blockimage.Image = bedwars.getIcon({itemType = block}, true)
+				blockimage.Parent = v.Frame
+			end
+		end
+		
+		local function Added(v)
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = 'bed'
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local frame = Instance.new('Frame')
+			frame.Size = UDim2.fromScale(1, 1)
+			frame.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			frame.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			frame.Parent = billboard
+			local layout = Instance.new('UIListLayout')
+			layout.FillDirection = Enum.FillDirection.Horizontal
+			layout.Padding = UDim.new(0, 4)
+			layout.VerticalAlignment = Enum.VerticalAlignment.Center
+			layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+			end)
+			layout.Parent = frame
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 6)
+			corner.Parent = frame
+			Reference[v] = billboard
+			refreshAdornee(billboard)
+		end
+		
+		local function refreshNear(data)
+			data = data.blockRef.blockPosition * 3
+			for i, v in Reference do
+				if (data - i.Position).Magnitude <= 30 then
+					refreshAdornee(v)
+				end
+			end
+		end
+		
+		BedPlates = vape.Categories.Minigames:CreateModule({
+			Name = 'Bed Plates',
+			Function = function(callback)
+				if callback then
+					for _, v in collectionService:GetTagged('bed') do 
+						task.spawn(Added, v) 
+					end
+					BedPlates:Clean(vapeEvents.PlaceBlockEvent.Event:Connect(refreshNear))
+					BedPlates:Clean(vapeEvents.BreakBlockEvent.Event:Connect(refreshNear))
+					BedPlates:Clean(collectionService:GetInstanceAddedSignal('bed'):Connect(Added))
+					BedPlates:Clean(collectionService:GetInstanceRemovedSignal('bed'):Connect(function(v)
+						if Reference[v] then
+							Reference[v]:Destroy()
+							Reference[v]:ClearAllChildren()
+							Reference[v] = nil
+						end
+					end))
+				else
+					table.clear(Reference)
+					Folder:ClearAllChildren()
+				end
+			end,
+			Tooltip = 'Displays blocks over the bed'
+		})
+		Background = BedPlates:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then 
+					Color.Object.Visible = callback 
+				end
+				for _, v in Reference do
+					v.Frame.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = BedPlates:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.Frame.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local Breaker
+		local Delay
+		local AutoAim
+		local AimSpeed	
+		local Range
+		local Cache
+		local UpdateRate
+		local Custom
+		local Bed
+		local LuckyBlock
+		local AutoTool
+		local IronOre
+		local Effect
+		local CustomHealth = {}
+		local Animation
+		local SelfBreak
+		local WallCheck
+		local LimitItem
+		local customlist, parts = {}, {}
+		
+		local function customHealthbar(self, blockRef, health, maxHealth, changeHealth, block)
+			pcall(function()
+				if block:GetAttribute('NoHealthbar') then return end
+				if not self.healthbarPart or not self.healthbarBlockRef or self.healthbarBlockRef.blockPosition ~= blockRef.blockPosition then
+					self.healthbarMaid:DoCleaning()
+					self.healthbarBlockRef = blockRef
+					local create = bedwars.Roact.createElement
+					local percent = math.clamp(health / maxHealth, 0, 1)
+					local cleanCheck = true
+					local part = Instance.new('Part')
+					part.Size = Vector3.one
+					part.CFrame = CFrame.new(bedwars.BlockController:getWorldPosition(blockRef.blockPosition))
+					part.Transparency = 1
+					part.Anchored = true
+					part.CanCollide = false
+					part.Parent = workspace
+					self.healthbarPart = part
+					bedwars.QueryUtil:setQueryIgnored(self.healthbarPart, true)
+			
+					local mounted = bedwars.Roact.mount(create('BillboardGui', {
+						Size = UDim2.fromOffset(249, 102),
+						StudsOffset = Vector3.new(0, 2.5, 0),
+						Adornee = part,
+						MaxDistance = 40,
+						AlwaysOnTop = true
+					}, {
+						create('Frame', {
+							Size = UDim2.fromOffset(160, 50),
+							Position = UDim2.fromOffset(44, 32),
+							BackgroundColor3 = Color3.new(),
+							BackgroundTransparency = 0.5
+						}, {
+							create('UICorner', {CornerRadius = UDim.new(0, 5)}),
+							create('ImageLabel', {
+								Size = UDim2.new(1, 89, 1, 52),
+								Position = UDim2.fromOffset(-48, -31),
+								BackgroundTransparency = 1,
+								Image = getcustomasset('catrewrite/assets/new/blur.png'),
+								ScaleType = Enum.ScaleType.Slice,
+								SliceCenter = Rect.new(52, 31, 261, 502)
+							}),
+							create('TextLabel', {
+								Size = UDim2.fromOffset(145, 14),
+								Position = UDim2.fromOffset(13, 12),
+								BackgroundTransparency = 1,
+								Text = bedwars.ItemMeta[block.Name].displayName or block.Name,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+								TextColor3 = Color3.new(),
+								TextScaled = true,
+								Font = Enum.Font.Arial
+							}),
+							create('TextLabel', {
+								Size = UDim2.fromOffset(145, 14),
+								Position = UDim2.fromOffset(12, 11),
+								BackgroundTransparency = 1,
+								Text = bedwars.ItemMeta[block.Name].displayName or block.Name,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+								TextColor3 = color.Dark(uipallet.Text, 0.16),
+								TextScaled = true,
+								Font = Enum.Font.Arial
+							}),
+							create('Frame', {
+								Size = UDim2.fromOffset(138, 4),
+								Position = UDim2.fromOffset(12, 32),
+								BackgroundColor3 = uipallet.Main
+							}, {
+								create('UICorner', {CornerRadius = UDim.new(1, 0)}),
+								create('Frame', {
+									[bedwars.Roact.Ref] = self.healthbarProgressRef,
+									Size = UDim2.fromScale(percent, 1),
+									BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+								}, {create('UICorner', {CornerRadius = UDim.new(1, 0)})})
+							})
+						})
+					}), part)
+			
+					self.healthbarMaid:GiveTask(function()
+						cleanCheck = false
+						self.healthbarBlockRef = nil
+						bedwars.Roact.unmount(mounted)
+						if self.healthbarPart then
+							self.healthbarPart:Destroy()
+						end
+						self.healthbarPart = nil
+					end)
+			
+					bedwars.RuntimeLib.Promise.delay(5):andThen(function()
+						if cleanCheck then
+							self.healthbarMaid:DoCleaning()
+						end
+					end)
+				end
+			
+				local newpercent = math.clamp((health - changeHealth) / maxHealth, 0, 1)
+				tweenService:Create(self.healthbarProgressRef:getValue(), TweenInfo.new(0.3), {
+					Size = UDim2.fromScale(newpercent, 1), BackgroundColor3 = Color3.fromHSV(math.clamp(newpercent / 2.5, 0, 1), 0.89, 0.75)
+				}):Play()
+			end)
+		end
+		
+		local hit = 0
+		local targetting = nil
+		
+		local function attemptBreak(tab, localPosition)
+			if not tab then return end
+			table.sort(tab, function(a, b)
+				return (a.Position - localPosition).Magnitude >= (b.Position - localPosition).Magnitude
+			end)
+			for _, v in tab do
+				if (v.Position - localPosition).Magnitude < Range.Value and bedwars.BlockController:isBlockBreakable({blockPosition = v.Position / 3}, lplr) then
+					if not SelfBreak.Enabled and v:GetAttribute('PlacedByUserId') == lplr.UserId then continue end
+					if (v:GetAttribute('BedShieldEndTime') or 0) > workspace:GetServerTimeNow() then continue end
+					if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
+		
+					hit += 1
+					local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
+					if path then
+						local currentnode = target
+						if currentnode then
+							targetting = currentnode
+						end
+						for _, part in parts do
+							part.Position = currentnode or Vector3.zero
+							if currentnode then
+								part.BoxHandleAdornment.Color3 = currentnode == endpos and Color3.new(1, 0.2, 0.2) or currentnode == target and Color3.new(0.2, 0.2, 1) or Color3.new(0.2, 1, 0.2)
+							end
+							currentnode = path[currentnode]
+						end
+					end
+		
+					task.wait(Delay.Value)
+
+					targetting = nil
+		
+					return true
+				end
+			end
+		
+			return false
+		end
+		
+		Breaker = vape.Categories.Minigames:CreateModule({
+			Name = 'Breaker',
+			Function = function(callback)
+				if callback then
+					for _ = 1, 30 do
+						local part = Instance.new('Part')
+						part.Anchored = true
+						part.CanQuery = false
+						part.CanCollide = false
+						part.Transparency = 1
+						part.Parent = gameCamera
+						local highlight = Instance.new('BoxHandleAdornment')
+						highlight.Size = Vector3.one
+						highlight.AlwaysOnTop = true
+						highlight.ZIndex = 1
+						highlight.Transparency = 0.5
+						highlight.Adornee = part
+						highlight.Parent = part
+						table.insert(parts, part)
+					end
+		
+					local beds = collection('bed', Breaker)
+					local luckyblock = collection('LuckyBlock', Breaker)
+					local ironores = collection('iron_ore_mesh_block', Breaker)
+					customlist = collection('block', Breaker, function(tab, obj)
+						if table.find(Custom.ListEnabled, obj.Name) then
+							table.insert(tab, obj)
+						end
+					end)
+		
+					Breaker:Clean(runService.PreSimulation:Connect(function(dt)
+						if AutoAim.Enabled and targetting then
+							gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, targetting), AimSpeed.Value * dt)
+						end
+					end))
+
+					repeat
+						task.wait(1 / UpdateRate.Value)
+						if not Breaker.Enabled then break end
+						if entitylib.isAlive then
+							local localPosition = entitylib.character.RootPart.Position
+		
+							if attemptBreak(Bed.Enabled and beds, localPosition) then continue end
+							if attemptBreak(customlist, localPosition) then continue end
+							if attemptBreak(LuckyBlock.Enabled and luckyblock, localPosition) then continue end
+							if attemptBreak(IronOre.Enabled and ironores, localPosition) then continue end
+		
+							for _, v in parts do
+								v.Position = Vector3.zero
+							end
+						end
+					until not Breaker.Enabled
+				else
+					for _, v in parts do
+						v:ClearAllChildren()
+						v:Destroy()
+					end
+					table.clear(parts)
+				end
+			end,
+			Tooltip = 'Break blocks around you automatically'
+		})
+		Range = Breaker:CreateSlider({
+			Name = 'Break range',
+			Min = 1,
+			Max = 30,
+			Default = 30,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Delay = Breaker:CreateSlider({
+			Name = 'Break Delay',
+			Min = 0,
+			Max = 0.3,
+			Default = 0.25,
+			Decimal = 100,
+			Suffix = function(val)
+				return 's'
+			end
+		})
+		AimSpeed = Breaker:CreateSlider({
+			Name = 'Aim Speed',
+			Min = 1,
+			Max = 20,
+			Default = 20
+		})
+		AimSpeed.Object.Visible = false
+		UpdateRate = Breaker:CreateSlider({
+			Name = 'Update rate',
+			Min = 1,
+			Max = 120,
+			Default = 60,
+			Suffix = 'hz'
+		})
+		Custom = Breaker:CreateTextList({
+			Name = 'Custom',
+			Function = function()
+				if not customlist then return end
+				table.clear(customlist)
+				for _, obj in store.blocks do
+					if table.find(Custom.ListEnabled, obj.Name) then
+						table.insert(customlist, obj)
+					end
+				end
+			end
+		})
+		Bed = Breaker:CreateToggle({
+			Name = 'Break Bed',
+			Default = true
+		})
+		AutoAim = Breaker:CreateToggle({
+			Name = 'Auto Aim',
+			Function = function(call)
+				AimSpeed.Object.Visible = call
+			end
+		})
+		LuckyBlock = Breaker:CreateToggle({
+			Name = 'Break Lucky Block',
+			Default = true
+		})
+		IronOre = Breaker:CreateToggle({
+			Name = 'Break Iron Ore',
+			Default = true
+		})
+		Effect = Breaker:CreateToggle({
+			Name = 'Show Healthbar & Effects',
+			Function = function(callback)
+				if CustomHealth.Object then
+					CustomHealth.Object.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		CustomHealth = Breaker:CreateToggle({
+			Name = 'Custom Healthbar',
+			Default = true,
+			Darker = true
+		})
+		Animation = Breaker:CreateToggle({Name = 'Animation'})
+		SelfBreak = Breaker:CreateToggle({Name = 'Self Break'})
+		WallCheck = Breaker:CreateToggle({Name = 'Wall Check'})
+		Cache = Breaker:CreateToggle({Name = 'Break through block'})
+		AutoTool = Breaker:CreateToggle({Name = 'Auto Tool'})
+		LimitItem = Breaker:CreateToggle({
+			Name = 'Limit to items',
+			Tooltip = 'Only breaks when tools are held'
+		})
+	end)
+		
+	run(function()
+		local BedBreakEffect
+		local Mode
+		local List
+		local NameToId = {}
+		
+		BedBreakEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Bed Break Effect',
+			Function = function(callback)
+				if callback then
+					BedBreakEffect:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(data)
+						firesignal(bedwars.Client:Get('BedBreakEffectTriggered').instance.OnClientEvent, {
+							player = data.player,
+							position = data.bedBlockPosition * 3,
+							effectType = NameToId[List.Value],
+							teamId = data.brokenBedTeam.id,
+							centerBedPosition = data.bedBlockPosition * 3
+						})
+					end))
+				end
+			end,
+			Tooltip = 'Custom bed break effects'
+		})
+		local BreakEffectName = {}
+		for i, v in bedwars.BedBreakEffectMeta do
+			table.insert(BreakEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(BreakEffectName)
+		List = BedBreakEffect:CreateDropdown({
+			Name = 'Effect',
+			List = BreakEffectName
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Legit:CreateModule({
+			Name = 'Clean Kit',
+			Function = function(callback)
+				if callback then
+					bedwars.WindWalkerController.spawnOrb = function() end
+					local zephyreffect = lplr.PlayerGui:FindFirstChild('WindWalkerEffect', true)
+					if zephyreffect then 
+						zephyreffect.Visible = false 
+					end
+				end
+			end,
+			Tooltip = 'Removes zephyr status indicator'
+		})
+	end)
+		
+	run(function()
+		local old
+		local Image
+		
+		local Crosshair = vape.Categories.Legit:CreateModule({
+			Name = 'Crosshair',
+			Function = function(callback)
+				if callback then
+					old = debug.getconstant(bedwars.ViewmodelController.showCrosshair, 25)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 25, Image.Value)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 37, Image.Value)
+				else
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 25, old)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 37, old)
+					old = nil
+				end
+		
+				if bedwars.ViewmodelController.crosshair then
+					bedwars.ViewmodelController:hideCrosshair()
+					bedwars.ViewmodelController:showCrosshair()
+				end
+			end,
+			Tooltip = 'Custom first person crosshair depending on the image choosen.'
+		})
+		Image = Crosshair:CreateTextBox({
+			Name = 'Image',
+			Placeholder = 'image id (roblox)',
+			Function = function(enter)
+				if enter and Crosshair.Enabled then
+					Crosshair:Toggle()
+					Crosshair:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local DamageIndicator
+		local FontOption
+		local Color
+		local Size
+		local Anchor
+		local Stroke
+		local suc, tab = pcall(function()
+			return debug.getupvalue(bedwars.DamageIndicator, 2)
+		end)
+		tab = suc and tab or {}
+		local oldvalues, oldfont = {}
+		
+		DamageIndicator = vape.Categories.Legit:CreateModule({
+			Name = 'Damage Indicator',
+			Function = function(callback)
+				if canDebug then
+					if callback then
+						oldvalues = table.clone(tab)
+						oldfont = debug.getconstant(bedwars.DamageIndicator, 85)
+						debug.setconstant(bedwars.DamageIndicator, 85, FontOption.Value)
+						debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
+						tab.strokeThickness = Stroke.Enabled and 1 or false
+						tab.textSize = Size.Value
+						tab.blowUpSize = Size.Value
+						tab.blowUpDuration = 0
+						tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						tab.blowUpCompleteDuration = 0
+						tab.anchoredDuration = Anchor.Value
+					else
+						for i, v in oldvalues do
+							tab[i] = v
+						end
+						debug.setconstant(bedwars.DamageIndicator, 85, oldfont)
+						debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
+					end
+				end
+			end,
+			Tooltip = 'Customize the damage indicator'
+		})
+		local fontitems = {'GothamBlack'}
+		for _, v in Enum.Font:GetEnumItems() do
+			if v.Name ~= 'GothamBlack' then
+				table.insert(fontitems, v.Name)
+			end
+		end
+		FontOption = DamageIndicator:CreateDropdown({
+			Name = 'Font',
+			List = fontitems,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[val])
+				end
+			end
+		})
+		Color = DamageIndicator:CreateColorSlider({
+			Name = 'Color',
+			DefaultHue = 0,
+			Function = function(hue, sat, val)
+				if DamageIndicator.Enabled then
+					tab.baseColor = Color3.fromHSV(hue, sat, val)
+				end
+			end
+		})
+		Size = DamageIndicator:CreateSlider({
+			Name = 'Size',
+			Min = 1,
+			Max = 32,
+			Default = 32,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.textSize = val
+					tab.blowUpSize = val
+				end
+			end
+		})
+		Anchor = DamageIndicator:CreateSlider({
+			Name = 'Anchor',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.anchoredDuration = val
+				end
+			end
+		})
+		Stroke = DamageIndicator:CreateToggle({
+			Name = 'Stroke',
+			Function = function(callback)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 119, callback and 'Thickness' or 'Enabled')
+					tab.strokeThickness = callback and 1 or false
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local FOV
+		local Value
+		local old, old2
+		
+		FOV = vape.Categories.Legit:CreateModule({
+			Name = 'FOV',
+			Function = function(callback)
+				if callback then
+					old = bedwars.FovController.setFOV
+					old2 = bedwars.FovController.getFOV
+					bedwars.FovController.setFOV = function(self) 
+						return old(self, Value.Value) 
+					end
+					bedwars.FovController.getFOV = function() 
+						return Value.Value 
+					end
+					bedwars.FovController:setFOV(Value.Value)
+				else
+					bedwars.FovController.setFOV = old
+					bedwars.FovController.getFOV = old2
+				end
+				
+				if canDebug then
+					bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
+				end
+			end,
+			Tooltip = 'Adjusts camera vision'
+		})
+		Value = FOV:CreateSlider({
+			Name = 'FOV',
+			Min = 30,
+			Max = 120
+		})
+	end)
+		
+	run(function()
+		local FPSBoost
+		local Kill
+		local Visualizer
+		local effects, util = {}, {}
+		
+		FPSBoost = vape.Categories.Legit:CreateModule({
+			Name = 'FPS Boost',
+			Function = function(callback)
+				if callback then
+					if Kill.Enabled then
+						for i, v in bedwars.KillEffectController.killEffects do
+							if not i:find('Custom') then
+								effects[i] = v
+								bedwars.KillEffectController.killEffects[i] = {
+									new = function() 
+										return {
+											onKill = function() end, 
+											isPlayDefaultKillEffect = function() 
+												return true 
+											end
+										} 
+									end
+								}
+							end
+						end
+					end
+		
+					if Visualizer.Enabled then
+						for i, v in bedwars.VisualizerUtils do
+							util[i] = v
+							bedwars.VisualizerUtils[i] = function() end
+						end
+					end
+		
+					repeat task.wait() until store.matchState ~= 0
+					if not bedwars.AppController then return end
+					bedwars.NametagController.addGameNametag = function() end
+					for _, v in bedwars.AppController:getOpenApps() do
+						if tostring(v):find('Nametag') then
+							bedwars.AppController:closeApp(tostring(v))
+						end
+					end
+				else
+					for i, v in effects do 
+						bedwars.KillEffectController.killEffects[i] = v 
+					end
+					for i, v in util do 
+						bedwars.VisualizerUtils[i] = v 
+					end
+					table.clear(effects)
+					table.clear(util)
+				end
+			end,
+			Tooltip = 'Improves the framerate by turning off certain effects'
+		})
+		Kill = FPSBoost:CreateToggle({
+			Name = 'Kill Effects',
+			Function = function()
+				if FPSBoost.Enabled then
+					FPSBoost:Toggle()
+					FPSBoost:Toggle()
+				end
+			end,
+			Default = true
+		})
+		Visualizer = FPSBoost:CreateToggle({
+			Name = 'Visualizer',
+			Function = function()
+				if FPSBoost.Enabled then
+					FPSBoost:Toggle()
+					FPSBoost:Toggle()
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local HitColor
+		local Color
+		local done = {}
+		
+		HitColor = vape.Categories.Legit:CreateModule({
+			Name = 'Hit Color',
+			Function = function(callback)
+				if callback then 
+					repeat
+						for i, v in entitylib.List do 
+							local highlight = v.Character and v.Character:FindFirstChild('_DamageHighlight_')
+							if highlight then 
+								if not table.find(done, highlight) then 
+									table.insert(done, highlight) 
+								end
+								highlight.FillColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+								highlight.FillTransparency = Color.Opacity
+							end
+						end
+						task.wait(0.1)
+					until not HitColor.Enabled
+				else
+					for i, v in done do 
+						v.FillColor = Color3.new(1, 0, 0)
+						v.FillTransparency = 0.4
+					end
+					table.clear(done)
+				end
+			end,
+			Tooltip = 'Customize the hit highlight options'
+		})
+		Color = HitColor:CreateColorSlider({
+			Name = 'Color',
+			DefaultOpacity = 0.4
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Legit:CreateModule({
+			Name = 'Hit Fix',
+			Function = function(callback)
+				if canDebug then
+					debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
+					debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
+				end
+			end,
+			Tooltip = 'Changes the raycast function to the correct one'
+		})
+	end)
+
+	if canDebug then
+		run(function()
+			local Interface
+			local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+			local HotbarHealthbar = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar['hotbar-healthbar']).HotbarHealthbar
+			local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+			local old, new = {}, {}
+			
+			vape:Clean(function()
+				for _, v in new do
+					table.clear(v)
+				end
+				for _, v in old do
+					table.clear(v)
+				end
+				table.clear(new)
+				table.clear(old)
+			end)
+			
+			local function modifyconstant(func, ind, val)
+				if not func then return end
+				if not old[func] then old[func] = {} end
+				if not new[func] then new[func] = {} end
+				if not old[func][ind] then
+					old[func][ind] = debug.getconstant(func, ind)
+				end
+				if typeof(old[func][ind]) ~= typeof(val) then return end
+				new[func][ind] = val
+			
+				if Interface.Enabled then
+					if val then
+						debug.setconstant(func, ind, val)
+					else
+						debug.setconstant(func, ind, old[func][ind])
+						old[func][ind] = nil
+					end
+				end
+			end
+			
+			Interface = vape.Categories.Legit:CreateModule({
+				Name = 'Interface',
+				Function = function(callback)
+					for i, v in (callback and new or old) do
+						for i2, v2 in v do
+							debug.setconstant(i, i2, v2)
+						end
+					end
+				end,
+				Tooltip = 'Customize bedwars UI'
+			})
+			local fontitems = {'LuckiestGuy'}
+			for _, v in Enum.Font:GetEnumItems() do
+				if v.Name ~= 'LuckiestGuy' then
+					table.insert(fontitems, v.Name)
+				end
+			end
+			Interface:CreateDropdown({
+				Name = 'Health Font',
+				List = fontitems,
+				Function = function(val)
+					modifyconstant(HotbarHealthbar.render, 77, val)
+				end
+			})
+			Interface:CreateColorSlider({
+				Name = 'Health Color',
+				Function = function(hue, sat, val)
+					modifyconstant(HotbarHealthbar.render, 16, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					if Interface.Enabled then
+						local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
+						hotbar = hotbar and hotbar:FindFirstChild('HealthbarProgressWrapper', true)
+						if hotbar then
+							hotbar['1'].BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+						end
+					end
+				end
+			})
+			Interface:CreateColorSlider({
+				Name = 'Hotbar Color',
+				DefaultOpacity = 0.8,
+				Function = function(hue, sat, val, opacity)
+					local func = oldinvrender or HotbarOpenInventory.render
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 51, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 58, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 54, 1 - opacity)
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 55, math.clamp(1.2 - opacity, 0, 1))
+					modifyconstant(func, 31, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					modifyconstant(func, 32, math.clamp(1.2 - opacity, 0, 1))
+					modifyconstant(func, 34, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+				end
+			})
+		end)
+	end
+		
+	run(function()
+		local KillEffect
+		local Mode
+		local List
+		local NameToId = {}
+		
+		local killeffects = {
+			Gravity = function(_, _, char, _)
+				char:BreakJoints()
+				local highlight = char:FindFirstChildWhichIsA('Highlight')
+				local nametag = char:FindFirstChild('Nametag', true)
+				if highlight then
+					highlight:Destroy()
+				end
+				if nametag then
+					nametag:Destroy()
+				end
+		
+				task.spawn(function()
+					local partvelo = {}
+					for _, v in char:GetDescendants() do
+						if v:IsA('BasePart') then
+							partvelo[v.Name] = v.Velocity
+						end
+					end
+					char.Archivable = true
+					local clone = char:Clone()
+					clone.Humanoid.Health = 100
+					clone.Parent = workspace
+					game:GetService('Debris'):AddItem(clone, 30)
+					char:Destroy()
+					task.wait(0.01)
+					clone.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+					clone:BreakJoints()
+					task.wait(0.01)
+					for _, v in clone:GetDescendants() do
+						if v:IsA('BasePart') then
+							local bodyforce = Instance.new('BodyForce')
+							bodyforce.Force = Vector3.new(0, (workspace.Gravity - 10) * v:GetMass(), 0)
+							bodyforce.Parent = v
+							v.CanCollide = true
+							v.Velocity = partvelo[v.Name] or Vector3.zero
+						end
+					end
+				end)
+			end,
+			Lightning = function(_, _, char, _)
+				char:BreakJoints()
+				local highlight = char:FindFirstChildWhichIsA('Highlight')
+				if highlight then
+					highlight:Destroy()
+				end
+				local startpos = 1125
+				local startcf = char.PrimaryPart.CFrame.p - Vector3.new(0, 8, 0)
+				local newpos = Vector3.new((math.random(1, 10) - 5) * 2, startpos, (math.random(1, 10) - 5) * 2)
+		
+				for i = startpos - 75, 0, -75 do
+					local newpos2 = Vector3.new((math.random(1, 10) - 5) * 2, i, (math.random(1, 10) - 5) * 2)
+					if i == 0 then
+						newpos2 = Vector3.zero
+					end
+					local part = Instance.new('Part')
+					part.Size = Vector3.new(1.5, 1.5, 77)
+					part.Material = Enum.Material.SmoothPlastic
+					part.Anchored = true
+					part.Material = Enum.Material.Neon
+					part.CanCollide = false
+					part.CFrame = CFrame.new(startcf + newpos + ((newpos2 - newpos) * 0.5), startcf + newpos2)
+					part.Parent = workspace
+					local part2 = part:Clone()
+					part2.Size = Vector3.new(3, 3, 78)
+					part2.Color = Color3.new(0.7, 0.7, 0.7)
+					part2.Transparency = 0.7
+					part2.Material = Enum.Material.SmoothPlastic
+					part2.Parent = workspace
+					game:GetService('Debris'):AddItem(part, 0.5)
+					game:GetService('Debris'):AddItem(part2, 0.5)
+					bedwars.QueryUtil:setQueryIgnored(part, true)
+					bedwars.QueryUtil:setQueryIgnored(part2, true)
+					if i == 0 then
+						local soundpart = Instance.new('Part')
+						soundpart.Transparency = 1
+						soundpart.Anchored = true
+						soundpart.Size = Vector3.zero
+						soundpart.Position = startcf
+						soundpart.Parent = workspace
+						bedwars.QueryUtil:setQueryIgnored(soundpart, true)
+						local sound = Instance.new('Sound')
+						sound.SoundId = 'rbxassetid://6993372814'
+						sound.Volume = 2
+						sound.Pitch = 0.5 + (math.random(1, 3) / 10)
+						sound.Parent = soundpart
+						sound:Play()
+						sound.Ended:Connect(function()
+							soundpart:Destroy()
+						end)
+					end
+					newpos = newpos2
+				end
+			end,
+			Delete = function(_, _, char, _)
+				char:Destroy()
+			end
+		}
+		
+		KillEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Kill Effect',
+			Function = function(callback)
+				if callback then
+					for i, v in killeffects do
+						bedwars.KillEffectController.killEffects['Custom'..i] = {
+							new = function()
+								return {
+									onKill = v,
+									isPlayDefaultKillEffect = function()
+										return false
+									end
+								}
+							end
+						}
+					end
+					KillEffect:Clean(lplr:GetAttributeChangedSignal('KillEffectType'):Connect(function()
+						lplr:SetAttribute('KillEffectType', Mode.Value == 'Bedwars' and NameToId[List.Value] or 'Custom'..Mode.Value)
+					end))
+					lplr:SetAttribute('KillEffectType', Mode.Value == 'Bedwars' and NameToId[List.Value] or 'Custom'..Mode.Value)
+				else
+					for i in killeffects do
+						bedwars.KillEffectController.killEffects['Custom'..i] = nil
+					end
+					lplr:SetAttribute('KillEffectType', 'default')
+				end
+			end,
+			Tooltip = 'Custom final kill effects'
+		})
+		local modes = {'Bedwars'}
+		for i in killeffects do
+			table.insert(modes, i)
+		end
+		Mode = KillEffect:CreateDropdown({
+			Name = 'Mode',
+			List = modes,
+			Function = function(val)
+				List.Object.Visible = val == 'Bedwars'
+				if KillEffect.Enabled then
+					lplr:SetAttribute('KillEffectType', val == 'Bedwars' and NameToId[List.Value] or 'Custom'..val)
+				end
+			end
+		})
+		local KillEffectName = {}
+		for i, v in bedwars.KillEffectMeta do
+			table.insert(KillEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(KillEffectName)
+		List = KillEffect:CreateDropdown({
+			Name = 'Bedwars',
+			List = KillEffectName,
+			Function = function(val)
+				if KillEffect.Enabled then
+					lplr:SetAttribute('KillEffectType', NameToId[val])
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local ReachDisplay
+		local label
+		
+		ReachDisplay = vape.Legit:CreateModule({
+			Name = 'Reach Display',
+			Function = function(callback)
+				if callback then
+					repeat
+						label.Text = (store.attackReachUpdate > tick() and store.attackReach or '0.00')..' studs'
+						task.wait(0.4)
+					until not ReachDisplay.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41)
+		})
+		ReachDisplay:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		ReachDisplay:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0.00 studs'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = ReachDisplay.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local SongBeats
+		local List
+		local FOV
+		local FOVValue = {}
+		local Volume
+		local alreadypicked = {}
+		local beattick = tick()
+		local oldfov, songobj, songbpm, songtween
+		
+		local function choosesong()
+			local list = List.ListEnabled
+			if #alreadypicked >= #list then 
+				table.clear(alreadypicked) 
+			end
+		
+			if #list <= 0 then
+				notif('SongBeats', 'no songs', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			local chosensong = list[math.random(1, #list)]
+			if #list > 1 and table.find(alreadypicked, chosensong) then
+				repeat 
+					task.wait() 
+					chosensong = list[math.random(1, #list)] 
+				until not table.find(alreadypicked, chosensong) or not SongBeats.Enabled
+			end
+			if not SongBeats.Enabled then return end
+		
+			local split = chosensong:split('/')
+			if not isfile(split[1]) then
+				notif('SongBeats', 'Missing song ('..split[1]..')', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			songobj.SoundId = assetfunction(split[1])
+			repeat task.wait() until songobj.IsLoaded or not SongBeats.Enabled
+			if SongBeats.Enabled then
+				beattick = tick() + (tonumber(split[3]) or 0)
+				songbpm = 60 / (tonumber(split[2]) or 50)
+				songobj:Play()
+			end
+		end
+		
+		SongBeats = vape.Categories.Legit:CreateModule({
+			Name = 'Song Beats',
+			Function = function(callback)
+				if callback then
+					songobj = Instance.new('Sound')
+					songobj.Volume = Volume.Value / 100
+					songobj.Parent = workspace
+					repeat
+						if not songobj.Playing then choosesong() end
+						if beattick < tick() and SongBeats.Enabled and FOV.Enabled then
+							beattick = tick() + songbpm
+							oldfov = math.min(bedwars.FovController:getFOV() * (bedwars.SprintController.sprinting and 1.1 or 1), 120)
+							gameCamera.FieldOfView = oldfov - FOVValue.Value
+							songtween = tweenService:Create(gameCamera, TweenInfo.new(math.min(songbpm, 0.2), Enum.EasingStyle.Linear), {FieldOfView = oldfov})
+							songtween:Play()
+						end
+						task.wait()
+					until not SongBeats.Enabled
+				else
+					if songobj then
+						songobj:Destroy()
+					end
+					if songtween then
+						songtween:Cancel()
+					end
+					if oldfov then
+						gameCamera.FieldOfView = oldfov
+					end
+					table.clear(alreadypicked)
+				end
+			end,
+			Tooltip = 'Built in mp3 player'
+		})
+		List = SongBeats:CreateTextList({
+			Name = 'Songs',
+			Placeholder = 'filepath/bpm/start'
+		})
+		FOV = SongBeats:CreateToggle({
+			Name = 'Beat FOV',
+			Function = function(callback)
+				if FOVValue.Object then
+					FOVValue.Object.Visible = callback
+				end
+				if SongBeats.Enabled then
+					SongBeats:Toggle()
+					SongBeats:Toggle()
+				end
+			end,
+			Default = true
+		})
+		FOVValue = SongBeats:CreateSlider({
+			Name = 'Adjustment',
+			Min = 1,
+			Max = 30,
+			Default = 5,
+			Darker = true
+		})
+		Volume = SongBeats:CreateSlider({
+			Name = 'Volume',
+			Function = function(val)
+				if songobj then 
+					songobj.Volume = val / 100 
+				end
+			end,
+			Min = 1,
+			Max = 100,
+			Default = 100,
+			Suffix = '%'
+		})
+	end)
+		
+	run(function()
+		local SoundChanger
+		local List
+		local soundlist = {}
+		local old
+		
+		SoundChanger = vape.Categories.Legit:CreateModule({
+			Name = 'Sound Changer',
+			Function = function(callback)
+				if callback then
+					old = bedwars.SoundManager.playSound
+					bedwars.SoundManager.playSound = function(self, id, ...)
+						if soundlist[id] then
+							id = soundlist[id]
+						end
+		
+						return old(self, id, ...)
+					end
+				else
+					bedwars.SoundManager.playSound = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Change ingame sounds to custom ones.'
+		})
+		List = SoundChanger:CreateTextList({
+			Name = 'Sounds',
+			Placeholder = '(DAMAGE_1/ben.mp3)',
+			Function = function()
+				table.clear(soundlist)
+				for _, entry in List.ListEnabled do
+					local split = entry:split('/')
+					local id = bedwars.SoundList[split[1]]
+					if id and #split > 1 then
+						soundlist[id] = split[2]:find('rbxasset') and split[2] or isfile(split[2]) and assetfunction(split[2]) or ''
+					end
+				end
+			end
+		})
+	end)
+		
+	if canDebug then
+		run(function()
+			local UICleanup
+			local OpenInv
+			local KillFeed
+			local OldTabList
+			local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+			local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+			local old, new = {}, {}
+			local oldkillfeed
+			
+			vape:Clean(function()
+				for _, v in new do
+					table.clear(v)
+				end
+				for _, v in old do
+					table.clear(v)
+				end
+				table.clear(new)
+				table.clear(old)
+			end)
+			
+			local function modifyconstant(func, ind, val)
+				if not old[func] then old[func] = {} end
+				if not new[func] then new[func] = {} end
+				if not old[func][ind] then
+					local typing = type(old[func][ind])
+					if typing == 'function' or typing == 'userdata' then return end
+					old[func][ind] = debug.getconstant(func, ind)
+				end
+				if typeof(old[func][ind]) ~= typeof(val) and val ~= nil then return end
+			
+				new[func][ind] = val
+				if UICleanup.Enabled then
+					if val then
+						debug.setconstant(func, ind, val)
+					else
+						debug.setconstant(func, ind, old[func][ind])
+						old[func][ind] = nil
+					end
+				end
+			end
+			
+			UICleanup = vape.Categories.Legit:CreateModule({
+				Name = 'UI Cleanup',
+				Function = function(callback)
+					for i, v in (callback and new or old) do
+						for i2, v2 in v do
+							debug.setconstant(i, i2, v2)
+						end
+					end
+					if callback then
+						if OpenInv.Enabled then
+							oldinvrender = HotbarOpenInventory.render
+							HotbarOpenInventory.render = function()
+								return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+							end
+						end
+			
+						if KillFeed.Enabled then
+							oldkillfeed = bedwars.KillFeedController.addToKillFeed
+							bedwars.KillFeedController.addToKillFeed = function() end
+						end
+			
+						if OldTabList.Enabled then
+							starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+						end
+					else
+						if oldinvrender then
+							HotbarOpenInventory.render = oldinvrender
+							oldinvrender = nil
+						end
+			
+						if KillFeed.Enabled then
+							bedwars.KillFeedController.addToKillFeed = oldkillfeed
+							oldkillfeed = nil
+						end
+			
+						if OldTabList.Enabled then
+							starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+						end
+					end
+				end,
+				Tooltip = 'Cleans up the UI for kits & main'
+			})
+			UICleanup:CreateToggle({
+				Name = 'Resize Health',
+				Function = function(callback)
+					modifyconstant(HotbarApp, 60, callback and 1 or nil)
+					modifyconstant(debug.getupvalue(HotbarApp, 15).render, 30, callback and 1 or nil)
+					modifyconstant(debug.getupvalue(HotbarApp, 23).tweenPosition, 16, callback and 0 or nil)
+				end,
+				Default = true
+			})
+			UICleanup:CreateToggle({
+				Name = 'No Hotbar Numbers',
+				Function = function(callback)
+					local func = oldinvrender or HotbarOpenInventory.render
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 90, callback and 0 or nil)
+					modifyconstant(func, 71, callback and 0 or nil)
+				end,
+				Default = true
+			})
+			OpenInv = UICleanup:CreateToggle({
+				Name = 'No Inventory Button',
+				Function = function(callback)
+					modifyconstant(HotbarApp, 78, callback and 0 or nil)
+					if UICleanup.Enabled then
+						if callback then
+							oldinvrender = HotbarOpenInventory.render
+							HotbarOpenInventory.render = function()
+								return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+							end
+						else
+							HotbarOpenInventory.render = oldinvrender
+							oldinvrender = nil
+						end
+					end
+				end,
+				Default = true
+			})
+			KillFeed = UICleanup:CreateToggle({
+				Name = 'No Kill Feed',
+				Function = function(callback)
+					if UICleanup.Enabled then
+						if callback then
+							oldkillfeed = bedwars.KillFeedController.addToKillFeed
+							bedwars.KillFeedController.addToKillFeed = function() end
+						else
+							bedwars.KillFeedController.addToKillFeed = oldkillfeed
+							oldkillfeed = nil
+						end
+					end
+				end,
+				Default = true
+			})
+			OldTabList = UICleanup:CreateToggle({
+				Name = 'Old Player List',
+				Function = function(callback)
+					if UICleanup.Enabled then
+						starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, callback)
+					end
+				end,
+				Default = true
+			})
+			UICleanup:CreateToggle({
+				Name = 'Fix Queue Card',
+				Function = function(callback)
+					modifyconstant(bedwars.QueueCard.render, 15, callback and 0.1 or nil)
+				end,
+				Default = true
+			})
+		end)
+	end
+		
+	run(function()
+		local Viewmodel
+		local Depth
+		local Horizontal
+		local Vertical
+		local NoBob
+		local Rots = {}
+		local old, oldc1
+		
+		Viewmodel = vape.Categories.Legit:CreateModule({
+			Name = 'Viewmodel',
+			Function = function(callback)
+				local viewmodel = gameCamera:FindFirstChild('Viewmodel')
+				if callback then
+					old = bedwars.ViewmodelController.playAnimation
+					oldc1 = viewmodel and viewmodel.RightHand.RightWrist.C1 or CFrame.identity
+					if NoBob.Enabled and canDebug then
+						bedwars.ViewmodelController.playAnimation = function(self, animtype, ...)
+							if bedwars.AnimationType and animtype == bedwars.AnimationType.FP_WALK then return end
+							return old(self, animtype, ...)
+						end
+					end
+		
+					if canDebug then
+						bedwars.InventoryViewmodelController:handleStore(bedwars.Store:getState())
+					end
+					if viewmodel then
+						gameCamera.Viewmodel.RightHand.RightWrist.C1 = oldc1 * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+					end
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', -Depth.Value)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', Horizontal.Value)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', Vertical.Value)
+				else
+					if canDebug then
+						bedwars.ViewmodelController.playAnimation = old
+					end
+					if viewmodel then
+						viewmodel.RightHand.RightWrist.C1 = oldc1
+					end
+		
+					if canDebug then
+						bedwars.InventoryViewmodelController:handleStore(bedwars.Store:getState())
+					end
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', 0)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', 0)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', 0)
+					old = nil
+				end
+			end,
+			Tooltip = 'Changes the viewmodel animations'
+		})
+		Depth = Viewmodel:CreateSlider({
+			Name = 'Depth',
+			Min = 0,
+			Max = 2,
+			Default = 0.8,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', -val)
+				end
+			end
+		})
+		Horizontal = Viewmodel:CreateSlider({
+			Name = 'Horizontal',
+			Min = 0,
+			Max = 2,
+			Default = 0.8,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', val)
+				end
+			end
+		})
+		Vertical = Viewmodel:CreateSlider({
+			Name = 'Vertical',
+			Min = -0.2,
+			Max = 2,
+			Default = -0.2,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', val)
+				end
+			end
+		})
+		for _, name in {'Rotation X', 'Rotation Y', 'Rotation Z'} do
+			table.insert(Rots, Viewmodel:CreateSlider({
+				Name = name,
+				Min = 0,
+				Max = 360,
+				Function = function(val)
+					if Viewmodel.Enabled then
+						gameCamera.Viewmodel.RightHand.RightWrist.C1 = oldc1 * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+					end
+				end
+			}))
+		end
+		NoBob = Viewmodel:CreateToggle({
+			Name = 'No Bobbing',
+			Default = true,
+			Function = function()
+				if Viewmodel.Enabled then
+					Viewmodel:Toggle()
+					Viewmodel:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local WinEffect
+		local List
+		local NameToId = {}
+		
+		WinEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Win Effect',
+			Function = function(callback)
+				if callback then
+					WinEffect:Clean(vapeEvents.MatchEndEvent.Event:Connect(function()
+						for i, v in getconnections(bedwars.Client:Get('WinEffectTriggered').instance.OnClientEvent) do
+							if v.Function then
+								v.Function({
+									winEffectType = NameToId[List.Value],
+									winningPlayer = lplr
+								})
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Allows you to select any clientside win effect'
+		})
+		local WinEffectName = {}
+		for i, v in bedwars.WinEffectMeta do
+			table.insert(WinEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(WinEffectName)
+		List = WinEffect:CreateDropdown({
+			Name = 'Effects',
+			List = WinEffectName
+		})
+	end)
+end)()
