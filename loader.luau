@@ -8,7 +8,7 @@ until game:IsLoaded()
 if loadonscreen then
     task.wait(4.5)
 end
---fr
+
 if shared.vape then
 	shared.vape:Uninject()
 end
@@ -26,12 +26,12 @@ local loadstring = function(...)
 end
 
 local cloneref = cloneref or function(ref) return ref end
-local gethui = function() return game:GetService('Players').LocalPlayer.PlayerGui end
+local gethui = function() return game:GetService('Players').LocalPlayer:WaitForChild('PlayerGui', 9e9) end
 
-local inputService = cloneref(game:GetService('UserInputService'))
-local tweenService = cloneref(game:GetService('TweenService'))
-local guiService = cloneref(game:GetService('GuiService'))
-local httpService = cloneref(game:GetService('HttpService'))
+local inputService: UserInputService = cloneref(game:GetService('UserInputService'))
+local tweenService: TweenService = cloneref(game:GetService('TweenService'))
+local guiService: GuiService = cloneref(game:GetService('GuiService'))
+local httpService: HttpService = cloneref(game:GetService('HttpService'))
 
 local gui : ScreenGui = Instance.new('ScreenGui', gethui())
 gui.Enabled = true
@@ -426,12 +426,7 @@ getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
 
 local success, err = pcall(function()
-	local main
-	for i = 1, 2 do
-		main = downloadFile('catrewrite/main.lua')
-		task.wait(0.25)
-	end
-	loadstring(main, 'main')()
+	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
 createDownloader('')

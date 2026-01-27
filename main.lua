@@ -26,6 +26,7 @@ local coreGui: CoreGui = cloneref(game:GetService('CoreGui'))
 local game = cloneref(game)
 
 local function downloadFile(path: string, func): string?
+	local scr
 	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
@@ -36,9 +37,10 @@ local function downloadFile(path: string, func): string?
 		if path:find('.lua') then
 			res = '\n'..res
 		end
+		scr = res
 		writefile(path, res)
 	end
-	return (func or readfile)(path)
+	return not func and scr or (func or readfile)(path)
 end
 
 local function finishLoading()
