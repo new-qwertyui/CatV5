@@ -24,6 +24,7 @@ local mainapi = {
 	Indicators = {}
 }
 loadstring([[LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(f) return f end]])()
+
 LPH_NO_VIRTUALIZE(function()
 	local cloneref = cloneref or function(obj)
 		return obj
