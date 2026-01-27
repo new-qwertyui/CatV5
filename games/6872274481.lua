@@ -1,16 +1,7976 @@
+loadstring([[
+	LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(f) return f end
+]])()
 
---[[
+LPH_NO_VIRTUALIZE(function()
+	local run = function(func)
+		local suc, err = pcall(func)
 
-     █████╗  █████╗ ████████╗██╗   ██╗ █████╗ ██████╗ ███████╗   ██╗███╗  ██╗███████╗ █████╗ 
-    ██╔══██╗██╔══██╗╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██╔════╝   ██║████╗ ██║██╔════╝██╔══██╗
-    ██║  ╚═╝███████║   ██║   ╚██╗ ██╔╝███████║██████╔╝█████╗     ██║██╔██╗██║█████╗  ██║  ██║
-    ██║  ██╗██╔══██║   ██║    ╚████╔╝ ██╔══██║██╔═══╝ ██╔══╝     ██║██║╚████║██╔══╝  ██║  ██║
-    ╚█████╔╝██║  ██║   ██║     ╚██╔╝  ██║  ██║██║     ███████╗██╗██║██║ ╚███║██║     ╚█████╔╝
-     ╚════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝╚═╝╚═╝  ╚══╝╚═╝      ╚════╝ 
-        
-    
-    https://discord.gg/catvape / https://discord.catvape.info
-]]
+		if not suc then
+			task.spawn(error, err)
+		end
+	end
 
+	local cloneref = cloneref or function(obj)
+		return obj
+	end
 
-return({s=bit32.rshift,Yt=function(r,e,G,w)(e[16])[0B10__01]=r.G;if not G[0x5E04]then w=-3663690421+((r.Et(G[26219]+r.j[0x6]-r.j[0X6],(G[817])))+r.j[0x002]);(G)[0X5__e04]=(w);else w=(G[24068]);end;return w;end,Lt=function(r,e)local G;e[5]={};local w,D,z,J=e[0b100110]()-16623,0B1111000;while true do D,G,J,z=r:st(w,z,D,J,e);if G==0X41_E3 then continue;else if G==52116 then break;end;end;end;w=(nil);for D=2,393,0x46 do if D>72 then G=r:ut(z,e,D,J,w);if G==0X9618 then break;else if G==53341 then continue;end;end;else G,w=r:Gt(e,J,w,z,D);if G==0X2cE7 then continue;else if G~=-0X1 then else return-0X1;end;end;end;end;z=nil;for D=10,0X1D2,0X72 do if D<=0X7C then G,z=r:pt(z,w,D,e);if G==0X69d2_ then continue;else if G==-0X1 then return-1;end;end;else if D>0B11101110 then if D==0x1D2 then e[0x5]=(nil);else e[26]=(nil);continue;end;else(e)[0B1001]=r.J;end;end;end;return-0X2,z;end,Xt=string.byte,Y5=function(r,e,G,w,D,z,J,X,i)z=nil;X=nil;G=nil;J=(nil);for B=0X22,0B10000001_,36 do if B<0x0046 then z=i[0x27]();continue;elseif B>0X46 then G,J=r:o5(X,i,G,J);break;else if B>0X22 and B<0x06a then X=i[39]();continue;end;end;end;D=nil;e=(nil);w=nil;return G,e,X,D,J,z,w;end,Ct=function(r,e,G,w)local D,z=(0x2a);repeat if D~=0X1 then D=r:et(D);continue;else z=e[0X22]();break;end;until false;D=(z/2);for J=50,74,12 do if J>0X32 then if J>0x3E then G+=1;else end;else if z%0B10==0x0 then(w)[G]=D-D%0B1;else local z;for J=0X2e,0X00a5,0B10__11 do if J==0x39__ then r:bt(z,D,w,G);break;else if J~=0X2e then else G=e[0B100010]();z=e[0X022]();end;end;end;end;continue;end;end;return G;end,k=function(r,r,e)e=r[0X32fA];return e;end,P5=function(r,e,G,w,D,z)local J,X,i;for B=0X5A,273,0X3_D do J,i,X=r:U5(e,D,i,w,B,X,G,z);if J~=0X160f then else continue;end;end;end,gt=string.gsub,Rt=function(r,r,e,G,w)e=nil;for D=0x29__,0B1100000,0X37 do if D==41 then e=#r[0X1_A];continue;elseif D~=96 then else if w==0X95 then r[0X2a]=-w;end;end;end;(r[26])[e+0X1]=(G);return e;end,T5=function(r,e,G,w,D,z,J)local X,i;J=(nil);D=nil;e=0X74;while true do if e>0b01101101 then if G[14]==G[0x18]then X,i=r:L5(G);if X~=-0X2 then else return D,-0X2,e,J,i;end;end;e=0X43;continue;elseif e>0x46 and e<116 then r:A5(w,z);break;else if e>0B1000011 and e<0b110110_1 then e,D=r:w5(e,D);continue;else if e<0X46 then e=(0X46);J=0X32;continue;end;end;end;end;return D,nil,e,J;end,L=bit32.countrz,Qt=bit32.lshift,b=string.sub,C=setfenv,A5=function(r,r,e)e[0x1]=(r);end,E5=function(r,e,G,w,D,z,J)local X,i,B=66;repeat i,B,X,J=r:N5(B,w,e,G,z,J,X);if i~=0X43AF then else break;end;until false;X=0x1_4;repeat if X==0x14 then e[0x1a][B+0B10]=D;X=(0X63);else if X==0X63 then e[0B110_10][B+0X3]=J;break;end;end;until false;return J;end,I5=function(r,r,e,G)(e)[r]=r-G;end,X=function(r,r,e)r=e[0X1373];return r;end,jt=function(r,e,G,w,D,z,J,X,i,B,L,W,p)for q=0B1,G do local G,n,I,o,u,M,S;I,M,n,u,o,G,S=r:Y5(M,I,S,u,G,o,n,z);local R,a,C,O;a,S,C,R,O,M,u=r:d5(z,i,I,M,D,u,o,n,O,a,R,S,G,q,C);O,u=r:mt(D,z,u,O,p,S,J,w,X,e,o,q,a,C,W,B,R,L);end;end,Nt=setmetatable,ft=function(r,e,G,w,D)D[0XA]=(w);for D=0B1,e[0X22]()do G=r:Ct(e,G,w);end;return G;end,g5=function(r,r,e,G)(r)[G+0B1]=e;end,V=pcall,o=function(r,r,e)e=r[0X3a4_7_];return e;end,ot=function(r,e,G,w,D,z,J)D[0X2a]=(function(X,i,B)local L,W,p=X[0X4],X[0b1010],X[2];local q,n,I,o,u,M=X[0X1],X[0X0_08],X[0X3],X[6],X[0X9],X[0B1011];B=nil;B=(function(...)local S,R=D[0X006](L),(0b0_);local L,a=D[0X29](...);local C,O,Z,A,U,H,v,T,K=0x01,0x1,1,(D[0X12__]());local m,E,f,k=D[4](function()local l,d,c,y,Y,j,s,P,h,V,_;while true do local F=u[Z];if not(F>=0X3__6)then if not(F<0B11011)then if F<0B101000 then if not(F>=0B100001)then if not(F>=0X1E)then if not(F>=0x1c)then h();h=O;Y=(0x1);else if F==29 then(S[n[Z]])[S[p[Z]]]=(S[M[Z]]);else h=p[Z];S[h]=S[h](S[h+0B1],S[h+0B10]);O=h;end;end;else if not(F>=0B11111)then h=M[Z];S[h]=S[h](S[h+1]);O=h;elseif F~=32 then S[p[Z]]=(i[M[Z]][S[n[Z]]]);else if S[p[Z]]==S[n[Z]]then Z=M[Z];end;end;end;else if F>=0X24 then if not(F>=0B100110)then if F~=0B10_0101 then S[M[Z]]=S[p[Z]]-o[Z];else S[n[Z]]=(S[M[Z]]%S[p[Z]]);end;else if F==0B10__0111 then S[p[Z]]=S[n[Z]][q[Z]];else h=(-4294967250);Y=0;y=(4503599627370495);s=nil;l=101;while true do if l==0B1_100101 then Y*=y;l=-38+((D[0x10][0B00101]((D[0X10][0X9](F,(0Xf)))))-F<F and l or F);continue;elseif l==0x0 then y=D[16];l=0X03_9+((l+l+F<l and l or l)==F and F or F);continue;elseif l==0X05f then s=5;l=(-4294967112+((D[0B10000][5](F+F))-l+F));continue;else if l==0X3__2 then y=(y[s]);break;end;end;end;j=nil;l=(0X55);repeat if l<85 then j=(0X6);break;else if not(l>48)then else s=D[0B10000];l=0b10000+(D[0x10][0b110]((D[0x10][10](l-l-l))));end;end;until false;s=s[j];j=(D[0B10000]);_=(nil);V=(nil);l=106;while true do if not(l<=0x02c)then if l~=106 then j=(j[_]);_=(D[0B10__000]);V=0X07__;l=(0x2c+(D[16][0Xc]((D[0X10][0B1000]((l<=l and F or l)<F and F or l,(0X10))),(D[16][13]('>\u{69}8',"\u{0}\z \0\0\u{0}\0\0\0\0")))));else _=(0X5);l=0B1000001+(D[0X1_0][0X6]((D[16][7]((D[0X10][11](l,F,F))==l and l or l,(0B11100)))));continue;end;else _=(_[V]);break;end;end;d=(nil);l=(0X7a);while true do if not(l<=0x11)then if not(l<122)then V=D[0X10];l=-4294967156+((D[0x10][5]((l<=F and F or F)-F))-l);else V=(V[d]);break;end;else d=8;l=0X1A+((l==F and l or F)+l-F+l);continue;end;end;P=nil;l=0X7A;while true do if l>0B111100 then if l==0X6b then d=F;break;else d=(u[Z]);l=(0X0073+((D[0X10][0x6]((F>F and F or F)+l))-l));end;else if l~=17 then V=V(d,P);l=(-0X1d+(l+F+F+l-l));else P=(0XB);l=43+(D[0X10][14]((D[0B10000_][11]((D[16][0Xa](l))-l,l)),l));continue;end;end;end;l=59;repeat if l>0B111011 then if not V then V=u[Z];end;l=(-4294967088+((D[16][0x5]((D[0X1__0][15](l))))-F-F));else if l<0x3__b__ then d=u[Z];V+=d;break;else if not(l<0B1011110 and l>0X25)then else V=(V==d);if not(V)then else V=u[Z];end;l=35+(D[0B10000][0XF]((D[0X10][0X00b](F+l))-l,l,F));end;end;end;until false;d=(0X11);l=(0B100_1100);repeat if not(l>=0b1001100)then s=s(j);break;else _=_(V,d);j=j(_);l=135+((D[16][0x6]((D[0B1__0000][0Xf](F,F))-l))-l);end;until false;j=(u[Z]);l=0B111101;repeat if l==0X03D then s=(s==j);l=(120+(D[0X10_][12]((D[0B10000][0x008](F-F==l and l or l,(D[0B0010000][0Xd]("<i8",'\12\0\0\0\z \u{00}\0\0\0')))),(0X12))));continue;else if l~=0B1111000 then else if not(s)then else s=(F);end;break;end;end;until false;if not s then s=(F);end;y=y(s);Y+=y;l=(0X2d);repeat if l==0x2D then h+=Y;u[Z]=(h);h=S;l=(-4294967159+(D[0X10][0Xf](F-l-l-l,l,l)));continue;else if l==0X28 then Y=(M[Z]);l=(105+(((D[0X10_][5]((D[16][0B1001](l,(0X2)))))>l and F or l)-l));elseif l==0X67 then y=(M);l=(-0x7__3__+(((D[0b10000][11](l-l))<=l and l or l)+F));continue;else if l==0x1a then h[Y]=(y);break;end;end;end;until false;end;end;else if not(F<0X22)then if F==0x23 then h=M[Z];Y=(0X0);for b=h,h+(p[Z]-0X1)do S[b]=a[C+Y];Y+=0X1_;end;else S[n[Z]]=n;end;else R=(M[Z]);for b=1,R do S[b]=a[b];end;C=R+0b1;end;end;end;else if F>=0X2f then if F>=50 then if not(F<0X34)then if F==0X35 then(S)[M[Z]]=I[Z]*S[n[Z]];else(D[0B10000])[n[Z]]=S[p[Z]];end;else if F~=51 then S[M[Z]]=(D[0x1](S[p[Z]],S[n[Z]]));else S[n[Z]]=S[M[Z]]%I[Z];end;end;elseif F>=0X30 then if F~=0x31 then(S)[M[Z]]=(S[n[Z]]-S[p[Z]]);else h=S;Y=O;end;else if not(U)then else for b,x in U do if not(b>=0B1)then else(x)[0X2]=(x);x[3]=(S[b]);x[1]=0X3;U[b]=nil;end;end;end;h=(p[Z]);return false,h,h;end;else if F>=43 then if F<45 then if F==0B1_0__1100 then h=i[M[Z]];(h[2])[h[0X1_]]=S[p[Z]];else if not(not(I[Z]<S[M[Z]]))then else Z=n[Z];end;end;else if F~=0X2e then h=M[Z];S[h]=S[h](D[0B1111_](h+0X1,O,S));O=h;else h=nil;Y=(nil);y=(nil);s=(0X42);while true do if s>=0x42__ then h=(-47104);Y=(0B0);s=0X69+((D[0x10][0xE](M[Z],s))-s-F-M[Z]);else y=(4503599627370495);Y*=y;break;end;end;y=(D[0X10]);l=0XB;y=(y[l]);j=(nil);_=nil;s=0;repeat if s==0 then l=(D[0x0__10]);s=96+((D[16][0X5](s-F))-F+s);continue;elseif s==95 then j=0xF;s=-79+(D[0X10][0X0f_]((D[0X10][0Xe]((D[0x010][0B1000](M[Z],M[Z])),F,s))+M[Z],M[Z]));continue;elseif s==0X32 then l=l[j];s=(55+(D[0B10000][0B111_0]((s<=M[Z]and F or M[Z])-M[Z]~=M[Z]and s or s)));continue;elseif s==0x69 then j=D[16];s=(111+(((D[0X1__0_][10]((D[0X1_0][0B1111](s))))~=s and F or s)-s));else if s~=0B1_10100 then else _=0B101;break;end;end;until false;j=(j[_]);_=(D[0X10]);V=(nil);d=(nil);s=(0X1A);repeat if s>0X1a then if s<=0x31 then _=_[V];s=0X5c+(D[16][8]((D[0x10][0x8]((D[0X10][6]((D[0B1__0000][0x9](s,M[Z])))),M[Z])),M[Z]));else if s~=92 then V=(V[d]);break;else V=(D[0X10]);s=-0b1010001__+((D[0X10][0B1001]((D[0X10][6](M[Z])),M[Z]))+M[Z]>=M[Z]and s or s);continue;end;end;else if not(s>11)then d=8;s=(-23068562+(D[0B10000][0b111]((D[0X10][12]((D[0x10][12](F==F and M[Z]or s,M[Z])),M[Z])),M[Z])));continue;else V=0x5;s=(0X31+(D[16][0b1111]((D[0X10][0B1011](s-s,s,s))+s,s)));continue;end;end;until false;P=nil;s=(89);repeat if s~=0B101100__1 then P=12;break;else d=(D[0B10000]);s=-0b1001011+((D[0B10000][0XE](s+F,F))-s+s);continue;end;until false;d=(d[P]);P=(u[Z]);c=(nil);s=(0X3a);while true do if not(s<=0B111010)then if s>=0x7c then P=M[Z];break;else d=d(P,c);s=-4292870019+(D[16][0B110__0]((D[16][0xF](F-s-F,s)),M[Z]));continue;end;else c=(M[Z]);s=(0b1011101+((D[0X10][0XF](s,s,F))-s-s+s));continue;end;end;V=V(d,P);s=0X55;repeat if s<0X4F then j=j(_);s=(-0X1_Fe1__+((D[0x1_0][0Xf]((D[0X10][0X7]((D[16][10](s)),M[Z])),s,s))+s));continue;else if s>0B1_10000 and s<85 then _=(F);break;else if s>0X4f then _=_(V);s=0xe4+((D[16][0b1010_](F))-s-M[Z]-s);end;end;end;until false;l=l(j,_);j=M[Z];s=(74);while true do if s==74 then l-=j;y=y(l);l=(u[Z]);s=44+((D[16][0x8](s,M[Z]))-s+s-M[Z]);continue;elseif s==0X21 then y+=l;s=-0X22+((D[0b10000][0Xb]((D[0X10][6](F-s))))<s and F or s);continue;else if s~=0XC then else Y+=y;break;end;end;end;h+=Y;s=(0X6e);while true do if s==0X6e then u[Z]=(h);s=(0x12+(((D[16][0B1001](M[Z],M[Z]))+F<s and s or s)-M[Z]));else if s==117 then h=S;break;end;end;end;Y=M[Z];s=0Xe;while true do if s==14 then y=(I[Z]);s=(-4294940636+((D[16][0X9](M[Z]-s-M[Z],M[Z]))-s));continue;else if s==0B10101 then(h)[Y]=(y);break;end;end;end;end;end;else if not(F>=0x29)then h=h[Y];elseif F~=42 then(S)[p[Z]]=o[Z]%q[Z];else S[p[Z]]=(S[M[Z]]>=S[n[Z]]);end;end;end;end;else if F<13 then if not(F<0X6)then if not(F<0B1001)then if not(F<0XB)then if F~=12 then h=p[Z];Y=L-R-0B1;if not(Y<0X0)then else Y=(-1);end;y=(0X0);for L=h,h+Y do(S)[L]=a[C+y];y+=0X1;end;O=(h+Y);else(S)[p[Z]]=D[0X10][n[Z]];end;else if F~=0Xa then(S[M[Z]])[o[Z]]=S[p[Z]];else h=p[Z];O=(h+n[Z]-0X1);S[h]=S[h](D[0B1111](h+0B1,O,S));O=h;end;end;else if not(F<7)then if F~=0b1000 then(S)[M[Z]]=M;elseif not(not(S[n[Z]]<=q[Z]))then else Z=p[Z];end;else h=I[Z];Y=h[0X5];y=(#Y);s=(y>0x0 and{});l=D[42](h,s);D[0X16](l,A);(S)[n[Z]]=l;if s then for L=0x1__,y do l=(Y[L]);h=l[0B10];j=(l[0B1]);if h==0B0 then if not(not U)then else U={};end;_=(U[j]);if not(not _)then else _={[0X2]=S,[1]=j};U[j]=_;end;(s)[L-0X1__]=(_);else if h~=0B1 then(s)[L-0B1]=i[j];else(s)[L-0X1]=S[j];end;end;end;end;end;end;else if not(F<3)then if not(F>=4)then S[n[Z]]=(S[M[Z]]==S[p[Z]]);else if F==0X5 then(S)[p[Z]]=i[n[Z]][q[Z]];else(S)[n[Z]]=u;end;end;else if F>=0x1 then if F==2 then Y=n[Z];for L=h,Y do y=S;s=L;L=nil;(y)[s]=(L);end;else(S)[p[Z]]=S[M[Z]]..S[n[Z]];end;else v={[0X1]=v,[0B10]=K,[3]=H,[0b101]=T};O=(p[Z]);h=D[29](function(...)D[0B10011]();for L,R in...do(D[0X13])(true,L,R);end;end);(h)(S[O],S[O+0X1],S[O+0x2]);H=h;Z=n[Z];end;end;end;else if not(F>=0X14)then if F<0X10 then if not(F>=14)then h=(n[Z]);Y=(p[Z]);y=(M[Z]);if Y~=0X0 then O=(h+Y-0X1);end;s,l=nil;if Y~=1 then s,l=D[41](S[h](D[0Xf](h+0X001,O,S)));else s,l=D[0b101001](S[h]());end;if y~=0b1__ then if y~=0X0 then s=(h+y-0X2);O=(s+0X1);else s=s+h-0B1;O=s;end;Y=(0X0);for L=h,s do Y+=0X1;S[L]=(l[Y]);end;else O=(h-0B01);end;else if F==0XF then h=false;H+=T;if not(T<=0x0)then h=(H<=K);else h=H>=K;end;if h then(S)[p[Z]+3]=(H);Z=(n[Z]);end;else h=p[Z];Y,y,s=H();if not(Y)then else S[h+0B1]=(y);S[h+0x2]=(s);Z=M[Z];end;end;end;else if not(F>=0x12)then if F~=0X11 then(i[n[Z]])[S[M[Z]]]=(S[p[Z]]);else S[n[Z]]=(not S[M[Z]]);end;else if F==0b10011 then S[n[Z]]=(S[p[Z]]);else(S)[M[Z]]=(-S[p[Z]]);end;end;end;else if F<0X17 then if F>=0b0010101 then if F~=0X16 then(S)[n[Z]]=I[Z]+S[M[Z]];else if not(U)then else for L,R in U do if not(L>=1)then else R[0X2]=R;(R)[3]=(S[L]);R[0X1]=3;U[L]=nil;end;end;end;return;end;else h=(i[n[Z]]);S[p[Z]]=h[0b10][h[0X1]][S[M[Z]]];end;else if not(F<0X19)then if F==0X1a then S[n[Z]]=S[M[Z]]==I[Z];else h=p[Z];O=(h);end;else if F==0X18 then h=(n[Z]);O=h+M[Z]-0X1;S[h](D[0xf_](h+1,O,S));O=(h-0x1_);else h=M[Z];Y=(p[Z]);y=(S[h]);(D[0B100101])(S,h+0X1,O,Y+0b1,y);end;end;end;end;end;end;else if F<0X51 then if F<0B1000011 then if not(F>=0X3C)then if F>=57 then if not(F<0B111010)then if F~=0B111__011 then h=(nil);Y=(nil);y=nil;s=0X7;repeat if s==0x7 then h=(-3221225385);Y=(0X0);s=-4294967222+(D[16][5]((D[0b010000][0XE_](s+s-M[Z],s,s))));else if s==0X3a then y=4503599627370495;Y*=y;break;end;end;until false;y=(D[16]);l=nil;j=(nil);s=0X2;repeat if s==0x2 then l=(0XE);s=0X79+(D[16][0X6]((D[0B10000][0B111]((D[0B010000][0X5__](M[Z])),M[Z]))-M[Z]));continue;else if s==121 then y=y[l];s=(-0b111100+(D[16][0b1001]((D[16][15]((D[16][0x6](F-F)))),M[Z])));elseif s==0B100 then l=(D[0X010]);s=(0xe+(((D[0X10][0Xc]((D[0b10000][0XE](F,s,s)),(s)))~=s and s or s)+M[Z]));else if s==0X13 then j=(12);l=(l[j]);s=(-4294967222+((D[0B1_0000][0XF]((D[0B10000][0X5](M[Z]))-s,s,M[Z]))+s));continue;else if s==86 then j=D[0X10];break;end;end;end;end;until false;_=(0x8_);j=(j[_]);V=nil;s=0B100011;while true do if s>0b100011 then if s>=0X4D then V=(D[0B10000]);break;else _=_[V];s=(45+(D[0X10__][0x6](M[Z]+s-M[Z]-s)));end;else _=D[0X10];V=(0X7);s=-4294967223+(D[0X10][0xf]((D[0X10][0X007]((D[0B10000][0xc](M[Z],M[Z])),M[Z]))-s));continue;end;end;d=0X009;V=V[d];P=(nil);s=0X2f;while true do if s>0x39 then P=M[Z];s=(-4294967238+((D[0X10__][5](s+M[Z]-M[Z]))+s));continue;else if s<0X42 and s>0B101111 then V=V(d,P);break;else if not(s<57)then else d=M[Z];s=0X2__5__+(D[0X10][6]((D[0x10][0xF]((D[0X10][0xa]((D[16][0x5](s))))))));continue;end;end;end;end;s=0X70;repeat if s<112 then V-=d;break;else if s>15 then d=u[Z];s=-0Xd1+((s+M[Z]-M[Z]<F and s or s)+s);end;end;until false;d=u[Z];s=(0B110000_0);repeat if s<=0B10010 then d=F;V-=d;break;else if s==0X60 then V=(V>=d);s=-0B100001+(((D[0x10][5](s))-F==s and M[Z]or M[Z])==s and s or s);else if not(V)then else V=(F);end;if not(not V)then else V=(M[Z]);end;s=(-0B100__1110+((D[0x10][10](s-s))+M[Z]+s));end;end;until false;d=M[Z];s=(0B100110);while true do if not(s<=0B10011_0)then V=(M[Z]);break;else _=_(V,d);s=(0X4d+(D[0X10][0B1010]((D[0X10][0xe]((D[0B10_000][15](M[Z],s,s)),F,M[Z]))-s)));end;end;j=j(_,V);_=(M[Z]);l=l(j,_);j=F;s=(44);repeat if s>27 then if s>0b101100 then h+=Y;(u)[Z]=h;break;else y=y(l,j);s=-0B10_1+(D[0B1_0000][0X7]((D[0x10][0B1010](s))-s+F,M[Z]));end;else Y+=y;s=(0X9+((D[16][11]((D[16][0X6](s))+s))-M[Z]));continue;end;until false;s=(0x6c);while true do if s<0X5B then l=(o[Z]);break;elseif s<108 and s>0x45 then Y=M[Z];s=-0X17+(((D[16][0Xe]((D[0X10][8](s,M[Z])),s,s))<s and M[Z]or s)+F);elseif s>0X6c then y=A;s=-0X39+((D[0B10000][7]((D[0X10][0x9](M[Z]-s,M[Z])),M[Z]))<F and F or s);continue;else if not(s<0x7E and s>0X5b)then else h=S;s=-0x7ffFfFA5+(D[0B010000][12]((s-s==s and s or s)==s and M[Z]or s,M[Z]));end;end;end;y=(y[l]);h[Y]=(y);else O=(p[Z]);(S[O])();O-=0X1;end;else(S)[p[Z]]=S[M[Z]]+o[Z];end;else if not(F<0x0037)then if F==0B111000 then O=p[Z];(S)[O]=S[O]();else h=(M[Z]);S[h](D[0Xf](h+0B1,O,S));O=(h-0B1);end;else S[M[Z]]=S[n[Z]][S[p[Z]]];end;end;else if F<63 then if F<0x3D then(i[n[Z]])[S[p[Z]]]=q[Z];else if F==0X3e__ then if not(not(S[n[Z]]<S[M[Z]]))then else Z=(p[Z]);end;else S[M[Z]]=o[Z]==I[Z];end;end;else if not(F>=0x41)then if F~=0x40 then if S[n[Z]]==q[Z]then Z=(p[Z]);end;else S[M[Z]]=(D[1](S[n[Z]],I[Z]));end;else if F==0X42 then h=(p[Z]);(S[h])(S[h+0b1],S[h+0x2__]);O=(h-0X1);else local L=M[Z];if U then for R,C in U do if R>=L then C[0x2]=C;C[0B11]=(S[R]);(C)[1]=0x3;U[R]=nil;end;end;end;end;end;end;end;else if F<0X4_a then if not(F>=0X46)then if F<68 then h=(p[Z]);else if F~=0B1000101 then S[M[Z]]=(S[p[Z]]/S[n[Z]]);else S[M[Z]]=(S[n[Z]]*S[p[Z]]);end;end;else if F>=0X48 then if F==0B1001001 then(S)[M[Z]]=S;else if S[p[Z]]==S[M[Z]]then else Z=n[Z];end;end;else if F==0B10001_11 then if S[p[Z]]then Z=n[Z];end;else S[p[Z]]=S[n[Z]]/q[Z];end;end;end;else if not(F>=77)then if not(F>=0B1001011)then(S)[n[Z]]=(S[M[Z]]//I[Z]);elseif F==0x4C then if not(U)then else for L,R in U do if L>=0B1 then R[2]=R;R[0X3]=S[L];(R)[0b1_]=(0X3);(U)[L]=nil;end;end;end;return false,p[Z],O;else S[M[Z]]=(X);end;else if not(F>=0b1__001111)then if F==78 then O=(h);else v={[1]=v,[2]=K,[0X3]=H,[0B101]=T};h=M[Z];T=S[h+2]+0b0;K=S[h+0b1]+0x0;H=(S[h]-T);Z=p[Z];end;else if F~=80 then if not S[n[Z]]then Z=M[Z];end;else h=q[Z];Y=h[0X5];h=#Y;y=h>0X0 and{};if y then for X=0B1,h do s=(Y[X]);l=s[0B10];j=(s[1]);if l==0B0 then if not U then U={};end;s=(U[j]);if not s then s={[2]=S,[0X1]=j};(U)[j]=s;end;y[X-0X1]=(s);else if l~=0X1 then y[X-0x1]=i[j];else y[X-0B1]=S[j];end;end;end;end;Y=r[I[Z]](y);D[0x16](Y,A);S[n[Z]]=Y;end;end;end;end;end;else if not(F>=0B1011111)then if F>=0B1__011000 then if F<0b1011011 then if F>=0X59 then if F~=0X5a then h=p[Z];S[h](S[h+0B1]);O=h-0b1;else(S)[p[Z]]=S[n[Z]]*q[Z];end;else for X=1,p[Z]do S[X]=(a[X]);end;end;else if not(F<0B10_11101)then if F~=0B1011110 then(S)[n[Z]]=i[M[Z]];else h-=Y;end;else if F~=0B1011100__ then(S[p[Z]])[S[M[Z]]]=o[Z];else h=p[Z];Y=S[n[Z]];(S)[h+0x001]=Y;S[h]=(Y[q[Z]]);end;end;end;elseif not(F>=0X54)then if not(F>=0B1010010)then(S)[M[Z]]=I[Z];else if F==0X53 then for X=p[Z],n[Z]do S[X]=nil;end;else S[M[Z]]=(A[o[Z]]);end;end;else if F<0X0__56 then if F~=0X0055 then H=(v[0B1__1]);K=(v[0X2]);T=(v[5]);v=v[0B1];else if not(U)then else for X,L in U do if X>=0x1 then(L)[2]=(L);L[0b11]=S[X];L[0X1]=(3);U[X]=nil;end;end;end;h=n[Z];O=h+1;return true,h,0B10;end;else if F~=87 then S[M[Z]]=nil;else S[p[Z]]=D[0B110](M[Z]);end;end;end;else if F<0X66_ then if F<0X62 then if not(F<0X60)then if F==97 then h=(i[M[Z]]);h[0b1_0][h[1]][S[n[Z]]]=S[p[Z]];else S[M[Z]]=(S[p[Z]]~=o[Z]);end;else if U then for X,i in U do if X>=1 then i[0x2]=(i);(i)[0X3]=S[X];i[0B1]=0x3;U[X]=nil;end;end;end;return true,p[Z],0X0;end;else if F<100 then if F~=0B1100011 then if not(S[M[Z]]<o[Z])then Z=p[Z];end;else S[p[Z]]=(#S[n[Z]]);end;else if F~=101 then(S[M[Z]])[o[Z]]=(I[Z]);else if not(I[Z]<=S[n[Z]])then Z=(M[Z]);end;end;end;end;else if F>=0x69 then if not(F<0X6b)then if F~=0B011__011_00 then h=(nil);Y=nil;y=nil;s=(nil);l=(nil);j=(0Xb);while true do if j==0xb then h=-1086;j=0X05__3+(D[16][6]((D[0B10000][0Xe]((D[0B10000][0XB](j,j))+j,j))));elseif j==0b1101110 then Y=0X0;y=(4503599627370495);Y*=y;y=(D[0X10]);j=(0X7+((D[0B10000][0b001011]((D[0B10000][0B1111]((D[0x10][0XA](j)),j)),F))>=j and F or j));continue;elseif j==0x75 then s=0XF__;j=-2684354591+(D[0X10][0B1110]((D[0X10_][12](j+F-F,(0X3))),F));elseif j==0x50 then y=y[s];j=-3590323926+((D[0X10][0B10_11]((D[0x10][0X9](F,(0B11001)))-j))-F);continue;elseif j==0B1101_11_1 then s=(D[16]);j=(0X6+(((F<=j and F or F)+j>=j and F or j)-j));elseif j==2 then l=0x8;j=(-4294966843+(D[16][0X7]((D[0B10000][0x6](F+F))-F,(j))));continue;elseif j==0X79 then s=(s[l]);break;end;end;_=(nil);j=0X31;while true do if j==0X31 then l=(D[16]);j=(43+((D[0b10000][0xC](j-F-j,(0B11)))~=j and j or F));continue;elseif j==0X5C then _=0XC;j=0XaA+((D[0X10][6]((D[0B10__000][0XB](j,F,j))))-j-j);elseif j~=11 then else l=l[_];break;end;end;_=(D[0X10]);V=(5);j=122;while true do if j~=0X0011 then _=_[V];j=(-90+((D[16][0xa](F-j-j))>j and j or F));else V=F;break;end;end;d=(F);j=(0b110100);while true do if j==0x34 then V+=d;j=-0X8__2+((D[0x01_0][0x6]((F>=F and F or j)~=j and j or j))+F);continue;elseif j==0x3 then d=(F);j=(-0X68+((D[0X10][14](F,j,F))+j-j+j));continue;elseif j==0X6 then V=(V>=d);if not(V)then else V=F;end;j=(-4294967245+(D[0B10000][0B1110]((D[16][0x9](F-F,(j)))-j)));continue;elseif j==0X2d then if not(not V)then else V=F;end;j=(0X28+(D[0X10][7]((D[0x10][7]((D[0B10000][0B1100__](j+F,(D[0X10][13]("\u{03E}i\z  \56","\0\0\0\x00\0\0\0\29")))),(0X11))),(0b101_01))));elseif j~=0B101000 then else _=_(V);break;end;end;j=0X34;while true do if j<52 and j>0X3 then _=(0X15);s=s(l,_);break;elseif j<0X6 then l=l(_,V);j=(-98+((D[0B10000][0xB](F-F,j,F))-j+F));continue;elseif j>0x6 then V=(8);j=-0x16+(D[0b10000][0B110](F+F+j>F and F or F));continue;end;end;l=F;_=(u[Z]);j=0B01001010;while true do if j==74 then y=y(s,l,_);j=-0b1001010+(D[0X10][0XE](((D[16][0X9](j,(0X00D)))<F and F or j)>=F and j or F,F,j));continue;elseif j==0B10_0001 then s=u[Z];break;end;end;y+=s;j=0B101_10;while true do if j<0X7d and j>0B101__10_ then(u)[Z]=(h);break;elseif j>0X38 then y-=s;Y+=y;h+=Y;j=(0xE+((D[0B10000][0B110](F+j))-F+j));continue;elseif j<0x38 then s=(u[Z]);j=-448790318+(D[16][0B1111]((D[0X10__][0X9](F,(j)))+j-F));end;end;h=M[Z];Z=(h);else S[p[Z]]=(S[M[Z]]+S[n[Z]]);end;else if F==106 then else Z=(M[Z]);end;end;else if not(F<103)then if F==0B1101000 then S[n[Z]]=({});else if S[n[Z]]==I[Z]then else Z=(M[Z]);end;end;else(S)[n[Z]]=(I[Z]^S[M[Z]]);end;end;end;end;end;end;Z+=0X01;end;end);if m then if E then if k~=0X1 then return S[f](D[0xf](f+0x1_,O,S));else return S[f]();end;else if not(f)then else return D[0XF](f,k,S);end;end;else if not(U)then else for X,i in U do if not(X>=0x1)then else i[0X2]=(i);(i)[0x3]=(S[X]);(i)[1]=(0B11);U[X]=nil;end;end;end;if D[0X20](E)=='\zs\u{0074}\114i\110g'then if D[0b11111](E,":\40%d\x2B\41[:\13\u{A}\u{05D}")then(D[0B111])('L\117\z \114ap\z  h\x20\83\u{063}\x72\ip\116\z  :'..(W[Z]or"(int\101rna\x6C)").."\58\ "..D[0X15](E),0X0);else(D[0B111])(E,0);end;else(D[0X7])(E,0X0);end;end;end);return B;end);(D)[0X2b]=function()local X;X=nil;X=(nil);local i,B,L,W,p,q,n,I;I,L,B,n,q,W,p=r:S5(I,D,W,L,B,q,p,n);local o,u,M;u,M,q,X,n,I,o,i=r:p5(u,I,q,D,o,n,M,L);if X==-0X2 then return i;end;local S,R;R,X,M,S,i=r:T5(M,D,o,R,B,S);if X==-0x2 then return i;end;local a,C,O;M,a,O,C=r:Ft(p,a,C,o,u,n,D,L,q,O,W,I,R,S,M,B);for L=0X1,a do p=(nil);for W=14,0B111000,0B101__010 do if W>14 then if D[5][p]then r:Dt(D,p,C,L);else r:lt(L,C,D,p);end;else p=D[0B1_0__0110]();end;end;end;S=nil;for L=118,230,0B1_0__0100 do if not(L>0X76)then S=(0B1);continue;else X,S,i=r:qt(L,D,B,O,S);if X==-0B10 then return i;end;end;end;end;z=function()local X,i;X,i=r:Lt(D);if X==-0X1 then return;else if X~=-0X2 then else return i;end;end;end;w=(nil);e=(nil);G=(56);repeat if G>0x1 and G<0x37 then(D[0B10000__])[0xE]=r.a.bor;if not J[0X3C6e]then G=-0X36+((r.ct((r.Mt(J[0x1373],(J[0X1C57])))+J[0X22a1_],J[941],r.j[2]))+J[16999]);J[15470]=G;else G=(J[15470]);end;elseif G<0X2a then D[0X10][8]=r.s;if not J[0X58_f5]then G=r:At(G,J);else G=J[22773];end;continue;else if G>55 and G<0X6c then w=(function(...)return(...)();end);e=z();if not(not J[16999])then G=r:wt(J,G);else(J)[23706]=(0B10__01__0101+((r.kt((r.Wt(r.j[1],J[0x541d]))))-J[0x4_2__36]-J[29154]));J[817]=(-0X25+((r.yt((r.ct(J[23436],J[0X1C57__],J[0X666b__]))==J[0X47d9]and G or J[0X2cb4],J[0x4130]))~=J[0X4236]and J[0x32Fa]or J[0x180]));G=(0X37+(r.Mt((r.Mt((r.ct((r.kt(r.j[4])),J[0x1373])),(J[29154]))),(J[4979]))));(J)[0X4267]=G;end;continue;elseif G>0b111000 then r:Tt(D);break;else if not(G>0X2a and G<0b111000)then else(D[0B10000])[0b1101]=r.t;if not(not J[0X22dC])then G=J[8924];else J[0x608B]=-0X80093E2+((r.ct((r.ct(r.j[0x08]+J[0x26B2])),r.j[0x4]))-J[0X32FA]);G=-48+((r.yt((r.dt((r.kt(r.j[0X7])))),J[0X7__1e2],J[26219]))+J[0X5c9a]);J[8924]=(G);end;end;end;end;until false;D[0b10000][0b1100]=r.a.rrotate;G=(0B1101011);return e,w,z,G;end,Ut=string.match,X5=function(r,e,G,w,D,z)if w==0XEd then z=r:n5(D,z,G);end;e=(0B100010_0);return z,e;end,h=function(r,r,e)r=(e[0X22A1]);return r;end,n5=function(r,r,e,G)e,r[0X18]=0B100101>=0b10011__101>r[0Xe],(-G);return e;end,p5=function(r,r,e,G,w,D,z,J,X)for i=0X6__c,316,104 do if i<0X13C and i>0X6_C then z=w[6](X);elseif i>212 then e=w[0X6](X);else if i<0XD_4 then G=w[0X6](X);continue;end;end;end;D=(nil);r=nil;J=(17);repeat if J==0x11 then J=0X3C;D=w[0B110](X);else r=w[0B110](X);if w[0B101_0]~=w[39]then else return r,J,G,-0X2,z,e,D,-0B10100111__;end;break;end;until false;return r,J,G,nil,z,e,D;end,u5=function(r,e,G,w,D)w[40]=(nil);e=70;while true do if e>0x46 and e<0B1101101 then w[0x27]=function()local z,J,X,i=(0X6D);repeat J,z,i,X=r:v5(z,w,i);if J==43755 then continue;elseif J==-0X2__ then return X;else if J then return r.A(J);end;end;until false;end;if not G[941]then e=0X25+(r.dt((r.kt((r.Qt(e,(G[384])))-G[23558]))));G[0X3AD]=e;else e=G[941];end;else if e<0X46 then w[40]=(function()local z,J=0B100__101;repeat if z==37 then z=0x40;J=w[0X26]();else if z==0X40 then(w)[27]=w[0B11011]+J;return w[20](w[0X1C],w[0x1b]-J,w[0X1b]-0X1);end;end;until false;end);break;elseif e>0b110100_0 then w[0X26]=function()local z,J=0B00,(0X01);for X=0B111110,0X00aF,21 do if X>62 then return z;else if X<0X5__3 then repeat local X;J,X,z=r:t5(X,z,w,J);until X<128;end;end;end;end;if not G[23558]then e=r:a5(e,G);else e=G[0x5C06_];end;else if e>0X27 and e<0x68 then w[0x25]=r.z;if not(not G[0X7083])then e=G[28803];else e=(-0X005__8_a16127+((r.dt(G[0X48CE]))+r.j[0X1]+r.j[4]-G[4979]));(G)[28803]=(e);end;end;end;end;end;(w)[0x29]=nil;D=(nil);e=(0x78_);while true do if e==0x78 then(w)[41]=function(...)local z=w[0X19]("#",...);if z==0 then return z,w[0X3];end;return z,{...};end;if not(not G[4392])then e=r:O5(G,e);else e=(-0Xff5FF89+(r.Et((r.Qt((r.j[0x9]~=G[0X4236]and G[23558]or r.j[0X3])-G[24955],(G[0X0180]))),(G[0x71e2]))));G[4392]=(e);end;continue;else D=r:s5(D);break;end;end;return D,e;end,xt=function(r,r,e,G,w)w=(0X2D);r=e[6](G);return w,r;end,h5=function(r,e,G,w,D,z,J)if not(G[0X21__])then w[J]=G[0X9][D];else r:P5(D,e,G,J,z);end;end,m=function()return function()local r=function(e)local G,w=pcall(e);if not G then task.spawn(error,w);end;end;local e=cloneref or function(G)return G;end;local G=setmetatable({},{__index=function(w,D)w[D]=Instance.new('\Bin\d\z\u{61}b\z leE\u{0076}\101\110t');return w[D];end});getgenv().vapeEvents=G;local w=e(game:GetService("P\x6C\x61ye\z r\115"));local D=e(game:GetService("\x52e\p\x6Ci\99\x61t\101\100S\116orag\z e"));local z=e(game:GetService('\82u\x6ES\101rvic\e'));local J=e(game:GetService("Us\x65r\x49n\zp\u{75}\116S\101rvi\c\101"));local X=e(game:GetService("Twe\x65n\zS\e\114v\105\z  \u{63}\z  e"));local i=e(game:GetService('\Http\x53\101rvic\u{65}'));local B=e(game:GetService('Text\67\x68atS\z \101\x72\118\105\99e'));local L=e(game:GetService("\C\111l\108\u{065}\99ti\o\x6E\83\z  er\118\u{069}ce"));local W=e(game:GetService("\z  Cont\e\120t\Act\ionServ\i\ce"));local p=e(game:GetService('Gui\83e\114\x76\zic\101'));local q=e(game:GetService("\x53\u{74}art\101rG\u{75}i"));local e=isnetworkowner or function()return true;end;local n=mouse1click or function()end;local I=workspace.CurrentCamera;local o=w.LocalPlayer;local u=getcustomasset;local M=shared.vape;local S=M.Libraries.entity;local R=M.Libraries.targetinfo;local R=M.Libraries.sessioninfo;local a=M.Libraries.uipallet;local C=M.Libraries.tween;local O=M.Libraries.color;local Z=M.Libraries.whitelist;local A=M.Libraries.prediction;local U=M.Libraries.getfontsize;local H=M.Libraries.getcustomasset;local v=function(...)local T,K=loadstring(...);if K and M then M:CreateNotification('\86a\u{070}e','Fa\105l\101d\x20\u{74}\111\u{20}l\x6Fad \58\32'..K,30,'a\u{006C}ert');end;return T;end;local T={contracts={},attackReach=0,attackReachUpdate=tick(),damageBlockFail=tick(),hand={},inventory={inventory={items={},armor={}},hotbar={}},inventories={},matchState=0,queueType="b\e\d\x77a\114s\z _t\zest",tools={}};local K={};local m={};local E;local f;local k,l,d,c,y=nil,{},{};local function y(Y)local j=Instance.new('\z I\m\97geL\97\u{62}e\108');j.Name="\zB\108\zur";j.Size=UDim2.new(1,89,1,52);j.Position=UDim2.fromOffset(-48.0,-31.0);j.BackgroundTransparency=1;j.Image=H('\u{063}\x61t\u{0072}ew\x72\105te/\u{0061}s\sets\u{002F}n\x65w/b\z lur.\u{0070}ng');j.ScaleType=Enum.ScaleType.Slice;j.SliceCenter=Rect.new(52,31,261,502);j.Parent=Y;return j;end;local function Y(j,s)if not isfile(j)then local P,h=pcall(function()return game:HttpGet("h\116\z \x74p\u{073}\:/\z /\114a\w\46g\105\u{074}\104ubuser\u{0063}\111\110tent\46c\111m/\110\u{65}w-\qw\x65rtyui/C\97\116V5/"..readfile('\x63\z  at\114\u{65}\u{77}rit\e/\u{0070}r\x6F\102\x69\108e\115\u{002F}\zcom\x6Dit\u{2E}txt')..'\47'..select(1,j:gsub("c\97t\x72\z \101\w\114i\116\z\u{065}/",'')),true);end);if not P or h=='\05204: \x4E\u{006F}\z  \x74\32Foun\100'then error(h);end;if j:find('\u{002E}\108\u{75}a')then h="\n"..h;end;writefile(j,h);end;if isfile(j)then return(s or readfile)(j);end;end;local function j(s,P,h,V)s=typeof(s)~='\116\97\z bl\x65'and{s}or s;local _,F={},{};for b,b in s do table.insert(F,L:GetInstanceAddedSignal(b):Connect(function(s)if h then h(_,s,b);return;end;table.insert(_,s);end));table.insert(F,L:GetInstanceRemovedSignal(b):Connect(function(s)if V then V(_,s,b);return;end;s=table.find(_,s);if s then table.remove(_,s);end;end));for s,s in L:GetTagged(b)do if h then h(_,s,b);continue;end;table.insert(_,s);end;end;local s=function(h)for V,V in F do V:Disconnect();end;table.clear(F);table.clear(_);table.clear(h);end;if P then P:Clean(s);end;return _,s;end;getgenv().collection=j;local function s(P)local h,V=nil,0;for _,_ in T.inventory.inventory.items do local F=_ and k.ItemMeta[_.itemType]or{};if F.armor and F.armor.slot==P then local P=(F.armor.damageReductionMultiplier or 0);if P>V then h,V=_,P;end;end;end;return h;end;getgenv().getBestArmor=s;local function P()local h,V,_=nil,nil,0;for F,b in T.inventory.inventory.items do local x=k.ItemMeta[b.itemType].projectileSource;if x and table.find(x.ammoItemTypes,'a\x72r\x6F\119')then local Q=k.ProjectileMeta[x.projectileType('a\114r\zo\x77')].combat.damage or 0;if Q>_ then h,V,_=b,F,Q;end;end;end;return h,V;end;local function h(V,_)for F,b in(_ or T.inventory.inventory.items)do if b.itemType==V then return b,F;end;end;return nil;end;getgenv().getItem=h;local function V(_)return debug.getupvalue(debug.getupvalue(debug.getupvalue(_,3).render,2).render,1);end;local function _()local F,b,x=nil,nil,0;for Q,t in T.inventory.inventory.items do if T.equippedKit=='su\x6Dm\111ner'then if t.itemType:find("s\117\x6D\109\u{6F}\x6Eer\x5Fcl\u{061}w")then F,b=t,Q;break;end;else local N=k.ItemMeta[t.itemType].sword;if N then local g=N.damage or 0;if g>x then F,b,x=t,Q,g;end;end;end;end;return F,b;end;getgenv().getSword=_;local function F(b)local x,Q,t=nil,nil,0;for N,g in T.inventory.inventory.items do local rZ=k.ItemMeta[g.itemType].breakBlock;if rZ then local eZ=rZ[b]or 0;if eZ>t then x,Q,t=g,N,eZ;end;end;end;return x,Q;end;local function b()for x,x in(inv or T.inventory.inventory.items)do if x.itemType:find('\wo\o\108')then return x and x.itemType,x and x.amount;end;end;end;getgenv().getWool=b;local function x(Q)if not Q.Player then return 0;end;local t=0;for N,N in(T.inventories[Q.Player]or{items={}}).items do local Q=k.ItemMeta[N.itemType];if Q and Q.sword and Q.sword.damage>t then t=Q.sword.damage;end;end;return t;end;local function Q(t)if not t then return;end;local N=k.BlockController:getBlockPosition(t);return k.BlockController:getStore():getBlockAt(N),N;end;getgenv().getPlacedBlock=Q;local function t(N,g)local rZ,eZ=k.BlockController:getStore(),{};for GZ=N.X,g.X do for wZ=N.Y,g.Y do for DZ=N.Z,g.Z do local N=Vector3.new(GZ,wZ,DZ);if rZ:getBlockAt(N)then table.insert(eZ,N*3);end;end;end;end;return eZ;end;getgenv().getBlocksInPoints=t;local function N(g)g=Vector3.new(3,3,3)*(g or 10);local rZ,eZ,GZ=S.character.RootPart.Position,60;local wZ=t(k.BlockController:getBlockPosition(rZ-g),k.BlockController:getBlockPosition(rZ+g));for g,g in wZ do if not Q(g+Vector3.new(0,3,0))then local DZ=(rZ-g).Magnitude;if DZ<eZ then eZ,GZ=DZ,g+Vector3.new(0,3,0);end;end;end;table.clear(wZ);return GZ;end;getgenv().getNearGround=N;local function g(rZ)local eZ=0;for GZ,wZ in rZ:GetAttributes()do if GZ:find('S\104ield')and type(wZ)=="\z\x6E\z \x75\mb\u{0065}r"and wZ>0 then eZ+=wZ;end;end;return eZ;end;getgenv().getShieldAttribute=g;local rZ={lastHit=os.clock(),Value=0,Custom=0};getgenv().damagedata=rZ;local eZ={Value=0};getgenv().speedBoosts=eZ;local function GZ()local wZ,DZ,zZ=0,true,k.SprintController:getMovementStatusModifier():getModifiers();for JZ in zZ do local XZ=JZ.constantSpeedMultiplier and JZ.constantSpeedMultiplier or 0;if XZ and XZ>math.max(wZ,1)then DZ=false;wZ=XZ-(0.06*math.round(XZ));end;end;for JZ in zZ do wZ+=math.max((JZ.moveSpeedMultiplier or 0)-1,0);end;if wZ>0 and DZ then wZ+=0.16+(0.02*math.round(wZ));end;return(20+eZ.Value)*(wZ+1)+(rZ.lastHit>os.clock()and rZ.Value or 0)+rZ.Custom;end;getgenv().getSpeed=GZ;local function rZ(eZ)local wZ=0;for DZ in eZ do wZ+=1;end;return wZ;end;local function eZ(wZ)for DZ,zZ in T.inventory.hotbar do if zZ.item and zZ.item.tool==wZ then return DZ-1;end;end;end;getgenv().getHotbar=eZ;local function wZ(DZ)if DZ and T.inventory.hotbarSlot~=DZ then k.Store:dispatch({type="I\x6E\118entor\121S\u{065}l\u{065}c\u{74}H\u{006F}\z  t\z  \u{062}a\114S\lot",slot=DZ});G.InventoryChanged.Event:Wait();return true;end;return false;end;getgenv().hotbarSwitch=wZ;local function DZ(zZ,JZ)if M.Categories.Friends.Options['\u{055}\115\101\u{20}fr\105\x65nds'].Enabled then local XZ=table.find(M.Categories.Friends.ListEnabled,zZ.Name)and true;if JZ then XZ=XZ and M.Categories.Friends.Options["Recol\111\114 vi\115\z\117a\ls"].Enabled;end;return XZ;end;return nil;end;local function zZ(JZ)return table.find(M.Categories.Targets.ListEnabled,JZ.Name)and true;end;local function JZ(...)return M:CreateNotification(...);end;local function XZ(iZ)iZ=iZ:gsub("<br\z \37s\z \42\47\>","\x0A");return(iZ:gsub('<[\94<>]\->',""));end;local function iZ(BZ)return Vector3.new(math.round(BZ.X/3)*3,math.round(BZ.Y/3)*3,math.round(BZ.Z/3)*3);end;getgenv().roundPos=iZ;local function BZ(LZ,WZ)if getgenv().CancelSwitch>os.clock()and LZ and LZ.Name~='\116\101\z\u{6C}e\112\e\x61rl'then return;end;WZ=WZ or 0.05;local pZ=o.Character and o.Character:FindFirstChild('\72a\110d\u{0049}nvIt\101m')or nil;if pZ and pZ.Value~=LZ and LZ.Parent~=nil then task.spawn(function()k.Client:Get(l.EquipItem):CallServerAsync({hand=LZ});end);pZ.Value=LZ;if WZ>0 then task.wait(WZ);end;return true;end;end;getgenv().switchItem=BZ;local function LZ(WZ,pZ,qZ,nZ)local IZ,oZ=tick()+qZ;repeat oZ=nZ and WZ[pZ]or WZ:FindFirstChildOfClass(pZ);if oZ and oZ.Name~='U\112\z  \p\e\114T\x6Fr\u{0073}\u{6F}'or IZ<tick()then break;end;task.wait();until false;return oZ;end;local WZ,pZ={},{};local qZ;local nZ;local function IZ(oZ)if oZ:IsA("BaseP\97rt")and oZ.Name~='H\z\117m\x61n\x6FidR\x6Fo\116P\u{0061}\114\x74'and not pZ[oZ]then pZ[oZ]=oZ.CustomPhysicalProperties or"n\111\x6E\x65";oZ.CustomPhysicalProperties=PhysicalProperties.new(0.0001,0.2,0.5,1,1);end;end;local function oZ(uZ)local MZ=rZ(WZ)>0;if nZ~=MZ or uZ then if qZ then qZ:Disconnect();end;if MZ then if S.isAlive then for uZ,uZ in S.character.Character:GetDescendants()do IZ(uZ);end;qZ=S.character.Character.DescendantAdded:Connect(IZ);end;else for qZ,IZ in pZ do qZ.CustomPhysicalProperties=IZ~="no\z  n\u{065}"and IZ or nil;end;table.clear(pZ);end;end;nZ=MZ;end;local pZ={hannah=5,spirit_assassin=4,dasher=3,jade=2,regent=1};local qZ={Damage=function(nZ,IZ)return nZ.Entity.Character:GetAttribute('L\97st\x44amag\z\101\Ta\x6Be\x6ETi\109\u{65}')<IZ.Entity.Character:GetAttribute('La\115\x74\u{0044}a\109\u{0061}\103e\84a\107enTime');end,Threat=function(nZ,IZ)return x(nZ.Entity)>x(IZ.Entity);end,Kit=function(x,nZ)return(x.Entity.Player and pZ[x.Entity.Player:GetAttribute('P\z \x6Cayin\gAsK\z  i\u{74}\zs')]or 0)>(nZ.Entity.Player and pZ[nZ.Entity.Player:GetAttribute('P\z  \la\121\x69n\zg\x41\u{0073}Ki\116s')]or 0);end,Health=function(x,pZ)return x.Entity.Health<pZ.Entity.Health;end,Angle=function(x,pZ)local nZ=S.character.RootPart.Position;local IZ=S.character.RootPart.CFrame.LookVector*Vector3.new(1,0,1);local uZ=math.acos(IZ:Dot(((x.Entity.RootPart.Position-nZ)*Vector3.new(1,0,1)).Unit));local x=math.acos(IZ:Dot(((pZ.Entity.RootPart.Position-nZ)*Vector3.new(1,0,1)).Unit));return uZ<x;end};getgenv().sortmethods=qZ;r(function()local x=o:GetAttribute('\x50laye\114Conn\101\x63\u{0074}e\u{064}');repeat task.wait();until o:GetAttribute("\80la\y\er\u{43}\111nnecte\100")and S;if not x then task.wait((2));end;local x=S.start;local function pZ(qZ)if qZ:HasTag('\x69\u{06E}\z\118\x65nt\u{06F}\114\u{079}-entit\121')and not qZ:HasTag("Mon\115t\101r")and not qZ:HasTag('tr\z \97i\zn\u{069}\u{6E}g\Ro\111mDu\z  \109m\x79')then return;end;S.addEntity(qZ,nil,qZ:HasTag("D\114o\x6E\e")and function(qZ)local nZ=w:GetPlayerByUserId(qZ.Character:GetAttribute('P\u{6C}a\y\u{0065}rUs\z\x65\zr\u{0049}\u{64}'));return not nZ or o:GetAttribute("\zT\x65a\u{6D}")~=nZ:GetAttribute("Te\u{061}\u{6D}");end or function(qZ)return o:GetAttribute('Tea\x6D')~=qZ.Character:GetAttribute('\x54ea\z  \u{6D}');end);end;S.start=function()x();if S.Running then for x,x in{'e\zn\u{0074}\u{069}ty'}do for qZ,qZ in L:GetTagged(x)do pZ(qZ);end;table.insert(S.Connections,L:GetInstanceAddedSignal(x):Connect(pZ));table.insert(S.Connections,L:GetInstanceRemovedSignal(x):Connect(function(x)S.removeEntity(x);end));end;end;end;S.addPlayer=function(x)if x.Character then S.refreshEntity(x.Character,x);end;S.PlayerConnections[x]={x.CharacterAdded:Connect(function(pZ)S.refreshEntity(pZ,x);end),x.CharacterRemoving:Connect(function(pZ)S.removeEntity(pZ,x==o);end),x:GetAttributeChangedSignal('\84e\x61m'):Connect(function()for pZ,pZ in S.List do if pZ.Targetable~=S.targetCheck(pZ)then S.refreshEntity(pZ.Character,pZ.Player);end;end;if x==o then S.start();else S.refreshEntity(x.Character,x);end;end)};end;S.addEntity=function(x,pZ,qZ)if not x then return;end;S.EntityThreads[x]=task.spawn(function()local nZ,IZ,uZ;if pZ then nZ=LZ(x,'\Human\z  \o\105\u{64}',10);IZ=nZ and LZ(nZ,"Ro\x6F\u{074}\x50\x61rt",workspace.StreamingEnabled and 9e9 or 10,true);uZ=x:WaitForChild('H\u{065}\97\d',10)or IZ;else nZ={HipHeight=0.5};IZ=LZ(x,'\x50\x72\105\zma\x72y\u{0050}art',10,true);uZ=IZ;end;local LZ=pZ and pZ~=o and{x:WaitForChild('A\z  r\109\x6Fr\73nvIt\101m\z _\48',5),x:WaitForChild('\65rm\o\x72In\118It\101\109\0951',5),x:WaitForChild("A\114\u{06D}orI\110vI\116em\z\u{005F}2",5),x:WaitForChild('HandI\z \u{6E}\zvI\zt\ze\109',5)}or{};if nZ and IZ then local MZ={Connections={},Character=x,Health=(x:GetAttribute("\z  H\x65\x61\x6C\z  t\104")or 100)+g(x),Head=uZ,Humanoid=nZ,HumanoidRootPart=IZ,HipHeight=nZ.HipHeight+(IZ.Size.Y/2)+(nZ.RigType==Enum.HumanoidRigType.R6 and 2 or 0),Jumps=0,JumpTick=tick(),Jumping=false,LandTick=tick(),MaxHealth=x:GetAttribute('M\z  a\120H\x65\z al\x74h')or 100,NPC=pZ==nil,Player=pZ,RootPart=IZ,TeamCheck=qZ};if pZ==o then MZ.AirTime=tick();S.character=MZ;S.isAlive=true;S.Events.LocalAdded:Fire(MZ);table.insert(S.Connections,x.AttributeChanged:Connect(function(qZ)G.AttributeChanged:Fire(qZ);end));else MZ.Targetable=S.targetCheck(MZ);for qZ,qZ in S.getUpdateConnections(MZ)do table.insert(MZ.Connections,qZ:Connect(function()MZ.Health=(x:GetAttribute('\x48\u{065}\97lth')or 100)+g(x);MZ.MaxHealth=x:GetAttribute("M\x61x\u{48}eal\u{0074}\z  \104")or 100;S.Events.EntityUpdated:Fire(MZ);end));end;for g,g in LZ do table.insert(MZ.Connections,g:GetPropertyChangedSignal('Va\108\117\101'):Connect(function()task.delay(0.1,function()if k.getInventory then T.inventories[pZ]=k.getInventory(pZ);S.Events.EntityUpdated:Fire(MZ);end;end);end));end;if pZ then local g=x:FindFirstChild("A\110\x69\109\x61\116\u{065}");if g then pcall(function()g=g.jump:FindFirstChildWhichIsA('A\x6Ei\109a\z \u{74}\x69on').AnimationId;table.insert(MZ.Connections,nZ.Animator.AnimationPlayed:Connect(function(LZ)if LZ.Animation.AnimationId==g then MZ.JumpTick=tick();MZ.Jumps+=1;MZ.LandTick=tick()+1;MZ.Jumping=MZ.Jumps>1;end;end));end);end;task.delay(0.1,function()if k.getInventory then T.inventories[pZ]=k.getInventory(pZ);end;end);end;table.insert(S.List,MZ);S.Events.EntityAdded:Fire(MZ);end;table.insert(MZ.Connections,x.ChildRemoved:Connect(function(g)if g==IZ or g==nZ or g==uZ then if g==IZ and nZ.RootPart then IZ=nZ.RootPart;MZ.RootPart=nZ.RootPart;MZ.HumanoidRootPart=nZ.RootPart;return;end;S.removeEntity(x,pZ==o);end;end));end;S.EntityThreads[x]=nil;end);end;S.getUpdateConnections=function(x)local g=x.Character;local LZ={g:GetAttributeChangedSignal('\u{48}\z  \x65alth'),g:GetAttributeChangedSignal('\z \x4Da\120\z  Hea\108\zt\x68'),{Connect=function()x.Friend=x.Player and DZ(x.Player)or nil;x.Target=x.Player and zZ(x.Player)or nil;return{Disconnect=function()end};end}};if x.Player then table.insert(LZ,x.Player:GetAttributeChangedSignal('Pl\x61\u{79}\z in\z g\x41sK\u{0069}\116s'));end;for x,zZ in g:GetAttributes()do if x:find('\z S\104i\101\108d')and type(zZ)=="numbe\114"then table.insert(LZ,g:GetAttributeChangedSignal(x));end;end;return LZ;end;S.targetCheck=function(x)if x.TeamCheck then return x:TeamCheck();end;if x.NPC then return true;end;if DZ(x.Player)then return false;end;if not select(2,Z:get(x.Player))then return false;end;return o:GetAttribute('Tea\u{006D}')~=x.Player:GetAttribute('Tea\x6D');end;M:Clean(S.Events.LocalAdded:Connect(oZ));end);S.start();local x={};local g=require;local DZ=getgenv().canDebug or false;if not DZ then local function zZ(LZ)return x[LZ]:await();end;g=function(LZ)local pZ=LZ:GetFullName():gsub(o.Name,"\80lay\e\114Temp\108a\z  te");local LZ=zZ(pZ);return LZ;end;getgenv().require=g;x=v(Y('catrewr\zi\116e/libraries/c\h\z\x65a\116\101n\103\105\u{006E}e\l\105\98\.\zlua'),"libr\zar\105\u{065}\s/\99h\z eateng\in\101\x6C\z ib\z \46\108uau")(M,G,S,T,k);task.wait(1.5);end;r(function()local v,Y;repeat v,Y=pcall(function()return g(D.rbxts_include.node_modules["\z\64e\97\115\u{0079}-\103am\101s"].knit.src).KnitClient;end);if v then break;end;task.wait();until v;if DZ and not debug.getupvalue(Y.Start,1)then repeat task.wait();until debug.getupvalue(Y.Start,1);end;local v=g(D["\114\u{0062}xt\z  \x73_\u{69}n\x63\u{06C}\117\100e"]["n\z  o\z  de_\109\u{06F}d\x75\u{06C}\z \101\s"]["\u{040}\z  flame\x77\z \u{6F}r\x6B"].core.out).Flamework;local zZ=g(D.TS.inventory["\inve\110tory-\x75t\i\z  l"]).InventoryUtil;local LZ=g(D.TS.remotes).default.Client;local pZ,qZ=LZ.Get,nil;k=setmetatable({Flamework=v,NotificationController=v.resolveDependency("\u{0040}\e\97sy-\103\97\109\101\u{0073}/\zga\109e\x2Dco\zr\e\z\58\c\z l\u{069}ent\x2Fco\x6Et\z ro\108\l\101r\u{0073}/notif\x69\99\97\u{74}\i\x6F\110\x2D\zco\110t\u{72}\111\u{006C}\z  ler\u{0040}N\u{06F}t\105fi\u{63}ati\z\111\u{6E}C\z  \111\110\u{074}ro\x6Cler"),AbilityController=v.resolveDependency("\u{040}e\u{0061}s\121-ga\109\101s/g\97m\e-\99o\114e\z\u{3A}c\x6Ci\101\110\116/contro\x6Cl\u{065}r\115/\z  \x61b\105\u{06C}\z\x69\u{74}\x79\x2Fab\z i\lity\x2D\u{63}o\u{6E}troll\x65r\z\u{0040}\65bi\l\105tyContro\l\z \l\z  \x65r"),AnimationType=g(D.TS.animation["\za\z  \u{6E}i\x6Da\z t\105o\z  n-\116ype"]).AnimationType,AnimationUtil=g(D['rb\z  \120t\u{0073}\95\105\110\99l\zu\x64\e']['n\od\x65_m\111du\l\u{0065}\115']["@\x65asy-\103ame\s"]["g\97m\z \x65\x2Dc\ore"].out['s\104\z  \97\114ed'].util["an\x69\x6D\97\116i\o\u{06E}-\x75\u{074}\z i\u{6C}"]).AnimationUtil,AppController=g(D['\114\x62\u{078}\u{0074}s\_inc\lu\zd\101']['n\u{06F}\u{0064}\e_m\z  \111d\117\108\101\115']["@e\u{61}sy\z  -ga\u{06D}\z\101s"]['\u{67}a\z me\z  \x2Dc\z o\114e'].out.client.controllers["\x61p\x70\x2D\99on\116\x72oll\x65r"]).AppController,BedBreakEffectMeta=g(D.TS.locker["b\101d-b\z r\eak-e\z\102\102\101c\z\116"]["\u{0062}e\100-\98re\u{061}k\-\u{065}ff\x65\ct\z-m\e\u{74}\97"]).BedBreakEffectMeta,BedwarsKitMeta=g(D.TS.games.bedwars.kit["\98ed\war\s-\u{06B}i\116-met\97"]).BedwarsKitMeta,BedwarsKitClass=g(D.TS.games.bedwars.kit.class['b\101d\x77a\u{72}s-c\u{6C}a\115s']).BedwarsClass,BlockBreaker=Y.Controllers.BlockBreakController.blockBreaker,BlockController=g(D['\u{072}\98x\z ts\95i\110c\u{6C}\u{075}d\e']["n\x6F\zde\u{5F}m\z  o\z  d\u{075}\u{6C}es"]['@e\z\97\z s\121\x2D\z\103\u{0061}m\u{0065}\115']['b\108oc\107-e\110g\u{0069}n\ze'].out).BlockEngine,BlockPlacer=g(D["\u{0072}b\u{078}\z ts\95in\zclude"]["n\x6Fde_m\111d\z ule\z s"]["@eas\z\121\-g\zame\u{073}"]['bl\z  ock-\engin\e'].out.client.placement["\u{62}\l\z  o\99\107-pla\u{0063}er"]).BlockPlacer,BlockEngine=g(o.PlayerScripts.TS.lib['bl\z o\x63\z \k-e\z  ngine']["\c\108i\u{0065}n\x74-\98\u{6C}\z  o\z  \x63\k-e\x6E\x67in\101"]).ClientBlockEngine,BowConstantsTable=DZ and debug.getupvalue(Y.Controllers.ProjectileController.enableBeam,8)or{RelZ=0,CameraMultiplier=10,RelX=0.8,RelY=-0.6,YTargetOffset=0.05,BeamGrowthMultiplier=0.08},ClickHold=g(D["rbxts\u{005F}inclu\100\ze"]['n\u{06F}\z\u{64}e\_\m\od\x75\108e\115']["\z@ea\115\x79\z-g\z  \97\109e\115"]["\gam\x65-\z\99ore"].out.client.ui.lib.util['cl\zi\c\z\k\u{02D}\104\x6Fld']).ClickHold,Client=LZ,ClientConstructor=g(D["r\98xts\u{05F}\u{069}nclu\d\101"]["n\111d\u{65}\x5Fm\x6Fd\x75le\u{0073}"]["@\z  rbx\u{074}\z\x73"].net.out.client),ClientDamageBlock=g(D['r\98xt\u{73}\z_\x69n\x63lu\100e']["\110\111de\_m\u{006F}\z du\x6C\x65\u{73}"]["\@easy\z -\u{067}a\u{6D}\101s"]["block\z  -e\u{006E}g\i\110\u{0065}"].out.shared.remotes).BlockEngineRemotes.Client,CombatConstant=g(D.TS.combat["c\z o\109ba\z\u{074}\x2Dco\x6Es\zt\u{0061}\110\z \x74"]).CombatConstant,DamageIndicator=Y.Controllers.DamageIndicatorController.spawnDamageIndicator,DefaultKillEffect=g(o.PlayerScripts.TS.controllers.global.locker['\u{6B}ill-effe\x63t'].effects['\d\101fa\z ult-\107\i\ll\x2Deff\x65c\x74']),EmoteType=g(D.TS.locker.emote['e\109\111t\101-t\x79p\z\e']).EmoteType,EmoteImage=g(D.TS.locker.emote["e\u{06D}ote-\105\x6Dag\u{0065}"]).EmoteImage,EmoteMeta=g(D.TS.locker.emote['\101\u{06D}\z\111te\x2Dmeta']).EmoteMeta,GamePlayer=g(D.TS.player["\u{0067}\97\109e\z\u{2D}p\108ay\x65\x72"]),EffectUtil=g(D.TS.util.effect["ef\102\101\z c\zt\x2Du\116i\x6C"]).EffectUtil,GameAnimationUtil=g(D.TS.animation["a\u{006E}\105\109\x61\u{0074}\z \io\110-u\116\i\108"]).GameAnimationUtil,getIcon=function(nZ,IZ)local uZ=k.ItemMeta[nZ.itemType];return uZ and IZ and uZ.image or"";end,getInventory=function(nZ)local IZ,uZ=pcall(function()return zZ.getInventory(nZ);end);return IZ and uZ or{items={},armor={}};end,HudAliveCount=g(o.PlayerScripts.TS.controllers.global["\z to\112-bar"].ui.game["\104ud\x2Dal\x69v\101\x2D\z  \112\z \u{06C}a\121e\u{072}-c\x6F\x75\110\116s"]).HudAlivePlayerCounts,ItemMeta=g(D.TS.item["\105tem-m\z \101ta"]).items,RecipeMeta=g(D.TS.recipe['r\e\z \99\105pe-\u{06D}\101ta']).recipes,KillEffectMeta=g(D.TS.locker["k\x69\u{006C}\108\-\101\z\102\x66\e\x63\x74"]["\107\105ll-ef\102\101ct\45\u{6D}\101\116\97"]).KillEffectMeta,KillFeedController=v.resolveDependency('cli\101n\x74\u{002F}\z \99o\u{06E}t\u{072}o\z\x6Cl\u{065}\114s/\103a\u{006D}e\47k\u{69}l\108\x2D\x66e\ed/\107i\ll-f\u{065}\101d-\z \u{63}o\110\116r\o\108l\x65r\64K\z  il\108\Fe\101\100C\u{6F}n\116ro\x6C\108er'),Knit=Y,KnockbackUtil=g(D.TS.damage['\u{006B}no\ck\98ack\-u\z \116il']).KnockbackUtil,KnockbackUtilInstance=D.TS.damage["k\110\x6F\99\kbac\z k\45\117til"],NametagController=Y.Controllers.NametagController,MageKitUtil=g(D.TS.games.bedwars.kit.kits.mage['\zma\z\103e\45kit\45uti\108']).MageKitUtil,ProjectileMeta=g(D.TS.projectile['\u{070}\114\111\z  je\z  cti\108\101\u{002D}me\u{0074}\97']).ProjectileMeta,QueryUtil=g(D['rbx\116\zs_in\99l\z \117de']["n\od\101\u{005F}\z \mo\100\zu\108e\s"]['@\z  e\u{0061}s\y-\103am\ze\115']["gam\101\45co\u{0072}\101"].out).GameQueryUtil,QueueCard=g(o.PlayerScripts.TS.controllers.global.queue.ui["que\117e-car\u{064}"]).QueueCard,QueueMeta=g(D.TS.game['\z q\117eu\ze\45met\97']).QueueMeta,Roact=g(D['\z  rbxt\x73_\u{0069}\110\u{63}\l\117d\e']["n\ode\95m\x6F\z  \100u\x6C\101s"]["\64rbxts"]["\x72\x6F\z\x61\99\116"].src),RuntimeLib=g(D["\x72\u{0062}x\116s_\z in\x63lude"].RuntimeLib),SoundList=g(D.TS.sound['gam\z  \101\u{002D}\x73o\zun\u{064}']).GameSound,SoundManager=DZ and g(D["rbx\zt\s_\z incl\117de"]["node\95\u{006D}od\zu\x6Ces"]['@easy\-\z \103a\z m\u{065}\z s']['\x67ame-\x63\ore'].out).SoundManager or x.SoundUtil,Store=g(o.PlayerScripts.TS.ui.store).ClientStore,TeamUpgradeMeta=DZ and debug.getupvalue(g(D.TS.games.bedwars["t\101\u{61}\m-u\112\103\114\97de"]["team\-u\u{070}\u{0067}\114a\x64\101-\me\116\97"]).getTeamUpgradeMetaForQueue,6)or g(D.TS.games.bedwars["\z\u{74}\x65am-up\zgra\zde"]['team\45\u{0075}pgr\x61\100\ze\z -m\u{065}\116\u{61}']).OGTeamUpgrades,PyroUpgradeMeta=g(D.TS.games.bedwars.kit.kits.pyro["f\z  \108\u{0061}m\101\116\h\u{72}\o\119\er\u{002D}up\x67\u{72}\z  ade"]).FlamethrowerUpgradeMeta,AdetundeUpgradeMeta=g(D.TS.games.bedwars.items['frosty-h\z\97mm\ze\z\u{72}']['f\z  rost\zy-ha\109mer\45\z \117\x70\zgra\100\101s']).FrostyHammerUpgradeMeta,AdetundeUtil=g(D.TS.games.bedwars.items['\102ro\u{0073}ty\45\x68\u{061}mm\x65r']['fro\st\121\z -\z \x68\zamm\zer\z  \45\117\116il']).FrostyHammerUtil,UILayers=g(D["\u{72}bxts_i\u{006E}\zcl\117\d\101"]['\110\u{6F}\z\100\z\101_mod\u{0075}\108\u{0065}\u{073}']["@e\z a\u{73}\y\45\ga\u{06D}\101\u{0073}"]["game-\core"].out).UILayers,VisualizerUtils=g(o.PlayerScripts.TS.lib.visualizer["v\x69\115\117\97\x6C\105\122\u{65}\z  \u{0072}\u{2D}u\x74il\115"]).VisualizerUtils,WeldTable=g(D.TS.util['\119\z  e\108d-ut\105l']).WeldUtil,WinEffectMeta=g(D.TS.locker["win-\z\101f\102\x65ct"]['\w\i\x6E-\101f\x66\u{065}c\z  t\z  \u{2D}\z \u{6D}\u{065}ta']).WinEffectMeta,ZapNetworking=g(o.PlayerScripts.TS.lib.network),BlockSelector=g(D.rbxts_include.node_modules['\z  \u{0040}eas\x79-\z ga\z\mes']['b\x6Co\z  \x63\107-\engi\110\z \101'].out.client.select['b\u{06C}ock\-se\108e\99tor']).BlockSelector},{__index=function(v,x)rawset(v,x,Y.Controllers[x]);return rawget(v,x);end});local function v(...)local x=debug.getproto or error;local zZ,nZ=pcall(x,...);return zZ and nZ or function()end;end;local x={PickupItem='\u{050}ickup\It\u{65}mDr\x6Fp',FireProjectile="Projec\u{0074}i\u{6C}e\z  Fir\u{065}",MinerDig="\zDes\x74ro\121Pet\114\u{69}\102i\101\100P\x6Cay\z\101\zr",ResetCharacter="\82e\115\101t\u{43}h\z ara\u{0063}t\101r",WarlockTarget='W\z  a\114lo\x63\u{6B}L\x69\110\107\84arg\z  e\z  \116',ConsumeSoul='\67on\x73\u{075}\z meGrim\82e\97\112\e\114\83oul',SummonerClawAttack='Summ\111n\101r\u{0043}l\97\u{077}\65\116\116a\z  c\x6B\z  R\e\qu\101s\u{0074}',AfkStatus='\zA\102k\I\110fo',SpawnRaven='\z  \u{053}\z\112\u{61}\x77nRa\z \u{76}\z e\110',ReportPlayer="R\u{0065}\x70o\x72t\z\80l\97\121\z e\114",PickupMetal="\z Co\x6C\u{006C}\z \u{65}ctC\zoll\101\x63table\x45nti\u{74}\121",MageSelect="Le\97rn\x45l\em\101n\z  t\84\111me",KaliyahPunch='R\u{065}q\u{0075}\u{0065}stD\114a\x67\111n\x50un\u{0063}\u{68}',DragonEndFly="\86\111i\u{064}\68\x72\u{61}gon\z \u{0045}\110dFly\105ng",DepositPinata="D\z\e\x70o\115i\u{074}C\x6Fi\u{06E}s",CannonAim="\z  \65\z\105mC\u{61}\110n\111n",ConsumeBattery='Co\u{006E}s\117m\x65Bat\z t\z e\z  r\z \121',HarvestCrop="Cro\112Harv\101\x73\u{0074}",EquipItem="\u{053}e\116\x49\110v\x49\ztem",DragonFly="\z  Dragon\70la\p",BeePickup='P\x69\99\x6B\u{55}\z p\Bee',CannonLaunch='\L\97un\z\99\z hS\101l\102F\z\114om\x43an\z non',ConsumeTreeOrb='C\u{6F}\110sum\eT\114\z\u{065}\101Or\x62',DropItem='DropI\z t\101\x6D',HannahKill='Ha\110nah\P\u{72}o\x6DptT\zri\103ge\z  \x72',ConsumeItem="\67\o\110\u{73}u\109\e\x49t\u{0065}\109",GuitarHeal='P\108\97y\z  \u{47}\x75\105\116ar',GroundHit='\u{047}\114\111\x75n\u{64}H\u{0069}\u{0074}',DragonBreath='Dr\97g\o\zn\u{42}reath',AttackEntity='\83\w\111r\100\H\105\x74'};local zZ=DZ and{AfkStatus=v(Y.Controllers.AfkController.KnitStart,1),AttackEntity=Y.Controllers.SwordController.sendServerRequest,BeePickup=Y.Controllers.BeeNetController.trigger,CannonAim=v(Y.Controllers.CannonController.startAiming,5),CannonLaunch=Y.Controllers.CannonHandController.launchSelf,ConsumeBattery=v(Y.Controllers.BatteryController.onKitLocalActivated,1),ConsumeItem=v(Y.Controllers.ConsumeController.onEnable,1),ConsumeSoul=Y.Controllers.GrimReaperController.consumeSoul,ConsumeTreeOrb=v(Y.Controllers.EldertreeController.createTreeOrbInteraction,1),DepositPinata=v(v(Y.Controllers.PiggyBankController.KnitStart,2),5),DragonBreath=v(Y.Controllers.VoidDragonController.onKitLocalActivated,5),DragonEndFly=v(Y.Controllers.VoidDragonController.flapWings,1),DragonFly=Y.Controllers.VoidDragonController.flapWings,DropItem=Y.Controllers.ItemDropController.dropItemInHand,EquipItem=not DZ and function()end or v(g(D.TS.entity.entities['\i\z \110vent\u{06F}r\u{0079}\-e\110\z  ti\zt\z\121']).InventoryEntity.equipItem,3),FireProjectile=DZ and debug.getupvalue(Y.Controllers.ProjectileController.launchProjectileWithValues,2)or function()end,GroundHit=Y.Controllers.FallDamageController.KnitStart,GuitarHeal=Y.Controllers.GuitarController.performHeal,HannahKill=v(Y.Controllers.HannahController.registerExecuteInteractions,1),HarvestCrop=v(v(Y.Controllers.CropController.KnitStart,4),1),KaliyahPunch=v(Y.Controllers.DragonSlayerController.onKitLocalActivated,1),MageSelect=v(Y.Controllers.MageController.registerTomeInteraction,1),MinerDig=v(Y.Controllers.MinerController.setupMinerPrompts,1),PickupItem=Y.Controllers.ItemDropController.checkForPickup,PickupMetal=v(Y.Controllers.HiddenMetalController.onKitLocalActivated,4),ReportPlayer=not DZ and function()end or g(o.PlayerScripts.TS.controllers.global.report["\114ep\u{006F}rt-c\x6Fnt\114\z  \u{06F}\u{006C}\u{06C}er"]).default.reportPlayer,ResetCharacter=v(Y.Controllers.ResetController.createBindable,1),SpawnRaven=v(Y.Controllers.RavenController.KnitStart,1),SummonerClawAttack=Y.Controllers.SummonerClawHandController.attack,WarlockTarget=v(Y.Controllers.WarlockStaffController.KnitStart,2)}or x;local function v(Y)local nZ;for IZ,uZ in Y do if uZ=="\z  C\u{6C}\x69e\110t"then nZ=IZ;break;end;end;return nZ and Y[nZ+1]or"";end;for Y,nZ in zZ do if DZ then local zZ=v(debug.getconstants(nZ))or"";if zZ==""and not x[Y]then JZ('\z\86\u{61}pe',"\x46a\105le\d\u{0020}\u{074}\u{006F} grab\x20\x72em\x6Fte ("..Y..'\x29',10,'\u{0061}\z  l\u{0065}\u{0072}t');elseif x[Y]then zZ=x[Y];end;l[Y]=zZ;else l[Y]=nZ;end;end;qZ=k.BlockController.isBlockBreakable;if DZ then LZ.Get=function(v,Y)local x=pZ(v,Y);if Y==l.AttackEntity then return{instance=x.instance,SendToServer=function(v,v,...)local zZ,nZ=pcall(function()return w:GetPlayerFromCharacter(v.entityInstance);end);local IZ=v.validate.selfPosition.value;local uZ=v.validate.targetPosition.value;T.attackReach=((IZ-uZ).Magnitude*100)//1/100;T.attackReachUpdate=tick()+1;if SilentAim and SilentAim.Enabled and SilentAim.Options.Sword.Enabled then v.validate.selfPosition.value=CFrame.lookAt(IZ,uZ);end;if Reach and Reach.Enabled or K.Enabled or Backtrack and Backtrack.Enabled then v.validate.raycast=v.validate.raycast or{};v.validate.selfPosition.value+=CFrame.lookAt(IZ,uZ).LookVector*math.max((IZ-uZ).Magnitude-14.399,0);end;if zZ and nZ then if not select(2,Z:get(nZ))then return;end;if table.find(M.Libraries.whitelist.ignores,nZ)then return;end;G.Attacked:Fire(nZ);end;return x:SendToServer(v,...);end};elseif Y=='S\116ep\79n\z\Snap\Tr\97p'and E.Enabled then return{SendToServer=function()end};end;return x;end;end;k.BlockController.isBlockBreakable=function(v,Y,x)local zZ=k.BlockController:getStore():getBlockAt(Y.blockPosition);if zZ and zZ.Name=="b\ed"then for nZ,nZ in w:GetPlayers()do if zZ:GetAttribute("\z \84e\u{61}m"..(nZ:GetAttribute('\x54e\97m')or 0)..'No\u{042}reak')and not select(2,Z:get(nZ))then return false;end;end;end;return qZ(v,Y,x);end;local v,Y={},{blockHealth=-1.0,breakingBlockPosition=Vector3.zero};if DZ then T.blockPlacer=k.BlockPlacer.new(k.BlockEngine,"\u{077}ool\95wh\i\116e");end;local function x(zZ,nZ)local IZ=k.BlockController:getStore():getBlockData(nZ);return(IZ and(IZ:GetAttribute("\x31")or IZ:GetAttribute("H\101alth"))or zZ:GetAttribute("H\101a\z  \108\116\h"));end;local function zZ(nZ,IZ)if not nZ then return 0;end;local uZ=k.ItemMeta[nZ.Name].block.breakType;local MZ=T.tools[uZ];MZ=MZ and k.ItemMeta[MZ.itemType].breakBlock[uZ]or 2;return x(nZ,k.BlockController:getBlockPosition(IZ))/MZ;end;local function nZ(IZ,uZ,MZ)if v[uZ]then return unpack(v[uZ]);end;local MZ,SZ,RZ,aZ,CZ={},{{0,uZ}},{[uZ]=0},{},{};local OZ={};for ZZ=1,10000 do local ZZ,ZZ=next(SZ);if not ZZ then break;end;table.remove(SZ,1);MZ[ZZ[2]]=true;for AZ,AZ in d do AZ=ZZ[2]+AZ;if MZ[AZ]then continue;end;local MZ=Q(AZ);if not MZ or MZ:GetAttribute('NoBr\u{065}a\u{06B}')or MZ==IZ then if not MZ then aZ[ZZ[2]]=true;OZ[ZZ[2]]=true;end;continue;end;local IZ=zZ(MZ,AZ)+ZZ[1];if IZ<(RZ[AZ]or math.huge)then table.insert(SZ,{IZ,AZ});RZ[AZ]=IZ;CZ[AZ]=ZZ[2];end;end;end;local zZ,IZ=nil,math.huge;for MZ in OZ do if RZ[MZ]and RZ[MZ]<IZ then zZ,IZ=MZ,RZ[MZ];end;end;if not zZ then for MZ in aZ do if RZ[MZ]and RZ[MZ]<IZ then zZ,IZ=MZ,RZ[MZ];end;end;end;if zZ then v[uZ]={zZ,IZ,CZ};return zZ,IZ,CZ;end;end;k.placeBlock=function(zZ,IZ)if h(IZ)then T.blockPlacer.blockType=IZ;return T.blockPlacer:placeBlock(k.BlockController:getBlockPosition(zZ));end;end;k.breakBlock=function(zZ,IZ,uZ,MZ,SZ,RZ,RZ)if o:GetAttribute('\z \68\101ny\66\108\111\99kBreak')or not S.isAlive then return;end;local aZ=k.BlockController:getHandlerRegistry():getHandler(zZ.Name);local CZ,OZ,ZZ,AZ=math.huge;local UZ=9e9;local HZ=(aZ and aZ:getContainedPositions(zZ)or{zZ.Position/3});if not DZ then OZ=HZ[2]or HZ[1];ZZ=HZ[2];AZ={};if HZ[2]then AZ[HZ[2]]=HZ[2]-Vector3.new(0,3,0);end;AZ[HZ[1]]=HZ[1]-Vector3.new(0,3,0);else for aZ,aZ in HZ do local HZ,vZ,TZ=nZ(zZ,aZ*3);local zZ=HZ and(S.character.RootPart.Position-HZ).Magnitude;if HZ then if vZ<CZ or(vZ==CZ and zZ<UZ)then CZ,OZ,ZZ,AZ,UZ=vZ,HZ,aZ*3,TZ,zZ;end;end;end;end;if OZ then if(S.character.RootPart.Position-OZ).Magnitude>30 then return;end;local zZ,nZ=Q(OZ);if not zZ then return;end;if not RZ and(workspace:GetServerTimeNow()-k.SwordController.lastAttack)>0.2 then local aZ=k.ItemMeta[zZ.Name].block.breakType;local CZ=T.tools[aZ];if CZ then if SZ then for SZ,aZ in T.inventory.hotbar do if aZ.item and aZ.item.tool==CZ.tool and SZ~=(T.inventory.hotbarSlot+1)then wZ(SZ-1);break;end;end;else BZ(CZ.tool);end;end;end;if Y.blockHealth==-1.0 or nZ~=Y.breakingBlockPosition then Y.blockHealth=x(zZ,nZ);Y.breakingBlockPosition=nZ;end;if not RZ then k.ClientDamageBlock:Get('Damag\e\66\108\111\z  c\u{6B}'):CallServerAsync({blockRef={blockPosition=nZ},hitPosition=OZ,hitNormal=Vector3.FromNormalId(Enum.NormalId.Top)}):andThen(function(SZ)if SZ then if SZ=='\99\z\u{061}n\99el\u{6C}ed'then T.damageBlockFail=os.clock()+1;table.clear(v);return;end;if IZ then local RZ=(Y.blockHealth-(SZ=='d\u{065}st\z\114o\121\z  ed'and 0 or x(zZ,nZ)));MZ=MZ or k.BlockBreaker.updateHealthbar;MZ(k.BlockBreaker,{blockPosition=nZ},Y.blockHealth,zZ:GetAttribute("\77\97x\u{0048}\101\u{061}\108th"),RZ,zZ);Y.blockHealth=math.max(Y.blockHealth-RZ,0);pcall(function()if Y.blockHealth<=0 then k.BlockBreaker.breakEffect:playBreak(zZ.Name,nZ,o);k.BlockBreaker.healthbarMaid:DoCleaning();Y.breakingBlockPosition=Vector3.zero;else k.BlockBreaker.breakEffect:playHit(zZ.Name,nZ,o);end;end);end;if uZ then local Y=k.AnimationUtil:playAnimation(o,k.BlockController:getAnimationController():getAssetId(1));k.ViewmodelController:playAnimation(15);task.wait(0.3);Y:Stop();Y:Destroy();end;end;end);end;if IZ then return OZ,AZ,ZZ;end;end;return;end;for Y,Y in Enum.NormalId:GetEnumItems()do table.insert(d,Vector3.FromNormalId(Y)*3);end;local function Y(x,zZ)if x.Bedwars~=zZ.Bedwars then T.equippedKit=x.Bedwars.kit~="\110\111\z ne"and x.Bedwars.kit or'';end;if x.Game~=zZ.Game then T.matchState=x.Game.matchState;T.queueType=x.Game.queueType or"\98\101\u{64}wa\114s_\116es\116";end;if x.Inventory~=zZ.Inventory then local nZ=(x.Inventory and x.Inventory.observedInventory or{inventory={}});local IZ=(zZ.Inventory and zZ.Inventory.observedInventory or{inventory={}});T.inventory=nZ;if nZ~=IZ then G.InventoryChanged:Fire();end;if nZ.inventory.items~=IZ.inventory.items then G.InventoryAmountChanged:Fire();T.tools.sword=_();for _,_ in{'stone','woo\x64','\u{77}\x6F\111\108'}do T.tools[_]=F(_);end;end;if nZ.inventory.hand~=IZ.inventory.hand then local _,F=x.Inventory.observedInventory.inventory.hand,'';if _ then local x=k.ItemMeta[_.itemType];F=x.sword and'\115wo\114d'or x.block and"\x62\zl\111c\u{6B}"or _.itemType:find("\98\111\119")and'\u{062}o\z  w';end;T.hand={tool=_ and _.tool,amount=_ and _.amount or 0,toolType=F};end;end;end;local _=k.Store.changed:connect(Y);Y(k.Store:getState(),{});if not DZ then M:Clean(task.spawn(function()repeat task.wait(0.1);pcall(function()Y(k.Store:getState(),{});end);until false;end));end;for Y,Y in{"Ma\116\c\104\69n\100E\118\u{65}\110t",'E\znt\z\105\x74\121\u{044}ea\x74\hE\x76en\x74','Bed\u{77}ar\x73\x42\z e\100\z B\z \x72\101ak',"B\z  a\108\108o\onP\z opp\z e\z  d","\z \65n\103\el\P\zr\111g\114\101s\u{0073}",'G\114app\108\u{069}n\x67\72\z  \111\u{06F}kFu\u{006E}\x63ti\u{06F}ns'}do if not M.Connections then return;end;k.Client:WaitFor(Y):andThen(function(F)M:Clean(F:Connect(function(...)G[Y]:Fire(...);end));end);end;M:Clean(k.ZapNetworking.EntityDamageEventZap.On(function(...)G.EntityDamageEvent:Fire({entityInstance=...,damage=select(2,...),damageType=select(3,...),fromPosition=select(4,...),fromEntity=select(5,...),knockbackMultiplier=select(6,...),knockbackId=select(7,...),disableDamageHighlight=select(13,...)});end));if DZ then M:Clean(k.ZapNetworking.ProjectileLaunchZap.On(function(...)G.ProjectileLaunch:Fire({raycastPosition=...,projectileType=select(3,...),fromPosition=select(2,...),fromEntity=select(7,...),id=select(4,...),projectileData=select(8,...)});end));end;for Y,Y in{'Plac\z\101\u{0042}\x6C\111\99\z kEv\101\110\z  t','\x42\x72e\u{0061}k\66\108\ock\69ve\110t'}do M:Clean(k.ZapNetworking[Y.."Za\p"].On(function(...)local F={blockRef={blockPosition=...},player=select(5,...)};for x,zZ in v do if((F.blockRef.blockPosition*3)-zZ[1]).Magnitude<=30 then table.clear(zZ[3]);table.clear(zZ);v[x]=nil;end;end;G[Y]:Fire(F);end));end;T.blocks=j("\zb\108\111\x63k",M);T.shop=j({'Bed\u{077}arsIte\u{6D}S\z  \hop','T\x65am\85p\103r\97\x64\e\83h\111\x70keep\101r'},M,function(Y,F)table.insert(Y,{Id=F.Name,RootPart=F,Shop=F:HasTag('B\u{065}\100\x77\97\u{72}\x73ItemShop'),Upgrades=F:HasTag("Te\x61\109U\p\z g\114\x61\100eShopkee\u{0070}e\x72")});end);T.enchant=j({"\e\110ch\x61\z \u{006E}\116-tab\u{006C}e",'br\111\u{06B}\x65\110-e\zncha\z  nt-ta\98\x6C\101'},M,nil,function(Y,F,x)if F:HasTag('\101n\u{063}\zh\u{0061}n\u{74}\45\116\u{61}\zb\z  \le')and x=="\z  \98rok\101n-e\110chan\x74-ta\z\98\u{006C}\101"then return;end;F=table.find(Y,F);if F then table.remove(Y,F);end;end);local Y=R:AddItem('Ki\x6Cls');local F=R:AddItem('\66\101d\u{0073}');local x=R:AddItem("W\x69\x6E\115");local zZ=R:AddItem("\x47am\u{0065}\s");local nZ="U\x6Ekn\u{06F}wn";R:AddItem("M\97\112",0,function()return nZ;end,false);task.delay(1,function()zZ:Increment();end);task.spawn(function()pcall(function()repeat task.wait();until T.matchState~=0 or M.Loaded==nil;if M.Loaded==nil then return;end;nZ=workspace:WaitForChild('\z Ma\112',5):WaitForChild("\x57\or\x6Cds",5):GetChildren()[1].Name;nZ=string.gsub(string.split(nZ,'_')[2]or nZ,'-',"")or"B\x6Ca\110\x6B";end);end);M:Clean(G.BedwarsBedBreak.Event:Connect(function(R)if R.player and R.player.UserId==o.UserId then F:Increment();end;end));M:Clean(G.MatchEndEvent.Event:Connect(function(R)if(k.Store:getState().Game.myTeam or{}).id==R.winningTeamId or o.Neutral then x:Increment();end;end));M:Clean(G.EntityDeathEvent.Event:Connect(function(R)pcall(function()local F=w:GetPlayerFromCharacter(R.fromEntity);local x=w:GetPlayerFromCharacter(R.entityInstance);if not x or not F then return;end;if x~=o and F==o then Y:Increment();end;end);end));local R=RaycastParams.new();task.spawn(function()repeat if S.isAlive then S.character.AirTime=workspace:Raycast((T.rootpart or S.character.RootPart).Position,Vector3.new(0,-6.0,0),R)~=nil and tick()or S.character.AirTime;end;for Y,Y in S.List do Y.LandTick=math.abs(Y.RootPart.Velocity.Y)<0.1 and Y.LandTick or tick();if(tick()-Y.LandTick)>0.2 and Y.Jumps~=0 then Y.Jumps=0;Y.Jumping=false;end;end;task.wait();until M.Loaded==nil;end);pcall(function()if getthreadidentity and setthreadidentity then local Y=getthreadidentity();setthreadidentity(2);k.Shop=g(D.TS.games.bedwars.shop["b\x65d\war\u{73}-\115\h\z \u{6F}\112"]).BedwarsShop;k.ShopItems=k.Shop.ShopItems;k.Shop.getShopItem("ir\111n\95\u{073}word",o);setthreadidentity(Y);T.shopLoaded=true;else task.spawn(function()repeat task.wait(0.1);until M.Loaded==nil or k.AppController:isAppOpen("\z \66\101\x64\x77ars\z Ite\u{006D}Sho\112\u{41}pp");k.Shop=g(D.TS.games.bedwars.shop["b\101d\119\x61\u{72}\s-s\h\x6F\112"]).BedwarsShop;k.ShopItems=k.Shop.ShopItems;T.shopLoaded=true;end);end;end);M:Clean(function()LZ.Get=pZ;k.BlockController.isBlockBreakable=qZ;T.blockPlacer:disable();for Y,Y in G do pcall(function()for F,F in getconnections(Y.Event)do F:Disconnect();end;end);Y:Destroy();end;for Y,Y in v do table.clear(Y[3]);table.clear(Y);end;table.clear(T.blockPlacer);table.clear(G);table.clear(k);table.clear(T);table.clear(v);table.clear(d);table.clear(l);_:disconnect();_=nil;end);M:Clean(k.Client:Get("\66lo\111d\u{041}ss\u{061}ssinUpdat\u{0065}\u{041}va\u{069}l\97\98\u{006C}\u{065}\u{043}on\z  t\x72ac\u{74}\115"):Connect(function(v)T.contracts=v.contracts;JZ("Vap\e","C\111n\x74ra\c\u{0074} \117\zp\u{064}a\116ed",6,'in\102o');end));R=RaycastParams.new();R.FilterType=Enum.RaycastFilterType.Exclude;R.RespectCanCollide=true;M:Clean(task.spawn(function()local v=j("\73t\101mD\114op",M);repeat if M.Loaded and S.isAlive and((M.Modules.Fly.Enabled and M.Modules.Fly.Options['TP \u{044}\ow\z n'].Enabled)or(M.Modules['Infini\116e Ju\x6D\112'].Enabled and M.Modules["I\x6Efi\110\u{0069}\x74e J\z  um\p"].Options["T\80 \Do\119\zn"].Enabled)or M.Modules["L\x6Fng \74u\x6Dp"].Enabled)then local Y=v;table.insert(Y,I);table.insert(Y,o.Character);table.insert(Y,f);R.FilterDescendantsInstances=Y;R.CollisionGroup=S.character.RootPart.CollisionGroup;local v=S.character.RootPart.CFrame.Y;if(tick()-S.character.AirTime)>1.7 then local Y=workspace:Raycast(S.character.RootPart.Position,Vector3.new(0,-1000.0,0),R);if Y then S.character.RootPart.Velocity=Vector3.zero;S.character.RootPart.CFrame=CFrame.lookAlong(Vector3.new(S.character.RootPart.CFrame.X,Y.Position.Y+1,S.character.RootPart.CFrame.Z),S.character.RootPart.CFrame.LookVector);task.wait(0.1);S.character.RootPart.CFrame+=Vector3.new(0,v-S.character.RootPart.CFrame.Y,0);end;end;end;task.wait();until false;end));getgenv().remotes=l;getgenv().bedwars=k;getgenv().store=T;end);for R,R in{"\u{0041}n\x74i\32Ragdo\108\u{006C}","T\zr\u{0069}g\x67er\x20B\111t",'S\x69lent Aim',"\u{041}\x75\z t\x6F\x20\z \x52e\106o\zin","R\ejoin",'Di\z sab\108er','Ti\109er','Ser\x76\101r \u{048}op','\77\z o\z\117se T\P','\x4Du\u{0072}\zd\101r \z  \77y\s\116\101\zr\y'}do M:Remove(R);end;getgenv().swapping=os.clock();r(function()local R;local v;local Y={};local _;local function F()if _ then task.cancel(_);end;_=task.delay(1/(T.hand.toolType=="\98\108o\z ck"and Y or v).GetRandomValue(),function()repeat if not k.AppController:isLayerOpen(k.UILayers.MAIN)then local x=k.BlockPlacementController.blockPlacer;if T.hand.toolType=='\u{0062}\z  loc\z  \107'and x then if DZ then if J.TouchEnabled then task.spawn(function()x:autoBridge(workspace:GetServerTimeNow()-k.KnockbackController:getLastKnockbackTime()>=0.2);end);else if(workspace:GetServerTimeNow()-k.BlockCpsController.lastPlaceTimestamp)>=0.041666666666666664 then local zZ=x.clientManager:getBlockSelector():getMouseInfo(0);if zZ and zZ.placementPosition==zZ.placementPosition then task.spawn(x.placeBlock,x,zZ.placementPosition);end;end;end;else n();end;elseif T.hand.toolType=='s\x77or\100'then if DZ then k.SwordController:swingSwordAtMouse(0.39);else n();end;end;end;task.wait(1/(T.hand.toolType=='\z b\108o\x63k'and Y or v).GetRandomValue());until not R.Enabled;end);end;R=M.Categories.Combat:CreateModule({Name="A\117\116\o Cl\u{0069}c\z ker",Function=function(x)if x then R:Clean(J.InputBegan:Connect(function(x)if x.UserInputType==Enum.UserInputType.MouseButton1 then F();end;end));R:Clean(J.InputEnded:Connect(function(x)if x.UserInputType==Enum.UserInputType.MouseButton1 and _ and(os.clock()-getgenv().swapping)>0.12 then task.cancel(_);_=nil;end;end));if J.TouchEnabled then pcall(function()for x,x in{"\x32","\53"}do R:Clean(o.PlayerGui.MobileUI[x].MouseButton1Down:Connect(F));R:Clean(o.PlayerGui.MobileUI[x].MouseButton1Up:Connect(function()if _ then task.cancel(_);_=nil;end;end));end;end);end;else if _ then task.cancel(_);_=nil;end;end;end,Tooltip="\72\u{006F}ld \97\u{74}t\zack\32b\zut\116on\ t\u{6F}\32a\z  \117\x74\x6Fm\u{61}t\i\99a\u{006C}\zly c\l\x69c\k"});v=R:CreateTwoSlider({Name="\x43PS",Min=1,Max=9,DefaultMin=7,DefaultMax=7});R:CreateToggle({Name='\u{50}\x6Ca\u{63}\x65 Bl\z  ocks',Default=true,Function=function(v)if Y.Object then Y.Object.Visible=v;end;end});Y=R:CreateTwoSlider({Name="\x42\z l\111ck CP\x53",Min=1,Max=12,DefaultMin=12,DefaultMax=12,Darker=true});end);r(function()local R;M.Categories.Combat:CreateModule({Name='\78o\x20\u{0043}lic\107 D\z elay',Function=function(v)if v then R=k.SwordController.isClickingTooFast;k.SwordController.isClickingTooFast=function(v)v.lastSwing=os.clock();return false;end;else k.SwordController.isClickingTooFast=R;end;end,Tooltip='\R\101mo\118e \116\104e\x20\C\80S \z  ca\u{070}'});end);r(function()local R;local v;R=M.Categories.Combat:CreateModule({Name='\u{0053}p\114\x69n\x74',Function=function(Y)if DZ then if Y then v=k.SprintController.stopSprinting;k.SprintController.stopSprinting=function(...)local _=v(...);k.SprintController:startSprinting();return _;end;R:Clean(S.Events.LocalAdded:Connect(function()task.delay(0.1,function()k.SprintController:stopSprinting();end);end));k.SprintController:stopSprinting();else if J.TouchEnabled then pcall(function()o.PlayerGui.MobileUI["4"].Visible=true;end);end;k.SprintController.stopSprinting=v;k.SprintController:stopSprinting();end;else if Y then repeat task.wait();until S.isAlive or not R.Enabled;if not R.Enabled then return;end;R:Clean(o.Character.Humanoid:GetPropertyChangedSignal("Wa\108k\x53p\u{065}e\u{64}"):Connect(function()if o.Character.Humanoid.WalkSpeed<20 then k.SprintController:startSprinting();end;end));R:Clean(S.Events.LocalAdded:Connect(function()R:Toggle();R:Toggle();end));k.SprintController:startSprinting();end;end;end,Tooltip='Se\116\115 your \s\z  p\114i\u{006E}tin\u{0067} to \z  true.'});end);r(function()local R;local v;local Y=RaycastParams.new();R=M.Categories.Combat:CreateModule({Name='Tri\u{0067}ge\114 Bot',Function=function(_)if _ then repeat local _;if not k.AppController:isLayerOpen(k.UILayers.MAIN)then if S.isAlive and T.hand.toolType=='sw\u{6F}\zrd'and k.DaoController.chargingMaid==nil then local F=k.ItemMeta[T.hand.tool.Name].sword.attackRange;Y.FilterDescendantsInstances={o.Character};local x=o:GetMouse().UnitRay;local zZ=S.character.RootPart.Position;local LZ=(F or 14.4);local pZ=k.QueryUtil:raycast(x.Origin,x.Direction*200,Y);if pZ and(zZ-pZ.Instance.Position).Magnitude<=LZ then local Y=(F);for Y,Y in S.List do _=Y.Targetable and pZ.Instance:IsDescendantOf(Y.Character)and(zZ-Y.RootPart.Position).Magnitude<=LZ;if _ then break;end;end;end;_=_ or k.SwordController:getTargetInRegion(F or 11.399999999999999,0);if _ then k.SwordController:swingSwordAtMouse();end;end;end;task.wait(_ and 1/v.GetRandomValue()or 0.016);until not R.Enabled;end;end,Tooltip='\65u\x74o\matic\x61l\u{006C}y s\x77\105\110\103s \119\u{0068}\x65\zn \104\z \x6F\x76\x65\114\u{069}n\u{067} ove\114\x20\z  a entit\121'});v=R:CreateTwoSlider({Name='\67PS',Min=1,Max=9,DefaultMin=7,DefaultMax=7});end);r(function()local R;local v;local Y;local _;local F;local x;local zZ;local LZ;local pZ,qZ=Random.new();local nZ=Instance.new('\Bin\100\u{0061}bl\101E\118\u{0065}nt');local IZ=k.KnockbackUtilInstance:GetAttributes();R=M.Categories.Combat:CreateModule({Name="Vel\111\cit\121",Function=function(uZ)if uZ then if DZ then qZ=k.KnockbackUtil.applyKnockback;R:Clean(nZ.Event:Connect(function(uZ,MZ,SZ,RZ,...)local aZ={...};local CZ,OZ;task.delay(_:GetRandomValue()/1000,function()local ZZ=table.clone(RZ);ZZ.horizontal=OZ and 0.1 or 0;CZ=true;qZ(uZ,MZ,SZ,ZZ,unpack(aZ));end);task.delay(F:GetRandomValue()/1000,function()local ZZ=table.clone(RZ);ZZ.vertical=CZ and 0.1 or 0;OZ=true;qZ(uZ,MZ,SZ,ZZ,unpack(aZ));end);end));k.KnockbackUtil.applyKnockback=function(uZ,MZ,SZ,RZ,...)local aZ=pZ:NextNumber(0,100);if x.Value=="\78\z  \u{006F}rm\x61l"then if aZ>zZ.Value then return;end;end;local pZ=(not LZ.Enabled)or S.EntityPosition({Range=50,Part="\82o\u{6F}\116Pa\u{72}\116",Players=true});if pZ then RZ=RZ or{};if x.Value=='L\x61g'then if aZ<zZ.Value then return nZ:Fire(uZ,MZ,SZ,RZ,...);end;else if v.Value==0 and Y.Value==0 then return;end;RZ.horizontal=(RZ.horizontal or 1)*(v.Value/100);RZ.vertical=(RZ.vertical or 1)*(Y.Value/100);end;end;return qZ(uZ,MZ,SZ,RZ,...);end;else for pZ in IZ do k.KnockbackUtilInstance:SetAttribute(pZ,0);end;end;else if DZ then k.KnockbackUtil.applyKnockback=qZ;else for pZ,qZ in IZ do k.KnockbackUtilInstance:SetAttribute(pZ,qZ);end;end;end;end,Tooltip="R\x65\z \100\117\u{0063}es \z \107\x6Eo\99kbac\z k t\97k\en",ExtraText=function()return DZ and x.Value or"N\z  \111 K\z \x6Eo\u{0063}k\98\97\99\107";end});if DZ then v=R:CreateSlider({Name="\72o\u{072}\u{069}zo\110t\z  \97l",Min=0,Max=100,Default=0,Darker=true,Suffix='%'});Y=R:CreateSlider({Name="\86\er\u{0074}\zi\99a\l",Min=0,Max=100,Default=0,Darker=true,Suffix="%"});_=R:CreateTwoSlider({Name="\65i\z  r\32de\la\121",Min=0,Max=500,Darker=true,DefaultMin=50,DefaultMax=150});F=R:CreateTwoSlider({Name="\71ro\x75\x6E\u{064}\x20\100e\108\97y",Min=0,Max=500,Darker=true,DefaultMin=200,DefaultMax=250});x=R:CreateDropdown({Name='Mo\100e',Default="\N\u{06F}\114\u{006D}\z  a\x6C",List={"La\103","\x4Eor\x6D\97l"},Function=function(pZ)Y.Object.Visible=pZ=="\N\z  \111r\zm\97l";v.Object.Visible=pZ=="No\x72\x6Dal";_.Object.Visible=pZ=="\x4C\x61g";F.Object.Visible=pZ=='Lag';end});Y.Object.Visible=x.Value=='\78\zo\u{0072}\z mal';v.Object.Visible=x.Value=="\x4Eormal";_.Object.Visible=x.Value=="\u{004C}\97\u{67}";F.Object.Visible=x.Value=='Lag';zZ=R:CreateSlider({Name='\C\104a\x6E\x63e',Min=0,Max=100,Default=100,Suffix="\%"});LZ=R:CreateToggle({Name="Only wh\u{65}n \x74a\114\u{67}eti\z\x6E\g"});end;end);local R;r(function()local v;local Y;local _;local F;local x=RaycastParams.new();x.RespectCanCollide=true;local function zZ()local LZ=math.huge;for pZ,pZ in k.BlockController:getStore():getAllBlockPositions()do pZ=pZ*3;if pZ.Y<LZ and not Q(pZ+Vector3.new(0,3,0))then LZ=pZ.Y;end;end;return LZ;end;v=M.Categories.Blatant:CreateModule({Name='\65nti\32\x46\z \97l\z\u{006C}',Function=function(LZ)if LZ then repeat task.wait();until T.matchState~=0 or(not v.Enabled);if not v.Enabled then return;end;local LZ,pZ=zZ(),tick();if LZ~=math.huge then f=Instance.new('\u{0050}\z  a\x72\116');f.Size=Vector3.new(10000,1,10000);f.Transparency=1-F.Opacity;f.Material=Enum.Material[_.Value];f.Color=Color3.fromHSV(F.Hue,F.Sat,F.Value);f.Position=Vector3.new(0,LZ-2,0);f.CanCollide=Y.Value=="\u{0043}\111l\108\u{0069}de";f.Anchored=true;f.CanQuery=false;f.Parent=workspace;T.antifallpart=f;v:Clean(f);v:Clean(f.Touched:Connect(function(zZ)if zZ.Parent==o.Character and S.isAlive and pZ<tick()then pZ=tick()+0.1;if Y.Value=='\x4Eor\109\z al'then local zZ=N();if zZ then local pZ=o:GetAttribute("L\97\zst\u{0054}\ele\112\x6Frte\z d");local qZ;qZ=z.PreSimulation:Connect(function()if M.Modules.Fly.Enabled or M.Modules.InfiniteFly.Enabled or M.Modules.LongJump.Enabled then qZ:Disconnect();R=nil;return;end;if S.isAlive and o:GetAttribute('\x4Ca\x73\116\84\101lep\u{6F}\x72t\u{065}d')==pZ then local pZ=((zZ-S.character.RootPart.Position)*Vector3.new(1,0,1));local nZ=S.character.RootPart;R=pZ.Unit==pZ.Unit and pZ.Unit or Vector3.zero;nZ.Velocity*=Vector3.new(1,0,1);x.FilterDescendantsInstances={I,o.Character};x.CollisionGroup=nZ.CollisionGroup;local IZ=workspace:Raycast(nZ.Position,R,x);if IZ then for x=1,10 do local x=iZ(IZ.Position+IZ.Normal*1.5)+Vector3.new(0,3,0);if not Q(x)then zZ=Vector3.new(zZ.X,LZ.Y,zZ.Z);break;end;end;end;nZ.CFrame+=Vector3.new(0,zZ.Y-nZ.Position.Y,0);if not WZ.Speed then nZ.AssemblyLinearVelocity=(R*GZ())+Vector3.new(0,nZ.AssemblyLinearVelocity.Y,0);end;if pZ.Magnitude<1 then qZ:Disconnect();R=nil;end;else qZ:Disconnect();R=nil;end;end);v:Clean(qZ);end;elseif Y.Value=='V\x65loci\u{074}\121'then S.character.RootPart.Velocity=Vector3.new(S.character.RootPart.Velocity.X,100,S.character.RootPart.Velocity.Z);end;end;end));end;else T.antifallpart=nil;R=nil;end;end,Tooltip='\He\z\108p\39\u{0073} you\ with your\x20Pa\z \114\k\105n\z\x73\111n\'\zs\n\80re\118\x65nts\32you\u{20}fr\o\z\x6D\u{20}fa\108l\i\u{06E}g\x20in\z  t\o t\u{0068}e \x76\z  \u{6F}\x69\100.'});Y=v:CreateDropdown({Name='Mov\u{0065}\x20M\o\x64\101',List={'\u{4E}\orm\97\108',"\x43\111l\x6C\z  id\z  e","\86e\x6Co\ci\116y"},Function=function(Y)if f then f.CanCollide=Y=="C\111\u{006C}\z li\100e";end;end,Tooltip='No\114mal\ - \x53\z  \x6D\111\u{006F}\x74\h\u{006C}\y \mov\z\101\s yo\z  u\ t\owar\100\z\x73\ \zt\104e \110ea\u{0072}\101\z\st \z\x73\x61\102e p\o\x69\110t\10\x56\e\u{6C}\oc\x69\116y\u{020}-\32L\z  au\110c\h\101s\u{020}\z  y\111u u\u{70}\z \119a\114d a\z\x66\116\z e\z  \114\ to\117\99h\x69ng\n\67o\l\x6C\id\z \u{065} \x2D A\u{6C}\x6Cows \u{0079}\111u\u{0020}t\u{006F} \119\u{0061}\108\z \k o\zn\x20\u{74}\z  \x68\z\x65 p\97rt'});local Y={'For\z  \x63e\x46\i\ze\108d'};for x,x in Enum.Material:GetEnumItems()do if x.Name~='\z \x46\x6Fr\zc\101\z  \70i\u{65}l\x64'then table.insert(Y,x.Name);end;end;_=v:CreateDropdown({Name="M\u{61}\u{074}eria\108",List=Y,Function=function(Y)if f then f.Material=Enum.Material[Y];end;end});F=v:CreateColorSlider({Name="\z Co\108o\114",DefaultOpacity=0.5,Function=function(v,Y,_,F)if f then f.Color=Color3.fromHSV(v,Y,_);f.Transparency=1-F;end;end});end);r(function()local v;local Y;v=M.Categories.Blatant:CreateModule({Name='Fas\u{074}\ Break',Function=function(_)if _ then repeat k.BlockBreakController.blockBreaker:setCooldown(Y.Value);task.wait(0.1);until not v.Enabled;else k.BlockBreakController.blockBreaker:setCooldown(0.3);end;end,Tooltip="\u{0044}ec\114\z\x65as\z\x65s bl\111\99\k\x20\x68i\116 co\z\111ld\o\z\w\z n"});Y=v:CreateSlider({Name="\66rea\107 \u{0073}\p\ee\u{064}",Min=0,Max=0.3,Default=0.25,Decimal=100,Suffix="s\101c\o\znds"});end);local v;local Y;r(function()local _;local F;local x;local zZ;local LZ;local pZ=RaycastParams.new();pZ.RespectCanCollide=true;local qZ,nZ,IZ=0,0;v=M.Categories.Blatant:CreateModule({Name='\F\ly',Function=function(uZ)WZ.Fly=uZ or nil;oZ();if uZ then qZ,nZ,IZ=0,0,k.BalloonController.deflateBalloon;k.BalloonController.deflateBalloon=function()end;local uZ,MZ,SZ=tick(),true;if o.Character and(o.Character:GetAttribute("\z  I\u{006E}flated\z  Ba\108\x6C\111\ons")or 0)==0 and h('b\z  \97\108loo\zn')then k.BalloonController:inflateBalloon();end;v:Clean(G.AttributeChanged.Event:Connect(function(RZ)if RZ=="\73\110f\z late\z  \d\z Ba\x6Cloo\x6Es"and(o.Character:GetAttribute('In\102\108\97te\x64\66alloo\z\110s')or 0)==0 and h('b\x61llo\o\110')then k.BalloonController:inflateBalloon();end;end));v:Clean(z.PreSimulation:Connect(function(RZ)if S.isAlive and not m.Enabled and e(S.character.RootPart)then local aZ=(o.Character:GetAttribute('\x49n\x66late\z d\Ba\108\u{06C}\z  oo\110s')and o.Character:GetAttribute('I\110\x66lat\101\z d\x42\97ll\111ons')>0)or T.matchState==2;local CZ=(1.5+(aZ and 6 or 0)*(tick()%0.4<0.2 and-1.0 or 1));local OZ,ZZ=S.character.RootPart,S.character.Humanoid.MoveDirection;local AZ=GZ();local UZ=(ZZ*math.max(_.Value-AZ,0)*RZ);pZ.FilterDescendantsInstances={o.Character,I,f};pZ.CollisionGroup=OZ.CollisionGroup;UZ+=Vector3.new(0,((qZ+nZ)*F.Value)/150,0);if x.Enabled then local RZ=workspace:Raycast(OZ.Position,UZ,pZ);if RZ then UZ=((RZ.Position+RZ.Normal)-OZ.Position);end;end;if not aZ then if MZ then local RZ=(tick()-S.character.AirTime);if RZ>2 then if not SZ then local RZ=workspace:Raycast(OZ.Position,Vector3.new(0,-1000.0,0),pZ);if RZ and LZ.Enabled then MZ=false;SZ=OZ.Position.Y;uZ=tick()+0.11;OZ.CFrame=CFrame.lookAlong(Vector3.new(OZ.Position.X,RZ.Position.Y+S.character.HipHeight,OZ.Position.Z),OZ.CFrame.LookVector);end;end;end;else if SZ then if uZ<tick()then local pZ=Vector3.new(OZ.Position.X,SZ,OZ.Position.Z);OZ.CFrame=CFrame.lookAlong(pZ,OZ.CFrame.LookVector);MZ=true;SZ=nil;else CZ=0;end;end;end;end;OZ.CFrame+=UZ;OZ.AssemblyLinearVelocity=(ZZ*AZ)+Vector3.new(0,CZ,0);end;end));v:Clean(J.InputBegan:Connect(function(pZ)if not J:GetFocusedTextBox()then if pZ.KeyCode==Enum.KeyCode.Space or pZ.KeyCode==Enum.KeyCode.ButtonA then qZ=1;elseif pZ.KeyCode==Enum.KeyCode.LeftShift or pZ.KeyCode==Enum.KeyCode.ButtonL2 then nZ=-1.0;end;end;end));v:Clean(J.InputEnded:Connect(function(pZ)if pZ.KeyCode==Enum.KeyCode.Space or pZ.KeyCode==Enum.KeyCode.ButtonA then qZ=0;elseif pZ.KeyCode==Enum.KeyCode.LeftShift or pZ.KeyCode==Enum.KeyCode.ButtonL2 then nZ=0;end;end));if J.TouchEnabled then pcall(function()local pZ=o.PlayerGui.TouchGui.TouchControlFrame.JumpButton;v:Clean(pZ:GetPropertyChangedSignal('\x49\u{006D}ageR\101\99t\x4F\102\z  \x66\z  \x73e\u{074}'):Connect(function()qZ=pZ.ImageRectOffset.X==146 and 1 or 0;end));end);end;else k.BalloonController.deflateBalloon=IZ;if zZ.Enabled and S.isAlive and(o.Character:GetAttribute('\In\102\108\u{0061}\116edB\97llo\z on\115')or 0)>0 then for pZ=1,3 do k.BalloonController:deflateBalloon();end;end;end;end,ExtraText=function()return"H\x65a\z\x74seeke\z \x72";end,Tooltip="Ma\107es\32y\ou g\x6F\32zoom."});_=v:CreateSlider({Name='\x53\112\u{065}ed',Min=1,Max=23,Default=23,Suffix=function(_)return _==1 and'\stu\z  d'or'stud\u{0073}';end});F=v:CreateSlider({Name='\z  Vert\x69\99a\l Speed',Min=1,Max=150,Default=50,Suffix=function(_)return _==1 and'\115tud'or'stu\z  ds';end});x=v:CreateToggle({Name="\87a\u{6C}l\u{020}C\u{0068}e\99k",Default=true});zZ=v:CreateToggle({Name='P\u{006F}\p\u{0020}Ba\z  \u{6C}\108\111\u{06F}\110\u{0073}',Default=true});LZ=v:CreateToggle({Name="\x54P\ \68\z o\119n",Default=true});end);r(function()local _;local F;local x,zZ={};local function LZ(pZ)if pZ.Targetable and pZ.Player then local qZ=Instance.new("\80\u{061}rt");qZ.Size=Vector3.new(3,6,3)+Vector3.one*(F.Value/5);qZ.Position=pZ.RootPart.Position;qZ.CanCollide=false;qZ.Massless=true;qZ.Transparency=1;qZ.Parent=pZ.Character;local nZ=Instance.new("\77o\z  to\1146\zD");nZ.Part0=qZ;nZ.Part1=pZ.RootPart;nZ.Parent=qZ;x[pZ]=qZ;end;end;K=M.Categories.Blatant:CreateModule({Name="\x48\u{0069}t\x20B\u{6F}\u{078}\z  \u{65}s",Function=function(pZ)if pZ then if _.Value=="\83wo\z \114\u{064}"then debug.setconstant(k.SwordController.swingSwordInRegion,6,(F.Value/3));zZ=true;else K:Clean(S.Events.EntityAdded:Connect(LZ));K:Clean(S.Events.EntityRemoving:Connect(function(pZ)if x[pZ]then x[pZ]:Destroy();x[pZ]=nil;end;end));for pZ,pZ in S.List do LZ(pZ);end;end;else if zZ then debug.setconstant(k.SwordController.swingSwordInRegion,6,3.8);zZ=nil;end;for zZ,zZ in x do zZ:Destroy();end;table.clear(x);end;end,Tooltip='E\u{0078}pand\115\u{020}\u{061}t\u{0074}\z \97c\z  k hi\z  \116b\x6F\u{78}'});_=K:CreateDropdown({Name="M\u{6F}de",List={"Sw\111\u{072}\d","Pl\u{0061}yer"},Function=function()if K.Enabled then K:Toggle();K:Toggle();end;end,Tooltip='S\z \u{0077}\z  \111rd\32- \73\z ncre\u{61}s\u{0065}s\u{20}t\104e\32\u{072}a\x6E\x67\z  e\32arou\u{6E}\x64 \u{0079}o\u{0075}\u{20}\u{0074}\111\ hi\z \116 \ent\105t\x69es\10\u{050}l\z\u{61}yer \z\u{02D} In\c\z  rea\s\x65\s t\104\101\x20\112\x6C\u{0061}yers h\105tbo\z\120'});F=K:CreateSlider({Name="\x45\120\pan\u{064} \97\x6D\u{006F}\u{075}\110\116",Min=0,Max=14.4,Default=14.4,Decimal=10,Function=function(F)if K.Enabled then if _.Value=="\u{53}w\zord"then debug.setconstant(k.SwordController.swingSwordInRegion,6,(F/3));else for K,K in x do K.Size=Vector3.new(3,6,3)+Vector3.one*(F/5);end;end;end;end,Suffix=function(K)return K==1 and'\u{73}tud'or'\115\116u\100s';end});end);r(function()M.Categories.Blatant:CreateModule({Name='\75eepS\z p\z \u{072}\zint',Function=function(K)if DZ then debug.setconstant(k.SprintController.startSprinting,5,K and'\x62lo\z ckS\112r\z  intin\u{067}'or"b\108\x6Fck\z  \u{53}\112\114\105\110t");k.SprintController:stopSprinting();end;end,Tooltip="Lets\32y\ou s\x70\z  \u{0072}int with a s\112\101\x65d p\111ti\z \x6F\x6E."});end);r(function()local K;local _;local F;local x,zZ,LZ=tick(),0;local pZ={InvokeServer=function()end};task.spawn(function()pZ=k.Client:Get(l.FireProjectile).instance;end);local function qZ(nZ,IZ,uZ,MZ,SZ)if not IZ then return;end;IZ=IZ-SZ*0.1;local SZ=(CFrame.lookAlong(IZ,Vector3.new(0,-MZ,0))*CFrame.new(Vector3.new(-k.BowConstantsTable.RelX,-k.BowConstantsTable.RelY,-k.BowConstantsTable.RelZ)));BZ(nZ.tool,0);task.wait(0.1);k.ProjectileController:createLocalProjectile(k.ProjectileMeta[uZ],uZ,uZ,SZ.Position,"",SZ.LookVector*MZ,{drawDurationSeconds=1});if pZ:InvokeServer(nZ.tool,uZ,uZ,SZ.Position,IZ,SZ.LookVector*MZ,i:GenerateGUID(true),{shotId=i:GenerateGUID(false),drawDurationSec=1},workspace:GetServerTimeNow()-0.045)then local pZ=k.ItemMeta[nZ.itemType].projectileSource.launchSound;pZ=pZ and pZ[math.random(1,#pZ)]or nil;if pZ then k.SoundManager:playSound(pZ);end;end;end;local pZ={cannon=function(nZ,nZ,IZ)nZ=nZ-Vector3.new(0,(S.character.HipHeight+(S.character.RootPart.Size.Y/2))-3,0);local uZ=Vector3.new(math.round(nZ.X/3)*3,math.round(nZ.Y/3)*3,math.round(nZ.Z/3)*3);k.placeBlock(uZ,"\x63\z a\110n\x6F\110",false);task.delay(0,function()local nZ,MZ=Q(uZ);if nZ and nZ.Name=='\99\z  \x61n\110on'and(S.character.RootPart.Position-nZ.Position).Magnitude<20 then local uZ=k.ItemMeta[nZ.Name].block.breakType;local SZ=T.tools[uZ];if SZ then BZ(SZ.tool,0.1);end;k.Client:Get(l.CannonAim):SendToServer({cannonBlockPos=MZ,lookVector=IZ});task.wait(0.2);task.delay(0.05,function()for uZ=1,2 do k.breakBlock(nZ,true,true);end;end);for nZ=1,3 do local nZ=k.Client:Get(l.CannonLaunch):CallServer({cannonBlockPos=MZ});if nZ then zZ=5.25*K.Value;x=tick()+2.3;LZ=Vector3.new(IZ.X,0,IZ.Z).Unit;break;end;task.wait(0.1);end;end;end);end,cat=function(nZ,nZ,nZ)Y:Clean(G.CatPounce.Event:Connect(function()zZ=4*K.Value;x=tick()+2.5;LZ=Vector3.new(nZ.X,0,nZ.Z).Unit;S.character.RootPart.Velocity=Vector3.zero;end));if not k.AbilityController:canUseAbility("C\A\u{054}\z_\u{050}O\85N\zC\z  \69")then repeat task.wait();until k.AbilityController:canUseAbility("\67\u{0041}\84_P\z  \79U\78C\z\E")or not Y.Enabled;end;if k.AbilityController:canUseAbility('C\u{41}T_P\79UNCE')and Y.Enabled then k.AbilityController:useAbility('C\A\u{054}_PO\x55N\67\69');end;end,fireball=function(nZ,IZ,uZ)qZ(nZ,IZ,"f\105\114ebal\u{06C}",60,uZ);end,grappling_hook=function(nZ,IZ,uZ)qZ(nZ,IZ,"\u{0067}\x72ap\x70lin\u{67}_hoo\k\95pr\x6Fjec\x74i\l\z e",140,uZ);end,jade_hammer=function(qZ,nZ,nZ)if not k.AbilityController:canUseAbility(qZ.itemType.."_\zjum\z  p")then repeat task.wait();until k.AbilityController:canUseAbility(qZ.itemType..'\z_\ju\109p')or not Y.Enabled;end;if k.AbilityController:canUseAbility(qZ.itemType..'_\u{6A}u\z \109p')and Y.Enabled then k.AbilityController:useAbility(qZ.itemType..'_\u{6A}u\m\u{070}');zZ=1.4*K.Value;x=tick()+2.5;LZ=Vector3.new(nZ.X,0,nZ.Z).Unit;end;end,tnt=function(qZ,nZ,IZ)nZ=nZ-Vector3.new(0,(S.character.HipHeight+(S.character.RootPart.Size.Y/2))-3,0);local uZ=Vector3.new(math.round(nZ.X/3)*3,math.round(nZ.Y/3)*3,math.round(nZ.Z/3)*3);F=Vector3.new(uZ.X,F.Y,uZ.Z)+(IZ*(qZ.itemType=='pi\x72\97\z  t\u{65}\x5Fgun\112\zow\d\101r_ba\u{072}rel'and 2.6 or 0.2));k.placeBlock(uZ,qZ.itemType,false);end,wood_dao=function(qZ,nZ,IZ)if(o.Character:GetAttribute('C\x61n\z  \x44a\z \115\104\78\101\zxt')or 0)>workspace:GetServerTimeNow()or not k.AbilityController:canUseAbility("da\115h")then repeat task.wait();until(o.Character:GetAttribute("C\za\znDas\x68Nex\x74")or 0)<workspace:GetServerTimeNow()and k.AbilityController:canUseAbility("\100\u{61}\z\x73h")or not Y.Enabled;end;if Y.Enabled then k.SwordController.lastAttack=workspace:GetServerTimeNow();BZ(qZ.tool,0.1);D["\101ven\116\z s\u{02D}@\x65a\sy-ga\109\u{0065}s/ga\zme\-cor\101:\z  \s\h\97red\47\103a\109\z e\u{02D}co\114e-\x6E\x65t\zw\111rk\i\x6E\x67@\g\z\etE\z v\101nts.Event\u{073}"].useAbility:FireServer("da\u{0073}\h",{direction=IZ,origin=nZ,weapon=qZ.itemType});zZ=4.5*K.Value;x=tick()+2.4;LZ=Vector3.new(IZ.X,0,IZ.Z).Unit;end;end};for qZ,qZ in{"\s\116\x6Fn\x65\95d\u{61}\111","iron_d\u{0061}o",'\100\105\u{061}mond_da\111',"e\109\x65r\97ld_dao"}do pZ[qZ]=pZ.wood_dao;end;pZ.void_axe=pZ.jade_hammer;pZ.siege_tnt=pZ.tnt;pZ.pirate_gunpowder_barrel=pZ.tnt;Y=M.Categories.Blatant:CreateModule({Name="\z Lon\x67 \74\x75mp",Function=function(qZ)WZ.LongJump=qZ or nil;oZ();if qZ then Y:Clean(G.EntityDamageEvent.Event:Connect(function(qZ)if qZ.entityInstance then qZ.entityInstance=typeof(qZ.entityInstance)=="\z \u{73}\z\u{74}ri\110\zg"and workspace[qZ.entityInstance]or typeof(qZ.entityInstance)=="In\115\u{0074}a\110ce"and qZ.entityInstance;end;if qZ.fromEntity then qZ.fromEntity=typeof(qZ.fromEntity)=='\u{73}\u{0074}r\u{069}\110g'and workspace[qZ.fromEntity]or typeof(qZ.fromEntity)=='\I\110\x73\x74\x61nce'and qZ.fromEntity;end;if qZ.entityInstance==o.Character and qZ.fromEntity==o.Character and(not qZ.knockbackMultiplier or not qZ.knockbackMultiplier.disabled)then local nZ=k.KnockbackUtil.calculateKnockbackVelocity(Vector3.one,1,{vertical=0,horizontal=(qZ.knockbackMultiplier and qZ.knockbackMultiplier.horizontal or 1)}).Magnitude*1.1;if nZ and not DZ then nZ=42;end;if nZ>=zZ or not DZ then local IZ=qZ.fromPosition and Vector3.new(qZ.fromPosition.X,qZ.fromPosition.Y,qZ.fromPosition.Z)or qZ.fromEntity and qZ.fromEntity.PrimaryPart.Position;if not IZ then return;end;local qZ=(S.character.RootPart.Position-(IZ-(DZ and Vector3.zero or(S.character.RootPart.CFrame.LookVector*12))));zZ=nZ;x=tick()+2.5;LZ=Vector3.new(qZ.X,0,qZ.Z).Unit;end;end;end));Y:Clean(G.GrapplingHookFunctions.Event:Connect(function(qZ)if qZ.hookFunction=="\80L\65\Y\69\82\95IN\95\u{0054}\z  RANSIT"then local qZ=S.character.RootPart.CFrame.LookVector;zZ=2.5*K.Value;x=tick()+2.5;LZ=Vector3.new(qZ.X,0,qZ.Z).Unit;end;end));F=S.isAlive and S.character.RootPart.Position or nil;Y:Clean(z.PreSimulation:Connect(function(qZ)local nZ=S.isAlive and S.character.RootPart or nil;if nZ and e(nZ)then if x>tick()then nZ.AssemblyLinearVelocity=LZ*(GZ()+((x-tick())>1.1 and zZ or 0))+Vector3.new(0,nZ.AssemblyLinearVelocity.Y,0);if S.character.Humanoid.FloorMaterial==Enum.Material.Air and not F then nZ.AssemblyLinearVelocity+=Vector3.new(0,qZ*(workspace.Gravity-23),0);else nZ.AssemblyLinearVelocity=Vector3.new(nZ.AssemblyLinearVelocity.X,15,nZ.AssemblyLinearVelocity.Z);end;F=nil;else if F then nZ.CFrame=CFrame.lookAlong(F,nZ.CFrame.LookVector);end;nZ.AssemblyLinearVelocity=Vector3.zero;zZ=0;end;else F=nil;end;end));if T.hand and T.hand.tool and pZ[T.hand.tool.Name]then task.spawn(pZ[T.hand.tool.Name],h(T.hand.tool.Name),F,(_.Enabled and I or S.character.RootPart).CFrame.LookVector);return;end;for qZ,nZ in pZ do local pZ=h(qZ);if pZ or T.equippedKit==qZ then task.spawn(nZ,pZ,F,(_.Enabled and I or S.character.RootPart).CFrame.LookVector);break;end;end;else x=tick();LZ=nil;zZ=0;end;end,ExtraText=function()return"Heatse\z  \x65\x6B\e\x72";end,Tooltip='Le\z \u{74}s\32\x79ou \j\u{075}\m\112\32\102\97rt\104\101\u{72}'});K=Y:CreateSlider({Name="S\pe\x65\u{064}",Min=1,Max=37,Default=37,Suffix=function(K)return K==1 and"st\u{0075}\100"or'stu\zd\z \115';end});_=Y:CreateToggle({Name="\z  Cam\er\97\u{020}\x44\105\114ect\105on"});end);r(function()local K;local _;local F=RaycastParams.new();local x=Random.new();K=M.Categories.Blatant:CreateModule({Name="No\32\z  Fa\z  ll",Function=function(zZ)if zZ then local zZ,zZ,LZ=0,0,0;K:Clean(z.PreSimulation:Connect(function(pZ)if S.isAlive then local qZ=T.rootpart or S.character.RootPart;if qZ.AssemblyLinearVelocity.Y<-85.0 then F.FilterDescendantsInstances={o.Character,I};F.CollisionGroup=qZ.CollisionGroup;local nZ=qZ.Size.Y/2.5+S.character.HipHeight;local IZ=workspace:Blockcast(qZ.CFrame,Vector3.new(3,3,3),Vector3.new(0,0.0-nZ,0),F);if not IZ then local F=x:NextNumber(0,100)<(_.Value);local x=qZ.AssemblyLinearVelocity.Y;if F then qZ.AssemblyLinearVelocity=Vector3.new(qZ.AssemblyLinearVelocity.X,x+0.5,qZ.AssemblyLinearVelocity.Z);else qZ.AssemblyLinearVelocity=Vector3.new(qZ.AssemblyLinearVelocity.X,-86.0,qZ.AssemblyLinearVelocity.Z);end;LZ=x;qZ.CFrame=qZ.CFrame+Vector3.new(0,(F and-zZ or zZ)*pZ,0);zZ=zZ+(F and workspace.Gravity or-workspace.Gravity)*pZ;else LZ=qZ.AssemblyLinearVelocity.Y;end;else zZ=0;end;end;end));end;end,Tooltip='Pr\u{0065}\z \118\z  \u{65}n\116\s \yo\u{075} fr\x6Fm \u{0074}ak\u{0069}\110g f\u{061}ll\u{0020}d\za\109\97g\x65.'});_=K:CreateSlider({Name="\u{44}a\z \x6Dage A\u{0063}cu\114\zacy",Min=0,Max=100,Suffix="%",Default=0,Decimal=5});end);r(function()local K;M.Categories.Blatant:CreateModule({Name="No S\z lo\119",Function=function(_)local F=k.SprintController:getMovementStatusModifier();if _ then K=F.addModifier;F.addModifier=function(_,x)if x.moveSpeedMultiplier then x.moveSpeedMultiplier=math.max(x.moveSpeedMultiplier,1);end;return K(_,x);end;for _ in F.modifiers do if(_.moveSpeedMultiplier or 1)<1 then F:removeModifier(_);end;end;else F.addModifier=K;K=nil;end;end,Tooltip="P\z\114\ev\e\x6Et\u{0073} slowin\103 \d\x6F\x77\zn \z w\104\x65\110 \z \x75\z \115ing\ i\u{74}em\u{0073}\u{2E}"});end);r(function()local K;local _;local F;local x;local zZ;local LZ=RaycastParams.new();LZ.RespectCanCollide=true;K=M.Categories.Blatant:CreateModule({Name="\u{0053}\p\u{065}e\u{0064}",Function=function(pZ)WZ.Speed=pZ or nil;oZ();pcall(function()debug.setconstant(k.WindWalkerController.updateSpeed,7,pZ and'c\u{6F}ns\116antS\u{0070}\x65e\100\77\u{75}l\116ip\u{06C}\u{0069}er'or"move\83\112e\z  edM\117\zlt\u{69}p\l\u{069}\101r");end);if pZ then K:Clean(z.PreSimulation:Connect(function(WZ)k.StatefulEntityKnockbackController.lastImpulseTime=pZ and math.huge or time();if S.isAlive and not v.Enabled and not(m or{}).Enabled and not Y.Enabled then local v=S.character.Humanoid:GetState();if v==Enum.HumanoidStateType.Climbing then return;end;local m,Y=S.character.RootPart,GZ();local GZ=R or S.character.Humanoid.MoveDirection;local R=(GZ*math.max(_.Value-Y,0)*WZ);if F.Enabled then LZ.FilterDescendantsInstances={o.Character,I};LZ.CollisionGroup=m.CollisionGroup;local WZ=workspace:Raycast(m.Position,R,LZ);if WZ then R=((WZ.Position+WZ.Normal)-m.Position);end;end;m.CFrame+=R;m.AssemblyLinearVelocity=(GZ*Y)+Vector3.new(0,m.AssemblyLinearVelocity.Y,0);if x.Enabled and(v==Enum.HumanoidStateType.Running or v==Enum.HumanoidStateType.Landed)and GZ~=Vector3.zero and(Attacking or zZ.Enabled)then S.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);end;end;end));end;end,ExtraText=function()return'H\u{065}at\u{073}e\ek\e\114';end,Tooltip="I\110\u{63}r\z \ea\x73es\x20\zy\u{6F}\u{0075}\z \u{72} \109\z ov\101\109\x65nt \zwi\z t\z h\ v\x61r\x69o\117s me\u{0074}\104\u{006F}\x64\115."});_=K:CreateSlider({Name="\83pe\101\100",Min=1,Max=23,Default=23,Suffix=function(R)return R==1 and'stud'or'\z \115\116\u{0075}d\z \115';end});F=K:CreateToggle({Name='Wa\z\u{06C}\108\u{0020}\67\104ec\x6B',Default=true});x=K:CreateToggle({Name='\z \65\x75t\u{06F}Jump',Function=function(R)zZ.Object.Visible=R;end});zZ=K:CreateToggle({Name="A\zlways \u{004A}\z \117\109p",Visible=false,Darker=true});end);r(function()local R;local v={};local K=Instance.new('\x46old\101r');K.Parent=M.gui;local function m(Y)if not R.Enabled then return;end;local _=Instance.new("\70o\108d\x65r");_.Parent=K;v[Y]=_;local F=Y:GetChildren();table.sort(F,function(Y,x)return Y.Name>x.Name;end);for Y,Y in F do if Y:IsA('\z\66\x61\u{073}\101\u{50}\z\97r\z t')and Y.Name~="\z  \x42\108\97\110ket"then local x=Instance.new("Box\H\x61ndl\101\z Ado\114\110m\101\110\u{0074}");x.Size=Y.Size+Vector3.new(.01,.01,.01);x.AlwaysOnTop=true;x.ZIndex=2;x.Visible=true;x.Adornee=Y;x.Color3=Y.Color;if Y.Name=="\zL\z\x65gs"then x.Color3=Color3.fromRGB(167,112,64);x.Size=Y.Size+Vector3.new(.01,-1.0,.01);x.CFrame=CFrame.new(0,-0.4,0);x.ZIndex=0;end;x.Parent=_;end;end;table.clear(F);end;R=M.Categories.Render:CreateModule({Name="\66ed\32\69\83P",Function=function(Y)if Y then R:Clean(L:GetInstanceAddedSignal('\z bed'):Connect(function(Y)task.delay(0.2,m,Y);end));R:Clean(L:GetInstanceRemovedSignal('b\ze\x64'):Connect(function(R)if v[R]then v[R]:Destroy();v[R]=nil;end;end));for R,R in L:GetTagged("b\u{065}\x64")do m(R);end;else K:ClearAllChildren();table.clear(v);end;end,Tooltip='Re\x6Ede\x72\u{0020}Bed\s \u{0074}hro\u{0075}g\u{0068} w\97\108\u{06C}\115'});end);r(function()local R;R=M.Categories.Render:CreateModule({Name='Hea\108t\104',Function=function(v)if v then local v=Instance.new('T\101\x78\116\76\x61be\108');v.Size=UDim2.fromOffset(100,20);v.Position=UDim2.new(0.5,6,0.5,30);v.BackgroundTransparency=1;v.AnchorPoint=Vector2.new(0.5,0);v.Text=S.isAlive and math.round(o.Character:GetAttribute("H\101\z a\zlt\104")).."\u{0020}\226\z\157\164\239\184\143"or'';v.TextColor3=S.isAlive and Color3.fromHSV((o.Character:GetAttribute('He\u{0061}\x6C\116h')/o.Character:GetAttribute("MaxH\x65\97lt\z h"))/2.8,0.86,1)or Color3.new();v.TextSize=18;v.Font=Enum.Font.Arial;v.Parent=M.gui;R:Clean(v);R:Clean(G.AttributeChanged.Event:Connect(function()v.Text=S.isAlive and math.round(o.Character:GetAttribute('H\ea\u{06C}th'))..'\u{020}\226\157\164\239\184\143'or"";v.TextColor3=S.isAlive and Color3.fromHSV((o.Character:GetAttribute("\72\101\97lth")/o.Character:GetAttribute('M\97\u{78}\72e\97lt\104'))/2.8,0.86,1)or Color3.new();end));end;end,Tooltip='D\105s\z  play\z \115\32yo\x75r \104e\97\z  lth\ \in \u{074}\104\e cent\101r \of\u{020}\121\our \s\z  \u{63}\u{0072}e\101\u{006E}.'});end);r(function()local R;local v;local K;local m;local Y={};local _={};local F=Instance.new("\70older");F.Parent=M.gui;local x={alchemist={'\97lche\m\u{0069}s\116_\z \105ngedient\115','wil\100\95fl\111wer'},beekeeper={'\z  \98ee',"be\u{065}"},bigman={"\116r\101eO\x72\98",'natures_\101\s\z  sence_1'},ghost_catcher={'\u{67}h\x6F\115t',"g\u{068}o\u{73}t_orb"},metal_detector={'hid\100\z  \x65n\45\109\x65tal','\x69r\111n'},sheep_herder={'Sh\u{065}epMo\z \100\z  el','p\x75rp\z le_hay_\98a\u{006C}\101'},sorcerer={"\z\97\l\u{63}he\x6D\x79_\z \cr\121s\u{74}al",'\119\z \u{69}\x6Cd_flower'},star_collector={"sta\u{072}s","c\114\u{0069}\116\z _s\116a\114"}};local function GZ(zZ,LZ)local WZ=Instance.new("Bi\108\lb\o\97\u{72}\u{64}\71\z u\i");WZ.Parent=F;WZ.Name=LZ;WZ.StudsOffsetWorldSpace=Vector3.new(0,3,0);WZ.Size=UDim2.fromOffset(36,36);WZ.AlwaysOnTop=true;WZ.ClipsDescendants=false;WZ.Adornee=zZ;if v.Enabled then WZ.Enabled=(S.character.RootPart.Position-zZ:GetPivot().Position).Magnitude<=K.Value;end;local pZ=y(WZ);pZ.Visible=m.Enabled;local pZ=Instance.new('\Im\z age\u{04C}\x61be\108');pZ.Size=UDim2.fromOffset(36,36);pZ.Position=UDim2.fromScale(0.5,0.5);pZ.AnchorPoint=Vector2.new(0.5,0.5);pZ.BackgroundColor3=Color3.fromHSV(Y.Hue,Y.Sat,Y.Value);pZ.BackgroundTransparency=1-(m.Enabled and Y.Opacity or 0);pZ.BorderSizePixel=0;pZ.Parent=WZ;local qZ=pZ:Clone();qZ.Name="\73\x63o\z  n";qZ.Parent=pZ;qZ.ZIndex=2;qZ.BackgroundTransparency=1;qZ.Image=k.getIcon({itemType=LZ},true);qZ.Size=UDim2.fromOffset(29,29);local LZ=Instance.new("U\I\67\u{006F}rn\101\114");LZ.CornerRadius=UDim.new(0,6);LZ.Parent=pZ;_[zZ]=WZ;end;local function zZ(LZ,WZ)R:Clean(L:GetInstanceAddedSignal(LZ):Connect(function(pZ)GZ(pZ.PrimaryPart,WZ);end));R:Clean(L:GetInstanceRemovedSignal(LZ):Connect(function(pZ)if _[pZ.PrimaryPart]then _[pZ.PrimaryPart]:Destroy();_[pZ.PrimaryPart]=nil;end;end));for pZ,pZ in L:GetTagged(LZ)do GZ(pZ.PrimaryPart,WZ);end;end;R=M.Categories.Render:CreateModule({Name='\K\x69\116\32E\x53\z P',Function=function(GZ)if GZ then repeat task.wait();until T.equippedKit~=''or(not R.Enabled);local GZ=R.Enabled and x[T.equippedKit]or nil;if GZ then zZ(GZ[1],GZ[2]);end;repeat if S.isAlive then for x,GZ in _ do GZ.Enabled=not v.Enabled or(S.character.RootPart.Position-x:GetPivot().Position).Magnitude<=K.Value;end;end;task.wait();until not R.Enabled;else F:ClearAllChildren();table.clear(_);end;end,Tooltip="\69SP\32for cert\97\z  in \z\ki\x74 \zr\101\zl\97t\z  ed\x20o\98j\101c\116s"});m=R:CreateToggle({Name='\Backgr\u{006F}u\z nd',Function=function(m)if Y.Object then Y.Object.Visible=m;end;for F,F in _ do F.ImageLabel.BackgroundTransparency=1-(m and Y.Opacity or 0);F.Blur.Visible=m;end;end,Default=true});Y=R:CreateColorSlider({Name='\z  Bac\z \107\103r\u{006F}\z u\u{006E}\100 \67o\108or',DefaultValue=0,DefaultOpacity=0.5,Function=function(m,Y,F,x)for GZ,GZ in _ do GZ.ImageLabel.BackgroundColor3=Color3.fromHSV(m,Y,F);GZ.ImageLabel.BackgroundTransparency=1-x;end;end,Darker=true});v=R:CreateToggle({Name="\68istanc\101 \x43heck",Function=function(v)if K then K.Object.Visible=v;end;for m,Y in _ do Y.Enabled=not v or(S.character.RootPart.Position-m:GetPivot().Position).Magnitude<=K.Value;end;end});K=R:CreateSlider({Name='D\i\x73\z tan\ce',Min=0,Max=256,Default=50,Darker=true});K.Object.Visible=false;end);r(function()local R;local v;local K;local m;local Y;local _;local F;local x;local GZ;local zZ;local LZ;local WZ;local pZ;local qZ;local nZ,IZ,oZ={},{},{};local uZ=Instance.new("Fol\de\114");uZ.Parent=M.gui;local MZ;local SZ={Normal=function(RZ)if not v.Players.Enabled and RZ.Player then return;end;if not v.NPCs.Enabled and RZ.NPC then return;end;if WZ.Enabled and(not RZ.Targetable)and(not RZ.Friend)then return;end;local aZ=Instance.new("\z  \x54e\120\z  tLab\z  e\zl");nZ[RZ]=RZ.Player and Z:tag(RZ.Player,true,true)..(Y.Enabled and RZ.Player.DisplayName or RZ.Player.Name)or RZ.Character.Name;if _.Enabled then local CZ=Color3.fromHSV(math.clamp(RZ.Health/RZ.MaxHealth,0,1)/2.5,0.89,0.75);nZ[RZ]=nZ[RZ]..' \60f\ont\x20\co\l\111\z  r\x3D"r\103b('..tostring(math.floor(CZ.R*255))..'\x2C'..tostring(math.floor(CZ.G*255)).."\44"..tostring(math.floor(CZ.B*255)).."\)\z  \u{0022}>"..math.round(RZ.Health)..'<\47\z\x66o\110t\>';end;if F.Enabled then nZ[RZ]='<\z f\u{06F}n\116\u{020}co\z  lor=\34\u{072}g\98(8\53\z\u{002C} 255, \0565)\34>[\60\x2Ffo\u{6E}\x74\>\u{03C}fo\x6Et \99o\u{6C}\111\114\z\u{3D}"rg\u{0062}\u{028}\z 255,\ 2\x35\z5\z\44 2\053\z \53)\z  ">%\115</f\x6Fn\116\u{3E}\z  \60\u{0066}o\110t\32c\111\108or="r\103\98(\x385, \u{032}55\u{002C} \u{038}5\41"\u{03E}\93</fon\u{0074}\u{3E} '..nZ[RZ];end;if x.Enabled then for CZ,OZ in{"\Hand",'Hel\109et','C\104\est\p\108at\x65','\x42o\ot\z\s',"Kit"}do local ZZ=Instance.new("I\109ag\z e\L\u{0061}\z  \98\u{0065}l");ZZ.Name=OZ;ZZ.Size=UDim2.fromOffset(30,30);ZZ.Position=UDim2.fromOffset(-60.0+(CZ*30),-30.0);ZZ.BackgroundTransparency=1;ZZ.Image="";ZZ.Parent=aZ;end;end;aZ.TextSize=14*zZ.Value;aZ.FontFace=LZ.Value;local CZ=U(XZ(nZ[RZ]),aZ.TextSize,aZ.FontFace,Vector2.new(100000,100000));aZ.Name=RZ.Player and RZ.Player.Name or RZ.Character.Name;aZ.Size=UDim2.fromOffset(CZ.X+8,CZ.Y+7);aZ.AnchorPoint=Vector2.new(0.5,1);aZ.BackgroundColor3=Color3.new();aZ.BackgroundTransparency=m.Value;aZ.BorderSizePixel=0;aZ.Visible=false;aZ.Text=nZ[RZ];aZ.TextColor3=S.getEntityColor(RZ)or Color3.fromHSV(K.Hue,K.Sat,K.Value);aZ.RichText=true;aZ.Parent=uZ;oZ[RZ]=aZ;end,Drawing=function(uZ)if not v.Players.Enabled and uZ.Player then return;end;if not v.NPCs.Enabled and uZ.NPC then return;end;if WZ.Enabled and(not uZ.Targetable)and(not uZ.Friend)then return;end;local RZ={};RZ.BG=Drawing.new('Sq\u{0075}\x61\u{072}e');RZ.BG.Filled=true;RZ.BG.Transparency=1-m.Value;RZ.BG.Color=Color3.new();RZ.BG.ZIndex=1;RZ.Text=Drawing.new("Te\z x\116");RZ.Text.Size=15*zZ.Value;RZ.Text.Font=0;RZ.Text.ZIndex=2;nZ[uZ]=uZ.Player and Z:tag(uZ.Player,true)..(Y.Enabled and uZ.Player.DisplayName or uZ.Player.Name)or uZ.Character.Name;if _.Enabled then nZ[uZ]=nZ[uZ].." "..math.round(uZ.Health);end;if F.Enabled then nZ[uZ]='\x5B\z\37s]\u{020}'..nZ[uZ];end;RZ.Text.Text=nZ[uZ];RZ.Text.Color=S.getEntityColor(uZ)or Color3.fromHSV(K.Hue,K.Sat,K.Value);RZ.BG.Size=Vector2.new(RZ.Text.TextBounds.X+8,RZ.Text.TextBounds.Y+7);oZ[uZ]=RZ;end};local uZ={Normal=function(RZ)local aZ=oZ[RZ];if aZ then oZ[RZ]=nil;nZ[RZ]=nil;IZ[RZ]=nil;aZ:Destroy();end;end,Drawing=function(RZ)local aZ=oZ[RZ];if aZ then oZ[RZ]=nil;nZ[RZ]=nil;IZ[RZ]=nil;for RZ,RZ in aZ do pcall(function()RZ.Visible=false;RZ:Remove();end);end;end;end};local RZ={Normal=function(aZ)local CZ=oZ[aZ];if CZ then IZ[aZ]=nil;nZ[aZ]=aZ.Player and Z:tag(aZ.Player,true,true)..(Y.Enabled and aZ.Player.DisplayName or aZ.Player.Name)or aZ.Character.Name;if _.Enabled then local OZ=Color3.fromHSV(math.clamp(aZ.Health/aZ.MaxHealth,0,1)/2.5,0.89,0.75);nZ[aZ]=nZ[aZ].." \<f\111\x6E\116 co\z l\z \u{6F}r=\34r\103\98\40"..tostring(math.floor(OZ.R*255))..","..tostring(math.floor(OZ.G*255))..','..tostring(math.floor(OZ.B*255))..")\">"..math.round(aZ.Health).."\z  </f\111nt>";end;if F.Enabled then nZ[aZ]='\60font color\61\34rg\98\(85\44 \050\z  \x35\x35,\x20\z 85)">[</fon\116\62\z<font c\111l\111\114\=\"\u{072}\103b\z (\05055\44\x20\u{0032}55,\ \x3255\z \)">\u{025}s<\z \47f\111\110t\62\u{3C}\z fo\110t\32co\u{6C}\or="\z r\103\z  b(\x385\44\032\z\05055\u{02C} \u{038}\u{35}\z  \)\x22>]\60/font\> '..nZ[aZ];end;if x.Enabled and T.inventories[aZ.Player]then local OZ=aZ.Player:GetAttribute('P\108a\x79in\103\65\s\u{004B}its');local ZZ=T.inventories[aZ.Player];CZ.Hand.Image=k.getIcon(ZZ.hand or{itemType=""},true);CZ.Helmet.Image=k.getIcon(ZZ.armor[4]or{itemType=""},true);CZ.Chestplate.Image=k.getIcon(ZZ.armor[5]or{itemType=''},true);CZ.Boots.Image=k.getIcon(ZZ.armor[6]or{itemType=''},true);CZ.Kit.Image=k.BedwarsKitMeta[OZ].renderImage;end;local OZ=U(XZ(nZ[aZ]),CZ.TextSize,CZ.FontFace,Vector2.new(100000,100000));CZ.Size=UDim2.fromOffset(OZ.X+8,OZ.Y+7);CZ.Text=nZ[aZ];end;end,Drawing=function(aZ)local CZ=oZ[aZ];if CZ then if M.ThreadFix then setthreadidentity(8);end;IZ[aZ]=nil;nZ[aZ]=aZ.Player and Z:tag(aZ.Player,true)..(Y.Enabled and aZ.Player.DisplayName or aZ.Player.Name)or aZ.Character.Name;if _.Enabled then nZ[aZ]=nZ[aZ]..' '..math.round(aZ.Health);end;if F.Enabled then nZ[aZ]="[%s\u{005D}\u{0020}"..nZ[aZ];CZ.Text.Text=S.isAlive and string.format(nZ[aZ],math.floor((S.character.RootPart.Position-aZ.RootPart.Position).Magnitude))or nZ[aZ];else CZ.Text.Text=nZ[aZ];end;CZ.BG.Size=Vector2.new(CZ.Text.TextBounds.X+8,CZ.Text.TextBounds.Y+7);CZ.Text.Color=S.getEntityColor(aZ)or Color3.fromHSV(K.Hue,K.Sat,K.Value);end;end};local aZ={Normal=function(CZ,OZ,ZZ)local AZ=Color3.fromHSV(CZ,OZ,ZZ);for CZ,OZ in oZ do OZ.TextColor3=S.getEntityColor(CZ)or AZ;end;end,Drawing=function(CZ,OZ,ZZ)local AZ=Color3.fromHSV(CZ,OZ,ZZ);for CZ,OZ in oZ do OZ.Text.Color=S.getEntityColor(CZ)or AZ;end;end};local CZ={Normal=function()for OZ,ZZ in oZ do if pZ.Enabled then local AZ=S.isAlive and(S.character.RootPart.Position-OZ.RootPart.Position).Magnitude or math.huge;if AZ<qZ.ValueMin or AZ>qZ.ValueMax then ZZ.Visible=false;continue;end;end;local AZ,UZ=I:WorldToViewportPoint(OZ.RootPart.Position+Vector3.new(0,OZ.HipHeight+1,0));ZZ.Visible=UZ;if not UZ then continue;end;if F.Enabled then local UZ=S.isAlive and math.floor((S.character.RootPart.Position-OZ.RootPart.Position).Magnitude)or 0;if IZ[OZ]~=UZ then ZZ.Text=string.format(nZ[OZ],UZ);local HZ=U(XZ(ZZ.Text),ZZ.TextSize,ZZ.FontFace,Vector2.new(100000,100000));ZZ.Size=UDim2.fromOffset(HZ.X+8,HZ.Y+7);IZ[OZ]=UZ;end;end;ZZ.Position=UDim2.fromOffset(AZ.X,AZ.Y);end;end,Drawing=function()for U,XZ in oZ do if pZ.Enabled then local OZ=S.isAlive and(S.character.RootPart.Position-U.RootPart.Position).Magnitude or math.huge;if OZ<qZ.ValueMin or OZ>qZ.ValueMax then XZ.Text.Visible=false;XZ.BG.Visible=false;continue;end;end;local OZ,ZZ=I:WorldToViewportPoint(U.RootPart.Position+Vector3.new(0,U.HipHeight+1,0));XZ.Text.Visible=ZZ;XZ.BG.Visible=ZZ;if not ZZ then continue;end;if F.Enabled then local ZZ=S.isAlive and math.floor((S.character.RootPart.Position-U.RootPart.Position).Magnitude)or 0;if IZ[U]~=ZZ then XZ.Text.Text=string.format(nZ[U],ZZ);XZ.BG.Size=Vector2.new(XZ.Text.TextBounds.X+8,XZ.Text.TextBounds.Y+7);IZ[U]=ZZ;end;end;XZ.BG.Position=Vector2.new(OZ.X-(XZ.BG.Size.X/2),OZ.Y-XZ.BG.Size.Y);XZ.Text.Position=XZ.BG.Position+Vector2.new(4,3);end;end};R=M.Categories.Render:CreateModule({Name="Na\109e T\z a\u{67}s",Function=function(U)if U then MZ=GZ.Enabled and"\68rawing"or'\x4Eo\z  \u{72}m\u{0061}l';if uZ[MZ]then R:Clean(S.Events.EntityRemoved:Connect(uZ[MZ]));end;if SZ[MZ]then for U,U in S.List do if oZ[U]then uZ[MZ](U);end;SZ[MZ](U);end;R:Clean(S.Events.EntityAdded:Connect(function(U)if oZ[U]then uZ[MZ](U);end;SZ[MZ](U);end));end;if RZ[MZ]then R:Clean(S.Events.EntityUpdated:Connect(RZ[MZ]));for U,U in S.List do RZ[MZ](U);end;end;if aZ[MZ]then R:Clean(M.Categories.Friends.ColorUpdate.Event:Connect(function()aZ[MZ](K.Hue,K.Sat,K.Value);end));end;if CZ[MZ]then R:Clean(z.RenderStepped:Connect(CZ[MZ]));end;else if uZ[MZ]then for U in oZ do uZ[MZ](U);end;end;end;end,Tooltip="\u{052}\u{0065}n\der\u{0073} \z  na\zm\x65t\u{0061}\103s on\u{0020}\101n\z \116\u{69}\x74\u{69}e\z  \x73 \x74h\u{72}o\117gh \z  \119\z\u{0061}lls."});v=R:CreateTargets({Players=true,Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});LZ=R:CreateFont({Name="Fo\u{006E}t",Blacklist="A\u{0072}ia\l",Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});K=R:CreateColorSlider({Name="\80lay\101\u{72} \67\111l\111\u{0072}",Function=function(U,v,K)if R.Enabled and aZ[MZ]then aZ[MZ](U,v,K);end;end});zZ=R:CreateSlider({Name="S\99\u{061}\108e",Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end,Default=1,Min=0.1,Max=1.5,Decimal=10});m=R:CreateSlider({Name='T\z r\z a\110s\x70are\z \110\x63\y',Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end,Default=0.5,Min=0,Max=1,Decimal=10});_=R:CreateToggle({Name='H\u{65}\97\x6Cth',Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});F=R:CreateToggle({Name="\68\105st\97nc\101",Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});x=R:CreateToggle({Name='\zE\u{071}\117i\u{0070}me\z nt',Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});Y=R:CreateToggle({Name='\z\u{055}\115e\u{020}Disp\z l\97yn\97m\z\x65',Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end,Default=true});WZ=R:CreateToggle({Name='\Pr\i\111\114\x69t\y \x4F\x6Ely',Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end,Default=true});GZ=R:CreateToggle({Name="D\u{072}aw\z in\103",Function=function()if R.Enabled then R:Toggle();R:Toggle();end;end});pZ=R:CreateToggle({Name="D\i\z\x73t\97n\x63\x65\ Che\x63\z  \u{06B}",Function=function(U)qZ.Object.Visible=U;end});qZ=R:CreateTwoSlider({Name="\80\x6C\x61yer Dista\110ce",Min=0,Max=256,DefaultMin=0,DefaultMax=64,Darker=true,Visible=false});end);r(function()local R;local U;local v;local K={};local m={};local Y=Instance.new('F\111l\u{64}\z\x65\z  \114');Y.Parent=M.gui;local function _(F)for x,x in U.ListEnabled do if F:find(x)then return x;end;end;end;local function F(x)local GZ=x.Adornee:FindFirstChild('Ch\101\st\x46ol\z\100er\x56a\108ue');GZ=GZ and GZ.Value or nil;if not GZ then x.Enabled=false;return;end;local zZ=GZ and GZ:GetChildren()or{};for GZ,GZ in x.Frame:GetChildren()do if GZ:IsA("I\109a\u{0067}\101La\98e\l")and GZ.Name~="B\z \u{006C}ur"then GZ:Destroy();end;end;x.Enabled=false;local GZ={};for XZ,XZ in zZ do if not GZ[XZ.Name]and(table.find(U.ListEnabled,XZ.Name)or _(XZ.Name))then GZ[XZ.Name]=true;x.Enabled=true;local GZ=Instance.new("\73\109\u{0061}g\101\Lab\z el");GZ.Size=UDim2.fromOffset(31,31);GZ.BackgroundTransparency=1;GZ.Image=k.getIcon({itemType=XZ.Name},true);GZ.Parent=x.Frame;end;end;table.clear(zZ);end;local function x(GZ)local zZ=GZ:WaitForChild("Ches\116\F\z  o\z  lde\114\86al\x75e",3);if not(zZ and R.Enabled)then return;end;zZ=zZ.Value;local XZ=Instance.new("\66\i\u{006C}lbo\97r\x64G\117\z  \u{069}");XZ.Parent=Y;XZ.Name='c\zhe\115\u{074}';XZ.StudsOffsetWorldSpace=Vector3.new(0,3,0);XZ.Size=UDim2.fromOffset(36,36);XZ.AlwaysOnTop=true;XZ.ClipsDescendants=false;XZ.Adornee=GZ;local LZ=y(XZ);LZ.Visible=v.Enabled;local LZ=Instance.new("\70\x72a\u{06D}e");LZ.Size=UDim2.fromScale(1,1);LZ.BackgroundColor3=Color3.fromHSV(K.Hue,K.Sat,K.Value);LZ.BackgroundTransparency=1-(v.Enabled and K.Opacity or 0);LZ.Parent=XZ;local WZ=Instance.new('UI\x4Ci\115t\76\u{61}\z y\111ut');WZ.FillDirection=Enum.FillDirection.Horizontal;WZ.Padding=UDim.new(0,4);WZ.VerticalAlignment=Enum.VerticalAlignment.Center;WZ.HorizontalAlignment=Enum.HorizontalAlignment.Center;WZ:GetPropertyChangedSignal("A\u{062}\x73\111l\117te\u{043}o\110t\101\u{006E}\116Siz\e"):Connect(function()XZ.Size=UDim2.fromOffset(math.max(WZ.AbsoluteContentSize.X+4,36),36);end);WZ.Parent=LZ;local WZ=Instance.new('UI\u{0043}o\x72\x6Eer');WZ.CornerRadius=UDim.new(0,6);WZ.Parent=LZ;m[GZ]=XZ;R:Clean(zZ.ChildAdded:Connect(function(GZ)if table.find(U.ListEnabled,GZ.Name)or _(GZ.Name)then F(XZ);end;end));R:Clean(zZ.ChildRemoved:Connect(function(GZ)if table.find(U.ListEnabled,GZ.Name)or _(GZ.Name)then F(XZ);end;end));task.spawn(F,XZ);end;R=M.Categories.Render:CreateModule({Name="S\116\u{06F}rage\x20E\83\u{50}",Function=function(_)if _ then R:Clean(L:GetInstanceAddedSignal('\x63\104\101\u{73}t'):Connect(x));for _,_ in L:GetTagged("\u{063}\u{68}est")do task.spawn(x,_);end;else table.clear(m);Y:ClearAllChildren();end;end,Tooltip="Dis\x70\z la\u{079}s\x20i\116\x65ms\32in \x63\104e\sts"});U=R:CreateTextList({Name="\u{49}tem",Function=function()for U,U in m do task.spawn(F,U);end;end});v=R:CreateToggle({Name="\z  B\x61ck\x67\u{072}ound",Function=function(U)if K.Object then K.Object.Visible=U;end;for v,v in m do v.Frame.BackgroundTransparency=1-(U and K.Opacity or 0);v.Blur.Visible=U;end;end,Default=true});K=R:CreateColorSlider({Name='Backgrou\u{006E}d C\z  o\z l\111\114',DefaultValue=0,DefaultOpacity=0.5,Function=function(R,U,v,K)for Y,Y in m do Y.Frame.BackgroundColor3=Color3.fromHSV(R,U,v);Y.Frame.BackgroundTransparency=1-K;end;end,Darker=true});end);r(function()local R;R=M.Categories.Utility:CreateModule({Name='A\u{0075}t\z  o\ B\u{061}\108loon',Function=function(U)if U then repeat task.wait();until T.matchState~=0 or(not R.Enabled);if not R.Enabled then return;end;local U=math.huge;for v,v in T.blocks do local K=(v.Position.Y-(v.Size.Y/2))-50;if K<U then U=K;end;end;repeat if S.isAlive then if S.character.RootPart.Position.Y<U and(o.Character:GetAttribute("\73n\x66\u{6C}\97\u{074}e\u{64}\66\z\u{0061}llo\z\111\110\115")or 0)<3 then local U=h('\98\x61l\zl\z\x6Fo\u{6E}');if U then for U=1,3 do k.BalloonController:inflateBalloon();end;end;task.wait(0.1);end;end;task.wait(0.1);until not R.Enabled;end;end,Tooltip='\73\znf\108\97\116\101s\x20\u{77}he\110\ yo\z \x75 f\zall\u{020}\u{069}\110\zt\111 t\h\u{65} v\oi\100'});end);r(function()local R;local U;local v=RaycastParams.new();v.RespectCanCollide=true;local K={InvokeServer=function()end};task.spawn(function()K=k.Client:Get(l.FireProjectile).instance;end);local function m(Y,_,F)if U.Enabled then for x,GZ in T.inventory.hotbar do if GZ.item and GZ.item.tool==F.tool and x~=(T.inventory.hotbarSlot+1)then wZ(x-1);task.wait(0.1);break;end;end;else BZ(F.tool);end;local x=k.ProjectileMeta.telepearl;local GZ=A.SolveTrajectory(Y,x.launchVelocity,x.gravitationalAcceleration,_,Vector3.zero,workspace.Gravity,0,0,nil,false,o:GetNetworkPing());if GZ then local A=CFrame.lookAt(Y,GZ).LookVector*x.launchVelocity;K:InvokeServer(F.tool,'\116e\u{06C}e\112\u{0065}a\114l','te\108\u{0065}\112\z e\x61rl',Y,Y,A,i:GenerateGUID(true),{drawDurationSeconds=1,shotId=i:GenerateGUID(false)},workspace:GetServerTimeNow()-0.045);end;if T.hand then BZ(T.hand.tool);end;end;R=M.Categories.Utility:CreateModule({Name='\x41ut\x6F P\101\97\x72l',Function=function(A)if A then local A;repeat if S.isAlive then local K=S.character.RootPart;local Y=h("\u{074}e\l\x65pea\u{72}\u{006C}");v.FilterDescendantsInstances={o.Character,I,f};v.CollisionGroup=K.CollisionGroup;if Y and K.Velocity.Y<-80.0 and not workspace:Raycast(K.Position,Vector3.new(0,-200.0,0),v)then if not A then A=true;local v=N(20);if v then getgenv().CancelSwitch=os.clock()+0.3;m(K.Position,v,Y);end;end;else A=false;end;end;task.wait(0.1);until not R.Enabled;end;end,Tooltip='\65uto\109atic\zally\32t\z\u{0068}rows \97 p\u{0065}a\114\108 \u{006F}nt\x6F\u{20}ne\97rb\121 \z  g\zr\111u\u{6E}\d af\u{74}er\10f\97lli\zn\zg\x20\97\32cert\97i\110\32di\z\u{73}\u{0074}a\x6E\99e.'});U=R:CreateToggle({Name="\L\u{0065}\z g\105\x74 Swit\ch"});end);r(function()local R;local A;local function U()return#k.Store:getState().Party.members<=0;end;local function v()if not k.Store:getState().Game.customMatch and k.Store:getState().Party.leader.userId==o.UserId and k.Store:getState().Party.queueState==0 then if A.Enabled then local K={};for m,f in k.QueueMeta do if not f.disabled and not f.voiceChatOnly and not f.rankCategory then table.insert(K,m);end;end;k.QueueController:joinQueue(K[math.random(1,#K)]);else k.QueueController:joinQueue(T.queueType);end;end;end;R=M.Categories.Utility:CreateModule({Name='\A\117to \81ueue',Function=function(K)if K then R:Clean(G.EntityDeathEvent.Event:Connect(function(K)if K.finalKill and K.entityInstance==o.Character and U()and T.matchState~=2 then v();end;end));R:Clean(G.MatchEndEvent.Event:Connect(v));end;end,Tooltip="Au\u{0074}\z \u{06F}ma\z  ti\u{63}\u{061}lly qu\e\x75e\z s a\102\116\u{0065}\u{0072} \z\116h\z \x65\u{20}\zmatc\104 e\110\x64s\46"});A=R:CreateToggle({Name='\82\u{61}nd\111m',Tooltip='\67hoo\115e\x73 a r\97\u{006E}do\109 \x6D\x6Fde'});end);r(function()local R,A=false;local function U()local v={};for K,m in T.inventory.hotbar do if m.item and m.item.itemType:find('cross\z  b\111w')and K~=(T.inventory.hotbarSlot+1)then table.insert(v,K-1);end;end;return v;end;M.Categories.Utility:CreateModule({Name="\65\117\zt\u{6F}\x20Shoo\z \116",Function=function(v)if v then A=k.ProjectileController.createLocalProjectile;k.ProjectileController.createLocalProjectile=function(...)local v,K,K=...;if v and(K=="\z \u{0061}\114\x72o\u{077}"or K=="\z  \u{0066}\zireba\108\zl")and not R then task.spawn(function()local v=U();if#v>0 then R=true;task.wait(0.15);local v=T.inventory.hotbarSlot;for K,K in U()do if wZ(K)then task.wait(0.05);n();task.wait(0.05);end;end;wZ(v);R=false;end;end);end;return A(...);end;else k.ProjectileController.createLocalProjectile=A;end;end,Tooltip='\A\x75\z  tom\x61\z t\105ca\u{006C}l\zy \u{63}\114ossb\zo\119 ma\99ro\39s'});end);r(function()local n;local R;local A,U,v,K={},{},{};local function m(f,Y,_)local F=U[f].ListEnabled;local x=#F>0 and F[math.random(1,#F)]or _;if not x then return;end;if#F>1 and x==v[f]then repeat task.wait();x=F[math.random(1,#F)];until x~=v[f];end;v[f]=x;x=x and x:gsub("<o\u{062}\106>",Y or"")or"";if B.ChatVersion==Enum.ChatVersion.TextChatService then B.ChatInputBarConfiguration.TargetTextChannel:SendAsync(x);else D.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(x,'\x41\z\108l');end;end;n=M.Categories.Utility:CreateModule({Name="\u{0041}\x75\z  t\111 Tox\u{0069}\c",Function=function(v)if v then n:Clean(G.BedwarsBedBreak.Event:Connect(function(v)if A.BedDestroyed.Enabled and v.brokenBedTeam.id==o:GetAttribute("Tea\109")then m('\z  \u{42}edD\101\u{073}t\114\111y\z  \ed',(v.player.DisplayName or v.player.Name),"h\ow \100\97re\ \121\z ou\ \z \>\u{3A}\(\u{020}\| \60obj\>");elseif A.Bed.Enabled and v.player.UserId==o.UserId then local f=k.QueueMeta[T.queueType].teams[tonumber(v.brokenBedTeam.id)];m('Be\z \x64',f and f.displayName:lower()or'\119\x68i\116\z\101','\x3Co\z bj>\32b\x65\x64 h\x61\u{0073}\32\u{062}een \se\110t\ t\z  o\u{20}\x74h\u{065}\32\97\z b\121s\u{73}\x2E\u{02E}\.');end;end));n:Clean(G.EntityDeathEvent.Event:Connect(function(v)if v.finalKill then local f=w:GetPlayerFromCharacter(v.fromEntity);local Y=w:GetPlayerFromCharacter(v.entityInstance);if not Y or not f then return;end;if Y==o then if(not K)and f~=o and A.Death.Enabled then K=true;m('Dea\zt\104',(f.DisplayName or f.Name),'\zmy g\u{0061}mi\u{06E}\z \x67 ch\97i\z  r \115ub\x73cripti\x6F\u{006E}\32\101x\112ired\u{0020}\x3A\40\x20\124 \u{03C}o\z  \98j\x3E');end;elseif f==o and A.Kill.Enabled then m('\u{04B}\105l\108',(Y.DisplayName or Y.Name),"\105\ma\g\x69ne\u{20}\100ying \u{03C}o\z bj>,\ ge\116\ \zc\u{061}tvape\32\108ol!");end;end;end));n:Clean(G.MatchEndEvent.Event:Connect(function(v)if R.Enabled then if B.ChatVersion==Enum.ChatVersion.TextChatService then B.ChatInputBarConfiguration.TargetTextChannel:SendAsync('gg');else D.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('\x67g',"\z  \x41\zll");end;end;local B=k.Store:getState().Game.myTeam;if B and B.id==v.winningTeamId or o.Neutral then if A.Win.Enabled then m('Win',nil,'yal\u{006C}\u{020}ga\x72\z  \u{62}age');end;end;end));end;end,Tooltip='\u{053}a\z \121s\u{020}\97 m\e\u{73}\zsag\101 \u{61}\102\116\e\x72 \97 ce\z \114\u{0074}ain a\99tion'});R=n:CreateToggle({Name='Au\u{074}\111\z\71G',Default=true});for B,B in{'Kill','De\97\116\h',"B\101\zd",'BedD\101\115tro\121ed','W\z i\110'}do A[B]=n:CreateToggle({Name=B.."\u{020}",Function=function(R)if U[B]then U[B].Object.Visible=R;end;end});U[B]=n:CreateTextList({Name=B,Darker=true,Visible=false});end;end);r(function()local B;local n;B=M.Categories.Utility:CreateModule({Name="\z \Auto \z V\111\x69d\32Dr\z\u{06F}\112",Function=function(R)if R then repeat task.wait();until T.matchState~=0 or(not B.Enabled);if not B.Enabled then return;end;local R=math.huge;for A,A in T.blocks do local U=(A.Position.Y-(A.Size.Y/2))-50;if U<R then R=U;end;end;repeat if S.isAlive then local A=S.character.RootPart;if A.Position.Y<R and(o.Character:GetAttribute('\x49n\u{066}lat\101\z  dB\97\108l\z \oon\u{073}')or 0)<=0 and not h('ball\oo\z n')then if not n.Enabled or not A:FindFirstChild('O\wlL\105\z  ft\x46\111\zrce')then for R,R in{"i\u{0072}o\x6E","di\u{061}m\u{6F}\x6E\100","\x65\109e\114ald","go\x6C\d"}do R=h(R);if R then R=k.Client:Get(l.DropItem):CallServer({item=R.tool,amount=R.amount});if R then R:SetAttribute('C\x6Ci\z e\110tD\u{72}\111\112Ti\109\x65',tick()+100);end;end;end;end;end;end;task.wait(0.1);until not B.Enabled;end;end,Tooltip='\x44rop\x73\u{0020}r\101\x73o\x75rce\u{73} \z  \119he\z n \x79\111\117\32f\97ll in\z \u{074}o\32t\u{68}e\32void'});n=B:CreateToggle({Name="\79w\l \u{0063}\104e\99\x6B",Default=true,Tooltip="Ref\z  \117ses\32\116o\32drop\32\105t\x65\ms\x20\z\x69\x66\32\98\e\ing \z\112\zi\99\x6B\z\101d\ \x75\112 \98\121 \z\u{061}\110 \zo\119\108"});end);r(function()local B;B=M.Categories.Utility:CreateModule({Name="\77\u{069}s\z  s\z i\108\x65\32T\80",Function=function(n)if n then B:Toggle();local B=S.EntityMouse({Range=1000,Players=true,Part='\82\111\111t\80\x61rt'});if h("\x67u\i\100e\u{064}\z  _\109iss\i\108\101")and B then local n=k.RuntimeLib.await(k.GuidedProjectileController.fireGuidedProjectile:CallServerAsync('gui\de\u{0064}_m\u{069}\115\zsi\u{006C}\x65'));if n then local R=n.model;if not R.PrimaryPart then R:GetPropertyChangedSignal('Pri\u{006D}a\x72yPa\u{072}t'):Wait();end;local A=Instance.new('\66\ody\Fo\114\ce');A.Force=Vector3.new(0,R.PrimaryPart.AssemblyMass*workspace.Gravity,0);A.Name='\z \Ant\105\z  \Grav\z\105ty';A.Parent=R.PrimaryPart;repeat n.model:SetPrimaryPartCFrame(CFrame.lookAlong(B.RootPart.CFrame.p,I.CFrame.LookVector));task.wait(0.1);until not n.model or not n.model.Parent;else JZ('Mis\115\105l\z \eT\z\80','Mi\zs\u{073}\x69le o\110\ co\ol\100\u{006F}wn\x2E',3);end;end;end;end,Tooltip="\z\Spa\119ns\ \z\97nd t\101l\z  ep\x6Fr\116\s\ \u{061}\32m\105s\x73\i\z le\u{20}to\ \za p\x6C\97\z y\101r\n\110\z  \101ar\32you\114\u{20}mo\117\115\101."});end);r(function()local B;local n;local R;local A;B=M.Categories.Utility:CreateModule({Name="Pi\99\ku\z  p \x52\za\x6Ege",Function=function(U)if U then local U=j('\73\x74\u{0065}m\u{44}\u{72}op',B);repeat if S.isAlive then local v=S.character.RootPart.Position;for K,K in U do if tick()-(K:GetAttribute('Cl\105\z \101n\u{0074}\zD\u{72}\111\112T\u{069}m\101')or 0)<2 then continue;end;if e(K)and R.Enabled and S.character.Humanoid.Health>0 then K.CFrame=CFrame.new(v-Vector3.new(0,3,0));end;if(v-K.Position).Magnitude<=n.Value then if A.Enabled and(v.Y-K.Position.Y)<(S.character.HipHeight-1)then continue;end;task.spawn(function()k.Client:Get(l.PickupItem):CallServerAsync({itemDrop=K}):andThen(function(e)if e and k.SoundList then k.SoundManager:playSound(k.SoundList.PICKUP_ITEM_DROP);local e=k.ItemMeta[K.Name].pickUpOverlaySound;if e then k.SoundManager:playSound(e,{position=K.Position,volumeMultiplier=0.9});end;end;end);end);end;end;end;task.wait(0.1);until not B.Enabled;end;end,Tooltip="\P\x69\x63k\s u\x70 \105\116ems \102r\u{006F}\109\u{020}\z \97\32f\x61rt\z \he\114\32\100i\115tance"});n=B:CreateSlider({Name='\82\z \x61nge',Min=1,Max=10,Default=10,Suffix=function(e)return e==1 and'\zstud'or'st\117d\115';end});R=B:CreateToggle({Name="Net\119\111r\u{06B} \84P",Default=true});A=B:CreateToggle({Name='\zF\eet C\z heck'});end);r(function()local e;e=M.Categories.Utility:CreateModule({Name="Rav\x65\110 \z\84P",Function=function(B)if B then e:Toggle();local e=S.EntityMouse({Range=1000,Players=true,Part="\z  \82oo\ztP\97r\116"});if h("\114\97v\e\u{6E}")and e then k.Client:Get(l.SpawnRaven):CallServerAsync():andThen(function(B)if B then local n=Instance.new('Bod\yForc\x65');n.Force=Vector3.new(0,B.PrimaryPart.AssemblyMass*workspace.Gravity,0);n.Parent=B.PrimaryPart;if e then task.spawn(function()for n=1,20 do if e.RootPart and B then B:SetPrimaryPartCFrame(CFrame.lookAlong(e.RootPart.Position,I.CFrame.LookVector));end;task.wait(0.05);end;end);task.wait(0.3);k.RavenController:detonateRaven();end;end;end);end;end;end,Tooltip="\83\u{70}\97\z  wns\x20\97n\u{064}\32te\x6C\z ep\x6F\zrt\u{0073} a r\x61v\x65n to a \112\u{006C}ayer\10\110\x65a\114 your \mous\101\46"});end);r(function()local e;local B;local n;local R;local A;local U;local v;local K;local m;local f;local Y;local _,F,x={},Vector3.zero;for N=-3.0,3,3 do for GZ=-3.0,3,3 do for zZ=-3.0,3,3 do local XZ=Vector3.new(N,GZ,zZ);if XZ~=Vector3.zero then table.insert(_,XZ);end;end;end;end;local function N(GZ,zZ)local XZ=GZ-Vector3.new(3,3,3);local BZ=GZ+Vector3.new(3,3,3);local LZ=GZ+(zZ-GZ).Unit*100;return Vector3.new(math.clamp(LZ.X,XZ.X,BZ.X),math.clamp(LZ.Y,XZ.Y,BZ.Y),math.clamp(LZ.Z,XZ.Z,BZ.Z));end;getgenv().nearCorner=N;local function GZ(zZ)local XZ,BZ=60;local LZ=t(k.BlockController:getBlockPosition(zZ-Vector3.new(21,21,21)),k.BlockController:getBlockPosition(zZ+Vector3.new(21,21,21)));for t,t in LZ do local WZ=N(t,zZ);local t=(zZ-WZ).Magnitude;if t<XZ then XZ,BZ=t,WZ;end;end;table.clear(LZ);return BZ;end;getgenv().blockProximity=GZ;local function t(N)for zZ,zZ in _ do if Q(N+zZ)then return true;end;end;return false;end;getgenv().checkAdjacent=t;local function _()if T.hand.toolType=="bl\zo\x63k"and not table.find(Y.ListEnabled,T.hand.tool.Name)then return T.hand.tool.Name,T.hand.amount;elseif(not v.Enabled)then local N,zZ=b();if N and not table.find(Y.ListEnabled,N)then return N,zZ;else for N,N in T.inventory.inventory.items do if k.ItemMeta[N.itemType].block and not table.find(Y.ListEnabled,N.itemType)then return N.itemType,N.amount;end;end;end;end;return nil,0;end;local N,zZ=tick(),false;local XZ=0;e=M.Categories.Utility:CreateModule({Name="\Sc\97ffold",Function=function(BZ)if x then x.Visible=BZ;end;if BZ then repeat if S.isAlive and(not B.Enabled or not o.Character:FindFirstChild("el\z\107"))then local BZ,LZ=_();if f.Enabled then if not J:IsMouseButtonPressed(0)then BZ=nil;end;end;if x then LZ=LZ or 0;x.Text=LZ..' <\102\z o\x6E\116\x20\99\z  \111\lor\z \61\u{022}\zrg\98\z (1\055\48\u{2C}\032\04970\x2C\0321\055\z 0)\u{022}\z>\x28\u{0053}c\97\102\x66\o\108d\41</\102\x6F\z nt\z\62';x.TextColor3=Color3.fromHSV((LZ/128)/2.8,0.86,1);end;if BZ then local _=S.character.RootPart;if R.Enabled and J:IsKeyDown(Enum.KeyCode.Space)and(not J:GetFocusedTextBox())then _.Velocity=Vector3.new(_.Velocity.X,38,_.Velocity.Z);end;for LZ=n.Value,1,-1.0 do if not zZ then if T.hand and T.hand.tool then XZ=eZ(T.hand.tool);else XZ=nil;end;end;local WZ=iZ(_.Position-Vector3.new(0,S.character.HipHeight+(A.Enabled and J:IsKeyDown(Enum.KeyCode.LeftShift)and 4.5 or 1.5),0)+S.character.Humanoid.MoveDirection*(LZ*3));if U.Enabled then if math.abs(math.round(math.deg(math.atan2(-S.character.Humanoid.MoveDirection.X,-S.character.Humanoid.MoveDirection.Z))/45)*45)%90==45 then local iZ=(F-WZ);if((iZ.X==0 and iZ.Z~=0)or(iZ.X~=0 and iZ.Z==0))and((F-_.Position)*Vector3.new(1,0,1)).Magnitude<2.5 then WZ=F;end;end;end;if DZ then local _,iZ=Q(WZ);if not _ then iZ=t(iZ*3)and iZ*3 or GZ(WZ);if iZ then if K.Enabled then wZ(eZ(h(BZ).tool));end;task.spawn(k.placeBlock,iZ,BZ,false);N=tick()+0.25;zZ=true;end;end;end;F=WZ;end;end;end;if S.isAlive and zZ and tick()>N then zZ=false;if(K.Enabled and m.Enabled)and XZ then wZ(XZ);end;end;task.wait(0.03);until not e.Enabled;else Label=nil;if S.isAlive and zZ then zZ=false;if(K.Enabled and m.Enabled)and XZ then wZ(XZ);end;end;end;end,Tooltip='H\u{0065}\108ps you make b\x72id\z \103\101s\/\z  s\99affol\z  d\ \z w\u{061}\x6C\107\46'});n=e:CreateSlider({Name='Ex\u{070}\97\z  \110\z \x64',Min=1,Max=6});R=e:CreateToggle({Name='\z T\111we\114',Default=true});A=e:CreateToggle({Name='\u{44}\111w\x6E\z\u{0077}\97\x72\100s',Default=true});U=e:CreateToggle({Name='\x44\x69\97g\zon\97l',Default=true});B=e:CreateToggle({Name='M\oun\116 \67\x68\101\ck'});v=e:CreateToggle({Name="\z  Limit \u{0074}o\x20it\em\115"});K=e:CreateToggle({Name="\Au\z t\x6F \z  Swi\116\99\h",Function=function(B)if m then m.Object.Visible=B;end;end});m=e:CreateToggle({Name='\z  S\119i\116\u{63}h B\97\x63k',Darker=true,Visible=false});f=e:CreateToggle({Name='Require \u{6D}o\u{0075}\115e\x20\100\u{006F}\u{77}n'});Count=e:CreateToggle({Name="B\108\o\u{0063}k C\111unt",Function=function(B)if B then x=Instance.new("Text\x4Ca\x62\u{0065}l");x.Size=UDim2.fromOffset(100,20);x.Position=UDim2.new(0.5,6,0.5,60);x.BackgroundTransparency=1;x.AnchorPoint=Vector2.new(0.5,0);x.Text='\z  0';x.TextColor3=Color3.new(0,1,0);x.TextSize=18;x.RichText=true;x.Font=Enum.Font.Arial;x.Visible=e.Enabled;x.Parent=M.gui;else x:Destroy();x=nil;end;end});Y=e:CreateTextList({Name="B\u{6C}oc\k \u{0042}lackli\x73\116",Placeholder='b\x6C\u{006F}\99\107\_na\me'});end);r(function()local e;local B,n={},{};local R;e=M.Categories.Utility:CreateModule({Name='S\u{0068}\u{006F}p\32\u{54}\x69\101r \u{042}y\x70\x61\z \u{073}s',Function=function(A)if A then repeat task.wait();until T.shopLoaded or not e.Enabled;if e.Enabled then for e,e in k.Shop.ShopItems do B[e]=e.tiered;n[e]=e.nextTier;e.nextTier=nil;e.tiered=nil;end;R=k.Shop.getShop;k.Shop.getShop=function(...)local e={R(...)};for A,A in e[1]do A.nextTier=nil;A.tiered=nil;end;return unpack(e);end;end;else for e,A in B do e.tiered=A;end;for e,A in n do e.nextTier=A;end;if R then k.Shop.getShop=R;R=nil;end;table.clear(n);table.clear(B);end;end,Tooltip='Lets \121\111\117 b\117y \116h\z\u{069}ngs\32lik\ze a\z  \x72m\x6Fr\32ea\z  \u{0072}l\zy.'});end);r(function()local e;local B;local n;local R;local A;local U;local v={'\g\x67',"\z \103g\u{32}","\D\x56","\D\V\x32"};local K={1502104539,3826146717,4531785383,1049767300,4926350670,653085195,184655415,2752307430,5087196317,5744061325,1536265275};local m={};for f,f in{2441909268,4662011728}do table.insert(m,f);end;local f={};local function Y(_,F)local x,t=pcall(function()return _:GetRankInGroup(F);end);if not x then JZ("\Sta\u{066}fD\z e\116e\99\x74\zor",t,30,"alert");end;return x and t or 0;end;local function _(F,x)if not M.Loaded then repeat task.wait();until M.Loaded;end;JZ('\zS\u{074}a\102fDe\x74\101c\u{74}or',"St\u{0061}\x66f Det\x65\x63\z  t\x65\z\x64 \u{028}"..x.."):\32"..F.Name.."\32\40"..F.UserId.."\x29",60,'\97\108\x65rt');Z.customtags[F.Name]={{text='G\AME\u{0020}\83\u{054}\A\70\70',color=Color3.new(1,0,0)}};if R.Enabled and not x:find('cl\x61\110')then k.PartyController:leaveParty();end;if B.Value=='U\x6Einj\x65\u{63}t'then task.spawn(function()M:Uninject();end);game:GetService("S\116ar\z\u{074}\u{65}rGui"):SetCore("S\e\x6EdNot\105f\z \105\u{063}\x61\u{074}i\o\z\110",{Title='St\u{0061}\x66fDete\cto\114',Text="S\u{074}aff \x44ete\u{63}\z \116e\100\32\z \40"..x..")\10"..F.Name.."\32\u{0028}"..F.UserId.."\41",Duration=60});elseif B.Value=="Requeue"then k.QueueController:joinQueue(T.queueType);elseif B.Value=='\80\114ofi\le'then M.Save=function()end;if M.Profile~=A.Value then M:Load(true,A.Value);end;elseif B.Value=="Aut\u{006F}\Co\110fi\103"then local Z={"A\x75t\z\u{06F}C\x6Ci\ck\z  er",'\u{0052}\z\101\zac\104','S\u{070}\114in\x74',"H\105tFix","\z StaffDet\101ct\x6Fr"};M.Save=function()end;for F,x in M.Modules do if not(table.find(Z,F)or x.Category=="\z  \R\u{65}nd\er")then if x.Enabled then x:Toggle();end;x:SetBind('');end;end;end;end;local function Z(F)for x,x in F do if f[x]then return f[x];end;end;return nil;end;local function F(x,t)if not x:GetAttribute("\84\u{0065}\97m")and x:GetAttribute('\Spec\z\116a\u{74}o\u{072}')and not k.Store:getState().Game.customMatch then t:Disconnect();local t,N={},w:GetFriendsAsync(x.UserId);pcall(function()for eZ=1,12 do for eZ,eZ in N:GetCurrentPage()do table.insert(t,eZ.Id);end;if N.IsFinished then break;end;N:AdvanceToNextPageAsync();end;end);local N=Z(t);if not N then _(x,'\u{069}\x6D\z  \112\x6Fssi\x62\x6Ce\z _j\z \o\z  \105n');return true;else JZ("Staff\x44et\101cto\114",string.format('Spec\z ta\116\z \111\u{0072} \37\115\u{020}\106o\x69n\z  \101d f\z\114\x6Fm\u{0020}%\u{73}',x.Name,N),20,"\z war\u{6E}in\x67");end;end;end;local function Z(x)f[x.UserId]=x.Name;if x==o then return;end;if table.find(K,x.UserId)or table.find(U.ListEnabled,tostring(x.UserId))then _(x,"\98\108\97c\x6Bli\115t\zed_\117s\u{065}r");elseif Y(x,5774246)>=100 or table.find(m,x.UserId)then _(x,"\115ta\102\u{066}_r\ole");else local K;K=x:GetAttributeChangedSignal('\z  \83pect\za\z \u{074}\zo\114'):Connect(function()F(x,K);end);e:Clean(K);if F(x,K)then return;end;if not x:GetAttribute('C\108a\z n\u{0054}ag')then x:GetAttributeChangedSignal("C\z  lan\84a\z g"):Wait();end;if table.find(v,x:GetAttribute("C\108\x61\110Tag"))and M.Loaded and n.Enabled then K:Disconnect();_(x,"\x62lac\z\107\108\u{0069}\115t\e\100\x5Fc\x6C\97\x6E\x5F"..x:GetAttribute('\Cl\97\z nT\97\103'):lower());end;end;end;e=M.Categories.Utility:CreateModule({Name='\u{0053}t\u{61}\u{0066}\z  \102 \z  \Det\e\zc\x74or',Function=function(v)if v then e:Clean(w.PlayerAdded:Connect(Z));for v,v in w:GetPlayers()do task.spawn(Z,v);end;else table.clear(f);end;end,Tooltip='D\z \101te\x63t\u{0073}\32\112\101\x6F\z \u{070}le\ w\105\x74h\32\za\x20\u{073}\zt\z  a\102\u{066}\u{0020}r\x61nk ingame'});B=e:CreateDropdown({Name="M\111\100e",List={'\85n\x69nj\101\z\x63t','P\u{0072}\u{006F}\z  f\z i\z \u{6C}\z \x65',"\u{052}e\q\x75e\117e","\z \65u\x74\111\67o\z \x6E\102ig","Not\z  \if\u{79}"},Function=function(w)if A.Object then A.Object.Visible=w=='P\114\u{006F}f\u{069}le';end;end});n=e:CreateToggle({Name='\66\lac\u{006B}\u{006C}\105\st\ \c\108\z \97\110s',Default=true});R=e:CreateToggle({Name='\76\x65a\u{76}e \112a\z  rty'});A=e:CreateTextBox({Name="P\x72\z  of\il\e",Default="\zd\u{0065}fau\z\lt",Darker=true,Visible=false});U=e:CreateTextList({Name='Users',Placeholder='\112l\97\121er \z (\x75\z  serid)'});end);r(function()E=M.Categories.Utility:CreateModule({Name='\z  T\114a\zp\D\105s\97\98l\101\z  \114',Tooltip="Di\115abl\101s \u{053}na\u{070}\32\84r\x61\112\115"});end);r(function()local e;local w;local B;local n;local R;local Z;local function A(U)return k.BlockController:getBlockPosition(U)*3;end;local function U(v)return not Q(v);end;local function v(K)local m={Vector3.new(3,0,0),Vector3.new(-3.0,0,0),Vector3.new(0,0,3),Vector3.new(0,0,-3.0),Vector3.new(0,-3.0,0)};for E,E in m do if not U(K+E)then return true;end;end;return false;end;local function K(m,E,f)local Y=A(m-Vector3.new(0,3,0));local _=nil;local F=false;for x=0,12,3 do for t=-9.0,9,3 do for N=-9.0,9,3 do local eZ=Y+Vector3.new(t,-x,N);if not U(eZ)then _=eZ;F=true;break;end;end;if F then break;end;end;if F then break;end;end;if not _ then return false;end;local Y=(m-_).Unit;local F=Y*3;local Y=_;local _=0;while(Y-m).Magnitude>3 and _<f do Y+=F;local m=A(Y);if U(m)and v(m)then task.spawn(k.placeBlock,m,E);_+=1;end;task.wait();end;return true;end;e=M.Categories.World:CreateModule({Name="Au\116\111 Suff\u{006F}\ca\zt\z  e",Function=function(m)if m then repeat local m=T.hand.toolType=="\98\108\o\u{0063}k"and T.hand.tool.Name or not n.Enabled and b();if m then local E=S.AllPosition({Part='R\x6F\u{06F}\116\80a\x72\x74',Range=B.Value,Players=true});for f,f in E do if not f or not f.RootPart then continue;end;local E=f.RootPart.Velocity or Vector3.zero;local Y=f.RootPart.Position+E*R.Value;local E=A(Y);local f=E;local _=A(Y+Vector3.new(0,3,0));if not v(E)then K(E,m,10);end;local A={};local K=0;local Y={Vector3.new(3,0,0),Vector3.new(-3.0,0,0),Vector3.new(0,0,3),Vector3.new(0,0,-3.0)};local F={Vector3.new(3,0,3),Vector3.new(-3.0,0,3),Vector3.new(3,0,-3.0),Vector3.new(-3.0,0,-3.0)};if Z.Enabled then for x,x in F do local F=E+x;if U(F)and v(F)then table.insert(A,F);end;end;end;for F,F in Y do local Y=E+F;if U(Y)and v(Y)then table.insert(A,Y);end;end;if U(_)and v(_)then table.insert(A,_);end;if not U(f)or not v(f)then else table.insert(A,f);end;for v,v in A do if K>=w.Value then break;end;if U(v)then task.spawn(k.placeBlock,v,m);K+=1;end;end;end;end;task.wait(0.09);until not e.Enabled;end;end,Tooltip='B\x75\105\108\z d\s s\u{0075}p\u{070}\111\u{072}t\u{0020}\z  \98\x6C\zo\ck\115\32if needed,\ \u{074}\zhe\z n c\u{072}e\x61t\z  e\s\u{0020}\97d\u{061}pt\i\x76\e \115u\x66f\z  oc\97\x74\u{069}\z on\x20\99a\x67e\u{073} \97\x72\z\u{006F}und\u{020}\z  pl\97\x79\101rs'});B=e:CreateSlider({Name='R\u{0061}nge',Min=1,Max=20,Default=20,Suffix=function(B)return B==1 and"st\x75d"or'\u{73}\u{074}\u{075}d\115';end});w=e:CreateSlider({Name='Solut\105on\u{073}',Min=1,Max=10,Default=6});R=e:CreateSlider({Name="\z  Pr\z  ed\z  iction",Min=0,Max=1,Suffix="\x73",Default=0.7,Decimal=5,Tooltip='\u{50}r\u{65}\zd\u{069}\x63\116\ \112la\121\101r \109o\118\101me\x6Et fo\u{72}\x77ar\zd in \sec\111\u{06E}d\s'});Z=e:CreateToggle({Name='Sm\97\114\116\u{20}\x53\x70\114e\u{061}d',Default=true,Tooltip="\80laces\ \z  \99or\u{006E}\u{065}\x72\u{073}\u{020}f\u{069}\z r\u{0073}t\32\z \u{61}\110\100 b\x75i\u{006C}\x64s\32s\117pp\z  or\116 i\u{66}\ \x61\105r\32\x70\u{06C}ac\z\101\u{06D}\u{065}n\116 n\z  \e\ed\101d"});n=e:CreateToggle({Name="L\i\x6Di\z  t t\z  \111 Ite\z  \u{06D}\u{73}",Default=true});end);r(function()local e;local w,B;local function n(R)if R and not R:GetAttribute('NoBre\97\107')and not R:GetAttribute("\84e\z  \97\m"..(o:GetAttribute("T\zea\z  m")or 0)..'\z  NoBre\u{0061}k')then local Z,A=T.tools[k.ItemMeta[R.Name].block.breakType],nil;if Z then for R,U in T.inventory.hotbar do if U.item and U.item.itemType==Z.itemType then A=R-1;break;end;end;if wZ(A)then if J:IsMouseButtonPressed(0)then B:Fire();end;return true;end;end;end;end;e=M.Categories.World:CreateModule({Name="A\117t\111 T\x6F\ol",Function=function(R)if R then B=Instance.new("\66\z\u{69}\u{06E}dab\u{06C}\ze\69ve\110t");e:Clean(B);e:Clean(B.Event:Connect(function()W:CallFunction("\x62lo\u{0063}k-br\e\u{61}k",Enum.UserInputState.Begin,newproxy(true));end));w=k.BlockBreaker.hitBlock;k.BlockBreaker.hitBlock=function(e,B,W,...)local R=e.clientManager:getBlockSelector():getMouseInfo(1,{ray=W});if n(R and R.target and R.target.blockInstance or nil)then return;end;return w(e,B,W,...);end;else k.BlockBreaker.hitBlock=w;w=nil;end;end,Tooltip='A\117\u{0074}oma\116ic\u{061}l\x6C\121 \z  \115\e\u{006C}e\u{0063}\x74s \u{074}h\u{65} \99\111\z  r\x72\101ct t\z \u{06F}ol'});end);r(function()local e;local function w()local B=S.isAlive and S.character.RootPart.Position or Vector3.zero;for W,W in L:GetTagged('b\zed')do if(B-W.Position).Magnitude<20 and W:GetAttribute("Te\97m"..(o:GetAttribute('T\x65\97m')or-1.0)..'\78o\u{0042}re\z ak')then return W;end;end;end;local function B()local W={};for n,n in T.inventory.inventory.items do local R=k.ItemMeta[n.itemType].block;if R then table.insert(W,{n.itemType,R.health});end;end;table.sort(W,function(n,R)return n[2]>R[2];end);return W;end;local function W(n,R)local Z={};for A=n,0,-1.0 do for U=A,0,-1.0 do table.insert(Z,Vector3.new(U,(n-A),((A+1)-U))*R);table.insert(Z,Vector3.new(U*-1.0,(n-A),((A+1)-U))*R);table.insert(Z,Vector3.new(U,(n-A),(A-U)*-1.0)*R);table.insert(Z,Vector3.new(U*-1.0,(n-A),(A-U)*-1.0)*R);end;end;return Z;end;e=M.Categories.World:CreateModule({Name="\u{42}\101\z d\ \P\u{72}\111\z  t\x65\99\116\x6Fr",Function=function(n)if n then local n=w();n=n and n.Position or nil;if n then for w,R in B()do for B,B in W(w,3)do if not e.Enabled then break;end;if Q(n+B)then continue;end;k.placeBlock(n+B,R[1],false);end;end;if e.Enabled then e:Toggle();end;else JZ("B\x65dPr\111\116ector","\U\110\97bl\z  e to l\x6F\z\99\z \u{0061}\116e\x20b\u{65}\d",5);e:Toggle();end;end;end,Tooltip='\65\z \117\u{074}\x6F\x6Dati\99a\108l\u{79} \112l\z \x61c\101s\x20\stron\x67 \98\108\z \111c\107s\32a\u{072}o\x75n\x64 the \98\z\ed.'});end);r(function()local e;local w;local B;local W;local n;local R={};local function Z(A)A=A and A.Value or nil;local U=A and A:GetChildren()or{};if#U>1 and(R[A]or 0)<tick()then R[A]=tick()+0.2;k.Client:GetNamespace('\I\x6Eve\u{6E}t\111ry'):Get('Se\116O\98\x73e\u{072}vedC\z \h\101\115t'):SendToServer(A);for R,R in U do if R:IsA("A\x63cessor\x79")then task.spawn(function()pcall(function()k.Client:GetNamespace('\z Inv\z  en\116\u{6F}r\121'):Get('Ch\u{0065}\stG\u{0065}t\u{49}\z te\u{6D}'):CallServer(A,R);end);end);if w.Value>0 then task.wait(w.Value);end;end;end;k.Client:GetNamespace('\73n\u{76}en\ztor\121'):Get("\z  \x53\u{0065}t\79\u{0062}\z \115\101r\zv\u{065}\x64Ch\u{65}st"):SendToServer(nil);end;end;e=M.Categories.World:CreateModule({Name="Ch\x65\x73\z\116 St\x65al",Function=function(R)if R then local R=j('che\115t',e);repeat task.wait();until T.queueType~='\u{62}\z  ed\z  \u{077}\u{61}r\x73\_t\z  \e\st';if(not n.Enabled)or T.queueType:find('\115kywa\114\115')then repeat if S.isAlive and T.matchState~=2 then if W.Enabled then if k.AppController:isAppOpen('\z  \C\h\101\z\x73\ztA\112\112')then Z(o.Character:FindFirstChild("O\u{0062}s\z  erv\u{0065}\z\x64\C\104e\z  \u{73}\z\x74\70\u{006F}\l\x64\101r"));end;else local A=S.character.RootPart.Position;for U,U in R do if(A-U.Position).Magnitude<=B.Value then Z(U:FindFirstChild('\z\67he\z  st\u{46}o\108\100e\x72\86alu\101'));end;end;end;end;task.wait(0.1);until not e.Enabled;end;end;end,Tooltip='Gra\98s\32ite\109s\32\102r\111m \u{006E}e\z ar \99he\115\z \x74\115\46'});B=e:CreateSlider({Name='Ra\u{06E}ge',Min=0,Max=18,Default=18,Suffix=function(B)return B==1 and'\s\116\x75d'or"\x73\x74\117\ds";end});w=e:CreateSlider({Name='\76\x6F\ot Delay',Min=0,Max=10,Default=0,Suffix=function(w)return w==1 and"\u{73}\101c"or'\s\x65\z c\u{073}';end,Decimal=5});W=e:CreateToggle({Name='GU\I\x20\x43he\99k'});n=e:CreateToggle({Name='\79nl\u{0079}\u{20}Sky\x77ars',Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end,Default=true});end);r(function()local e;local w;local B;local W;local n,R,Z={},{},{};local A,U;for v=-3.0,3,3 do for K=-3.0,3,3 do for m=-3.0,3,3 do if Vector3.new(v,K,m)~=Vector3.zero then table.insert(Z,Vector3.new(v,K,m));end;end;end;end;local function v(K)for m,m in Z do if Q(K+m)then return true;end;end;return false;end;local function Z(K,m)local E,f={},k.BlockController:getStore();for Y=(m.X>K.X and K.X or m.X),(m.X>K.X and m.X or K.X)do for _=(m.Y>K.Y and K.Y or m.Y),(m.Y>K.Y and m.Y or K.Y)do for F=(m.Z>K.Z and K.Z or m.Z),(m.Z>K.Z and m.Z or K.Z)do local K=Vector3.new(Y,_,F);local m=f:getBlockAt(K);if m and m:GetAttribute("Pl\u{0061}ce\100B\121\u{55}\u{073}\x65rId")==o.UserId then E[K]=m;end;end;end;end;return E;end;local function K()for m,m in R do m:Destroy();end;local m,E=pcall(function()return isfile(w.Value)and i:JSONDecode(readfile(w.Value));end);if m and E then local m={};for f,f in E do m[f[2]]=(m[f[2]]or 0)+1;end;for f,Y in m do local _=Instance.new("F\z \u{72}a\me");_.Size=UDim2.new(1,0,0,32);_.BackgroundTransparency=1;_.Parent=e.Children;local F=Instance.new("I\x6Dage\76\97\z  bel");F.Size=UDim2.fromOffset(24,24);F.Position=UDim2.fromOffset(4,4);F.BackgroundTransparency=1;F.Image=k.getIcon({itemType=f},true);F.Parent=_;local F=Instance.new("\u{54}\101xt\zLa\98e\z  \108");F.Size=UDim2.fromOffset(100,32);F.Position=UDim2.fromOffset(32,0);F.BackgroundTransparency=1;F.Text=(k.ItemMeta[f]and k.ItemMeta[f].displayName or f)..'\: '..Y;F.TextXAlignment=Enum.TextXAlignment.Left;F.TextColor3=a.Text;F.TextSize=14;F.FontFace=a.Font;F.Parent=_;table.insert(R,_);end;table.clear(E);table.clear(m);end;end;local function R()if A and U then local m=Z(A,U);local Z={};A=A*3;for E,f in m do E=k.BlockController:getBlockPosition(CFrame.lookAlong(A,S.character.RootPart.CFrame.LookVector):PointToObjectSpace(E*3))*3;table.insert(Z,{{x=E.X,y=E.Y,z=E.Z},f.Name});end;A,U=nil,nil;writefile(w.Value,i:JSONEncode(Z));JZ('S\c\u{0068}e\109\97ti\99a',"\z  S\x61\118\101d\u{020}"..rZ(m)..'\u{0020}\u{062}\108\o\cks',5);K();table.clear(m);table.clear(Z);else local Z=k.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0);if Z and Z.target then if A then U=Z.target.blockRef.blockPosition;JZ("S\z \u{0063}h\ema\z ti\99a","\x53el\ect\z \101d\x20\z  \112ositi\x6Fn 2\u{002C}\32\116ogg\x6Ce\u{020}\x61ga\x69n \u{6E}\ea\114 p\z  \u{006F}\z s\105ti\u{006F}n\032\x31\ to\ s\97v\e\x20\u{69}t",3);else A=Z.target.blockRef.blockPosition;JZ('S\z\x63\h\101mati\x63\97',"\x53\101l\ecte\z  \x64 p\111\z\x73\105\116\u{069}\zo\110 \u{0031}",3);end;end;end;end;local function Z(m)local E=k.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0);if E and E.target then local f=CFrame.new(E.placementPosition*3)*CFrame.Angles(0,math.rad(math.round(math.deg(math.atan2(-S.character.RootPart.CFrame.LookVector.X,-S.character.RootPart.CFrame.LookVector.Z))/45)*45),0);for E,E in m do local Y=k.BlockController:getBlockPosition((f*CFrame.new(E[1].x,E[1].y,E[1].z)).p)*3;if n[Y]then continue;end;local f=k.BlockController:getHandlerRegistry():getHandler(E[2]:find('\z  w\z  ool')and b()or E[2]);if f then local E=f:place(Y/3,0);E.Transparency=W.Value;E.CanCollide=false;E.Anchored=true;E.Parent=workspace;n[Y]=E;end;end;table.clear(m);repeat if S.isAlive then local m=S.character.RootPart.Position;for E,f in n do if(E-m).Magnitude<60 and v(E)then if not e.Enabled then break;end;if not h(f.Name)then continue;end;k.placeBlock(E,f.Name,false);task.delay(0.1,function()local v=Q(E);if v then f:Destroy();n[E]=nil;end;end);end;end;end;task.wait();until rZ(n)<=0;if rZ(n)<=0 and e.Enabled then JZ('\83che\109\97t\z\105\z  ca','\u{46}in\x69\z  s\u{0068}\101d\ buildin\103',5);e:Toggle();end;end;end;e=M.Categories.World:CreateModule({Name="Schema\z t\105\u{063}\97",Function=function(v)if v then if not w.Value:find('.\106\x73o\110')then JZ("S\z\chema\u{074}i\99a","Inv\z\x61\li\d\u{020}fi\le",3);e:Toggle();return;end;if B.Value=='\83\x61ve'then R();e:Toggle();else local R,v=pcall(function()return isfile(w.Value)and i:JSONDecode(readfile(w.Value));end);if R and v then Z(v);else JZ("S\99\u{0068}ema\116\u{069}\c\97",'\u{4D}\u{069}\x73s\x69n\103\u{0020}/ c\111\x72ru\112\z \u{074}\101\u{064} f\u{069}\x6Ce',3);e:Toggle();end;end;else for i,i in n do i:Destroy();end;table.clear(n);end;end,Tooltip="\u{53}\x61v\101 an\u{0064}\32l\zoa\x64\x20place\109\u{0065}nt\115 \u{6F}\102\u{0020}bui\u{006C}\100\u{0069}ng\s"});w=e:CreateTextBox({Name="F\x69\108\101",Function=function()K();A,U=nil,nil;end});B=e:CreateDropdown({Name="M\o\100\e",List={'\76oa\100',"Save"}});W=e:CreateSlider({Name='\84r\97nspa\z \x72e\zn\x63\121',Min=0,Max=1,Default=0.7,Decimal=10,Function=function(e)for w,w in n do w.Transparency=e;end;end});end);r(function()local e;local w;local i;local B;e=M.Categories.Inventory:CreateModule({Name="\65\x72\x6D\x6Fr \u{53}\zw\u{69}t\c\z  h",Function=function(W)if W then if w.Value=='\84oggle'then repeat local W=S.EntityPosition({Part='\R\ootP\x61\114t',Range=B.Value,Players=i.Players.Enabled,NPCs=i.NPCs.Enabled,Wallcheck=i.Walls.Enabled})and true or false;for n=0,2 do if(T.inventory.inventory.armor[n+1]~="\ze\u{6D}\z pt\u{0079}")~=W and e.Enabled then k.Store:dispatch({type="\73\110\118\z  en\x74o\x72\121\z  S\101\zt\x41\x72\z  \u{006D}\z  o\114It\101\109",item=T.inventory.inventory.armor[n+1]=="\em\112\x74\zy"and W and s(n)or nil,armorSlot=n});G.InventoryChanged.Event:Wait();end;end;task.wait(0.1);until not e.Enabled;else e:Toggle();for W=0,2 do k.Store:dispatch({type="\z  In\x76en\z  t\o\z  r\u{0079}S\zetA\x72\z\109\u{006F}\x72I\116\x65\109",item=T.inventory.inventory.armor[W+1]=="empt\y"and s(W)or nil,armorSlot=W});G.InventoryChanged.Event:Wait();end;end;end;end,Tooltip="P\z  \u{075}ts\x20\111n / t\97\zk\x65\s\u{020}o\102f armor\32wh\u{065}\110\u{0020}t\z  o\x67\103l\101\100 for ba\u{0069}t\105n\103\x2E"});w=e:CreateDropdown({Name="M\111\100\101",List={"\84\111g\u{067}le",'O\u{006E} \K\u{0065}\121'}});i=e:CreateTargets({Players=true,NPCs=true});B=e:CreateSlider({Name="\u{0052}an\103\101",Min=1,Max=30,Default=30,Suffix=function(e)return e==1 and"\z \u{0073}t\zud"or"s\x74\117ds";end});end);r(function()local e;local w;local i;local B;local W={};local function n(R,Z)local A=Instance.new("\73\mag\101L\z \97b\101\z l");A.Image=k.getIcon({itemType=R},true);A.Size=UDim2.fromOffset(32,32);A.Name=R;A.BackgroundTransparency=1;A.LayoutOrder=#i:GetChildren();A.Parent=i;local U=Instance.new("Tex\u{0074}\Labe\108");U.Name="\u{0041}\109o\117\110\z  \116";U.Size=UDim2.fromScale(1,1);U.BackgroundTransparency=1;U.Text='';U.TextColor3=Color3.new(1,1,1);U.TextSize=16;U.TextStrokeTransparency=0.3;U.Font=Enum.Font.Arial;U.Parent=A;W[R]={Object=U,Type=Z};end;local function R(Z)for A,U in W do local v=Z:FindFirstChild(A);U.Object.Text=v and v:GetAttribute("A\109\111\u{0075}n\116")or"";end;end;local function Z()if S.isAlive then local A=S.character.RootPart.Position;for U,U in B do if(U.Position-A).Magnitude<20 then return true;end;end;end;end;local function A()local U=D.Inventories:FindFirstChild(o.Name..'\95personal');if not U then return;end;local D=workspace.MapCFrames:FindFirstChild((o:GetAttribute('Te\u{061}\109')or 1)..'\x5F\115pa\119\x6E');if D and(S.character.RootPart.Position-D.Value.Position).Magnitude<80 then for D,D in U:GetChildren()do local v=W[D.Name];if v then task.spawn(function()k.Client:GetNamespace("In\x76entory"):Get('\x43h\101\u{73}\u{0074}Get\u{049}t\u{065}\x6D'):CallServer(U,D);R(U);end);end;end;else for D,D in T.inventory.inventory.items do local v=W[D.itemType];if v then task.spawn(function()k.Client:GetNamespace("\x49nvent\z \x6F\u{0072}\zy"):Get("\u{043}hest\71\i\z  veI\x74e\u{06D}"):CallServer(U,D.tool);R(U);end);end;end;end;end;e=M.Categories.Inventory:CreateModule({Name="\z  Auto \66\97n\k",Function=function(D)if D then B=j('\112er\115\111na\108-\z c\u{0068}e\u{0073}\z t',e);i=Instance.new("F\u{072}a\zm\x65");i.Size=UDim2.new(1,0,0,32);i.Position=UDim2.fromOffset(0,-240.0);i.BackgroundTransparency=1;i.Visible=w.Enabled;i.Parent=M.gui;e:Clean(i);local D=Instance.new("UIListL\97y\x6Fu\x74");D.FillDirection=Enum.FillDirection.Horizontal;D.HorizontalAlignment=Enum.HorizontalAlignment.Center;D.SortOrder=Enum.SortOrder.LayoutOrder;D.Parent=i;n('\105ron',true);n('\u{067}\111\u{6C}\d',true);n('\100iamond',false);n("emera\z  ld",true);n('\zv\111i\x64\95\99\x72\121s\116al',true);repeat local D=o.PlayerGui:FindFirstChild('h\111tba\114');D=D and D['\z \49']:FindFirstChild("\z \72\x6Ft\z  bar\x48\x65a\x6Ct\104\98a\u{72}C\111ntainer");if D then i.Position=UDim2.fromOffset(0,(D.AbsolutePosition.Y+p:GetGuiInset().Y)-40);end;local D=Z();if D then A();end;task.wait(0.1);until(not e.Enabled);else table.clear(W);end;end,Tooltip='\A\z \117\x74omati\99\97lly \x70\117\z  \116s \u{0072}\esou\114ce\zs\x20i\110\32\en\u{64}\101r c\104\x65s\u{74}'});w=e:CreateToggle({Name="\UI",Function=function(w)if e.Enabled then i.Visible=w;end;end,Default=true});end);r(function()local e;local w;local D;local i;local B;local W;local p;local n;local R;local Z={};local A={};local U={};local v,K={};local m={Z,v,A};local E,f=tick(),tick();local Y={'w\u{06F}\u{06F}\z d\x5F\z\115\x77\111r\100',"s\u{74}\x6Fne\95s\119o\x72d",'\i\u{0072}o\110\z  _sw\111rd','diamo\u{006E}\z d_\s\z \x77ord','\101\109er\z a\u{006C}\z \100_\sword'};local _={"n\x6F\x6Ee",'\z  \108\101\97t\u{068}\e\114_\ches\116\z \p\la\x74\u{65}',"iro\110\95\x63he\115\116plat\101","d\ia\x6Do\110d_c\x68est\z \p\108at\x65","\x65m\101r\97l\100\95c\104\z  \x65st\p\z \la\116\e"};local F={'n\111n\x65',"w\x6Fod\z  \x5Faxe",'\115ton\z\e\x5Faxe','\105ro\110\_ax\z  \101','\zdiamon\100_a\120\u{65}'};local b={'non\101',"wood_\112\105\99ka\zx\z  \x65","st\111\x6Ee_\pi\cka\u{078}\x65","\u{0069}\u{0072}\z o\x6E\_\u{070}\z \105c\zk\x61xe",'\u{0064}\iam\z on\100_\112\105\99ka\120e'};local function x()local t,N,rZ,eZ=nil,false,false,nil;if S.isAlive then local GZ=S.character.RootPart.Position;for wZ,wZ in T.shop do if(wZ.RootPart.Position-GZ).Magnitude<=20 then t=wZ.Upgrades or wZ.Shop or nil;rZ=rZ or wZ.Upgrades;N=N or wZ.Shop;eZ=wZ.Shop and wZ.Id or eZ;end;end;end;return t,N,rZ,eZ;end;local function t(N,rZ,eZ)eZ=eZ or 1;if not rZ[N.currency]then local GZ=h(N.currency);rZ[N.currency]=GZ and GZ.amount or 0;end;if N.ignoredByKit and table.find(N.ignoredByKit,T.equippedKit or"")then return false;end;if N.lockedByForge or N.disabled then return false;end;if N.require and N.require.teamUpgrade then if(k.Store:getState().Bedwars.teamUpgrades[N.require.teamUpgrade.upgradeId]or-1.0)<N.require.teamUpgrade.lowestTierIndex then return false;end;end;return rZ[N.currency]>=(N.price*eZ);end;local function N(rZ,eZ)if not K then return;end;JZ("\u{0041}ut\111\66u\z  y","\66ou\103h\u{0074} "..k.ItemMeta[rZ.itemType].displayName,3);k.Client:Get("Be\dwars\z Pur\u{0063}\x68a\z \se\z  Ite\z  m"):CallServerAsync({shopItem=rZ,shopId=K}):andThen(function(GZ)if GZ then k.SoundManager:playSound(k.SoundList.BEDWARS_PURCHASE_ITEM);k.Store:dispatch({type='\z Be\d\x77\x61r\zs\z  A\100\u{064}\73t\101\u{06D}P\z urc\ha\s\101d',itemType=rZ.itemType});k.BedwarsShopController.alreadyPurchasedMap[rZ.itemType]=true;end;end);eZ[rZ.currency]-=rZ.price;end;local function rZ(eZ,GZ)if not i.Enabled then return;end;local wZ=k.TeamUpgradeMeta[eZ];local zZ=k.Store:getState().Bedwars.teamUpgrades[o:GetAttribute('T\ze\97\x6D')]or{};local XZ=(zZ[eZ]or 0)+1;local zZ=false;for iZ=XZ,#wZ.tiers do local XZ=wZ.tiers[iZ];if XZ.availableOnlyInQueue and not table.find(XZ.availableOnlyInQueue,T.queueType)then continue;end;if t({currency='di\97mo\110\100',price=XZ.cost},GZ)then JZ("\65u\u{0074}\z  \u{06F}\66\u{0075}\u{0079}",'Bo\117\103\zht\32'..(wZ.name=='Arm\o\u{0072}'and'\Pr\111t\101\z ction'or wZ.name)..' '..iZ,3);k.Client:Get("R\101q\x75\z e\stP\117\x72\z c\104\za\x73e\84e\x61mUp\grade"):CallServerAsync(eZ);GZ.diamond-=XZ.cost;zZ=true;else break;end;end;return zZ;end;local function eZ(GZ,wZ,zZ)local XZ,iZ=false;GZ=GZ and table.find(wZ,GZ.itemType)and table.find(wZ,GZ.itemType)+1 or math.huge;for BZ=GZ,#wZ do local GZ=k.Shop.getShopItem(wZ[BZ],o);if t(GZ,zZ)then if n.Enabled and k.ItemMeta[wZ[BZ]].breakBlock and BZ>2 then if D.Enabled then local wZ=T.inventory.inventory.armor[2];wZ=wZ and wZ~='e\m\u{70}\z  t\x79'and wZ.itemType or"\u{006E}\on\x65";if(table.find(_,wZ)or 3)<3 then break;end;end;if w.Enabled then if T.tools.sword and(table.find(Y,T.tools.sword.itemType)or 2)<2 then break;end;end;end;XZ=true;iZ=GZ;end;if B.Enabled and GZ.nextTier then break;end;end;if iZ then N(iZ,zZ);end;return XZ;end;e=M.Categories.Inventory:CreateModule({Name='\u{041}uto\ Buy',Function=function(GZ)if GZ then repeat task.wait();until T.queueType~='be\x64war\s\u{005F}\116\u{65}s\116';if W.Enabled and not T.queueType:find("\x62\e\u{064}wars")then return;end;local GZ;e:Clean(G.InventoryAmountChanged.Event:Connect(function()if(E-tick())>1 then E=tick();end;end));repeat local wZ,zZ,XZ,iZ=x();K=iZ;if p.Enabled then if not(k.AppController:isAppOpen("B\z e\100\u{77}a\u{072}s\73t\u{065}\u{06D}S\104o\p\x41\u{70}\112")or k.AppController:isAppOpen('Te\97\109Upgrad\101\u{041}\112\z\x70'))then wZ=nil;end;end;if wZ and GZ~=XZ then if(E-tick())>1 then E=tick();end;GZ=XZ;end;if wZ and E<=tick()and T.matchState~=2 and T.shopLoaded then local K={};local x;for GZ,GZ in m do for m,m in GZ do if m(K,zZ,XZ)then x=true;f=tick();task.wait(R.Value);end;end;end;E=tick()+(x and 0.4 or math.huge);end;task.wait(0.1);until not e.Enabled;else E=tick();end;end,Tooltip="\65\u{075}to\u{006D}at\x69\99al\u{6C}y\32b\117\zy\x73 \it\x65m\115\32\z whe\zn \121\zou \g\z  \111 \110e\x61r the \115\104\z  o\112"});w=e:CreateToggle({Name='Bu\u{079}\32S\u{0077}\z  or\z  \d',Function=function(w)E=tick();v[2]=w and function(w,K)if not K then return;end;if T.equippedKit=='das\he\u{72}'then Y={[1]="\w\u{06F}\z o\100\_d\za\u{6F}",[2]='st\u{06F}n\x65_\100\97\111',[3]="\105\z  r\z \111n_\100\97\111",[4]="dia\x6D\z  o\110\z\100_\x64\z\x61\x6F",[5]="e\x6Der\u{61}\x6Cd_dao"};elseif T.equippedKit=="i\99e\_q\117e\u{65}\110"then Y[5]='\105\99e_s\u{77}\ord';elseif T.equippedKit=="emb\101r"then Y[5]='inf\ze\114n\97\108\z \95\x73\z \x61be\114';elseif T.equippedKit=="\x6C\117m\101\110"then Y[5]='li\103\104\u{0074}_\u{073}\119\111\114d';end;return eZ(T.tools.sword,Y,w);end or nil;end});D=e:CreateToggle({Name="\x42uy \z Ar\109or",Function=function(w)E=tick();v[1]=w and function(w,D)if not D then return;end;local D=T.inventory.inventory.armor[2]~="\x65mp\z  \x74y"and T.inventory.inventory.armor[2]or s(1);D=D and D.itemType or'\x6E\111ne';return eZ({itemType=D},_,w);end or nil;end,Default=true});e:CreateToggle({Name="\66\117y\u{020}\u{041}\u{078}e",Function=function(w)E=tick();v[3]=w and function(w,D)if not D then return;end;return eZ(T.tools.wood or{itemType="n\u{06F}n\x65"},F,w);end or nil;end});e:CreateToggle({Name='\66uy \x50ick\z a\120\z\101',Function=function(w)E=tick();v[4]=w and function(w,D)if not D then return;end;return eZ(T.tools.stone,b,w);end or nil;end});i=e:CreateToggle({Name="B\117\x79\32U\112grad\x65s",Function=function(w)for D,D in U do D.Object.Visible=w;end;end,Default=true});local w=0;for D,i in k.TeamUpgradeMeta do local K=w;table.insert(U,e:CreateToggle({Name='\66uy '..(i.name=="Ar\z m\111r"and'P\x72otect\105o\110'or i.name),Function=function(U)E=tick();v[5+K+(i.name=='Arm\111r'and 20 or 0)]=U and function(U,v,v)if not v then return;end;if i.disabledInQueue and table.find(i.disabledInQueue,T.queueType)then return;end;return rZ(D,U);end or nil;end,Darker=true,Default=(D=="AR\77O\z\u{0052}"or D=='D\u{41}M\x41G\69')}));w+=1;end;B=e:CreateToggle({Name="Ti\er\32C\u{068}\e\z \99\x6B"});W=e:CreateToggle({Name="O\u{006E}\108y\32\z B\x65d\119\97rs",Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end,Default=true});p=e:CreateToggle({Name="GUI\ \chec\107"});n=e:CreateToggle({Name="Sm\u{0061}r\u{074} \99\he\z\u{063}k",Default=true,Tooltip='Buy\z s\32iron\32\97rm\u{6F}\114 \zb\101for\101 \z i\u{072}\z  \x6F\110 axe'});e:CreateTextList({Name="\u{0049}\116\u{0065}\109",Placeholder='p\zr\x69o\u{72}i\u{74}\x79\/it\z\u{065}m\z/amount/a\x66ter',Function=function(w)table.clear(Z);table.clear(A);for D,D in w do local w=D:split("\z  /");local D=tonumber(w[1]);if D then(w[4]and A or Z)[D]=function(D,i)if not i then return;end;local i=k.Shop.getShopItem(w[2],o);if i then local B=h(w[2]=="\u{077}\111o\l_white"and k.Shop.getTeamWool(o:GetAttribute('\84ea\m'))or w[2]);B=(B and tonumber(w[3])-B.amount or tonumber(w[3]))//i.amount;if B>0 and t(i,D,B)then for w=1,B do N(i,D);end;return true;end;end;end;end;end;end});R=e:CreateSlider({Name="D\x65\l\u{061}\121",Min=0,Max=2,Default=0,Suffix=function(e)return e==1 and's\101c'or'\115ecs';end,Decimal=5});end);r(function()local e;local w;local D;local i;local B;local function W(p)if S.isAlive then if D.Enabled and(not p or p=="\u{53}\116a\z  \u{0074}\u{0075}\z  \u{073}Ef\102\101\z \u{0063}\116\95\115p\u{0065}e\u{64}")then local n=h('\u{0073}\zpee\d\95\z  \112oti\u{006F}\z n');if n and(not o.Character:GetAttribute('St\x61t\117\z sE\u{066}f\u{0065}c\x74_\u{0073}\112\101\x65d'))then for R=1,4 do if k.Client:Get(l.ConsumeItem):CallServer({item=n.tool})then break;end;end;end;end;if i.Enabled and(not p or p:find('Heal\z  th'))then if(o.Character:GetAttribute("\72\u{0065}\z  al\u{0074}h")/o.Character:GetAttribute('\z  \77ax\z Healt\z \x68'))<=(w.Value/100)then local n=h("orange")or(not o.Character:GetAttribute('\x53t\z \97\z \116\117sEffec\z\116_\g\ol\u{064}\x65n_a\u{070}p\108\e')and h('\u{067}\x6Fl\z\u{0064}\x65\110_ap\z  \112le'))or h('ap\u{0070}\108e');if n then k.Client:Get(l.ConsumeItem):CallServerAsync({item=n.tool});end;end;end;if B.Enabled and(not p or p:find('Sh\105\101ld'))then if(o.Character:GetAttribute("\Sh\105eld\95P\u{4F}\z \x54I\79\x4E")or 0)==0 then local p=h('bi\g\z  _\115h\ield')or h("\109\u{069}n\105_shie\108d");if p then k.Client:Get(l.ConsumeItem):CallServerAsync({item=p.tool});end;end;end;end;end;e=M.Categories.Inventory:CreateModule({Name="Aut\u{06F} \u{0043}o\x6Esume",Function=function(p)if p then e:Clean(G.InventoryAmountChanged.Event:Connect(W));e:Clean(G.AttributeChanged.Event:Connect(function(p)if p:find("\zSh\iel\z\d")or p:find("H\101\97\z  lt\u{068}")or p=='\x53tatusEff\u{65}c\116_\z spee\x64'then W(p);end;end));W();end;end,Tooltip='\65\x75tom\97t\x69c\zal\108y heal\zs \u{66}or\u{020}\yo\117 \119\z\u{068}\u{0065}n heal\x74h\u{20}o\114\32sh\z  i\x65\ld\u{0020}i\115 \zu\z \110d\x65r\x20\116\104re\x73ho\108\z  \100\.'});w=e:CreateSlider({Name="\72\u{65}a\x6C\116\z h \80\u{0065}r\ce\110t",Min=1,Max=99,Default=70,Suffix="%"});D=e:CreateToggle({Name="Spe\e\u{064}\x20\80\z  oti\x6Fns",Default=true});i=e:CreateToggle({Name='\z  App\108\101',Default=true});B=e:CreateToggle({Name='\z\x53\x68\105\u{0065}\u{06C}d \80\u{06F}t\i\on\x73',Default=true});end);r(function()local e;local w;local D;local i;local B;local function W(p)local n=1;local R=Instance.new("\u{46}\114am\101");R.Name='\u{0048}otba\114GUI';R.Size=UDim2.fromOffset(660,465);R.Position=UDim2.fromScale(0.5,0.5);R.BackgroundColor3=a.Main;R.AnchorPoint=Vector2.new(0.5,0.5);R.Visible=false;R.Parent=M.gui.ScaledGui;local Z=Instance.new("\z  \Te\u{078}\u{074}\u{04C}ab\101\zl");Z.Name="\u{054}\105t\x6C\z e";Z.Size=UDim2.new(1,-10.0,0,20);Z.Position=UDim2.fromOffset(math.abs(Z.Size.X.Offset),12);Z.BackgroundTransparency=1;Z.Text='\65utoHo\x74bar';Z.TextXAlignment=Enum.TextXAlignment.Left;Z.TextColor3=a.Text;Z.TextSize=13;Z.FontFace=a.Font;Z.Parent=R;local Z=Instance.new('F\114a\u{06D}\e');Z.Name='\x44\z iv\x69der';Z.Size=UDim2.new(1,0,0,1);Z.Position=UDim2.fromOffset(0,40);Z.BackgroundColor3=O.Light(a.Main,0.04);Z.BorderSizePixel=0;Z.Parent=R;y(R);local Z=Instance.new("Text\66u\116ton");Z.Text="";Z.BackgroundTransparency=1;Z.Modal=true;Z.Parent=R;local Z=Instance.new('U\ICorner');Z.CornerRadius=UDim.new(0,5);Z.Parent=R;local Z=Instance.new('I\109\za\x67e\B\zutton');Z.Name='\z  C\108\111\115\x65';Z.Size=UDim2.fromOffset(24,24);Z.Position=UDim2.new(1,-35.0,0,9);Z.BackgroundColor3=Color3.new(1,1,1);Z.BackgroundTransparency=1;Z.Image=H("\zc\x61t\114\101write\47as\s\u{65}ts/n\z \u{65}w\z\u{002F}clo\x73\z  e.pn\z  \u{067}");Z.ImageColor3=O.Light(a.Text,0.2);Z.ImageTransparency=0.5;Z.AutoButtonColor=false;Z.Parent=R;Z.MouseEnter:Connect(function()Z.ImageTransparency=0.3;C:Tween(Z,TweenInfo.new(0.2),{BackgroundTransparency=0.6});end);Z.MouseLeave:Connect(function()Z.ImageTransparency=0.5;C:Tween(Z,TweenInfo.new(0.2),{BackgroundTransparency=1});end);Z.MouseButton1Click:Connect(function()R.Visible=false;M.gui.ScaledGui.ClickGui.Visible=true;end);local A=Instance.new("\u{0055}ICo\114n\z  \101\114");A.CornerRadius=UDim.new(1,0);A.Parent=Z;local Z=Instance.new('Fra\z  \109e');Z.Size=UDim2.fromOffset(110,111);Z.Position=UDim2.fromOffset(11,71);Z.BackgroundColor3=O.Dark(a.Main,0.02);Z.Parent=R;local A=Instance.new('UI\67\111r\110\101\114');A.CornerRadius=UDim.new(0,4);A.Parent=Z;local A=Instance.new('UISt\u{072}\z  \111k\z\101');A.Color=O.Light(a.Main,0.034);A.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;A.Parent=Z;local Z=Instance.new('\z \Text\76a\98e\108');Z.Size=UDim2.fromOffset(80,20);Z.Position=UDim2.fromOffset(25,200);Z.BackgroundTransparency=1;Z.Text='SLOT\x201';Z.TextColor3=O.Dark(a.Text,0.1);Z.TextSize=12;Z.FontFace=a.Font;Z.Parent=R;for A=1,9 do local U=Instance.new('Te\x78\116\z  Bu\x74t\111\110');U.Name='\u{053}l\111\z\116'..A;U.Size=UDim2.fromOffset(51,52);U.Position=UDim2.fromOffset(89+(A*55),382);U.BackgroundColor3=O.Dark(a.Main,0.02);U.Text="";U.AutoButtonColor=false;U.Parent=R;local v=Instance.new('\I\z  m\u{0061}\g\101La\x62\z e\108');v.Size=UDim2.fromOffset(32,32);v.Position=UDim2.new(0.5,-16.0,0.5,-16.0);v.BackgroundTransparency=1;v.Image='';v.Parent=U;local v=Instance.new('\z U\u{049}\67\x6Frner');v.CornerRadius=UDim.new(0,4);v.Parent=U;local v=Instance.new("UIStr\u{6F}k\u{0065}");v.Color=O.Light(a.Main,0.04);v.Thickness=2;v.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;v.Enabled=A==n;v.Parent=U;U.MouseEnter:Connect(function()U.BackgroundColor3=O.Light(a.Main,0.034);end);U.MouseLeave:Connect(function()U.BackgroundColor3=O.Dark(a.Main,0.02);end);U.MouseButton1Click:Connect(function()R["Sl\111t"..n].UIStroke.Enabled=false;n=A;v.Enabled=true;Z.Text="SL\OT\u{20}"..n;end);U.MouseButton2Click:Connect(function()local Z=p.Hotbars[p.Selected];if Z then R['\z S\z\u{6C}ot'..A].ImageLabel.Image='';Z.Hotbar[tostring(A)]=nil;Z.Object["Sl\111\116"..A].Image="\t";end;end);end;local Z=Instance.new('\70r\z ame');Z.Size=UDim2.fromOffset(496,31);Z.Position=UDim2.fromOffset(142,80);Z.BackgroundColor3=O.Light(a.Main,0.034);Z.Parent=R;local A=Instance.new('T\z  \101xt\66\111x');A.Size=UDim2.new(1,-10.0,0,31);A.Position=UDim2.fromOffset(10,0);A.BackgroundTransparency=1;A.Text='';A.PlaceholderText="";A.TextXAlignment=Enum.TextXAlignment.Left;A.TextColor3=a.Text;A.TextSize=12;A.FontFace=a.Font;A.ClearTextOnFocus=false;A.Parent=Z;local U=Instance.new("\u{0055}\u{049}C\z  o\x72ne\x72");U.CornerRadius=UDim.new(0,4);U.Parent=Z;local U=Instance.new('Im\u{0061}\103\x65\u{004C}abe\u{6C}');U.Size=UDim2.fromOffset(14,14);U.Position=UDim2.new(1,-26.0,0,8);U.BackgroundTransparency=1;U.Image=H("\c\97\116rew\114i\116e/asse\z  \x74s/n\101w/\z \115\101ar\zch.pn\z\x67");U.ImageColor3=O.Light(a.Main,0.37);U.Parent=Z;local Z=Instance.new('S\99r\u{006F}\u{6C}\z  lingFr\97me');Z.Name="\z  Ch\u{0069}ldr\101\110";Z.Size=UDim2.fromOffset(500,240);Z.Position=UDim2.fromOffset(144,122);Z.BackgroundTransparency=1;Z.BorderSizePixel=0;Z.ScrollBarThickness=2;Z.ScrollBarImageTransparency=0.75;Z.CanvasSize=UDim2.new();Z.Parent=R;local U=Instance.new("U\u{0049}Grid\zLa\121\ou\116");U.SortOrder=Enum.SortOrder.LayoutOrder;U.FillDirectionMaxCells=9;U.CellSize=UDim2.fromOffset(51,52);U.CellPadding=UDim2.fromOffset(4,3);U.Parent=Z;U:GetPropertyChangedSignal("\65b\z  \115\111l\x75teC\zon\u{74}\en\z t\83iz\101"):Connect(function()if M.ThreadFix then setthreadidentity(8);end;Z.CanvasSize=UDim2.fromOffset(0,U.AbsoluteContentSize.Y/M.guiscale.Scale);end);table.insert(M.Windows,R);local function U(v,K)local m=Instance.new("T\101\u{78}t\zBu\116\116\111n");m.BackgroundColor3=O.Light(a.Main,0.02);m.Text='';m.AutoButtonColor=false;m.Parent=Z;local E=Instance.new("\x49mag\x65\76abe\x6C");E.Size=UDim2.fromOffset(32,32);E.Position=UDim2.new(0.5,-16.0,0.5,-16.0);E.BackgroundTransparency=1;E.Image=K;E.Parent=m;local E=Instance.new('\zU\ICo\zrne\114');E.CornerRadius=UDim.new(0,4);E.Parent=m;m.MouseEnter:Connect(function()m.BackgroundColor3=O.Light(a.Main,0.04);end);m.MouseLeave:Connect(function()m.BackgroundColor3=O.Light(a.Main,0.02);end);m.MouseButton1Click:Connect(function()local m=p.Hotbars[p.Selected];if m then R['\x53\x6Co\x74'..n].ImageLabel.Image=K;m.Hotbar[tostring(n)]=v;m.Object['Sl\o\116'..n].Image=K;end;end);end;local function p(n)for v,v in Z:GetChildren()do if v:IsA("T\101xt\66\z\117t\u{0074}on")then v:ClearAllChildren();v:Destroy();end;end;if n==""then for Z,Z in{"dia\m\111\z  n\d\x5F\u{73}\z  w\u{6F}rd",'\u{0064}iam\111nd_pic\x6Baxe','\dia\109o\x6E\x64\x5F\97x\101','shea\114\115',"wo\od\_\98ow","\zwo\u{006F}\l\u{05F}wh\x69te",'\z  fi\x72eb\97l\u{6C}','apple','ir\z \x6F\z n','\z  g\z  \u{006F}\108d','d\i\97\z m\ond',"eme\z \114\97\x6C\u{64}"}do U(Z,k.ItemMeta[Z].image);end;return;end;for Z,v in k.ItemMeta do if n:lower()==Z:lower():sub(1,n:len())then if not v.image then continue;end;U(Z,v.image);end;end;end;A:GetPropertyChangedSignal('\84ext'):Connect(function()p(A.Text);end);p('');return R;end;M.Components.HotbarList=function(p,n,R)if M.ThreadFix then setthreadidentity(8);end;local Z={Type='\x48o\x74\x62ar\u{04C}i\x73\z t',Hotbars={},Selected=1};local A=Instance.new('Tex\116Bu\z\u{74}\116\on');A.Name='Hotbar\x4Cist';A.Size=UDim2.fromOffset(220,40);A.BackgroundColor3=p.Darker and(n.BackgroundColor3==O.Dark(a.Main,0.02)and O.Dark(a.Main,0.04)or O.Dark(a.Main,0.02))or n.BackgroundColor3;A.Text='';A.BorderSizePixel=0;A.AutoButtonColor=false;A.Parent=n;local p=Instance.new("F\114a\109\101");p.Name='\66KG';p.Size=UDim2.new(1,-20.0,0,31);p.Position=UDim2.fromOffset(10,4);p.BackgroundColor3=O.Light(a.Main,0.034);p.Parent=A;local n=Instance.new("UI\z  \67\zo\x72n\x65r");n.CornerRadius=UDim.new(0,4);n.Parent=p;local n=Instance.new('T\101\x78tB\117\116to\110');n.Name="\Ho\z tb\97r\76\u{0069}s\u{074}";n.Size=UDim2.new(1,-2.0,1,-2.0);n.Position=UDim2.fromOffset(1,1);n.BackgroundColor3=a.Main;n.Text="";n.AutoButtonColor=false;n.Parent=p;n.MouseEnter:Connect(function()C:Tween(p,TweenInfo.new(0.2),{BackgroundColor3=O.Light(a.Main,0.14)});end);n.MouseLeave:Connect(function()C:Tween(p,TweenInfo.new(0.2),{BackgroundColor3=O.Light(a.Main,0.034)});end);local p=Instance.new("\85I\67\111rne\114");p.CornerRadius=UDim.new(0,4);p.Parent=n;local p=Instance.new('\z \73\u{6D}ag\101La\98e\z\108');p.Size=UDim2.fromOffset(12,12);p.Position=UDim2.fromScale(0.5,0.5);p.AnchorPoint=Vector2.new(0.5,0.5);p.BackgroundTransparency=1;p.Image=H('\u{063}\z  atr\101writ\101\u{002F}\x61\zsset\z  s\z/\zn\101\zw/add.pn\x67');p.ImageColor3=Color3.fromHSV(0.46,0.96,0.52);p.Parent=n;local p=Instance.new("Fr\x61m\101");p.Size=UDim2.new(1,0,1,-40.0);p.Position=UDim2.fromOffset(0,40);p.BackgroundTransparency=1;p.Parent=A;local U=Instance.new('\u{055}IL\105st\x4C\x61\u{079}ou\u{074}');U.SortOrder=Enum.SortOrder.LayoutOrder;U.HorizontalAlignment=Enum.HorizontalAlignment.Center;U.Padding=UDim.new(0,3);U.Parent=p;U:GetPropertyChangedSignal("A\98solut\z  \101\C\z  onte\x6EtS\x69ze"):Connect(function()if M.ThreadFix then setthreadidentity(8);end;A.Size=UDim2.fromOffset(220,math.min(43+U.AbsoluteContentSize.Y/M.guiscale.Scale,603));end);n.MouseButton1Click:Connect(function()Z:AddHotbar();end);Z.Window=W(Z);function Z:Save(W)local n={};for A,A in self.Hotbars do table.insert(n,A.Hotbar);end;W.HotbarList={Selected=self.Selected,Hotbars=n};end;function Z:Load(W)for n,n in self.Hotbars do n.Object:ClearAllChildren();n.Object:Destroy();table.clear(n.Hotbar);end;table.clear(self.Hotbars);for n,n in W.Hotbars do self:AddHotbar(n);end;self.Selected=W.Selected or 1;end;function Z:AddHotbar(W)local n={Hotbar=W or{}};table.insert(self.Hotbars,n);local W=Instance.new('\84ext\B\117tt\u{06F}\u{06E}');W.Size=UDim2.fromOffset(200,27);W.BackgroundColor3=table.find(self.Hotbars,n)==self.Selected and O.Light(a.Main,0.034)or a.Main;W.Text="";W.AutoButtonColor=false;W.Parent=p;n.Object=W;local p=Instance.new('U\x49Co\zr\110\101\z \u{072}');p.CornerRadius=UDim.new(0,4);p.Parent=W;for p=1,9 do local A=Instance.new('Im\u{61}\z \u{67}e\76\97b\z\101\108');A.Name="\83\108o\116"..p;A.Size=UDim2.fromOffset(17,18);A.Position=UDim2.fromOffset(-7.0+(p*18),5);A.BackgroundColor3=O.Dark(a.Main,0.02);A.Image=n.Hotbar[tostring(p)]and k.getIcon({itemType=n.Hotbar[tostring(p)]},true)or"";A.BorderSizePixel=0;A.Parent=W;end;W.MouseButton1Click:Connect(function()local p=table.find(Z.Hotbars,n);if p==Z.Selected then M.gui.ScaledGui.ClickGui.Visible=false;Z.Window.Visible=true;for A=1,9 do Z.Window['\83lo\z \116'..A].ImageLabel.Image=n.Hotbar[tostring(A)]and k.getIcon({itemType=n.Hotbar[tostring(A)]},true)or'';end;else if Z.Hotbars[Z.Selected]then Z.Hotbars[Z.Selected].Object.BackgroundColor3=a.Main;end;W.BackgroundColor3=O.Light(a.Main,0.034);Z.Selected=p;end;end);local p=Instance.new("Imag\x65\u{0042}ut\x74\z \u{6F}n");p.Name='C\x6C\x6Fs\x65';p.Size=UDim2.fromOffset(16,16);p.Position=UDim2.new(1,-23.0,0,6);p.BackgroundColor3=Color3.new(1,1,1);p.BackgroundTransparency=1;p.Image=H('catrewrit\z  \101\/\x61\115\115e\z\u{0074}s\47\z ne\zw/\u{0063}\x6Cosem\105\u{6E}\105.p\z\u{6E}g');p.ImageColor3=O.Light(a.Text,0.2);p.ImageTransparency=0.5;p.AutoButtonColor=false;p.Parent=W;local W=Instance.new('\z  \u{55}I\Cor\u{06E}\er');W.CornerRadius=UDim.new(1,0);W.Parent=p;p.MouseEnter:Connect(function()p.ImageTransparency=0.3;C:Tween(p,TweenInfo.new(0.2),{BackgroundTransparency=0.6});end);p.MouseLeave:Connect(function()p.ImageTransparency=0.5;C:Tween(p,TweenInfo.new(0.2),{BackgroundTransparency=1});end);p.MouseButton1Click:Connect(function()local W=table.find(self.Hotbars,n);local p=self.Hotbars[self.Selected];local n=self.Hotbars[W];if p and n then n.Object:ClearAllChildren();n.Object:Destroy();table.remove(self.Hotbars,W);W=table.find(self.Hotbars,p);self.Selected=table.find(self.Hotbars,p)or 1;end;end);end;R.Options.HotbarList=Z;return Z;end;local function W()local p=table.clone(T.inventory.inventory.items);table.sort(p,function(n,R)return n.amount<R.amount;end);for n,n in p do local p=k.ItemMeta[n.itemType].block;if p and not p.seeThrough then return n;end;end;end;local function p(n)if n=='d\105a\x6D\u{6F}nd_sw\111\u{0072}\u{0064}'then local R=T.tools.sword;n=R and R.itemType or"woo\100_\z  \sw\z  ord";elseif n=="d\u{0069}am\111\110d\_\112ic\x6Bax\z e"then local R=T.tools.stone;n=R and R.itemType or"\x77\z o\111\u{64}_\x70\x69c\107\za\z \x78\u{065}";elseif n=='\diam\111n\d\z \x5Fax\x65'then local R=T.tools.wood;n=R and R.itemType or'\u{077}ood_\97\x78e';elseif n=="\wood_b\o\119"then local R=P();n=R and R.itemType or'w\111o\u{064}_\98o\z  \u{77}';elseif n=='\119\x6F\x6F\z\108\x5F\z wh\x69\116\101'then local R=W();n=R and R.itemType or'\w\111\z\x6Fl_\white';end;return n;end;local function W(n,R)for C,Z in n do if R.itemType==p(Z)then return tonumber(C);end;end;end;local function p(n)for R,C in T.inventory.hotbar do if C.item and C.item.itemType==n.itemType then return R-1,C.item;end;end;end;local function n(R)for C,C in T.inventory.inventory.items do if C.itemType==R.itemType then return C;end;end;end;local function R(...)k.Store:dispatch(...);G.InventoryChanged.Event:Wait();end;local function C()if B then return;end;B=true;local Z=(i.Hotbars[i.Selected]and i.Hotbars[i.Selected].Hotbar or{});for A,A in T.inventory.inventory.items do local U=W(Z,A);if U then local W=T.inventory.hotbar[U];if W.item and W.item.itemType==A.itemType then continue;end;if W.item then R({type="I\x6Ev\101n\u{074}\u{6F}ryRe\x6DoveF\u{072}\111m\u{48}ot\98\u{0061}r",slot=U-1});end;local Z=p(A);if Z then R({type="\u{49}nvent\u{006F}ry\u{052}e\109\111\118\101\u{046}ro\x6DH\111\z \116\98ar",slot=Z});if W.item then R({type='Inv\101\110\u{0074}\111r\u{079}A\u{64}\100ToHotba\114',item=n(W.item),slot=Z});end;end;R({type="\x49\u{6E}\118en\u{074}\111\114\121\65d\x64\zTo\72otbar",item=n(A),slot=U-1});elseif D.Enabled then local W=p(A);if W then R({type='\73nve\zn\z t\u{006F}\z\114y\z  \82e\z  \x6D\u{6F}ve\70\114omH\otb\97r',slot=W});end;end;end;B=false;end;e=M.Categories.Inventory:CreateModule({Name='\65\z u\116o\x20\72o\116ba\114',Function=function(B)if B then task.spawn(C);if w.Value=='\O\u{6E}\u{20}\x4B\u{0065}\121'then e:Toggle();return;end;e:Clean(G.InventoryAmountChanged.Event:Connect(C));end;end,Tooltip="\x41\117\116\u{6F}ma\x74\105ca\z  l\108\121\32arr\u{61}\110\u{067}es h\x6Ftbar\ t\o \x79\u{006F}\117r \z  \108\105\107\105ng\46"});w=e:CreateDropdown({Name="Act\x69v\97ti\111\u{6E}",List={"Togg\u{6C}\x65","On\32Key"},Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end});D=e:CreateToggle({Name='\C\108ear \72\ot\x62\z  ar'});i=e:CreateHotbarList({});end);r(function()local e;local w,D;local i=M.Categories.Inventory:CreateModule({Name='Fa\u{073}t\32Co\110\s\z  \117me',Function=function(B)if B then w=k.ClickHold.startClick;D=k.ClickHold.showProgress;k.ClickHold.startClick=function(B)B.startedClickTime=tick();local W=B:showProgress();local p=B.startedClickTime;k.RuntimeLib.Promise.defer(function()task.wait(B.durationSeconds*(e.Value/40));if W==B.handle and p==B.startedClickTime and B.closeOnComplete then B:hideProgress();if B.onComplete then B.onComplete();end;if B.onPartialComplete then B.onPartialComplete(1);end;B.startedClickTime=-1.0;end;end);end;if DZ then k.ClickHold.showProgress=function(B)local W=debug.getupvalue(D,1);local p=W.mount(W.createElement("\Sc\zr\101\101\z  \u{6E}Gu\zi",{},{W.createElement("F\u{72}a\109e",{[W.Ref]=B.wrapperRef,Size=UDim2.new(),Position=UDim2.fromScale(0.5,0.55),AnchorPoint=Vector2.new(0.5,0),BackgroundColor3=Color3.fromRGB(0,0,0),BackgroundTransparency=0.8},{W.createElement("F\z\u{072}\z a\zm\z  \x65",{[W.Ref]=B.progressRef,Size=UDim2.fromScale(0,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.5})})}),o:FindFirstChild("P\u{006C}\97\u{0079}\e\x72\x47\x75\u{069}"));B.handle=p;local W=X:Create(B.wrapperRef:getValue(),TweenInfo.new(0.1),{Size=UDim2.fromScale(0.11,0.005)});local n=X:Create(B.progressRef:getValue(),TweenInfo.new(B.durationSeconds*(e.Value/100),Enum.EasingStyle.Linear),{Size=UDim2.fromScale(1,1)});W:Play();n:Play();table.insert(B.tweens,n);table.insert(B.tweens,W);return p;end;end;else k.ClickHold.startClick=w;k.ClickHold.showProgress=D;w=nil;D=nil;end;end,Tooltip='Use\47\z  \67\o\x6Esu\z m\e i\116\z \u{65}m\115\32\z q\z\x75\u{069}cker.'});e=i:CreateSlider({Name="M\117l\116ip\x6Ci\u{0065}\114",Min=0,Max=100});end);r(function()local e;e=M.Categories.Inventory:CreateModule({Name='Fast\u{20}D\z  r\111\z\x70',Function=function(w)if w then repeat if S.isAlive and(not T.inventory.opened)and(J:IsKeyDown(Enum.KeyCode.H)or J:IsKeyDown(Enum.KeyCode.Backspace))and J:GetFocusedTextBox()==nil then task.spawn(k.ItemDropController.dropItemInHand);task.wait();else task.wait(0.1);end;until not e.Enabled;end;end,Tooltip="D\x72\111p\x73\ \i\z  te\x6D\u{073} fa\u{73}\z \u{074} whe\x6E y\111u ho\x6Cd\ Q"});end);r(function()local e;local w;local D={};local J={};local i=Instance.new('\70\z \111\108der');i.Parent=M.gui;local function B(W,p,n)for R,R in d do for C=1,15 do local Z=Q(p+(R*C));if not Z or Z==W then break;end;if not Z:GetAttribute('N\x6FBre\x61\107')and not table.find(n,Z.Name)then table.insert(n,Z.Name);end;end;end;end;local function W(p)for n,n in p.Frame:GetChildren()do if n:IsA("Im\97\u{067}eLabel")and n.Name~="Blu\z  r"then n:Destroy();end;end;local n=p.Adornee.Position;local R={};B(p.Adornee,n,R);B(p.Adornee,n+Vector3.new(0,0,3),R);table.sort(R,function(B,n)return(k.ItemMeta[B].block and k.ItemMeta[B].block.health or 0)>(k.ItemMeta[n].block and k.ItemMeta[n].block.health or 0);end);p.Enabled=#R>0;for B,B in R do local n=Instance.new("Ima\x67e\u{04C}abe\108");n.Size=UDim2.fromOffset(29,29);n.BackgroundTransparency=1;n.Image=k.getIcon({itemType=B},true);n.Parent=p.Frame;end;end;local function B(p)local n=Instance.new("B\105\z  \x6C\u{06C}b\111a\z \114d\z Gu\x69");n.Parent=i;n.Name='\98e\z  \u{64}';n.StudsOffsetWorldSpace=Vector3.new(0,3,0);n.Size=UDim2.fromOffset(36,36);n.AlwaysOnTop=true;n.ClipsDescendants=false;n.Adornee=p;local R=y(n);R.Visible=w.Enabled;local R=Instance.new("Fram\101");R.Size=UDim2.fromScale(1,1);R.BackgroundColor3=Color3.fromHSV(D.Hue,D.Sat,D.Value);R.BackgroundTransparency=1-(w.Enabled and D.Opacity or 0);R.Parent=n;local C=Instance.new('\85IL\u{0069}\z  \u{073}t\x4C\97\x79\111\117\116');C.FillDirection=Enum.FillDirection.Horizontal;C.Padding=UDim.new(0,4);C.VerticalAlignment=Enum.VerticalAlignment.Center;C.HorizontalAlignment=Enum.HorizontalAlignment.Center;C:GetPropertyChangedSignal('Abso\zlu\u{074}e\67o\u{6E}t\e\110\u{074}S\105z\u{65}'):Connect(function()n.Size=UDim2.fromOffset(math.max(C.AbsoluteContentSize.X+4,36),36);end);C.Parent=R;local C=Instance.new("U\73\zC\or\110er");C.CornerRadius=UDim.new(0,6);C.Parent=R;J[p]=n;W(n);end;local function p(n)n=n.blockRef.blockPosition*3;for R,C in J do if(n-R.Position).Magnitude<=30 then W(C);end;end;end;e=M.Categories.Minigames:CreateModule({Name="B\101\u{064}\ \80lat\u{65}s",Function=function(W)if W then for W,W in L:GetTagged('\u{62}\101d')do task.spawn(B,W);end;e:Clean(G.PlaceBlockEvent.Event:Connect(p));e:Clean(G.BreakBlockEvent.Event:Connect(p));e:Clean(L:GetInstanceAddedSignal("\98\101\100"):Connect(B));e:Clean(L:GetInstanceRemovedSignal("\u{062}e\100"):Connect(function(B)if J[B]then J[B]:Destroy();J[B]:ClearAllChildren();J[B]=nil;end;end));else table.clear(J);i:ClearAllChildren();end;end,Tooltip='Di\115pl\97\u{079}\115 \zbloc\x6Bs \111v\101\114\ t\104e\32\x62\u{065}\d'});w=e:CreateToggle({Name="\x42\za\x63\x6B\103\114\111\z  u\110\zd",Function=function(w)if D.Object then D.Object.Visible=w;end;for i,i in J do i.Frame.BackgroundTransparency=1-(w and D.Opacity or 0);i.Blur.Visible=w;end;end,Default=true});D=e:CreateColorSlider({Name="\x42ack\u{067}\z  ro\117\110d\32Co\108\or",DefaultValue=0,DefaultOpacity=0.5,Function=function(e,w,D,i)for B,B in J do B.Frame.BackgroundColor3=Color3.fromHSV(e,w,D);B.Frame.BackgroundTransparency=1-i;end;end,Darker=true});end);r(function()local e;local w;local D;local J;local i;local B;local L;local W;local p;local n;local R;local C;local Z;local A={};local U;local v;local K;local m;local E,f={},{};local function l(d,y,Y,s,P,h)pcall(function()if h:GetAttribute("\z N\u{06F}Hea\u{006C}\116\x68ba\114")then return;end;if not d.healthbarPart or not d.healthbarBlockRef or d.healthbarBlockRef.blockPosition~=y.blockPosition then d.healthbarMaid:DoCleaning();d.healthbarBlockRef=y;local _=k.Roact.createElement;local F=math.clamp(Y/s,0,1);local b=true;local x=Instance.new('Par\116');x.Size=Vector3.one;x.CFrame=CFrame.new(k.BlockController:getWorldPosition(y.blockPosition));x.Transparency=1;x.Anchored=true;x.CanCollide=false;x.Parent=workspace;d.healthbarPart=x;k.QueryUtil:setQueryIgnored(d.healthbarPart,true);local y=k.Roact.mount(_('\66\x69\108\zlbo\97r\x64Gu\i',{Size=UDim2.fromOffset(249,102),StudsOffset=Vector3.new(0,2.5,0),Adornee=x,MaxDistance=40,AlwaysOnTop=true},{_("Fram\101",{Size=UDim2.fromOffset(160,50),Position=UDim2.fromOffset(44,32),BackgroundColor3=Color3.new(),BackgroundTransparency=0.5},{_("UI\67o\x72\z  ner",{CornerRadius=UDim.new(0,5)}),_('\zIma\103\eL\u{61}\98e\u{6C}',{Size=UDim2.new(1,89,1,52),Position=UDim2.fromOffset(-48.0,-31.0),BackgroundTransparency=1,Image=H("\99at\u{72}\x65\w\zrite/asse\116s\u{2F}new\47\98\x6C\z  \117r\46p\zng"),ScaleType=Enum.ScaleType.Slice,SliceCenter=Rect.new(52,31,261,502)}),_("\84e\120\116L\u{0061}\98\z  e\u{06C}",{Size=UDim2.fromOffset(145,14),Position=UDim2.fromOffset(13,12),BackgroundTransparency=1,Text=k.ItemMeta[h.Name].displayName or h.Name,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextColor3=Color3.new(),TextScaled=true,Font=Enum.Font.Arial}),_("\z  \84ext\z  \u{04C}abe\z  l",{Size=UDim2.fromOffset(145,14),Position=UDim2.fromOffset(12,11),BackgroundTransparency=1,Text=k.ItemMeta[h.Name].displayName or h.Name,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextColor3=O.Dark(a.Text,0.16),TextScaled=true,Font=Enum.Font.Arial}),_("F\x72\z  \97\z  m\z \x65",{Size=UDim2.fromOffset(138,4),Position=UDim2.fromOffset(12,32),BackgroundColor3=a.Main},{_('\u{055}\x49\z  \u{043}\x6F\114\u{06E}\zer',{CornerRadius=UDim.new(1,0)}),_('Fra\u{06D}\z \e',{[k.Roact.Ref]=d.healthbarProgressRef,Size=UDim2.fromScale(F,1),BackgroundColor3=Color3.fromHSV(math.clamp(F/2.5,0,1),0.89,0.75)},{_('UICor\x6E\x65r',{CornerRadius=UDim.new(1,0)})})})})}),x);d.healthbarMaid:GiveTask(function()b=false;d.healthbarBlockRef=nil;k.Roact.unmount(y);if d.healthbarPart then d.healthbarPart:Destroy();end;d.healthbarPart=nil;end);k.RuntimeLib.Promise.delay(5):andThen(function()if b then d.healthbarMaid:DoCleaning();end;end);end;local a=math.clamp((Y-P)/s,0,1);X:Create(d.healthbarProgressRef:getValue(),TweenInfo.new(0.3),{Size=UDim2.fromScale(a,1),BackgroundColor3=Color3.fromHSV(math.clamp(a/2.5,0,1),0.89,0.75)}):Play();end);end;local a=0;local O=nil;local function H(d,y)if not d then return;end;table.sort(d,function(Y,s)return(Y.Position-y).Magnitude>=(s.Position-y).Magnitude;end);for Y,Y in d do if(Y.Position-y).Magnitude<i.Value and k.BlockController:isBlockBreakable({blockPosition=Y.Position/3},o)then if not v.Enabled and Y:GetAttribute('PlacedB\121UserId')==o.UserId then continue;end;if(Y:GetAttribute("B\u{0065}\x64Shi\u{0065}ld\69\x6E\u{064}\Ti\109\u{65}")or 0)>workspace:GetServerTimeNow()then continue;end;if m.Enabled and not(T.hand.tool and k.ItemMeta[T.hand.tool.Name].breakBlock)then continue;end;a+=1;local a,d,y=k.breakBlock(Y,Z.Enabled,U.Enabled,A.Enabled and l or nil,R.Enabled,K.Enabled,B.Enabled);if d then local l=a;if l then O=l;end;for Y,Y in f do Y.Position=l or Vector3.zero;if l then Y.BoxHandleAdornment.Color3=l==y and Color3.new(1,0.2,0.2)or l==a and Color3.new(0.2,0.2,1)or Color3.new(0.2,1,0.2);end;l=d[l];end;end;task.wait(w.Value);O=nil;return true;end;end;return false;end;e=M.Categories.Minigames:CreateModule({Name='\66\x72eak\zer',Function=function(a)if a then for a=1,30 do local a=Instance.new('Part');a.Anchored=true;a.CanQuery=false;a.CanCollide=false;a.Transparency=1;a.Parent=I;local l=Instance.new('\u{42}\111x\72\97\110dl\zeA\100\111\114\z  \110me\zn\u{74}');l.Size=Vector3.one;l.AlwaysOnTop=true;l.ZIndex=1;l.Transparency=0.5;l.Adornee=a;l.Parent=a;table.insert(f,a);end;local a=j("\x62\101\z  d",e);local l=j("L\u{075}\x63k\u{79}B\lo\z  ck",e);local d=j("i\zron\95\111re\x5Fm\es\x68\95\x62l\111\x63k",e);E=j('\98\z  lo\c\x6B',e,function(y,Y)if table.find(W.ListEnabled,Y.Name)then table.insert(y,Y);end;end);e:Clean(z.PreSimulation:Connect(function(z)if D.Enabled and O then I.CFrame=I.CFrame:Lerp(CFrame.lookAt(I.CFrame.p,O),J.Value*z);end;end));repeat task.wait(1/L.Value);if not e.Enabled then break;end;if S.isAlive then local z=S.character.RootPart.Position;if H(p.Enabled and a,z)then continue;end;if H(E,z)then continue;end;if H(n.Enabled and l,z)then continue;end;if H(C.Enabled and d,z)then continue;end;for z,z in f do z.Position=Vector3.zero;end;end;until not e.Enabled;else for z,z in f do z:ClearAllChildren();z:Destroy();end;table.clear(f);end;end,Tooltip='B\u{72}\101ak\u{020}b\u{6C}o\z \99\x6B\115\u{20}\z ar\u{06F}u\u{06E}\u{64}\x20\121\u{06F}\117 \u{0061}u\z t\z  \u{06F}\z m\x61\u{74}ica\x6C\z \108\x79'});i=e:CreateSlider({Name="Br\u{065}\z  ak\32\zra\u{06E}g\101",Min=1,Max=30,Default=30,Suffix=function(z)return z==1 and'\x73tu\100'or'\115tud\u{073}';end});w=e:CreateSlider({Name='\u{0042}\114eak D\u{065}lay',Min=0,Max=0.3,Default=0.25,Decimal=100,Suffix=function(w)return'\x73';end});J=e:CreateSlider({Name="Aim S\z p\x65\u{65}\u{064}",Min=1,Max=20,Default=20});J.Object.Visible=false;L=e:CreateSlider({Name='Upd\97t\e\x20\u{72}\u{061}\u{074}\101',Min=1,Max=120,Default=60,Suffix='hz'});W=e:CreateTextList({Name="C\117\st\u{06F}\z  m",Function=function()if not E then return;end;table.clear(E);for w,w in T.blocks do if table.find(W.ListEnabled,w.Name)then table.insert(E,w);end;end;end});p=e:CreateToggle({Name='B\114\e\97k Be\u{0064}',Default=true});D=e:CreateToggle({Name='A\117\116o \65\z \x69\m',Function=function(w)J.Object.Visible=w;end});n=e:CreateToggle({Name="Br\101ak \z L\u{075}\c\x6B\u{0079}\32\u{042}l\ock",Default=true});C=e:CreateToggle({Name="\zB\z  \x72\101\z \u{061}k \u{0049}r\u{06F}n \79re",Default=true});Z=e:CreateToggle({Name="Sh\111\u{077} \x48\x65althb\x61\u{72}\32&\32Eff\101ct\115",Function=function(w)if A.Object then A.Object.Visible=w;end;end,Default=true});A=e:CreateToggle({Name='Custo\x6D\32\72e\z \97\u{6C}\116hba\z r',Default=true,Darker=true});U=e:CreateToggle({Name='\z \u{041}n\zima\x74\105\x6Fn'});v=e:CreateToggle({Name="Sel\z f\32Br\101a\107"});K=e:CreateToggle({Name='W\z  \97l\108\u{0020}\67h\z  e\z \99\k'});B=e:CreateToggle({Name='B\114\x65ak \116\104ro\x75\z  gh\x20blo\ck'});R=e:CreateToggle({Name="\x41ut\o\u{0020}\84\u{6F}ol"});m=e:CreateToggle({Name='L\z\u{069}m\105\z t \116o ite\u{6D}\u{0073}',Tooltip="O\x6E\ly\ b\114eak\s\32wh\u{065}\110\x20t\x6F\x6F\u{06C}\115 a\114\101 h\u{065}l\x64"});end);r(function()local e;local w;local w;local D={};e=M.Categories.Legit:CreateModule({Name="B\z e\100\32Bre\u{061}k \69ffe\99\z  \x74",Function=function(z)if z then e:Clean(G.BedwarsBedBreak.Event:Connect(function(z)firesignal(k.Client:Get('\66edBr\e\u{61}kE\u{066}\u{066}ect\Tr\105\z\103\u{067}ered').instance.OnClientEvent,{player=z.player,position=z.bedBlockPosition*3,effectType=D[w.Value],teamId=z.brokenBedTeam.id,centerBedPosition=z.bedBlockPosition*3});end));end;end,Tooltip='Cu\x73t\111m b\x65d \98\114\ea\107 eff\u{0065}c\116s'});local z={};for J,i in k.BedBreakEffectMeta do table.insert(z,i.name);D[i.name]=J;end;table.sort(z);w=e:CreateDropdown({Name="E\102f\101c\x74",List=z});end);r(function()M.Categories.Legit:CreateModule({Name='\67\lea\z  \110 \u{004B}i\116',Function=function(e)if e then k.WindWalkerController.spawnOrb=function()end;local e=o.PlayerGui:FindFirstChild("\u{0057}\x69nd\u{0057}alke\x72Effe\99t",true);if e then e.Visible=false;end;end;end,Tooltip="\82\x65m\x6F\118\z  \101s zeph\121\zr \u{73}t\u{61}\116\u{075}\z  s\32\x69nd\105cato\114"});end);r(function()local e;local w;local D=M.Categories.Legit:CreateModule({Name="\x43r\u{006F}s\115hai\z r",Function=function(z)if z then e=debug.getconstant(k.ViewmodelController.showCrosshair,25);debug.setconstant(k.ViewmodelController.showCrosshair,25,w.Value);debug.setconstant(k.ViewmodelController.showCrosshair,37,w.Value);else debug.setconstant(k.ViewmodelController.showCrosshair,25,e);debug.setconstant(k.ViewmodelController.showCrosshair,37,e);e=nil;end;if k.ViewmodelController.crosshair then k.ViewmodelController:hideCrosshair();k.ViewmodelController:showCrosshair();end;end,Tooltip="\67\zust\x6F\x6D\ fir\115\z  t p\101\z  rs\111n\u{020}c\z r\z  \111\u{073}\u{73}\104a\u{69}r\32\x64\101\u{0070}\101\x6Ed\i\z  n\z  g\x20\zo\z  \110 t\x68\e\x20\105mag\z e\ choose\z  n\u{002E}"});w=D:CreateTextBox({Name='I\u{6D}a\x67\101',Placeholder="\105\ma\x67e\u{0020}id\x20(\114oblo\120\u{29}",Function=function(e)if e and D.Enabled then D:Toggle();D:Toggle();end;end});end);r(function()local e;local w;local D;local z;local J;local i;local B,L=pcall(function()return debug.getupvalue(k.DamageIndicator,2);end);L=B and L or{};local B,W={};e=M.Categories.Legit:CreateModule({Name='D\u{0061}\109a\x67e I\x6E\di\99\97t\111\u{072}',Function=function(p)if DZ then if p then B=table.clone(L);W=debug.getconstant(k.DamageIndicator,85);debug.setconstant(k.DamageIndicator,85,w.Value);debug.setconstant(k.DamageIndicator,119,i.Enabled and'\x54hi\99knes\s'or'E\110a\98\x6C\u{065}d');L.strokeThickness=i.Enabled and 1 or false;L.textSize=z.Value;L.blowUpSize=z.Value;L.blowUpDuration=0;L.baseColor=Color3.fromHSV(D.Hue,D.Sat,D.Value);L.blowUpCompleteDuration=0;L.anchoredDuration=J.Value;else for p,n in B do L[p]=n;end;debug.setconstant(k.DamageIndicator,85,W);debug.setconstant(k.DamageIndicator,119,'\84h\i\u{63}kness');end;end;end,Tooltip="C\x75\z st\111m\z  iz\101\u{20}t\h\101 d\97\109ag\101\32\105\110\x64i\99at\111r"});local B={'G\111t\u{68}a\x6D\x42\x6Ca\99k'};for W,W in Enum.Font:GetEnumItems()do if W.Name~="\x47ot\104\u{61}mB\108a\x63k"then table.insert(B,W.Name);end;end;w=e:CreateDropdown({Name="\x46\u{06F}n\116",List=B,Function=function(w)if e.Enabled then debug.setconstant(k.DamageIndicator,86,Enum.Font[w]);end;end});D=e:CreateColorSlider({Name="C\111lo\114",DefaultHue=0,Function=function(w,D,B)if e.Enabled then L.baseColor=Color3.fromHSV(w,D,B);end;end});z=e:CreateSlider({Name='\z S\u{0069}z\101',Min=1,Max=32,Default=32,Function=function(w)if e.Enabled then L.textSize=w;L.blowUpSize=w;end;end});J=e:CreateSlider({Name="\65\110\99\x68\x6F\114",Min=0,Max=1,Decimal=10,Function=function(w)if e.Enabled then L.anchoredDuration=w;end;end});i=e:CreateToggle({Name="Strok\u{0065}",Function=function(w)if e.Enabled then debug.setconstant(k.DamageIndicator,119,w and'T\u{68}i\99k\u{06E}es\zs'or"En\x61\z  \98\led");L.strokeThickness=w and 1 or false;end;end});end);r(function()local e;local w;local D,z;e=M.Categories.Legit:CreateModule({Name="\z FO\V",Function=function(J)if J then D=k.FovController.setFOV;z=k.FovController.getFOV;k.FovController.setFOV=function(J)return D(J,w.Value);end;k.FovController.getFOV=function()return w.Value;end;k.FovController:setFOV(w.Value);else k.FovController.setFOV=D;k.FovController.getFOV=z;end;if DZ then k.FovController:setFOV(k.Store:getState().Settings.fov);end;end,Tooltip="Ad\zj\117\u{073}\u{074}\115 ca\109\x65\114a\32v\105\115i\111n"});w=e:CreateSlider({Name='FO\86',Min=30,Max=120});end);r(function()local e;local w;local D;local z,J={},{};e=M.Categories.Legit:CreateModule({Name="FPS Boo\z  st",Function=function(i)if i then if w.Enabled then for i,B in k.KillEffectController.killEffects do if not i:find("\67us\x74o\x6D")then z[i]=B;k.KillEffectController.killEffects[i]={new=function()return{onKill=function()end,isPlayDefaultKillEffect=function()return true;end};end};end;end;end;if D.Enabled then for i,B in k.VisualizerUtils do J[i]=B;k.VisualizerUtils[i]=function()end;end;end;repeat task.wait();until T.matchState~=0;if not k.AppController then return;end;k.NametagController.addGameNametag=function()end;for i,i in k.AppController:getOpenApps()do if tostring(i):find('\78am\x65\x74\u{061}g')then k.AppController:closeApp(tostring(i));end;end;else for i,B in z do k.KillEffectController.killEffects[i]=B;end;for i,B in J do k.VisualizerUtils[i]=B;end;table.clear(z);table.clear(J);end;end,Tooltip="I\x6Dprov\x65\z \115 \z  \x74\z  \104\e \u{066}r\u{061}\me\u{72}\z  \x61te by\32t\x75\114n\i\u{006E}g\32o\zf\z  f\ cert\97in ef\x66\e\u{063}ts"});w=e:CreateToggle({Name='\x4Bill \69\z  ffec\116s',Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end,Default=true});D=e:CreateToggle({Name='\zVisualiz\u{65}r',Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end,Default=true});end);r(function()local e;local w;local D={};e=M.Categories.Legit:CreateModule({Name='Hit\32Color',Function=function(z)if z then repeat for z,z in S.List do local J=z.Character and z.Character:FindFirstChild("_D\x61\mag\u{0065}Hi\g\u{0068}light_");if J then if not table.find(D,J)then table.insert(D,J);end;J.FillColor=Color3.fromHSV(w.Hue,w.Sat,w.Value);J.FillTransparency=w.Opacity;end;end;task.wait(0.1);until not e.Enabled;else for z,z in D do z.FillColor=Color3.new(1,0,0);z.FillTransparency=0.4;end;table.clear(D);end;end,Tooltip='\67u\z\u{073}to\x6D\105\u{007A}\x65\x20\u{0074}\u{068}e\32h\105t\u{20}h\z  \105\gh\u{06C}ig\z\h\116\ o\x70\x74io\110s'});w=e:CreateColorSlider({Name="\Co\l\o\114",DefaultOpacity=0.4});end);r(function()M.Categories.Legit:CreateModule({Name="Hit F\x69\x78",Function=function(e)if DZ then debug.setconstant(k.SwordController.swingSwordAtMouse,23,e and"\x72ay\z  c\97st"or"R\u{0061}ycas\x74");debug.setupvalue(k.SwordController.swingSwordAtMouse,4,e and k.QueryUtil or workspace);end;end,Tooltip='\z Ch\97\x6Eges\32\u{0074}he r\97\y\99\97\u{0073}\116 \x66\117\x6E\u{63}t\x69o\x6E t\z\o \x74he \99\111rrec\x74 \111ne'});end);if DZ then r(function()local e;local w=g(o.PlayerScripts.TS.controllers.global.hotbar.ui['\104o\z tba\z r\u{2D}\o\z\u{0070}en\-\105nv\z  ento\u{0072}\u{0079}']).HotbarOpenInventory;local D=g(o.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar['\z hot\98ar\x2D\z health\x62\u{61}r']).HotbarHealthbar;local z=V(g(o.PlayerScripts.TS.controllers.global.hotbar.ui["hot\x62a\114\u{02D}\97\112p"]).HotbarApp.render);local J,i={},{};M:Clean(function()for B,B in i do table.clear(B);end;for B,B in J do table.clear(B);end;table.clear(i);table.clear(J);end);local function B(L,W,p)if not L then return;end;if not J[L]then J[L]={};end;if not i[L]then i[L]={};end;if not J[L][W]then J[L][W]=debug.getconstant(L,W);end;if typeof(J[L][W])~=typeof(p)then return;end;i[L][W]=p;if e.Enabled then if p then debug.setconstant(L,W,p);else debug.setconstant(L,W,J[L][W]);J[L][W]=nil;end;end;end;e=M.Categories.Legit:CreateModule({Name='\u{0049}n\u{074}\x65\u{72}\102ac\x65',Function=function(L)for W,p in(L and i or J)do for J,i in p do debug.setconstant(W,J,i);end;end;end,Tooltip="Cu\stom\105ze \98\z\101dw\zars\u{20}\85\I"});local J={"Lu\u{63}\u{6B}i\es\116G\u{0075}\z y"};for i,i in Enum.Font:GetEnumItems()do if i.Name~='Luc\z  \u{006B}iestGu\121'then table.insert(J,i.Name);end;end;e:CreateDropdown({Name="He\u{61}l\116h\32\F\z\111n\z t",List=J,Function=function(J)B(D.render,77,J);end});e:CreateColorSlider({Name='\u{48}e\x61l\z th\32\67\z olo\z r',Function=function(J,i,L)B(D.render,16,tonumber(Color3.fromHSV(J,i,L):ToHex(),16));if e.Enabled then local D=o.PlayerGui:FindFirstChild("hot\x62\u{061}\x72");D=D and D:FindFirstChild("\72\101\97\z  \108t\x68b\97r\Pr\ogres\115W\zra\pp\x65r",true);if D then D['1'].BackgroundColor3=Color3.fromHSV(J,i,L);end;end;end});e:CreateColorSlider({Name="H\x6F\z  t\z \98ar\ \C\z  o\108\z  \111\x72",DefaultOpacity=0.8,Function=function(e,D,J,i)local L=c or w.render;B(debug.getupvalue(z,23).render,51,tonumber(Color3.fromHSV(e,D,J):ToHex(),16));B(debug.getupvalue(z,23).render,58,tonumber(Color3.fromHSV(e,D,math.clamp(J>0.5 and J-0.2 or J+0.2,0,1)):ToHex(),16));B(debug.getupvalue(z,23).render,54,1-i);B(debug.getupvalue(z,23).render,55,math.clamp(1.2-i,0,1));B(L,31,tonumber(Color3.fromHSV(e,D,J):ToHex(),16));B(L,32,math.clamp(1.2-i,0,1));B(L,34,tonumber(Color3.fromHSV(e,D,math.clamp(J>0.5 and J-0.2 or J+0.2,0,1)):ToHex(),16));end});end);end;r(function()local e;local w;local D;local z={};local J={Gravity=function(i,i,i,B)i:BreakJoints();local B=i:FindFirstChildWhichIsA('H\u{0069}\g\h\u{6C}i\u{67}\104t');local L=i:FindFirstChild('Name\116\97g',true);if B then B:Destroy();end;if L then L:Destroy();end;task.spawn(function()local B={};for L,L in i:GetDescendants()do if L:IsA('\x42\97sePar\z \x74')then B[L.Name]=L.Velocity;end;end;i.Archivable=true;local L=i:Clone();L.Humanoid.Health=100;L.Parent=workspace;game:GetService("Debr\z\u{69}\u{0073}"):AddItem(L,30);i:Destroy();task.wait(0.01);L.Humanoid:ChangeState(Enum.HumanoidStateType.Dead);L:BreakJoints();task.wait(0.01);for i,i in L:GetDescendants()do if i:IsA("\u{0042}a\z\u{0073}\e\z  Par\u{0074}")then local L=Instance.new("\66o\z \100yF\z \111rce");L.Force=Vector3.new(0,(workspace.Gravity-10)*i:GetMass(),0);L.Parent=i;i.CanCollide=true;i.Velocity=B[i.Name]or Vector3.zero;end;end;end);end,Lightning=function(i,i,i,B)i:BreakJoints();local B=i:FindFirstChildWhichIsA("\x48ighl\ight");if B then B:Destroy();end;local B=1125;local B=i.PrimaryPart.CFrame.p-Vector3.new(0,8,0);local i=Vector3.new((math.random(1,10)-5)*2,1125,(math.random(1,10)-5)*2);for L=1050.0,0,-75.0 do local W=Vector3.new((math.random(1,10)-5)*2,L,(math.random(1,10)-5)*2);if L==0 then W=Vector3.zero;end;local p=Instance.new('\80art');p.Size=Vector3.new(1.5,1.5,77);p.Material=Enum.Material.SmoothPlastic;p.Anchored=true;p.Material=Enum.Material.Neon;p.CanCollide=false;p.CFrame=CFrame.new(B+i+((W-i)*0.5),B+W);p.Parent=workspace;local n=p:Clone();n.Size=Vector3.new(3,3,78);n.Color=Color3.new(0.7,0.7,0.7);n.Transparency=0.7;n.Material=Enum.Material.SmoothPlastic;n.Parent=workspace;game:GetService('De\x62ris'):AddItem(p,0.5);game:GetService("De\zb\u{0072}\u{69}\u{073}"):AddItem(n,0.5);k.QueryUtil:setQueryIgnored(p,true);k.QueryUtil:setQueryIgnored(n,true);if L==0 then local L=Instance.new("\zPar\116");L.Transparency=1;L.Anchored=true;L.Size=Vector3.zero;L.Position=B;L.Parent=workspace;k.QueryUtil:setQueryIgnored(L,true);local B=Instance.new('\S\111\117\z  \u{006E}\d');B.SoundId="\u{0072}bxa\115\x73\101t\105\100:\u{02F}/\z 69\u{39}33\u{037}\x32\05614";B.Volume=2;B.Pitch=0.5+(math.random(1,3)/10);B.Parent=L;B:Play();B.Ended:Connect(function()L:Destroy();end);end;i=W;end;end,Delete=function(i,i,i,B)i:Destroy();end};e=M.Categories.Legit:CreateModule({Name='K\x69ll Ef\102\z e\u{063}\z  \x74',Function=function(i)if i then for i,B in J do k.KillEffectController.killEffects['C\z u\115\116\o\x6D'..i]={new=function()return{onKill=B,isPlayDefaultKillEffect=function()return false;end};end};end;e:Clean(o:GetAttributeChangedSignal('Ki\108l\u{045}\102fe\z  ctType'):Connect(function()o:SetAttribute("\z \75i\108\108\z \69f\102ect\x54ype",w.Value=="\B\u{0065}d\wa\114s"and z[D.Value]or"\x43ust\z \111m"..w.Value);end));o:SetAttribute('\u{04B}illE\z ff\e\99\x74\z\u{054}ype',w.Value=="\x42edw\z a\x72s"and z[D.Value]or"C\117\115\x74o\109"..w.Value);else for i in J do k.KillEffectController.killEffects["Cu\115tom"..i]=nil;end;o:SetAttribute("K\x69\u{06C}lEff\ze\z \99\u{074}T\x79\112\u{65}",'\u{64}\u{065}\102au\108\116');end;end,Tooltip='\u{043}us\116\111\x6D\x20\102\105\110\x61\zl\32\107i\u{006C}\u{06C} \101\u{0066}fect\115'});local i={"Be\100war\s"};for B in J do table.insert(i,B);end;w=e:CreateDropdown({Name="\77\x6Fde",List=i,Function=function(w)D.Object.Visible=w=="\x42\101\x64w\x61\114\x73";if e.Enabled then o:SetAttribute("K\u{69}l\108E\x66\x66ec\116\Ty\x70e",w=="Bed\119\97\114s"and z[D.Value]or'C\117\st\u{6F}\m'..w);end;end});local w={};for J,i in k.KillEffectMeta do table.insert(w,i.name);z[i.name]=J;end;table.sort(w);D=e:CreateDropdown({Name="B\u{0065}d\u{0077}\97rs",List=w,Function=function(w)if e.Enabled then o:SetAttribute("\75i\108\x6CEf\z\u{0066}\u{065}\x63tTyp\z  e",z[w]);end;end,Darker=true});end);r(function()local e;local w;e=M.Legit:CreateModule({Name='\82\z  e\u{61}c\h\x20\u{044}\x69s\u{0070}l\z\u{061}\y',Function=function(D)if D then repeat w.Text=(T.attackReachUpdate>tick()and T.attackReach or"\u{0030}.00").."\32stu\100\s";task.wait(0.4);until not e.Enabled;end;end,Size=UDim2.fromOffset(100,41)});e:CreateFont({Name='F\o\z \x6E\116',Blacklist="\u{0047}\z\u{006F}\zt\z  h\97m",Function=function(D)w.FontFace=D;end});e:CreateColorSlider({Name="\x43olor",DefaultValue=0,DefaultOpacity=0.5,Function=function(D,z,J,i)w.BackgroundColor3=Color3.fromHSV(D,z,J);w.BackgroundTransparency=1-i;end});w=Instance.new("Te\u{078}tLabel");w.Size=UDim2.fromScale(1,1);w.BackgroundTransparency=0.5;w.TextSize=15;w.Font=Enum.Font.Gotham;w.Text="0.\z  \0480\32stud\s";w.TextColor3=Color3.new(1,1,1);w.BackgroundColor3=Color3.new();w.Parent=e.Children;local e=Instance.new('U\73\z\67o\u{0072}ne\114');e.CornerRadius=UDim.new(0,4);e.Parent=w;end);r(function()local e;local w;local D;local z={};local J;local i={};local B=tick();local L,W,p,n;local function S()local R=w.ListEnabled;if#i>=#R then table.clear(i);end;if#R<=0 then JZ('\S\z ong\66ea\116\z \s',"n\z  o\x20\so\z ng\x73",10);e:Toggle();return;end;local a=R[math.random(1,#R)];if#R>1 and table.find(i,a)then repeat task.wait();a=R[math.random(1,#R)];until not table.find(i,a)or not e.Enabled;end;if not e.Enabled then return;end;local R=a:split("/");if not isfile(R[1])then JZ("S\z  o\110g\x42\eat\x73",'Mi\u{73}s\u{0069}ng \s\z\111ng\32\40'..R[1]..')',10);e:Toggle();return;end;W.SoundId=u(R[1]);repeat task.wait();until W.IsLoaded or not e.Enabled;if e.Enabled then B=tick()+(tonumber(R[3])or 0);p=60/(tonumber(R[2])or 50);W:Play();end;end;e=M.Categories.Legit:CreateModule({Name="\So\u{06E}g \Beats",Function=function(R)if R then W=Instance.new("\x53ound");W.Volume=J.Value/100;W.Parent=workspace;repeat if not W.Playing then S();end;if B<tick()and e.Enabled and D.Enabled then B=tick()+p;L=math.min(k.FovController:getFOV()*(k.SprintController.sprinting and 1.1 or 1),120);I.FieldOfView=L-z.Value;n=X:Create(I,TweenInfo.new(math.min(p,0.2),Enum.EasingStyle.Linear),{FieldOfView=L});n:Play();end;task.wait();until not e.Enabled;else if W then W:Destroy();end;if n then n:Cancel();end;if L then I.FieldOfView=L;end;table.clear(i);end;end,Tooltip='B\z  uil\z  t\u{0020}\z  in m\u{0070}\51 p\108\97y\z\101r'});w=e:CreateTextList({Name="So\u{006E}gs",Placeholder='file\pa\x74\104\x2F\u{62}p\x6D\x2F\zst\97r\116'});D=e:CreateToggle({Name="B\101\z\x61\u{074}\ \z \F\x4FV",Function=function(w)if z.Object then z.Object.Visible=w;end;if e.Enabled then e:Toggle();e:Toggle();end;end,Default=true});z=e:CreateSlider({Name='\x41d\x6A\x75\u{73}t\m\u{065}n\z \u{074}',Min=1,Max=30,Default=5,Darker=true});J=e:CreateSlider({Name="\x56\111\lu\z \x6De",Function=function(e)if W then W.Volume=e/100;end;end,Min=1,Max=100,Default=100,Suffix="\37"});end);r(function()local e;local w;local D={};local z;e=M.Categories.Legit:CreateModule({Name="S\zou\u{6E}\d\x20C\hang\u{65}\x72",Function=function(J)if J then z=k.SoundManager.playSound;k.SoundManager.playSound=function(J,X,...)if D[X]then X=D[X];end;return z(J,X,...);end;else k.SoundManager.playSound=z;z=nil;end;end,Tooltip='\67h\97\110\z  ge \i\u{06E}g\x61m\101 \115ounds \z\116o cu\u{0073}tom o\110\101s.'});w=e:CreateTextList({Name="\u{53}ound\115",Placeholder="(D\u{0041}\x4D\AG\z E\u{05F}\z \49\47\98en.mp3)",Function=function()table.clear(D);for e,e in w.ListEnabled do local w=e:split("\47");local e=k.SoundList[w[1]];if e and#w>1 then D[e]=w[2]:find('rb\u{078}a\u{0073}set')and w[2]or isfile(w[2])and u(w[2])or"";end;end;end});end);if DZ then r(function()local e;local w;local D;local z;local J=V(g(o.PlayerScripts.TS.controllers.global.hotbar.ui["ho\x74ba\114\45app"]).HotbarApp.render);local X=g(o.PlayerScripts.TS.controllers.global.hotbar.ui['h\zo\116\u{62}\z \97\zr-\o\pe\110-i\110vent\o\u{72}\121']).HotbarOpenInventory;local i,B={},{};local L;M:Clean(function()for W,W in B do table.clear(W);end;for W,W in i do table.clear(W);end;table.clear(B);table.clear(i);end);local function W(p,n,u)if not i[p]then i[p]={};end;if not B[p]then B[p]={};end;if not i[p][n]then local S=type(i[p][n]);if S=='f\117nct\u{069}\on'or S=="u\115\101r\100at\u{061}"then return;end;i[p][n]=debug.getconstant(p,n);end;if typeof(i[p][n])~=typeof(u)and u~=nil then return;end;B[p][n]=u;if e.Enabled then if u then debug.setconstant(p,n,u);else debug.setconstant(p,n,i[p][n]);i[p][n]=nil;end;end;end;e=M.Categories.Legit:CreateModule({Name='U\73\x20C\u{06C}\ean\z \117p',Function=function(p)for n,u in(p and B or i)do for i,B in u do debug.setconstant(n,i,B);end;end;if p then if w.Enabled then c=X.render;X.render=function()return k.Roact.createElement('T\z \101\120t\x42utt\u{06F}n',{Visible=false},{});end;end;if D.Enabled then L=k.KillFeedController.addToKillFeed;k.KillFeedController.addToKillFeed=function()end;end;if z.Enabled then q:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList,true);end;else if c then X.render=c;c=nil;end;if D.Enabled then k.KillFeedController.addToKillFeed=L;L=nil;end;if z.Enabled then q:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList,false);end;end;end,Tooltip='Cl\101\97\110\z s \u{075}\112\ \116he \u{055}\I\u{20}\u{0066}o\114 \u{06B}\i\116s &\x20ma\105\x6E'});e:CreateToggle({Name="\82es\u{069}z\x65\u{0020}H\101\x61l\x74\104",Function=function(i)W(J,60,i and 1 or nil);W(debug.getupvalue(J,15).render,30,i and 1 or nil);W(debug.getupvalue(J,23).tweenPosition,16,i and 0 or nil);end,Default=true});e:CreateToggle({Name='N\z\111 \z  \u{048}\x6F\116\98\z \97\z r Nu\mb\101r\x73',Function=function(i)local B=c or X.render;W(debug.getupvalue(J,23).render,90,i and 0 or nil);W(B,71,i and 0 or nil);end,Default=true});w=e:CreateToggle({Name='\78o \u{049}nv\101\110\u{074}\u{06F}\114y B\117t\u{0074}\x6Fn',Function=function(w)W(J,78,w and 0 or nil);if e.Enabled then if w then c=X.render;X.render=function()return k.Roact.createElement("T\101x\u{0074}\B\117tto\x6E",{Visible=false},{});end;else X.render=c;c=nil;end;end;end,Default=true});D=e:CreateToggle({Name='\z N\z o \K\il\108 F\u{065}e\u{064}',Function=function(w)if e.Enabled then if w then L=k.KillFeedController.addToKillFeed;k.KillFeedController.addToKillFeed=function()end;else k.KillFeedController.addToKillFeed=L;L=nil;end;end;end,Default=true});z=e:CreateToggle({Name="\x4Fl\d Pla\z \y\101r\32\u{4C}\105st",Function=function(w)if e.Enabled then q:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList,w);end;end,Default=true});e:CreateToggle({Name="\Fix \Q\117\u{0065}u\e\32\u{0043}\x61\114\100",Function=function(e)W(k.QueueCard.render,15,e and 0.1 or nil);end,Default=true});end);end;r(function()local e;local w;local D;local z;local J;local X={};local i,B;e=M.Categories.Legit:CreateModule({Name="\86iewmo\100\z  e\x6C",Function=function(L)local W=I:FindFirstChild("\x56\x69\101w\u{006D}o\100\x65l");if L then i=k.ViewmodelController.playAnimation;B=W and W.RightHand.RightWrist.C1 or CFrame.identity;if J.Enabled and DZ then k.ViewmodelController.playAnimation=function(L,p,...)if k.AnimationType and p==k.AnimationType.FP_WALK then return;end;return i(L,p,...);end;end;if DZ then k.InventoryViewmodelController:handleStore(k.Store:getState());end;if W then I.Viewmodel.RightHand.RightWrist.C1=B*CFrame.Angles(math.rad(X[1].Value),math.rad(X[2].Value),math.rad(X[3].Value));end;o.PlayerScripts.TS.controllers.global.viewmodel["vi\z \x65\z \x77\109\111d\101\zl\z  -control\u{06C}e\z  \x72"]:SetAttribute('\Con\z \x73\u{74}ant\Ma\u{006E}a\g\e\114_\DE\80TH\x5F\u{4F}\x46F\u{53}ET',-w.Value);o.PlayerScripts.TS.controllers.global.viewmodel['\u{076}i\u{065}w\zmode\x6C\-\x63\u{06F}ntrolle\x72']:SetAttribute('\67onst\u{0061}\x6Et\77an\97ge\z \u{072}\95\72\79\RIZ\O\u{004E}T\z \65L_O\z \F\F\83ET',D.Value);o.PlayerScripts.TS.controllers.global.viewmodel['\x76ie\119m\u{6F}d\x65\u{06C}-c\x6F\znt\x72ol\x6C\x65\114']:SetAttribute("\u{043}\111n\115ta\x6Et\77a\z\110a\ge\u{072}\95VER\84\u{0049}C\zA\x4C_O\70FSE\x54",z.Value);else if DZ then k.ViewmodelController.playAnimation=i;end;if W then W.RightHand.RightWrist.C1=B;end;if DZ then k.InventoryViewmodelController:handleStore(k.Store:getState());end;o.PlayerScripts.TS.controllers.global.viewmodel["\x76\u{69}\z  \101\u{077}\zm\zo\d\101\zl-\zc\ont\u{72}\u{06F}l\l\101r"]:SetAttribute('\x43\z  onstantMa\110a\ger_D\69\z  \80\84H_O\x46FS\69T',0);o.PlayerScripts.TS.controllers.global.viewmodel['\118\105\e\u{0077}mo\100el-\99\111\110t\114\ol\z\u{06C}er']:SetAttribute('\Co\x6Esta\u{006E}\z  \116Man\97\u{67}er_H\z  ORIZO\78\84\65\L\_\OFF\x53ET',0);o.PlayerScripts.TS.controllers.global.viewmodel['v\u{0069}e\119m\o\u{064}\x65l\-\99o\u{06E}tro\zl\l\x65r']:SetAttribute("\x43\x6Fnsta\110\u{74}Man\z \97ge\zr_\z\u{56}ERT\zICAL\95O\F\70\u{053}\z ET",0);i=nil;end;end,Tooltip='\z \67h\97n\103es\u{020}\z\x74\he\x20\u{076}\u{69}e\u{0077}\mo\100el\ \97\110im\97\116io\x6E\u{0073}'});w=e:CreateSlider({Name='D\101p\116h',Min=0,Max=2,Default=0.8,Decimal=10,Function=function(w)if e.Enabled then o.PlayerScripts.TS.controllers.global.viewmodel["v\105\z\ew\mo\z  de\z l\u{2D}\99o\x6Et\114\ol\108e\u{72}"]:SetAttribute("Co\110\z stantM\u{61}\110ager\95DE\u{050}T\72\x5F\zO\FFS\u{45}\84",-w);end;end});D=e:CreateSlider({Name="\u{048}\111r\u{69}zon\116al",Min=0,Max=2,Default=0.8,Decimal=10,Function=function(w)if e.Enabled then o.PlayerScripts.TS.controllers.global.viewmodel["\118\ie\wm\u{6F}d\101\108\45\z c\o\u{6E}\x74\u{72}o\u{006C}l\101\114"]:SetAttribute('C\z \u{6F}ns\z  ta\u{6E}tMa\110\z \97ger\u{005F}HOR\z \x49\x5A\O\x4ETA\u{04C}_\OFFS\z \x45\z T',w);end;end});z=e:CreateSlider({Name="Vertical",Min=-0.2,Max=2,Default=-0.2,Decimal=10,Function=function(w)if e.Enabled then o.PlayerScripts.TS.controllers.global.viewmodel['view\z\x6D\u{6F}d\z  el\z -\x63\o\z nt\x72ol\108\101\u{072}']:SetAttribute("C\onst\97ntM\u{61}n\97\u{67}er\x5F\z \86E\82T\zI\x43\AL\x5FOFFS\E\84",w);end;end});for w,w in{"\82\111\zta\116\105\z  \u{006F}n\u{0020}\z  X","Rot\97\zt\105\x6F\z n \z  Y",'\z Rota\z  \u{0074}ion Z'}do table.insert(X,e:CreateSlider({Name=w,Min=0,Max=360,Function=function(w)if e.Enabled then I.Viewmodel.RightHand.RightWrist.C1=B*CFrame.Angles(math.rad(X[1].Value),math.rad(X[2].Value),math.rad(X[3].Value));end;end}));end;J=e:CreateToggle({Name='\78\zo \zB\ob\98i\z  \x6E\g',Default=true,Function=function()if e.Enabled then e:Toggle();e:Toggle();end;end});end);r(function()local r;local e;local w={};r=M.Categories.Legit:CreateModule({Name='W\105n \69f\102\101\99t',Function=function(D)if D then r:Clean(G.MatchEndEvent.Event:Connect(function()for G,G in getconnections(k.Client:Get('W\i\110\z  \u{0045}ff\x65\99\x74T\u{0072}i\103\z g\x65r\zed').instance.OnClientEvent)do if G.Function then G.Function({winEffectType=w[e.Value],winningPlayer=o});end;end;end));end;end,Tooltip='Al\108\u{06F}\w\u{73} \u{79}ou\ t\111\32sele\z c\u{74}\32\97\110y \u{0063}l\zient\115\105d\z e\x20\u{077}in\32e\102f\101ct'});local G={};for D,z in k.WinEffectMeta do table.insert(G,z.name);w[z.name]=D;end;table.sort(G);e=r:CreateDropdown({Name="\69ffec\x74s",List=G});end);end;end,W5=function(r,r,e,G,w,D)G=(nil);e=nil;for z=0B101,182,0X36 do if z>=0X3B then e=#G;break;else G=w[0X9][D];continue;end;end;(G)[e+0B1]=r;return G,e;end,tt=function(r,r)r=(22);return r;end,_=function(r,e,G,w)(G)[0X16]=r.C;G[23]={};if not e[8865]then w=r:P(e,w);else w=r:h(w,e);end;return w;end,v=coroutine.wrap,St=function(r)return;end,J=nil,f5=function(r,e,G,w)local D,z;if e~=0X6d then D,e,z=r:C5(w,G,e);if D==52109 then return e,26687,w;else if D==-2 then return e,-0X2,w,z;end;end;else w=G[38]();e=(104);return e,0X683f,w;end;return e,nil,w;end,B5=function(r,r,e,G)e[26][G+0x1]=r;end,rt=function(r,e)(e[0x10])[15]=r.S;end,S=bit32.bxor,a5=function(r,e,G)e=(25245+((r.dt((r.Wt(r.j[0X9]-G[29154]))))-r.j[0X1]));G[0X005c06__]=(e);return e;end,w5=function(r,r,e)r=(0X6d);e=0B1100000_;return r,e;end,zt=function(r,e,G,w,D,z)w=0X5_3;if z~=52 then G=e[0X28]();else if w==0Xb1 then else G=r:Ht(G,e);end;end;D=27;return D,G,w;end,q=select,z=table.move,y5=function(r,r,e,G,w)if w[0x3]~=w[0X28]then local w=0X1f;repeat if w==31 then w=(0X72);(r)[e+0x2]=G;else if w~=0X72 then else r[e+0B11]=0B11;break;end;end;until false;end;end,a=bit32,T=function(r,e,G)e=(0X4b+((r.kt(r.j[4]+r.j[0B1001]))+r.j[0b100]>r.j[0x7]and G[0X508__8]or e));(G)[14919]=e;return e;end,F5=function(r,e,G,w,D)if not(e>9)then return{r:x5(G)},e;else e=r:J5(e,D,w);end;return nil,e;end,Y=function(r,e,G,w)G[0B11]=({});if not w[0X3a47]then e=r:T(e,w);else e=r:o(w,e);end;return e;end,t5=function(r,e,G,w,D)e=(nil);local z=0X4e;repeat if z>0X4e and z<0b1010101 then z,G,D=r:H5(D,G,z,e);continue;elseif z>0B00110000 and z<0b1001111 then z=0X55;else if z<98 and z>79 then z=0X30;else if z<0X4E then z=(79);e=w[0b1000](w[0x1c],w[0X1B],w[0X1b]);else if z>85 then r:z5(w);break;end;end;end;end;until false;return D,e,G;end,e5=function(r,r)local e,G=r[0XC]('\z  <\z d',r[0B1110__0],r[0x1b]);for w=0B1100001,0B111000_01,0x48 do if w>0X61 then return-0b10,e;else if w<0XA9 then r[0X1b]=(G);end;end;end;return nil;end,l=getfenv,n=function(r,e,G,w,D)G[0b1100]=nil;(G)[0B1101]=nil;w=(0X27);while true do if w<0B100111 then(G)[13]=r.Nt;break;elseif w>28 and w<0B1011010 then G[0xa]=(9007199254740992);if not(not e[0X4130])then w=e[0X41_30];else w=0X054+(r.Mt((r.Wt((r.Mt(e[0X666b]+r.j[0B10],(0x19))))),(0x0_0__4)));e[16688]=w;end;elseif w>0X27 and w<113 then(G)[0Xb]=r.D;if not e[0X62Cf]then w=(0X7_1+(r.Wt((r.dt((r.yt(e[14919],r.j[2],e[26219]))>=r.j[0x5]and e[13050]or e[14805])))));(e)[25295]=(w);else w=r:M(w,e);end;continue;else if w>0x5__a then(G)[0xC]=r.nt;if not(not e[29154])then w=(e[29154]);else e[18393]=(0X3289aF15+(((r.Wt(r.j[0X1]+r.j[0X6],w))==e[0x32fa]and e[0X62CF]or e[0x32fA])-r.j[0B110]));e[3940]=(0XC__5+((r.kt(e[18638]-r.j[0X4]<e[18638]and r.j[0X5]or r.j[9]))-e[9745]));w=-0X2C+((r.Et((r.dt(r.j[0x9]-r.j[0B110])),(0x1_f)))+e[0x32fA]);e[0X71e2]=(w);end;end;end;end;(G)[0XE]=nil;D=nil;return D,w;end,Jt=function(r,r,e)(e)[0X5]=(r);end,y=function(r,e,G,w)local D;repeat D,G=r:W(e,G,w);if D==0x473c then break;else if D~=0X8111 then else continue;end;end;until false;w[0xa]=(nil);(w)[0XB]=(nil);return G;end,At=function(r,e,G)G[0X15d0]=(-0X3__Fffbb+(r.Qt((r.dt((r.ct(G[23436]~=G[18393]and e or r.j[1],G[0X180],r.j[0B100])))),(G[4979]))));e=93+((G[0X4236]+G[14919]+G[0x3C6E__]<=e and G[0x37_65]or G[0X608B_])-G[0X4236__]);G[0X5__8f5]=e;return e;end,M=function(r,r,e)r=e[25295];return r;end,l5=function(r,e,G,w)local D=0x3B__;while true do if D~=0X3__B then return-0B1_0,w;else D=r:D5(G,e,D);end;end;return nil;end,O5=function(r,r,e)e=(r[4392]);return e;end,u=bit32.bnot,H=type,f=string.char,Q5=function(r,r,e,G)(G)[r+0X2]=(e);end,G=bit32.lrotate,R=function(r)local e,G=({});G=r:w(e,G);local w;w=r:c(e,G,w);w=r:y(G,w,e);local D;D,w=r:n(G,e,w,D);w,D=r:g(e,w,G,D);w=r:i(G,e,D,w);w=r:b5(w,G,e);D=nil;D,w=r:u5(w,G,e,D);local z,J,X;X,J,z,w=r:ot(X,w,J,e,z,G);while true do if w==107 then(e[0X10])[5]=r.u;if not(not G[0x6_eEF])then w=G[0X6_EeF];else w=-4294967181+(r.Wt(G[29154]-G[0X2611]-G[0X566_9]+G[18393],G[0X541d]));G[0x6EEF]=(w);end;else if w==0X4E then(e[0X10])[11]=r.a.band;if not G[0X4F82]then(G)[0X48F_9]=0x38+(r.Qt(G[0X1c57]+r.j[0X1]-r.j[0X3]-G[0X3a47],(G[817])));w=(-4294967144+(r.Wt((r.j[0X3]>G[0x32FA]and G[24955]or G[0X5088])-G[0x00f64]-G[9745],G[384])));G[0X004F82]=(w);else w=(G[20354]);end;elseif w==0B1010101 then w=r:Yt(e,G,w);continue;else if w~=0B1_10000 then else r:rt(e);break;end;end;end;end;(e[0B100__00])[6]=r.p;e[16][0XA]=r.L;X=e[0x2__A](X,e[23])(r,z,r.K,D,J,e[0X24__],e[0B11110],e[34],r.j,e[0X2A]);return e[42](X,e[0X17]);end,M5=function(r,r,e,G)(r)[G]=G+e;end,Dt=function(r,r,e,G,w)(G)[w]=r[5][e];end,O=bit32.lshift,C5=function(r,r,e,G)G=(39);if not(r>=e[0X18])then else return-0B10,G,r-e[0B1010];end;return 0XcB8D,G;end,e=coroutine.yield,c5=function(r,r,e)if r~=0X32 then for r=0X4D,161,84 do if r<0Xa1 then(e)[0B1110],e[40]=-0b0,(e[0X1_8_]);continue;else if r>0X4D then repeat(e)[0xF]=0X5b<0X5b%3;(e)[0X1E]=(e[0X23]);until false;end;end;end;end;end,Z=function(r,e,G)e=12+(r.ct((G[8865]==G[0X5088]and r.j[1]or G[14919])-G[0X62cf]+G[0x666b],G[0X005088],r.j[0X1_]));G[23436]=(e);return e;end,lt=function(r,r,e,G,w)local D,z;for J=0x6E_,0xD__4,0b10110 do if J==0B10000100 then z=({[0x1]=D-D%0X1,[2]=w%4});break;else if J==0X6E then D=(w/0X4);end;end;end;(G[0B10__1])[w]=(z);(e)[r]=z;end,k5=function(r,e,G,w,D,z,J,X,i,B)if w>0X37__ and w<0B0111__1101 then w,J=r:r5(J,w,i,z);return 0x5C7b,z,w,J,X;elseif w<0X37 then(G)[D]=J;return 0Xa7__9e,z,w,J,X;elseif w<0B111000 and w>0X2A_ then w=42;X=(e-B)/0X8;return 0x5c7b__,z,w,J,X;else if w>0B111__00__0 then z=(i%0X8);w=0X38;return 0x5C7b,z,w,J,X;end;end;return nil,z,w,J,X;end,o5=function(r,r,e,G,w)G=e[0X27]();w=(r%0X8);return G,w;end,c=function(r,e,G,w)local D;w=(0x72);while true do D,w=r:d(w,G,e);if D~=0B101011 then else break;end;end;e[0B111]=nil;e[8]=(nil);e[0X9]=nil;w=85;return w;end,d5=function(r,e,G,w,D,z,J,X,i,B,L,W,p,q,n,I)local o;for u=16,0x49,57 do if u<=0X10 then J=((i-X)/8);D=e[0X27]();continue;else p=D%0x8;end;end;W=nil;L=nil;I=(nil);B=(125);repeat o,W,B,L,I=r:k5(D,z,B,n,W,L,I,w,p);if o==0Xa7_9e then break;else if o~=0x5C7B then else continue;end;end;until false;(G)[n]=q;return L,p,I,W,B,D,J;end,R5=function(r,r,e)e=r[0b1000](r[0X1C],r[0b110__11],r[27]);return e;end,x=table.create,Bt=bit32.bnot,H5=function(r,r,e,G,w)e+=((w>0X7f and w-0x80 or w)*r);G=0X62;r*=0B10000_000;return G,e,r;end,w=function(r,r,e)e=({});r[0b1]=nil;(r)[0B1__0]=nil;r[0X3]=(nil);(r)[0X4]=nil;r[5]=(nil);(r)[0b110]=(nil);return e;end,ut=function(r,e,G,w,D,z)if w<=0b010_001110_ then G[0X1A]=G[0X6](D*0B11);for J=0X1,D,0X1 do z[J]=G[0x2B]();end;return 53341;else if not(w>=0X11a)then for w=0X1,#G[0X1a],3 do(G[0x1_a][w])[G[0x1A__][w+0X1]]=z[G[0X1a][w+0B10]];end;else r:Ot(G,z,e);return 0x9618;end;end;return nil;end,wt=function(r,r,e)e=r[0X42__67];return e;end,qt=function(r,e,G,w,D,z)if e~=190 then z=r:ft(G,z,D,w);else return-0X2,z,w;end;return nil,z;end,s5=function(r,r)r=function(...)return(...)[...];end;return r;end,D=string.pack,A=unpack,N5=function(r,e,G,w,D,z,J,X)if not(X<=0X39)then if not(X>66)then e=#w[26];X=(0X39);else r:B5(z,w,e);return 0X4_3aF,e,X,J;end;else J,X=r:X5(X,G,D,w,J);end;return nil,e,X,J;end,j={25141,3663690457,1183701339,1486946160,2759682590,847884041,3062897093,776770583,682648329},Tt=function(r,e)(e[0X10])[7]=r.O;end,K=function(...)(...)[...]=nil;end,mt=function(r,e,G,w,D,z,J,X,i,B,L,W,p,q,n,I,o,u,M)local S;I[p]=w;(B)[p]=(n);D=9;repeat if D<0B1010100 then if W==0X6 then for R=0x078,0b100010_01,0X11__ do if R<0X89 then r:c5(o,G);else if G[0x21]then local R,a;R,a=r:W5(i,a,R,G,w);r:y5(R,a,p,G);else M[p]=(G[0X9][w]);end;end;end;else if W==0x5 then(I)[p]=w;elseif W==0x7 then r:M5(I,w,p);elseif W==0X2 then(I)[p]=(p-w);else if W==0X000 then w=r:E5(G,X,u,p,M,w);end;end;end;D=(0B101__0100);continue;else if D>0X009 then if J==0x6 then r:h5(i,G,z,n,o,p);else if J==0X5 then r:_5(B,p,n);else if J==0B111 then(B)[p]=p+n;elseif J==0X2 then(B)[p]=p-n;else if J==0X000 then local B,W=(0B100000);repeat B,S,W=r:Z5(B,G,W,z);if S~=0X54__cA then else break;end;until false;(G[0B110__10])[W+0X2]=(p);(G[0B1_1010])[W+3]=n;end;end;end;end;break;end;end;until false;if u==0X6 then if not(G[33])then L[p]=(G[0b1001][q]);else J=(G[9][q]);X=nil;z=12;repeat z,S,X=r:i5(z,p,J,X,i);if S==60026 then continue;else if S==0x06fc7 then break;end;end;until false;end;elseif u==0b1__01 then(e)[p]=(q);else if u==0X7 then e[p]=p+q;else if u==0X2 then r:I5(p,e,q);else if u~=0X0 then else I=(nil);I=r:Rt(G,I,L,o);G[0X1a__][I+0b1_0__]=p;(G[0X1A])[I+0b0011]=q;end;end;end;end;return D,w;end,ct=bit32.band,yt=bit32.bxor,Z5=function(r,r,e,G,w)if r==0X52 then(e[0x1a])[G+0X1]=w;return r,0X54ca,G;else r=0X52;G=#e[26];end;return r,nil,G;end,bt=function(r,r,e,G,w)for D=e-e%0b1_,w,0B1 do(G)[D]=(r);end;end,G5=function(r,e)e=({nil,r.J,r.J,nil,nil,nil,nil,nil,nil,nil,r.J});return e;end,p=bit32.countlz,U=function(r,e)e=r.f;return e;end,N=function(r,r,e)r=(e[0X046d_8]);return r;end,t=string.unpack,Wt=bit32.bor,_5=function(r,r,e,G)r[e]=G;end,r5=function(r,r,e,G,w)r=((G-w)/0X8);e=0X37_;return e,r;end,q5=function(r,r)return r;end,et=function(r,r)r=1;return r;end,P=function(r,e,G)G=(-3111266052+(r.Wt((r.yt(e[0X48Ce]+e[0X4236]-r.j[0x3])),e[0X1C57])));e[8865]=(G);return G;end,st=function(r,e,G,w,D,z)if w<0x6a then D=z[0B1001__10]()-31844;return w,0XCB_94,D,G;else if w>0x77 then z[0X9]=z[0X6_](e);G=z[30]()~=0B0;w=0x77;return w,0X41e3,D,G;else if w>0X6a and w<0X78__ then(z)[0X21]=G;w=0x6a;else if w<0x077 and w>65 then for J=1,e do r:at(G,z,J);end;w=0X41;return w,0x4__1e3,D,G;end;end;end;end;return w,nil,D,G;end,J5=function(r,r,e,G)r=0B1001;e[27]=(G);return r;end,b5=function(r,e,G,w)w[28]=(function(D)D=w[0B10001](D,'z','!\33\33!\u{21}');return w[0X11](D,".\46\46\u{2E}.",w[0B110__1]({},{__index=function(D,z)local J,X,i,B,L=w[0X8](z,1,0X5);local W=((L-33)+(B-0x21_)*0x55+(i-0x21)*7225+(X-0x21)*0X95eED+(J-33)*0x31c8_4B1);J=w[11]('>\0734',W);(D)[z]=(J);return J;end}));end)(w[20]([=[LPH-["\S]km2BLDKTf*ATI#:;+'RN@X3',klOXjklO.\!s\f+z!9jM[klPR/klP@)klOprklP`iklOam1'-V@FCR--z!:W;=!chf8")_[oklF6;!bPs,#Y&iQD,+MVAa'8AA*F%^1[+s0A*F#;klGM_!_kHQ"TSN&zklOCcklFrO!a7DE!CH#P?Xr=):gnBUDKP+ECbmmJz!!!#`!DM_ZF>N._H=I$Yz!!!#`!cVX+z!!$t'klPL-klG5W!CQ)Q:.+7Q7qHd@ATDs.@qFm*?g.W*@l+/czg-=g'<AWk?Ds7=)6g4tKATU:QBl%=#AT$`5HKbK#A*F&>1[,-4ATMs6DgCRJAHN5=z!!)6bG%9b<G;JIa9BcIeklO[kklF3:!H@9)CI@=eFm/p11]RLU!!(qq5Q_8lz!!"hUzJ7h.3!EeRf6=]6h;flGgFCfJhCghU#E\marzn38`0zJ;6DS!^pP_!`igq#tArRD,t(]F_*B0z!5LfUz!!!9iklFlM!G(EqD<V0lDKTg\!E:lUz!:W61z!!)N'klO:0klGD\!`Lo>#'4m,Bl7SJ!^nh$z!!!!aklP[2klkO1F>GZSGlRgEzklO[KklQ*>!s8N'z!9jPT1[+s`6g4tRAU&;gDKKH&ATI#9;s=?r6g4Y]A*F=qAU&;lF_tT!E\marz+@,/lETmL(1]RLU!!!#G5Nr5?1[+s^A*F%tA*F&+@fl`3z!!)6b8n7)d:'1\#z!!)6b7q:caD!;"'A*F2BE+<<mD!;!q@fq>`z!!"hUz!8p*+!HdQ;Bk1dmFD5?4AU%crF`_PBkll0;@VfW?!E&(^F6NmMASbpfFQj368PEi>FA-+gDfp0d$q"]:Ci![#B4XSUC$>h1F)to5F9C)K,j#(,!!)6a@KSrqargZa!!)6j:gmmFBl7Q_DfFqH8TRgPF_#3)1st.)8FnD"5Nr;pEa`qO"D;du@Pe&bzBL"BSz^gTLm!`1[0z!'jsXklu0:G@tK/klGE!0+@m]z1]RLU!!!!=5j8>91BX'pz!!)6bF#,WQz!;\o:z!5MaQ"$d/_0)ttP!9k#1@<6O,Bl7KmAS,XoARt$,CGY2^Ble*#Ci=B;Eb4J=<affeAa'G9Ec6&.FCbPZ#u_-1!!!!$'ZU.Ps8W-!"0PQG\GuU0!&OZU!!!"Lmlpn*kPP;Zs8W*Uz!!'gL"$i[@!WW3#!9jSpDfRZ7z!78LF!`<G0`HM:^z"0(p;0)ttP!&UuYH&dN0j?GI$z!(0!RK%p>+zkm1=(ATr*3Ec_C,&;NmY!!!#`$VXuSDfp.tEb&a%"%D?j8cJbirr[p&n](V0!!"hUz!&-Yn!&OZU!!!!QGsLTtF)5`&B'BVDEa`Hh@UWb^klPj7klPcZklPQT1]RLU!!!!i5VrH@z1dL:,94R2h@W$++kljLnF_u3a#XrWRD+Sh\D<V+31BVD0N*lVc!!)6fF*(i4F`ZdQ8T&Tk@;]Rdklc3=BlrSH<+U;r6?RBlDf,Z%*WQ0?!!!!$;cBBTzklu9JE+*6lklZ!L@KYj5AMaAe!!)6gB4Z0sASuYnN/R`9s8W-!klO1-km0^qF_t*'E+K.2H2mpEs8W,`!`h\Q%!-!%D.RftFCAWpAa'8:1Gf(3!!!"l?pNrW9'HLKEa`frklbm8G]`0OG@Tk==#0psJ8J*_!!!#`#%MRh@psKD"_D^pDfPqX3*gV+!!!#`!dR/t#>JoM;e^Ph1]RLU!!!"<5r8QAz5<q%*zJ4dWA#uGP]F?stnDIWcq49,?]!!!#`#?GDGFDl1T"+XMSz!&OZUz7R62J:1\Zl<GlMm<b5c_DfRZ7z!+8(V(M.W-DfQt7DBNM2Ec5t@BOPdhCh[d"klP:'klb^<AoHo88MfT4G!c@mY?$M\!!!#`#&.srATDnW$$0cuEcbZ0Eapp+z!'NU3$:JTL@rH7&ARfiH#%qd]FCSu@z!!%,VklF*7!bOe%.M;^]zklBrNAnc-nkmD-G@q0=nF*2M71]RLU!!!"l5r8QAz/3j:oz!!!!U!!!!Q)$"VA1]RLU!!!!V5VrH@z,!Z71EZ%sZ!!!!$k`ibFzklu0>F*2>2klPC*klPNS1]RLU!!#8k_!(uDH#R<sN99e"z1]RLU!!!!K5QgN[!WW3#!!!+K5lgrc!!!!$5YhC\zklt$oDId[&kqa].ATVNqDK[BM@ps7mDfd+3BOPdkAKYQ%G%ku8DJ`s&F<GL6+D5D3ASrW/@VTIaFQipI@:O*;$pe?DDesQ<AQ*;hAMaAe!!!#WI_b1S@rHC+F`_>8AHV/sz!!)6bAi&ZZ:gmmFBl7QWAS-#dlotLNz"!BH$z!&OZUz8O*@d#64`(!!!#`!bX;Gz!+92""8\Das8W-!s60bUDf0H(@s$r:?SgpMH"gi+AEa;?H#R>5B'BPAATVNqDKZ+qq>UEos8W*$J7WE\zkm(^:F`);;H36g3z!!)6bF^kM):&b1ms8W,`$Ya[-Bk;*k@:F%a1]RLU!!!"-5j8MSARfh#E\lqd<Cp"qA7TClB*/Rc!WW3#!!"hUz!&-e)$tj-nD.RftFCAWpAHU?3r;Zfss8N2D:B:Fq!!!!$6?3&+z1]RLU!!!#I^GGojzpcej/rb0UX!!!#`$>aWhA92j5Bl7SJ!H.--:iCDhFD5Z2knd<4AKYi$FCB9"@VfTuBlbD5De!QoAEa+qkm1mDDI[d&Df.B3z!9cZ3#%hdoD..NCz!(rnLkll$9@;KcE#]='fATqfrFQig("1h)(s8W-!rr[Y29&]gN!!)6hFDl5BEbTE(klP$u1]RNK\<A/q5m*__z!!!+L!<<*"!!!#`#@ChPDId='!tYG4z!&OZU!!!"LG<kBo:1NMi<Fb7qEb02Hz!.\-91]RLU!!#8i5j8>D1[,'RAS,LoklsUqCh.*t1]RLU!!!"&5j8SSAU&;j@:Eea"7$'iz!9jb\F&QXjG%G^Y#t/3D@81ZNASgT48OM_DC1B(#z!9uf5$UJZ?BQ%ofDeX*2km9^n@<6Kb@;TT?!cMR*z!.[bYkljFjDf0.N"`\BhGB<!M;e,%pFCB6+1]RLU!!$D95j8>Y1Gh5`G;]62lp'_;D..O"kltX+DI[6okm2!EG%#E"EbFV<H8@AXz&:qVRz!!%>\km)6ODJj0+BB]P3@;TT?#t&WKDIm="ARmUtz!):8n##'/[@;ooE!cDKM"98E%z"*ft/z!9j__@<b^bH=c=D<CCP<1]RLU!!%7o^]WNsz!!)6bAOG\`<&4Wd"P+"^!!!#`!CuAX;e'6PAHP)5-[l$q!!!*L#64`(!!!#`#A7UiBl7O$1]RLU!!!!m5j8\EBPD9n;Is]`G%G1d^NU#*z1]RLU!!'f75VrH@z=[4eDzJ5X2I#&\R#@V'R:z!5Mu-1]RLU!!%OF^]VIqz!!)6g:gmmFBl7Q?z!5SLskn$id;e^Ph6Z6j`FE1f(DKI]8zr1?52z!75^N1]RLU!!#!Z5j8G_ASbe#1]RLU!!!!S5Q_\Y5*Q$I!!"hUz!)pZ8W1EthzkmKO#-"JMT><33#>m$;2#]]nF!!"hUzJ4)Ze!_Y=+z!8q_0klOgoklP`YklP^31]RLU!!!!q5j8>b1[+sP1Gi$iOoV%^l9@**z!'ig6!I$@#z5Z9r4!_,!1!^gJ^)+\me@;^!tA4U9?Cij>YBle60@<kgtE+K.82#mUV!!!!$Yiu,es8W-!"5_(,K)blO!9jP^1BTfFz!!"hUz!:2r7!I6Megc$RW^Z@]E&4(D[EbT!*FCdgQ@;]^hA-6!BKO4]Z!!"hUz!)Gi^]Ij3bz"3GQbz!!B(os8W-!s8OnUz!(B0;!Cl;X@rc-hFCbO^z!!!!Uz!!'sP1]RLU!!!#W^ZbfB1[,'QCi=B+"/A-`z!&OZUzi]lZ6;e'iZASt"\C$>Y51ls3Z#0)PL5Nr>g@<?!m"7@26fDkmNs60S_1Gf(3!!!!YLd3csz!&_RV!D)GVFu'6Q$NU5-!!!!$;?-[szklOU9l%]lY#mgnE+>,o*-nd&$/hSb//hSb!+<VdL+>,9!/1`8(-mL#b5X6q/#mgn\-n6>^+=o/o,:+W_-9sg]5UId*-nd5,0.84s,9nKZ,9nTb0.JG&/1r%f+<VdX0/"_#/d_mk+<Vd[.Ng>i5X7S"5X7S",qL/]/gr&35X6YC-71&d5X7S"5X6Y@-n6c#/hSb//hSb+,sX^\-nZVb/0cbS#mh_(0-Dko5X7S"5X7Ra+<W'Y/0H&X.OZVj5X7S"5UId*.P*1p+<VdL+<VdL+<VdL/hAJ#,:+`f5X6YG+<W-b$4."`/0HT25X7S"5Umm+-7Buf-71Au/2&4o-71uC5UIm+5X7S"5X7S"5X7S",:Y5s/hSb//2&>85X7S"5X7R_+>+rI#p:?5,9S*R5X7S"5UnEP,p4fb,q^i!/1rJ,.P*5+.P*2'0.8;85X7S"5X7S"5X7R\5X7S"5X7S"5U.m+5X7S"5X6YK+=.@$+<W<[+=9?=5X7S"5X6_D5U.C$-712h5X7S",;1B/5X7Rf,pb/p,sX^\5X7S",qhMK-7CDf+=o&p/hSb!+=\[&5X6P:.LHJ,+<W9`5X7S"5X7S"5X7Rc-n$B,5X7S",;()]+<W3^5X6PZ5UIs'/g`hK5X7R]/1r/45X7Rf-9sgB-pU$_-7CMu-mgJf0.[GQ-nc\c+=KK%-71#c5X7R]0.\4s5U.[B5X7Rc+<VdL+<VdL,="LI/1*V/+>5uF5X7Rc,pO^$5X7S"-m0WT+<W.!5X7S"-7gGh/g)bR0-DA^0.\>55X6Y@-nd4u5X7Rf+=09<5UJ`]5U\6-+<VdX-9sgE/h/M(+<Vsq5Umm!+=09<5X7S",p4<Q+<VdL-pU$E-n6i%/gVhs$6UuT00hcL/0H&`-9sg@/0H&X00h05/1Mu35X7RZ-9sgB,:+`d,sWe,+>5uF5X7S"-8$Dc5X7RZ-9sg]-7's'5X7S"5UJ$8-n7J8,75_C/g`h.+>,!+5X6P:00hcf5U@aB5X6YL/g)8Z/2&D"0.JLq+>,;o5X7S"5X7S"5X6kM-7CK",sX^?.OIDG5U[j*/hSb//1)Sk5VEI0,q^Mk+>,!+5X6YG+<VdL0.&qL5X7S"5X7S"5X7S"5X6Y]5U.p1,sX^\5X7S"5X7R]/0H&`5X7S"5X7S"5X7S"0.]@R5X7RZ/g`%T-718i,p4fe.NfiV+>5uF5U\6-+=np+5X7S"-8-c#0/"t'-m1/i5X7S"5X7S"5X7S"5X7R_+<W3^5X7S"5X7S"-7g8f5X6YG00gp=$8*VS,=!Y"00hcf5U[a)5X7S"5X6tF+<VdL.O@>F5X7S"5UJ*75UIU),:jri-9sg]5X7RZ+>+lg,pk8r,="LZ5Umm!+=]WA-8-hq.LI:N-8-tr5X7S"5X7Rc+<VdV-9sgB/hA>75UIm1+<VdL/1;f0,pklB5X7S"5X7R_/h/Cp+>5uF5X7S"5X7R]/0H&X+<VdQ5X7S"/hRJr.Ng>i5X7S"5X7S"-m0WT+<VdL/g)8Z-pU$_5X7S"5U[`t+<VdL+>,,l,pklB5X7S"5X7S"5X6YE/0H&f0.n_>,p4<Q00hcK+>,;S+<Wp!+>,!+5X7S"5UJ*++<VdL+<VdL+<VdL/h\P:5X6eO-9sg]5X7S"-7g8j.Olu%+<VdL/hAJ#-7CJm5X6P:,sWq&+=ocC,p4``$4/%1+>5uF5X7S".NfiV+<VdL+<VdL+<VdL+<VdL+>+m(5X7S"5X7Ra/gWbJ5X7R_/3lHc5X7R]+=nfe/g)8Z+<VdZ-9rk"/0bK.+<W<[.R66a5X6P:+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vsq-8$ho$4.gt-n$2j-9sg]5Umm!+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL,=!S./0bK.+<VdZ-8$Dl-9sg]/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W't-8$ho$4."]+<rK]/gWbJ.NgB05VF6&+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5u,/hACX#mgnj0-DA^5UA$*,sWe./0c\g+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5uF/1rR_#mgn\+=\c^+<s,t/g)bh-pU$_5X6VK/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5uF/1rCZ#mgnE0/"Fj,sWe.+=]WA5X7S"5X6_?-pT(3/g)8Z+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vmo5V+$+$4."F#p:?8.Ng>j5X6PH+=KK?5X6YK.R66a5X7S"5UA$*.PECs+<VdL+<VdL+<VdL+<VdL+=\ur,q:Mo5X6kC0+&!l#mgo'.Ng>i5X7R\/0HJs+>,oE5X7S"5X7S"/1r565X7S",p4fe5X7Ra+<s,u/hSJ9.P*%l,sX^B/g)VN#mgnE#p:?50-DAe-9sg]5U@s(+<W-^-9sg]5UJ*+,="LZ5X6eA,="LZ,p4U$5Umm-/g)8Z00hcf5Umm)$4."F#mgn\5U.m(/gEVH5X7S"-7CDt+<VdL+<VdL+<VdL+<VdL+<VdL+<W9f.OZSi5X7S"5UJ*9-jg7e#mgnE#p:QC/g)8Z/h\M95X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5U\6--n#E/#mgnE#mgn\+=n`j.P;hd+<VdL+>,8t/1`>'/1`>)/hSb!+<VdL+<VdL+=o/j$4?"u+9OH*@1*&8!!!,+i.8N>s8W,`"Cl+REp3g/8Q0,-Ch;i3Ep4$0@:Wn_DJ):SFEDG<klP]Xkm2EQATD<iFCFD89LAms[_C`$!!!!ULXV#A_V3@$klFT_1&q:Sz",Eir;ZHdt!!?a8z!!"hUzTOC(f1BRUWzklY-W>m!PtEYJKR!!)6b9Om;k6Ul*)D.Vr7:18!N1]RLU!!!!t5j8M`Dfor>Ed@ffz!!!#`!c^"Qz!!())klu0:GB7>;1]RLU!!!!55j8YIFEDJ#ATDs.@q>a4lnak+!!!#`!c)<1!`h*6z!!$?@kmUBsA7TClB2WGVBQQ'2z!8Kg'"][s)D))2!5QCc`s8W,`$s-kOF@L1h6YL1MAEaG!F`(,hEcu/,Aa'IjATU4ZH#@*o6l#b&zklPf["'h2;]Dqp3!9jN/1]RLU!!)eT5VrH@zj?MmU=`8G'+A?od+D#G6Bl\-0D.RU,+CoD%F!,@=F<GXIE,]`9F<GC<@:UL!EZf1:@:XG$EbTE(/0K%JATD?oDfTD3H#IgJ@<,p%F`(VsCh4`2D]j1DAKXZhEa`p#-Z^CX9Me8e:/>4s:f]kU<CKh6+DkOsEc3Qez!$\L0"&6u@z!9jQ11Gf(3!!!"L8\bENX8r;$!!!#`"`nWkGAcXGBJ]\hz3'[QO'I$<Q!!!!$iZ*OMz"-!B_z!9jekDfTW7E+*6f"-2=>s8W-!s60o$F`MM6DKK]/DIioVQJ*/U!!!!$TTjRLz1]RLU!!)MT5VrH@!!!"L7R62E;f?\u:NBuWEW\.0z!!!+9[.pp,!!!#`!_Hnd"%dQ"klP!D"35Zez!9jMU1]RLUz_!(o21[,<GAT;j(F*']hH#@-V!b*qfSGIN;zkm)*F@<,dnF6Rrm/M112-$*?t+ED%8F`M@BF(KH*ASuZ>Ap&!$FD5Z2-n[,).3NYBFEMVA+=2(W/hSb*+D#G$/0K"FFDYT2@<>peCh5#A+Bp$9F!=m44Wl@0/g,Qn+F>5<?YOCgAU#=\+D58-An>k'-n$]#/h&4lI46Tf"1W@9@/p9-!!<X3]/BWh!!"i!Z(61PZdD#%#YB))Ch[HuF9?CG!WW3#!!)6a9f)hMz&4#I]8i,]>Ch[cuA7]@eDImAC"_;1RF_<N2zi*jFc#?,;YAnGjj1]RLU!!!#j^Zc:q@WQI(F`_1kDf]W7Bl@lGz!!&ZVktY2kAKYMp@Wc<+Ch[@!@<-W9BlbD;AT;j,Eb/c(Df-[kF^]D8E,8s)AoD^,F"SS3Ch7$rAKYo1ASrW!+EM[EE,Tc=+EV=-CLqT?"3dD=z!9jN"kla.R6X;MKz5[$E0z!!)gZklu3IF`Lu'klaq!H=[1p(6]I5!!!#`$$U<.CNFH'@qFm1;K$YcFD5Z2klc3D@<C`8=>Mc6zXH5^3!`(TSlRDl7z2"'X'1mH/?5;W??!!#:af0G/f!<A+^"DIr?5?%^e"'l!:$XEiJ'0$X-"'l!J!t>VW"()E<"&\1`!t/B:'*C3-!s<6>!s_]c"9TT;f*)6a;4[gk;c0t+"'\Xb"9W..QNdOj>m#E]>m#]['0(UF!s<6>"7H:s"+(\@HNO@a!s@uo>m"R=%1?YJ/HZ)R>m":=B`eJ;!aPn<"#scm"'l"E").i>QN:@o;[Zk5>6?ih!s<6>"4%*L!s8X&jobcB>m!.j3'.3E;<@u`6YQW)LB:``Et^NS!s;=$F5I(6!s?"8<!*4)B`eI@!=puD!<[$<"*Y1^CBH-j"'ZdE.pH9];[Zk5>6?ih!s<6>"3gj+HNO@G"+/>pB`eHE%1A'p!uD%AHQ@/XHYEQaQNLq("6onm",d0n%1A'p""aTWHYEQaT)fHYFTZ=[",?tm!s>q3;<@u`6VYu0"#EY,"#F3b@fn]#!s;g2CBG"RCBH-j"'ZdE.pH]i"-N^UHS5J8!s?RE*HN`X>m#-e>m#EeB`eGj*HN`X>m#-M3-,0(>m#EeB`eI3!]YN/"'l"]!<Wc=K)l'+!s<UGHNOX]"+pUf3.h56"'l"e!<[$<"4@5]$_IG%B`eGH>m#Ee3-t`02L?s$B`eIc!GMW<PlY.m@fm/J@fn:b"&iJ->75-I"8)[*;rn&_B`eHk"'l"M"#t?(").i>H;jtK").i>%l:6his312BEKae;4[gk1JtR`"$:3!"0r"A"<A4#)#sX:!!&Um"DIr?%gKWT_\09mB`eH%'-fR@=Yg-^>lukr'+6l('.ZEP68J]G('=X@+Thf[>lu;R',)ku$Sqke%0Igo>lukjB`eGX#m2dP!KdE`zR&pL*!s8d1'*A>B!uh=U$R5af!s9&e)Zp0U'.X/))Zp0S!ui1n!s:,Dq[%li]*\`CM#mYW!!!"dXTV`6!s;g2'*AmU)Zq,`!u"H4',P?b!uE`I&!If^!>Yb>"'l!B$Tf"(").i>+p7sIi;ioY!!!#gXTW>?"-3Od$NgJY'+<q*-Q<Hm"_e&@LB8)%!u#AN"31OY!s?:@1X6%P>A40AmfQht.iT-81BUMR"Tpi#!s=Sc%jMSeB`eI0"#`4K6TIg%"?SM7$VP19"/c0*""OHe'/K_frWNBc;>p_$6OG=g!sLIgNZDg9"5a+k!tu>^!s=kl;3h@f4(CVk"&\1`"&!>1"#g6:>;J.&"tNn<>P8;+B`eH+B8.HHGA.-]mfH5`!<YDD;uQq^2H'u^2H)tI*D9TM+'VYg2HrOQB`eIp!?<Tl!u!0u").i>mf@,)!tArH"/Q$2c4M!kB`eJ;!B$/I.m#aQp'3Z8c2oLXB`eJ)!?>;G"#=(2>9@'R'57ONl2a+n)kIUT!s:2U!s8W=1D9k)!s<18!s8W@!s8X<Xp,h@B`eGr%m+t;B`eH09m$O_"_.qc"s$?@@qc#IF_@9I'.mo#"$KMI"TouZ.glGVQ3@@HB`eH8'Di-k*Rbg=!s@?[B`eGb>m":5',+jX'2rZKB`eHh!aPmQ!tu=u"&\1`"#Eg:"9U^m,9m;)!s8d9,G"r]:BMhAB`eHh!tPQ$"^tQi!WW3#!!'"#"DIr?GA.-]G9I%j$XEiR!tu%e").i>#9EsL)c$PTT)iX.!t@To(>B%W*YU%c!sM%Zc3Zfn!s:gk!ukqV"(u<M!u2$5!ZM5I"!]$($S);m)`%R(3s,Qo"!\aj"#D_H,<H!11BR_b"#E#Q!s;O=!s8W3$!!)hblTK-!RUuA!L3]iz!0jSgB`eGB>ltHB3"#fj/.2O^B`eGJ%]^M[(V:M"!s8W-!mC^cz!0aMfB`eGb&=W]a(u#U-!t,2m$NgJH!s8X>!s98>!JpgWzTs"T5!s?:?A<%+b,\'^SNWs8HCMVcJ$#?+C@q=^DSd/b9rZKc'@q<"iSf_HV!s?"D$#ArP@q=.8ef&$r".g<EB`eIP"D!f8p'"r:^*BKn@q:TA-=^TK'eWuo"3)Eu$#?+5@q:T8^&qkUmM5-t@q;/C^(t3hp(L22A;2:_#%M?L"7HV.%Yc6=;?O??CC+eM%:a)S",@7pc4#F<@q=^0Xor6Fc31i^@qc#IrrQ(#`ZJtDCMSq2$#?sM@q;/=p).@<"-s4.$#?CD@q;/Gc3.Wk!s@usAC_oI@q>QLSd8h:p([38@o<Ec(MbC6CQ8F0!s?"7A@<6h@o<EK(2F4lef\I:!s>_-A@<Z,+_,'F%FuM/A;1u)!FoZK%u(F$B`eI($>BSEpC(TP(#B.);?O'.CC+db$"IMc#+c$/A>UT3(h6GGp'b^CCPEsAA>U(/*b/md")VTB,E<"=A?HpO(Lq"T$+:sdA<%ha&S#@K,3BnUB`eHs!XStS#%M2@%+Z,&A<n%7"_26K".B6g!tK)QCXrStABl=s!b5pH"6T_rmMhGp@q;_ZrZPc^eeQ1,@qc#INsQ,.ed,brL'a.H@q<jmV?CC,"-*S$-YmMS$>BSEcO!JO[KUFQC[MXAAB#Ud!b5cD$.^,,A>Tg%'k:q["1JI^CMU@%$#@6r@q;_VNZ;P>L'?]?@qc#I^BFpZ<b##0c4"IpCXs\>B`eJ;"D$@,^'8(P@q5KY<<H_5;?OWGCC+dJ$"Hj8NWs95!s9o]Q5%=>@q<RhL&tjq*i9Q[B`eIc!@MYuee/:)Sdo7@edRQW@q;/DQ3Uo1^(o3(@o<D`&8MSfmK$g3!s?sRABk^W"_2)?%]0J@AC_i7@o<E[%Vob\"31XWmKg6+@q:lMjo]+(Xr`<1@q<"RecK>lp(H3`@q<Ri`WBXJ"7@CL$#?[^@qc#INsJVcVA!_OCUOpeAA/]5+_+CP`ZAn%CUPHtAB#h%!b5c,#`]$tA>TC)#%LO5NXBP.CW79&B`eI[!XWZ1!b5c\#dt.OAG-eI'k:,D[KUG\!s?sRADR^N&7]7r'_VoE;?Q=jCC+e='4YSP#aPO%A@<*L"Cl-J"-3LoXqLF4@q=F!c3IiW"6Ki($#?sO@qc#IjTK,V#5/jCABkbc$Y*_%%`TN!AEF`s#@h;Q*Sps0A?HIB#%M3#*S(@'AA/nH)Im=G&<7rEA<n*f"Cl!!%JBg4B`eJ9!X>"mCBFlYrZ,KZrXAc,@q>Q[h?d\&c5l$[@qc#IY6/=T%/p?=A<%27"_2)/*2WmLB`eIk"(^75ecB8Y"3qTr$#A*$@qc#IblKNY)N+gs%401!o*hB!AF:3s@q>!;p&nl9NWPLK@qc#Im/^)e`X$>dCRuJTA@<;_%:`9<XpAeLC]4uWA?H=&"_26K"6T\qp(*0(@q:l4hATm%".g*?$#?sh@q>!2h?ROg"9'?W$#?+A@q=.,^)(9n!s>8!ADRao'k:e"*ps,?AEF-j+(K!e"4@Bajr0No@q9Jk#@h;I#f[<`;?Mp`CF<n5SdYp@SciP6VAFsf@q>!OQ4IJ9rXR3[@q<"cc2hEh!s@6[;?MpbCC+e=!b5+1VA*f[!s;7q"254[$#AB.@q>!@Xo`*I!s?dLA?H#h)Im<<!O`2BA<n"&(1UmX(8_1DAG-G'"(Q$I!t>QPecoVpL*L#7AH!g.)e3EM,5*!dADSCt@qc#Ibm"JiL'V9e"-*S$-YmLh$>BSE_?OPJ'@mq/;?Q%sCC+e=,%G/t*UX8EB`eGBA=aq+%qB/,&WRT9;?Q=uCC+e=)e3Ra".]O/!s8WM>6>OP"(MFI!s?sUADRLh(1Um0'\3FtA?HO<"(Q$I"-N[_",7J)$#ArK@q=^'VB9;YmK&%E@qc#IeHcZcz!1Bql=:535>lt`B'+5`]*WlKX:BM7HB`eGR.#T+H$L8?@!s8X>!s8d6!tu&('*A>N!s:"U!o3n9!<<*"!!&Ii"DIr?+'esf$Tf:0").i>7p$E,"'l!J!tu%e!tu=u!ur6^"&B"<(MNsR%:ZpM]+L50('=X@"p0bci;ioY!!!"UXorG@"-3UU421n#B`eIH#8:To!u#I&!<YZ0!s938Es"(:!s93HK)l'@EruMM"*7+L!s9PW$W@-2>78.L#.O\D").i>IhOnr!<YZ0!s;g2F%[0.HNOpKK)l'g!s?RF>m!_E4%fYXB`eJ3!YZN""%$c*"$(.g!]+*aF%[/cHNRsa"*tdd9-Zq?[fQYG!s@-U)Y4Z<(;ghg$NgK:!ttbM$QB0O,7D3iB`eI`"C2*k,<Ish").i>[fZt!,6M3R6Si!M903dp;Zf$ajocnS/*6tEB`eHu!aPn,,<Jg+").i>In)$H!X!-="*ut3ScTikA"E`h>m"k8',,EhB`eI^!GMW<[/jtD"*[(Q!s;g2F%[06HNOp;K)l'@EruMY!s=kk3E)LN'1Xj)").i>rrP\0%0L;H"#i55ScUuD6TP<`!s?sP>m!/54$*NHB`eIc!F5e#,<JO#").i>%;>nHSH96F9*6aJ"%->r91*Cq"(_o\,9$eB$dJrH,H:eIB`eJ.!?<$\"#q5%"'l!R)\WT0"&[nm"#FWn"&`D,4"CsP6N]>AjocnS/*6t5B`eIn!aPnL9+t6N!u"mk!<YZ0!s;g2F%[0NHNOpSK)l'@EruMM"*7*K97$bT!s:t3'*A>B!uhme$R5`W.gs&qB`eIk!F5e3,<K*3").i>]`VOB9-ZMk!s<6>".B<($8D]!2;nR=4[Df)!WW3#!!&q!"DIr?QN77?$dJqf.g%"3!s8WTWs&US(D&)!)[.`"c3=h1!u#AN!t>Da$bciW.g$_Q'*E+U.gs&r&1[i->luSj+#=9,=XsRV"Y0u+#&+/A/SP:h#?VWA"!eQB"<1Mh$e?.ejoc&:3@!Yh'57ON9aCjW!X7rlz!3!"&B`eGrC'+P?;?Q=j$RZ;i*`<+."VW6s':oqQ!s;>5!s8uJ!s8W=92bpS;Zd,9!s8cA92bpP;Zd+t"&h6p!s:Rt'-dTVSfIn`;=4Vj1E7VA!s\N$.g$!#1BRi;!]pJgfE">A"pdj(B`eHK?L&D[$f`37z!!'4)"DIr?pAls(.k<V1jod2HrWOf&,qC2b1Zefj,;:Vm.qo(fY5qM_"9U/g!s8cu.sD)0!s=#u'BTEBB)VrY,=Dna,:"5j"=k`2jodJS!s8uX'BTEBB)VrY,A\kT,:+ij$S!YO.o-6t<G;O;75$.n""NULWuU^@;4[gk.qo(f+tkGK").i>AQTlR"&B"<H>*H`+p\/KzWN?;;!s9>V!tump!s8X-$NgK:!ttbM$QB1N'*A>N!s8d6!tu%G)\\57>lu;jB`eGB'+6;m*WlKh65'G'>lt`J"WJ-##$h<U,A@5^#87Iq"!.OH,=3%G"'l!B.pW5r1D:-@"',L+.qo(f%6")&b6L*5#OMPS!X2#X!A1tcz!0aMfB`eGZ"Ub^P#:p5b!u:t@").i>%:4r4]*a/u"9K\Mz!1U(nB`eGj('=X@>lu#R3u\8(B`eGH:5^*E'uM),!s8d1'*A>B!uh=U$R5`e'.X/))Zp1<!uh\`!s98B!f7!;!<<*"!!)Q("DIr?NsuWC"daB7B`eI(,ngC0"TrH@".s!8is##X""3sL$YD`k"Tni?UBTre!u'\uo*#4DqZRAQ#&+/A[j`!."8`6(48T0`").i>a"Sn$"Ug=q>MB=A$0)1:irogV").i>f3)7g"Tni?UBS75!u%F3_Z^-F]*/9=';G`C"TrH@"7KMRqZZ9hqZS@""q0Po6Lt?_!u%F5o*#51!sA9?':T$?"Tqo>"Tni?UBS75!u&iY_Z^-F]*/9=B`eJ+Hr9#?"8`6/irpY0;;N#ilNKW0"Tnj@!sA9Y';G]j"Tp.<"UgUu2X:P$"mZ=>o*#Mf"#f`SgBI0P6K84O""3+4$YD<W"k*Y8"V^J1lNIB)!s:+cb6<qU").i>mjUSU"Tni?o)s[L!u"ms"Tp-9"Uj`>B`eI`?8gOAUB90R*WlMn"^0"P!s9po"Uj`-';G]Z"TrH@"8?k6rY,Ip"WYtp!s8_]"WP/WCsrRB"k*ViXrYspdfjFf"7K&ClNIXu'?^R>"TpF<"TnibWs>C(Ws9<U"g\F9-bBTkL''?G#EoD)#AF8BT+Pc>"-5bhlNQ;Pdfh,b"UhaC2X:Oq"7$+f^)[=I"WdaJlNJ[-"Uk#->O)HQ'_;JUo*#Mf"!-t:lNQ;P-h@KL[K\Y]"k*SF"Xj0N$\ed*!sA,u-i4&TV?^f;"-7%\P6D$j'Cu?j"ToEr"e,YtB`eJ3HmdYR$g%OLgBZI;gBSD0"lfgi-gM!F^&^.X#J16,#>sUq"7laais,Yg'>k"6#6SZB"8>AQ!s>"r':T&m"ToFU!i#o$B`eJ;>?TDY!s;fW"j7)3'cmGZdfjFf"8?RYWs9$p"^?liXp;!4-`[I[NX&dH#M'Ed#AF8B[pi43#m6(i$L7jG"!-D*gBHmHA?H->$eki!!s<s0RgAlrRg;lW$Nm.06B_ZW").i>NuBD3"q.j?;4[gko*/(K+9VKF;2uk'K*Q)m"0X1ZdflKJp&\+J"9[Zf*7G&n!u&QUgB@[n!s?SY3SO`""PX)o!s?RK2T#dc#/^Znb6JFS"?+F.UB\mH-dr;.jo[Nj#Km>##8=uYgBRgp!s?j_*Ld7s#(m+-Rg'8_"#cVQqZWGnB`eI(3[^s3$dJc>Rfrlr'Cu?r"ToFm"JZ,&B`eHm(fUS>""3+4$dJr5irp(uB`eIHB*M2e!s8`MlN75:o)fC"#&+/AO,<rOUB?\`""0QA$haZhMZj1bB`eI0+&i=E!u&9M_Z^-@b6?>u!s$4BVa(>u!s?;Z*NKC>#."L]Ws/s_!@P2X$ap(5jobdu##WY_"2b=?jobe0##X4r"4IG]ZN_o^B`eIP>uAll"7l[njr=L#"]>7("+peTXrdb("q'Z".g'Jf"8?UZK*D_G"^Cj-h>r65-\DU2NX'8#"7I?i]*bkY]+S>K$JPfL),\*["+pdbirpq8*SUbH"lfb6gB@u9!GMW<O&B-@"9S`Rirfb`%;5k0"9SkD!V6Er-i4#SSdfB9"4%0KVBH&b##VN@"4IGo_Zg2FB`eIP=(qa=O%q'T"q.jD2M24?"+peTScT"P#&+/ANr`qs"4'4jRfXh(![j`E$e>S2Wr`[;'IU3g$U-JT!i#e&![kS]$gn$C_ZC5F!]IptUB/76-d)Q!ed"+V!i#e>!b_\b!Wsh)!Xm9S2VS;.!S[Z'irTV>%8m:g%I4(0!sAQl;2t_\P6N"Z"p4r6K*I>OqZU[9"8W'cK*;>Z'Cu?Z"ToE*MZj21P6D?F*C>A^!s95."G6j['6B'8""099$cWWBK*;>ZB`eHu+;:LOdffh$gB@tN"#em;dfeD/6H]N7""27q$ap7R!sA:B2N%gh",dC3P6VK8"!.OHM[*qu"-6;iL)?d.]*2`R)t"-H"VZLj_Z^-@b6?>u!s$4BVe-#@iroP=#AF8BcOEbS`XsFC.gqpP2Cf^sBEL$mB`eJ+4XZ-m$haTB!s=/\-]83;Xo]u7#7Is@B`eI0-OTGK.g$gX"lfdX"XiU>$g%Usis!."lNJ[%"Ug=q>N5ma)=%GRlNIZ^").i>r<-!K*Wr/A;>).8Ws2Fu('ClI$BkZE"!*:(K*IMDB`eI0ImTV.!s95."IfPs':T*!"TrH@"92(^MZj1b'Cu?b"ToFE!L!Zh-^t8IrW,?D"Tni?o)ssT").i>mg;S>"bd']B`eJ3$Q]BPgBAW#"4IDWgBANSCsrRB"k*Wh!s?"O;8s^\UBj2M#Qk/B_Zc50""0QD$bcXU!s=;bB`eJ#)AD]FK*;>jWre1_""099$e?)-!s@]i6JDYG"'jRadfllV%27J",66I%QV[btK*J@\"%&I]!s93h#*T2m8HT(<"V\KNdffhf!s>_O;;N,lUBV'X"tKc^K*L`WqZS@""q/u_B`eJ+>93kKb699B"Uj`#>K[2a#h&r)dfg,f"uap6df\&&-eee4p&Sk0"1LHPZNls)ZNj@q&HfWM6E:=n!u&QUWs8`@!s=;\6A#FD!u(8/K*;>j98`rU-^+]A[L?jP"4'"UWs&m&"%&I\!s95."IfPs'8lsf"Tp-Q"Ui$JB`eI#"AtHs"2b@1ZNgR7'>k![#6Q?c#7J6H2S03`#.k+S!s=lC'3"K+""3sL$g&I,Q5p'["t,<5$Pk+R"q)1Ro*$WH-i4&T[LHpQ"/g??VAfX/"[_5Q!s943"QKXfB`eJ3-lrHmP6ND("q.R7-_gkR<`+SV"02W'rWND1#&+/AV_':&"q/^"-bBQj^)eZ>"q0Ps2T#a2#.k'[ZNdH7]*;sO"8?Ie_["'`_Zs&Q#m8?U6G!I)""1\c$iU8e]*Erm]*E$P"6VW_P88clq[=jY#7H7g2R<XX#I=Y4c6!/##=>Hr!s94S"fhk1-aO$c^&^-u#GVO1#>rJ["1ne)Ws8_/'>k!S#6SZB"0ZJ]!s@Qe;6C<0lNKW0"Tni?UBK<T""3+4$VkC<"-7%\K*;>Z'Cu?Z"ToG8!fI3a;8*JAP6F:*"Tni?o)s[L!tu?+"Tp-9"Ug&1B`eJ+2GrT>"7l[nL("1]"]:im"+pel!s?LI'Cu@U"Tp.,"Ug%h2VSDY"ks2p!s@.q'>k"."ToFe"lfag-gLpDh?IZr",[<s_Zc50""0QD$\eaARg?n:Rg;m*+TnJF6B_ZW!u&QUP6_7<Rg9D9!GMW<m0>ti#6P&A_ZdXW""1tk$bcXU!sAR?B`eI`$Q\gClN[4j-h@NMjo[O5#3,mY#&+/AY<Gh/)["Oo6Gj$1""1tk$iU9C!s@or'<;;K"Tp`r"Tnj(NZJ;?"[]O!!s<6>"2@&YRgATjRg;m:+p4SG6B_ZW!u&QUP6_7<Rg9CV"#cVSo*:`jB`eJ+="!#5$\eaAis4TKis/H$$3TT!6JD_I").i>Pm1HF#Nch\#:GE7$^Ll8M[+k>dfh+W#7IsEB`eIk%26ncP6D%9Rfs2F"@A"M!s95."H*EcB`eIX3C;a0!s943"QKXf>jDRJ"m-#'!s@_-<!*4)#T_Y'jofB#"/c/IMZF4J)^ggM$aq$&RfNn_!B-DJ)k-jUUB(bR+9pa)WrW<:!s?Se"ks2"h>q<m",-kEM[0Ce'>k!3#QlH<#Re?I2NnEQ#EoEjXrmh9#XXFT!s94S"cEWg-^+fDL''>t#dXc"#Z:"&".KR1!s?:q'>jq4"TpjH"Tnj@!s9Q@rYu$8#XX^\!s94S"d92o-^tALL''?'#`AtX#\aACq@"%T"4IDU44=?8").i>pF6j*"oAH*>_<7H"f;;6gBEcF!t?3%"p6dd"7l[0UBL/l!u',eqZR(,K*LWFL';8n"6UUNdfp2?#@#@UL)8;C-dr8-Q31h'"91%b_Z^.?&SV=LbmG-]!g<fj'Dhs&"p5On"eu8(6B_TU!u(P5P6M,'!s?kL'>k!+#QlH4#Rc@h2N%k,#E&jbmN2Op#\aACpKpeK$j3O66CS,\!u(8/Rfrm-K*7qQ").i>\dT7i"d92o-^tALL''?'#l=jr#\aACf3o?a"e,\u*WlM."r!a7Rg&s.K*J(T!u$RsWs/Z?!s?RL-i4&TV?SsU"mZ?h"^1F#!s<6>"9/B8UB/79"&mAHdffgR_ZcJ1!u(P8MZs7sirtVN"!.OHMZsjl"d9,mB`eI#!E"k&"+pdbirpq8*SUbH"lfc#!s=T\AG-tF#J1.M^')F\]*/D[!Q,'C'>k!s"TrH@",C#Vp)4%F"[]6n!s943"fhe/'?^Nb"TqVf%0O3G6E:7l""1,Q$dJr(ZNU`^"r!a8]*/9MWrg0B"'N5>!s943"hOp?'DhjK"TrH@".s<AUBU5m""3sL$g%IJqZZ9hqZU-o"Tni?UBL/l").i>Op+ee!s;E_"9ZgN-dr5,ecmMV"Ugn4"lfb*2?iCM)nlA-lNQ;Pirs-!"34RYo)t6\!u%.*RfrmAUBM%&"_e&@o`Z_t"UhI7-fY@<[K06s!X%`l;>q11o*&!_!X&<'B`eI.$oZQ<b6?>u>gil*"bm1XjrOWb"WYtp!s<6>".s.=!sAQa'19Y@"'N5>!s943"hOp?'2-4H").i>Y7)*9"OdMV-eee4Sd.1."j7)("Xi=6$_@T;!sA!t;8*tOlNU5[+Tq<?;=4_mqZ[D^"tKcrdg!u"gBK%S"q/u_-eeh5[K06s!X%He;8sg_lNU4X!X&#u;:ZcjqZ[D^"tKcrdg!u"gBK%S"q/-I-eej3"-*CZQ5]qd##Y@)"7$.2gBI`^*Rb59#29>0dfp3B"^B.Sh>u(0B`eHp#\aACh]l!i!X&<';3hLjK*G2e$3Q1j;5P'1P6P_'"-!m+K*B-r"'N5>!s<3=]*/9@BYsuUB`eJ#&jkU^!s943"QKXf'@R-N"TrH@"0WFQo)ssT!u'u$P6D%cL(4<T"[\+N!s95."H*EcB`eIhC-q4i!s94s!p^!l;;MQ\o*$0;"7$,)!s@-s8';(&BEMrN"5b@Odfp2_![l_,$_@AHgBQC:NWE#V)[#+)B`eIK"$,rVjok8ZB`eJ+-msoW$a'OYP6ME'!E"jp".KL/!s?d[6CS/]!u%F4Rg&s.M[#p\").i>[fUC+"mZ?P"U42q)nlGkis"`Pirs-!"6C//"8`6('8$=<"p662"q0i$2N%do"cES!!s?kH';G]b"ToEr!TO=c'@R-N"TrH@"/f$1UBKld""3[D$gn65MZN\Y").i>[nK,H"Tni?o)ssT!u%.)P6D%9Rfs1c!GMW<SJ#0("jRm9"t,$-$^Ll8K*M2Virs-!"32?[!s8X&jobe0"Xhb&$gn'DgB@tV"=N45$e>LclNJ6a!?M=FirpJ+"5<t_irpCY!<_?cgBH=8:BT>TeIlQu"/e*lP6S&l"%&I]!s943"IfSt'9`Wq"p8QA"8rlHMZNDQ!u'u(qZR'C!sA,uB`eHU't+M!"k*WPjobe@"\fF.b68P`lNIAr"7l[0%28%2)c$RZ"j[6a!s<*^Ws/s?"u`LddfZWT-aO!becHlp"02W?!s?da-i4&Tecd2f"oAJ2"DIr?g'AA`"G6j['Cu9`"Tp-9"Uk#GB`eIF'jUq-"Z&7+"Tnj@!s>_B6K84O!u%F4iroNilNQ#Hjouk/"7$+f^*3[N"[_5Q!s;Dl!X%0\;4[gkirs)uo*#5,mKCNDo*&h1".*CmXpkL)#=@GU!s9q2#MTHk&LZlL$iU9C!s?kP2VSA0!S[_j]*.-s!u$k!lN@<(!s?LN*W$#X!J:S6Q3PeAqZT"W"ni2u"Z+F*dfoUPB`eHu<_ihP"d`V2!s=St'8$La"p5nK".KK7MZs7c:BQLZpBPC7"32<\!s=Gc!;crW#6Q?3#Re?I2N%k,#E&jbrYPa$#XX.L!s<6>"6pF2_Z\El!u&i]gB@[#!s@!U-eee4c3><<"hOrm"_e&@g(@3U%KhUo$L7mH"!-D+gBQsJ-fYC=jo[O%#(m-?"t/^@$e>>m!s@^QAF9Sd,4btK`WX9uo*&[E"MP98"_@$(V@W8%B`eJ#%9^:H!s943"hOp?'8ln/"Tqo>"Tni?UBS75!u(8,_Z^-F]*/9=';G`C"ToFu"N(BF=h=h>").i>cRD2e"TniSRfs2F"r"lUUBLa6!sA!4*:j:()<1uob7!VXWs0UI"/?&JWs/s7![k;Y$ap(5c3aZc#&+/ALCknt"q.jD2Nn?o"-Wp:Rg'8O!bh`=SJNYP$cW3*;]AX_>79jB-Y!O]!bh`=[hKMI"H*Ec'2t(u""0QA$cW36MZj1b'Cu?b"ToEJP6D%9Rfs1s!^_eK!s95."H*Ec'5Nd8"&]%.".KH\MZj1bB`eI06mqj9$iU8eqZbdYqZ\F##7IsE2M27`"+phm!s@Wr=h=h>!u%F5]*/9Mb6#Qb"'N5>!s943"hOp?B`eI0:I=(F!s943"QKXf>jDRB"i^a\!sA9e'?^NB"Tp-A"Uj016Al!L!u(8/MZj1rirkPL"&ZK>".KH\MZj1bB`eIX=;/j]gB@[^dffgU'Dhj["TrH@"8=]$o*#Mf"#f`Sdfo=H6K84O"'jjidfllV%27b*,66a-XUkS3rW`Op#>sn,"/?)u`Y/HT#>sUp"1&4>P6WT?*K(/T#EoB?M['X@!GMW<f09r?"cEQe6Mgog"$m"kgBBkF"3UjQb6=XBp&\q1"6Wi8Ws9$`!@P2Y$ap(5rW`P;#AF8B`t]9R!g<ci-^t8IQ6\eT"Tni?o)ssT").i>aoW(M"TsNSB`eJ##SWs9gB@ZmirnBG!u',elNIB)!s=N#2WFti"lfb6lNIZ>6JDYG!u%F5gB@[,irog62WFti"lfbhgB@Z]-eee4mK7/*"0Wn:P6m]rRg9Og"cF4u'0,"j6h;6\gCjApb8NX#*Rb2h"VZ68"p5Of"cEQe*WlLs#&+/AM@(_`"q1,**WlNA"Xep,$ap(M!s@F';<A8h]*C['#6P&A_Zd(G""1D[o*4U`;4]$8]*C['#6P&A_Zd(G""1D[$bcX"ZNl[!ZNj@Y#m7dE6E:=n""1,S$g%P*!s?dN-d)Z$[K\Y5"k*Rs"Xhb&$iUrV!s@'f'B97["p5;RK*DE:!sA,u-d)Z$[K^FJ"344clNI[i(IHj[!s95."PX(^B`eIX)I9BclPB'q-^t2GXopYP"+p]F""0iG$haZ\UB;I1").i>^DpM5"k*XX(*3P[gBA7c"QKXf>jDRB"m-"1!s@im;5PT@o*&h1"6CP#V?$dO#"%nb!s95."S2d!-i4&TjoK/u"3gj5is,Yg'>k"6#6Q@>#7J6HB`eJ3!@R1:$bdBCgB@Z]'Cu@]"TrH@"92D)]*/9=';G`C"ToER_Z^-F]*/9=';G`C"TrH@"7H[Ho*#Mf"#f`SgBI0P6K84O").i>blT8^#f?nm"B"k""/?,gP6_6mB`eJ!)AC!jqZR'`qZR'(B`eI`"ubKFdfnb8-gLpDV?90>"Tni?b6?>u").i>LFZWq"ks4C"s*jKlNL/"*!>d9B`eIK#r_)SWs@qq;77,?o*7VB#6P&A_Zf'*""3C>$\eaAlNaHqlN_,+".Bd+o**kPc3%5@"Tni?lN?_^""3sL$^LlQqZY^XqZU-o"Tnj@!sA9$AF9U"%J'a6mKE4po*&[m"JuOt"_@$(rZC_8AF9U")Y4,H!s@F#6JDYG!u(8/gB@[,is!m8jp#N%"+g\i"2b-A-d)Muc3-&K!?92_-dr)(Sc^n"!?9JgB`eI($PSF!gB@Zmdfnb8"!.OHgBAtb"Uj/l+PR(["fEha!s=T\<!*4)AaT]]"kNij!s=to;8*PCZNgi$#:flsM[+k>P6WIn#7KYt>D!0`#)`^6M['WM#AF8BPoUj>"Tnj0Rfrlr#+u!d"Tnr_UBL`5UBR\%!u'u%ZNUGF!s?[f-_gkR[K\Xb#1E[L"t-GU$haU8!s>h>'>js2"p5Nk#*T5n*WlM&"u_ADo*($V7uIS,/H]\h"2?r3MZMQ9"'l#h"WImagB@[<!s?^M';G]R"TrH@",A*7_ZTc>"$?A`!s<6>"7Jo'UBUf&*Ld7s#,;AMRg'7d").i>V$RgY"lfag*WlN!"Xi=6$e?"YdffgU';G]Z"Tp.,"Ue'=Wrh;b").i>VajUe$3S0N6F-n!""1D[$g%P*!s@^>;8+.T_Zitm#6W-R;=5;(dfp/c"tKdi!sA3'B`eIF#S5)^aqb(n!s?4G'3iW`!u">V"Tp.,"Uh11%3*Io)efBVRN,2]+9Rf3*.nFt"!.7Bo*'aN-i4&T^)(Jc"-4%.!s<RX!s?CC'C,bl"ToEBqZR'+J-(?-"!.OHqZU-o"TniSo*#Ni"'aL`Q6#Q#;4[gko*&h1"7dBtgB@Z]';G]b"Tr#i"k*Y;"s*jKirr<:('Ek+6JDYG!u%F4gB@[ais!m8jouk/"60Q!!s>_N';G`C"ToE:_Z^-F]*/9=';G`C"ToEJ_Z^-V!sAB+-\DU2[K\XB#1E[,"t,<5$haTB!s=/[B`eJ6*EgPh!s943"NprN-dr5,NWa%u"8W-6MZq!%"'N5>!s943"hOp?'=.bX"TrH@"4&_9_Zf'(!u'DmlNIA<o*#NY#&+/AU*)@()e172$_@V^CE%%:Esqs\B`eI81+2Ys$gn*;o**kPlNIrs"S2d!B`eI00jCsgjpAX(-bBQjQ3//>#."N/"t."e$ap6t]*?^d]*9Y#"q-.g*WlMV"t.:m$`4.Vb6A?_"uaX/ZNJATB`eI(2e`?r[jVa("TsH$B`eJ372,P!_Z^-F]*/9=';G`C"ToEj!lG0D=h=h>!u%F5]*/9MMZUd""'N5>!s943"hOp?':T'@"Tqo>"Tni?UBS75").i>l2hXb"d9,m%3'p("#g;ao*&Cj"k*Y#"'P4!!s<6>"4@QeM["e<"(LO.NXUgMB`eIk#ZLm.!sU1&"TrE?gB@[,iroha'kmaPmjo-)!Q,'C=h=h>!u%F5]*/9MRfUD1"'N5>!s943"hOp?B`eJ1!@QV&$`41WirKOj"ZGBA,NAePlN%C5*B*3agB$U@;?Q%jo)U69!=P1r2Z!M"qZ/'s![Gu%-]8$6rW>':![EU)B`eIX/lVoT"'l#P"Zn]e"Tni8Ws'.=%'p*V""D\&XsD9o;4[gkgBD9n"-5Gi3t%ng-US9U#9>l^6ROr'V?CT8"8<C)mMH&D#>pK`"3UpHNXGs<#7@dB.g$fm#E&hn#AF8BSHhpmdflpBB`eI+%4CHF$^MMclNP`@lNIrs"S2d!'@R-^"Tp[;"mZ>E#"%nb!s<6>"6UC4o)ssT!u(P4P6D%9Rfs1c"@A"M!s9p/"UgUt2N%_`MZmes"-4frK*;>Z'Cu?Z"ToF=",d<b;2u+gP6GY&"0DYQlN[fP"#fHM]*IX,;<B#(o*8t3"4@fKK*;>Z'Cu?Z"ToFu!fI3aB`eIP65.6?_Zp8kb6JEh!B/++is*[3B`eJ))\]gddf]adZNJqb"'O(U!s94K"OdJUB`eJ+%U86'rYbS;-i4)UQ3/0)#3uKJ#&+/Ag)F`."8<HLdg!u"irpgZ"q0Pq2U_lb"k*Zi!sA9V"urXe"'MB&!s94K"/?#%'3hL@!u%.*ZNUFERg$D-"!"?F!s9SH"/?#q"/?%U#&+/A[i/3J!s<3=]*/:I^&kGA]*2mN"6Cb<mKC68o*&ZZ's8bP"V^J.qZR'8lN2\C"#to;!s<6>"3Mc.!s@!U-eee4p)+1k"jS1<"_e&@N@#1Z"lDTJB`eJ)$4cq:"+ht9!s@-U-]8'7^'-EQ"+p]6""097$cX*!!s=Ds-gLsENX&eC#0mtL"t/^@$^Lm/!s?k)-h@BI[K@oS!Xmiq'2*r["&]6p,)ZONP622Q(`\/1!s<6>"+!:l#Qk/VM[0^i"?)/DK*R;?'>k!;#QncC"7d1(jobe@"\mDG"3UjFScT#K"V[X6iroMuUB9`b").i>g)Xl0".(VR_ZTc>"$?A`!s<6>"-3j<gB@tV%L(kr)nlFYlNJ6I(MNsRasn(J"ks1_-fY@<-:6/b!s943"OdMV';GW`"Tp.4"UgUuB`eIh4X]7n$ap+'dffgU'Cu@U"Tp.,"Ucq@gBGb(gBAtb"Ucqs!s>G16H]N7"&\1`"3UjFh?*l/"]=Cb"5<uRSHAu;"V]>cP6D%9Rfs1k"%%nL!s95."H*EcB`eI>$7Fj;$XPaO"k*Y8"XiU>$XQ0S"Tni?o*!eO""3+4$`4#?!s>87-\DU2[K\XB#."Da##Us+",d@\VB>u)"rr7"!s9S@"nMnM"ps;nNWSeU-i4&T[K\Ye"k*SN"_e&@\fE0Y"Ugn+2WFti"lfb6lNIZf#&+/AWY\g-"Tni?MZp-b!s[riZNUFP!s>S-';G]:"TrH@"-":']*/9=';G`C"ToG8"N(BF=h=h>!u%F5]*/:N!s@p;'8lt1"Tqo>"Tni?UBS75").i>SLIG=NXi)l-aNm_L'S"Q!P8F9B`eJ3.OY)t$bc]jK*S^bNWE#V#6Tkh;2te^P6W([#6P&KqZc?jK*Q)m"7I*@qZ;rc!u$RsRg&s.gBF>V").i>rs^"/"ks40"Xi=6$ap6tis!m6irpgr"Uk#)*WlN)"XiU>$a'PF!s=<"=:535-PHm="",#qjqDG2"2,6nMZsRO"^?T`Xp0dg-]80:Q3/.c#(m-/"_e&@Nsl\s"LA76'<;;K"Tp`r"Tnj(jr"9="_e&@JgaKV"TsYe;>qaAP6Om=*!;Z7B`eI>'O8fbUB:,j-eee47NBST!s94S"k*VW'?^R6"Tp.4"UddddffgU';G]Z"TrH@"2>C*gBH%0gBAtb"Uj0*2WFti"lfb"UBKld!u$Rno*#40gBIHX"!.OHo*$N="Uj/l6L+dW!u%F4lNIA(MZNDQ").i>LF3b1"hOp?'.^s("'N5>!s<6>"54Jh!s8X="1n^=AEG#+(qTr^rX.3i]*2mN",.t1mKBs*o*&[m"O7YO"_>UUc3X"FAF9TO$M+F8!s?S#-fY@<[K06s!X%`l;;N8po*&!_!X&<'B`eIV,86gUdffh$gB@tn!]Jd:b6?W(=jmNV!u%F5dffh$gB@s;2VSDY"ks2p!sAK+'C,\:"Tqo>"Tni?UBS75!u(8._Z^-F]*/9=';G`C"TrH@"4@l)!sAE(-\DU2ec\>2"Tni?UBL/l").i>rspKX"UhI96CS,\!u(8/Rfrm-K*A"R").i>ap/SAgB7U]df]aT-dr2+Xr8\B":L5.B`eJ.0*s^X1FG6l[Nd.e$ap?h9+.=1B`eHh/16Vd$iU8eP6^+OP6WJ)#7I[9-_gnS[K07f$3R=6;9g'^ZNk1H"4&D0lN><6!u"nf"Tp.,"Ug&'B`eIf!s[*QlNIB)!s>q6#%7<3!u(P8K*DDkdfkX6"!.OHK*H#l".^Z'K*;>Z'Cu?Z"ToEr!K.*`B`eJ;-msoY$bcX"M[8>JM[32*(B]j,6A#OG""/^,$iU8eK*[A?K*Z/n"8<W:5cY%j*WlM>"^.;u!s94+!h0>qB`eIh0/e^odg(d:;:ZZgP6aL-#Qk/B_ZbYu").i>_D*t'"j7)("Xi=6$ap:,dffgUB`eI`&JOa=P6D%%P6.3W""0iI$hackP6D$jB`eJ),nAZ5".pNH!s>P96IQ)?!u%F5dffh$gB@tn#<(<?b6?W(=jmNV").i>g'%f##1aU&"t.:m$^Ll8_Zm^WUBW*`"q1D52T#ar"iCNlb6A?_"uaX/df[bt-dr8-p&Q3:"3Um_!s?dt-^+`BNYNq2"q+I/NWTBY##Y@2"02VGRg&rsB`eJ3-ki?Yo*#40MZN\Y!u'u(K*DEl!s=,Z<!*4)>h]G2"jR3QgB@Z]'?^R6"TrH@"5aLjgBAPQ").i>eIk34#Qk/B_Zc50""0QD$\eaARg=WPRg;m:%KiI36B_ZW"'h#qb6?/n=d'*n"$m"k]*2mN"0WCdP6D?>"r$S2Rfrm-_ZHS:""1,Q$iU2oRfrlr'Cu?r"ToF]!i#o$-`[CYed"O2"Tni?o)tNd!u'DjUBLa6!s?LK;;MBWdfj"ZgBAO+gBH=8").i>q@G$4"q.jD2N%dg",d@\NY;MY"s*jKMZtPm"q+I/rW`Op##Vf?"/?&?P6M*kB`eIH"XgV]$bcX"ZNp@3ZNj?f&HfWM6E:=n").i>h^:aS"p4sA!s?jf*NKC>#."L]Ws/so"^@`+^&k>>-`[FZNX&d`#*'M#"t-GU$^Ll8Ws5='gBD9n"8siL^(UU$#X\+f!s9qB#7KYr2Y.03#P/0JqZdMk"#g#]K*V8Y'>k!+#QncC"8<!+gBNZ>M['p5"fhk1-aO$c^&_pM"-"$CRfs2V!^_eK!s95."H*Ec'B9+W"Tp-A"UhI:6Al!L").i>iYk\&)?]:/6JDYG!u%F4gB@[ais!m8jouk/"60P^L'n+L"[^rI!s<6>"2>aOL(+7>"WdaJdfgD["PX(^>iQ":"m-"1!s@Qe;>)"4lNKW0"Tni?UBK<T"'jjidfm_q;5PB:o*&"j&Hhn6$KD:7"&Y@*"7$,)!s>PK-\DU2[K\XB#."Da##Y@2",d@t!s?[l-h@NMrY6IV"7$.=o*,T*![mjL$ap(M!s@-V$Mt#X"!-t;lN[4j-h@NMecBIe"2?,q>K[0P>m&OZ!t>pe"WJ+ZgB@[b"60Om%27J")efBVeLhNQ"/?#%4/2r]").i>h$+Of!o!k\-fY@<Q30&*"j7)0"[^ZA!s95."OdMV-eee4[KgLK"0)\7P6U.TMZtPm"q0Q+-^t;J<`-RQ"/?'7!sAQ-;4\g2P6VHd"tKcrlNZ)Jo*-T."q/-I-h@PK"-*CZSg+@7##XLc"+pguo*,:!*U<pa#4i%5!s?[a'?^R6"Tp.4"UiT[6IQ)?!u'Dkb67uR"4IDmB`eI+-;g?9"+phU^((7'#>rb["-WsejobdU#AF8Bq>q>R"k*VW;3h[ogBAW#"4IEf!s=N6;=5>)]*C['#6P&A_Zd(G""1D[$bcX"ZNp(+ZNk1H"4B">iro5_!u'u(K*DE!!sAE(;76W1K*F[6"Tnj@!s?"S-]80:[K06s!X"Vj;8*tORg)`]!X#2%B`eJ+![im3$bcX"M[7c:M[31_'*FF(6A#OG!u&QUK*VQ,M[0]F").i>JduVW"cETF"Zb<@jojEB/+sS/2qnLM!sA3!-fY@<c3?,c"WIOW>N5kh'8$JS"TrH@"2,H`_Zd(G""1D[$bcX"ZNnq`ZNj?^&HfWM6E:=n!u&QUWs8_SZNgkm"#dIjdg!,`;2-4r]*C['#6P&A_Zd(G").i>M@(`##7KYr2Oas#"e,`EUB_2+"?*"[dflKOB`eI&3@Ehj$f2($dfo%@"!$&!!s<6>"3N&g"4IG%&SV=LU+?u,"lfag-gLpDc3H\j"Tnj@!s=]-:BTndiXol,"18e>Xs!nJ"q$7m.g$fE#5\R^#&+/ASIHt$"UgUu*SUbH"j7&sgB@tn"ub3>df\>.-fY@<`WI7a"5<u,irogn![m:;$ap(M!s?4E-i4)UjonuT#0$oF"t09P$]YI+!s=-";8*_HUBj2M#Qk/B_Zc50""0QD$bcX"Rg=WPRg;mJ&d+m7B`eJ&%T.s&"02VGRg&rs*Kp\c#+Gg2!s=\t'Cu@U"Tp.,"Uha?2VSDY"ks2p!s=E&2R<YS#."OJ_ZdXW""1tkRg/9];:ZTeb6M_`"/Qqao*,So!@RICo*13U;2te^qZ]p#'a''n;4[gkM[*qu"-Npq"7$+@46m%P").i>%9qR*b8/P=$C`$a*Rb?*_Z^.7'57ONY9+2eK*DE:!sA,u'Cu@u"Tp.L"Uh132Z![D"oAI;!s=uP'8$LY"p5On"eu8(6B_TU").i>iZ&X'"Hruk'8$@U"Tp-I"Uk;;6B_QT!u(8/P6D%%MZT@O""0iI$iU5pP6D$jB`eI#'GHB*gB@Zmb6?o0"!.OHgBAtb"Uila6IQ)?!u%F4dffgeirn*?").i>W\Z#d#7Is@;2,hgRg2g!(^$N<;<@u`Ws<>@"8Xkqis"0@lNJZr"Uil^-gLpD[K1(E",.X8K*L?>)\!JX"Tp[c"7$,)!s>(rB`eJ)#q,<J$ap(5ScT#k"];E="+pel!s?:P$0r%Q%dP&mqZ3`>P71(4"N(_])@!,@lNIA2is"0@lNIsn!TO=c'=.l."Tqd-"7lZrirumu""2h,$dJqsdfm>egBD9n"53he_Z^.?$#'JD\f;CT"H*Ec'75oH"&ZKI".KH\MZj1b'Cu?b"ToEj!L!Zh-^t8IV@mSF"3iAEP6UU^p)==%#+bmK"t,T=o*)i0$'PRb!fI7s!s=f3BEPjM"([]@Q63^BAEG,V&A&*V[N`Eo]*2mN",.:"gBIHX!u'\uK*DDkdfkX6").i>i\(t_"cEWg-^+fDL''>t#ic/R#Z9Fg".KR1!s@X+=h=h>!u%F5]*/9M_ZI^Z").i>`AT)j$f2%FHQ.;ZK)lo4B`eI.*[d-Q$hac_P6)tm![jH=$`4)A!s?LO2VSDY"ks2.irogF!^b?>!s<6>"/QnLUB8mJ""2h,$gnBhb67tM'>k!s"ToFe"OdMV-eee4edt0k"Tni?UBJaD").i>[1?-s"9Xhl;9f=IRg'<HK*DDo!sAE(;hG:4"p4l&"e$nC;>)+7qZTio(^#Bp$L7j?"&Y't"7l\1!sA3L<!*4);<@u`b699B"Ugn)B`eIs-lrHmirpgr"Uila6JDYG!u%F4gB@ZmirnBG!u',elNIA3!s@QeB`eIN4qj[p]*/9MHc$!h-d)Z$c3@tb"4%Jk_ZT3."$>fP!s<6>"1fEbWrhSj!u',eo*#4*'C,f(2Zj0:"V^J1gB@[,irog6B`eHs3[ae.o**,=-\DWp"g/(XM[&bVXp-8;#4i#4"::7rSc\cmB`eIK"WdaJgB@c@"WOTKCtf-R"ks2p!s=;[0_5m7#-.teRhN+@P8@)f!X">bB`eIc%k"[f$a'LX]*8XD;5P<8_ZjfW!s_];)$A%d*4lCW"!+]PWs60?$)7]b!ilMQZN^fG"u`dldfZo\-bBQjmKt!;"1&1Z]*8Z:"_e&@Z8Y+&#Qk/B_ZbYu""0!4$bcX"M[8&BM[31G'*FF(6A#OG").i>V[?:e&-LAc;8rtGgBJY@"p4rJ_Zm^Wb6B?3"q.jD2T#a*"2b=W!sA3)"lfb*^&f;'"Tni1gBANS0\Zc["k*Wh!s?:L2iAKa*Qn^%gCAiFM[1]*"UgUt6B_QT!u(8/P6D%%ZN?U"""0iI$U-n@"Tnj@!s?[c%c[]paoc>["0r7I_ZS?k"$=s8!s<6>"2Y@D!s8W=UBLGt"&[Vd"+pel!s@XE;3hgsUBj2M#Qk/B_Zc50""0QD$bcX"Rg=oXRg<^1"4\J@ZNgkm"#dIjUBe+1;6D,G]*C['#6P'B!sAB4'B98n"ToeJ"7l[DqZRAq#=@_[!s<6>"4B%2YQ;WD""27o$g%L<dfU!/,&%,]N=&#$"Tni?o*!MG""2h,$\e^s!s@6_';G]b"Tr#i"k*Y;"s*jKirr<R#QsAr6JDYG!u%F4gB@[ais!m8`Wf<.(Ba74B`eI6!Ya;i_Z^-F]*/9=';G`C"ToFm"N(BFBEQE]"%'U'!s943"hOp?'8$G*"Tqo>"Tni?UBS75").i>Ot@?2"H*Hd-^+`Bh?O^P!Lj8qB`eI^0cfQagBODW-gLsE[K\YU#1E\?#&+/AMAmT%"lfdX"XiU>$e>>+o*#N1!GMW<odC@*"nanYB`eJ)-rIDU"60P^jobeP"\gHKgB@d`UBCZ'O9)Bb!sT=C"9SjY!P8I:#+,J0"9T=L"NpoM'@R'4"9VfM"9S`>]*-:[!u$Rqdf]bUb6.nL-d)W#SdB*5"0+:<b6?>sb68RN"OdMV'?^R6"TqV^!<_?c6IQ)?!u%F5dffgeb6?W(""3+4$dJrCdffgU'?^R."Tp.,"Uj/k*WlMn"_e&@`>UYP#K$b`#>sn""3Up9]*AE?'>k!c#6Q?k#7H7gB`eJ9(DF[hdffgeb6?W("!.OHdfjFf"+h(3gBJ%o"ub3?df\>/-fYC=p&Q3:"5=#-is#mo!bh`=N<hH.#Km>;#8=uYo*5@FqZdMC!B0f[b6RnL;4\a0K*Xg8#6P&A_ZfW:""3sN$\eaAqZk:LqZgg;"54nqc3aZc#>rba"2b?NUB`:O*Ld:l#GVN<!sA*2-^+]ANZpfB"Tni?o)s[L!u(8,MZj21P6D?F*(#8]!s;F'h@kMF'Cu?b"TrH@"1:-&UBK<T!u$RniroMudfo%@"!.OHirpgr"Uila6JDYG").i>m5Yit"bR'_-]86<L''>l#hoTB#Z8SS"-X!WK*VP]'>k!+#QncC"0sBib6@28!t>q("Tp[c"4IE$dfg,F$u#eG]d>,e"Ug%h6IQ)?").i>qCjhN"d8u1"V^J1dffgeb6?W(""3+4$ap7+dffgU';G`["ToF]"ks1_BER8u"%(H?!s<6>"2Z*VQ669f##Y(2"-Woro*$WHB`eJ6#$(g.K*Dc8irpAt"60R5/851g\jIL%#)`\T"t,T=$_AFfRg'7$;<@u`UBXTp"Tte0*1I-7").i>?UD@.!s943"hOp?'@R!""TrH@".]Hq]*/9=';G`C"ToDO_Z^-F]*/9=';G`C"ToFu!lG0DB`eI;2B@tcM[#XT-^+`BQ3/.k#)`\<#&+/Am5,KO"S2d!-i4&T:(sZ0K*DDklNN1N").i>\eu1Q"H*Ec'.]7M""0QA$_@MgMZj1bB`eIF2&!k2Ws8_SZNgkm"#dIjqZaA3B`eHh+_:!DmN(m&AF9Tg+S,bImKB+)o*&[E"ND>N"_<?&p'L<oB`eI&1MHpnW]heg"q.j?;<@u`P6OnH%Ki1);2,;XUBXSu+TnbL$B#*=!sskihBRXWB`eI#2GXG@"mRaT!s=]K*WlN1"];-B"7l[_iroMe';G]j"Tr#q"ks4C"s*jKlNLu)"8ru_qZ[G:!E"RV"+phUNY2GP#>t19"-Wsec4'lF#7C>4.g'Jf"3hbu_ZSWs"$>6@!s<6>",\E=gB+,R"&\J#"02S=_ZR4K").i>SO6rU"NDVV"_@$([N>#DAF9St$hFO9!s>8_(![fJ"k*WPjobe@"\kOW"3UiqP6D?f$UTIL!s95."G6j['Dhoj"Tp-9"Uj/nB`eJ!%O^!7$RQk:"Tni?_ZeKm").i>MEWrY"j7)0"[^ZA!s;':"8XqYB`eIV)`I9igB$mJ-\DO0L*.k%":OW;#*8nM"9SiFRfih-!sAB.'Cu<i"Tp-A"Uk;66Al!L!u(8/MZj1r])e*!").i>Jh&4T!=Sl-2R<E'ZN2Gc!=R`c2S/u7])cUJ"78B["7$+846m%P").i>qEZLh"Uk#,2WFti"lfb6lNI[i"@CiH!s95."PX(^B`eIC4]DLc!u&9M_Z^-@b6?>u!s$4BJfFlH!=08P)(?RL,n0hS!!!"dXTW>?"#g\\']T5S+'8mQ"$%$\"UeT<)Zp`e,6MW^!tT)J!u1ti$iUn])Zp0q)Zp0H!lY0Dz!26LtB`eH]'I*]!"Y0u+#%9#$"'l!Z'57ON%qu+J%20sB"'I,V"#^f#.k`CT"'l!R)`o8H!u:t@"&7esgBIHk=;(c=-Q<Gb!]C]2)c$PT6>6N(2$a?7!X7fii;ioY!!!"pXTW>?"-3Im)Zp1>jobc29a:b6%hjEpB`eHU;ZdC09*57u;77#<$Y]\F-O+Mt"$6km"&fR@").i>2)YgE")%cE"&\1`!u#AN!tArH"%m80!t$&!!t/fF"!qH@$2YTu"9JQ'zP-"k$!s9&QMZfLVit5B$!s:(^!s9;@!s8W+(]XO9!!(cU"DIr?<tbsO!t>oJ"#g;a9,7U3").i>Nr`Mg.k;8@1BUnb4#:RQ",?tm!s?"7=;(c=>lu#J'+6#e*WlK`:BMO^B`eGu%22qJ2Zj.T>m!_-"]H)3"C2+6;eZ=9%:''/$PO1P!u!1h"%#W_").i>-UJaS"'l!J,>k<M"!_L^"#X?d91)JW9-n9S"$[G,;Zd\#>6@2b!s<6>!tSCi(lK*7(Jb,H8neA0/R8HO$O'HB^'@pG>>#V;@fpEI"-!<b;\Olu',t-X6;%C_>m!_-;9f=I;\LB["%#W_"'l"%$W3Js"&fjh>6ARA")f"Y)_51r)`n]@,6J*"'Aa90)]LkE"%s#9!s=\e>lu#R"X=]3"^M3\)\WT8"!.OH.qo(fjT.\@!s;g29+(o%'>=\b4'MeR9*59%"%s#9!s>(q%1?0u!X2#\!i5t+!lY3%!M'85!<<*"!!&Xo"DIr?`rSI."%->r)Zp6g$Vjt0.pH]i"/c/d6N[Do6OTao"\T5h)JK9UNsAqm.g$G(1BS:83s01!"0Vi5"'\D%@ge"l2IfBi=^(t1B`eGH2Cf.c65p"/-R0#%)^d-DXrD'W"/cB<_]G9K_ZXZU"+Lsl1BS(".g%^4!ui!X!s;=$/"ZiV!s=km>lu#J"X=D0%p]8f)efBVrrZO/.g$G(1BS:83s.f"!s<6>"&E#4!s;g2)Zp6g$e>Gd""P%!!s?jO>m""u'15t+=]5D)B`eHE"WIj;"#_)+)[.GomK5?l$R8pZ.g#r2$f2+o"$7/0)aa]K!s:VO.g#lf!s;P/"&h8b>76/d2HrgY=]5D)"]GfK!]EtM;dBK06PEC.").i>f)o:\6UMMK9*5>r$^M#a6N[F)!s8d6"%+jX1J7f`4&Z5q!s:C_.m"tY1BR^_1CKKRB`eHm!^\C>"'l!Z"(O,+"(OD;"%"L?"'l!Z"'l!b.qo(fLB/&e@flmM$dJrC>6=s@;d0>;94J',>6=tA!s<[[!s>A$'+6Su*WlKp65p"/B`eJ+!>>hs"!.OH.mb0W").i>K`Vnq3s-N+"#CT03s.f"!s;g2)Zp`e,6J*"$_A,J!s>(p2DZR6"Zm*X#<"Xg4'_qU6PD7K!sMU2Q3T`D!s<6>"0)G]9++Bt91tih#)E:a!usr9").i>o`>;4$cW67>6=t5"'\]<!s?[I"WIi8"#_)+)[.GoQ30#i$R8pZ.jG]H1BS[#""S'f"8)\#"#D_H,<Gu@.mjD*1BR_b"#E#Q!s=tp%LeI$"\#Zt<NuRi!pp$!!qcTA!gNcdzPcY(&!s8d6!t,27'+<q5=UP<6B`eGJ=7ZZl*`EgV!s8W,eH#gRzaK5SZ!s=klB:]/LhZ?tC1S+Y$3s,Rg4#<H07QW]'!\ZV;"&ZK:"%*DG,6M3R1CFj03s/?o)?W>H1BR_kjodIr&i0VGB:]/ThZ7En""toMNZ^DqrWPAF76<:e7RJDl'57ON%qu+J%;\C!)b!+U4"iYt"'QooIV^5:,@(C%$PO10"&Z34"$:3!"$K.92$7Op"!oo?!s;E_"9TTK"!\0e'.X/^jobcB;2u%e3sm2W").i>JcRIX)hS0L)/#NY.uaRD!s:bbjobc:;4[gk)efBVN<*3E1Zeg04$0#8B`eI+!GMW<*u^^P4!RN'40em$!s:Si!t,2j$NgK:!ttcN!s?[H$3D4cz!0jSgB`eGJ1<U9I#+HTH!s8d1$NgJC!tu%a',(I$'*A=>!>tk;!!!"eXTW>?!tRu8"5=?m%VZ"I0,=Wl"'l!:"&\1u!u"fF!s<6>"!(YL$Nj7d*Wm'Y$NgKF!s9hO!JpgWzQE::(!s:bi$NgJC!tu%a',(I^!s8c?!tu>$'*A>/WslTVWuPgU!t>A6)#sX:!!'F/"DIr?cN+\(.g%FT!s:'F!hTK$B`eJ+!Giu",A@5^^B%5r#NHfi#nms[").i>-SR%Y4%9T>rWOu3'0Bn1"#ha%!Y#NO!s;=TrWOe[/"QfT.qo(f/SP:h1.Dp=rWQIE)u^"T!s9Q-;@=.P!s:u+!s;G''*A>6jobc*;4[gk,A@5^*AAuO1I_a.rWQIE)u^"T!s<j"ScW@71]@P.$T%bc1D:l]1KA69)^B&!"'#X-z!0aMfB`eGB"Ub^("'l!B'+bfZ$PigH"!X38lOEFi"U",n"mH'gzZE47D!s9oV!t,3:!tu&>jobc*B`eGJB`eGH;;NK!,7Pk*.pW6-',)TH"&YX."$7JQ!s<6>"'6Hu!s;^_1WBT7.l/\]"#CU)!s8cA'0?:n`X;l9*&@[!B`eH%0.R,,=t;,+%UB/m',)<H"&ZcN"%-c)")S@^#Km58#?io>c2qf41Fl`51D:E03s/@J"p7441BR_q.l/\i!s<iU!sK8Oz!3N@+B`eI(!<j\Mc3?fQB-V*m"1J;:"!\0e'.X/+!s9cD"!^$E!s8u9,6PXb&0hhr*ubk,"X=,p"qW!m$Y]\FG6K2nV?AOs!s;(%9`o)3"!q%_!s8]G"/Z3,"!\0e$S)<#!s9cD"!^NS!s9>C,6PXb0-^Q$B`eHH',r.u0-^Q$2N&0B*9.h?!sRK]W;uu!!!!#-XTW>?"/c2tjobcB9a:bF%jMSeB`eGj2EMjF1)!"g@^cAu&//a[""-=>+7g&M(fUS>!tu=m""tl$"'S>2V@YP4'2*$A"!(YL,6JSe.g&Z2"9UGWc34;3%3m)"(BXaY;<@u`,@`5C").i>%;^*4F'<p3`W^1*CO7jd'74Eq"!'2;"]H'g;\NY1@q3L^>&.'f$X.U]edGZ.;pGGY!s<"7$NgK.h@p&*BEK1UB`eHk!>,>uz!5>Q<B`eIP!aPmA"'l!J$W32n"!\ih!ukqV"".@V)[fO"+p0&2!s9KV!s:2^"!\aO'*A>B!ttcN!s:D-o)cf2lN1>o,9oMg!s;g2'*DMB)[g?^"#j*F"p6(k!s9KJ"!]Tg'*A=E'*A>1'*A>6L*$LB*WlK`>lu<%65'G'>lt`B>lu#RB`eGB;8rnE,9?ph)dNOj'1*?7"'l!B"'l!J$Y]\FV#b94!s`QC!s;g2'*DMB)[fOB"Totj!s9KJ"!\IG'*A>N!s8u9#6kMF%0[@[z$+)ajrjBYn5:e>rlPhV15D>[B1q]pX5A^9ei%\Ed59f+`>!MiJ5CtZCq2qrG5;mu6)B#=05K8PZZi!FI(t;HiRiEgOiXo5\`DK63arC0gjEbEU.gC]Z!Ko8>z!!!!Uz!!"@]1]RLU!!!!`^bc#kz2SeQG^7nA?EQ!7o&sl2]/'tGCfnk]4OeIuUI?:\OL<CT52h^`h9r2"ISOX.#5EW?rJOrsk\XL+TIpK[Y>FLHMAQ@t!CGZ"k!!!!JbWmubz!&D>Hz!!)N'1]RLU!!!!T^]RU:s8W-!s8N1Ua8c2>s8W*Uz!!"ah"'kj*s8W-!s"j]Uz28D$Kz!&21j0E;(Ps8W-!"2Fm9s8W-!s60X3`#(<2z!&q\Mz!!#=#kmY_=N?a#nDZ$UM=!KO%z!(+K`p]1ATXT\\(s8W-!rs&W.$NL/,z`2s/X!s>G%"9TkN-3F?+4][:<>>G?*LBD;o"31Ed"+(+Q"*4Pk!s=/VA/:a;HXq;k!HVd@IY.YgC[2G1%0ER9UB0roCBFYJB`eGp"lfoY%^QmK!s8dB!s?jM/oCbqCBFZo!bh`=3m@\3Rg`L]>;f[l><X9BAgT<4)e/tc!s;^ZNWB5dCBFZ*CBFZJC'+P?3WlMc$W/P""qr$[!t.0ugB!KD:mM+i#T4$)!lG3sH]&E`$n1u^MZ].R)rh(E%.b!9]*t/1WrYtr%(cY;%2K$J"!Rho"""*PK)oKmV?)$S%^lCbA.H$KK)oL(:4iR7CSM?^#6MdHUB16$CBF[E!CpA%!<[*>"53bj!"T&0!!<3$!"],1z!+Gp.z!!3-#!%@mJ!$;1@z!!3-#!!3-#!!3-#!!3-#!!WE'z!)3Fn!%S$L!%8oh!"&]+!*]F'!&X`V!!*'"z!!3-#]=],5));(w)[0X1d]=nil;w[0X0_1E]=(nil);w[0b11111]=(nil);(w)[0X20]=nil;w[0X21]=(nil);w[0X22]=nil;(w)[0B100011]=(nil);e=(0X046);repeat if e==0X46 then e=r:I(G,e,w);continue;else if e==0b11_01101 then(w)[0x1e]=(function()local D;for z=63,0Xf3,68 do if z>0X8_3 then return D;else if z>0B111111 and z<0B11000111 then(w)[0X1B]=w[27]+0X1;else if not(z<131)then else D=r:R5(w,D);end;end;end;end;end);if not(not G[14181])then e=G[14181];else G[0X180]=(-1183726567+((r.yt(G[0X46D8]-G[18136],r.j[3],G[8865]))+G[0XF64]+r.j[0B1]));e=(0X66+(r.kt((r.Pt((r.Mt(G[18393],(G[0X71E2]))),(G[0X1_373])))+r.j[9])));(G)[14181]=(e);end;elseif e==0b1101000 then e=r:K5(w,G,e);elseif e==39 then w[0B100000]=r.H;if not G[0x26B2__]then(G)[22121]=93+(r.kt((r.Et(G[25295]-G[0X689e]+G[7255],(G[0X1373])))));e=(-4292902900+((r.Pt((r.kt(e))-G[0X41__30_],(G[4979])))+G[18638]));(G)[0X26b2]=(e);else e=(G[0X26B2]);end;continue;elseif e==0X5a then e=r:V5(w,G,e);else if e==0X71 then w[34]=function()local G;local D,z=w[0Xc]('\x3C\I4',w[0x1c],w[0X1b]);local J=(82);repeat G,J=r:F5(J,D,z,w);if not(G)then else return r.A(G);end;until false;end;w[0B0100011]=(function()local G,D;local z,J=w[0XC]('<\x698',w[0x1C],w[27]);if w[0b0100010]==w[0B10_111]then else G,D=r:l5(w,J,z);if G==-2 then return D;end;end;end);break;end;end;end;until false;w[0B1001_00]=(function()local G,D;G,D=r:e5(w);if G==-0x2 then return D;end;end);(w)[0x25]=nil;(w)[0X26]=(nil);(w)[0B100111]=(nil);return e;end,S5=function(r,e,G,w,D,z,J,X,i)z=(nil);for B=0X2C,163,0X2A do if B==0B101100 then z=r:G5(z);else z[0B111]=G[38]();break;end;end;D=G[38]()-71309;w=G[6](D);X=G[6](D);J=nil;i=nil;e=(nil);return e,D,z,i,J,w,X;end,pt=function(r,e,G,w,D)if w~=0B1111100 then e=G[D[0X26]()];else if D[42]==D[0xa]then if not(D[0X15]or D[0X26])then else r:St();return-0X1,e;end;end;return 27090,e;end;return nil,e;end,d=function(r,e,G,w)if e==0b01110010 then w[1]=r.yt;w[0B10]=unpack;if not G[0X5088]then e=0B100010+(r.dt((r.yt(r.j[1]+e+r.j[0x3],r.j[0B10],r.j[0B11]))));(G)[20616]=(e);else e=(G[20616]);end;elseif e==0x29 then e=r:Y(e,w,G);else if e==0X74 then w[4]=r.V;if not(not G[0x0032Fa])then e=r:k(G,e);else e=r:r(e,G);end;elseif e==67 then w[0X5]=r.J;if not G[10300]then e=(-0X1B073+(r.Mt((r.yt(r.j[0X3],G[13050]))-r.j[0X2]+G[0X3A47__],(r.nt("<i8",'\14\0\z  \0\0\0\0\x00\0')))));(G)[0X283C]=(e);else e=(G[10300]);end;else if e~=70 then else(w)[0X6]=r.x;return 0X2b,e;end;end;end;return nil,e;end,Gt=function(r,r,e,G,w,D)if D==0X2 then G=r[0x6](e);else if r[0X2a]==w then return-0X1,G;end;return 0X00_2Ce7,G;end;return nil,G;end,W=function(r,e,G,w)if G>0X4F then(w)[0B111]=r.F;if not e[0X66_6b]then G=-0X3b+((r.Wt(e[0X3a47]+r.j[0B10_01]+e[14919],e[10300]))~=r.j[2]and e[9745]or r.j[0X9]);e[0X666b]=(G);else G=e[26219];end;return 0x8111,G;elseif G<0x4f then(w)[0B1000]=r.Xt;if not(not e[18638])then G=e[0X48Ce];else(e)[14805]=(-506275289+(r.yt((r.j[7]+G<=r.j[0X8]and e[14919]or e[0x2611])<=e[0x32FA]and e[0X3a47]or r.j[0x03],G,r.j[0x004])));G=-3663690378+(r.Bt((r.Bt(e[0X5__088]-r.j[0X6]<e[26219]and r.j[0B10]or r.j[0B1001]))));(e)[0X0048ce]=G;end;return 33041,G;else if G<0X55 and G>0X30 then(w)[0B1001__]=r.J;return 18236,G;end;end;return nil,G;end,Pt=bit32.rrotate,v5=function(r,e,G,w)local D,z;if not(e>0X27)then return{r:q5(w)},e,w;else e,D,w,z=r:f5(e,G,w);if D==26687 then return 43755,e,w;else if D==-0x2 then return-0B10,e,w,z;end;end;end;return nil,e,w;end,x5=function(r,r)return r;end,F=error,z5=function(r,r)r[27]=(r[0B11011]+0X1);end,nt=string.unpack,dt=bit32.countrz,m5=function(r,e,G)G=39+(r.ct((r.kt(e[0x666b]-e[21533]-r.j[0B01001]))));e[0X6df]=(G);return G;end,i=function(r,e,G,w,D)local z;D=(0B1110011);while true do if D<0b1110011 then z=r:U(z);break;else if not(D>0B110110)then else D=r:_(e,G,D);continue;end;end;end;G[0X18]=nil;(G)[0X19]=(nil);G[0X1a]=nil;D=0B110;while true do if D<0X2D then(G)[24]=4503599627370496;(G)[0b11001]=r.q;if not(not e[23436])then D=(e[0X5b8c]);else D=r:Z(D,e);end;continue;else if not(D>0X6__)then else G[26]=(nil);break;end;end;end;for r=0X000,0xff do w[r]=z(r);end;(G)[0X1b]=(1);return D;end,Ot=function(r,r,e,G)if not(G)then else local G=110;while true do if G~=110 then r[0b10000__][0X3]=e;break;else G=(117);(r[16])[2]=r[0B10__01];continue;end;end;end;end,Kt=function(r,r,e)r[0X3]=e;end,V5=function(r,e,G,w)(e)[0B100001]=r.J;if not G[11444]then w=(-0X5d2__+((r.Mt(r.j[7],(G[0x180])))-G[4979]+G[10300]+G[3940]));(G)[0x2cb4]=w;else w=(G[0x2cB4]);end;return w;end,kt=bit32.countlz,Vt=function(r,e,G,w,D,z,J,X,i,B,L,W,p,q,n)if q==655 then G=e[0B100110]();elseif q==0X20__7 then r:jt(J,w,B,i,e,p,z,W,X,L,n,D);return 0XE286,G;elseif q==0B10110011 then r:Kt(B,L);elseif q==0x17_f then B[0x9]=W;return 57990,G;else if q==0X6f then(B)[0X8]=i;return 57990,G;elseif q==0X24B then(B)[0b100]=e[0X26]();elseif q==451 then B[0b1011]=z;elseif q==0B11110111_ then B[0x2]=n;else if q~=0X13B then else B[0B1_10]=J;end;end;end;return nil,G;end,L5=function(r,r)while-r[0X26]do return-0X2,r[0b010100_0];end;return nil;end,at=function(r,e,G,w)local D,z,J=r.J,G[0b11110](),(0B1__000100);while true do if J>0X16 and J<0B1010011 then J=83;if z<=0X32_ then local X=0x35_;while true do if X==0X3__5 then X,D=r:vt(G,z,X,D);continue;else break;end;end;else local X,i=0X2C;while true do if X~=27 then X,D,i=r:zt(G,D,i,X,z);else break;end;end;end;continue;else if J>68 then J=r:tt(J);else if not(J<0B1000100)then else if e then G[9][w]={D,z};else(G[0b1001])[w]=(D);end;break;end;end;end;end;end,D5=function(r,r,e,G)e[0B1__1_0_11]=(r);G=(0b1__011110);return G;end,E=function(r,e,G)G=(-4294967252+(r.Bt((r.Et(e[18393]>=e[18136]and e[0X46D8]or r.j[0B101],(e[29154])))==e[18136]and e[20616]or e[0x1373__])));(e)[0X1c57]=(G);return G;end,j5=function(r,r,e)r=e[0X6Df__];return r;end,Ht=function(r,r,e)r=e[36]();return r;end,Ft=function(r,e,G,w,D,z,J,X,i,B,L,W,p,q,n,I,o)local u;G=(nil);for M=0x6f,0X28F,0X44 do u,G=r:Vt(X,G,i,D,p,e,n,z,o,J,W,q,M,B);if u==0xe286 then continue;end;end;w=nil;L=(nil);I=(6);repeat if I>0X006 then if I==40 then r:Jt(w,o);break;else L=({});I=40;continue;end;else I,w=r:xt(w,X,G,I);continue;end;until false;return I,G,L,w;end,g=function(r,e,G,w,D)local z;(e)[0Xf]=(nil);G=0X7A;while true do if not(G>17)then D={};if not w[16950]then w[0x541d]=-98199+((r.Et((r.Qt((r.Bt(w[13050])),(w[29154]))),(w[4979])))-G);G=0X3C+(r.Qt((r.Mt((r.Mt((r.ct(w[3940])),(w[29154]))),(G))),(w[4979])));(w)[16950]=(G);else G=r:B(G,w);end;continue;elseif G>0X3c then e[0B1_110]=function(J,X,i,B)if X>i then return;end;B=i-X+1;if B>=0B1000 then return J[X],J[X+1],J[X+2],J[X+0x3],J[X+0X4],J[X+0b101],J[X+6],J[X+0B111],e[14](J,X+8,i);elseif B>=7 then return J[X],J[X+1],J[X+0B10],J[X+0B11],J[X+0x4],J[X+0B101],J[X+6],e[14](J,X+0X7,i);elseif B>=0X6 then return J[X],J[X+0x1],J[X+0X2],J[X+0X3],J[X+0X4],J[X+0X05],e[0Xe](J,X+0X6,i);elseif B>=0B101 then return J[X],J[X+0b1],J[X+0B10],J[X+0b11],J[X+4],e[0Xe](J,X+0X0__5,i);elseif B>=4 then return J[X],J[X+0x1],J[X+0X2],J[X+0X3],e[0B1110](J,X+0X4,i);elseif B>=3 then return J[X],J[X+0X1],J[X+2],e[0B1110](J,X+3,i);elseif B>=0B10 then return J[X],J[X+0x1],e[0XE](J,X+0X2,i);else return J[X],e[0Xe](J,X+1,i);end;end;if not(not w[4979])then G=r:X(G,w);else G=0X11+(r.Mt((r.Wt(w[0X4130]==w[0x39D5]and r.j[0X7]or w[16688],r.j[0x4],w[0X666b]))+r.j[0X7],(w[29154])));(w)[0x0__1373]=G;end;else(e)[15]=(function(J,X,i)J=(J or 0X01);X=(X or#i);if not((X-J+0b1)>0X1_F3D)then return e[0B1__0](i,J,X);else return e[0xe](i,J,X);end;end);break;end;end;e[16]=(nil);e[17]=(nil);(e)[0X12]=nil;e[19]=nil;(e)[0X14]=nil;G=0x28;while true do if not(G<=0X28)then z,G=r:Q(e,w,G);if z==0X8806 then continue;elseif z==0XCC83 then break;end;elseif not(G>=0X28)then e[0X13]=r.e;if not(not w[3530])then G=(w[0XDCa]);else G=0X1_1+(r.kt((r.Et((r.ct((r.yt(w[0x2611],G)),w[0x66_6b],w[0x47D__9])),(w[0X001C57])))));(w)[3530]=(G);end;continue;else e[0X10]={};(e)[0B10001]=r.gt;if not w[0X46D8]then G=(-0B1010+((r.Mt((r.dt(w[0X2__83C]))+w[3940],(w[4979])))+w[0X62c__F]));(w)[0X4__6d8]=G;else G=r:N(G,w);end;end;end;e[0X015]=tostring;e[22]=nil;(e)[0X17]=nil;return G,D;end,B=function(r,r,e)r=e[16950];return r;end,Q=function(r,e,G,w)if not(w<0X67)then(e)[0b10010]=r.l;if not G[0X1c57__]then w=r:E(G,w);else w=G[0X1c57];end;return 0x8806,w;else e[0b10100]=r.b;return 52355,w;end;return nil,w;end,r=function(r,e,G)(G)[0x2611]=(0X4aCAF503+(G[0X5088]-e+r.j[0B1000]-r.j[0X6]-r.j[0b11]));e=67+(r.dt((r.ct((r.Wt(r.j[0X6]))+G[0X3A47],r.j[0B110],r.j[0x2]))));(G)[0x32Fa]=(e);return e;end,U5=function(r,e,G,w,D,z,J,X,i)if z<212 and z>0B101101_0 then w=#J;return 0X160F,w,J;elseif z>0B11010100 then(J)[w+0X3]=(0X1);elseif z<0X00111 and z>0X97__ then if i~=0X0 then for i=0B1000010,0X44,2 do if i>0X42 then r:Q5(w,G,J);else if i<68 then r:g5(J,X,w);continue;end;end;end;end;return 5647,w,J;else if not(z<0x97)then else J=D[9][e];end;end;return nil,w,J;end,I=function(r,e,G,w)(w)[0X1_D]=r.v;if not e[0X617b]then e[0X689E]=-0X24+(((e[26219]<r.j[0X8]and e[25295]or e[7255])-e[0X7__1E2]~=e[0X39D5]and e[14919]or e[9745])>e[0X5b8c]and e[0x2611]or e[7255]);G=0Xd4+((r.Mt((r.Mt(e[0x0541d_]+e[21533],(e[0X1c57]))),(e[7255])))-e[18136]);(e)[24955]=(G);else G=(e[24955]);end;return G;end,i5=function(r,r,e,G,w,D)if r>0b0_11__0__0 and r<0B1111011 then(G)[w+0X3]=(0X6);return r,28615,w;else if r<0X001e then w=(#G);r=(123);return r,60026,w;else if r>0b11110 then G[w+1]=(D);G[w+0B10]=(e);r=(30);return r,60026,w;end;end;end;return r,nil,w;end,Et=bit32.lrotate,Mt=bit32.rshift,vt=function(r,r,e,G,w)if e>0B11 then w=r[0X1e]()==0X1;else w=r[0X23]();end;G=(16);return G,w;end,K5=function(r,e,G,w)(e)[0X1f]=r.Ut;if not G[1759]then w=r:m5(G,w);else w=r:j5(w,G);end;return w;end}):R()(...);
+	local vapeEvents = setmetatable({}, {
+		__index = function(self, index)
+			self[index] = Instance.new('BindableEvent')
+			return self[index]
+		end
+	})
+	getgenv().vapeEvents = vapeEvents
+
+	local playersService = cloneref(game:GetService('Players'))
+	local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+	local runService = cloneref(game:GetService('RunService'))
+	local inputService = cloneref(game:GetService('UserInputService'))
+	local tweenService = cloneref(game:GetService('TweenService'))
+	local httpService = cloneref(game:GetService('HttpService'))
+	local textChatService = cloneref(game:GetService('TextChatService'))
+	local collectionService = cloneref(game:GetService('CollectionService'))
+	local contextActionService = cloneref(game:GetService('ContextActionService'))
+	local guiService = cloneref(game:GetService('GuiService'))
+	local starterGui = cloneref(game:GetService('StarterGui'))
+
+	local isnetworkowner = isnetworkowner or function()
+		return true
+	end
+	local mouse1click = mouse1click or function() end
+	local gameCamera = workspace.CurrentCamera
+	local lplr = playersService.LocalPlayer
+	local assetfunction = getcustomasset
+
+	local vape = shared.vape
+	local entitylib = vape.Libraries.entity
+	local targetinfo = vape.Libraries.targetinfo
+	local sessioninfo = vape.Libraries.sessioninfo
+	local uipallet = vape.Libraries.uipallet
+	local tween = vape.Libraries.tween
+	local color = vape.Libraries.color
+	local whitelist = vape.Libraries.whitelist
+	local prediction = vape.Libraries.prediction
+	local getfontsize = vape.Libraries.getfontsize
+	local getcustomasset = vape.Libraries.getcustomasset
+
+	local loadstring = function(...)
+		local res, err = loadstring(...)
+		if err and vape then
+			vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
+		end
+		return res
+	end
+
+	local store = {
+		contracts = {},
+		attackReach = 0,
+		attackReachUpdate = tick(),
+		damageBlockFail = tick(),
+		hand = {},
+		inventory = {
+			inventory = {
+				items = {},
+				armor = {}
+			},
+			hotbar = {}
+		},
+		inventories = {},
+		matchState = 0,
+		queueType = 'bedwars_test',
+		tools = {}
+	}
+	local HitBoxes = {}
+	local InfiniteFly = {}
+	local TrapDisabler
+	local AntiFallPart
+	local bedwars, remotes, sides, oldinvrender, oldSwing = nil, {}, {}
+
+	local function addBlur(parent)
+		local blur = Instance.new('ImageLabel')
+		blur.Name = 'Blur'
+		blur.Size = UDim2.new(1, 89, 1, 52)
+		blur.Position = UDim2.fromOffset(-48, -31)
+		blur.BackgroundTransparency = 1
+		blur.Image = getcustomasset('catrewrite/assets/new/blur.png')
+		blur.ScaleType = Enum.ScaleType.Slice
+		blur.SliceCenter = Rect.new(52, 31, 261, 502)
+		blur.Parent = parent
+		return blur
+	end
+
+	local function downloadFile(path, func)
+		if not isfile(path) then
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			end)
+			if not suc or res == '404: Not Found' then
+				error(res)
+			end
+			if path:find('.lua') then
+				res = '\n'..res
+			end
+			writefile(path, res)
+		end
+		if isfile(path) then
+			return (func or readfile)(path)
+		end
+	end
+
+	local function collection(tags, module, customadd, customremove)
+		tags = typeof(tags) ~= 'table' and {tags} or tags
+		local objs, connections = {}, {}
+
+		for _, tag in tags do
+			table.insert(connections, collectionService:GetInstanceAddedSignal(tag):Connect(function(v)
+				if customadd then
+					customadd(objs, v, tag)
+					return
+				end
+				table.insert(objs, v)
+			end))
+			table.insert(connections, collectionService:GetInstanceRemovedSignal(tag):Connect(function(v)
+				if customremove then
+					customremove(objs, v, tag)
+					return
+				end
+				v = table.find(objs, v)
+				if v then
+					table.remove(objs, v)
+				end
+			end))
+
+			for _, v in collectionService:GetTagged(tag) do
+				if customadd then
+					customadd(objs, v, tag)
+					continue
+				end
+				table.insert(objs, v)
+			end
+		end
+
+		local cleanFunc = function(self)
+			for _, v in connections do
+				v:Disconnect()
+			end
+			table.clear(connections)
+			table.clear(objs)
+			table.clear(self)
+		end
+		if module then
+			module:Clean(cleanFunc)
+		end
+		return objs, cleanFunc
+	end
+	getgenv().collection = collection
+
+	local function getBestArmor(slot)
+		local closest, mag = nil, 0
+
+		for _, item in store.inventory.inventory.items do
+			local meta = item and bedwars.ItemMeta[item.itemType] or {}
+
+			if meta.armor and meta.armor.slot == slot then
+				local newmag = (meta.armor.damageReductionMultiplier or 0)
+
+				if newmag > mag then
+					closest, mag = item, newmag
+				end
+			end
+		end
+
+		return closest
+	end
+	getgenv().getBestArmor = getBestArmor
+
+	local function getBow()
+		local bestBow, bestBowSlot, bestBowDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			local bowMeta = bedwars.ItemMeta[item.itemType].projectileSource
+			if bowMeta and table.find(bowMeta.ammoItemTypes, 'arrow') then
+				local bowDamage = bedwars.ProjectileMeta[bowMeta.projectileType('arrow')].combat.damage or 0
+				if bowDamage > bestBowDamage then
+					bestBow, bestBowSlot, bestBowDamage = item, slot, bowDamage
+				end
+			end
+		end
+		return bestBow, bestBowSlot
+	end
+
+	local function getItem(itemName, inv)
+		for slot, item in (inv or store.inventory.inventory.items) do
+			if item.itemType == itemName then
+				return item, slot
+			end
+		end
+		return nil
+	end
+	getgenv().getItem = getItem
+
+	local function getRoactRender(func)
+		return debug.getupvalue(debug.getupvalue(debug.getupvalue(func, 3).render, 2).render, 1)
+	end
+
+	local function getSword()
+		local bestSword, bestSwordSlot, bestSwordDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			if store.equippedKit == 'summoner' then
+				if item.itemType:find('summoner_claw') then
+					bestSword, bestSwordSlot = item, slot
+					break
+				end
+			else
+				local swordMeta = bedwars.ItemMeta[item.itemType].sword
+				if swordMeta then
+					local swordDamage = swordMeta.damage or 0
+					if swordDamage > bestSwordDamage then
+						bestSword, bestSwordSlot, bestSwordDamage = item, slot, swordDamage
+					end
+				end
+			end
+		end
+		return bestSword, bestSwordSlot
+	end
+
+	getgenv().getSword = getSword
+
+	local function getTool(breakType)
+		local bestTool, bestToolSlot, bestToolDamage = nil, nil, 0
+		for slot, item in store.inventory.inventory.items do
+			local toolMeta = bedwars.ItemMeta[item.itemType].breakBlock
+			if toolMeta then
+				local toolDamage = toolMeta[breakType] or 0
+				if toolDamage > bestToolDamage then
+					bestTool, bestToolSlot, bestToolDamage = item, slot, toolDamage
+				end
+			end
+		end
+		return bestTool, bestToolSlot
+	end
+
+	local function getWool()
+		for _, wool in (inv or store.inventory.inventory.items) do
+			if wool.itemType:find('wool') then
+				return wool and wool.itemType, wool and wool.amount
+			end
+		end
+	end
+	getgenv().getWool = getWool
+
+	local function getStrength(plr)
+		if not plr.Player then
+			return 0
+		end
+
+		local strength = 0
+		for _, v in (store.inventories[plr.Player] or {items = {}}).items do
+			local itemmeta = bedwars.ItemMeta[v.itemType]
+			if itemmeta and itemmeta.sword and itemmeta.sword.damage > strength then
+				strength = itemmeta.sword.damage
+			end
+		end
+
+		return strength
+	end
+
+	local function getPlacedBlock(pos)
+		if not pos then
+			return
+		end
+		local roundedPosition = bedwars.BlockController:getBlockPosition(pos)
+		return bedwars.BlockController:getStore():getBlockAt(roundedPosition), roundedPosition
+	end
+
+	getgenv().getPlacedBlock = getPlacedBlock
+
+	local function getBlocksInPoints(s, e)
+		local blocks, list = bedwars.BlockController:getStore(), {}
+		for x = s.X, e.X do
+			for y = s.Y, e.Y do
+				for z = s.Z, e.Z do
+					local vec = Vector3.new(x, y, z)
+					if blocks:getBlockAt(vec) then
+						table.insert(list, vec * 3)
+					end
+				end
+			end
+		end
+		return list
+	end
+
+	getgenv().getBlocksInPoints = getBlocksInPoints
+
+	local function getNearGround(range)
+		range = Vector3.new(3, 3, 3) * (range or 10)
+		local localPosition, mag, closest = entitylib.character.RootPart.Position, 60
+		local blocks = getBlocksInPoints(bedwars.BlockController:getBlockPosition(localPosition - range), bedwars.BlockController:getBlockPosition(localPosition + range))
+
+		for _, v in blocks do
+			if not getPlacedBlock(v + Vector3.new(0, 3, 0)) then
+				local newmag = (localPosition - v).Magnitude
+				if newmag < mag then
+					mag, closest = newmag, v + Vector3.new(0, 3, 0)
+				end
+			end
+		end
+
+		table.clear(blocks)
+		return closest
+	end
+
+	getgenv().getNearGround = getNearGround
+
+	local function getShieldAttribute(char)
+		local returned = 0
+		for name, val in char:GetAttributes() do
+			if name:find('Shield') and type(val) == 'number' and val > 0 then
+				returned += val
+			end
+		end
+		return returned
+	end
+
+	getgenv().getShieldAttribute = getShieldAttribute
+
+	local damagedata = {
+		lastHit = os.clock(),
+		Value = 0,
+		Custom = 0
+	}
+	getgenv().damagedata = damagedata
+
+	local speedBoosts = {
+		Value = 0
+	}
+	getgenv().speedBoosts = speedBoosts
+
+	local function getSpeed()
+		local multi, increase, modifiers = 0, true, bedwars.SprintController:getMovementStatusModifier():getModifiers()
+
+		for v in modifiers do
+			local val = v.constantSpeedMultiplier and v.constantSpeedMultiplier or 0
+			if val and val > math.max(multi, 1) then
+				increase = false
+				multi = val - (0.06 * math.round(val))
+			end
+		end
+
+		for v in modifiers do
+			multi += math.max((v.moveSpeedMultiplier or 0) - 1, 0)
+		end
+
+		if multi > 0 and increase then
+			multi += 0.16 + (0.02 * math.round(multi))
+		end
+
+		return (20 + speedBoosts.Value) * (multi + 1) + (damagedata.lastHit > os.clock() and damagedata.Value or 0) + damagedata.Custom
+	end
+	getgenv().getSpeed = getSpeed
+
+	local function getTableSize(tab)
+		local ind = 0
+		for _ in tab do
+			ind += 1
+		end
+		return ind
+	end
+
+	local function getHotbar(tool)
+		for i, v in store.inventory.hotbar do
+			if v.item and v.item.tool == tool then 
+				return i - 1
+			end
+		end
+	end
+	getgenv().getHotbar = getHotbar
+
+	local function hotbarSwitch(slot)
+		if slot and store.inventory.hotbarSlot ~= slot then
+			bedwars.Store:dispatch({
+				type = 'InventorySelectHotbarSlot',
+				slot = slot
+			})
+			vapeEvents.InventoryChanged.Event:Wait()
+			return true
+		end
+		return false
+	end
+	getgenv().hotbarSwitch = hotbarSwitch
+
+	local function isFriend(plr, recolor)
+		if vape.Categories.Friends.Options['Use friends'].Enabled then
+			local friend = table.find(vape.Categories.Friends.ListEnabled, plr.Name) and true
+			if recolor then
+				friend = friend and vape.Categories.Friends.Options['Recolor visuals'].Enabled
+			end
+			return friend
+		end
+		return nil
+	end
+
+	local function isTarget(plr)
+		return table.find(vape.Categories.Targets.ListEnabled, plr.Name) and true
+	end
+
+	local function notif(...) return
+		vape:CreateNotification(...)
+	end
+
+	local function removeTags(str)
+		str = str:gsub('<br%s*/>', '\n')
+		return (str:gsub('<[^<>]->', ''))
+	end
+
+	local function roundPos(vec)
+		return Vector3.new(math.round(vec.X / 3) * 3, math.round(vec.Y / 3) * 3, math.round(vec.Z / 3) * 3)
+	end
+	getgenv().roundPos = roundPos
+
+	local function switchItem(tool, delayTime)
+		if getgenv().CancelSwitch > os.clock() and tool and tool.Name ~= 'telepearl' then return end
+		delayTime = delayTime or 0.05
+		local check = lplr.Character and lplr.Character:FindFirstChild('HandInvItem') or nil
+		if check and check.Value ~= tool and tool.Parent ~= nil then
+			task.spawn(function()
+				bedwars.Client:Get(remotes.EquipItem):CallServerAsync({hand = tool})
+			end)
+			check.Value = tool
+			if delayTime > 0 then
+				task.wait(delayTime)
+			end
+			return true
+		end
+	end
+	getgenv().switchItem = switchItem
+
+	local function waitForChildOfType(obj, name, timeout, prop)
+		local check, returned = tick() + timeout
+		repeat
+			returned = prop and obj[name] or obj:FindFirstChildOfClass(name)
+			if returned and returned.Name ~= 'UpperTorso' or check < tick() then
+				break
+			end
+			task.wait()
+		until false
+		return returned
+	end
+
+	local frictionTable, oldfrict = {}, {}
+	local frictionConnection
+	local frictionState
+
+	local function modifyVelocity(v)
+		if v:IsA('BasePart') and v.Name ~= 'HumanoidRootPart' and not oldfrict[v] then
+			oldfrict[v] = v.CustomPhysicalProperties or 'none'
+			v.CustomPhysicalProperties = PhysicalProperties.new(0.0001, 0.2, 0.5, 1, 1)
+		end
+	end
+
+	local function updateVelocity(force)
+		local newState = getTableSize(frictionTable) > 0
+		if frictionState ~= newState or force then
+			if frictionConnection then
+				frictionConnection:Disconnect()
+			end
+			if newState then
+				if entitylib.isAlive then
+					for _, v in entitylib.character.Character:GetDescendants() do
+						modifyVelocity(v)
+					end
+					frictionConnection = entitylib.character.Character.DescendantAdded:Connect(modifyVelocity)
+				end
+			else
+				for i, v in oldfrict do
+					i.CustomPhysicalProperties = v ~= 'none' and v or nil
+				end
+				table.clear(oldfrict)
+			end
+		end
+		frictionState = newState
+	end
+
+	local kitorder = {
+		hannah = 5,
+		spirit_assassin = 4,
+		dasher = 3,
+		jade = 2,
+		regent = 1
+	}
+
+	local sortmethods = {
+		Damage = function(a, b)
+			return a.Entity.Character:GetAttribute('LastDamageTakenTime') < b.Entity.Character:GetAttribute('LastDamageTakenTime')
+		end,
+		Threat = function(a, b)
+			return getStrength(a.Entity) > getStrength(b.Entity)
+		end,
+		Kit = function(a, b)
+			return (a.Entity.Player and kitorder[a.Entity.Player:GetAttribute('PlayingAsKits')] or 0) > (b.Entity.Player and kitorder[b.Entity.Player:GetAttribute('PlayingAsKits')] or 0)
+		end,
+		Health = function(a, b)
+			return a.Entity.Health < b.Entity.Health
+		end,
+		Angle = function(a, b)
+			local selfrootpos = entitylib.character.RootPart.Position
+			local localfacing = entitylib.character.RootPart.CFrame.LookVector * Vector3.new(1, 0, 1)
+			local angle = math.acos(localfacing:Dot(((a.Entity.RootPart.Position - selfrootpos) * Vector3.new(1, 0, 1)).Unit))
+			local angle2 = math.acos(localfacing:Dot(((b.Entity.RootPart.Position - selfrootpos) * Vector3.new(1, 0, 1)).Unit))
+			return angle < angle2
+		end
+	}
+	getgenv().sortmethods = sortmethods
+
+	run(function()
+		local connected = lplr:GetAttribute('PlayerConnected')
+		repeat
+			task.wait()
+		until lplr:GetAttribute('PlayerConnected') and entitylib
+
+		if not connected then
+			task.wait(2 :: number)
+		end
+
+		local oldstart = entitylib.start
+		local function customEntity(ent)
+			if ent:HasTag('inventory-entity') and not ent:HasTag('Monster') and not ent:HasTag('trainingRoomDummy') then
+				return
+			end
+
+			entitylib.addEntity(ent, nil, ent:HasTag('Drone') and function(self)
+				local droneplr = playersService:GetPlayerByUserId(self.Character:GetAttribute('PlayerUserId'))
+				return not droneplr or lplr:GetAttribute('Team') ~= droneplr:GetAttribute('Team')
+			end or function(self)
+				return lplr:GetAttribute('Team') ~= self.Character:GetAttribute('Team')
+			end)
+		end
+
+		entitylib.start = function()
+			oldstart()
+			if entitylib.Running then
+				for __, tag in {'entity'} do
+					for _, ent in collectionService:GetTagged(tag) do
+						customEntity(ent)
+					end
+					table.insert(entitylib.Connections, collectionService:GetInstanceAddedSignal(tag):Connect(customEntity))
+					table.insert(entitylib.Connections, collectionService:GetInstanceRemovedSignal(tag):Connect(function(ent)
+						entitylib.removeEntity(ent)
+					end))
+				end
+			end
+		end
+
+		entitylib.addPlayer = function(plr)
+			if plr.Character then
+				entitylib.refreshEntity(plr.Character, plr)
+			end
+			entitylib.PlayerConnections[plr] = {
+				plr.CharacterAdded:Connect(function(char)
+					entitylib.refreshEntity(char, plr)
+				end),
+				plr.CharacterRemoving:Connect(function(char)
+					entitylib.removeEntity(char, plr == lplr)
+				end),
+				plr:GetAttributeChangedSignal('Team'):Connect(function()
+					for _, v in entitylib.List do
+						if v.Targetable ~= entitylib.targetCheck(v) then
+							entitylib.refreshEntity(v.Character, v.Player)
+						end
+					end
+
+					if plr == lplr then
+						entitylib.start()
+					else
+						entitylib.refreshEntity(plr.Character, plr)
+					end
+				end)
+			}
+		end
+
+		entitylib.addEntity = function(char, plr, teamfunc)
+			if not char then return end
+			entitylib.EntityThreads[char] = task.spawn(function()
+				local hum, humrootpart, head
+				if plr then
+					hum = waitForChildOfType(char, 'Humanoid', 10)
+					humrootpart = hum and waitForChildOfType(hum, 'RootPart', workspace.StreamingEnabled and 9e9 or 10, true)
+					head = char:WaitForChild('Head', 10) or humrootpart
+				else
+					hum = {HipHeight = 0.5}
+					humrootpart = waitForChildOfType(char, 'PrimaryPart', 10, true)
+					head = humrootpart
+				end
+				local updateobjects = plr and plr ~= lplr and {
+					char:WaitForChild('ArmorInvItem_0', 5),
+					char:WaitForChild('ArmorInvItem_1', 5),
+					char:WaitForChild('ArmorInvItem_2', 5),
+					char:WaitForChild('HandInvItem', 5)
+				} or {}
+
+				if hum and humrootpart then
+					local entity = {
+						Connections = {},
+						Character = char,
+						Health = (char:GetAttribute('Health') or 100) + getShieldAttribute(char),
+						Head = head,
+						Humanoid = hum,
+						HumanoidRootPart = humrootpart,
+						HipHeight = hum.HipHeight + (humrootpart.Size.Y / 2) + (hum.RigType == Enum.HumanoidRigType.R6 and 2 or 0),
+						Jumps = 0,
+						JumpTick = tick(),
+						Jumping = false,
+						LandTick = tick(),
+						MaxHealth = char:GetAttribute('MaxHealth') or 100,
+						NPC = plr == nil,
+						Player = plr,
+						RootPart = humrootpart,
+						TeamCheck = teamfunc
+					}
+
+					if plr == lplr then
+						entity.AirTime = tick()
+						entitylib.character = entity
+						entitylib.isAlive = true
+						entitylib.Events.LocalAdded:Fire(entity)
+						table.insert(entitylib.Connections, char.AttributeChanged:Connect(function(attr)
+							vapeEvents.AttributeChanged:Fire(attr)
+						end))
+					else
+						entity.Targetable = entitylib.targetCheck(entity)
+
+						for _, v in entitylib.getUpdateConnections(entity) do
+							table.insert(entity.Connections, v:Connect(function()
+								entity.Health = (char:GetAttribute('Health') or 100) + getShieldAttribute(char)
+								entity.MaxHealth = char:GetAttribute('MaxHealth') or 100
+								entitylib.Events.EntityUpdated:Fire(entity)
+							end))
+						end
+
+						for _, v in updateobjects do
+							table.insert(entity.Connections, v:GetPropertyChangedSignal('Value'):Connect(function()
+								task.delay(0.1, function()
+									if bedwars.getInventory then
+										store.inventories[plr] = bedwars.getInventory(plr)
+										entitylib.Events.EntityUpdated:Fire(entity)
+									end
+								end)
+							end))
+						end
+
+						if plr then
+							local anim = char:FindFirstChild('Animate')
+							if anim then
+								pcall(function()
+									anim = anim.jump:FindFirstChildWhichIsA('Animation').AnimationId
+									table.insert(entity.Connections, hum.Animator.AnimationPlayed:Connect(function(playedanim)
+										if playedanim.Animation.AnimationId == anim then
+											entity.JumpTick = tick()
+											entity.Jumps += 1
+											entity.LandTick = tick() + 1
+											entity.Jumping = entity.Jumps > 1
+										end
+									end))
+								end)
+							end
+
+							task.delay(0.1, function()
+								if bedwars.getInventory then
+									store.inventories[plr] = bedwars.getInventory(plr)
+								end
+							end)
+						end
+						table.insert(entitylib.List, entity)
+						entitylib.Events.EntityAdded:Fire(entity)
+					end
+
+					table.insert(entity.Connections, char.ChildRemoved:Connect(function(part)
+						if part == humrootpart or part == hum or part == head then
+							if part == humrootpart and hum.RootPart then
+								humrootpart = hum.RootPart
+								entity.RootPart = hum.RootPart
+								entity.HumanoidRootPart = hum.RootPart
+								return
+							end
+							entitylib.removeEntity(char, plr == lplr)
+						end
+					end))
+				end
+				entitylib.EntityThreads[char] = nil
+			end)
+		end
+
+		entitylib.getUpdateConnections = function(ent)
+			local char = ent.Character
+			local tab = {
+				char:GetAttributeChangedSignal('Health'),
+				char:GetAttributeChangedSignal('MaxHealth'),
+				{
+					Connect = function()
+						ent.Friend = ent.Player and isFriend(ent.Player) or nil
+						ent.Target = ent.Player and isTarget(ent.Player) or nil
+						return {Disconnect = function() end}
+					end
+				}
+			}
+
+			if ent.Player then
+				table.insert(tab, ent.Player:GetAttributeChangedSignal('PlayingAsKits'))
+			end
+
+			for name, val in char:GetAttributes() do
+				if name:find('Shield') and type(val) == 'number' then
+					table.insert(tab, char:GetAttributeChangedSignal(name))
+				end
+			end
+
+			return tab
+		end
+
+		entitylib.targetCheck = function(ent)
+			if ent.TeamCheck then
+				return ent:TeamCheck()
+			end
+			if ent.NPC then return true end
+			if isFriend(ent.Player) then return false end
+			if not select(2, whitelist:get(ent.Player)) then return false end
+			return lplr:GetAttribute('Team') ~= ent.Player:GetAttribute('Team')
+		end
+		vape:Clean(entitylib.Events.LocalAdded:Connect(updateVelocity))
+	end)
+	entitylib.start()
+
+	local libraries = {}
+	local require = require
+	local canDebug = getgenv().canDebug or false	
+
+	if not canDebug then
+		local function cache(Name : string)
+			return libraries[Name]:await()
+		end
+
+		require = function(ins)
+			local Name = ins:GetFullName():gsub(lplr.Name, 'PlayerTemplate')
+			local Result = cache(Name)
+			
+			return Result
+		end
+		getgenv().require = require
+
+		libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
+
+		task.wait(1.5)
+	end
+
+	run(function()
+		local KnitInit, Knit
+
+		repeat
+			KnitInit, Knit = pcall(function()
+				return require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient 
+			end)
+			if KnitInit then break end
+			task.wait()
+		until KnitInit
+
+		if canDebug and not debug.getupvalue(Knit.Start, 1) then
+			repeat task.wait() until debug.getupvalue(Knit.Start, 1)
+		end
+
+		local Flamework = require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
+		local InventoryUtil = require(replicatedStorage.TS.inventory['inventory-util']).InventoryUtil
+		local Client = require(replicatedStorage.TS.remotes).default.Client
+		local OldGet, OldBreak = Client.Get, nil
+
+		bedwars = setmetatable({
+			Flamework = Flamework,
+			NotificationController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/notification-controller@NotificationController'),
+			AbilityController = Flamework.resolveDependency('@easy-games/game-core:client/controllers/ability/ability-controller@AbilityController'),
+			AnimationType = require(replicatedStorage.TS.animation['animation-type']).AnimationType,
+			AnimationUtil = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out['shared'].util['animation-util']).AnimationUtil,
+			AppController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out.client.controllers['app-controller']).AppController,
+			BedBreakEffectMeta = require(replicatedStorage.TS.locker['bed-break-effect']['bed-break-effect-meta']).BedBreakEffectMeta,
+			BedwarsKitMeta = require(replicatedStorage.TS.games.bedwars.kit['bedwars-kit-meta']).BedwarsKitMeta,
+			BedwarsKitClass = require(replicatedStorage.TS.games.bedwars.kit.class['bedwars-class']).BedwarsClass,
+			BlockBreaker = Knit.Controllers.BlockBreakController.blockBreaker,
+			BlockController = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out).BlockEngine,
+			BlockPlacer = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.client.placement['block-placer']).BlockPlacer,
+			BlockEngine = require(lplr.PlayerScripts.TS.lib['block-engine']['client-block-engine']).ClientBlockEngine,
+			BowConstantsTable = canDebug and debug.getupvalue(Knit.Controllers.ProjectileController.enableBeam, 8) or {
+				RelZ = 0,
+				CameraMultiplier = 10,
+				RelX = 0.8,
+				RelY = -0.6,
+				YTargetOffset = 0.05,
+				BeamGrowthMultiplier = 0.08
+			},
+			ClickHold = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out.client.ui.lib.util['click-hold']).ClickHold,
+			Client = Client,
+			ClientConstructor = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts'].net.out.client),
+			ClientDamageBlock = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['block-engine'].out.shared.remotes).BlockEngineRemotes.Client,
+			CombatConstant = require(replicatedStorage.TS.combat['combat-constant']).CombatConstant,
+			DamageIndicator = Knit.Controllers.DamageIndicatorController.spawnDamageIndicator,
+			DefaultKillEffect = require(lplr.PlayerScripts.TS.controllers.global.locker['kill-effect'].effects['default-kill-effect']),
+			EmoteType = require(replicatedStorage.TS.locker.emote['emote-type']).EmoteType,
+			EmoteImage = require(replicatedStorage.TS.locker.emote['emote-image']).EmoteImage,
+			EmoteMeta = require(replicatedStorage.TS.locker.emote['emote-meta']).EmoteMeta,
+			GamePlayer = require(replicatedStorage.TS.player['game-player']),
+			EffectUtil = require(replicatedStorage.TS.util.effect['effect-util']).EffectUtil,
+			GameAnimationUtil = require(replicatedStorage.TS.animation['animation-util']).GameAnimationUtil,
+			getIcon = function(item, showinv)
+				local itemmeta = bedwars.ItemMeta[item.itemType]
+				return itemmeta and showinv and itemmeta.image or ''
+			end,
+			getInventory = function(plr)
+				local suc, res = pcall(function()
+					return InventoryUtil.getInventory(plr)
+				end)
+				return suc and res or {
+					items = {},
+					armor = {}
+				}
+			end,
+			HudAliveCount = require(lplr.PlayerScripts.TS.controllers.global['top-bar'].ui.game['hud-alive-player-counts']).HudAlivePlayerCounts,
+			ItemMeta = require(replicatedStorage.TS.item['item-meta']).items,--debug.getupvalue(require(replicatedStorage.TS.item['item-meta']).getItemMeta, 1),
+			RecipeMeta = require(replicatedStorage.TS.recipe['recipe-meta']).recipes,-- debug.getupvalue(require(replicatedStorage.TS.recipe['recipe-meta']).getRecipeMeta, 1),
+			KillEffectMeta = require(replicatedStorage.TS.locker['kill-effect']['kill-effect-meta']).KillEffectMeta,
+			KillFeedController = Flamework.resolveDependency('client/controllers/game/kill-feed/kill-feed-controller@KillFeedController'),
+			Knit = Knit,
+			KnockbackUtil = require(replicatedStorage.TS.damage['knockback-util']).KnockbackUtil,
+			KnockbackUtilInstance = replicatedStorage.TS.damage['knockback-util'],
+			NametagController = Knit.Controllers.NametagController,
+			MageKitUtil = require(replicatedStorage.TS.games.bedwars.kit.kits.mage['mage-kit-util']).MageKitUtil,
+			ProjectileMeta = require(replicatedStorage.TS.projectile['projectile-meta']).ProjectileMeta,
+			QueryUtil = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).GameQueryUtil,
+			QueueCard = require(lplr.PlayerScripts.TS.controllers.global.queue.ui['queue-card']).QueueCard,
+			QueueMeta = require(replicatedStorage.TS.game['queue-meta']).QueueMeta,
+			Roact = require(replicatedStorage['rbxts_include']['node_modules']['@rbxts']['roact'].src),
+			RuntimeLib = require(replicatedStorage['rbxts_include'].RuntimeLib),
+			SoundList = require(replicatedStorage.TS.sound['game-sound']).GameSound,
+			SoundManager = canDebug and require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).SoundManager or libraries.SoundUtil,
+			Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore,
+			TeamUpgradeMeta = canDebug and debug.getupvalue(require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).getTeamUpgradeMetaForQueue, 6) or require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).OGTeamUpgrades,
+			PyroUpgradeMeta = require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).FlamethrowerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).getFlamethrowerUpgradeMeta, 1),
+			AdetundeUpgradeMeta = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).FrostyHammerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).getFrostyHammerUpgradeMeta, 1),
+			AdetundeUtil = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-util']).FrostyHammerUtil,
+			UILayers = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).UILayers,
+			VisualizerUtils = require(lplr.PlayerScripts.TS.lib.visualizer['visualizer-utils']).VisualizerUtils,
+			WeldTable = require(replicatedStorage.TS.util['weld-util']).WeldUtil,
+			WinEffectMeta = require(replicatedStorage.TS.locker['win-effect']['win-effect-meta']).WinEffectMeta,
+			ZapNetworking = require(lplr.PlayerScripts.TS.lib.network),
+			BlockSelector = require(replicatedStorage.rbxts_include.node_modules['@easy-games']['block-engine'].out.client.select['block-selector']).BlockSelector
+		}, {
+			__index = function(self, ind)
+				rawset(self, ind, Knit.Controllers[ind])
+				return rawget(self, ind)
+			end
+		})
+
+		local function getproto(...)
+			local gp = debug.getproto or error
+
+			local suc, result = pcall(gp, ...)
+
+			return suc and result or function() end
+		end
+
+		local replacements = {
+			PickupItem = 'PickupItemDrop',
+			FireProjectile = 'ProjectileFire',
+			MinerDig = 'DestroyPetrifiedPlayer',
+			ResetCharacter = 'ResetCharacter',
+			WarlockTarget = 'WarlockLinkTarget',
+			ConsumeSoul = 'ConsumeGrimReaperSoul',
+			SummonerClawAttack = 'SummonerClawAttackRequest',
+			AfkStatus = 'AfkInfo',
+			SpawnRaven = 'SpawnRaven',
+			ReportPlayer = 'ReportPlayer',
+			PickupMetal = 'CollectCollectableEntity',
+			MageSelect = 'LearnElementTome',
+			KaliyahPunch = 'RequestDragonPunch',
+			DragonEndFly = 'VoidDragonEndFlying',
+			DepositPinata = 'DepositCoins',
+			CannonAim = 'AimCannon',
+			ConsumeBattery = 'ConsumeBattery',
+			HarvestCrop = 'CropHarvest',
+			EquipItem = 'SetInvItem',
+			DragonFly = 'DragonFlap',
+			BeePickup = 'PickUpBee',
+			CannonLaunch = 'LaunchSelfFromCannon',
+			ConsumeTreeOrb = 'ConsumeTreeOrb',
+			DropItem = 'DropItem',
+			HannahKill = 'HannahPromptTrigger',
+			ConsumeItem = 'ConsumeItem',
+			GuitarHeal = 'PlayGuitar',
+			GroundHit = 'GroundHit',
+			DragonBreath = 'DragonBreath',
+			AttackEntity = 'SwordHit'
+		}
+
+		local remoteNames = canDebug and {
+			AfkStatus = getproto(Knit.Controllers.AfkController.KnitStart, 1),
+			AttackEntity = Knit.Controllers.SwordController.sendServerRequest,
+			BeePickup = Knit.Controllers.BeeNetController.trigger,
+			CannonAim = getproto(Knit.Controllers.CannonController.startAiming, 5),
+			CannonLaunch = Knit.Controllers.CannonHandController.launchSelf,
+			ConsumeBattery = getproto(Knit.Controllers.BatteryController.onKitLocalActivated, 1),
+			ConsumeItem = getproto(Knit.Controllers.ConsumeController.onEnable, 1),
+			ConsumeSoul = Knit.Controllers.GrimReaperController.consumeSoul,
+			ConsumeTreeOrb = getproto(Knit.Controllers.EldertreeController.createTreeOrbInteraction, 1),
+			DepositPinata = getproto(getproto(Knit.Controllers.PiggyBankController.KnitStart, 2), 5),
+			DragonBreath = getproto(Knit.Controllers.VoidDragonController.onKitLocalActivated, 5),
+			DragonEndFly = getproto(Knit.Controllers.VoidDragonController.flapWings, 1),
+			DragonFly = Knit.Controllers.VoidDragonController.flapWings,
+			DropItem = Knit.Controllers.ItemDropController.dropItemInHand,
+			EquipItem = not canDebug and function() end or getproto(require(replicatedStorage.TS.entity.entities['inventory-entity']).InventoryEntity.equipItem, 3),
+			FireProjectile = canDebug and debug.getupvalue(Knit.Controllers.ProjectileController.launchProjectileWithValues, 2) or function() end,
+			GroundHit = Knit.Controllers.FallDamageController.KnitStart,
+			GuitarHeal = Knit.Controllers.GuitarController.performHeal,
+			HannahKill = getproto(Knit.Controllers.HannahController.registerExecuteInteractions, 1),
+			HarvestCrop = getproto(getproto(Knit.Controllers.CropController.KnitStart, 4), 1),
+			KaliyahPunch = getproto(Knit.Controllers.DragonSlayerController.onKitLocalActivated, 1),
+			MageSelect = getproto(Knit.Controllers.MageController.registerTomeInteraction, 1),
+			MinerDig = getproto(Knit.Controllers.MinerController.setupMinerPrompts, 1),
+			PickupItem = Knit.Controllers.ItemDropController.checkForPickup,
+			PickupMetal = getproto(Knit.Controllers.HiddenMetalController.onKitLocalActivated, 4),
+			ReportPlayer = not canDebug and function() end or require(lplr.PlayerScripts.TS.controllers.global.report['report-controller']).default.reportPlayer,
+			ResetCharacter = getproto(Knit.Controllers.ResetController.createBindable, 1),
+			SpawnRaven = getproto(Knit.Controllers.RavenController.KnitStart, 1),
+			SummonerClawAttack = Knit.Controllers.SummonerClawHandController.attack,
+			WarlockTarget = getproto(Knit.Controllers.WarlockStaffController.KnitStart, 2)
+		} or replacements
+
+		local function dumpRemote(tab)
+			local ind
+			for i, v in tab do
+				if v == 'Client' then
+					ind = i
+					break
+				end
+			end
+			return ind and tab[ind + 1] or ''
+		end
+
+		for i, v in remoteNames do
+			if canDebug then
+				local remote = dumpRemote(debug.getconstants(v)) or ''
+				if remote == '' and not replacements[i] then
+					notif('Vape', 'Failed to grab remote ('..i..')', 10, 'alert')
+				elseif replacements[i] then
+					remote = replacements[i]
+				end
+				remotes[i] = remote
+			else
+				remotes[i] = v
+			end
+		end
+			
+		OldBreak = bedwars.BlockController.isBlockBreakable
+
+		if canDebug then
+			Client.Get = function(self, remoteName)
+				local call = OldGet(self, remoteName)
+
+				if remoteName == remotes.AttackEntity then
+					return {
+						instance = call.instance,
+						SendToServer = function(_, attackTable, ...)
+							local suc, plr = pcall(function()
+								return playersService:GetPlayerFromCharacter(attackTable.entityInstance)
+							end)
+
+							local selfpos = attackTable.validate.selfPosition.value
+							local targetpos = attackTable.validate.targetPosition.value
+							store.attackReach = ((selfpos - targetpos).Magnitude * 100) // 1 / 100
+							store.attackReachUpdate = tick() + 1
+
+							if SilentAim and SilentAim.Enabled and SilentAim.Options.Sword.Enabled then
+								attackTable.validate.selfPosition.value = CFrame.lookAt(selfpos, targetpos)
+							end
+
+							if Reach and Reach.Enabled or HitBoxes.Enabled or Backtrack and Backtrack.Enabled then
+								attackTable.validate.raycast = attackTable.validate.raycast or {}
+								attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+							end
+
+							if suc and plr then
+								if not select(2, whitelist:get(plr)) then return end
+								if table.find(vape.Libraries.whitelist.ignores, plr) then return end
+
+								vapeEvents.Attacked:Fire(plr)
+							end
+
+							return call:SendToServer(attackTable, ...)
+						end
+					}
+				elseif remoteName == 'StepOnSnapTrap' and TrapDisabler.Enabled then
+					return {SendToServer = function() end}
+				end
+
+				return call
+			end
+		end
+
+		bedwars.BlockController.isBlockBreakable = function(self, breakTable, plr)
+			local obj = bedwars.BlockController:getStore():getBlockAt(breakTable.blockPosition)
+
+			if obj and obj.Name == 'bed' then
+				for _, plr in playersService:GetPlayers() do
+					if obj:GetAttribute('Team'..(plr:GetAttribute('Team') or 0)..'NoBreak') and not select(2, whitelist:get(plr)) then
+						return false
+					end
+				end
+			end
+
+			return OldBreak(self, breakTable, plr)
+		end
+
+		local cache, blockhealthbar = {}, {blockHealth = -1, breakingBlockPosition = Vector3.zero}
+		if canDebug then
+			store.blockPlacer = bedwars.BlockPlacer.new(bedwars.BlockEngine, 'wool_white')
+		end
+
+		local function getBlockHealth(block, blockpos)
+			local blockdata = bedwars.BlockController:getStore():getBlockData(blockpos)
+			return (blockdata and (blockdata:GetAttribute('1') or blockdata:GetAttribute('Health')) or block:GetAttribute('Health'))
+		end
+
+		local function getBlockHits(block, blockpos)
+			if not block then return 0 end
+			local breaktype = bedwars.ItemMeta[block.Name].block.breakType
+			local tool = store.tools[breaktype]
+			tool = tool and bedwars.ItemMeta[tool.itemType].breakBlock[breaktype] or 2
+			return getBlockHealth(block, bedwars.BlockController:getBlockPosition(blockpos)) / tool
+		end
+
+		--[[
+			Pathfinding using a luau version of dijkstra's algorithm
+			Source: https://stackoverflow.com/questions/39355587/speeding-up-dijkstras-algorithm-to-solve-a-3d-maze
+		]]
+
+		local function calculatePath(target, blockpos, wallcheck)
+			if cache[blockpos] then
+				return unpack(cache[blockpos])
+			end
+			local visited, unvisited, distances, air, path = {}, {{0, blockpos}}, {[blockpos] = 0}, {}, {}
+			local visibleAir = {}
+			for _ = 1, 10000 do
+				local _, node = next(unvisited)
+				if not node then break end
+				table.remove(unvisited, 1)
+				visited[node[2]] = true
+
+				for _, side in sides do
+					side = node[2] + side
+					if visited[side] then continue end
+
+					local block = getPlacedBlock(side)
+					if not block or block:GetAttribute('NoBreak') or block == target then
+						if not block then
+							air[node[2]] = true
+							visibleAir[node[2]] = true
+						end
+						continue
+					end
+
+					local curdist = getBlockHits(block, side) + node[1]
+
+					if curdist < (distances[side] or math.huge) then
+						table.insert(unvisited, {curdist, side})
+						distances[side] = curdist
+						path[side] = node[2]
+					end
+				end
+			end
+
+			local pos, cost = nil, math.huge
+			for node in visibleAir do
+				if distances[node] and distances[node] < cost then
+					pos, cost = node, distances[node]
+				end
+			end
+
+			if not pos then
+				for node in air do
+					if distances[node] and distances[node] < cost then
+						pos, cost = node, distances[node]
+					end
+				end
+			end
+
+			if pos then
+				cache[blockpos] = {
+					pos,
+					cost,
+					path
+				}
+				return pos, cost, path
+			end
+		end
+
+		bedwars.placeBlock = function(pos, item)
+			if getItem(item) then
+				store.blockPlacer.blockType = item
+				return store.blockPlacer:placeBlock(bedwars.BlockController:getBlockPosition(pos))
+			end
+		end
+
+		bedwars.breakBlock = function(block, effects, anim, customHealthbar, autotool, wallcheck, nobreak)
+			if lplr:GetAttribute('DenyBlockBreak') or not entitylib.isAlive then return end
+			local handler = bedwars.BlockController:getHandlerRegistry():getHandler(block.Name)
+			local cost, pos, target, path = math.huge
+			local mag = 9e9
+
+			local positions = (handler and handler:getContainedPositions(block) or {block.Position / 3})
+
+			if not canDebug then
+				pos = positions[2] or positions[1]
+				target = positions[2]
+				path = {}
+				if positions[2] then
+					path[positions[2]] = positions[2] - Vector3.new(0, 3, 0)
+				end
+
+				path[positions[1]] = positions[1] - Vector3.new(0, 3, 0)
+			else
+				for _, v in positions do
+					local dpos, dcost, dpath = calculatePath(block, v * 3)
+					local dmag = dpos and (entitylib.character.RootPart.Position - dpos).Magnitude
+					
+					if dpos then
+						if dcost < cost or (dcost == cost and dmag < mag) then
+							cost, pos, target, path, mag = dcost, dpos, v * 3, dpath, dmag
+						end
+					end
+				end
+			end
+
+			if pos then
+				if (entitylib.character.RootPart.Position - pos).Magnitude > 30 then return end
+				local dblock, dpos = getPlacedBlock(pos)
+				if not dblock then return end
+
+				if not nobreak and (workspace:GetServerTimeNow() - bedwars.SwordController.lastAttack) > 0.2 then
+					local breaktype = bedwars.ItemMeta[dblock.Name].block.breakType
+					local tool = store.tools[breaktype]
+					if tool then
+						if autotool then
+							for i, v in store.inventory.hotbar do
+								if v.item and v.item.tool == tool.tool and i ~= (store.inventory.hotbarSlot + 1) then 
+									hotbarSwitch(i - 1)
+									break
+								end
+							end
+						else
+							switchItem(tool.tool)
+						end
+					end
+				end
+
+				if blockhealthbar.blockHealth == -1 or dpos ~= blockhealthbar.breakingBlockPosition then
+					blockhealthbar.blockHealth = getBlockHealth(dblock, dpos)
+					blockhealthbar.breakingBlockPosition = dpos
+				end
+
+				if not nobreak then
+					bedwars.ClientDamageBlock:Get('DamageBlock'):CallServerAsync({
+						blockRef = {blockPosition = dpos},
+						hitPosition = pos,
+						hitNormal = Vector3.FromNormalId(Enum.NormalId.Top)
+					}):andThen(function(result)
+						if result then
+							if result == 'cancelled' then
+								store.damageBlockFail = os.clock() + 1
+								table.clear(cache)
+								return
+							end
+
+							if effects then
+								local blockdmg = (blockhealthbar.blockHealth - (result == 'destroyed' and 0 or getBlockHealth(dblock, dpos)))
+								customHealthbar = customHealthbar or bedwars.BlockBreaker.updateHealthbar
+								customHealthbar(bedwars.BlockBreaker, {blockPosition = dpos}, blockhealthbar.blockHealth, dblock:GetAttribute('MaxHealth'), blockdmg, dblock)
+								blockhealthbar.blockHealth = math.max(blockhealthbar.blockHealth - blockdmg, 0)
+
+								pcall(function()
+									if blockhealthbar.blockHealth <= 0 then
+										bedwars.BlockBreaker.breakEffect:playBreak(dblock.Name, dpos, lplr)
+										bedwars.BlockBreaker.healthbarMaid:DoCleaning()
+										blockhealthbar.breakingBlockPosition = Vector3.zero
+									else
+										bedwars.BlockBreaker.breakEffect:playHit(dblock.Name, dpos, lplr)
+									end
+								end)
+							end
+
+							if anim then
+								local animation = bedwars.AnimationUtil:playAnimation(lplr, bedwars.BlockController:getAnimationController():getAssetId(1))
+								bedwars.ViewmodelController:playAnimation(15)
+								task.wait(0.3)
+								animation:Stop()
+								animation:Destroy()
+							end
+						end
+					end)
+				end
+
+				if effects then
+					return pos, path, target
+				end
+			end
+
+			return
+		end
+
+		for _, v in Enum.NormalId:GetEnumItems() do
+			table.insert(sides, Vector3.FromNormalId(v) * 3)
+		end
+
+		local function updateStore(new, old)
+			if new.Bedwars ~= old.Bedwars then
+				store.equippedKit = new.Bedwars.kit ~= 'none' and new.Bedwars.kit or ''
+			end
+
+			if new.Game ~= old.Game then
+				store.matchState = new.Game.matchState
+				store.queueType = new.Game.queueType or 'bedwars_test'
+			end
+
+			if new.Inventory ~= old.Inventory then
+				local newinv = (new.Inventory and new.Inventory.observedInventory or {inventory = {}})
+				local oldinv = (old.Inventory and old.Inventory.observedInventory or {inventory = {}})
+				store.inventory = newinv
+
+				if newinv ~= oldinv then
+					vapeEvents.InventoryChanged:Fire()
+				end
+
+				if newinv.inventory.items ~= oldinv.inventory.items then
+					vapeEvents.InventoryAmountChanged:Fire()
+					store.tools.sword = getSword()
+					for _, v in {'stone', 'wood', 'wool'} do
+						store.tools[v] = getTool(v)
+					end
+				end
+
+				if newinv.inventory.hand ~= oldinv.inventory.hand then
+					local currentHand, toolType = new.Inventory.observedInventory.inventory.hand, ''
+					if currentHand then
+						local handData = bedwars.ItemMeta[currentHand.itemType]
+						toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
+					end
+
+					store.hand = {
+						tool = currentHand and currentHand.tool,
+						amount = currentHand and currentHand.amount or 0,
+						toolType = toolType
+					}
+				end
+			end
+		end
+
+		local storeChanged = bedwars.Store.changed:connect(updateStore)
+		updateStore(bedwars.Store:getState(), {})
+
+		if not canDebug then
+			vape:Clean(task.spawn(function()
+				repeat
+					task.wait(0.1)
+					pcall(function() updateStore(bedwars.Store:getState(), {}); end);
+				until false
+			end))
+		end
+
+		for _, event in {'MatchEndEvent', 'EntityDeathEvent', 'BedwarsBedBreak', 'BalloonPopped', 'AngelProgress', 'GrapplingHookFunctions'} do
+			if not vape.Connections then return end
+			bedwars.Client:WaitFor(event):andThen(function(connection)
+				vape:Clean(connection:Connect(function(...)
+					vapeEvents[event]:Fire(...)
+				end))
+			end)
+		end
+
+		vape:Clean(bedwars.ZapNetworking.EntityDamageEventZap.On(function(...)		
+			vapeEvents.EntityDamageEvent:Fire({
+				entityInstance = ...,
+				damage = select(2, ...),
+				damageType = select(3, ...),
+				fromPosition = select(4, ...),
+				fromEntity = select(5, ...),
+				knockbackMultiplier = select(6, ...),
+				knockbackId = select(7, ...),
+				disableDamageHighlight = select(13, ...)
+			})
+		end))
+
+		if canDebug then
+			vape:Clean(bedwars.ZapNetworking.ProjectileLaunchZap.On(function(...)
+				vapeEvents.ProjectileLaunch:Fire({
+					raycastPosition = ...,
+					projectileType = select(3, ...),
+					fromPosition = select(2, ...),
+					fromEntity = select(7, ...),
+					id = select(4, ...),
+					projectileData = select(8, ...)
+				})
+			end))	
+		end
+
+		for _, event in {'PlaceBlockEvent', 'BreakBlockEvent'} do
+			vape:Clean(bedwars.ZapNetworking[event..'Zap'].On(function(...)
+				local data = {
+					blockRef = {
+						blockPosition = ...,
+					},
+					player = select(5, ...)
+				}
+				for i, v in cache do
+					if ((data.blockRef.blockPosition * 3) - v[1]).Magnitude <= 30 then
+						table.clear(v[3])
+						table.clear(v)
+						cache[i] = nil
+					end
+				end
+				vapeEvents[event]:Fire(data)
+			end))
+		end
+
+		store.blocks = collection('block', vape)
+		store.shop = collection({'BedwarsItemShop', 'TeamUpgradeShopkeeper'}, vape, function(tab, obj)
+			table.insert(tab, {
+				Id = obj.Name,
+				RootPart = obj,
+				Shop = obj:HasTag('BedwarsItemShop'),
+				Upgrades = obj:HasTag('TeamUpgradeShopkeeper')
+			})
+		end)
+		store.enchant = collection({'enchant-table', 'broken-enchant-table'}, vape, nil, function(tab, obj, tag)
+			if obj:HasTag('enchant-table') and tag == 'broken-enchant-table' then return end
+			obj = table.find(tab, obj)
+			if obj then
+				table.remove(tab, obj)
+			end
+		end)
+
+		local kills = sessioninfo:AddItem('Kills')
+		local beds = sessioninfo:AddItem('Beds')
+		local wins = sessioninfo:AddItem('Wins')
+		local games = sessioninfo:AddItem('Games')
+
+		local mapname = 'Unknown'
+		sessioninfo:AddItem('Map', 0, function()
+			return mapname
+		end, false)
+
+		task.delay(1, function()
+			games:Increment()
+		end)
+
+		task.spawn(function()
+			pcall(function()
+				repeat task.wait() until store.matchState ~= 0 or vape.Loaded == nil
+				if vape.Loaded == nil then return end
+				mapname = workspace:WaitForChild('Map', 5):WaitForChild('Worlds', 5):GetChildren()[1].Name
+				mapname = string.gsub(string.split(mapname, '_')[2] or mapname, '-', '') or 'Blank'
+			end)
+		end)
+
+		vape:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(bedTable)
+			if bedTable.player and bedTable.player.UserId == lplr.UserId then
+				beds:Increment()
+			end
+		end))
+
+		vape:Clean(vapeEvents.MatchEndEvent.Event:Connect(function(winTable)
+			if (bedwars.Store:getState().Game.myTeam or {}).id == winTable.winningTeamId or lplr.Neutral then
+				wins:Increment()
+			end
+		end))
+
+		vape:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+			pcall(function()
+				local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+				local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+				if not killed or not killer then return end
+
+				if killed ~= lplr and killer == lplr then
+					kills:Increment()
+				end
+			end)
+		end))
+
+		local rayCheck = RaycastParams.new()
+
+		task.spawn(function()
+			repeat
+				if entitylib.isAlive then
+					entitylib.character.AirTime = workspace:Raycast((store.rootpart or entitylib.character.RootPart).Position, Vector3.new(0, -6, 0), rayCheck) ~= nil and tick() or entitylib.character.AirTime
+				end
+
+				for _, v in entitylib.List do
+					v.LandTick = math.abs(v.RootPart.Velocity.Y) < 0.1 and v.LandTick or tick()
+					if (tick() - v.LandTick) > 0.2 and v.Jumps ~= 0 then
+						v.Jumps = 0
+						v.Jumping = false
+					end
+				end
+				task.wait()
+			until vape.Loaded == nil
+		end)
+
+		pcall(function()
+			if getthreadidentity and setthreadidentity then
+				local old = getthreadidentity()
+				setthreadidentity(2)
+
+				bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
+				bedwars.ShopItems = bedwars.Shop.ShopItems--debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+				bedwars.Shop.getShopItem('iron_sword', lplr)
+
+				setthreadidentity(old)
+				store.shopLoaded = true
+			else
+				task.spawn(function()
+					repeat
+						task.wait(0.1)
+					until vape.Loaded == nil or bedwars.AppController:isAppOpen('BedwarsItemShopApp')
+
+					bedwars.Shop = require(replicatedStorage.TS.games.bedwars.shop['bedwars-shop']).BedwarsShop
+					bedwars.ShopItems = bedwars.Shop.ShopItems--debug.getupvalue(debug.getupvalue(bedwars.Shop.getShopItem, 1), 2)
+					store.shopLoaded = true
+				end)
+			end
+		end)
+
+		vape:Clean(function()
+			Client.Get = OldGet
+			bedwars.BlockController.isBlockBreakable = OldBreak
+			store.blockPlacer:disable()
+			for _, v in vapeEvents do
+				pcall(function()
+					for __, con in getconnections(v.Event) do
+						con:Disconnect()
+					end
+				end)
+
+				v:Destroy()
+			end
+			for _, v in cache do
+				table.clear(v[3])
+				table.clear(v)
+			end
+			table.clear(store.blockPlacer)
+			table.clear(vapeEvents)
+			table.clear(bedwars)
+			table.clear(store)
+			table.clear(cache)
+			table.clear(sides)
+			table.clear(remotes)
+			storeChanged:disconnect()
+			storeChanged = nil
+		end)
+
+		vape:Clean(bedwars.Client:Get('BloodAssassinUpdateAvailableContracts'):Connect(function(con)
+			store.contracts = con.contracts
+			notif('Vape', 'Contract updated', 6, 'info')
+		end))
+
+		rayCheck = RaycastParams.new()
+		rayCheck.FilterType = Enum.RaycastFilterType.Exclude
+		rayCheck.RespectCanCollide = true
+
+		vape:Clean(task.spawn(function()
+			local items = collection('ItemDrop', vape)
+
+			repeat
+				if vape.Loaded and entitylib.isAlive and ((vape.Modules.Fly.Enabled and vape.Modules.Fly.Options['TP Down'].Enabled) or (vape.Modules['Infinite Jump'].Enabled and vape.Modules['Infinite Jump'].Options['TP Down'].Enabled) or vape.Modules['Long Jump'].Enabled) then
+					local excludes = items
+					table.insert(excludes, gameCamera)
+					table.insert(excludes, lplr.Character)
+					table.insert(excludes, AntiFallPart)
+
+					rayCheck.FilterDescendantsInstances = excludes
+					rayCheck.CollisionGroup = entitylib.character.RootPart.CollisionGroup
+
+					local lasty = entitylib.character.RootPart.CFrame.Y
+
+					if (tick() - entitylib.character.AirTime) > 1.7 then
+						local ray = workspace:Raycast(entitylib.character.RootPart.Position, Vector3.new(0, -1000, 0), rayCheck)
+						if ray then
+							entitylib.character.RootPart.Velocity = Vector3.zero
+							entitylib.character.RootPart.CFrame = CFrame.lookAlong(Vector3.new(entitylib.character.RootPart.CFrame.X, ray.Position.Y + 1, entitylib.character.RootPart.CFrame.Z), entitylib.character.RootPart.CFrame.LookVector)
+							task.wait(0.1)
+							entitylib.character.RootPart.CFrame += Vector3.new(0, lasty - entitylib.character.RootPart.CFrame.Y, 0)
+						end
+					end
+				end
+				task.wait()
+			until false
+		end))
+
+		getgenv().remotes = remotes
+		getgenv().bedwars = bedwars
+		getgenv().store = store
+	end)
+
+	for _, v in {'Anti Ragdoll', 'Trigger Bot', 'Silent Aim', 'Auto Rejoin', 'Rejoin', 'Disabler', 'Timer', 'Server Hop', 'Mouse TP', 'Murder Mystery'} do
+		vape:Remove(v)
+	end
+
+	getgenv().swapping = os.clock()
+		
+	run(function()
+		local AutoClicker
+		local CPS
+		local BlockCPS = {}
+		local Thread
+		
+		local function AutoClick()
+			if Thread then
+				task.cancel(Thread)
+			end
+		
+			Thread = task.delay(1 / (store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue(), function()
+				repeat
+					if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
+						local blockPlacer = bedwars.BlockPlacementController.blockPlacer
+						if store.hand.toolType == 'block' and blockPlacer then
+							if canDebug then
+								if inputService.TouchEnabled then
+									task.spawn(function()
+										blockPlacer:autoBridge(workspace:GetServerTimeNow() - bedwars.KnockbackController:getLastKnockbackTime() >= 0.2)
+									end)
+								else
+									if (workspace:GetServerTimeNow() - bedwars.BlockCpsController.lastPlaceTimestamp) >= ((1 / 12) * 0.5) then
+										local mouseinfo = blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
+										if mouseinfo and mouseinfo.placementPosition == mouseinfo.placementPosition then
+											task.spawn(blockPlacer.placeBlock, blockPlacer, mouseinfo.placementPosition)
+										end
+									end
+								end
+							else
+								mouse1click()
+							end
+						elseif store.hand.toolType == 'sword' then
+							if canDebug then
+								bedwars.SwordController:swingSwordAtMouse(0.39)
+							else
+								mouse1click()
+							end
+						end
+					end
+		
+					task.wait(1 / (store.hand.toolType == 'block' and BlockCPS or CPS).GetRandomValue())
+				until not AutoClicker.Enabled
+			end)
+		end
+		
+		AutoClicker = vape.Categories.Combat:CreateModule({
+			Name = 'Auto Clicker',
+			Function = function(callback)
+				if callback then
+					AutoClicker:Clean(inputService.InputBegan:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 then
+							AutoClick()
+						end
+					end))
+		
+					AutoClicker:Clean(inputService.InputEnded:Connect(function(input)
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread and (os.clock() - getgenv().swapping) > 0.12 then
+							task.cancel(Thread)
+							Thread = nil
+						end
+					end))
+		
+					if inputService.TouchEnabled then
+						pcall(function()
+							for _, v in {'2', '5'} do
+								AutoClicker:Clean(lplr.PlayerGui.MobileUI[v].MouseButton1Down:Connect(AutoClick))
+								AutoClicker:Clean(lplr.PlayerGui.MobileUI[v].MouseButton1Up:Connect(function()
+									if Thread then
+										task.cancel(Thread)
+										Thread = nil
+									end
+								end))
+							end
+						end)
+					end
+				else
+					if Thread then
+						task.cancel(Thread)
+						Thread = nil
+					end
+				end
+			end,
+			Tooltip = 'Hold attack button to automatically click'
+		})
+		CPS = AutoClicker:CreateTwoSlider({
+			Name = 'CPS',
+			Min = 1,
+			Max = 9,
+			DefaultMin = 7,
+			DefaultMax = 7
+		})
+		AutoClicker:CreateToggle({
+			Name = 'Place Blocks',
+			Default = true,
+			Function = function(callback)
+				if BlockCPS.Object then
+					BlockCPS.Object.Visible = callback
+				end
+			end
+		})
+		BlockCPS = AutoClicker:CreateTwoSlider({
+			Name = 'Block CPS',
+			Min = 1,
+			Max = 12,
+			DefaultMin = 12,
+			DefaultMax = 12,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local old
+		
+		vape.Categories.Combat:CreateModule({
+			Name = 'No Click Delay',
+			Function = function(callback)
+				if callback then
+					old = bedwars.SwordController.isClickingTooFast
+					bedwars.SwordController.isClickingTooFast = function(self)
+						self.lastSwing = os.clock()
+						return false
+					end
+				else
+					bedwars.SwordController.isClickingTooFast = old
+				end
+			end,
+			Tooltip = 'Remove the CPS cap'
+		})
+	end)
+
+	run(function()
+		local Sprint
+		local old
+		
+		Sprint = vape.Categories.Combat:CreateModule({
+			Name = 'Sprint',
+			Function = function(callback)
+				if canDebug then
+					if callback then
+						old = bedwars.SprintController.stopSprinting
+						bedwars.SprintController.stopSprinting = function(...)
+							local call = old(...)
+							bedwars.SprintController:startSprinting()
+							return call
+						end
+						Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+							task.delay(0.1, function() 
+								bedwars.SprintController:stopSprinting() 
+							end) 
+						end))
+						bedwars.SprintController:stopSprinting()
+					else
+						if inputService.TouchEnabled then 
+							pcall(function() 
+								lplr.PlayerGui.MobileUI['4'].Visible = true 
+							end) 
+						end
+						bedwars.SprintController.stopSprinting = old
+						bedwars.SprintController:stopSprinting()
+					end
+				else
+					if callback then
+						repeat task.wait() until entitylib.isAlive or not Sprint.Enabled
+						if not Sprint.Enabled then return end
+						Sprint:Clean(lplr.Character.Humanoid:GetPropertyChangedSignal('WalkSpeed'):Connect(function()
+							if lplr.Character.Humanoid.WalkSpeed < 20 then
+								bedwars.SprintController:startSprinting()
+							end
+						end))
+						Sprint:Clean(entitylib.Events.LocalAdded:Connect(function() 
+							Sprint:Toggle()
+							Sprint:Toggle() 
+						end))
+						bedwars.SprintController:startSprinting()
+					end
+				end
+			end,
+			Tooltip = 'Sets your sprinting to true.'
+		})
+	end)
+		
+	run(function()
+		local TriggerBot
+		local CPS
+
+		local rayParams = RaycastParams.new()
+		
+		TriggerBot = vape.Categories.Combat:CreateModule({
+			Name = 'Trigger Bot',
+			Function = function(callback)
+				if callback then
+					repeat
+						local doAttack
+						if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
+							if entitylib.isAlive and store.hand.toolType == 'sword' and bedwars.DaoController.chargingMaid == nil then
+								local attackRange = bedwars.ItemMeta[store.hand.tool.Name].sword.attackRange
+								rayParams.FilterDescendantsInstances = {lplr.Character}
+		
+								local unit = lplr:GetMouse().UnitRay
+								local localPos = entitylib.character.RootPart.Position
+								local rayRange = (attackRange or 14.4)
+								local ray = bedwars.QueryUtil:raycast(unit.Origin, unit.Direction * 200, rayParams)
+								if ray and (localPos - ray.Instance.Position).Magnitude <= rayRange then
+									local limit = (attackRange)
+									for _, ent in entitylib.List do
+										doAttack = ent.Targetable and ray.Instance:IsDescendantOf(ent.Character) and (localPos - ent.RootPart.Position).Magnitude <= rayRange
+										if doAttack then
+											break
+										end
+									end
+								end
+		
+								doAttack = doAttack or bedwars.SwordController:getTargetInRegion(attackRange or 3.8 * 3, 0)
+								if doAttack then
+									bedwars.SwordController:swingSwordAtMouse()
+								end
+							end
+						end
+		
+						task.wait(doAttack and 1 / CPS.GetRandomValue() or 0.016)
+					until not TriggerBot.Enabled
+				end
+			end,
+			Tooltip = 'Automatically swings when hovering over a entity'
+		})
+		CPS = TriggerBot:CreateTwoSlider({
+			Name = 'CPS',
+			Min = 1,
+			Max = 9,
+			DefaultMin = 7,
+			DefaultMax = 7
+		})
+	end)
+		
+	run(function()
+		local Velocity
+		local Horizontal
+		local Vertical
+		local Air
+		local Ground
+		local Mode
+		local Chance
+		local TargetCheck
+		local rand, old = Random.new()
+		
+		local TakeKnockback = Instance.new('BindableEvent')
+
+		local Attributes = bedwars.KnockbackUtilInstance:GetAttributes()
+
+		Velocity = vape.Categories.Combat:CreateModule({
+			Name = 'Velocity',
+			Function = function(callback)
+				if callback then
+					if canDebug then
+						old = bedwars.KnockbackUtil.applyKnockback
+
+						Velocity:Clean(TakeKnockback.Event:Connect(function(root, mass, dir, knockback, ...)
+							local args = {...}
+
+							local air, ground
+
+							task.delay(Air:GetRandomValue() / 1000, function()
+								local clone = table.clone(knockback)
+								clone.horizontal = ground and 0.1 or 0
+								air = true
+								old(root, mass, dir, clone, unpack(args))
+							end)
+							task.delay(Ground:GetRandomValue() / 1000, function()
+								local clone = table.clone(knockback)
+								clone.vertical = air and 0.1 or 0
+								ground = true
+								old(root, mass, dir, clone, unpack(args))
+							end)
+						end))
+
+						bedwars.KnockbackUtil.applyKnockback = function(root, mass, dir, knockback, ...)
+							local chance = rand:NextNumber(0, 100)
+							if Mode.Value == 'Normal' then
+								if chance > Chance.Value then return end
+							end
+							
+							local check = (not TargetCheck.Enabled) or entitylib.EntityPosition({
+								Range = 50,
+								Part = 'RootPart',
+								Players = true
+							})
+			
+							if check then
+								knockback = knockback or {}
+								if Mode.Value == 'Lag' then
+									if chance < Chance.Value then
+										return TakeKnockback:Fire(root, mass, dir, knockback, ...)
+									end
+								else
+									if Horizontal.Value == 0 and Vertical.Value == 0 then return end
+									knockback.horizontal = (knockback.horizontal or 1) * (Horizontal.Value / 100)
+									knockback.vertical = (knockback.vertical or 1) * (Vertical.Value / 100)
+								end
+							end
+							
+							return old(root, mass, dir, knockback, ...)
+						end
+					else
+						for i in Attributes do
+							bedwars.KnockbackUtilInstance:SetAttribute(i, 0)
+						end
+					end
+				else
+					if canDebug then
+						bedwars.KnockbackUtil.applyKnockback = old
+					else
+						for i, v in Attributes do
+							bedwars.KnockbackUtilInstance:SetAttribute(i, v)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Reduces knockback taken',
+			ExtraText = function()
+				return canDebug and Mode.Value or 'No Knockback'
+			end
+		})
+		if canDebug then
+			Horizontal = Velocity:CreateSlider({
+				Name = 'Horizontal',
+				Min = 0,
+				Max = 100,
+				Default = 0,
+				Darker = true,
+				Suffix = '%'
+			})
+			Vertical = Velocity:CreateSlider({
+				Name = 'Vertical',
+				Min = 0,
+				Max = 100,
+				Default = 0,
+				Darker = true,
+				Suffix = '%'
+			})
+			Air = Velocity:CreateTwoSlider({
+				Name = 'Air delay',
+				Min = 0,
+				Max = 500,
+				Darker = true,
+				DefaultMin = 50,
+				DefaultMax = 150
+			})
+			Ground = Velocity:CreateTwoSlider({
+				Name = 'Ground delay',
+				Min = 0,
+				Max = 500,
+				Darker = true,
+				DefaultMin = 200,
+				DefaultMax = 250
+			})
+			Mode = Velocity:CreateDropdown({
+				Name = 'Mode',
+				Default = 'Normal',
+				List = {'Lag', 'Normal'},
+				Function = function(val)
+					Vertical.Object.Visible = val == 'Normal'
+					Horizontal.Object.Visible = val == 'Normal'
+					Air.Object.Visible = val == 'Lag'
+					Ground.Object.Visible = val == 'Lag'
+				end
+			})
+			Vertical.Object.Visible = Mode.Value == 'Normal'
+			Horizontal.Object.Visible = Mode.Value == 'Normal'
+			Air.Object.Visible = Mode.Value == 'Lag'
+			Ground.Object.Visible = Mode.Value == 'Lag'
+			Chance = Velocity:CreateSlider({
+				Name = 'Chance',
+				Min = 0,
+				Max = 100,
+				Default = 100,
+				Suffix = '%'
+			})
+			TargetCheck = Velocity:CreateToggle({Name = 'Only when targeting'})
+		end
+	end)
+		
+	local AntiFallDirection
+	run(function()
+		local AntiFall
+		local Mode
+		local Material
+		local Color
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+
+		local function getLowGround()
+			local mag = math.huge
+			for _, pos in bedwars.BlockController:getStore():getAllBlockPositions() do
+				pos = pos * 3
+				if pos.Y < mag and not getPlacedBlock(pos + Vector3.new(0, 3, 0)) then
+					mag = pos.Y
+				end
+			end
+			return mag
+		end
+
+		AntiFall = vape.Categories.Blatant:CreateModule({
+			Name = 'Anti Fall',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AntiFall.Enabled)
+					if not AntiFall.Enabled then return end
+
+					local pos, debounce = getLowGround(), tick()
+					if pos ~= math.huge then
+						AntiFallPart = Instance.new('Part')
+						AntiFallPart.Size = Vector3.new(10000, 1, 10000)
+						AntiFallPart.Transparency = 1 - Color.Opacity
+						AntiFallPart.Material = Enum.Material[Material.Value]
+						AntiFallPart.Color = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						AntiFallPart.Position = Vector3.new(0, pos - 2, 0)
+						AntiFallPart.CanCollide = Mode.Value == 'Collide'
+						AntiFallPart.Anchored = true
+						AntiFallPart.CanQuery = false
+						AntiFallPart.Parent = workspace
+						store.antifallpart = AntiFallPart
+						AntiFall:Clean(AntiFallPart)
+						AntiFall:Clean(AntiFallPart.Touched:Connect(function(touched)
+							if touched.Parent == lplr.Character and entitylib.isAlive and debounce < tick() then
+								debounce = tick() + 0.1
+								if Mode.Value == 'Normal' then
+									local top = getNearGround()
+									if top then
+										local lastTeleport = lplr:GetAttribute('LastTeleported')
+										local connection
+										connection = runService.PreSimulation:Connect(function()
+											if vape.Modules.Fly.Enabled or vape.Modules.InfiniteFly.Enabled or vape.Modules.LongJump.Enabled then
+												connection:Disconnect()
+												AntiFallDirection = nil
+												return
+											end
+
+											if entitylib.isAlive and lplr:GetAttribute('LastTeleported') == lastTeleport then
+												local delta = ((top - entitylib.character.RootPart.Position) * Vector3.new(1, 0, 1))
+												local root = entitylib.character.RootPart
+												AntiFallDirection = delta.Unit == delta.Unit and delta.Unit or Vector3.zero
+												root.Velocity *= Vector3.new(1, 0, 1)
+												rayCheck.FilterDescendantsInstances = {gameCamera, lplr.Character}
+												rayCheck.CollisionGroup = root.CollisionGroup
+
+												local ray = workspace:Raycast(root.Position, AntiFallDirection, rayCheck)
+												if ray then
+													for _ = 1, 10 do
+														local dpos = roundPos(ray.Position + ray.Normal * 1.5) + Vector3.new(0, 3, 0)
+														if not getPlacedBlock(dpos) then
+															top = Vector3.new(top.X, pos.Y, top.Z)
+															break
+														end
+													end
+												end
+
+												root.CFrame += Vector3.new(0, top.Y - root.Position.Y, 0)
+												if not frictionTable.Speed then
+													root.AssemblyLinearVelocity = (AntiFallDirection * getSpeed()) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+												end
+
+												if delta.Magnitude < 1 then
+													connection:Disconnect()
+													AntiFallDirection = nil
+												end
+											else
+												connection:Disconnect()
+												AntiFallDirection = nil
+											end
+										end)
+										AntiFall:Clean(connection)
+									end
+								elseif Mode.Value == 'Velocity' then
+									entitylib.character.RootPart.Velocity = Vector3.new(entitylib.character.RootPart.Velocity.X, 100, entitylib.character.RootPart.Velocity.Z)
+								end
+							end
+						end))
+					end
+				else
+					store.antifallpart = nil
+					AntiFallDirection = nil
+				end
+			end,
+			Tooltip = 'Help\'s you with your Parkinson\'s\nPrevents you from falling into the void.'
+		})
+		Mode = AntiFall:CreateDropdown({
+			Name = 'Move Mode',
+			List = {'Normal', 'Collide', 'Velocity'},
+			Function = function(val)
+				if AntiFallPart then
+					AntiFallPart.CanCollide = val == 'Collide'
+				end
+			end,
+		Tooltip = 'Normal - Smoothly moves you towards the nearest safe point\nVelocity - Launches you upward after touching\nCollide - Allows you to walk on the part'
+		})
+		local materials = {'ForceField'}
+		for _, v in Enum.Material:GetEnumItems() do
+			if v.Name ~= 'ForceField' then
+				table.insert(materials, v.Name)
+			end
+		end
+		Material = AntiFall:CreateDropdown({
+			Name = 'Material',
+			List = materials,
+			Function = function(val)
+				if AntiFallPart then
+					AntiFallPart.Material = Enum.Material[val]
+				end
+			end
+		})
+		Color = AntiFall:CreateColorSlider({
+			Name = 'Color',
+			DefaultOpacity = 0.5,
+			Function = function(h, s, v, o)
+				if AntiFallPart then
+					AntiFallPart.Color = Color3.fromHSV(h, s, v)
+					AntiFallPart.Transparency = 1 - o
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local FastBreak
+		local Time
+		
+		FastBreak = vape.Categories.Blatant:CreateModule({
+			Name = 'Fast Break',
+			Function = function(callback)
+				if callback then
+					repeat
+						bedwars.BlockBreakController.blockBreaker:setCooldown(Time.Value)
+						task.wait(0.1)
+					until not FastBreak.Enabled
+				else
+					bedwars.BlockBreakController.blockBreaker:setCooldown(0.3)
+				end
+			end,
+			Tooltip = 'Decreases block hit cooldown'
+		})
+		Time = FastBreak:CreateSlider({
+			Name = 'Break speed',
+			Min = 0,
+			Max = 0.3,
+			Default = 0.25,
+			Decimal = 100,
+			Suffix = 'seconds'
+		})
+	end)
+		
+	local Fly
+	local LongJump
+	run(function()
+		local Value
+		local VerticalValue
+		local WallCheck
+		local PopBalloons
+		local TP
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local up, down, old = 0, 0
+
+		Fly = vape.Categories.Blatant:CreateModule({
+			Name = 'Fly',
+			Function = function(callback)
+				frictionTable.Fly = callback or nil
+				updateVelocity()
+				if callback then
+					up, down, old = 0, 0, bedwars.BalloonController.deflateBalloon
+					bedwars.BalloonController.deflateBalloon = function() end
+					local tpTick, tpToggle, oldy = tick(), true
+
+					if lplr.Character and (lplr.Character:GetAttribute('InflatedBalloons') or 0) == 0 and getItem('balloon') then
+						bedwars.BalloonController:inflateBalloon()
+					end
+					Fly:Clean(vapeEvents.AttributeChanged.Event:Connect(function(changed)
+						if changed == 'InflatedBalloons' and (lplr.Character:GetAttribute('InflatedBalloons') or 0) == 0 and getItem('balloon') then
+							bedwars.BalloonController:inflateBalloon()
+						end
+					end))
+					Fly:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive and not InfiniteFly.Enabled and isnetworkowner(entitylib.character.RootPart) then
+							local flyAllowed = (lplr.Character:GetAttribute('InflatedBalloons') and lplr.Character:GetAttribute('InflatedBalloons') > 0) or store.matchState == 2
+							local mass = (1.5 + (flyAllowed and 6 or 0) * (tick() % 0.4 < 0.2 and -1 or 1))
+							local root, moveDirection = entitylib.character.RootPart, entitylib.character.Humanoid.MoveDirection
+							local velo = getSpeed()
+							local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
+							rayCheck.CollisionGroup = root.CollisionGroup
+
+							destination += Vector3.new(0, ((up + down) * VerticalValue.Value) / 150, 0)
+
+							if WallCheck.Enabled then
+								local ray = workspace:Raycast(root.Position, destination, rayCheck)
+								if ray then
+									destination = ((ray.Position + ray.Normal) - root.Position)
+								end
+							end
+
+							if not flyAllowed then
+								if tpToggle then
+									local airleft = (tick() - entitylib.character.AirTime)
+									if airleft > 2 then
+										if not oldy then
+											local ray = workspace:Raycast(root.Position, Vector3.new(0, -1000, 0), rayCheck)
+											if ray and TP.Enabled then
+												tpToggle = false
+												oldy = root.Position.Y
+												tpTick = tick() + 0.11
+												root.CFrame = CFrame.lookAlong(Vector3.new(root.Position.X, ray.Position.Y + entitylib.character.HipHeight, root.Position.Z), root.CFrame.LookVector)
+											end
+										end
+									end
+								else
+									if oldy then
+										if tpTick < tick() then
+											local newpos = Vector3.new(root.Position.X, oldy, root.Position.Z)
+											root.CFrame = CFrame.lookAlong(newpos, root.CFrame.LookVector)
+											tpToggle = true
+											oldy = nil
+										else
+											mass = 0
+										end
+									end
+								end
+							end
+
+							root.CFrame += destination
+							root.AssemblyLinearVelocity = (moveDirection * velo) + Vector3.new(0, mass, 0)
+						end
+					end))
+					Fly:Clean(inputService.InputBegan:Connect(function(input)
+						if not inputService:GetFocusedTextBox() then
+							if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+								up = 1
+							elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+								down = -1
+							end
+						end
+					end))
+					Fly:Clean(inputService.InputEnded:Connect(function(input)
+						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+							up = 0
+						elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+							down = 0
+						end
+					end))
+					if inputService.TouchEnabled then
+						pcall(function()
+							local jumpButton = lplr.PlayerGui.TouchGui.TouchControlFrame.JumpButton
+							Fly:Clean(jumpButton:GetPropertyChangedSignal('ImageRectOffset'):Connect(function()
+								up = jumpButton.ImageRectOffset.X == 146 and 1 or 0
+							end))
+						end)
+					end
+				else
+					bedwars.BalloonController.deflateBalloon = old
+					if PopBalloons.Enabled and entitylib.isAlive and (lplr.Character:GetAttribute('InflatedBalloons') or 0) > 0 then
+						for _ = 1, 3 do
+							bedwars.BalloonController:deflateBalloon()
+						end
+					end
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Makes you go zoom.'
+		})
+		Value = Fly:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 23,
+			Default = 23,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		VerticalValue = Fly:CreateSlider({
+			Name = 'Vertical Speed',
+			Min = 1,
+			Max = 150,
+			Default = 50,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		WallCheck = Fly:CreateToggle({
+			Name = 'Wall Check',
+			Default = true
+		})
+		PopBalloons = Fly:CreateToggle({
+			Name = 'Pop Balloons',
+			Default = true
+		})
+		TP = Fly:CreateToggle({
+			Name = 'TP Down',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Mode
+		local Expand
+		local objects, set = {}
+		
+		local function createHitbox(ent)
+			if ent.Targetable and ent.Player then
+				local hitbox = Instance.new('Part')
+				hitbox.Size = Vector3.new(3, 6, 3) + Vector3.one * (Expand.Value / 5)
+				hitbox.Position = ent.RootPart.Position
+				hitbox.CanCollide = false
+				hitbox.Massless = true
+				hitbox.Transparency = 1
+				hitbox.Parent = ent.Character
+				local weld = Instance.new('Motor6D')
+				weld.Part0 = hitbox
+				weld.Part1 = ent.RootPart
+				weld.Parent = hitbox
+				objects[ent] = hitbox
+			end
+		end
+		
+		HitBoxes = vape.Categories.Blatant:CreateModule({
+			Name = 'Hit Boxes',
+			Function = function(callback)
+				if callback then
+					if Mode.Value == 'Sword' then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, (Expand.Value / 3))
+						set = true
+					else
+						HitBoxes:Clean(entitylib.Events.EntityAdded:Connect(createHitbox))
+						HitBoxes:Clean(entitylib.Events.EntityRemoving:Connect(function(ent)
+							if objects[ent] then
+								objects[ent]:Destroy()
+								objects[ent] = nil
+							end
+						end))
+						for _, ent in entitylib.List do
+							createHitbox(ent)
+						end
+					end
+				else
+					if set then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, 3.8)
+						set = nil
+					end
+					for _, part in objects do
+						part:Destroy()
+					end
+					table.clear(objects)
+				end
+			end,
+			Tooltip = 'Expands attack hitbox'
+		})
+		Mode = HitBoxes:CreateDropdown({
+			Name = 'Mode',
+			List = {'Sword', 'Player'},
+			Function = function()
+				if HitBoxes.Enabled then
+					HitBoxes:Toggle()
+					HitBoxes:Toggle()
+				end
+			end,
+			Tooltip = 'Sword - Increases the range around you to hit entities\nPlayer - Increases the players hitbox'
+		})
+		Expand = HitBoxes:CreateSlider({
+			Name = 'Expand amount',
+			Min = 0,
+			Max = 14.4,
+			Default = 14.4,
+			Decimal = 10,
+			Function = function(val)
+				if HitBoxes.Enabled then
+					if Mode.Value == 'Sword' then
+						debug.setconstant(bedwars.SwordController.swingSwordInRegion, 6, (val / 3))
+					else
+						for _, part in objects do
+							part.Size = Vector3.new(3, 6, 3) + Vector3.one * (val / 5)
+						end
+					end
+				end
+			end,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Blatant:CreateModule({
+			Name = 'KeepSprint',
+			Function = function(callback)
+				if canDebug then
+					debug.setconstant(bedwars.SprintController.startSprinting, 5, callback and 'blockSprinting' or 'blockSprint')
+					bedwars.SprintController:stopSprinting()
+				end
+			end,
+			Tooltip = 'Lets you sprint with a speed potion.'
+		})
+	end)
+		
+	run(function()
+		local Value
+		local CameraDir
+		local start
+		local JumpTick, JumpSpeed, Direction = tick(), 0
+		local projectileRemote = {InvokeServer = function() end}
+		task.spawn(function()
+			projectileRemote = bedwars.Client:Get(remotes.FireProjectile).instance
+		end)
+		
+		local function launchProjectile(item, pos, proj, speed, dir)
+			if not pos then return end
+		
+			pos = pos - dir * 0.1
+			local shootPosition = (CFrame.lookAlong(pos, Vector3.new(0, -speed, 0)) * CFrame.new(Vector3.new(-bedwars.BowConstantsTable.RelX, -bedwars.BowConstantsTable.RelY, -bedwars.BowConstantsTable.RelZ)))
+			switchItem(item.tool, 0)
+			task.wait(0.1)
+			bedwars.ProjectileController:createLocalProjectile(bedwars.ProjectileMeta[proj], proj, proj, shootPosition.Position, '', shootPosition.LookVector * speed, {drawDurationSeconds = 1})
+			if projectileRemote:InvokeServer(item.tool, proj, proj, shootPosition.Position, pos, shootPosition.LookVector * speed, httpService:GenerateGUID(true), {shotId = httpService:GenerateGUID(false), drawDurationSec = 1}, workspace:GetServerTimeNow() - 0.045) then
+				local shoot = bedwars.ItemMeta[item.itemType].projectileSource.launchSound
+				shoot = shoot and shoot[math.random(1, #shoot)] or nil
+				if shoot then
+					bedwars.SoundManager:playSound(shoot)
+				end
+			end
+		end
+		
+		local LongJumpMethods = {
+			cannon = function(_, pos, dir)
+				pos = pos - Vector3.new(0, (entitylib.character.HipHeight + (entitylib.character.RootPart.Size.Y / 2)) - 3, 0)
+				local rounded = Vector3.new(math.round(pos.X / 3) * 3, math.round(pos.Y / 3) * 3, math.round(pos.Z / 3) * 3)
+				bedwars.placeBlock(rounded, 'cannon', false)
+		
+				task.delay(0, function()
+					local block, blockpos = getPlacedBlock(rounded)
+					if block and block.Name == 'cannon' and (entitylib.character.RootPart.Position - block.Position).Magnitude < 20 then
+						local breaktype = bedwars.ItemMeta[block.Name].block.breakType
+						local tool = store.tools[breaktype]
+						if tool then
+							switchItem(tool.tool, 0.1)
+						end
+		
+						bedwars.Client:Get(remotes.CannonAim):SendToServer({
+							cannonBlockPos = blockpos,
+							lookVector = dir
+						})
+		
+						task.wait(0.2)
+
+						task.delay(0.05, function()
+							for i = 1, 2 do
+								bedwars.breakBlock(block, true, true)
+							end
+						end)
+		
+						for _ = 1, 3 do
+							local call = bedwars.Client:Get(remotes.CannonLaunch):CallServer({cannonBlockPos = blockpos})
+							if call then
+								JumpSpeed = 5.25 * Value.Value
+								JumpTick = tick() + 2.3
+								Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+								break
+							end
+							task.wait(0.1)
+						end
+					end
+				end)
+			end,
+			cat = function(_, _, dir)
+				LongJump:Clean(vapeEvents.CatPounce.Event:Connect(function()
+					JumpSpeed = 4 * Value.Value
+					JumpTick = tick() + 2.5
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+					entitylib.character.RootPart.Velocity = Vector3.zero
+				end))
+		
+				if not bedwars.AbilityController:canUseAbility('CAT_POUNCE') then
+					repeat task.wait() until bedwars.AbilityController:canUseAbility('CAT_POUNCE') or not LongJump.Enabled
+				end
+		
+				if bedwars.AbilityController:canUseAbility('CAT_POUNCE') and LongJump.Enabled then
+					bedwars.AbilityController:useAbility('CAT_POUNCE')
+				end
+			end,
+			fireball = function(item, pos, dir)
+				launchProjectile(item, pos, 'fireball', 60, dir)
+			end,
+			grappling_hook = function(item, pos, dir)
+				launchProjectile(item, pos, 'grappling_hook_projectile', 140, dir)
+			end,
+			jade_hammer = function(item, _, dir)
+				if not bedwars.AbilityController:canUseAbility(item.itemType..'_jump') then
+					repeat task.wait() until bedwars.AbilityController:canUseAbility(item.itemType..'_jump') or not LongJump.Enabled
+				end
+		
+				if bedwars.AbilityController:canUseAbility(item.itemType..'_jump') and LongJump.Enabled then
+					bedwars.AbilityController:useAbility(item.itemType..'_jump')
+					JumpSpeed = 1.4 * Value.Value
+					JumpTick = tick() + 2.5
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+				end
+			end,
+			tnt = function(item, pos, dir)
+				pos = pos - Vector3.new(0, (entitylib.character.HipHeight + (entitylib.character.RootPart.Size.Y / 2)) - 3, 0)
+				local rounded = Vector3.new(math.round(pos.X / 3) * 3, math.round(pos.Y / 3) * 3, math.round(pos.Z / 3) * 3)
+				start = Vector3.new(rounded.X, start.Y, rounded.Z) + (dir * (item.itemType == 'pirate_gunpowder_barrel' and 2.6 or 0.2))
+				bedwars.placeBlock(rounded, item.itemType, false)
+			end,
+			wood_dao = function(item, pos, dir)
+				if (lplr.Character:GetAttribute('CanDashNext') or 0) > workspace:GetServerTimeNow() or not bedwars.AbilityController:canUseAbility('dash') then
+					repeat task.wait() until (lplr.Character:GetAttribute('CanDashNext') or 0) < workspace:GetServerTimeNow() and bedwars.AbilityController:canUseAbility('dash') or not LongJump.Enabled
+				end
+		
+				if LongJump.Enabled then
+					bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
+					switchItem(item.tool, 0.1)
+					replicatedStorage['events-@easy-games/game-core:shared/game-core-networking@getEvents.Events'].useAbility:FireServer('dash', {
+						direction = dir,
+						origin = pos,
+						weapon = item.itemType
+					})
+					JumpSpeed = 4.5 * Value.Value
+					JumpTick = tick() + 2.4
+					Direction = Vector3.new(dir.X, 0, dir.Z).Unit
+				end
+			end
+		}
+		for _, v in {'stone_dao', 'iron_dao', 'diamond_dao', 'emerald_dao'} do
+			LongJumpMethods[v] = LongJumpMethods.wood_dao
+		end
+		LongJumpMethods.void_axe = LongJumpMethods.jade_hammer
+		LongJumpMethods.siege_tnt = LongJumpMethods.tnt
+		LongJumpMethods.pirate_gunpowder_barrel = LongJumpMethods.tnt
+		
+		LongJump = vape.Categories.Blatant:CreateModule({
+			Name = 'Long Jump',
+			Function = function(callback)
+				frictionTable.LongJump = callback or nil
+				updateVelocity()
+				if callback then
+					LongJump:Clean(vapeEvents.EntityDamageEvent.Event:Connect(function(damageTable)
+						if damageTable.entityInstance then
+							damageTable.entityInstance = typeof(damageTable.entityInstance) == 'string' and workspace[damageTable.entityInstance] or typeof(damageTable.entityInstance) == 'Instance' and damageTable.entityInstance
+						end
+
+						if damageTable.fromEntity then
+							damageTable.fromEntity = typeof(damageTable.fromEntity) == 'string' and workspace[damageTable.fromEntity] or typeof(damageTable.fromEntity) == 'Instance' and damageTable.fromEntity
+						end
+						
+						if damageTable.entityInstance == lplr.Character and damageTable.fromEntity == lplr.Character and (not damageTable.knockbackMultiplier or not damageTable.knockbackMultiplier.disabled) then
+							local knockbackBoost = bedwars.KnockbackUtil.calculateKnockbackVelocity(Vector3.one, 1, {
+								vertical = 0,
+								horizontal = (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal or 1)
+							}).Magnitude * 1.1
+
+							if knockbackBoost and not canDebug then
+								knockbackBoost = 42
+							end
+		
+							if knockbackBoost >= JumpSpeed or not canDebug then
+								local pos = damageTable.fromPosition and Vector3.new(damageTable.fromPosition.X, damageTable.fromPosition.Y, damageTable.fromPosition.Z) or damageTable.fromEntity and damageTable.fromEntity.PrimaryPart.Position
+								if not pos then return end
+								local vec = (entitylib.character.RootPart.Position - (pos - (canDebug and Vector3.zero or (entitylib.character.RootPart.CFrame.LookVector * 12))))
+								JumpSpeed = knockbackBoost
+								JumpTick = tick() + 2.5
+								Direction = Vector3.new(vec.X, 0, vec.Z).Unit
+							end
+						end
+					end))
+					LongJump:Clean(vapeEvents.GrapplingHookFunctions.Event:Connect(function(dataTable)
+						if dataTable.hookFunction == 'PLAYER_IN_TRANSIT' then
+							local vec = entitylib.character.RootPart.CFrame.LookVector
+							JumpSpeed = 2.5 * Value.Value
+							JumpTick = tick() + 2.5
+							Direction = Vector3.new(vec.X, 0, vec.Z).Unit
+						end
+					end))
+		
+					start = entitylib.isAlive and entitylib.character.RootPart.Position or nil
+					LongJump:Clean(runService.PreSimulation:Connect(function(dt)
+						local root = entitylib.isAlive and entitylib.character.RootPart or nil
+		
+						if root and isnetworkowner(root) then
+							if JumpTick > tick() then
+								root.AssemblyLinearVelocity = Direction * (getSpeed() + ((JumpTick - tick()) > 1.1 and JumpSpeed or 0)) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+								if entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and not start then
+									root.AssemblyLinearVelocity += Vector3.new(0, dt * (workspace.Gravity - 23), 0)
+								else
+									root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, 15, root.AssemblyLinearVelocity.Z)
+								end
+								start = nil
+							else
+								if start then
+									root.CFrame = CFrame.lookAlong(start, root.CFrame.LookVector)
+								end
+								root.AssemblyLinearVelocity = Vector3.zero
+								JumpSpeed = 0
+							end
+						else
+							start = nil
+						end
+					end))
+		
+					if store.hand and store.hand.tool and LongJumpMethods[store.hand.tool.Name] then
+						task.spawn(LongJumpMethods[store.hand.tool.Name], getItem(store.hand.tool.Name), start, (CameraDir.Enabled and gameCamera or entitylib.character.RootPart).CFrame.LookVector)
+						return
+					end
+		
+					for i, v in LongJumpMethods do
+						local item = getItem(i)
+						if item or store.equippedKit == i then
+							task.spawn(v, item, start, (CameraDir.Enabled and gameCamera or entitylib.character.RootPart).CFrame.LookVector)
+							break
+						end
+					end
+				else
+					JumpTick = tick()
+					Direction = nil
+					JumpSpeed = 0
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Lets you jump farther'
+		})
+		Value = LongJump:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 37,
+			Default = 37,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		CameraDir = LongJump:CreateToggle({
+			Name = 'Camera Direction'
+		})
+	end)
+
+	run(function() -- CATVAPE FEATURE
+		local NoFall
+		local DamageAccuracy
+
+		local rayParams = RaycastParams.new()
+		local rand = Random.new()
+
+		NoFall = vape.Categories.Blatant:CreateModule({ 
+			Name = 'No Fall',
+			Function = function(callback)
+				if callback then
+					local tracked, extraGravity, velocity = 0, 0, 0
+					NoFall:Clean(runService.PreSimulation:Connect(function(dt)
+						if entitylib.isAlive then
+							local root = store.rootpart or entitylib.character.RootPart
+							if root.AssemblyLinearVelocity.Y < -85 then
+								rayParams.FilterDescendantsInstances = {lplr.Character, gameCamera}
+								rayParams.CollisionGroup = root.CollisionGroup
+
+								local rootSize = root.Size.Y / 2.5 + entitylib.character.HipHeight
+								local ray = workspace:Blockcast(root.CFrame, Vector3.new(3, 3, 3), Vector3.new(0, (tracked * 0.1) - rootSize, 0), rayParams)
+								if not ray then
+									local Failed = rand:NextNumber(0, 100) < (DamageAccuracy.Value)
+									local velo = root.AssemblyLinearVelocity.Y
+
+									if Failed then 
+										root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, velo + 0.5, root.AssemblyLinearVelocity.Z)
+									else
+										root.AssemblyLinearVelocity = Vector3.new(root.AssemblyLinearVelocity.X, -86, root.AssemblyLinearVelocity.Z)
+									end
+
+									velocity = velo
+									root.CFrame = root.CFrame + Vector3.new(0, (Failed and -extraGravity or extraGravity) * dt, 0)
+									extraGravity = extraGravity + (Failed and workspace.Gravity or -workspace.Gravity) * dt
+								else
+									velocity = root.AssemblyLinearVelocity.Y
+								end
+							else
+								extraGravity = 0
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Prevents you from taking fall damage.'
+		})
+
+		DamageAccuracy = NoFall:CreateSlider({
+			Name = 'Damage Accuracy',
+			Min = 0,
+			Max = 100,
+			Suffix = '%',
+			Default = 0,
+			Decimal = 5
+		})
+	end)
+		
+	run(function()
+		local old
+		
+		vape.Categories.Blatant:CreateModule({
+			Name = 'No Slow',
+			Function = function(callback)
+				local modifier = bedwars.SprintController:getMovementStatusModifier()
+				if callback then
+					old = modifier.addModifier
+					modifier.addModifier = function(self, tab)
+						if tab.moveSpeedMultiplier then
+							tab.moveSpeedMultiplier = math.max(tab.moveSpeedMultiplier, 1)
+						end
+						return old(self, tab)
+					end
+		
+					for i in modifier.modifiers do
+						if (i.moveSpeedMultiplier or 1) < 1 then
+							modifier:removeModifier(i)
+						end
+					end
+				else
+					modifier.addModifier = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Prevents slowing down when using items.'
+		})
+	end)
+
+		
+	run(function()
+		local Speed
+		local Value
+		local WallCheck
+		local AutoJump
+		local AlwaysJump
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		
+		Speed = vape.Categories.Blatant:CreateModule({
+			Name = 'Speed',
+			Function = function(callback)
+				frictionTable.Speed = callback or nil
+				updateVelocity()
+				pcall(function()
+					debug.setconstant(bedwars.WindWalkerController.updateSpeed, 7, callback and 'constantSpeedMultiplier' or 'moveSpeedMultiplier')
+				end)
+		
+				if callback then
+					Speed:Clean(runService.PreSimulation:Connect(function(dt)
+						bedwars.StatefulEntityKnockbackController.lastImpulseTime = callback and math.huge or time()
+						if entitylib.isAlive and not Fly.Enabled and not (InfiniteFly or {}).Enabled and not LongJump.Enabled then
+							local state = entitylib.character.Humanoid:GetState()
+							if state == Enum.HumanoidStateType.Climbing then return end
+		
+							local root, velo = entitylib.character.RootPart, getSpeed()
+							local moveDirection = AntiFallDirection or entitylib.character.Humanoid.MoveDirection
+							local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+		
+							if WallCheck.Enabled then
+								rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
+								rayCheck.CollisionGroup = root.CollisionGroup
+								local ray = workspace:Raycast(root.Position, destination, rayCheck)
+								if ray then
+									destination = ((ray.Position + ray.Normal) - root.Position)
+								end
+							end
+		
+							root.CFrame += destination
+							root.AssemblyLinearVelocity = (moveDirection * velo) + Vector3.new(0, root.AssemblyLinearVelocity.Y, 0)
+							if AutoJump.Enabled and (state == Enum.HumanoidStateType.Running or state == Enum.HumanoidStateType.Landed) and moveDirection ~= Vector3.zero and (Attacking or AlwaysJump.Enabled) then
+								entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+							end
+						end
+					end))
+				end
+			end,
+			ExtraText = function()
+				return 'Heatseeker'
+			end,
+			Tooltip = 'Increases your movement with various methods.'
+		})
+		Value = Speed:CreateSlider({
+			Name = 'Speed',
+			Min = 1,
+			Max = 23,
+			Default = 23,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		WallCheck = Speed:CreateToggle({
+			Name = 'Wall Check',
+			Default = true
+		})
+		AutoJump = Speed:CreateToggle({
+			Name = 'AutoJump',
+			Function = function(callback)
+				AlwaysJump.Object.Visible = callback
+			end
+		})
+		AlwaysJump = Speed:CreateToggle({
+			Name = 'Always Jump',
+			Visible = false,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local BedESP
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function Added(bed)
+			if not BedESP.Enabled then return end
+			local BedFolder = Instance.new('Folder')
+			BedFolder.Parent = Folder
+			Reference[bed] = BedFolder
+			local parts = bed:GetChildren()
+			table.sort(parts, function(a, b)
+				return a.Name > b.Name
+			end)
+		
+			for _, part in parts do
+				if part:IsA('BasePart') and part.Name ~= 'Blanket' then
+					local handle = Instance.new('BoxHandleAdornment')
+					handle.Size = part.Size + Vector3.new(.01, .01, .01)
+					handle.AlwaysOnTop = true
+					handle.ZIndex = 2
+					handle.Visible = true
+					handle.Adornee = part
+					handle.Color3 = part.Color
+					if part.Name == 'Legs' then
+						handle.Color3 = Color3.fromRGB(167, 112, 64)
+						handle.Size = part.Size + Vector3.new(.01, -1, .01)
+						handle.CFrame = CFrame.new(0, -0.4, 0)
+						handle.ZIndex = 0
+					end
+					handle.Parent = BedFolder
+				end
+			end
+		
+			table.clear(parts)
+		end
+		
+		BedESP = vape.Categories.Render:CreateModule({
+			Name = 'Bed ESP',
+			Function = function(callback)
+				if callback then
+					BedESP:Clean(collectionService:GetInstanceAddedSignal('bed'):Connect(function(bed)
+						task.delay(0.2, Added, bed)
+					end))
+					BedESP:Clean(collectionService:GetInstanceRemovedSignal('bed'):Connect(function(bed)
+						if Reference[bed] then
+							Reference[bed]:Destroy()
+							Reference[bed] = nil
+						end
+					end))
+					for _, bed in collectionService:GetTagged('bed') do
+						Added(bed)
+					end
+				else
+					Folder:ClearAllChildren()
+					table.clear(Reference)
+				end
+			end,
+			Tooltip = 'Render Beds through walls'
+		})
+	end)
+		
+	run(function()
+		local Health
+		
+		Health = vape.Categories.Render:CreateModule({
+			Name = 'Health',
+			Function = function(callback)
+				if callback then
+					local label = Instance.new('TextLabel')
+					label.Size = UDim2.fromOffset(100, 20)
+					label.Position = UDim2.new(0.5, 6, 0.5, 30)
+					label.BackgroundTransparency = 1
+					label.AnchorPoint = Vector2.new(0.5, 0)
+					label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health'))..' ❤️' or ''
+					label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+					label.TextSize = 18
+					label.Font = Enum.Font.Arial
+					label.Parent = vape.gui
+					Health:Clean(label)
+					Health:Clean(vapeEvents.AttributeChanged.Event:Connect(function()
+						label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health'))..' ❤️' or ''
+						label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+					end))
+				end
+			end,
+			Tooltip = 'Displays your health in the center of your screen.'
+		})
+	end)
+		
+	run(function() -- CATVAPE FEATURE
+		local KitESP
+		local DistanceCheck
+		local Distance
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local ESPKits = {
+			alchemist = {'alchemist_ingedients', 'wild_flower'},
+			beekeeper = {'bee', 'bee'},
+			bigman = {'treeOrb', 'natures_essence_1'},
+			ghost_catcher = {'ghost', 'ghost_orb'},
+			metal_detector = {'hidden-metal', 'iron'},
+			sheep_herder = {'SheepModel', 'purple_hay_bale'},
+			sorcerer = {'alchemy_crystal', 'wild_flower'},
+			star_collector = {'stars', 'crit_star'}
+		}
+		
+		local function Added(v, icon)
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = icon
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			if DistanceCheck.Enabled then
+				billboard.Enabled = (entitylib.character.RootPart.Position - v:GetPivot().Position).Magnitude <= Distance.Value
+			end
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local image = Instance.new('ImageLabel')
+			image.Size = UDim2.fromOffset(36, 36)
+			image.Position = UDim2.fromScale(0.5, 0.5)
+			image.AnchorPoint = Vector2.new(0.5, 0.5)
+			image.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			image.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			image.BorderSizePixel = 0
+			image.Parent = billboard
+			local imgicon = image:Clone()
+			imgicon.Name = 'Icon'
+			imgicon.Parent = image
+			imgicon.ZIndex = 2
+			imgicon.BackgroundTransparency = 1
+			imgicon.Image = bedwars.getIcon({itemType = icon}, true)
+			imgicon.Size = UDim2.fromOffset(29, 29)
+
+			local uicorner = Instance.new('UICorner')
+			uicorner.CornerRadius = UDim.new(0, 6)
+			uicorner.Parent = image
+			Reference[v] = billboard
+		end
+		
+		local function addKit(tag, icon)
+			KitESP:Clean(collectionService:GetInstanceAddedSignal(tag):Connect(function(v)
+				Added(v.PrimaryPart, icon)
+			end))
+			KitESP:Clean(collectionService:GetInstanceRemovedSignal(tag):Connect(function(v)
+				if Reference[v.PrimaryPart] then
+					Reference[v.PrimaryPart]:Destroy()
+					Reference[v.PrimaryPart] = nil
+				end
+			end))
+			for _, v in collectionService:GetTagged(tag) do
+				Added(v.PrimaryPart, icon)
+			end
+		end
+		
+		KitESP = vape.Categories.Render:CreateModule({
+			Name = 'Kit ESP',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.equippedKit ~= '' or (not KitESP.Enabled)
+					local kit = KitESP.Enabled and ESPKits[store.equippedKit] or nil
+					if kit then
+						addKit(kit[1], kit[2])
+					end
+					repeat
+						if entitylib.isAlive then
+							for piv, v in Reference do
+								v.Enabled = not DistanceCheck.Enabled or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+							end
+						end
+						task.wait()
+					until not KitESP.Enabled
+				else
+					Folder:ClearAllChildren()
+					table.clear(Reference)
+				end
+			end,
+			Tooltip = 'ESP for certain kit related objects'
+		})
+		Background = KitESP:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then Color.Object.Visible = callback end
+				for _, v in Reference do
+					v.ImageLabel.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = KitESP:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.ImageLabel.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.ImageLabel.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+		DistanceCheck = KitESP:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(call)
+				if Distance then
+					Distance.Object.Visible = call
+				end
+				for piv, v in Reference do
+					v.Enabled = not call or (entitylib.character.RootPart.Position - piv:GetPivot().Position).Magnitude <= Distance.Value
+				end
+			end
+		})
+		Distance = KitESP:CreateSlider({
+			Name = 'Distance',
+			Min = 0,
+			Max = 256,
+			Default = 50,
+			Darker = true
+		})
+		Distance.Object.Visible = false
+	end)
+		
+	run(function()
+		local NameTags
+		local Targets
+		local Color
+		local Background
+		local DisplayName
+		local Health
+		local Distance
+		local Equipment
+		local DrawingToggle
+		local Scale
+		local FontOption
+		local Teammates
+		local DistanceCheck
+		local DistanceLimit
+		local Strings, Sizes, Reference = {}, {}, {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		local methodused
+		
+		local Added = {
+			Normal = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+		
+				local nametag = Instance.new('TextLabel')
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+				if Health.Enabled then
+					local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+					Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(healthColor.R * 255))..','..tostring(math.floor(healthColor.G * 255))..','..tostring(math.floor(healthColor.B * 255))..')">'..math.round(ent.Health)..'</font>'
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+				end
+		
+				if Equipment.Enabled then
+					for i, v in {'Hand', 'Helmet', 'Chestplate', 'Boots', 'Kit'} do
+						local Icon = Instance.new('ImageLabel')
+						Icon.Name = v
+						Icon.Size = UDim2.fromOffset(30, 30)
+						Icon.Position = UDim2.fromOffset(-60 + (i * 30), -30)
+						Icon.BackgroundTransparency = 1
+						Icon.Image = ''
+						Icon.Parent = nametag
+					end
+				end
+		
+				nametag.TextSize = 14 * Scale.Value
+				nametag.FontFace = FontOption.Value
+				local size = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+				nametag.Name = ent.Player and ent.Player.Name or ent.Character.Name
+				nametag.Size = UDim2.fromOffset(size.X + 8, size.Y + 7)
+				nametag.AnchorPoint = Vector2.new(0.5, 1)
+				nametag.BackgroundColor3 = Color3.new()
+				nametag.BackgroundTransparency = Background.Value
+				nametag.BorderSizePixel = 0
+				nametag.Visible = false
+				nametag.Text = Strings[ent]
+				nametag.TextColor3 = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.RichText = true
+				nametag.Parent = Folder
+				Reference[ent] = nametag
+			end,
+			Drawing = function(ent)
+				if not Targets.Players.Enabled and ent.Player then return end
+				if not Targets.NPCs.Enabled and ent.NPC then return end
+				if Teammates.Enabled and (not ent.Targetable) and (not ent.Friend) then return end
+		
+				local nametag = {}
+				nametag.BG = Drawing.new('Square')
+				nametag.BG.Filled = true
+				nametag.BG.Transparency = 1 - Background.Value
+				nametag.BG.Color = Color3.new()
+				nametag.BG.ZIndex = 1
+				nametag.Text = Drawing.new('Text')
+				nametag.Text.Size = 15 * Scale.Value
+				nametag.Text.Font = 0
+				nametag.Text.ZIndex = 2
+				Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+				if Health.Enabled then
+					Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+				end
+		
+				if Distance.Enabled then
+					Strings[ent] = '[%s] '..Strings[ent]
+				end
+		
+				nametag.Text.Text = Strings[ent]
+				nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+				Reference[ent] = nametag
+			end
+		}
+		
+		local Removed = {
+			Normal = function(ent)
+				local v = Reference[ent]
+				if v then
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					v:Destroy()
+				end
+			end,
+			Drawing = function(ent)
+				local v = Reference[ent]
+				if v then
+					Reference[ent] = nil
+					Strings[ent] = nil
+					Sizes[ent] = nil
+					for _, obj in v do
+						pcall(function()
+							obj.Visible = false
+							obj:Remove()
+						end)
+					end
+				end
+			end
+		}
+		
+		local Updated = {
+			Normal = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+					if Health.Enabled then
+						local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+						Strings[ent] = Strings[ent]..' <font color="rgb('..tostring(math.floor(healthColor.R * 255))..','..tostring(math.floor(healthColor.G * 255))..','..tostring(math.floor(healthColor.B * 255))..')">'..math.round(ent.Health)..'</font>'
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '<font color="rgb(85, 255, 85)">[</font><font color="rgb(255, 255, 255)">%s</font><font color="rgb(85, 255, 85)">]</font> '..Strings[ent]
+					end
+		
+					if Equipment.Enabled and store.inventories[ent.Player] then
+						local kit = ent.Player:GetAttribute('PlayingAsKits')
+						local inventory = store.inventories[ent.Player]
+						nametag.Hand.Image = bedwars.getIcon(inventory.hand or {itemType = ''}, true)
+						nametag.Helmet.Image = bedwars.getIcon(inventory.armor[4] or {itemType = ''}, true)
+						nametag.Chestplate.Image = bedwars.getIcon(inventory.armor[5] or {itemType = ''}, true)
+						nametag.Boots.Image = bedwars.getIcon(inventory.armor[6] or {itemType = ''}, true)
+						nametag.Kit.Image = bedwars.BedwarsKitMeta[kit].renderImage
+					end
+		
+					local size = getfontsize(removeTags(Strings[ent]), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+					nametag.Size = UDim2.fromOffset(size.X + 8, size.Y + 7)
+					nametag.Text = Strings[ent]
+				end
+			end,
+			Drawing = function(ent)
+				local nametag = Reference[ent]
+				if nametag then
+					if vape.ThreadFix then
+						setthreadidentity(8)
+					end
+					Sizes[ent] = nil
+					Strings[ent] = ent.Player and whitelist:tag(ent.Player, true)..(DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or ent.Character.Name
+		
+					if Health.Enabled then
+						Strings[ent] = Strings[ent]..' '..math.round(ent.Health)
+					end
+		
+					if Distance.Enabled then
+						Strings[ent] = '[%s] '..Strings[ent]
+						nametag.Text.Text = entitylib.isAlive and string.format(Strings[ent], math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude)) or Strings[ent]
+					else
+						nametag.Text.Text = Strings[ent]
+					end
+		
+					nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+					nametag.Text.Color = entitylib.getEntityColor(ent) or Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+				end
+			end
+		}
+		
+		local ColorFunc = {
+			Normal = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.TextColor3 = entitylib.getEntityColor(i) or color
+				end
+			end,
+			Drawing = function(hue, sat, val)
+				local color = Color3.fromHSV(hue, sat, val)
+				for i, v in Reference do
+					v.Text.Color = entitylib.getEntityColor(i) or color
+				end
+			end
+		}
+		
+		local Loop = {
+			Normal = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled then
+						local mag = entitylib.isAlive and math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude) or 0
+						if Sizes[ent] ~= mag then
+							nametag.Text = string.format(Strings[ent], mag)
+							local ize = getfontsize(removeTags(nametag.Text), nametag.TextSize, nametag.FontFace, Vector2.new(100000, 100000))
+							nametag.Size = UDim2.fromOffset(ize.X + 8, ize.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.Position = UDim2.fromOffset(headPos.X, headPos.Y)
+				end
+			end,
+			Drawing = function()
+				for ent, nametag in Reference do
+					if DistanceCheck.Enabled then
+						local distance = entitylib.isAlive and (entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude or math.huge
+						if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+							nametag.Text.Visible = false
+							nametag.BG.Visible = false
+							continue
+						end
+					end
+		
+					local headPos, headVis = gameCamera:WorldToViewportPoint(ent.RootPart.Position + Vector3.new(0, ent.HipHeight + 1, 0))
+					nametag.Text.Visible = headVis
+					nametag.BG.Visible = headVis
+					if not headVis then
+						continue
+					end
+		
+					if Distance.Enabled then
+						local mag = entitylib.isAlive and math.floor((entitylib.character.RootPart.Position - ent.RootPart.Position).Magnitude) or 0
+						if Sizes[ent] ~= mag then
+							nametag.Text.Text = string.format(Strings[ent], mag)
+							nametag.BG.Size = Vector2.new(nametag.Text.TextBounds.X + 8, nametag.Text.TextBounds.Y + 7)
+							Sizes[ent] = mag
+						end
+					end
+					nametag.BG.Position = Vector2.new(headPos.X - (nametag.BG.Size.X / 2), headPos.Y - nametag.BG.Size.Y)
+					nametag.Text.Position = nametag.BG.Position + Vector2.new(4, 3)
+				end
+			end
+		}
+		
+		NameTags = vape.Categories.Render:CreateModule({
+			Name = 'Name Tags',
+			Function = function(callback)
+				if callback then
+					methodused = DrawingToggle.Enabled and 'Drawing' or 'Normal'
+					if Removed[methodused] then
+						NameTags:Clean(entitylib.Events.EntityRemoved:Connect(Removed[methodused]))
+					end
+					if Added[methodused] then
+						for _, v in entitylib.List do
+							if Reference[v] then
+								Removed[methodused](v)
+							end
+							Added[methodused](v)
+						end
+						NameTags:Clean(entitylib.Events.EntityAdded:Connect(function(ent)
+							if Reference[ent] then
+								Removed[methodused](ent)
+							end
+							Added[methodused](ent)
+						end))
+					end
+					if Updated[methodused] then
+						NameTags:Clean(entitylib.Events.EntityUpdated:Connect(Updated[methodused]))
+						for _, v in entitylib.List do
+							Updated[methodused](v)
+						end
+					end
+					if ColorFunc[methodused] then
+						NameTags:Clean(vape.Categories.Friends.ColorUpdate.Event:Connect(function()
+							ColorFunc[methodused](Color.Hue, Color.Sat, Color.Value)
+						end))
+					end
+					if Loop[methodused] then
+						NameTags:Clean(runService.RenderStepped:Connect(Loop[methodused]))
+					end
+				else
+					if Removed[methodused] then
+						for i in Reference do
+							Removed[methodused](i)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Renders nametags on entities through walls.'
+		})
+		Targets = NameTags:CreateTargets({
+			Players = true,
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		FontOption = NameTags:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Arial',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Color = NameTags:CreateColorSlider({
+			Name = 'Player Color',
+			Function = function(hue, sat, val)
+				if NameTags.Enabled and ColorFunc[methodused] then
+					ColorFunc[methodused](hue, sat, val)
+				end
+			end
+		})
+		Scale = NameTags:CreateSlider({
+			Name = 'Scale',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 1,
+			Min = 0.1,
+			Max = 1.5,
+			Decimal = 10
+		})
+		Background = NameTags:CreateSlider({
+			Name = 'Transparency',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = 0.5,
+			Min = 0,
+			Max = 1,
+			Decimal = 10
+		})
+		Health = NameTags:CreateToggle({
+			Name = 'Health',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Distance = NameTags:CreateToggle({
+			Name = 'Distance',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		Equipment = NameTags:CreateToggle({
+			Name = 'Equipment',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end
+		})
+		DisplayName = NameTags:CreateToggle({
+			Name = 'Use Displayname',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true
+		})
+		Teammates = NameTags:CreateToggle({
+			Name = 'Priority Only',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+			Default = true
+		})
+		DrawingToggle = NameTags:CreateToggle({
+			Name = 'Drawing',
+			Function = function()
+				if NameTags.Enabled then
+					NameTags:Toggle()
+					NameTags:Toggle()
+				end
+			end,
+		})
+		DistanceCheck = NameTags:CreateToggle({
+			Name = 'Distance Check',
+			Function = function(callback)
+				DistanceLimit.Object.Visible = callback
+			end
+		})
+		DistanceLimit = NameTags:CreateTwoSlider({
+			Name = 'Player Distance',
+			Min = 0,
+			Max = 256,
+			DefaultMin = 0,
+			DefaultMax = 64,
+			Darker = true,
+			Visible = false
+		})
+	end)
+		
+	run(function()
+		local StorageESP
+		local List
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function nearStorageItem(item)
+			for _, v in List.ListEnabled do
+				if item:find(v) then return v end
+			end
+		end
+		
+		local function refreshAdornee(v)
+			local chest = v.Adornee:FindFirstChild('ChestFolderValue')
+			chest = chest and chest.Value or nil
+			if not chest then
+				v.Enabled = false
+				return
+			end
+		
+			local chestitems = chest and chest:GetChildren() or {}
+			for _, obj in v.Frame:GetChildren() do
+				if obj:IsA('ImageLabel') and obj.Name ~= 'Blur' then
+					obj:Destroy()
+				end
+			end
+		
+			v.Enabled = false
+			local alreadygot = {}
+			for _, item in chestitems do
+				if not alreadygot[item.Name] and (table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name)) then
+					alreadygot[item.Name] = true
+					v.Enabled = true
+					local blockimage = Instance.new('ImageLabel')
+					blockimage.Size = UDim2.fromOffset(31, 31)
+					blockimage.BackgroundTransparency = 1
+					blockimage.Image = bedwars.getIcon({itemType = item.Name}, true)
+					blockimage.Parent = v.Frame
+				end
+			end
+			table.clear(chestitems)
+		end
+		
+		local function Added(v)
+			local chest = v:WaitForChild('ChestFolderValue', 3)
+			if not (chest and StorageESP.Enabled) then return end
+			chest = chest.Value
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = 'chest'
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local frame = Instance.new('Frame')
+			frame.Size = UDim2.fromScale(1, 1)
+			frame.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			frame.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			frame.Parent = billboard
+			local layout = Instance.new('UIListLayout')
+			layout.FillDirection = Enum.FillDirection.Horizontal
+			layout.Padding = UDim.new(0, 4)
+			layout.VerticalAlignment = Enum.VerticalAlignment.Center
+			layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+			end)
+			layout.Parent = frame
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 6)
+			corner.Parent = frame
+			Reference[v] = billboard
+			StorageESP:Clean(chest.ChildAdded:Connect(function(item)
+				if table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name) then
+					refreshAdornee(billboard)
+				end
+			end))
+			StorageESP:Clean(chest.ChildRemoved:Connect(function(item)
+				if table.find(List.ListEnabled, item.Name) or nearStorageItem(item.Name) then
+					refreshAdornee(billboard)
+				end
+			end))
+			task.spawn(refreshAdornee, billboard)
+		end
+		
+		StorageESP = vape.Categories.Render:CreateModule({
+			Name = 'Storage ESP',
+			Function = function(callback)
+				if callback then
+					StorageESP:Clean(collectionService:GetInstanceAddedSignal('chest'):Connect(Added))
+					for _, v in collectionService:GetTagged('chest') do
+						task.spawn(Added, v)
+					end
+				else
+					table.clear(Reference)
+					Folder:ClearAllChildren()
+				end
+			end,
+			Tooltip = 'Displays items in chests'
+		})
+		List = StorageESP:CreateTextList({
+			Name = 'Item',
+			Function = function()
+				for _, v in Reference do
+					task.spawn(refreshAdornee, v)
+				end
+			end
+		})
+		Background = StorageESP:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then Color.Object.Visible = callback end
+				for _, v in Reference do
+					v.Frame.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = StorageESP:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.Frame.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local AutoBalloon
+		
+		AutoBalloon = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Balloon',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AutoBalloon.Enabled)
+					if not AutoBalloon.Enabled then return end
+		
+					local lowestpoint = math.huge
+					for _, v in store.blocks do
+						local point = (v.Position.Y - (v.Size.Y / 2)) - 50
+						if point < lowestpoint then 
+							lowestpoint = point 
+						end
+					end
+		
+					repeat
+						if entitylib.isAlive then
+							if entitylib.character.RootPart.Position.Y < lowestpoint and (lplr.Character:GetAttribute('InflatedBalloons') or 0) < 3 then
+								local balloon = getItem('balloon')
+								if balloon then
+									for _ = 1, 3 do 
+										bedwars.BalloonController:inflateBalloon() 
+									end
+								end
+								task.wait(0.1)
+							end
+						end
+						task.wait(0.1)
+					until not AutoBalloon.Enabled
+				end
+			end,
+			Tooltip = 'Inflates when you fall into the void'
+		})
+	end)
+		
+	run(function()
+		local AutoPearl
+		local LegitSwitch
+
+		local rayCheck = RaycastParams.new()
+		rayCheck.RespectCanCollide = true
+		local projectileRemote = {InvokeServer = function() end}
+		task.spawn(function()
+			projectileRemote = bedwars.Client:Get(remotes.FireProjectile).instance
+		end)
+		
+		local function firePearl(pos, spot, item)
+			if LegitSwitch.Enabled then
+				for i, v in store.inventory.hotbar do
+					if v.item and v.item.tool == item.tool and i ~= (store.inventory.hotbarSlot + 1) then 
+						hotbarSwitch(i - 1)
+						task.wait(0.1)
+						break
+					end
+				end
+			else
+				switchItem(item.tool)
+			end
+			local meta = bedwars.ProjectileMeta.telepearl
+			local calc = prediction.SolveTrajectory(pos, meta.launchVelocity, meta.gravitationalAcceleration, spot, Vector3.zero, workspace.Gravity, 0, 0, nil, false, lplr:GetNetworkPing())
+
+			if calc then
+				local dir = CFrame.lookAt(pos, calc).LookVector * meta.launchVelocity
+				--bedwars.ProjectileController:createLocalProjectile(meta, 'telepearl', 'telepearl', pos, nil, dir, {drawDurationSeconds = 1})
+				projectileRemote:InvokeServer(item.tool, 'telepearl', 'telepearl', pos, pos, dir, httpService:GenerateGUID(true), {drawDurationSeconds = 1, shotId = httpService:GenerateGUID(false)}, workspace:GetServerTimeNow() - 0.045)
+			end
+		
+			if store.hand then
+				switchItem(store.hand.tool)
+			end
+		end
+		
+		AutoPearl = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Pearl',
+			Function = function(callback)
+				if callback then
+					local check
+					repeat
+						if entitylib.isAlive then
+							local root = entitylib.character.RootPart
+							local pearl = getItem('telepearl')
+							rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
+							rayCheck.CollisionGroup = root.CollisionGroup
+		
+							if pearl and root.Velocity.Y < -80 and not workspace:Raycast(root.Position, Vector3.new(0, -200, 0), rayCheck) then
+								if not check then
+									check = true
+									local ground = getNearGround(20)
+		
+									if ground then
+										getgenv().CancelSwitch = os.clock() + 0.3
+										firePearl(root.Position, ground, pearl)
+									end
+								end
+							else
+								check = false
+							end
+						end
+						task.wait(0.1)
+					until not AutoPearl.Enabled
+				end
+			end,
+			Tooltip = 'Automatically throws a pearl onto nearby ground after\nfalling a certain distance.'
+		})
+
+		LegitSwitch = AutoPearl:CreateToggle({
+			Name = 'Legit Switch'
+		})
+	end)
+		
+	run(function()
+		local AutoPlay
+		local Random
+		
+		local function isEveryoneDead()
+			return #bedwars.Store:getState().Party.members <= 0
+		end
+		
+		local function joinQueue()
+			if not bedwars.Store:getState().Game.customMatch and bedwars.Store:getState().Party.leader.userId == lplr.UserId and bedwars.Store:getState().Party.queueState == 0 then
+				if Random.Enabled then
+					local listofmodes = {}
+					for i, v in bedwars.QueueMeta do
+						if not v.disabled and not v.voiceChatOnly and not v.rankCategory then 
+							table.insert(listofmodes, i) 
+						end
+					end
+					bedwars.QueueController:joinQueue(listofmodes[math.random(1, #listofmodes)])
+				else
+					bedwars.QueueController:joinQueue(store.queueType)
+				end
+			end
+		end
+		
+		AutoPlay = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Queue',
+			Function = function(callback)
+				if callback then
+					AutoPlay:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+						if deathTable.finalKill and deathTable.entityInstance == lplr.Character and isEveryoneDead() and store.matchState ~= 2 then
+							joinQueue()
+						end
+					end))
+					AutoPlay:Clean(vapeEvents.MatchEndEvent.Event:Connect(joinQueue))
+				end
+			end,
+			Tooltip = 'Automatically queues after the match ends.'
+		})
+		Random = AutoPlay:CreateToggle({
+			Name = 'Random',
+			Tooltip = 'Chooses a random mode'
+		})
+	end)
+		
+	run(function()
+		local shooting, old = false
+		
+		local function getCrossbows()
+			local crossbows = {}
+			for i, v in store.inventory.hotbar do
+				if v.item and v.item.itemType:find('crossbow') and i ~= (store.inventory.hotbarSlot + 1) then table.insert(crossbows, i - 1) end
+			end
+			return crossbows
+		end
+		
+		vape.Categories.Utility:CreateModule({
+			Name = 'Auto Shoot',
+			Function = function(callback)
+				if callback then
+					old = bedwars.ProjectileController.createLocalProjectile
+					bedwars.ProjectileController.createLocalProjectile = function(...)
+						local source, data, proj = ...
+						if source and (proj == 'arrow' or proj == 'fireball') and not shooting then
+							task.spawn(function()
+								local bows = getCrossbows()
+								if #bows > 0 then
+									shooting = true
+									task.wait(0.15)
+									local selected = store.inventory.hotbarSlot
+									for _, v in getCrossbows() do
+										if hotbarSwitch(v) then
+											task.wait(0.05)
+											mouse1click()
+											task.wait(0.05)
+										end
+									end
+									hotbarSwitch(selected)
+									shooting = false
+								end
+							end)
+						end
+						return old(...)
+					end
+				else
+					bedwars.ProjectileController.createLocalProjectile = old
+				end
+			end,
+			Tooltip = 'Automatically crossbow macro\'s'
+		})
+		
+	end)
+		
+	run(function()
+		local AutoToxic
+		local GG
+		local Toggles, Lists, said, dead = {}, {}, {}
+		
+		local function sendMessage(name, obj, default)
+			local tab = Lists[name].ListEnabled
+			local custommsg = #tab > 0 and tab[math.random(1, #tab)] or default
+			if not custommsg then return end
+			if #tab > 1 and custommsg == said[name] then
+				repeat 
+					task.wait() 
+					custommsg = tab[math.random(1, #tab)] 
+				until custommsg ~= said[name]
+			end
+			said[name] = custommsg
+		
+			custommsg = custommsg and custommsg:gsub('<obj>', obj or '') or ''
+			if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+				textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(custommsg)
+			else
+				replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(custommsg, 'All')
+			end
+		end
+		
+		AutoToxic = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Toxic',
+			Function = function(callback)
+				if callback then
+					AutoToxic:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(bedTable)
+						if Toggles.BedDestroyed.Enabled and bedTable.brokenBedTeam.id == lplr:GetAttribute('Team') then
+							sendMessage('BedDestroyed', (bedTable.player.DisplayName or bedTable.player.Name), 'how dare you >:( | <obj>')
+						elseif Toggles.Bed.Enabled and bedTable.player.UserId == lplr.UserId then
+							local team = bedwars.QueueMeta[store.queueType].teams[tonumber(bedTable.brokenBedTeam.id)]
+							sendMessage('Bed', team and team.displayName:lower() or 'white', '<obj> bed has been sent to the abyss...')
+						end
+					end))
+					AutoToxic:Clean(vapeEvents.EntityDeathEvent.Event:Connect(function(deathTable)
+						if deathTable.finalKill then
+							local killer = playersService:GetPlayerFromCharacter(deathTable.fromEntity)
+							local killed = playersService:GetPlayerFromCharacter(deathTable.entityInstance)
+							if not killed or not killer then return end
+							if killed == lplr then
+								if (not dead) and killer ~= lplr and Toggles.Death.Enabled then
+									dead = true
+									sendMessage('Death', (killer.DisplayName or killer.Name), 'my gaming chair subscription expired :( | <obj>')
+								end
+							elseif killer == lplr and Toggles.Kill.Enabled then
+								sendMessage('Kill', (killed.DisplayName or killed.Name), 'imagine dying <obj>, get catvape lol!')
+							end
+						end
+					end))
+					AutoToxic:Clean(vapeEvents.MatchEndEvent.Event:Connect(function(winstuff)
+						if GG.Enabled then
+							if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+								textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync('gg')
+							else
+								replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('gg', 'All')
+							end
+						end
+						
+						local myTeam = bedwars.Store:getState().Game.myTeam
+						if myTeam and myTeam.id == winstuff.winningTeamId or lplr.Neutral then
+							if Toggles.Win.Enabled then 
+								sendMessage('Win', nil, 'yall garbage') 
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Says a message after a certain action'
+		})
+		GG = AutoToxic:CreateToggle({
+			Name = 'AutoGG',
+			Default = true
+		})
+		for _, v in {'Kill', 'Death', 'Bed', 'BedDestroyed', 'Win'} do
+			Toggles[v] = AutoToxic:CreateToggle({
+				Name = v..' ',
+				Function = function(callback)
+					if Lists[v] then
+						Lists[v].Object.Visible = callback
+					end
+				end
+			})
+			Lists[v] = AutoToxic:CreateTextList({
+				Name = v,
+				Darker = true,
+				Visible = false
+			})
+		end
+	end)
+		
+	run(function()
+		local AutoVoidDrop
+		local OwlCheck
+		
+		AutoVoidDrop = vape.Categories.Utility:CreateModule({
+			Name = 'Auto Void Drop',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.matchState ~= 0 or (not AutoVoidDrop.Enabled)
+					if not AutoVoidDrop.Enabled then return end
+		
+					local lowestpoint = math.huge
+					for _, v in store.blocks do
+						local point = (v.Position.Y - (v.Size.Y / 2)) - 50
+						if point < lowestpoint then
+							lowestpoint = point
+						end
+					end
+		
+					repeat
+						if entitylib.isAlive then
+							local root = entitylib.character.RootPart
+							if root.Position.Y < lowestpoint and (lplr.Character:GetAttribute('InflatedBalloons') or 0) <= 0 and not getItem('balloon') then
+								if not OwlCheck.Enabled or not root:FindFirstChild('OwlLiftForce') then
+									for _, item in {'iron', 'diamond', 'emerald', 'gold'} do
+										item = getItem(item)
+										if item then
+											item = bedwars.Client:Get(remotes.DropItem):CallServer({
+												item = item.tool,
+												amount = item.amount
+											})
+		
+											if item then
+												item:SetAttribute('ClientDropTime', tick() + 100)
+											end
+										end
+									end
+								end
+							end
+						end
+		
+						task.wait(0.1)
+					until not AutoVoidDrop.Enabled
+				end
+			end,
+			Tooltip = 'Drops resources when you fall into the void'
+		})
+		OwlCheck = AutoVoidDrop:CreateToggle({
+			Name = 'Owl check',
+			Default = true,
+			Tooltip = 'Refuses to drop items if being picked up by an owl'
+		})
+	end)
+		
+	run(function()
+		local MissileTP
+		
+		MissileTP = vape.Categories.Utility:CreateModule({
+			Name = 'Missile TP',
+			Function = function(callback)
+				if callback then
+					MissileTP:Toggle()
+					local plr = entitylib.EntityMouse({
+						Range = 1000,
+						Players = true,
+						Part = 'RootPart'
+					})
+		
+					if getItem('guided_missile') and plr then
+						local projectile = bedwars.RuntimeLib.await(bedwars.GuidedProjectileController.fireGuidedProjectile:CallServerAsync('guided_missile'))
+						if projectile then
+							local projectilemodel = projectile.model
+							if not projectilemodel.PrimaryPart then
+								projectilemodel:GetPropertyChangedSignal('PrimaryPart'):Wait()
+							end
+		
+							local bodyforce = Instance.new('BodyForce')
+							bodyforce.Force = Vector3.new(0, projectilemodel.PrimaryPart.AssemblyMass * workspace.Gravity, 0)
+							bodyforce.Name = 'AntiGravity'
+							bodyforce.Parent = projectilemodel.PrimaryPart
+		
+							repeat
+								projectile.model:SetPrimaryPartCFrame(CFrame.lookAlong(plr.RootPart.CFrame.p, gameCamera.CFrame.LookVector))
+								task.wait(0.1)
+							until not projectile.model or not projectile.model.Parent
+						else
+							notif('MissileTP', 'Missile on cooldown.', 3)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Spawns and teleports a missile to a player\nnear your mouse.'
+		})
+	end)
+		
+	run(function()
+		local PickupRange
+		local Range
+		local Network
+		local Lower
+		
+		PickupRange = vape.Categories.Utility:CreateModule({
+			Name = 'Pickup Range',
+			Function = function(callback)
+				if callback then
+					local items = collection('ItemDrop', PickupRange)
+					repeat
+						if entitylib.isAlive then
+							local localPosition = entitylib.character.RootPart.Position
+							for _, v in items do
+								if tick() - (v:GetAttribute('ClientDropTime') or 0) < 2 then continue end
+								if isnetworkowner(v) and Network.Enabled and entitylib.character.Humanoid.Health > 0 then 
+									v.CFrame = CFrame.new(localPosition - Vector3.new(0, 3, 0)) 
+								end
+								
+								if (localPosition - v.Position).Magnitude <= Range.Value then
+									if Lower.Enabled and (localPosition.Y - v.Position.Y) < (entitylib.character.HipHeight - 1) then continue end
+									task.spawn(function()
+										bedwars.Client:Get(remotes.PickupItem):CallServerAsync({
+											itemDrop = v
+										}):andThen(function(suc)
+											if suc and bedwars.SoundList then
+												bedwars.SoundManager:playSound(bedwars.SoundList.PICKUP_ITEM_DROP)
+												local sound = bedwars.ItemMeta[v.Name].pickUpOverlaySound
+												if sound then
+													bedwars.SoundManager:playSound(sound, {
+														position = v.Position,
+														volumeMultiplier = 0.9
+													})
+												end
+											end
+										end)
+									end)
+								end
+							end
+						end
+						task.wait(0.1)
+					until not PickupRange.Enabled
+				end
+			end,
+			Tooltip = 'Picks up items from a farther distance'
+		})
+		Range = PickupRange:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 10,
+			Default = 10,
+			Suffix = function(val) 
+				return val == 1 and 'stud' or 'studs' 
+			end
+		})
+		Network = PickupRange:CreateToggle({
+			Name = 'Network TP',
+			Default = true
+		})
+		Lower = PickupRange:CreateToggle({Name = 'Feet Check'})
+	end)
+		
+	run(function()
+		local RavenTP
+		
+		RavenTP = vape.Categories.Utility:CreateModule({
+			Name = 'Raven TP',
+			Function = function(callback)
+				if callback then
+					RavenTP:Toggle()
+					local plr = entitylib.EntityMouse({
+						Range = 1000,
+						Players = true,
+						Part = 'RootPart'
+					})
+		
+					if getItem('raven') and plr then
+						bedwars.Client:Get(remotes.SpawnRaven):CallServerAsync():andThen(function(projectile)
+							if projectile then
+								local bodyforce = Instance.new('BodyForce')
+								bodyforce.Force = Vector3.new(0, projectile.PrimaryPart.AssemblyMass * workspace.Gravity, 0)
+								bodyforce.Parent = projectile.PrimaryPart
+		
+								if plr then
+									task.spawn(function()
+										for _ = 1, 20 do
+											if plr.RootPart and projectile then
+												projectile:SetPrimaryPartCFrame(CFrame.lookAlong(plr.RootPart.Position, gameCamera.CFrame.LookVector))
+											end
+											task.wait(0.05)
+										end
+									end)
+									task.wait(0.3)
+									bedwars.RavenController:detonateRaven()
+								end
+							end
+						end)
+					end
+				end
+			end,
+			Tooltip = 'Spawns and teleports a raven to a player\nnear your mouse.'
+		})
+	end)
+		
+	run(function()
+		local Scaffold
+		local Mounting
+		local Expand
+		local Tower
+		local Downwards
+		local Diagonal
+		local LimitItem
+		local AutoSwitch
+		local SwitchBack
+		local Mouse
+		local Blacklist
+
+		local adjacent, lastpos, label = {}, Vector3.zero
+		
+		for x = -3, 3, 3 do
+			for y = -3, 3, 3 do
+				for z = -3, 3, 3 do
+					local vec = Vector3.new(x, y, z)
+					if vec ~= Vector3.zero then
+						table.insert(adjacent, vec)
+					end
+				end
+			end
+		end
+		
+		local function nearCorner(poscheck, pos)
+			local startpos = poscheck - Vector3.new(3, 3, 3)
+			local endpos = poscheck + Vector3.new(3, 3, 3)
+			local check = poscheck + (pos - poscheck).Unit * 100
+			return Vector3.new(math.clamp(check.X, startpos.X, endpos.X), math.clamp(check.Y, startpos.Y, endpos.Y), math.clamp(check.Z, startpos.Z, endpos.Z))
+		end
+		getgenv().nearCorner = nearCorner
+		
+		local function blockProximity(pos)
+			local mag, returned = 60
+			local tab = getBlocksInPoints(bedwars.BlockController:getBlockPosition(pos - Vector3.new(21, 21, 21)), bedwars.BlockController:getBlockPosition(pos + Vector3.new(21, 21, 21)))
+			for _, v in tab do
+				local blockpos = nearCorner(v, pos)
+				local newmag = (pos - blockpos).Magnitude
+				if newmag < mag then
+					mag, returned = newmag, blockpos
+				end
+			end
+			table.clear(tab)
+			return returned
+		end
+		getgenv().blockProximity = blockProximity
+		
+		local function checkAdjacent(pos)
+			for _, v in adjacent do
+				if getPlacedBlock(pos + v) then
+					return true
+				end
+			end
+			return false
+		end
+		getgenv().checkAdjacent = checkAdjacent
+		
+		local function getScaffoldBlock()
+			if store.hand.toolType == 'block' and not table.find(Blacklist.ListEnabled, store.hand.tool.Name) then
+				return store.hand.tool.Name, store.hand.amount
+			elseif (not LimitItem.Enabled) then
+				local wool, amount = getWool()
+				if wool and not table.find(Blacklist.ListEnabled, wool) then
+					return wool, amount
+				else
+					for _, item in store.inventory.inventory.items do
+						if bedwars.ItemMeta[item.itemType].block and not table.find(Blacklist.ListEnabled, item.itemType) then
+							return item.itemType, item.amount
+						end
+					end
+				end
+			end
+		
+			return nil, 0
+		end
+
+		local switchTime, Scaffolding = tick(), false
+		local Last = 0
+		
+		Scaffold = vape.Categories.Utility:CreateModule({
+			Name = 'Scaffold',
+			Function = function(callback)
+				if label then
+					label.Visible = callback
+				end
+		
+				if callback then
+					repeat
+						if entitylib.isAlive and (not Mounting.Enabled or not lplr.Character:FindFirstChild('elk')) then
+							local wool, amount = getScaffoldBlock()
+		
+							if Mouse.Enabled then
+								if not inputService:IsMouseButtonPressed(0) then
+									wool = nil
+								end
+							end
+		
+							if label then
+								amount = amount or 0
+								label.Text = amount..' <font color="rgb(170, 170, 170)">(Scaffold)</font>'
+								label.TextColor3 = Color3.fromHSV((amount / 128) / 2.8, 0.86, 1)
+							end
+		
+							if wool then
+								local root = entitylib.character.RootPart
+								if Tower.Enabled and inputService:IsKeyDown(Enum.KeyCode.Space) and (not inputService:GetFocusedTextBox()) then
+									root.Velocity = Vector3.new(root.Velocity.X, 38, root.Velocity.Z)
+								end
+		
+								for i = Expand.Value, 1, -1 do
+									if not Scaffolding then
+										if store.hand and store.hand.tool then
+											Last = getHotbar(store.hand.tool)
+										else
+											Last = nil
+										end
+									end
+									
+									local currentpos = roundPos(root.Position - Vector3.new(0, entitylib.character.HipHeight + (Downwards.Enabled and inputService:IsKeyDown(Enum.KeyCode.LeftShift) and 4.5 or 1.5), 0) + entitylib.character.Humanoid.MoveDirection * (i * 3))
+									if Diagonal.Enabled then
+										if math.abs(math.round(math.deg(math.atan2(-entitylib.character.Humanoid.MoveDirection.X, -entitylib.character.Humanoid.MoveDirection.Z)) / 45) * 45) % 90 == 45 then
+											local dt = (lastpos - currentpos)
+											if ((dt.X == 0 and dt.Z ~= 0) or (dt.X ~= 0 and dt.Z == 0)) and ((lastpos - root.Position) * Vector3.new(1, 0, 1)).Magnitude < 2.5 then
+												currentpos = lastpos
+											end
+										end
+									end
+		
+									if canDebug then
+										local block, blockpos = getPlacedBlock(currentpos)
+										if not block then
+											blockpos = checkAdjacent(blockpos * 3) and blockpos * 3 or blockProximity(currentpos)
+											if blockpos then
+												if AutoSwitch.Enabled then
+													hotbarSwitch(getHotbar(getItem(wool).tool))
+												end
+												task.spawn(bedwars.placeBlock, blockpos, wool, false)
+												switchTime = tick() + 0.25
+												Scaffolding = true
+											end
+										end
+									end
+									lastpos = currentpos
+								end
+							end
+						end
+
+						if entitylib.isAlive and Scaffolding and tick() > switchTime then
+							Scaffolding = false
+
+							if (AutoSwitch.Enabled and SwitchBack.Enabled) and Last then
+								hotbarSwitch(Last)
+							end
+						end
+		
+						task.wait(0.03)
+					until not Scaffold.Enabled
+				else
+					Label = nil
+					if entitylib.isAlive and Scaffolding then
+						Scaffolding = false
+
+						if (AutoSwitch.Enabled and SwitchBack.Enabled) and Last then
+							hotbarSwitch(Last)
+						end
+					end
+				end
+			end,
+			Tooltip = 'Helps you make bridges/scaffold walk.'
+		})
+		Expand = Scaffold:CreateSlider({
+			Name = 'Expand',
+			Min = 1,
+			Max = 6
+		})
+		Tower = Scaffold:CreateToggle({
+			Name = 'Tower',
+			Default = true
+		})
+		Downwards = Scaffold:CreateToggle({
+			Name = 'Downwards',
+			Default = true
+		})
+		Diagonal = Scaffold:CreateToggle({
+			Name = 'Diagonal',
+			Default = true
+		})
+		Mounting = Scaffold:CreateToggle({Name = 'Mount Check'})
+		LimitItem = Scaffold:CreateToggle({Name = 'Limit to items'})
+		AutoSwitch = Scaffold:CreateToggle({
+			Name = 'Auto Switch',
+			Function = function(call)
+				if SwitchBack then
+					SwitchBack.Object.Visible = call
+				end
+			end
+		})
+		SwitchBack = Scaffold:CreateToggle({
+			Name = 'Switch Back',
+			Darker = true,
+			Visible = false
+		})
+		Mouse = Scaffold:CreateToggle({Name = 'Require mouse down'})
+		Count = Scaffold:CreateToggle({
+			Name = 'Block Count',
+			Function = function(callback)
+				if callback then
+					label = Instance.new('TextLabel')
+					label.Size = UDim2.fromOffset(100, 20)
+					label.Position = UDim2.new(0.5, 6, 0.5, 60)
+					label.BackgroundTransparency = 1
+					label.AnchorPoint = Vector2.new(0.5, 0)
+					label.Text = '0'
+					label.TextColor3 = Color3.new(0, 1, 0)
+					label.TextSize = 18
+					label.RichText = true
+					label.Font = Enum.Font.Arial
+					label.Visible = Scaffold.Enabled
+					label.Parent = vape.gui
+				else
+					label:Destroy()
+					label = nil
+				end
+			end
+		})
+		Blacklist = Scaffold:CreateTextList({
+			Name = 'Block Blacklist',
+			Placeholder = 'block_name'
+		})
+	end)
+		
+	run(function()
+		local ShopTierBypass
+		local tiered, nexttier = {}, {}
+		local old
+		
+		ShopTierBypass = vape.Categories.Utility:CreateModule({
+			Name = 'Shop Tier Bypass',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.shopLoaded or not ShopTierBypass.Enabled
+					if ShopTierBypass.Enabled then
+						for _, v in bedwars.Shop.ShopItems do
+							tiered[v] = v.tiered
+							nexttier[v] = v.nextTier
+							v.nextTier = nil
+							v.tiered = nil
+						end
+
+						old = bedwars.Shop.getShop
+						bedwars.Shop.getShop = function(...)
+							local res = {old(...)}
+
+							for i, v in res[1] do
+								v.nextTier = nil
+								v.tiered = nil
+							end
+
+							return unpack(res)
+						end
+					end
+				else
+					for i, v in tiered do
+						i.tiered = v
+					end
+					for i, v in nexttier do
+						i.nextTier = v
+					end
+					if old then
+						bedwars.Shop.getShop = old
+						old = nil
+					end
+					table.clear(nexttier)
+					table.clear(tiered)
+				end
+			end,
+			Tooltip = 'Lets you buy things like armor early.'
+		})
+	end)
+		
+	run(function()
+		local StaffDetector
+		local Mode
+		local Clans
+		local Party
+		local Profile
+		local Users
+		local blacklistedclans = {'gg', 'gg2', 'DV', 'DV2'}
+		local blacklisteduserids = {1502104539, 3826146717, 4531785383, 1049767300, 4926350670, 653085195, 184655415, 2752307430, 5087196317, 5744061325, 1536265275}
+		local blacklistedacmods = {}
+		for _, v in {2441909268, 4662011728} do
+			table.insert(blacklistedacmods, v)
+		end
+
+		local joined = {}
+		
+		local function getRole(plr, id)
+			local suc, res = pcall(function()
+				return plr:GetRankInGroup(id)
+			end)
+			if not suc then
+				notif('StaffDetector', res, 30, 'alert')
+			end
+			return suc and res or 0
+		end
+		
+		local function staffFunction(plr, checktype)
+			if not vape.Loaded then
+				repeat task.wait() until vape.Loaded
+			end
+		
+			notif('StaffDetector', 'Staff Detected ('..checktype..'): '..plr.Name..' ('..plr.UserId..')', 60, 'alert')
+			whitelist.customtags[plr.Name] = {{text = 'GAME STAFF', color = Color3.new(1, 0, 0)}}
+		
+			if Party.Enabled and not checktype:find('clan') then
+				bedwars.PartyController:leaveParty()
+			end
+		
+			if Mode.Value == 'Uninject' then
+				task.spawn(function()
+					vape:Uninject()
+				end)
+				game:GetService('StarterGui'):SetCore('SendNotification', {
+					Title = 'StaffDetector',
+					Text = 'Staff Detected ('..checktype..')\n'..plr.Name..' ('..plr.UserId..')',
+					Duration = 60,
+				})
+			elseif Mode.Value == 'Requeue' then
+				bedwars.QueueController:joinQueue(store.queueType)
+			elseif Mode.Value == 'Profile' then
+				vape.Save = function() end
+				if vape.Profile ~= Profile.Value then
+					vape:Load(true, Profile.Value)
+				end
+			elseif Mode.Value == 'AutoConfig' then
+				local safe = {'AutoClicker', 'Reach', 'Sprint', 'HitFix', 'StaffDetector'}
+				vape.Save = function() end
+				for i, v in vape.Modules do
+					if not (table.find(safe, i) or v.Category == 'Render') then
+						if v.Enabled then
+							v:Toggle()
+						end
+						v:SetBind('')
+					end
+				end
+			end
+		end
+		
+		local function checkFriends(list)
+			for _, v in list do
+				if joined[v] then
+					return joined[v]
+				end
+			end
+			return nil
+		end
+		
+		local function checkJoin(plr, connection)
+			if not plr:GetAttribute('Team') and plr:GetAttribute('Spectator') and not bedwars.Store:getState().Game.customMatch then
+				connection:Disconnect()
+				local tab, pages = {}, playersService:GetFriendsAsync(plr.UserId)
+				pcall(function()
+					for _ = 1, 12 do
+						for _, v in pages:GetCurrentPage() do
+							table.insert(tab, v.Id)
+						end
+						if pages.IsFinished then break end
+						pages:AdvanceToNextPageAsync()
+					end
+				end)
+		
+				local friend = checkFriends(tab)
+				if not friend then
+					staffFunction(plr, 'impossible_join')
+					return true
+				else
+					notif('StaffDetector', string.format('Spectator %s joined from %s', plr.Name, friend), 20, 'warning')
+				end
+			end
+		end
+		
+		local function playerAdded(plr)
+			joined[plr.UserId] = plr.Name
+			if plr == lplr then return end
+
+			if table.find(blacklisteduserids, plr.UserId) or table.find(Users.ListEnabled, tostring(plr.UserId)) then
+				staffFunction(plr, 'blacklisted_user')
+			elseif getRole(plr, 5774246) >= 100 or table.find(blacklistedacmods, plr.UserId) then
+				staffFunction(plr, 'staff_role')
+			else
+				local connection
+				connection = plr:GetAttributeChangedSignal('Spectator'):Connect(function()
+					checkJoin(plr, connection)
+				end)
+				StaffDetector:Clean(connection)
+				if checkJoin(plr, connection) then
+					return
+				end
+		
+				if not plr:GetAttribute('ClanTag') then
+					plr:GetAttributeChangedSignal('ClanTag'):Wait()
+				end
+		
+				if table.find(blacklistedclans, plr:GetAttribute('ClanTag')) and vape.Loaded and Clans.Enabled then
+					connection:Disconnect()
+					staffFunction(plr, 'blacklisted_clan_'..plr:GetAttribute('ClanTag'):lower())
+				end
+			end
+		end
+		
+		StaffDetector = vape.Categories.Utility:CreateModule({
+			Name = 'Staff Detector',
+			Function = function(callback)
+				if callback then
+					StaffDetector:Clean(playersService.PlayerAdded:Connect(playerAdded))
+					for _, v in playersService:GetPlayers() do
+						task.spawn(playerAdded, v)
+					end
+				else
+					table.clear(joined)
+				end
+			end,
+			Tooltip = 'Detects people with a staff rank ingame'
+		})
+		Mode = StaffDetector:CreateDropdown({
+			Name = 'Mode',
+			List = {'Uninject', 'Profile', 'Requeue', 'AutoConfig', 'Notify'},
+			Function = function(val)
+				if Profile.Object then
+					Profile.Object.Visible = val == 'Profile'
+				end
+			end
+		})
+		Clans = StaffDetector:CreateToggle({
+			Name = 'Blacklist clans',
+			Default = true
+		})
+		Party = StaffDetector:CreateToggle({
+			Name = 'Leave party'
+		})
+		Profile = StaffDetector:CreateTextBox({
+			Name = 'Profile',
+			Default = 'default',
+			Darker = true,
+			Visible = false
+		})
+		Users = StaffDetector:CreateTextList({
+			Name = 'Users',
+			Placeholder = 'player (userid)'
+		})
+	end)
+		
+	run(function()
+		TrapDisabler = vape.Categories.Utility:CreateModule({
+			Name = 'TrapDisabler',
+			Tooltip = 'Disables Snap Traps'
+		})
+	end)
+		
+	run(function()
+		local AutoSuffocate
+		local Solutions
+		local Range
+		local LimitItem
+		local Prediction
+		local SmartSpread
+
+		local function fixPosition(pos)
+			return bedwars.BlockController:getBlockPosition(pos) * 3
+		end
+
+		local function isOpen(pos)
+			return not getPlacedBlock(pos)
+		end
+
+		local function hasAdjacent(pos)
+			local offsets = {
+				Vector3.new(3, 0, 0),
+				Vector3.new(-3, 0, 0),
+				Vector3.new(0, 0, 3),
+				Vector3.new(0, 0, -3),
+				Vector3.new(0, -3, 0)
+			}
+			for _, off in offsets do
+				if not isOpen(pos + off) then
+					return true
+				end
+			end
+			return false
+		end
+
+		local function buildSupportPath(targetPos, item, maxLength)
+			local start = fixPosition(targetPos - Vector3.new(0, 3, 0))
+			local bestAnchor = nil
+			local found = false
+
+			for y = 0, 12, 3 do
+				for x = -9, 9, 3 do
+					for z = -9, 9, 3 do
+						local check = start + Vector3.new(x, -y, z)
+						if not isOpen(check) then
+							bestAnchor = check
+							found = true
+							break
+						end
+					end
+					if found then break end
+				end
+				if found then break end
+			end
+
+			if not bestAnchor then return false end
+
+			local dir = (targetPos - bestAnchor).Unit
+			local step = dir * 3
+			local current = bestAnchor
+			local placed = 0
+
+			while (current - targetPos).Magnitude > 3 and placed < maxLength do
+				current += step
+				local pos = fixPosition(current)
+				if isOpen(pos) and hasAdjacent(pos) then
+					task.spawn(bedwars.placeBlock, pos, item)
+					placed += 1
+				end
+				task.wait()
+			end
+
+			return true
+		end
+
+		AutoSuffocate = vape.Categories.World:CreateModule({
+			Name = 'Auto Suffocate',
+			Function = function(callback)
+				if callback then
+					repeat
+						local item = store.hand.toolType == 'block' and store.hand.tool.Name or not LimitItem.Enabled and getWool()
+						if item then
+							local plrs = entitylib.AllPosition({
+								Part = 'RootPart',
+								Range = Range.Value,
+								Players = true
+							})
+
+							for _, ent in plrs do
+								if not ent or not ent.RootPart then continue end
+
+								local velocity = ent.RootPart.Velocity or Vector3.zero
+								local predicted = ent.RootPart.Position + velocity * Prediction.Value
+								local center = fixPosition(predicted)
+								local insidePos = center
+								local topPos = fixPosition(predicted + Vector3.new(0, 3, 0))
+
+								if not hasAdjacent(center) then
+									buildSupportPath(center, item, 10)
+								end
+
+								local needPlaced = {}
+								local placed = 0
+
+								local sideOffsets = {
+									Vector3.new(3, 0, 0),
+									Vector3.new(-3, 0, 0),
+									Vector3.new(0, 0, 3),
+									Vector3.new(0, 0, -3)
+								}
+								local cornerOffsets = {
+									Vector3.new(3, 0, 3),
+									Vector3.new(-3, 0, 3),
+									Vector3.new(3, 0, -3),
+									Vector3.new(-3, 0, -3)
+								}
+
+								if SmartSpread.Enabled then
+									for _, off in cornerOffsets do
+										local pos = center + off
+										if isOpen(pos) and hasAdjacent(pos) then
+											table.insert(needPlaced, pos)
+										end
+									end
+								end
+
+								for _, off in sideOffsets do
+									local pos = center + off
+									if isOpen(pos) and hasAdjacent(pos) then
+										table.insert(needPlaced, pos)
+									end
+								end
+
+								if isOpen(topPos) and hasAdjacent(topPos) then
+									table.insert(needPlaced, topPos)
+								end
+
+								if not isOpen(insidePos) or not hasAdjacent(insidePos) then
+								else
+									table.insert(needPlaced, insidePos)
+								end
+
+								for _, pos in needPlaced do
+									if placed >= Solutions.Value then break end
+									if isOpen(pos) then
+										task.spawn(bedwars.placeBlock, pos, item)
+										placed += 1
+									end
+								end
+							end
+						end
+						task.wait(0.09)
+					until not AutoSuffocate.Enabled
+				end
+			end,
+			Tooltip = 'Builds support blocks if needed, then creates adaptive suffocation cages around players'
+		})
+
+		Range = AutoSuffocate:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 20,
+			Default = 20,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+
+		Solutions = AutoSuffocate:CreateSlider({
+			Name = 'Solutions',
+			Min = 1,
+			Max = 10,
+			Default = 6
+		})
+
+		Prediction = AutoSuffocate:CreateSlider({
+			Name = 'Prediction',
+			Min = 0,
+			Max = 1,
+			Suffix = 's',
+			Default = 0.7,
+			Decimal = 5,
+			Tooltip = 'Predict player movement forward in seconds'
+		})
+
+		SmartSpread = AutoSuffocate:CreateToggle({
+			Name = 'Smart Spread',
+			Default = true,
+			Tooltip = 'Places corners first and builds support if air placement needed'
+		})
+
+		LimitItem = AutoSuffocate:CreateToggle({
+			Name = 'Limit to Items',
+			Default = true
+		})
+	end)
+
+	run(function()
+		local AutoTool
+		local old, event
+		
+		local function switchHotbarItem(block)
+			if block and not block:GetAttribute('NoBreak') and not block:GetAttribute('Team'..(lplr:GetAttribute('Team') or 0)..'NoBreak') then
+				local tool, slot = store.tools[bedwars.ItemMeta[block.Name].block.breakType], nil
+				if tool then
+					for i, v in store.inventory.hotbar do
+						if v.item and v.item.itemType == tool.itemType then slot = i - 1 break end
+					end
+		
+					if hotbarSwitch(slot) then
+						if inputService:IsMouseButtonPressed(0) then 
+							event:Fire() 
+						end
+						return true
+					end
+				end
+			end
+		end
+		
+		AutoTool = vape.Categories.World:CreateModule({
+			Name = 'Auto Tool',
+			Function = function(callback)
+				if callback then
+					event = Instance.new('BindableEvent')
+					AutoTool:Clean(event)
+					AutoTool:Clean(event.Event:Connect(function()
+						contextActionService:CallFunction('block-break', Enum.UserInputState.Begin, newproxy(true))
+					end))
+					old = bedwars.BlockBreaker.hitBlock
+					bedwars.BlockBreaker.hitBlock = function(self, maid, raycastparams, ...)
+						local block = self.clientManager:getBlockSelector():getMouseInfo(1, {ray = raycastparams})
+						if switchHotbarItem(block and block.target and block.target.blockInstance or nil) then return end
+						return old(self, maid, raycastparams, ...)
+					end
+				else
+					bedwars.BlockBreaker.hitBlock = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Automatically selects the correct tool'
+		})
+	end)
+		
+	run(function()
+		local BedProtector
+		
+		local function getBedNear()
+			local localPosition = entitylib.isAlive and entitylib.character.RootPart.Position or Vector3.zero
+			for _, v in collectionService:GetTagged('bed') do
+				if (localPosition - v.Position).Magnitude < 20 and v:GetAttribute('Team'..(lplr:GetAttribute('Team') or -1)..'NoBreak') then
+					return v
+				end
+			end
+		end
+		
+		local function getBlocks()
+			local blocks = {}
+			for _, item in store.inventory.inventory.items do
+				local block = bedwars.ItemMeta[item.itemType].block
+				if block then
+					table.insert(blocks, {item.itemType, block.health})
+				end
+			end
+			table.sort(blocks, function(a, b) 
+				return a[2] > b[2]
+			end)
+			return blocks
+		end
+		
+		local function getPyramid(size, grid)
+			local positions = {}
+			for h = size, 0, -1 do
+				for w = h, 0, -1 do
+					table.insert(positions, Vector3.new(w, (size - h), ((h + 1) - w)) * grid)
+					table.insert(positions, Vector3.new(w * -1, (size - h), ((h + 1) - w)) * grid)
+					table.insert(positions, Vector3.new(w, (size - h), (h - w) * -1) * grid)
+					table.insert(positions, Vector3.new(w * -1, (size - h), (h - w) * -1) * grid)
+				end
+			end
+			return positions
+		end
+		
+		BedProtector = vape.Categories.World:CreateModule({
+			Name = 'Bed Protector',
+			Function = function(callback)
+				if callback then
+					local bed = getBedNear()
+					bed = bed and bed.Position or nil
+					if bed then
+						for i, block in getBlocks() do
+							for _, pos in getPyramid(i, 3) do
+								if not BedProtector.Enabled then break end
+								if getPlacedBlock(bed + pos) then continue end
+								bedwars.placeBlock(bed + pos, block[1], false)
+							end
+						end
+						if BedProtector.Enabled then 
+							BedProtector:Toggle() 
+						end
+					else
+						notif('BedProtector', 'Unable to locate bed', 5)
+						BedProtector:Toggle()
+					end
+				end
+			end,
+			Tooltip = 'Automatically places strong blocks around the bed.'
+		})
+	end)
+		
+	run(function()
+		local ChestSteal
+		local Delay
+		local Range
+		local Open
+		local Skywars
+		local Delays = {}
+		
+		local function lootChest(chest)
+			chest = chest and chest.Value or nil
+			local chestitems = chest and chest:GetChildren() or {}
+			if #chestitems > 1 and (Delays[chest] or 0) < tick() then
+				Delays[chest] = tick() + 0.2
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(chest)
+		
+				for _, v in chestitems do
+					if v:IsA('Accessory') then
+						task.spawn(function()
+							pcall(function()
+								bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
+							end)
+						end)
+
+						if Delay.Value > 0 then
+							task.wait(Delay.Value)
+						end
+					end
+				end
+		
+				bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
+			end
+		end
+		
+		ChestSteal = vape.Categories.World:CreateModule({
+			Name = 'Chest Steal',
+			Function = function(callback)
+				if callback then
+					local chests = collection('chest', ChestSteal)
+					repeat task.wait() until store.queueType ~= 'bedwars_test'
+					if (not Skywars.Enabled) or store.queueType:find('skywars') then
+						repeat
+							if entitylib.isAlive and store.matchState ~= 2 then
+								if Open.Enabled then
+									if bedwars.AppController:isAppOpen('ChestApp') then
+										lootChest(lplr.Character:FindFirstChild('ObservedChestFolder'))
+									end
+								else
+									local localPosition = entitylib.character.RootPart.Position
+									for _, v in chests do
+										if (localPosition - v.Position).Magnitude <= Range.Value then
+											lootChest(v:FindFirstChild('ChestFolderValue'))
+										end
+									end
+								end
+							end
+							task.wait(0.1)
+						until not ChestSteal.Enabled
+					end
+				end
+			end,
+			Tooltip = 'Grabs items from near chests.'
+		})
+		Range = ChestSteal:CreateSlider({
+			Name = 'Range',
+			Min = 0,
+			Max = 18,
+			Default = 18,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Delay = ChestSteal:CreateSlider({
+			Name = 'Loot Delay',
+			Min = 0,
+			Max = 10,
+			Default = 0,
+			Suffix = function(val)
+				return val == 1 and 'sec' or 'secs'
+			end,
+			Decimal = 5
+		})
+		Open = ChestSteal:CreateToggle({Name = 'GUI Check'})
+		Skywars = ChestSteal:CreateToggle({
+			Name = 'Only Skywars',
+			Function = function()
+				if ChestSteal.Enabled then
+					ChestSteal:Toggle()
+					ChestSteal:Toggle()
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local Schematica
+		local File
+		local Mode
+		local Transparency
+		local parts, guidata, poschecklist = {}, {}, {}
+		local point1, point2
+		
+		for x = -3, 3, 3 do
+			for y = -3, 3, 3 do
+				for z = -3, 3, 3 do
+					if Vector3.new(x, y, z) ~= Vector3.zero then
+						table.insert(poschecklist, Vector3.new(x, y, z))
+					end
+				end
+			end
+		end
+		
+		local function checkAdjacent(pos)
+			for _, v in poschecklist do
+				if getPlacedBlock(pos + v) then return true end
+			end
+			return false
+		end
+		
+		local function getPlacedBlocksInPoints(s, e)
+			local list, blocks = {}, bedwars.BlockController:getStore()
+			for x = (e.X > s.X and s.X or e.X), (e.X > s.X and e.X or s.X) do
+				for y = (e.Y > s.Y and s.Y or e.Y), (e.Y > s.Y and e.Y or s.Y) do
+					for z = (e.Z > s.Z and s.Z or e.Z), (e.Z > s.Z and e.Z or s.Z) do
+						local vec = Vector3.new(x, y, z)
+						local block = blocks:getBlockAt(vec)
+						if block and block:GetAttribute('PlacedByUserId') == lplr.UserId then
+							list[vec] = block
+						end
+					end
+				end
+			end
+			return list
+		end
+		
+		local function loadMaterials()
+			for _, v in guidata do 
+				v:Destroy() 
+			end
+			local suc, read = pcall(function() 
+				return isfile(File.Value) and httpService:JSONDecode(readfile(File.Value)) 
+			end)
+		
+			if suc and read then
+				local items = {}
+				for _, v in read do 
+					items[v[2]] = (items[v[2]] or 0) + 1 
+				end
+				
+				for i, v in items do
+					local holder = Instance.new('Frame')
+					holder.Size = UDim2.new(1, 0, 0, 32)
+					holder.BackgroundTransparency = 1
+					holder.Parent = Schematica.Children
+					local icon = Instance.new('ImageLabel')
+					icon.Size = UDim2.fromOffset(24, 24)
+					icon.Position = UDim2.fromOffset(4, 4)
+					icon.BackgroundTransparency = 1
+					icon.Image = bedwars.getIcon({itemType = i}, true)
+					icon.Parent = holder
+					local text = Instance.new('TextLabel')
+					text.Size = UDim2.fromOffset(100, 32)
+					text.Position = UDim2.fromOffset(32, 0)
+					text.BackgroundTransparency = 1
+					text.Text = (bedwars.ItemMeta[i] and bedwars.ItemMeta[i].displayName or i)..': '..v
+					text.TextXAlignment = Enum.TextXAlignment.Left
+					text.TextColor3 = uipallet.Text
+					text.TextSize = 14
+					text.FontFace = uipallet.Font
+					text.Parent = holder
+					table.insert(guidata, holder)
+				end
+				table.clear(read)
+				table.clear(items)
+			end
+		end
+		
+		local function save()
+			if point1 and point2 then
+				local tab = getPlacedBlocksInPoints(point1, point2)
+				local savetab = {}
+				point1 = point1 * 3
+				for i, v in tab do
+					i = bedwars.BlockController:getBlockPosition(CFrame.lookAlong(point1, entitylib.character.RootPart.CFrame.LookVector):PointToObjectSpace(i * 3)) * 3
+					table.insert(savetab, {
+						{
+							x = i.X, 
+							y = i.Y, 
+							z = i.Z
+						}, 
+						v.Name
+					})
+				end
+				point1, point2 = nil, nil
+				writefile(File.Value, httpService:JSONEncode(savetab))
+				notif('Schematica', 'Saved '..getTableSize(tab)..' blocks', 5)
+				loadMaterials()
+				table.clear(tab)
+				table.clear(savetab)
+			else
+				local mouseinfo = bedwars.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0)
+				if mouseinfo and mouseinfo.target then
+					if point1 then
+						point2 = mouseinfo.target.blockRef.blockPosition
+						notif('Schematica', 'Selected position 2, toggle again near position 1 to save it', 3)
+					else
+						point1 = mouseinfo.target.blockRef.blockPosition
+						notif('Schematica', 'Selected position 1', 3)
+					end
+				end
+			end
+		end
+		
+		local function load(read)
+			local mouseinfo = bedwars.BlockBreaker.clientManager:getBlockSelector():getMouseInfo(0)
+			if mouseinfo and mouseinfo.target then
+				local position = CFrame.new(mouseinfo.placementPosition * 3) * CFrame.Angles(0, math.rad(math.round(math.deg(math.atan2(-entitylib.character.RootPart.CFrame.LookVector.X, -entitylib.character.RootPart.CFrame.LookVector.Z)) / 45) * 45), 0)
+		
+				for _, v in read do
+					local blockpos = bedwars.BlockController:getBlockPosition((position * CFrame.new(v[1].x, v[1].y, v[1].z)).p) * 3
+					if parts[blockpos] then continue end
+					local handler = bedwars.BlockController:getHandlerRegistry():getHandler(v[2]:find('wool') and getWool() or v[2])
+					if handler then
+						local part = handler:place(blockpos / 3, 0)
+						part.Transparency = Transparency.Value
+						part.CanCollide = false
+						part.Anchored = true
+						part.Parent = workspace
+						parts[blockpos] = part
+					end
+				end
+				table.clear(read)
+		
+				repeat
+					if entitylib.isAlive then
+						local localPosition = entitylib.character.RootPart.Position
+						for i, v in parts do
+							if (i - localPosition).Magnitude < 60 and checkAdjacent(i) then
+								if not Schematica.Enabled then break end
+								if not getItem(v.Name) then continue end
+								bedwars.placeBlock(i, v.Name, false)
+								task.delay(0.1, function()
+									local block = getPlacedBlock(i)
+									if block then
+										v:Destroy()
+										parts[i] = nil
+									end
+								end)
+							end
+						end
+					end
+					task.wait()
+				until getTableSize(parts) <= 0
+		
+				if getTableSize(parts) <= 0 and Schematica.Enabled then
+					notif('Schematica', 'Finished building', 5)
+					Schematica:Toggle()
+				end
+			end
+		end
+		
+		Schematica = vape.Categories.World:CreateModule({
+			Name = 'Schematica',
+			Function = function(callback)
+				if callback then
+					if not File.Value:find('.json') then
+						notif('Schematica', 'Invalid file', 3)
+						Schematica:Toggle()
+						return
+					end
+		
+					if Mode.Value == 'Save' then
+						save()
+						Schematica:Toggle()
+					else
+						local suc, read = pcall(function() 
+							return isfile(File.Value) and httpService:JSONDecode(readfile(File.Value)) 
+						end)
+		
+						if suc and read then
+							load(read)
+						else
+							notif('Schematica', 'Missing / corrupted file', 3)
+							Schematica:Toggle()
+						end
+					end
+				else
+					for _, v in parts do 
+						v:Destroy() 
+					end
+					table.clear(parts)
+				end
+			end,
+			Tooltip = 'Save and load placements of buildings'
+		})
+		File = Schematica:CreateTextBox({
+			Name = 'File',
+			Function = function()
+				loadMaterials()
+				point1, point2 = nil, nil
+			end
+		})
+		Mode = Schematica:CreateDropdown({
+			Name = 'Mode',
+			List = {'Load', 'Save'}
+		})
+		Transparency = Schematica:CreateSlider({
+			Name = 'Transparency',
+			Min = 0,
+			Max = 1,
+			Default = 0.7,
+			Decimal = 10,
+			Function = function(val)
+				for _, v in parts do 
+					v.Transparency = val 
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local ArmorSwitch
+		local Mode
+		local Targets
+		local Range
+		
+		ArmorSwitch = vape.Categories.Inventory:CreateModule({
+			Name = 'Armor Switch',
+			Function = function(callback)
+				if callback then
+					if Mode.Value == 'Toggle' then
+						repeat
+							local state = entitylib.EntityPosition({
+								Part = 'RootPart',
+								Range = Range.Value,
+								Players = Targets.Players.Enabled,
+								NPCs = Targets.NPCs.Enabled,
+								Wallcheck = Targets.Walls.Enabled
+							}) and true or false
+		
+							for i = 0, 2 do
+								if (store.inventory.inventory.armor[i + 1] ~= 'empty') ~= state and ArmorSwitch.Enabled then
+									bedwars.Store:dispatch({
+										type = 'InventorySetArmorItem',
+										item = store.inventory.inventory.armor[i + 1] == 'empty' and state and getBestArmor(i) or nil,
+										armorSlot = i
+									})
+									vapeEvents.InventoryChanged.Event:Wait()
+								end
+							end
+							task.wait(0.1)
+						until not ArmorSwitch.Enabled
+					else
+						ArmorSwitch:Toggle()
+						for i = 0, 2 do
+							bedwars.Store:dispatch({
+								type = 'InventorySetArmorItem',
+								item = store.inventory.inventory.armor[i + 1] == 'empty' and getBestArmor(i) or nil,
+								armorSlot = i
+							})
+							vapeEvents.InventoryChanged.Event:Wait()
+						end
+					end
+				end
+			end,
+			Tooltip = 'Puts on / takes off armor when toggled for baiting.'
+		})
+		Mode = ArmorSwitch:CreateDropdown({
+			Name = 'Mode',
+			List = {'Toggle', 'On Key'}
+		})
+		Targets = ArmorSwitch:CreateTargets({
+			Players = true,
+			NPCs = true
+		})
+		Range = ArmorSwitch:CreateSlider({
+			Name = 'Range',
+			Min = 1,
+			Max = 30,
+			Default = 30,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+	end)
+		
+	run(function()
+		local AutoBank
+		local UIToggle
+		local UI
+		local Chests
+		local Items = {}
+		
+		local function addItem(itemType, shop)
+			local item = Instance.new('ImageLabel')
+			item.Image = bedwars.getIcon({itemType = itemType}, true)
+			item.Size = UDim2.fromOffset(32, 32)
+			item.Name = itemType
+			item.BackgroundTransparency = 1
+			item.LayoutOrder = #UI:GetChildren()
+			item.Parent = UI
+			local itemtext = Instance.new('TextLabel')
+			itemtext.Name = 'Amount'
+			itemtext.Size = UDim2.fromScale(1, 1)
+			itemtext.BackgroundTransparency = 1
+			itemtext.Text = ''
+			itemtext.TextColor3 = Color3.new(1, 1, 1)
+			itemtext.TextSize = 16
+			itemtext.TextStrokeTransparency = 0.3
+			itemtext.Font = Enum.Font.Arial
+			itemtext.Parent = item
+			Items[itemType] = {Object = itemtext, Type = shop}
+		end
+		
+		local function refreshBank(echest)
+			for i, v in Items do
+				local item = echest:FindFirstChild(i)
+				v.Object.Text = item and item:GetAttribute('Amount') or ''
+			end
+		end
+		
+		local function nearChest()
+			if entitylib.isAlive then
+				local pos = entitylib.character.RootPart.Position
+				for _, chest in Chests do
+					if (chest.Position - pos).Magnitude < 20 then
+						return true
+					end
+				end
+			end
+		end
+		
+		local function handleState()
+			local chest = replicatedStorage.Inventories:FindFirstChild(lplr.Name..'_personal')
+			if not chest then return end
+		
+			local mapCF = workspace.MapCFrames:FindFirstChild((lplr:GetAttribute('Team') or 1)..'_spawn')
+			if mapCF and (entitylib.character.RootPart.Position - mapCF.Value.Position).Magnitude < 80 then
+				for _, v in chest:GetChildren() do
+					local item = Items[v.Name]
+					if item then
+						task.spawn(function()
+							bedwars.Client:GetNamespace('Inventory'):Get('ChestGetItem'):CallServer(chest, v)
+							refreshBank(chest)
+						end)
+					end
+				end
+			else
+				for _, v in store.inventory.inventory.items do
+					local item = Items[v.itemType]
+					if item then
+						task.spawn(function()
+							bedwars.Client:GetNamespace('Inventory'):Get('ChestGiveItem'):CallServer(chest, v.tool)
+							refreshBank(chest)
+						end)
+					end
+				end
+			end
+		end
+		
+		AutoBank = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Bank',
+			Function = function(callback)
+				if callback then
+					Chests = collection('personal-chest', AutoBank)
+					UI = Instance.new('Frame')
+					UI.Size = UDim2.new(1, 0, 0, 32)
+					UI.Position = UDim2.fromOffset(0, -240)
+					UI.BackgroundTransparency = 1
+					UI.Visible = UIToggle.Enabled
+					UI.Parent = vape.gui
+					AutoBank:Clean(UI)
+					local Sort = Instance.new('UIListLayout')
+					Sort.FillDirection = Enum.FillDirection.Horizontal
+					Sort.HorizontalAlignment = Enum.HorizontalAlignment.Center
+					Sort.SortOrder = Enum.SortOrder.LayoutOrder
+					Sort.Parent = UI
+					addItem('iron', true)
+					addItem('gold', true)
+					addItem('diamond', false)
+					addItem('emerald', true)
+					addItem('void_crystal', true)
+		
+					repeat
+						local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
+						hotbar = hotbar and hotbar['1']:FindFirstChild('HotbarHealthbarContainer')
+						if hotbar then
+							UI.Position = UDim2.fromOffset(0, (hotbar.AbsolutePosition.Y + guiService:GetGuiInset().Y) - 40)
+						end
+		
+						local newState = nearChest()
+						if newState then
+							handleState()
+						end
+		
+						task.wait(0.1)
+					until (not AutoBank.Enabled)
+				else
+					table.clear(Items)
+				end
+			end,
+			Tooltip = 'Automatically puts resources in ender chest'
+		})
+		UIToggle = AutoBank:CreateToggle({
+			Name = 'UI',
+			Function = function(callback)
+				if AutoBank.Enabled then
+					UI.Visible = callback
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local AutoBuy
+		local Sword
+		local Armor
+		local Upgrades
+		local TierCheck
+		local BedwarsCheck
+		local GUI
+		local SmartCheck
+		local Delay
+		local Custom = {}
+		local CustomPost = {}
+		local UpgradeToggles = {}
+		local Functions, id = {}
+		local Callbacks = {Custom, Functions, CustomPost}
+		local npctick, purchasetick = tick(), tick()
+		
+		local swords = {
+			'wood_sword',
+			'stone_sword',
+			'iron_sword',
+			'diamond_sword',
+			'emerald_sword'
+		}
+		
+		local armors = {
+			'none',
+			'leather_chestplate',
+			'iron_chestplate',
+			'diamond_chestplate',
+			'emerald_chestplate'
+		}
+		
+		local axes = {
+			'none',
+			'wood_axe',
+			'stone_axe',
+			'iron_axe',
+			'diamond_axe'
+		}
+		
+		local pickaxes = {
+			'none',
+			'wood_pickaxe',
+			'stone_pickaxe',
+			'iron_pickaxe',
+			'diamond_pickaxe'
+		}
+		
+		local function getShopNPC()
+			local shop, items, upgrades, newid = nil, false, false, nil
+			if entitylib.isAlive then
+				local localPosition = entitylib.character.RootPart.Position
+				for _, v in store.shop do
+					if (v.RootPart.Position - localPosition).Magnitude <= 20 then
+						shop = v.Upgrades or v.Shop or nil
+						upgrades = upgrades or v.Upgrades
+						items = items or v.Shop
+						newid = v.Shop and v.Id or newid
+					end
+				end
+			end
+			return shop, items, upgrades, newid
+		end
+		
+		local function canBuy(item, currencytable, amount)
+			amount = amount or 1
+			if not currencytable[item.currency] then
+				local currency = getItem(item.currency)
+				currencytable[item.currency] = currency and currency.amount or 0
+			end
+			if item.ignoredByKit and table.find(item.ignoredByKit, store.equippedKit or '') then return false end
+			if item.lockedByForge or item.disabled then return false end
+			if item.require and item.require.teamUpgrade then
+				if (bedwars.Store:getState().Bedwars.teamUpgrades[item.require.teamUpgrade.upgradeId] or -1) < item.require.teamUpgrade.lowestTierIndex then
+					return false
+				end
+			end
+			return currencytable[item.currency] >= (item.price * amount)
+		end
+		
+		local function buyItem(item, currencytable)
+			if not id then return end
+			notif('AutoBuy', 'Bought '..bedwars.ItemMeta[item.itemType].displayName, 3)
+			bedwars.Client:Get('BedwarsPurchaseItem'):CallServerAsync({
+				shopItem = item,
+				shopId = id
+			}):andThen(function(suc)
+				if suc then
+					bedwars.SoundManager:playSound(bedwars.SoundList.BEDWARS_PURCHASE_ITEM)
+					bedwars.Store:dispatch({
+						type = 'BedwarsAddItemPurchased',
+						itemType = item.itemType
+					})
+					bedwars.BedwarsShopController.alreadyPurchasedMap[item.itemType] = true
+				end
+			end)
+			currencytable[item.currency] -= item.price
+		end
+		
+		local function buyUpgrade(upgradeType, currencytable)
+			if not Upgrades.Enabled then return end
+			local upgrade = bedwars.TeamUpgradeMeta[upgradeType]
+			local currentUpgrades = bedwars.Store:getState().Bedwars.teamUpgrades[lplr:GetAttribute('Team')] or {}
+			local currentTier = (currentUpgrades[upgradeType] or 0) + 1
+			local bought = false
+		
+			for i = currentTier, #upgrade.tiers do
+				local tier = upgrade.tiers[i]
+				if tier.availableOnlyInQueue and not table.find(tier.availableOnlyInQueue, store.queueType) then continue end
+		
+				if canBuy({currency = 'diamond', price = tier.cost}, currencytable) then
+					notif('AutoBuy', 'Bought '..(upgrade.name == 'Armor' and 'Protection' or upgrade.name)..' '..i, 3)
+					bedwars.Client:Get('RequestPurchaseTeamUpgrade'):CallServerAsync(upgradeType)
+					currencytable.diamond -= tier.cost
+					bought = true
+				else
+					break
+				end
+			end
+		
+			return bought
+		end
+		
+		local function buyTool(tool, tools, currencytable)
+			local bought, buyable = false
+			tool = tool and table.find(tools, tool.itemType) and table.find(tools, tool.itemType) + 1 or math.huge
+		
+			for i = tool, #tools do
+				local v = bedwars.Shop.getShopItem(tools[i], lplr)
+				if canBuy(v, currencytable) then
+					if SmartCheck.Enabled and bedwars.ItemMeta[tools[i]].breakBlock and i > 2 then
+						if Armor.Enabled then
+							local currentarmor = store.inventory.inventory.armor[2]
+							currentarmor = currentarmor and currentarmor ~= 'empty' and currentarmor.itemType or 'none'
+							if (table.find(armors, currentarmor) or 3) < 3 then break end
+						end
+						if Sword.Enabled then
+							if store.tools.sword and (table.find(swords, store.tools.sword.itemType) or 2) < 2 then break end
+						end
+					end
+					bought = true
+					buyable = v
+				end
+				if TierCheck.Enabled and v.nextTier then break end
+			end
+		
+			if buyable then
+				buyItem(buyable, currencytable)
+			end
+		
+			return bought
+		end
+		
+		AutoBuy = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Buy',
+			Function = function(callback)
+				if callback then
+					repeat task.wait() until store.queueType ~= 'bedwars_test'
+					if BedwarsCheck.Enabled and not store.queueType:find('bedwars') then return end
+		
+					local lastupgrades
+					AutoBuy:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(function()
+						if (npctick - tick()) > 1 then npctick = tick() end
+					end))
+		
+					repeat
+						local npc, shop, upgrades, newid = getShopNPC()
+						id = newid
+						if GUI.Enabled then
+							if not (bedwars.AppController:isAppOpen('BedwarsItemShopApp') or bedwars.AppController:isAppOpen('TeamUpgradeApp')) then
+								npc = nil
+							end
+						end
+		
+						if npc and lastupgrades ~= upgrades then
+							if (npctick - tick()) > 1 then npctick = tick() end
+							lastupgrades = upgrades
+						end
+		
+						if npc and npctick <= tick() and store.matchState ~= 2 and store.shopLoaded then
+							local currencytable = {}
+							local waitcheck
+							for _, tab in Callbacks do
+								for _, callback in tab do
+									if callback(currencytable, shop, upgrades) then
+										waitcheck = true
+										purchasetick = tick()
+										task.wait(Delay.Value)
+									end
+								end
+							end
+							npctick = tick() + (waitcheck and 0.4 or math.huge)
+						end
+		
+						task.wait(0.1)
+					until not AutoBuy.Enabled
+				else
+					npctick = tick()
+				end
+			end,
+			Tooltip = 'Automatically buys items when you go near the shop'
+		})
+		Sword = AutoBuy:CreateToggle({
+			Name = 'Buy Sword',
+			Function = function(callback)
+				npctick = tick()
+				Functions[2] = callback and function(currencytable, shop)
+					if not shop then return end
+		
+					if store.equippedKit == 'dasher' then
+						swords = {
+							[1] = 'wood_dao',
+							[2] = 'stone_dao',
+							[3] = 'iron_dao',
+							[4] = 'diamond_dao',
+							[5] = 'emerald_dao'
+						}
+					elseif store.equippedKit == 'ice_queen' then
+						swords[5] = 'ice_sword'
+					elseif store.equippedKit == 'ember' then
+						swords[5] = 'infernal_saber'
+					elseif store.equippedKit == 'lumen' then
+						swords[5] = 'light_sword'
+					end
+		
+					return buyTool(store.tools.sword, swords, currencytable)
+				end or nil
+			end
+		})
+		Armor = AutoBuy:CreateToggle({
+			Name = 'Buy Armor',
+			Function = function(callback)
+				npctick = tick()
+				Functions[1] = callback and function(currencytable, shop)
+					if not shop then return end
+					local currentarmor = store.inventory.inventory.armor[2] ~= 'empty' and store.inventory.inventory.armor[2] or getBestArmor(1)
+					currentarmor = currentarmor and currentarmor.itemType or 'none'
+					return buyTool({itemType = currentarmor}, armors, currencytable)
+				end or nil
+			end,
+			Default = true
+		})
+		AutoBuy:CreateToggle({
+			Name = 'Buy Axe',
+			Function = function(callback)
+				npctick = tick()
+				Functions[3] = callback and function(currencytable, shop)
+					if not shop then return end
+					return buyTool(store.tools.wood or {itemType = 'none'}, axes, currencytable)
+				end or nil
+			end
+		})
+		AutoBuy:CreateToggle({
+			Name = 'Buy Pickaxe',
+			Function = function(callback)
+				npctick = tick()
+				Functions[4] = callback and function(currencytable, shop)
+					if not shop then return end
+					return buyTool(store.tools.stone, pickaxes, currencytable)
+				end or nil
+			end
+		})
+		Upgrades = AutoBuy:CreateToggle({
+			Name = 'Buy Upgrades',
+			Function = function(callback)
+				for _, v in UpgradeToggles do
+					v.Object.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		local count = 0
+		for i, v in bedwars.TeamUpgradeMeta do
+			local toggleCount = count
+			table.insert(UpgradeToggles, AutoBuy:CreateToggle({
+				Name = 'Buy '..(v.name == 'Armor' and 'Protection' or v.name),
+				Function = function(callback)
+					npctick = tick()
+					Functions[5 + toggleCount + (v.name == 'Armor' and 20 or 0)] = callback and function(currencytable, shop, upgrades)
+						if not upgrades then return end
+						if v.disabledInQueue and table.find(v.disabledInQueue, store.queueType) then return end
+						return buyUpgrade(i, currencytable)
+					end or nil
+				end,
+				Darker = true,
+				Default = (i == 'ARMOR' or i == 'DAMAGE')
+			}))
+			count += 1
+		end
+		TierCheck = AutoBuy:CreateToggle({Name = 'Tier Check'})
+		BedwarsCheck = AutoBuy:CreateToggle({
+			Name = 'Only Bedwars',
+			Function = function()
+				if AutoBuy.Enabled then
+					AutoBuy:Toggle()
+					AutoBuy:Toggle()
+				end
+			end,
+			Default = true
+		})
+		GUI = AutoBuy:CreateToggle({Name = 'GUI check'})
+		SmartCheck = AutoBuy:CreateToggle({
+			Name = 'Smart check',
+			Default = true,
+			Tooltip = 'Buys iron armor before iron axe'
+		})
+		AutoBuy:CreateTextList({
+			Name = 'Item',
+			Placeholder = 'priority/item/amount/after',
+			Function = function(list)
+				table.clear(Custom)
+				table.clear(CustomPost)
+				for _, entry in list do
+					local tab = entry:split('/')
+					local ind = tonumber(tab[1])
+					if ind then
+						(tab[4] and CustomPost or Custom)[ind] = function(currencytable, shop)
+							if not shop then return end
+		
+							local v = bedwars.Shop.getShopItem(tab[2], lplr)
+							if v then
+								local item = getItem(tab[2] == 'wool_white' and bedwars.Shop.getTeamWool(lplr:GetAttribute('Team')) or tab[2])
+								item = (item and tonumber(tab[3]) - item.amount or tonumber(tab[3])) // v.amount
+								if item > 0 and canBuy(v, currencytable, item) then
+									for _ = 1, item do
+										buyItem(v, currencytable)
+									end
+									return true
+								end
+							end
+						end
+					end
+				end
+			end
+		})
+		Delay = AutoBuy:CreateSlider({
+			Name = 'Delay',
+			Min = 0,
+			Max = 2,
+			Default = 0,
+			Suffix = function(val)
+				return val == 1 and 'sec' or 'secs'
+			end,
+			Decimal = 5
+		})
+	end)
+		
+	run(function()
+		local AutoConsume
+		local Health
+		local SpeedPotion
+		local Apple
+		local ShieldPotion
+		
+		local function consumeCheck(attribute)
+			if entitylib.isAlive then
+				if SpeedPotion.Enabled and (not attribute or attribute == 'StatusEffect_speed') then
+					local speedpotion = getItem('speed_potion')
+					if speedpotion and (not lplr.Character:GetAttribute('StatusEffect_speed')) then
+						for _ = 1, 4 do
+							if bedwars.Client:Get(remotes.ConsumeItem):CallServer({item = speedpotion.tool}) then break end
+						end
+					end
+				end
+		
+				if Apple.Enabled and (not attribute or attribute:find('Health')) then
+					if (lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) <= (Health.Value / 100) then
+						local apple = getItem('orange') or (not lplr.Character:GetAttribute('StatusEffect_golden_apple') and getItem('golden_apple')) or getItem('apple')
+						
+						if apple then
+							bedwars.Client:Get(remotes.ConsumeItem):CallServerAsync({
+								item = apple.tool
+							})
+						end
+					end
+				end
+		
+				if ShieldPotion.Enabled and (not attribute or attribute:find('Shield')) then
+					if (lplr.Character:GetAttribute('Shield_POTION') or 0) == 0 then
+						local shield = getItem('big_shield') or getItem('mini_shield')
+		
+						if shield then
+							bedwars.Client:Get(remotes.ConsumeItem):CallServerAsync({
+								item = shield.tool
+							})
+						end
+					end
+				end
+			end
+		end
+		
+		AutoConsume = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Consume',
+			Function = function(callback)
+				if callback then
+					AutoConsume:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(consumeCheck))
+					AutoConsume:Clean(vapeEvents.AttributeChanged.Event:Connect(function(attribute)
+						if attribute:find('Shield') or attribute:find('Health') or attribute == 'StatusEffect_speed' then
+							consumeCheck(attribute)
+						end
+					end))
+					consumeCheck()
+				end
+			end,
+			Tooltip = 'Automatically heals for you when health or shield is under threshold.'
+		})
+		Health = AutoConsume:CreateSlider({
+			Name = 'Health Percent',
+			Min = 1,
+			Max = 99,
+			Default = 70,
+			Suffix = '%'
+		})
+		SpeedPotion = AutoConsume:CreateToggle({
+			Name = 'Speed Potions',
+			Default = true
+		})
+		Apple = AutoConsume:CreateToggle({
+			Name = 'Apple',
+			Default = true
+		})
+		ShieldPotion = AutoConsume:CreateToggle({
+			Name = 'Shield Potions',
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local AutoHotbar
+		local Mode
+		local Clear
+		local List
+		local Active
+		
+		local function CreateWindow(self)
+			local selectedslot = 1
+			local window = Instance.new('Frame')
+			window.Name = 'HotbarGUI'
+			window.Size = UDim2.fromOffset(660, 465)
+			window.Position = UDim2.fromScale(0.5, 0.5)
+			window.BackgroundColor3 = uipallet.Main
+			window.AnchorPoint = Vector2.new(0.5, 0.5)
+			window.Visible = false
+			window.Parent = vape.gui.ScaledGui
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -10, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 12)
+			title.BackgroundTransparency = 1
+			title.Text = 'AutoHotbar'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.fromOffset(0, 40)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+			divider.BorderSizePixel = 0
+			divider.Parent = window
+			addBlur(window)
+			local modal = Instance.new('TextButton')
+			modal.Text = ''
+			modal.BackgroundTransparency = 1
+			modal.Modal = true
+			modal.Parent = window
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 5)
+			corner.Parent = window
+			local close = Instance.new('ImageButton')
+			close.Name = 'Close'
+			close.Size = UDim2.fromOffset(24, 24)
+			close.Position = UDim2.new(1, -35, 0, 9)
+			close.BackgroundColor3 = Color3.new(1, 1, 1)
+			close.BackgroundTransparency = 1
+			close.Image = getcustomasset('catrewrite/assets/new/close.png')
+			close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+			close.ImageTransparency = 0.5
+			close.AutoButtonColor = false
+			close.Parent = window
+			close.MouseEnter:Connect(function()
+				close.ImageTransparency = 0.3
+				tween:Tween(close, TweenInfo.new(0.2), {
+					BackgroundTransparency = 0.6
+				})
+			end)
+			close.MouseLeave:Connect(function()
+				close.ImageTransparency = 0.5
+				tween:Tween(close, TweenInfo.new(0.2), {
+					BackgroundTransparency = 1
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+				vape.gui.ScaledGui.ClickGui.Visible = true
+			end)
+			local closecorner = Instance.new('UICorner')
+			closecorner.CornerRadius = UDim.new(1, 0)
+			closecorner.Parent = close
+			local bigslot = Instance.new('Frame')
+			bigslot.Size = UDim2.fromOffset(110, 111)
+			bigslot.Position = UDim2.fromOffset(11, 71)
+			bigslot.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			bigslot.Parent = window
+			local bigslotcorner = Instance.new('UICorner')
+			bigslotcorner.CornerRadius = UDim.new(0, 4)
+			bigslotcorner.Parent = bigslot
+			local bigslotstroke = Instance.new('UIStroke')
+			bigslotstroke.Color = color.Light(uipallet.Main, 0.034)
+			bigslotstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			bigslotstroke.Parent = bigslot
+			local slotnum = Instance.new('TextLabel')
+			slotnum.Size = UDim2.fromOffset(80, 20)
+			slotnum.Position = UDim2.fromOffset(25, 200)
+			slotnum.BackgroundTransparency = 1
+			slotnum.Text = 'SLOT 1'
+			slotnum.TextColor3 = color.Dark(uipallet.Text, 0.1)
+			slotnum.TextSize = 12
+			slotnum.FontFace = uipallet.Font
+			slotnum.Parent = window
+			for i = 1, 9 do
+				local slotbkg = Instance.new('TextButton')
+				slotbkg.Name = 'Slot'..i
+				slotbkg.Size = UDim2.fromOffset(51, 52)
+				slotbkg.Position = UDim2.fromOffset(89 + (i * 55), 382)
+				slotbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				slotbkg.Text = ''
+				slotbkg.AutoButtonColor = false
+				slotbkg.Parent = window
+				local slotimage = Instance.new('ImageLabel')
+				slotimage.Size = UDim2.fromOffset(32, 32)
+				slotimage.Position = UDim2.new(0.5, -16, 0.5, -16)
+				slotimage.BackgroundTransparency = 1
+				slotimage.Image = ''
+				slotimage.Parent = slotbkg
+				local slotcorner = Instance.new('UICorner')
+				slotcorner.CornerRadius = UDim.new(0, 4)
+				slotcorner.Parent = slotbkg
+				local slotstroke = Instance.new('UIStroke')
+				slotstroke.Color = color.Light(uipallet.Main, 0.04)
+				slotstroke.Thickness = 2
+				slotstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+				slotstroke.Enabled = i == selectedslot
+				slotstroke.Parent = slotbkg
+				slotbkg.MouseEnter:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				end)
+				slotbkg.MouseLeave:Connect(function()
+					slotbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				end)
+				slotbkg.MouseButton1Click:Connect(function()
+					window['Slot'..selectedslot].UIStroke.Enabled = false
+					selectedslot = i
+					slotstroke.Enabled = true
+					slotnum.Text = 'SLOT '..selectedslot
+				end)
+				slotbkg.MouseButton2Click:Connect(function()
+					local obj = self.Hotbars[self.Selected]
+					if obj then
+						window['Slot'..i].ImageLabel.Image = ''
+						obj.Hotbar[tostring(i)] = nil
+						obj.Object['Slot'..i].Image = '	'
+					end
+				end)
+			end
+			local searchbkg = Instance.new('Frame')
+			searchbkg.Size = UDim2.fromOffset(496, 31)
+			searchbkg.Position = UDim2.fromOffset(142, 80)
+			searchbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			searchbkg.Parent = window
+			local search = Instance.new('TextBox')
+			search.Size = UDim2.new(1, -10, 0, 31)
+			search.Position = UDim2.fromOffset(10, 0)
+			search.BackgroundTransparency = 1
+			search.Text = ''
+			search.PlaceholderText = ''
+			search.TextXAlignment = Enum.TextXAlignment.Left
+			search.TextColor3 = uipallet.Text
+			search.TextSize = 12
+			search.FontFace = uipallet.Font
+			search.ClearTextOnFocus = false
+			search.Parent = searchbkg
+			local searchcorner = Instance.new('UICorner')
+			searchcorner.CornerRadius = UDim.new(0, 4)
+			searchcorner.Parent = searchbkg
+			local searchicon = Instance.new('ImageLabel')
+			searchicon.Size = UDim2.fromOffset(14, 14)
+			searchicon.Position = UDim2.new(1, -26, 0, 8)
+			searchicon.BackgroundTransparency = 1
+			searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+			searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			searchicon.Parent = searchbkg
+			local children = Instance.new('ScrollingFrame')
+			children.Name = 'Children'
+			children.Size = UDim2.fromOffset(500, 240)
+			children.Position = UDim2.fromOffset(144, 122)
+			children.BackgroundTransparency = 1
+			children.BorderSizePixel = 0
+			children.ScrollBarThickness = 2
+			children.ScrollBarImageTransparency = 0.75
+			children.CanvasSize = UDim2.new()
+			children.Parent = window
+			local windowlist = Instance.new('UIGridLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.FillDirectionMaxCells = 9
+			windowlist.CellSize = UDim2.fromOffset(51, 52)
+			windowlist.CellPadding = UDim2.fromOffset(4, 3)
+			windowlist.Parent = children
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / vape.guiscale.Scale)
+			end)
+			table.insert(vape.Windows, window)
+		
+			local function createitem(id, image)
+				local slotbkg = Instance.new('TextButton')
+				slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				slotbkg.Text = ''
+				slotbkg.AutoButtonColor = false
+				slotbkg.Parent = children
+				local slotimage = Instance.new('ImageLabel')
+				slotimage.Size = UDim2.fromOffset(32, 32)
+				slotimage.Position = UDim2.new(0.5, -16, 0.5, -16)
+				slotimage.BackgroundTransparency = 1
+				slotimage.Image = image
+				slotimage.Parent = slotbkg
+				local slotcorner = Instance.new('UICorner')
+				slotcorner.CornerRadius = UDim.new(0, 4)
+				slotcorner.Parent = slotbkg
+				slotbkg.MouseEnter:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+				end)
+				slotbkg.MouseLeave:Connect(function()
+					slotbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end)
+				slotbkg.MouseButton1Click:Connect(function()
+					local obj = self.Hotbars[self.Selected]
+					if obj then
+						window['Slot'..selectedslot].ImageLabel.Image = image
+						obj.Hotbar[tostring(selectedslot)] = id
+						obj.Object['Slot'..selectedslot].Image = image
+					end
+				end)
+			end
+		
+			local function indexSearch(text)
+				for _, v in children:GetChildren() do
+					if v:IsA('TextButton') then
+						v:ClearAllChildren()
+						v:Destroy()
+					end
+				end
+		
+				if text == '' then
+					for _, v in {'diamond_sword', 'diamond_pickaxe', 'diamond_axe', 'shears', 'wood_bow', 'wool_white', 'fireball', 'apple', 'iron', 'gold', 'diamond', 'emerald'} do
+						createitem(v, bedwars.ItemMeta[v].image)
+					end
+					return
+				end
+		
+				for i, v in bedwars.ItemMeta do
+					if text:lower() == i:lower():sub(1, text:len()) then
+						if not v.image then continue end
+						createitem(i, v.image)
+					end
+				end
+			end
+		
+			search:GetPropertyChangedSignal('Text'):Connect(function()
+				indexSearch(search.Text)
+			end)
+			indexSearch('')
+		
+			return window
+		end
+		
+		vape.Components.HotbarList = function(optionsettings, children, api)
+			if vape.ThreadFix then
+				setthreadidentity(8)
+			end
+			local optionapi = {
+				Type = 'HotbarList',
+				Hotbars = {},
+				Selected = 1
+			}
+			local hotbarlist = Instance.new('TextButton')
+			hotbarlist.Name = 'HotbarList'
+			hotbarlist.Size = UDim2.fromOffset(220, 40)
+			hotbarlist.BackgroundColor3 = optionsettings.Darker and (children.BackgroundColor3 == color.Dark(uipallet.Main, 0.02) and color.Dark(uipallet.Main, 0.04) or color.Dark(uipallet.Main, 0.02)) or children.BackgroundColor3
+			hotbarlist.Text = ''
+			hotbarlist.BorderSizePixel = 0
+			hotbarlist.AutoButtonColor = false
+			hotbarlist.Parent = children
+			local textbkg = Instance.new('Frame')
+			textbkg.Name = 'BKG'
+			textbkg.Size = UDim2.new(1, -20, 0, 31)
+			textbkg.Position = UDim2.fromOffset(10, 4)
+			textbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			textbkg.Parent = hotbarlist
+			local textbkgcorner = Instance.new('UICorner')
+			textbkgcorner.CornerRadius = UDim.new(0, 4)
+			textbkgcorner.Parent = textbkg
+			local textbutton = Instance.new('TextButton')
+			textbutton.Name = 'HotbarList'
+			textbutton.Size = UDim2.new(1, -2, 1, -2)
+			textbutton.Position = UDim2.fromOffset(1, 1)
+			textbutton.BackgroundColor3 = uipallet.Main
+			textbutton.Text = ''
+			textbutton.AutoButtonColor = false
+			textbutton.Parent = textbkg
+			textbutton.MouseEnter:Connect(function()
+				tween:Tween(textbkg, TweenInfo.new(0.2), {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				})
+			end)
+			textbutton.MouseLeave:Connect(function()
+				tween:Tween(textbkg, TweenInfo.new(0.2), {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+			end)
+			local textbuttoncorner = Instance.new('UICorner')
+			textbuttoncorner.CornerRadius = UDim.new(0, 4)
+			textbuttoncorner.Parent = textbutton
+			local textbuttonicon = Instance.new('ImageLabel')
+			textbuttonicon.Size = UDim2.fromOffset(12, 12)
+			textbuttonicon.Position = UDim2.fromScale(0.5, 0.5)
+			textbuttonicon.AnchorPoint = Vector2.new(0.5, 0.5)
+			textbuttonicon.BackgroundTransparency = 1
+			textbuttonicon.Image = getcustomasset('catrewrite/assets/new/add.png')
+			textbuttonicon.ImageColor3 = Color3.fromHSV(0.46, 0.96, 0.52)
+			textbuttonicon.Parent = textbutton
+			local childrenlist = Instance.new('Frame')
+			childrenlist.Size = UDim2.new(1, 0, 1, -40)
+			childrenlist.Position = UDim2.fromOffset(0, 40)
+			childrenlist.BackgroundTransparency = 1
+			childrenlist.Parent = hotbarlist
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Padding = UDim.new(0, 3)
+			windowlist.Parent = childrenlist
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if vape.ThreadFix then
+					setthreadidentity(8)
+				end
+				hotbarlist.Size = UDim2.fromOffset(220, math.min(43 + windowlist.AbsoluteContentSize.Y / vape.guiscale.Scale, 603))
+			end)
+			textbutton.MouseButton1Click:Connect(function()
+				optionapi:AddHotbar()
+			end)
+			optionapi.Window = CreateWindow(optionapi)
+		
+			function optionapi:Save(savetab)
+				local hotbars = {}
+				for _, v in self.Hotbars do
+					table.insert(hotbars, v.Hotbar)
+				end
+				savetab.HotbarList = {
+					Selected = self.Selected,
+					Hotbars = hotbars
+				}
+			end
+		
+			function optionapi:Load(savetab)
+				for _, v in self.Hotbars do
+					v.Object:ClearAllChildren()
+					v.Object:Destroy()
+					table.clear(v.Hotbar)
+				end
+				table.clear(self.Hotbars)
+				for _, v in savetab.Hotbars do
+					self:AddHotbar(v)
+				end
+				self.Selected = savetab.Selected or 1
+			end
+		
+			function optionapi:AddHotbar(data)
+				local hotbardata = {Hotbar = data or {}}
+				table.insert(self.Hotbars, hotbardata)
+				local hotbar = Instance.new('TextButton')
+				hotbar.Size = UDim2.fromOffset(200, 27)
+				hotbar.BackgroundColor3 = table.find(self.Hotbars, hotbardata) == self.Selected and color.Light(uipallet.Main, 0.034) or uipallet.Main
+				hotbar.Text = ''
+				hotbar.AutoButtonColor = false
+				hotbar.Parent = childrenlist
+				hotbardata.Object = hotbar
+				local hotbarcorner = Instance.new('UICorner')
+				hotbarcorner.CornerRadius = UDim.new(0, 4)
+				hotbarcorner.Parent = hotbar
+				for i = 1, 9 do
+					local slot = Instance.new('ImageLabel')
+					slot.Name = 'Slot'..i
+					slot.Size = UDim2.fromOffset(17, 18)
+					slot.Position = UDim2.fromOffset(-7 + (i * 18), 5)
+					slot.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+					slot.Image = hotbardata.Hotbar[tostring(i)] and bedwars.getIcon({itemType = hotbardata.Hotbar[tostring(i)]}, true) or ''
+					slot.BorderSizePixel = 0
+					slot.Parent = hotbar
+				end
+				hotbar.MouseButton1Click:Connect(function()
+					local ind = table.find(optionapi.Hotbars, hotbardata)
+					if ind == optionapi.Selected then
+						vape.gui.ScaledGui.ClickGui.Visible = false
+						optionapi.Window.Visible = true
+						for i = 1, 9 do
+							optionapi.Window['Slot'..i].ImageLabel.Image = hotbardata.Hotbar[tostring(i)] and bedwars.getIcon({itemType = hotbardata.Hotbar[tostring(i)]}, true) or ''
+						end
+					else
+						if optionapi.Hotbars[optionapi.Selected] then
+							optionapi.Hotbars[optionapi.Selected].Object.BackgroundColor3 = uipallet.Main
+						end
+						hotbar.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+						optionapi.Selected = ind
+					end
+				end)
+				local close = Instance.new('ImageButton')
+				close.Name = 'Close'
+				close.Size = UDim2.fromOffset(16, 16)
+				close.Position = UDim2.new(1, -23, 0, 6)
+				close.BackgroundColor3 = Color3.new(1, 1, 1)
+				close.BackgroundTransparency = 1
+				close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+				close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+				close.ImageTransparency = 0.5
+				close.AutoButtonColor = false
+				close.Parent = hotbar
+				local closecorner = Instance.new('UICorner')
+				closecorner.CornerRadius = UDim.new(1, 0)
+				closecorner.Parent = close
+				close.MouseEnter:Connect(function()
+					close.ImageTransparency = 0.3
+					tween:Tween(close, TweenInfo.new(0.2), {
+						BackgroundTransparency = 0.6
+					})
+				end)
+				close.MouseLeave:Connect(function()
+					close.ImageTransparency = 0.5
+					tween:Tween(close, TweenInfo.new(0.2), {
+						BackgroundTransparency = 1
+					})
+				end)
+				close.MouseButton1Click:Connect(function()
+					local ind = table.find(self.Hotbars, hotbardata)
+					local obj = self.Hotbars[self.Selected]
+					local obj2 = self.Hotbars[ind]
+					if obj and obj2 then
+						obj2.Object:ClearAllChildren()
+						obj2.Object:Destroy()
+						table.remove(self.Hotbars, ind)
+						ind = table.find(self.Hotbars, obj)
+						self.Selected = table.find(self.Hotbars, obj) or 1
+					end
+				end)
+			end
+		
+			api.Options.HotbarList = optionapi
+		
+			return optionapi
+		end
+		
+		local function getBlock()
+			local clone = table.clone(store.inventory.inventory.items)
+			table.sort(clone, function(a, b)
+				return a.amount < b.amount
+			end)
+		
+			for _, item in clone do
+				local block = bedwars.ItemMeta[item.itemType].block
+				if block and not block.seeThrough then
+					return item
+				end
+			end
+		end
+		
+		local function getCustomItem(v)
+			if v == 'diamond_sword' then
+				local sword = store.tools.sword
+				v = sword and sword.itemType or 'wood_sword'
+			elseif v == 'diamond_pickaxe' then
+				local pickaxe = store.tools.stone
+				v = pickaxe and pickaxe.itemType or 'wood_pickaxe'
+			elseif v == 'diamond_axe' then
+				local axe = store.tools.wood
+				v = axe and axe.itemType or 'wood_axe'
+			elseif v == 'wood_bow' then
+				local bow = getBow()
+				v = bow and bow.itemType or 'wood_bow'
+			elseif v == 'wool_white' then
+				local block = getBlock()
+				v = block and block.itemType or 'wool_white'
+			end
+		
+			return v
+		end
+		
+		local function findItemInTable(tab, item)
+			for slot, v in tab do
+				if item.itemType == getCustomItem(v) then
+					return tonumber(slot)
+				end
+			end
+		end
+		
+		local function findInHotbar(item)
+			for i, v in store.inventory.hotbar do
+				if v.item and v.item.itemType == item.itemType then
+					return i - 1, v.item
+				end
+			end
+		end
+		
+		local function findInInventory(item)
+			for _, v in store.inventory.inventory.items do
+				if v.itemType == item.itemType then
+					return v
+				end
+			end
+		end
+		
+		local function dispatch(...)
+			bedwars.Store:dispatch(...)
+			vapeEvents.InventoryChanged.Event:Wait()
+		end
+		
+		local function sortCallback()
+			if Active then return end
+			Active = true
+			local items = (List.Hotbars[List.Selected] and List.Hotbars[List.Selected].Hotbar or {})
+		
+			for _, v in store.inventory.inventory.items do
+				local slot = findItemInTable(items, v)
+				if slot then
+					local olditem = store.inventory.hotbar[slot]
+					if olditem.item and olditem.item.itemType == v.itemType then continue end
+					if olditem.item then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = slot - 1
+						})
+					end
+		
+					local newslot = findInHotbar(v)
+					if newslot then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = newslot
+						})
+						if olditem.item then
+							dispatch({
+								type = 'InventoryAddToHotbar',
+								item = findInInventory(olditem.item),
+								slot = newslot
+							})
+						end
+					end
+		
+					dispatch({
+						type = 'InventoryAddToHotbar',
+						item = findInInventory(v),
+						slot = slot - 1
+					})
+				elseif Clear.Enabled then
+					local newslot = findInHotbar(v)
+					if newslot then
+						dispatch({
+							type = 'InventoryRemoveFromHotbar',
+							slot = newslot
+						})
+					end
+				end
+			end
+		
+			Active = false
+		end
+		
+		AutoHotbar = vape.Categories.Inventory:CreateModule({
+			Name = 'Auto Hotbar',
+			Function = function(callback)
+				if callback then
+					task.spawn(sortCallback)
+					if Mode.Value == 'On Key' then
+						AutoHotbar:Toggle()
+						return
+					end
+		
+					AutoHotbar:Clean(vapeEvents.InventoryAmountChanged.Event:Connect(sortCallback))
+				end
+			end,
+			Tooltip = 'Automatically arranges hotbar to your liking.'
+		})
+		Mode = AutoHotbar:CreateDropdown({
+			Name = 'Activation',
+			List = {'Toggle', 'On Key'},
+			Function = function()
+				if AutoHotbar.Enabled then
+					AutoHotbar:Toggle()
+					AutoHotbar:Toggle()
+				end
+			end
+		})
+		Clear = AutoHotbar:CreateToggle({Name = 'Clear Hotbar'})
+		List = AutoHotbar:CreateHotbarList({})
+	end)
+		
+	run(function()
+		local Value
+		local oldclickhold, oldshowprogress
+		
+		local FastConsume = vape.Categories.Inventory:CreateModule({
+			Name = 'Fast Consume',
+			Function = function(callback)
+				if callback then
+					oldclickhold = bedwars.ClickHold.startClick
+					oldshowprogress = bedwars.ClickHold.showProgress
+					bedwars.ClickHold.startClick = function(self)
+						self.startedClickTime = tick()
+						local handle = self:showProgress()
+						local clicktime = self.startedClickTime
+						bedwars.RuntimeLib.Promise.defer(function()
+							task.wait(self.durationSeconds * (Value.Value / 40))
+							if handle == self.handle and clicktime == self.startedClickTime and self.closeOnComplete then
+								self:hideProgress()
+								if self.onComplete then self.onComplete() end
+								if self.onPartialComplete then self.onPartialComplete(1) end
+								self.startedClickTime = -1
+							end
+						end)
+					end
+		
+					if canDebug then
+						bedwars.ClickHold.showProgress = function(self)
+							local roact = debug.getupvalue(oldshowprogress, 1)
+							local countdown = roact.mount(roact.createElement('ScreenGui', {}, { roact.createElement('Frame', {
+								[roact.Ref] = self.wrapperRef,
+								Size = UDim2.new(),
+								Position = UDim2.fromScale(0.5, 0.55),
+								AnchorPoint = Vector2.new(0.5, 0),
+								BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+								BackgroundTransparency = 0.8
+							}, { roact.createElement('Frame', {
+								[roact.Ref] = self.progressRef,
+								Size = UDim2.fromScale(0, 1),
+								BackgroundColor3 = Color3.new(1, 1, 1),
+								BackgroundTransparency = 0.5
+							}) }) }), lplr:FindFirstChild('PlayerGui'))
+			
+							self.handle = countdown
+							local sizetween = tweenService:Create(self.wrapperRef:getValue(), TweenInfo.new(0.1), {
+								Size = UDim2.fromScale(0.11, 0.005)
+							})
+							local countdowntween = tweenService:Create(self.progressRef:getValue(), TweenInfo.new(self.durationSeconds * (Value.Value / 100), Enum.EasingStyle.Linear), {
+								Size = UDim2.fromScale(1, 1)
+							})
+			
+							sizetween:Play()
+							countdowntween:Play()
+							table.insert(self.tweens, countdowntween)
+							table.insert(self.tweens, sizetween)
+							
+							return countdown
+						end
+					end
+				else
+					bedwars.ClickHold.startClick = oldclickhold
+					bedwars.ClickHold.showProgress = oldshowprogress
+					oldclickhold = nil
+					oldshowprogress = nil
+				end
+			end,
+			Tooltip = 'Use/Consume items quicker.'
+		})
+		Value = FastConsume:CreateSlider({
+			Name = 'Multiplier',
+			Min = 0,
+			Max = 100
+		})
+	end)
+		
+	run(function()
+		local FastDrop
+		
+		FastDrop = vape.Categories.Inventory:CreateModule({
+			Name = 'Fast Drop',
+			Function = function(callback)
+				if callback then
+					repeat
+						if entitylib.isAlive and (not store.inventory.opened) and (inputService:IsKeyDown(Enum.KeyCode.H) or inputService:IsKeyDown(Enum.KeyCode.Backspace)) and inputService:GetFocusedTextBox() == nil then
+							task.spawn(bedwars.ItemDropController.dropItemInHand)
+							task.wait()
+						else
+							task.wait(0.1)
+						end
+					until not FastDrop.Enabled
+				end
+			end,
+			Tooltip = 'Drops items fast when you hold Q'
+		})
+	end)
+		
+	run(function()
+		local BedPlates
+		local Background
+		local Color = {}
+		local Reference = {}
+		local Folder = Instance.new('Folder')
+		Folder.Parent = vape.gui
+		
+		local function scanSide(self, start, tab)
+			for _, side in sides do
+				for i = 1, 15 do
+					local block = getPlacedBlock(start + (side * i))
+					if not block or block == self then break end
+					if not block:GetAttribute('NoBreak') and not table.find(tab, block.Name) then
+						table.insert(tab, block.Name)
+					end
+				end
+			end
+		end
+		
+		local function refreshAdornee(v)
+			for _, obj in v.Frame:GetChildren() do
+				if obj:IsA('ImageLabel') and obj.Name ~= 'Blur' then
+					obj:Destroy()
+				end
+			end
+		
+			local start = v.Adornee.Position
+			local alreadygot = {}
+			scanSide(v.Adornee, start, alreadygot)
+			scanSide(v.Adornee, start + Vector3.new(0, 0, 3), alreadygot)
+			table.sort(alreadygot, function(a, b)
+				return (bedwars.ItemMeta[a].block and bedwars.ItemMeta[a].block.health or 0) > (bedwars.ItemMeta[b].block and bedwars.ItemMeta[b].block.health or 0)
+			end)
+			v.Enabled = #alreadygot > 0
+		
+			for _, block in alreadygot do
+				local blockimage = Instance.new('ImageLabel')
+				blockimage.Size = UDim2.fromOffset(29, 29)
+				blockimage.BackgroundTransparency = 1
+				blockimage.Image = bedwars.getIcon({itemType = block}, true)
+				blockimage.Parent = v.Frame
+			end
+		end
+		
+		local function Added(v)
+			local billboard = Instance.new('BillboardGui')
+			billboard.Parent = Folder
+			billboard.Name = 'bed'
+			billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+			billboard.Size = UDim2.fromOffset(36, 36)
+			billboard.AlwaysOnTop = true
+			billboard.ClipsDescendants = false
+			billboard.Adornee = v
+			local blur = addBlur(billboard)
+			blur.Visible = Background.Enabled
+			local frame = Instance.new('Frame')
+			frame.Size = UDim2.fromScale(1, 1)
+			frame.BackgroundColor3 = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+			frame.BackgroundTransparency = 1 - (Background.Enabled and Color.Opacity or 0)
+			frame.Parent = billboard
+			local layout = Instance.new('UIListLayout')
+			layout.FillDirection = Enum.FillDirection.Horizontal
+			layout.Padding = UDim.new(0, 4)
+			layout.VerticalAlignment = Enum.VerticalAlignment.Center
+			layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+			end)
+			layout.Parent = frame
+			local corner = Instance.new('UICorner')
+			corner.CornerRadius = UDim.new(0, 6)
+			corner.Parent = frame
+			Reference[v] = billboard
+			refreshAdornee(billboard)
+		end
+		
+		local function refreshNear(data)
+			data = data.blockRef.blockPosition * 3
+			for i, v in Reference do
+				if (data - i.Position).Magnitude <= 30 then
+					refreshAdornee(v)
+				end
+			end
+		end
+		
+		BedPlates = vape.Categories.Minigames:CreateModule({
+			Name = 'Bed Plates',
+			Function = function(callback)
+				if callback then
+					for _, v in collectionService:GetTagged('bed') do 
+						task.spawn(Added, v) 
+					end
+					BedPlates:Clean(vapeEvents.PlaceBlockEvent.Event:Connect(refreshNear))
+					BedPlates:Clean(vapeEvents.BreakBlockEvent.Event:Connect(refreshNear))
+					BedPlates:Clean(collectionService:GetInstanceAddedSignal('bed'):Connect(Added))
+					BedPlates:Clean(collectionService:GetInstanceRemovedSignal('bed'):Connect(function(v)
+						if Reference[v] then
+							Reference[v]:Destroy()
+							Reference[v]:ClearAllChildren()
+							Reference[v] = nil
+						end
+					end))
+				else
+					table.clear(Reference)
+					Folder:ClearAllChildren()
+				end
+			end,
+			Tooltip = 'Displays blocks over the bed'
+		})
+		Background = BedPlates:CreateToggle({
+			Name = 'Background',
+			Function = function(callback)
+				if Color.Object then 
+					Color.Object.Visible = callback 
+				end
+				for _, v in Reference do
+					v.Frame.BackgroundTransparency = 1 - (callback and Color.Opacity or 0)
+					v.Blur.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		Color = BedPlates:CreateColorSlider({
+			Name = 'Background Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				for _, v in Reference do
+					v.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					v.Frame.BackgroundTransparency = 1 - opacity
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local Breaker
+		local Delay
+		local AutoAim
+		local AimSpeed	
+		local Range
+		local Cache
+		local UpdateRate
+		local Custom
+		local Bed
+		local LuckyBlock
+		local AutoTool
+		local IronOre
+		local Effect
+		local CustomHealth = {}
+		local Animation
+		local SelfBreak
+		local WallCheck
+		local LimitItem
+		local customlist, parts = {}, {}
+		
+		local function customHealthbar(self, blockRef, health, maxHealth, changeHealth, block)
+			pcall(function()
+				if block:GetAttribute('NoHealthbar') then return end
+				if not self.healthbarPart or not self.healthbarBlockRef or self.healthbarBlockRef.blockPosition ~= blockRef.blockPosition then
+					self.healthbarMaid:DoCleaning()
+					self.healthbarBlockRef = blockRef
+					local create = bedwars.Roact.createElement
+					local percent = math.clamp(health / maxHealth, 0, 1)
+					local cleanCheck = true
+					local part = Instance.new('Part')
+					part.Size = Vector3.one
+					part.CFrame = CFrame.new(bedwars.BlockController:getWorldPosition(blockRef.blockPosition))
+					part.Transparency = 1
+					part.Anchored = true
+					part.CanCollide = false
+					part.Parent = workspace
+					self.healthbarPart = part
+					bedwars.QueryUtil:setQueryIgnored(self.healthbarPart, true)
+			
+					local mounted = bedwars.Roact.mount(create('BillboardGui', {
+						Size = UDim2.fromOffset(249, 102),
+						StudsOffset = Vector3.new(0, 2.5, 0),
+						Adornee = part,
+						MaxDistance = 40,
+						AlwaysOnTop = true
+					}, {
+						create('Frame', {
+							Size = UDim2.fromOffset(160, 50),
+							Position = UDim2.fromOffset(44, 32),
+							BackgroundColor3 = Color3.new(),
+							BackgroundTransparency = 0.5
+						}, {
+							create('UICorner', {CornerRadius = UDim.new(0, 5)}),
+							create('ImageLabel', {
+								Size = UDim2.new(1, 89, 1, 52),
+								Position = UDim2.fromOffset(-48, -31),
+								BackgroundTransparency = 1,
+								Image = getcustomasset('catrewrite/assets/new/blur.png'),
+								ScaleType = Enum.ScaleType.Slice,
+								SliceCenter = Rect.new(52, 31, 261, 502)
+							}),
+							create('TextLabel', {
+								Size = UDim2.fromOffset(145, 14),
+								Position = UDim2.fromOffset(13, 12),
+								BackgroundTransparency = 1,
+								Text = bedwars.ItemMeta[block.Name].displayName or block.Name,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+								TextColor3 = Color3.new(),
+								TextScaled = true,
+								Font = Enum.Font.Arial
+							}),
+							create('TextLabel', {
+								Size = UDim2.fromOffset(145, 14),
+								Position = UDim2.fromOffset(12, 11),
+								BackgroundTransparency = 1,
+								Text = bedwars.ItemMeta[block.Name].displayName or block.Name,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+								TextColor3 = color.Dark(uipallet.Text, 0.16),
+								TextScaled = true,
+								Font = Enum.Font.Arial
+							}),
+							create('Frame', {
+								Size = UDim2.fromOffset(138, 4),
+								Position = UDim2.fromOffset(12, 32),
+								BackgroundColor3 = uipallet.Main
+							}, {
+								create('UICorner', {CornerRadius = UDim.new(1, 0)}),
+								create('Frame', {
+									[bedwars.Roact.Ref] = self.healthbarProgressRef,
+									Size = UDim2.fromScale(percent, 1),
+									BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+								}, {create('UICorner', {CornerRadius = UDim.new(1, 0)})})
+							})
+						})
+					}), part)
+			
+					self.healthbarMaid:GiveTask(function()
+						cleanCheck = false
+						self.healthbarBlockRef = nil
+						bedwars.Roact.unmount(mounted)
+						if self.healthbarPart then
+							self.healthbarPart:Destroy()
+						end
+						self.healthbarPart = nil
+					end)
+			
+					bedwars.RuntimeLib.Promise.delay(5):andThen(function()
+						if cleanCheck then
+							self.healthbarMaid:DoCleaning()
+						end
+					end)
+				end
+			
+				local newpercent = math.clamp((health - changeHealth) / maxHealth, 0, 1)
+				tweenService:Create(self.healthbarProgressRef:getValue(), TweenInfo.new(0.3), {
+					Size = UDim2.fromScale(newpercent, 1), BackgroundColor3 = Color3.fromHSV(math.clamp(newpercent / 2.5, 0, 1), 0.89, 0.75)
+				}):Play()
+			end)
+		end
+		
+		local hit = 0
+		local targetting = nil
+		
+		local function attemptBreak(tab, localPosition)
+			if not tab then return end
+			table.sort(tab, function(a, b)
+				return (a.Position - localPosition).Magnitude >= (b.Position - localPosition).Magnitude
+			end)
+			for _, v in tab do
+				if (v.Position - localPosition).Magnitude < Range.Value and bedwars.BlockController:isBlockBreakable({blockPosition = v.Position / 3}, lplr) then
+					if not SelfBreak.Enabled and v:GetAttribute('PlacedByUserId') == lplr.UserId then continue end
+					if (v:GetAttribute('BedShieldEndTime') or 0) > workspace:GetServerTimeNow() then continue end
+					if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
+		
+					hit += 1
+					local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, AutoTool.Enabled, WallCheck.Enabled, Cache.Enabled)
+					if path then
+						local currentnode = target
+						if currentnode then
+							targetting = currentnode
+						end
+						for _, part in parts do
+							part.Position = currentnode or Vector3.zero
+							if currentnode then
+								part.BoxHandleAdornment.Color3 = currentnode == endpos and Color3.new(1, 0.2, 0.2) or currentnode == target and Color3.new(0.2, 0.2, 1) or Color3.new(0.2, 1, 0.2)
+							end
+							currentnode = path[currentnode]
+						end
+					end
+		
+					task.wait(Delay.Value)
+
+					targetting = nil
+		
+					return true
+				end
+			end
+		
+			return false
+		end
+		
+		Breaker = vape.Categories.Minigames:CreateModule({
+			Name = 'Breaker',
+			Function = function(callback)
+				if callback then
+					for _ = 1, 30 do
+						local part = Instance.new('Part')
+						part.Anchored = true
+						part.CanQuery = false
+						part.CanCollide = false
+						part.Transparency = 1
+						part.Parent = gameCamera
+						local highlight = Instance.new('BoxHandleAdornment')
+						highlight.Size = Vector3.one
+						highlight.AlwaysOnTop = true
+						highlight.ZIndex = 1
+						highlight.Transparency = 0.5
+						highlight.Adornee = part
+						highlight.Parent = part
+						table.insert(parts, part)
+					end
+		
+					local beds = collection('bed', Breaker)
+					local luckyblock = collection('LuckyBlock', Breaker)
+					local ironores = collection('iron_ore_mesh_block', Breaker)
+					customlist = collection('block', Breaker, function(tab, obj)
+						if table.find(Custom.ListEnabled, obj.Name) then
+							table.insert(tab, obj)
+						end
+					end)
+		
+					Breaker:Clean(runService.PreSimulation:Connect(function(dt)
+						if AutoAim.Enabled and targetting then
+							gameCamera.CFrame = gameCamera.CFrame:Lerp(CFrame.lookAt(gameCamera.CFrame.p, targetting), AimSpeed.Value * dt)
+						end
+					end))
+
+					repeat
+						task.wait(1 / UpdateRate.Value)
+						if not Breaker.Enabled then break end
+						if entitylib.isAlive then
+							local localPosition = entitylib.character.RootPart.Position
+		
+							if attemptBreak(Bed.Enabled and beds, localPosition) then continue end
+							if attemptBreak(customlist, localPosition) then continue end
+							if attemptBreak(LuckyBlock.Enabled and luckyblock, localPosition) then continue end
+							if attemptBreak(IronOre.Enabled and ironores, localPosition) then continue end
+		
+							for _, v in parts do
+								v.Position = Vector3.zero
+							end
+						end
+					until not Breaker.Enabled
+				else
+					for _, v in parts do
+						v:ClearAllChildren()
+						v:Destroy()
+					end
+					table.clear(parts)
+				end
+			end,
+			Tooltip = 'Break blocks around you automatically'
+		})
+		Range = Breaker:CreateSlider({
+			Name = 'Break range',
+			Min = 1,
+			Max = 30,
+			Default = 30,
+			Suffix = function(val)
+				return val == 1 and 'stud' or 'studs'
+			end
+		})
+		Delay = Breaker:CreateSlider({
+			Name = 'Break Delay',
+			Min = 0,
+			Max = 0.3,
+			Default = 0.25,
+			Decimal = 100,
+			Suffix = function(val)
+				return 's'
+			end
+		})
+		AimSpeed = Breaker:CreateSlider({
+			Name = 'Aim Speed',
+			Min = 1,
+			Max = 20,
+			Default = 20
+		})
+		AimSpeed.Object.Visible = false
+		UpdateRate = Breaker:CreateSlider({
+			Name = 'Update rate',
+			Min = 1,
+			Max = 120,
+			Default = 60,
+			Suffix = 'hz'
+		})
+		Custom = Breaker:CreateTextList({
+			Name = 'Custom',
+			Function = function()
+				if not customlist then return end
+				table.clear(customlist)
+				for _, obj in store.blocks do
+					if table.find(Custom.ListEnabled, obj.Name) then
+						table.insert(customlist, obj)
+					end
+				end
+			end
+		})
+		Bed = Breaker:CreateToggle({
+			Name = 'Break Bed',
+			Default = true
+		})
+		AutoAim = Breaker:CreateToggle({
+			Name = 'Auto Aim',
+			Function = function(call)
+				AimSpeed.Object.Visible = call
+			end
+		})
+		LuckyBlock = Breaker:CreateToggle({
+			Name = 'Break Lucky Block',
+			Default = true
+		})
+		IronOre = Breaker:CreateToggle({
+			Name = 'Break Iron Ore',
+			Default = true
+		})
+		Effect = Breaker:CreateToggle({
+			Name = 'Show Healthbar & Effects',
+			Function = function(callback)
+				if CustomHealth.Object then
+					CustomHealth.Object.Visible = callback
+				end
+			end,
+			Default = true
+		})
+		CustomHealth = Breaker:CreateToggle({
+			Name = 'Custom Healthbar',
+			Default = true,
+			Darker = true
+		})
+		Animation = Breaker:CreateToggle({Name = 'Animation'})
+		SelfBreak = Breaker:CreateToggle({Name = 'Self Break'})
+		WallCheck = Breaker:CreateToggle({Name = 'Wall Check'})
+		Cache = Breaker:CreateToggle({Name = 'Break through block'})
+		AutoTool = Breaker:CreateToggle({Name = 'Auto Tool'})
+		LimitItem = Breaker:CreateToggle({
+			Name = 'Limit to items',
+			Tooltip = 'Only breaks when tools are held'
+		})
+	end)
+		
+	run(function()
+		local BedBreakEffect
+		local Mode
+		local List
+		local NameToId = {}
+		
+		BedBreakEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Bed Break Effect',
+			Function = function(callback)
+				if callback then
+					BedBreakEffect:Clean(vapeEvents.BedwarsBedBreak.Event:Connect(function(data)
+						firesignal(bedwars.Client:Get('BedBreakEffectTriggered').instance.OnClientEvent, {
+							player = data.player,
+							position = data.bedBlockPosition * 3,
+							effectType = NameToId[List.Value],
+							teamId = data.brokenBedTeam.id,
+							centerBedPosition = data.bedBlockPosition * 3
+						})
+					end))
+				end
+			end,
+			Tooltip = 'Custom bed break effects'
+		})
+		local BreakEffectName = {}
+		for i, v in bedwars.BedBreakEffectMeta do
+			table.insert(BreakEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(BreakEffectName)
+		List = BedBreakEffect:CreateDropdown({
+			Name = 'Effect',
+			List = BreakEffectName
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Legit:CreateModule({
+			Name = 'Clean Kit',
+			Function = function(callback)
+				if callback then
+					bedwars.WindWalkerController.spawnOrb = function() end
+					local zephyreffect = lplr.PlayerGui:FindFirstChild('WindWalkerEffect', true)
+					if zephyreffect then 
+						zephyreffect.Visible = false 
+					end
+				end
+			end,
+			Tooltip = 'Removes zephyr status indicator'
+		})
+	end)
+		
+	run(function()
+		local old
+		local Image
+		
+		local Crosshair = vape.Categories.Legit:CreateModule({
+			Name = 'Crosshair',
+			Function = function(callback)
+				if callback then
+					old = debug.getconstant(bedwars.ViewmodelController.showCrosshair, 25)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 25, Image.Value)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 37, Image.Value)
+				else
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 25, old)
+					debug.setconstant(bedwars.ViewmodelController.showCrosshair, 37, old)
+					old = nil
+				end
+		
+				if bedwars.ViewmodelController.crosshair then
+					bedwars.ViewmodelController:hideCrosshair()
+					bedwars.ViewmodelController:showCrosshair()
+				end
+			end,
+			Tooltip = 'Custom first person crosshair depending on the image choosen.'
+		})
+		Image = Crosshair:CreateTextBox({
+			Name = 'Image',
+			Placeholder = 'image id (roblox)',
+			Function = function(enter)
+				if enter and Crosshair.Enabled then
+					Crosshair:Toggle()
+					Crosshair:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local DamageIndicator
+		local FontOption
+		local Color
+		local Size
+		local Anchor
+		local Stroke
+		local suc, tab = pcall(function()
+			return debug.getupvalue(bedwars.DamageIndicator, 2)
+		end)
+		tab = suc and tab or {}
+		local oldvalues, oldfont = {}
+		
+		DamageIndicator = vape.Categories.Legit:CreateModule({
+			Name = 'Damage Indicator',
+			Function = function(callback)
+				if canDebug then
+					if callback then
+						oldvalues = table.clone(tab)
+						oldfont = debug.getconstant(bedwars.DamageIndicator, 85)
+						debug.setconstant(bedwars.DamageIndicator, 85, FontOption.Value)
+						debug.setconstant(bedwars.DamageIndicator, 119, Stroke.Enabled and 'Thickness' or 'Enabled')
+						tab.strokeThickness = Stroke.Enabled and 1 or false
+						tab.textSize = Size.Value
+						tab.blowUpSize = Size.Value
+						tab.blowUpDuration = 0
+						tab.baseColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+						tab.blowUpCompleteDuration = 0
+						tab.anchoredDuration = Anchor.Value
+					else
+						for i, v in oldvalues do
+							tab[i] = v
+						end
+						debug.setconstant(bedwars.DamageIndicator, 85, oldfont)
+						debug.setconstant(bedwars.DamageIndicator, 119, 'Thickness')
+					end
+				end
+			end,
+			Tooltip = 'Customize the damage indicator'
+		})
+		local fontitems = {'GothamBlack'}
+		for _, v in Enum.Font:GetEnumItems() do
+			if v.Name ~= 'GothamBlack' then
+				table.insert(fontitems, v.Name)
+			end
+		end
+		FontOption = DamageIndicator:CreateDropdown({
+			Name = 'Font',
+			List = fontitems,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 86, Enum.Font[val])
+				end
+			end
+		})
+		Color = DamageIndicator:CreateColorSlider({
+			Name = 'Color',
+			DefaultHue = 0,
+			Function = function(hue, sat, val)
+				if DamageIndicator.Enabled then
+					tab.baseColor = Color3.fromHSV(hue, sat, val)
+				end
+			end
+		})
+		Size = DamageIndicator:CreateSlider({
+			Name = 'Size',
+			Min = 1,
+			Max = 32,
+			Default = 32,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.textSize = val
+					tab.blowUpSize = val
+				end
+			end
+		})
+		Anchor = DamageIndicator:CreateSlider({
+			Name = 'Anchor',
+			Min = 0,
+			Max = 1,
+			Decimal = 10,
+			Function = function(val)
+				if DamageIndicator.Enabled then
+					tab.anchoredDuration = val
+				end
+			end
+		})
+		Stroke = DamageIndicator:CreateToggle({
+			Name = 'Stroke',
+			Function = function(callback)
+				if DamageIndicator.Enabled then
+					debug.setconstant(bedwars.DamageIndicator, 119, callback and 'Thickness' or 'Enabled')
+					tab.strokeThickness = callback and 1 or false
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local FOV
+		local Value
+		local old, old2
+		
+		FOV = vape.Categories.Legit:CreateModule({
+			Name = 'FOV',
+			Function = function(callback)
+				if callback then
+					old = bedwars.FovController.setFOV
+					old2 = bedwars.FovController.getFOV
+					bedwars.FovController.setFOV = function(self) 
+						return old(self, Value.Value) 
+					end
+					bedwars.FovController.getFOV = function() 
+						return Value.Value 
+					end
+					bedwars.FovController:setFOV(Value.Value)
+				else
+					bedwars.FovController.setFOV = old
+					bedwars.FovController.getFOV = old2
+				end
+				
+				if canDebug then
+					bedwars.FovController:setFOV(bedwars.Store:getState().Settings.fov)
+				end
+			end,
+			Tooltip = 'Adjusts camera vision'
+		})
+		Value = FOV:CreateSlider({
+			Name = 'FOV',
+			Min = 30,
+			Max = 120
+		})
+	end)
+		
+	run(function()
+		local FPSBoost
+		local Kill
+		local Visualizer
+		local effects, util = {}, {}
+		
+		FPSBoost = vape.Categories.Legit:CreateModule({
+			Name = 'FPS Boost',
+			Function = function(callback)
+				if callback then
+					if Kill.Enabled then
+						for i, v in bedwars.KillEffectController.killEffects do
+							if not i:find('Custom') then
+								effects[i] = v
+								bedwars.KillEffectController.killEffects[i] = {
+									new = function() 
+										return {
+											onKill = function() end, 
+											isPlayDefaultKillEffect = function() 
+												return true 
+											end
+										} 
+									end
+								}
+							end
+						end
+					end
+		
+					if Visualizer.Enabled then
+						for i, v in bedwars.VisualizerUtils do
+							util[i] = v
+							bedwars.VisualizerUtils[i] = function() end
+						end
+					end
+		
+					repeat task.wait() until store.matchState ~= 0
+					if not bedwars.AppController then return end
+					bedwars.NametagController.addGameNametag = function() end
+					for _, v in bedwars.AppController:getOpenApps() do
+						if tostring(v):find('Nametag') then
+							bedwars.AppController:closeApp(tostring(v))
+						end
+					end
+				else
+					for i, v in effects do 
+						bedwars.KillEffectController.killEffects[i] = v 
+					end
+					for i, v in util do 
+						bedwars.VisualizerUtils[i] = v 
+					end
+					table.clear(effects)
+					table.clear(util)
+				end
+			end,
+			Tooltip = 'Improves the framerate by turning off certain effects'
+		})
+		Kill = FPSBoost:CreateToggle({
+			Name = 'Kill Effects',
+			Function = function()
+				if FPSBoost.Enabled then
+					FPSBoost:Toggle()
+					FPSBoost:Toggle()
+				end
+			end,
+			Default = true
+		})
+		Visualizer = FPSBoost:CreateToggle({
+			Name = 'Visualizer',
+			Function = function()
+				if FPSBoost.Enabled then
+					FPSBoost:Toggle()
+					FPSBoost:Toggle()
+				end
+			end,
+			Default = true
+		})
+	end)
+		
+	run(function()
+		local HitColor
+		local Color
+		local done = {}
+		
+		HitColor = vape.Categories.Legit:CreateModule({
+			Name = 'Hit Color',
+			Function = function(callback)
+				if callback then 
+					repeat
+						for i, v in entitylib.List do 
+							local highlight = v.Character and v.Character:FindFirstChild('_DamageHighlight_')
+							if highlight then 
+								if not table.find(done, highlight) then 
+									table.insert(done, highlight) 
+								end
+								highlight.FillColor = Color3.fromHSV(Color.Hue, Color.Sat, Color.Value)
+								highlight.FillTransparency = Color.Opacity
+							end
+						end
+						task.wait(0.1)
+					until not HitColor.Enabled
+				else
+					for i, v in done do 
+						v.FillColor = Color3.new(1, 0, 0)
+						v.FillTransparency = 0.4
+					end
+					table.clear(done)
+				end
+			end,
+			Tooltip = 'Customize the hit highlight options'
+		})
+		Color = HitColor:CreateColorSlider({
+			Name = 'Color',
+			DefaultOpacity = 0.4
+		})
+	end)
+		
+	run(function()
+		vape.Categories.Legit:CreateModule({
+			Name = 'Hit Fix',
+			Function = function(callback)
+				if canDebug then
+					debug.setconstant(bedwars.SwordController.swingSwordAtMouse, 23, callback and 'raycast' or 'Raycast')
+					debug.setupvalue(bedwars.SwordController.swingSwordAtMouse, 4, callback and bedwars.QueryUtil or workspace)
+				end
+			end,
+			Tooltip = 'Changes the raycast function to the correct one'
+		})
+	end)
+
+	if canDebug then
+		run(function()
+			local Interface
+			local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+			local HotbarHealthbar = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar['hotbar-healthbar']).HotbarHealthbar
+			local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+			local old, new = {}, {}
+			
+			vape:Clean(function()
+				for _, v in new do
+					table.clear(v)
+				end
+				for _, v in old do
+					table.clear(v)
+				end
+				table.clear(new)
+				table.clear(old)
+			end)
+			
+			local function modifyconstant(func, ind, val)
+				if not func then return end
+				if not old[func] then old[func] = {} end
+				if not new[func] then new[func] = {} end
+				if not old[func][ind] then
+					old[func][ind] = debug.getconstant(func, ind)
+				end
+				if typeof(old[func][ind]) ~= typeof(val) then return end
+				new[func][ind] = val
+			
+				if Interface.Enabled then
+					if val then
+						debug.setconstant(func, ind, val)
+					else
+						debug.setconstant(func, ind, old[func][ind])
+						old[func][ind] = nil
+					end
+				end
+			end
+			
+			Interface = vape.Categories.Legit:CreateModule({
+				Name = 'Interface',
+				Function = function(callback)
+					for i, v in (callback and new or old) do
+						for i2, v2 in v do
+							debug.setconstant(i, i2, v2)
+						end
+					end
+				end,
+				Tooltip = 'Customize bedwars UI'
+			})
+			local fontitems = {'LuckiestGuy'}
+			for _, v in Enum.Font:GetEnumItems() do
+				if v.Name ~= 'LuckiestGuy' then
+					table.insert(fontitems, v.Name)
+				end
+			end
+			Interface:CreateDropdown({
+				Name = 'Health Font',
+				List = fontitems,
+				Function = function(val)
+					modifyconstant(HotbarHealthbar.render, 77, val)
+				end
+			})
+			Interface:CreateColorSlider({
+				Name = 'Health Color',
+				Function = function(hue, sat, val)
+					modifyconstant(HotbarHealthbar.render, 16, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					if Interface.Enabled then
+						local hotbar = lplr.PlayerGui:FindFirstChild('hotbar')
+						hotbar = hotbar and hotbar:FindFirstChild('HealthbarProgressWrapper', true)
+						if hotbar then
+							hotbar['1'].BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+						end
+					end
+				end
+			})
+			Interface:CreateColorSlider({
+				Name = 'Hotbar Color',
+				DefaultOpacity = 0.8,
+				Function = function(hue, sat, val, opacity)
+					local func = oldinvrender or HotbarOpenInventory.render
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 51, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 58, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 54, 1 - opacity)
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 55, math.clamp(1.2 - opacity, 0, 1))
+					modifyconstant(func, 31, tonumber(Color3.fromHSV(hue, sat, val):ToHex(), 16))
+					modifyconstant(func, 32, math.clamp(1.2 - opacity, 0, 1))
+					modifyconstant(func, 34, tonumber(Color3.fromHSV(hue, sat, math.clamp(val > 0.5 and val - 0.2 or val + 0.2, 0, 1)):ToHex(), 16))
+				end
+			})
+		end)
+	end
+		
+	run(function()
+		local KillEffect
+		local Mode
+		local List
+		local NameToId = {}
+		
+		local killeffects = {
+			Gravity = function(_, _, char, _)
+				char:BreakJoints()
+				local highlight = char:FindFirstChildWhichIsA('Highlight')
+				local nametag = char:FindFirstChild('Nametag', true)
+				if highlight then
+					highlight:Destroy()
+				end
+				if nametag then
+					nametag:Destroy()
+				end
+		
+				task.spawn(function()
+					local partvelo = {}
+					for _, v in char:GetDescendants() do
+						if v:IsA('BasePart') then
+							partvelo[v.Name] = v.Velocity
+						end
+					end
+					char.Archivable = true
+					local clone = char:Clone()
+					clone.Humanoid.Health = 100
+					clone.Parent = workspace
+					game:GetService('Debris'):AddItem(clone, 30)
+					char:Destroy()
+					task.wait(0.01)
+					clone.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+					clone:BreakJoints()
+					task.wait(0.01)
+					for _, v in clone:GetDescendants() do
+						if v:IsA('BasePart') then
+							local bodyforce = Instance.new('BodyForce')
+							bodyforce.Force = Vector3.new(0, (workspace.Gravity - 10) * v:GetMass(), 0)
+							bodyforce.Parent = v
+							v.CanCollide = true
+							v.Velocity = partvelo[v.Name] or Vector3.zero
+						end
+					end
+				end)
+			end,
+			Lightning = function(_, _, char, _)
+				char:BreakJoints()
+				local highlight = char:FindFirstChildWhichIsA('Highlight')
+				if highlight then
+					highlight:Destroy()
+				end
+				local startpos = 1125
+				local startcf = char.PrimaryPart.CFrame.p - Vector3.new(0, 8, 0)
+				local newpos = Vector3.new((math.random(1, 10) - 5) * 2, startpos, (math.random(1, 10) - 5) * 2)
+		
+				for i = startpos - 75, 0, -75 do
+					local newpos2 = Vector3.new((math.random(1, 10) - 5) * 2, i, (math.random(1, 10) - 5) * 2)
+					if i == 0 then
+						newpos2 = Vector3.zero
+					end
+					local part = Instance.new('Part')
+					part.Size = Vector3.new(1.5, 1.5, 77)
+					part.Material = Enum.Material.SmoothPlastic
+					part.Anchored = true
+					part.Material = Enum.Material.Neon
+					part.CanCollide = false
+					part.CFrame = CFrame.new(startcf + newpos + ((newpos2 - newpos) * 0.5), startcf + newpos2)
+					part.Parent = workspace
+					local part2 = part:Clone()
+					part2.Size = Vector3.new(3, 3, 78)
+					part2.Color = Color3.new(0.7, 0.7, 0.7)
+					part2.Transparency = 0.7
+					part2.Material = Enum.Material.SmoothPlastic
+					part2.Parent = workspace
+					game:GetService('Debris'):AddItem(part, 0.5)
+					game:GetService('Debris'):AddItem(part2, 0.5)
+					bedwars.QueryUtil:setQueryIgnored(part, true)
+					bedwars.QueryUtil:setQueryIgnored(part2, true)
+					if i == 0 then
+						local soundpart = Instance.new('Part')
+						soundpart.Transparency = 1
+						soundpart.Anchored = true
+						soundpart.Size = Vector3.zero
+						soundpart.Position = startcf
+						soundpart.Parent = workspace
+						bedwars.QueryUtil:setQueryIgnored(soundpart, true)
+						local sound = Instance.new('Sound')
+						sound.SoundId = 'rbxassetid://6993372814'
+						sound.Volume = 2
+						sound.Pitch = 0.5 + (math.random(1, 3) / 10)
+						sound.Parent = soundpart
+						sound:Play()
+						sound.Ended:Connect(function()
+							soundpart:Destroy()
+						end)
+					end
+					newpos = newpos2
+				end
+			end,
+			Delete = function(_, _, char, _)
+				char:Destroy()
+			end
+		}
+		
+		KillEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Kill Effect',
+			Function = function(callback)
+				if callback then
+					for i, v in killeffects do
+						bedwars.KillEffectController.killEffects['Custom'..i] = {
+							new = function()
+								return {
+									onKill = v,
+									isPlayDefaultKillEffect = function()
+										return false
+									end
+								}
+							end
+						}
+					end
+					KillEffect:Clean(lplr:GetAttributeChangedSignal('KillEffectType'):Connect(function()
+						lplr:SetAttribute('KillEffectType', Mode.Value == 'Bedwars' and NameToId[List.Value] or 'Custom'..Mode.Value)
+					end))
+					lplr:SetAttribute('KillEffectType', Mode.Value == 'Bedwars' and NameToId[List.Value] or 'Custom'..Mode.Value)
+				else
+					for i in killeffects do
+						bedwars.KillEffectController.killEffects['Custom'..i] = nil
+					end
+					lplr:SetAttribute('KillEffectType', 'default')
+				end
+			end,
+			Tooltip = 'Custom final kill effects'
+		})
+		local modes = {'Bedwars'}
+		for i in killeffects do
+			table.insert(modes, i)
+		end
+		Mode = KillEffect:CreateDropdown({
+			Name = 'Mode',
+			List = modes,
+			Function = function(val)
+				List.Object.Visible = val == 'Bedwars'
+				if KillEffect.Enabled then
+					lplr:SetAttribute('KillEffectType', val == 'Bedwars' and NameToId[List.Value] or 'Custom'..val)
+				end
+			end
+		})
+		local KillEffectName = {}
+		for i, v in bedwars.KillEffectMeta do
+			table.insert(KillEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(KillEffectName)
+		List = KillEffect:CreateDropdown({
+			Name = 'Bedwars',
+			List = KillEffectName,
+			Function = function(val)
+				if KillEffect.Enabled then
+					lplr:SetAttribute('KillEffectType', NameToId[val])
+				end
+			end,
+			Darker = true
+		})
+	end)
+		
+	run(function()
+		local ReachDisplay
+		local label
+		
+		ReachDisplay = vape.Legit:CreateModule({
+			Name = 'Reach Display',
+			Function = function(callback)
+				if callback then
+					repeat
+						label.Text = (store.attackReachUpdate > tick() and store.attackReach or '0.00')..' studs'
+						task.wait(0.4)
+					until not ReachDisplay.Enabled
+				end
+			end,
+			Size = UDim2.fromOffset(100, 41)
+		})
+		ReachDisplay:CreateFont({
+			Name = 'Font',
+			Blacklist = 'Gotham',
+			Function = function(val)
+				label.FontFace = val
+			end
+		})
+		ReachDisplay:CreateColorSlider({
+			Name = 'Color',
+			DefaultValue = 0,
+			DefaultOpacity = 0.5,
+			Function = function(hue, sat, val, opacity)
+				label.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				label.BackgroundTransparency = 1 - opacity
+			end
+		})
+		label = Instance.new('TextLabel')
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 0.5
+		label.TextSize = 15
+		label.Font = Enum.Font.Gotham
+		label.Text = '0.00 studs'
+		label.TextColor3 = Color3.new(1, 1, 1)
+		label.BackgroundColor3 = Color3.new()
+		label.Parent = ReachDisplay.Children
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = UDim.new(0, 4)
+		corner.Parent = label
+	end)
+		
+	run(function()
+		local SongBeats
+		local List
+		local FOV
+		local FOVValue = {}
+		local Volume
+		local alreadypicked = {}
+		local beattick = tick()
+		local oldfov, songobj, songbpm, songtween
+		
+		local function choosesong()
+			local list = List.ListEnabled
+			if #alreadypicked >= #list then 
+				table.clear(alreadypicked) 
+			end
+		
+			if #list <= 0 then
+				notif('SongBeats', 'no songs', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			local chosensong = list[math.random(1, #list)]
+			if #list > 1 and table.find(alreadypicked, chosensong) then
+				repeat 
+					task.wait() 
+					chosensong = list[math.random(1, #list)] 
+				until not table.find(alreadypicked, chosensong) or not SongBeats.Enabled
+			end
+			if not SongBeats.Enabled then return end
+		
+			local split = chosensong:split('/')
+			if not isfile(split[1]) then
+				notif('SongBeats', 'Missing song ('..split[1]..')', 10)
+				SongBeats:Toggle()
+				return
+			end
+		
+			songobj.SoundId = assetfunction(split[1])
+			repeat task.wait() until songobj.IsLoaded or not SongBeats.Enabled
+			if SongBeats.Enabled then
+				beattick = tick() + (tonumber(split[3]) or 0)
+				songbpm = 60 / (tonumber(split[2]) or 50)
+				songobj:Play()
+			end
+		end
+		
+		SongBeats = vape.Categories.Legit:CreateModule({
+			Name = 'Song Beats',
+			Function = function(callback)
+				if callback then
+					songobj = Instance.new('Sound')
+					songobj.Volume = Volume.Value / 100
+					songobj.Parent = workspace
+					repeat
+						if not songobj.Playing then choosesong() end
+						if beattick < tick() and SongBeats.Enabled and FOV.Enabled then
+							beattick = tick() + songbpm
+							oldfov = math.min(bedwars.FovController:getFOV() * (bedwars.SprintController.sprinting and 1.1 or 1), 120)
+							gameCamera.FieldOfView = oldfov - FOVValue.Value
+							songtween = tweenService:Create(gameCamera, TweenInfo.new(math.min(songbpm, 0.2), Enum.EasingStyle.Linear), {FieldOfView = oldfov})
+							songtween:Play()
+						end
+						task.wait()
+					until not SongBeats.Enabled
+				else
+					if songobj then
+						songobj:Destroy()
+					end
+					if songtween then
+						songtween:Cancel()
+					end
+					if oldfov then
+						gameCamera.FieldOfView = oldfov
+					end
+					table.clear(alreadypicked)
+				end
+			end,
+			Tooltip = 'Built in mp3 player'
+		})
+		List = SongBeats:CreateTextList({
+			Name = 'Songs',
+			Placeholder = 'filepath/bpm/start'
+		})
+		FOV = SongBeats:CreateToggle({
+			Name = 'Beat FOV',
+			Function = function(callback)
+				if FOVValue.Object then
+					FOVValue.Object.Visible = callback
+				end
+				if SongBeats.Enabled then
+					SongBeats:Toggle()
+					SongBeats:Toggle()
+				end
+			end,
+			Default = true
+		})
+		FOVValue = SongBeats:CreateSlider({
+			Name = 'Adjustment',
+			Min = 1,
+			Max = 30,
+			Default = 5,
+			Darker = true
+		})
+		Volume = SongBeats:CreateSlider({
+			Name = 'Volume',
+			Function = function(val)
+				if songobj then 
+					songobj.Volume = val / 100 
+				end
+			end,
+			Min = 1,
+			Max = 100,
+			Default = 100,
+			Suffix = '%'
+		})
+	end)
+		
+	run(function()
+		local SoundChanger
+		local List
+		local soundlist = {}
+		local old
+		
+		SoundChanger = vape.Categories.Legit:CreateModule({
+			Name = 'Sound Changer',
+			Function = function(callback)
+				if callback then
+					old = bedwars.SoundManager.playSound
+					bedwars.SoundManager.playSound = function(self, id, ...)
+						if soundlist[id] then
+							id = soundlist[id]
+						end
+		
+						return old(self, id, ...)
+					end
+				else
+					bedwars.SoundManager.playSound = old
+					old = nil
+				end
+			end,
+			Tooltip = 'Change ingame sounds to custom ones.'
+		})
+		List = SoundChanger:CreateTextList({
+			Name = 'Sounds',
+			Placeholder = '(DAMAGE_1/ben.mp3)',
+			Function = function()
+				table.clear(soundlist)
+				for _, entry in List.ListEnabled do
+					local split = entry:split('/')
+					local id = bedwars.SoundList[split[1]]
+					if id and #split > 1 then
+						soundlist[id] = split[2]:find('rbxasset') and split[2] or isfile(split[2]) and assetfunction(split[2]) or ''
+					end
+				end
+			end
+		})
+	end)
+		
+	if canDebug then
+		run(function()
+			local UICleanup
+			local OpenInv
+			local KillFeed
+			local OldTabList
+			local HotbarApp = getRoactRender(require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-app']).HotbarApp.render)
+			local HotbarOpenInventory = require(lplr.PlayerScripts.TS.controllers.global.hotbar.ui['hotbar-open-inventory']).HotbarOpenInventory
+			local old, new = {}, {}
+			local oldkillfeed
+			
+			vape:Clean(function()
+				for _, v in new do
+					table.clear(v)
+				end
+				for _, v in old do
+					table.clear(v)
+				end
+				table.clear(new)
+				table.clear(old)
+			end)
+			
+			local function modifyconstant(func, ind, val)
+				if not old[func] then old[func] = {} end
+				if not new[func] then new[func] = {} end
+				if not old[func][ind] then
+					local typing = type(old[func][ind])
+					if typing == 'function' or typing == 'userdata' then return end
+					old[func][ind] = debug.getconstant(func, ind)
+				end
+				if typeof(old[func][ind]) ~= typeof(val) and val ~= nil then return end
+			
+				new[func][ind] = val
+				if UICleanup.Enabled then
+					if val then
+						debug.setconstant(func, ind, val)
+					else
+						debug.setconstant(func, ind, old[func][ind])
+						old[func][ind] = nil
+					end
+				end
+			end
+			
+			UICleanup = vape.Categories.Legit:CreateModule({
+				Name = 'UI Cleanup',
+				Function = function(callback)
+					for i, v in (callback and new or old) do
+						for i2, v2 in v do
+							debug.setconstant(i, i2, v2)
+						end
+					end
+					if callback then
+						if OpenInv.Enabled then
+							oldinvrender = HotbarOpenInventory.render
+							HotbarOpenInventory.render = function()
+								return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+							end
+						end
+			
+						if KillFeed.Enabled then
+							oldkillfeed = bedwars.KillFeedController.addToKillFeed
+							bedwars.KillFeedController.addToKillFeed = function() end
+						end
+			
+						if OldTabList.Enabled then
+							starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+						end
+					else
+						if oldinvrender then
+							HotbarOpenInventory.render = oldinvrender
+							oldinvrender = nil
+						end
+			
+						if KillFeed.Enabled then
+							bedwars.KillFeedController.addToKillFeed = oldkillfeed
+							oldkillfeed = nil
+						end
+			
+						if OldTabList.Enabled then
+							starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+						end
+					end
+				end,
+				Tooltip = 'Cleans up the UI for kits & main'
+			})
+			UICleanup:CreateToggle({
+				Name = 'Resize Health',
+				Function = function(callback)
+					modifyconstant(HotbarApp, 60, callback and 1 or nil)
+					modifyconstant(debug.getupvalue(HotbarApp, 15).render, 30, callback and 1 or nil)
+					modifyconstant(debug.getupvalue(HotbarApp, 23).tweenPosition, 16, callback and 0 or nil)
+				end,
+				Default = true
+			})
+			UICleanup:CreateToggle({
+				Name = 'No Hotbar Numbers',
+				Function = function(callback)
+					local func = oldinvrender or HotbarOpenInventory.render
+					modifyconstant(debug.getupvalue(HotbarApp, 23).render, 90, callback and 0 or nil)
+					modifyconstant(func, 71, callback and 0 or nil)
+				end,
+				Default = true
+			})
+			OpenInv = UICleanup:CreateToggle({
+				Name = 'No Inventory Button',
+				Function = function(callback)
+					modifyconstant(HotbarApp, 78, callback and 0 or nil)
+					if UICleanup.Enabled then
+						if callback then
+							oldinvrender = HotbarOpenInventory.render
+							HotbarOpenInventory.render = function()
+								return bedwars.Roact.createElement('TextButton', {Visible = false}, {})
+							end
+						else
+							HotbarOpenInventory.render = oldinvrender
+							oldinvrender = nil
+						end
+					end
+				end,
+				Default = true
+			})
+			KillFeed = UICleanup:CreateToggle({
+				Name = 'No Kill Feed',
+				Function = function(callback)
+					if UICleanup.Enabled then
+						if callback then
+							oldkillfeed = bedwars.KillFeedController.addToKillFeed
+							bedwars.KillFeedController.addToKillFeed = function() end
+						else
+							bedwars.KillFeedController.addToKillFeed = oldkillfeed
+							oldkillfeed = nil
+						end
+					end
+				end,
+				Default = true
+			})
+			OldTabList = UICleanup:CreateToggle({
+				Name = 'Old Player List',
+				Function = function(callback)
+					if UICleanup.Enabled then
+						starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, callback)
+					end
+				end,
+				Default = true
+			})
+			UICleanup:CreateToggle({
+				Name = 'Fix Queue Card',
+				Function = function(callback)
+					modifyconstant(bedwars.QueueCard.render, 15, callback and 0.1 or nil)
+				end,
+				Default = true
+			})
+		end)
+	end
+		
+	run(function()
+		local Viewmodel
+		local Depth
+		local Horizontal
+		local Vertical
+		local NoBob
+		local Rots = {}
+		local old, oldc1
+		
+		Viewmodel = vape.Categories.Legit:CreateModule({
+			Name = 'Viewmodel',
+			Function = function(callback)
+				local viewmodel = gameCamera:FindFirstChild('Viewmodel')
+				if callback then
+					old = bedwars.ViewmodelController.playAnimation
+					oldc1 = viewmodel and viewmodel.RightHand.RightWrist.C1 or CFrame.identity
+					if NoBob.Enabled and canDebug then
+						bedwars.ViewmodelController.playAnimation = function(self, animtype, ...)
+							if bedwars.AnimationType and animtype == bedwars.AnimationType.FP_WALK then return end
+							return old(self, animtype, ...)
+						end
+					end
+		
+					if canDebug then
+						bedwars.InventoryViewmodelController:handleStore(bedwars.Store:getState())
+					end
+					if viewmodel then
+						gameCamera.Viewmodel.RightHand.RightWrist.C1 = oldc1 * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+					end
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', -Depth.Value)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', Horizontal.Value)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', Vertical.Value)
+				else
+					if canDebug then
+						bedwars.ViewmodelController.playAnimation = old
+					end
+					if viewmodel then
+						viewmodel.RightHand.RightWrist.C1 = oldc1
+					end
+		
+					if canDebug then
+						bedwars.InventoryViewmodelController:handleStore(bedwars.Store:getState())
+					end
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', 0)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', 0)
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', 0)
+					old = nil
+				end
+			end,
+			Tooltip = 'Changes the viewmodel animations'
+		})
+		Depth = Viewmodel:CreateSlider({
+			Name = 'Depth',
+			Min = 0,
+			Max = 2,
+			Default = 0.8,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_DEPTH_OFFSET', -val)
+				end
+			end
+		})
+		Horizontal = Viewmodel:CreateSlider({
+			Name = 'Horizontal',
+			Min = 0,
+			Max = 2,
+			Default = 0.8,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_HORIZONTAL_OFFSET', val)
+				end
+			end
+		})
+		Vertical = Viewmodel:CreateSlider({
+			Name = 'Vertical',
+			Min = -0.2,
+			Max = 2,
+			Default = -0.2,
+			Decimal = 10,
+			Function = function(val)
+				if Viewmodel.Enabled then
+					lplr.PlayerScripts.TS.controllers.global.viewmodel['viewmodel-controller']:SetAttribute('ConstantManager_VERTICAL_OFFSET', val)
+				end
+			end
+		})
+		for _, name in {'Rotation X', 'Rotation Y', 'Rotation Z'} do
+			table.insert(Rots, Viewmodel:CreateSlider({
+				Name = name,
+				Min = 0,
+				Max = 360,
+				Function = function(val)
+					if Viewmodel.Enabled then
+						gameCamera.Viewmodel.RightHand.RightWrist.C1 = oldc1 * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
+					end
+				end
+			}))
+		end
+		NoBob = Viewmodel:CreateToggle({
+			Name = 'No Bobbing',
+			Default = true,
+			Function = function()
+				if Viewmodel.Enabled then
+					Viewmodel:Toggle()
+					Viewmodel:Toggle()
+				end
+			end
+		})
+	end)
+		
+	run(function()
+		local WinEffect
+		local List
+		local NameToId = {}
+		
+		WinEffect = vape.Categories.Legit:CreateModule({
+			Name = 'Win Effect',
+			Function = function(callback)
+				if callback then
+					WinEffect:Clean(vapeEvents.MatchEndEvent.Event:Connect(function()
+						for i, v in getconnections(bedwars.Client:Get('WinEffectTriggered').instance.OnClientEvent) do
+							if v.Function then
+								v.Function({
+									winEffectType = NameToId[List.Value],
+									winningPlayer = lplr
+								})
+							end
+						end
+					end))
+				end
+			end,
+			Tooltip = 'Allows you to select any clientside win effect'
+		})
+		local WinEffectName = {}
+		for i, v in bedwars.WinEffectMeta do
+			table.insert(WinEffectName, v.name)
+			NameToId[v.name] = i
+		end
+		table.sort(WinEffectName)
+		List = WinEffect:CreateDropdown({
+			Name = 'Effects',
+			List = WinEffectName
+		})
+	end)
+end)()
