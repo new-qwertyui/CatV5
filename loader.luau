@@ -411,10 +411,6 @@ end
 
 writefile('catrewrite/profiles/commit.txt', commit)
 
-if not canDebug and not closet then
-	createDownloader(`Downloading {identifyexecutor()} packages, This may take up to 1 minute`)
-end
-
 shared.VapeDeveloper = developer
 getgenv().used_init = true
 getgenv().catvapedev = developer
@@ -424,6 +420,10 @@ getgenv().canDebug = canDebug
 
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
+
+if identifyexecutor():lower() == 'chocosploit' then
+	getgenv().isnetworkowner = function() return true end
+end
 
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
