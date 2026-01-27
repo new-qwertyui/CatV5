@@ -410,7 +410,7 @@ if (not license.Developer and not shared.VapeDeveloper) then
 end
 
 writefile('catrewrite/profiles/commit.txt', commit)
-
+print('Great!')
 if not canDebug and not closet then
 	createDownloader(`Downloading {identifyexecutor()} packages, This may take up to 1 minute`)
 end
@@ -424,11 +424,13 @@ getgenv().canDebug = canDebug
 
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
-
+warn('Woah')
 local success, err = pcall(function()
-	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+	print('fr')
+	return loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
+print('smh', err)
 createDownloader('')
 
 for _, v in Connections do
