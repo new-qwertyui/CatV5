@@ -361,7 +361,7 @@ end
 
 makestage(1, 'Downloading packages')
 
-for _, folder in {'catrewrite', 'catrewrite/translations', 'catrewrite/scripts', 'catrewrite/games', 'catrewrite/cache', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
+for _, folder in {'catrewrite', 'catrewrite/translations', 'catrewrite/scripts', 'catrewrite/games', 'catrewrite/cache', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
 		makefolder(folder)
 	end
