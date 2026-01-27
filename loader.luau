@@ -111,7 +111,7 @@ if not developer and getconnections then
 			end
 
 			task.wait(1)
-		until false
+		until not getgenv().closet
 	end)
 end
 
