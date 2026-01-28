@@ -1,16 +1,8770 @@
+local mainapi = {
+	Categories = {},
+	GUIColor = {
+		Hue = 0.46,
+		Sat = 0.96,
+		Value = 0.52
+	},
+	HeldKeybinds = {},
+	Keybind = {'RightShift'},
+	Loaded = false,
+	Libraries = {},
+	Modules = {},
+	Place = game.PlaceId,
+	Profile = 'default',
+	Profiles = {},
+	RainbowSpeed = {Value = 1},
+	RainbowUpdateSpeed = {Value = 60},
+	RainbowTable = {},
+	Scale = {Value = 1},
+	ThreadFix = setthreadidentity and true or false,
+	ToggleNotifications = {},
+	Version = 'v4.500',
+	Windows = {},
+	Indicators = {}
+}
+loadstring([[LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or function(f) return f end]])()
 
---[[
+LPH_NO_VIRTUALIZE(function()
+	local cloneref = cloneref or function(obj)
+		return obj
+	end
 
-     █████╗  █████╗ ████████╗██╗   ██╗ █████╗ ██████╗ ███████╗   ██╗███╗  ██╗███████╗ █████╗ 
-    ██╔══██╗██╔══██╗╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██╔════╝   ██║████╗ ██║██╔════╝██╔══██╗
-    ██║  ╚═╝███████║   ██║   ╚██╗ ██╔╝███████║██████╔╝█████╗     ██║██╔██╗██║█████╗  ██║  ██║
-    ██║  ██╗██╔══██║   ██║    ╚████╔╝ ██╔══██║██╔═══╝ ██╔══╝     ██║██║╚████║██╔══╝  ██║  ██║
-    ╚█████╔╝██║  ██║   ██║     ╚██╔╝  ██║  ██║██║     ███████╗██╗██║██║ ╚███║██║     ╚█████╔╝
-     ╚════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝╚═╝╚═╝  ╚══╝╚═╝      ╚════╝ 
-        
-    
-    https://discord.gg/catvape / https://discord.catvape.info
-]]
+	local tweenService = cloneref(game:GetService('TweenService'))
+	local inputService = cloneref(game:GetService('UserInputService'))
+	local textService = cloneref(game:GetService('TextService'))
+	local guiService = cloneref(game:GetService('GuiService'))
+	local runService = cloneref(game:GetService('RunService'))
+	local httpService = cloneref(game:GetService('HttpService'))
+	local textChatService = cloneref(game:GetService("TextChatService"))
+	local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
+	local coreGui = cloneref(game:GetService('CoreGui'))
+
+	local updateSignal = Instance.new('BindableEvent')
+	local IsMobile = inputService.TouchEnabled
+
+	local fontsize = Instance.new('GetTextBoundsParams')
+	fontsize.Width = math.huge
+	local notifications
+	local assetfunction = getcustomasset
+	local getcustomasset
+	local clickgui
+	local scaledgui
+	local toolblur
+	local tooltip
+	local scale
+	local gui
+
+	local color = {}
+	local tween = {
+		tweens = {},
+		tweenstwo = {}
+	}
+	local uipallet = {
+		Main = Color3.fromRGB(26, 25, 26),
+		Text = Color3.fromRGB(200, 200, 200),
+		Font = Font.fromEnum(Enum.Font.Montserrat),
+		FontSemiBold = Font.fromEnum(Enum.Font.Montserrat, Enum.FontWeight.SemiBold),
+		Tween = TweenInfo.new(0.16, Enum.EasingStyle.Linear)
+	}
+
+	local getcustomassets = {
+		['catrewrite/assets/new/add.png'] = 'rbxassetid://14368300605',
+		['catrewrite/assets/new/alert.png'] = 'rbxassetid://14368301329',
+		['catrewrite/assets/new/allowedicon.png'] = 'rbxassetid://14368302000',
+		['catrewrite/assets/new/allowedtab.png'] = 'rbxassetid://14368302875',
+		['catrewrite/assets/new/arrowmodule.png'] = 'rbxassetid://14473354880',
+		['catrewrite/assets/new/back.png'] = 'rbxassetid://14368303894',
+		['catrewrite/assets/new/bind.png'] = 'rbxassetid://14368304734',
+		['catrewrite/assets/new/bindbkg.png'] = 'rbxassetid://14368305655',
+		['catrewrite/assets/new/blatanticon.png'] = 'rbxassetid://14368306745',
+		['catrewrite/assets/new/blockedicon.png'] = 'rbxassetid://14385669108',
+		['catrewrite/assets/new/blockedtab.png'] = 'rbxassetid://14385672881',
+		['catrewrite/assets/new/blur.png'] = 'rbxassetid://14898786664',
+		['catrewrite/assets/new/blurnotif.png'] = 'rbxassetid://16738720137',
+		['catrewrite/assets/new/close.png'] = 'rbxassetid://14368309446',
+		['catrewrite/assets/new/closemini.png'] = 'rbxassetid://14368310467',
+		['catrewrite/assets/new/colorpreview.png'] = 'rbxassetid://14368311578',
+		['catrewrite/assets/new/combaticon.png'] = 'rbxassetid://14368312652',
+		['catrewrite/assets/new/customsettings.png'] = 'rbxassetid://14403726449',
+		['catrewrite/assets/new/dots.png'] = 'rbxassetid://14368314459',
+		['catrewrite/assets/new/edit.png'] = 'rbxassetid://14368315443',
+		['catrewrite/assets/new/expandright.png'] = 'rbxassetid://14368316544',
+		['catrewrite/assets/new/expandup.png'] = 'rbxassetid://14368317595',
+		['catrewrite/assets/new/friendstab.png'] = 'rbxassetid://14397462778',
+		['catrewrite/assets/new/guisettings.png'] = 'rbxassetid://14368318994',
+		['catrewrite/assets/new/guislider.png'] = 'rbxassetid://14368320020',
+		['catrewrite/assets/new/guisliderrain.png'] = 'rbxassetid://14368321228',
+		['catrewrite/assets/new/guiv4.png'] = 'rbxassetid://89255460312067',
+		['catrewrite/assets/new/guivape.png'] = 'rbxassetid://79046067283024',
+		['catrewrite/assets/new/info.png'] = 'rbxassetid://14368324807',
+		['catrewrite/assets/new/inventoryicon.png'] = 'rbxassetid://14928011633',
+		['catrewrite/assets/new/legit.png'] = 'rbxassetid://14425650534',
+		['catrewrite/assets/new/legittab.png'] = 'rbxassetid://14426740825',
+		['catrewrite/assets/new/miniicon.png'] = 'rbxassetid://14368326029',
+		['catrewrite/assets/new/notification.png'] = 'rbxassetid://16738721069',
+		['catrewrite/assets/new/overlaysicon.png'] = 'rbxassetid://14368339581',
+		['catrewrite/assets/new/overlaystab.png'] = 'rbxassetid://14397380433',
+		['catrewrite/assets/new/pin.png'] = 'rbxassetid://14368342301',
+		['catrewrite/assets/new/profilesicon.png'] = 'rbxassetid://14397465323',
+		['catrewrite/assets/new/radaricon.png'] = 'rbxassetid://14368343291',
+		['catrewrite/assets/new/rainbow_1.png'] = 'rbxassetid://14368344374',
+		['catrewrite/assets/new/rainbow_2.png'] = 'rbxassetid://14368345149',
+		['catrewrite/assets/new/rainbow_3.png'] = 'rbxassetid://14368345840',
+		['catrewrite/assets/new/rainbow_4.png'] = 'rbxassetid://14368346696',
+		['catrewrite/assets/new/range.png'] = 'rbxassetid://14368347435',
+		['catrewrite/assets/new/rangearrow.png'] = 'rbxassetid://14368348640',
+		['catrewrite/assets/new/rendericon.png'] = 'rbxassetid://14368350193',
+		['catrewrite/assets/new/rendertab.png'] = 'rbxassetid://14397373458',
+		['catrewrite/assets/new/search.png'] = 'rbxassetid://14425646684',
+		['catrewrite/assets/new/expandicon.png'] = 'rbxassetid://14368353032',
+		['catrewrite/assets/new/targetinfoicon.png'] = 'rbxassetid://14368354234',
+		['catrewrite/assets/new/targetnpc1.png'] = 'rbxassetid://14497400332',
+		['catrewrite/assets/new/targetnpc2.png'] = 'rbxassetid://14497402744',
+		['catrewrite/assets/new/targetplayers1.png'] = 'rbxassetid://14497396015',
+		['catrewrite/assets/new/targetplayers2.png'] = 'rbxassetid://14497397862',
+		['catrewrite/assets/new/targetstab.png'] = 'rbxassetid://14497393895',
+		['catrewrite/assets/new/textguiicon.png'] = 'rbxassetid://14368355456',
+		['catrewrite/assets/new/textv4.png'] = 'rbxassetid://75991611402130',
+		['catrewrite/assets/new/textvape.png'] = 'rbxassetid://94305150632779',
+		['catrewrite/assets/new/utilityicon.png'] = 'rbxassetid://14368359107',
+		['catrewrite/assets/new/vape.png'] = 'rbxassetid://14373395239',
+		['catrewrite/assets/new/mascot.png'] = 'rbxassetid://14373395239',
+		['catrewrite/assets/new/warning.png'] = 'rbxassetid://14368361552',
+		['catrewrite/assets/new/worldicon.png'] = 'rbxassetid://14368362492',
+		['catrewrite/assets/old/spotify.png'] = 'rbxassetid://129349257949035',
+		['catrewrite/assets/new/catv5.png'] = ''
+	}
+
+	local isfile = isfile or function(file)
+		local suc, res = pcall(function()
+			return readfile(file)
+		end)
+		return suc and res ~= nil and res ~= ''
+	end
+
+	local getfontsize = function(text, size, font)
+		fontsize.Text = text
+		fontsize.Size = size
+		if typeof(font) == 'Font' then
+			fontsize.Font = font
+		end
+		return textService:GetTextBoundsAsync(fontsize)
+	end
+
+	local function addBlur(parent, notif)
+		local blur = Instance.new('ImageLabel')
+		blur.Name = 'Blur'
+		blur.Size = UDim2.new(1, 89, 1, 52)
+		blur.Position = UDim2.fromOffset(-48, -31)
+		blur.ImageColor3 = parent.BackgroundColor3
+		blur.BackgroundTransparency = 1
+		blur.Image = getcustomasset('catrewrite/assets/new/'..(notif and 'blurnotif' or 'blur')..'.png')
+		blur.ScaleType = Enum.ScaleType.Slice
+		blur.SliceCenter = Rect.new(52, 31, 261, 502)
+		blur.Parent = parent
+
+		return blur
+	end
+
+	local function addCorner(parent, radius)
+		local corner = Instance.new('UICorner')
+		corner.CornerRadius = radius or UDim.new(0, 5)
+		corner.Parent = parent
+
+		return corner
+	end
+
+	local usedLanguage = isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/language.txt') and readfile('catrewrite/profiles/language.txt') or 'Original'
+
+	local shorten = {
+		korea = 'ko',
+		thai = 'th',
+		['chinese (simplified)'] = 'zh-CN',
+		russia = 'ru',
+		arabic = 'ar',
+		romanian = 'ro'
+	}
+
+	local old = isfile
+	local isfile = function(file)
+		local suc, res = pcall(function()
+			return old(file)
+		end)
+		return suc and res or false
+	end
+
+	local getText = function(language, text)
+		return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'.. 'translations/'.. language.. '/'.. text .. '.txt')
+	end
+
+	local jsons = {
+		decoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and httpService:JSONDecode(readfile(`catrewrite/translations/{usedLanguage}.json`)) or {},
+		encoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and readfile(`catrewrite/translations/{usedLanguage}.json`) or '{}'
+	}
+		
+	local function encodeTable(tab)
+		local str = '{\n'
+		local len = 0
+		for i,v in tab do
+			len += 1
+		end
+		local goal = 0
+		for i,v in tab do
+			goal += 1
+			if typeof(v) == 'string' then
+				local string = goal == len and '\n' or ',\n'
+				str = str.. `    "{tostring(i):gsub('\n', '\\n')}": "{tostring(v):gsub('\n', '\\n')}"{string}`
+			end
+		end
+		str = str .. '}'
+		return str
+	end
+
+	local function translateTo(text, language)
+		language = usedLanguage
+		language = language:lower()
+		
+		if language == 'original' or typeof(text) ~= 'string' then
+			return text
+		end
+
+		if not isfile(`catrewrite/translations/{language}.json`) then
+			writefile(`catrewrite/translations/{language}.json`, '{}')
+		end
+		
+		local json = jsons.decoded
+		if json[text] then
+			return json[text]
+		end
+
+		local success, res = pcall(function()
+			return httpService:JSONDecode(request({
+				Url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' .. shorten[language] .. '&dt=t&q=' .. httpService:UrlEncode(text),
+				Method = 'GET'
+			}).Body)
+		end)
+		
+		if success and res then
+			json[text] = res[1][1][1]
+
+			jsons.encoded = encodeTable(json)
+			jsons.decoded = table.clone(json)
+		end
+
+		if not success then
+			return text
+		end
+
+		writefile(`catrewrite/translations/{language}.json`, jsons.encoded)
+
+		return json[text] or text
+	end
+
+	local function addCloseButton(parent, offset)
+		local close = Instance.new('ImageButton')
+		close.Name = 'Close'
+		close.Size = UDim2.fromOffset(24, 24)
+		close.Position = UDim2.new(1, -35, 0, offset or 9)
+		close.BackgroundColor3 = Color3.new(1, 1, 1)
+		close.BackgroundTransparency = 1
+		close.AutoButtonColor = false
+		close.Image = getcustomasset('catrewrite/assets/new/close.png')
+		close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+		close.ImageTransparency = 0.5
+		close.Parent = parent
+		addCorner(close, UDim.new(1, 0))
+
+		close.MouseEnter:Connect(function()
+			close.ImageTransparency = 0.3
+			tween:Tween(close, uipallet.Tween, {
+				BackgroundTransparency = 0.6
+			})
+		end)
+		close.MouseLeave:Connect(function()
+			close.ImageTransparency = 0.5
+			tween:Tween(close, uipallet.Tween, {
+				BackgroundTransparency = 1
+			})
+		end)
+
+		return close
+	end
+
+	local function addMaid(object)
+		object.Connections = {}
+		function object:Clean(callback)
+			if typeof(callback) == 'Instance' then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						callback:ClearAllChildren()
+						callback:Destroy()
+					end
+				})
+			elseif type(callback) == 'function' then
+				table.insert(self.Connections, {
+					Disconnect = callback
+				})
+			elseif typeof(callback) == 'table' and rawget(callback, 'func') then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						restorefunction(rawget(callback, 'func'))
+					end
+				})
+			elseif typeof(callback) == 'thread' then
+				table.insert(self.Connections, {
+					Disconnect = function()
+						pcall(task.cancel, callback)
+					end
+				})
+			else
+				table.insert(self.Connections, callback)
+			end
+		end
+	end
+
+	local function addTooltip(gui, text)
+		if not text then return end
+
+		text = translateTo(text)
+
+		local function tooltipMoved(x, y)
+			local right = x + 16 + tooltip.Size.X.Offset > (scale.Scale * 1920)
+			tooltip.Position = UDim2.fromOffset(
+				(right and x - (tooltip.Size.X.Offset * scale.Scale) - 16 or x + 16) / scale.Scale,
+				((y + 11) - (tooltip.Size.Y.Offset / 2)) / scale.Scale
+			)
+			tooltip.Visible = toolblur.Visible
+		end
+
+		gui.MouseEnter:Connect(function(x, y)
+			local tooltipSize = getfontsize(text, tooltip.TextSize, uipallet.Font)
+			tooltip.Size = UDim2.fromOffset(tooltipSize.X + 10, tooltipSize.Y + 10)
+			tooltip.Text = text
+			tooltipMoved(x, y)
+		end)
+		gui.MouseMoved:Connect(tooltipMoved)
+		gui.MouseLeave:Connect(function()
+			tooltip.Visible = false
+		end)
+	end
+
+	local function checkKeybinds(compare, target, key)
+		if type(target) == 'table' then
+			if table.find(target, key) then
+				for i, v in target do
+					if not table.find(compare, v) then
+						return false
+					end
+				end
+				return true
+			end
+		end
+
+		return false
+	end
+
+	local function createDownloader(text)
+		if mainapi.Loaded ~= true then
+			local downloader = mainapi.Downloader
+			if not downloader then
+				downloader = Instance.new('TextLabel')
+				downloader.Size = UDim2.new(1, 0, 0, 40)
+				downloader.BackgroundTransparency = 1
+				downloader.TextStrokeTransparency = 0
+				downloader.TextSize = 20
+				downloader.TextColor3 = Color3.new(1, 1, 1)
+				downloader.FontFace = uipallet.Font
+				downloader.Parent = mainapi.gui
+				mainapi.Downloader = downloader
+			end
+			downloader.Text = 'Downloading '..text
+		end
+	end
+
+	local function createMobileButton(buttonapi, position)
+		if not IsMobile then return end
+		local heldbutton = false
+		local button = Instance.new('TextButton')
+		button.Size = UDim2.fromOffset(40, 40)
+		button.Position = UDim2.fromOffset(position.X, position.Y)
+		button.AnchorPoint = Vector2.new(0.5, 0.5)
+		button.BackgroundColor3 = buttonapi.Enabled and Color3.new(0, 0.7, 0) or Color3.new()
+		button.BackgroundTransparency = 0.5
+		button.Text = buttonapi.Name
+		button.TextColor3 = Color3.new(1, 1, 1)
+		button.TextScaled = true
+		button.Font = Enum.Font.Gotham
+		button.Parent = mainapi.gui
+		local buttonconstraint = Instance.new('UITextSizeConstraint')
+		buttonconstraint.MaxTextSize = 16
+		buttonconstraint.Parent = button
+		addCorner(button, UDim.new(1, 0))
+
+		button.MouseButton1Down:Connect(function()
+			heldbutton = true
+			local holdtime, holdpos = tick(), inputService:GetMouseLocation()
+			repeat
+				heldbutton = (inputService:GetMouseLocation() - holdpos).Magnitude < 6
+				task.wait()
+			until (tick() - holdtime) > 1 or not heldbutton
+			if heldbutton then
+				buttonapi.Bind = {}
+				button:Destroy()
+			end
+		end)
+		button.MouseButton1Up:Connect(function()
+			heldbutton = false
+		end)
+		button.MouseButton1Click:Connect(function()
+			buttonapi:Toggle()
+			button.BackgroundColor3 = buttonapi.Enabled and Color3.new(0, 0.7, 0) or Color3.new()
+		end)
+
+		buttonapi.Bind = {Button = button}
+	end
+
+	local function downloadFile(path, func)
+		if not isfile(path) then
+			createDownloader(path)
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			end)
+			if not suc or res == '404: Not Found' then
+				error(res)
+			end
+			writefile(path, res)
+		end
+		return (func or readfile)(path)
+	end
+
+	local blacklistedexecs = {'Fluxus', 'Krnl', 'Xeno', 'Solara'}
+
+	local getexecutorname = function()
+		local name, ver = identifyexecutor()
+		return name
+	end
+	getcustomasset = not table.find(blacklistedexecs, getexecutorname()) and assetfunction and function(v)
+		if not isfile(v) then
+			local suc = pcall(function()
+				downloadFile(v)
+			end)
+			if not suc then
+				return getcustomassets[v] or ''
+			end
+		end
+		return assetfunction(v)
+	end or function(path)
+		return getcustomassets[path] or ''
+	end
+
+	local function getTableSize(tab)
+		local ind = 0
+		for _ in tab do ind += 1 end
+		return ind
+	end
+
+	local function loopClean(tab)
+		for i, v in tab do
+			if type(v) == 'table' then
+				loopClean(v)
+			end
+			tab[i] = nil
+		end
+	end
+
+	local function loadJson(path)
+		local suc, res = pcall(function()
+			return httpService:JSONDecode(readfile(path))
+		end)
+		return suc and type(res) == 'table' and res or nil
+	end
+
+	local function makeDraggable(gui, window)
+		gui.InputBegan:Connect(function(inputObj)
+			if window and not window.Visible then return end
+			if
+				(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+				and (inputObj.Position.Y - gui.AbsolutePosition.Y < 40 or window)
+			then
+				local dragPosition = Vector2.new(
+					gui.AbsolutePosition.X - inputObj.Position.X,
+					gui.AbsolutePosition.Y - inputObj.Position.Y + guiService:GetGuiInset().Y
+				) / scale.Scale
+
+				local changed = inputService.InputChanged:Connect(function(input)
+					if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+						local position = input.Position
+						if inputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+							dragPosition = (dragPosition // 3) * 3
+							position = (position // 3) * 3
+						end
+						gui.Position = UDim2.fromOffset((position.X / scale.Scale) + dragPosition.X, (position.Y / scale.Scale) + dragPosition.Y)
+					end
+				end)
+
+				local ended
+				ended = inputObj.Changed:Connect(function()
+					if inputObj.UserInputState == Enum.UserInputState.End then
+						if changed then
+							changed:Disconnect()
+						end
+						if ended then
+							ended:Disconnect()
+						end
+					end
+				end)
+			end
+		end)
+	end
+
+	local function randomString()
+		local array = {}
+		for i = 1, math.random(10, 100) do
+			array[i] = string.char(math.random(32, 126))
+		end
+		return table.concat(array)
+	end
+
+	local function removeTags(str)
+		str = str:gsub('<br%s*/>', '\n')
+		return str:gsub('<[^<>]->', '')
+	end
+
+	local function writeFont()
+		writefile('catrewrite/assets/new/minecraftfont.json', httpService:JSONEncode({
+			name = 'Minecraft',
+			faces = {
+				{style = 'normal', assetId = getcustomasset('catrewrite/regular.ttf'), name = 'Regular', weight = 400},		
+			}
+		}))
+		return getcustomasset('catrewrite/assets/new/minecraftfont.json')
+	end
+
+	do
+		local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
+		if res then 
+			uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
+			uipallet.Text = res.Main and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
+			uipallet.Font = res.Font and Font.new(
+				res.Font:find('rbxasset') and res.Font
+				or string.format('rbxasset://fonts/families/%s.json', res.Font)
+			) or uipallet.Font
+			uipallet.FontSemiBold = Font.new(uipallet.Font.Family, Enum.FontWeight.SemiBold)
+		end
+		fontsize.Font = uipallet.Font
+	end
+
+	do
+		function color.Dark(col, num)
+			local h, s, v = col:ToHSV()
+			return Color3.fromHSV(h, s, math.clamp(select(3, uipallet.Main:ToHSV()) > 0.5 and v + num or v - num, 0, 1))
+		end
+
+		function color.Light(col, num)
+			local h, s, v = col:ToHSV()
+			return Color3.fromHSV(h, s, math.clamp(select(3, uipallet.Main:ToHSV()) > 0.5 and v - num or v + num, 0, 1))
+		end
+
+		function mainapi:Color(h)
+			local s = 0.75 + (0.15 * math.min(h / 0.03, 1))
+			if h > 0.57 then
+				s = 0.9 - (0.4 * math.min((h - 0.57) / 0.09, 1))
+			end
+			if h > 0.66 then
+				s = 0.5 + (0.4 * math.min((h - 0.66) / 0.16, 1))
+			end
+			if h > 0.87 then
+				s = 0.9 - (0.15 * math.min((h - 0.87) / 0.13, 1))
+			end
+			return h, s, 1
+		end
+
+		function mainapi:TextColor(h, s, v)
+			if v >= 0.7 and (s < 0.6 or h > 0.04 and h < 0.56) then
+				return Color3.new(0.19, 0.19, 0.19)
+			end
+			return Color3.new(1, 1, 1)
+		end
+	end
+
+	do
+		function tween:Tween(obj, tweeninfo, goal, tab)
+			tab = tab or self.tweens
+			if tab[obj] then
+				tab[obj]:Cancel()
+			end
+
+			if obj.Parent and obj.Visible then
+				tab[obj] = tweenService:Create(obj, tweeninfo, goal)
+				tab[obj].Completed:Once(function()
+					if tab then
+						tab[obj] = nil
+						tab = nil
+					end
+				end)
+				tab[obj]:Play()
+			else
+				for i, v in goal do
+					obj[i] = v
+				end
+			end
+		end
+
+		function tween:Cancel(obj)
+			if self.tweens[obj] then
+				self.tweens[obj]:Cancel()
+				self.tweens[obj] = nil
+			end
+		end
+	end
+
+	mainapi.Libraries = {
+		color = color,
+		getcustomasset = getcustomasset,
+		getfontsize = getfontsize,
+		tween = tween,
+		uipallet = uipallet,
+		base64 = loadstring(downloadFile("catrewrite/libraries/base64.lua"), "base64")(),
+		spotify = loadstring(downloadFile("catrewrite/libraries/spotify.lua"), "spotify")()
+	}
+
+	local components
+	components = {
+		Button = function(optionsettings, children, api)
+			local button = Instance.new('TextButton')
+			button.Name = optionsettings.Name..'Button'
+			button.Size = UDim2.new(1, 0, 0, 31)
+			button.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			button.Text = ''
+			button.Parent = children
+			addTooltip(button, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Size = UDim2.fromOffset(200, 27)
+			bkg.Position = UDim2.fromOffset(10, 2)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+			bkg.Parent = button
+			addCorner(bkg)
+			local label = Instance.new('TextLabel')
+			label.Size = UDim2.new(1, -4, 1, -4)
+			label.Position = UDim2.fromOffset(2, 2)
+			label.BackgroundColor3 = uipallet.Main
+			label.Text = optionsettings.Name
+			label.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			label.TextSize = 14
+			label.FontFace = uipallet.Font
+			label.Parent = bkg
+			addCorner(label, UDim.new(0, 4))
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			button.MouseEnter:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+			end)
+			button.MouseLeave:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+				})
+			end)
+			button.MouseButton1Click:Connect(optionsettings.Function)
+		end,
+		ColorSlider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'ColorSlider',
+				Hue = optionsettings.DefaultHue or 0.44,
+				Sat = optionsettings.DefaultSat or 1,
+				Value = optionsettings.DefaultValue or 1,
+				Opacity = optionsettings.DefaultOpacity or 1,
+				Rainbow = false,
+				Index = 0
+			}
+			
+			local function createSlider(name, gradientColor)
+				local slider = Instance.new('TextButton')
+				slider.Name = optionsettings.Name..'Slider'..name
+				slider.Size = UDim2.new(1, 0, 0, 50)
+				slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+				slider.BorderSizePixel = 0
+				slider.AutoButtonColor = false
+				slider.Visible = false
+				slider.Text = ''
+				slider.Parent = children
+				local title = Instance.new('TextLabel')
+				title.Name = 'Title'
+				title.Size = UDim2.fromOffset(60, 30)
+				title.Position = UDim2.fromOffset(10, 2)
+				title.BackgroundTransparency = 1
+				title.Text = name
+				title.TextXAlignment = Enum.TextXAlignment.Left
+				title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				title.TextSize = 11
+				title.FontFace = uipallet.Font
+				title.Parent = slider
+				local bkg = Instance.new('Frame')
+				bkg.Name = 'Slider'
+				bkg.Size = UDim2.new(1, -20, 0, 2)
+				bkg.Position = UDim2.fromOffset(10, 37)
+				bkg.BackgroundColor3 = Color3.new(1, 1, 1)
+				bkg.BorderSizePixel = 0
+				bkg.Parent = slider
+				local gradient = Instance.new('UIGradient')
+				gradient.Color = gradientColor
+				gradient.Parent = bkg
+				local fill = bkg:Clone()
+				fill.Name = 'Fill'
+				fill.Size = UDim2.fromScale(math.clamp(name == 'Saturation' and optionapi.Sat or name == 'Vibrance' and optionapi.Value or optionapi.Opacity, 0.04, 0.96), 1)
+				fill.Position = UDim2.new()
+				fill.BackgroundTransparency = 1
+				fill.Parent = bkg
+				local knobholder = Instance.new('Frame')
+				knobholder.Name = 'Knob'
+				knobholder.Size = UDim2.fromOffset(24, 4)
+				knobholder.Position = UDim2.fromScale(1, 0.5)
+				knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+				knobholder.BackgroundColor3 = slider.BackgroundColor3
+				knobholder.BorderSizePixel = 0
+				knobholder.Parent = fill
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(14, 14)
+				knob.Position = UDim2.fromScale(0.5, 0.5)
+				knob.AnchorPoint = Vector2.new(0.5, 0.5)
+				knob.BackgroundColor3 = uipallet.Text
+				knob.Parent = knobholder
+				addCorner(knob, UDim.new(1, 0))
+			
+				slider.InputBegan:Connect(function(inputObj)
+					if
+						(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+						and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+					then
+						local changed = inputService.InputChanged:Connect(function(input)
+							if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+								optionapi:SetValue(nil, name == 'Saturation' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil, name == 'Vibrance' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil, name == 'Opacity' and math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1) or nil)
+							end
+						end)
+			
+						local ended
+						ended = inputObj.Changed:Connect(function()
+							if inputObj.UserInputState == Enum.UserInputState.End then
+								if changed then changed:Disconnect() end
+								if ended then ended:Disconnect() end
+							end
+						end)
+					end
+				end)
+				slider.MouseEnter:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(16, 16)
+					})
+				end)
+				slider.MouseLeave:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(14, 14)
+					})
+				end)
+			
+				return slider
+			end
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = UDim2.fromOffset(60, 15)
+			valuebox.Position = UDim2.new(1, -69, 0, 9)
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = ''
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = true
+			valuebox.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 39)
+			bkg.BackgroundColor3 = Color3.new(1, 1, 1)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local rainbowTable = {}
+			for i = 0, 1, 0.1 do
+				table.insert(rainbowTable, ColorSequenceKeypoint.new(i, Color3.fromHSV(i, 1, 1)))
+			end
+			local gradient = Instance.new('UIGradient')
+			gradient.Color = ColorSequence.new(rainbowTable)
+			gradient.Parent = bkg
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Size = UDim2.fromScale(math.clamp(optionapi.Hue, 0.04, 0.96), 1)
+			fill.Position = UDim2.new()
+			fill.BackgroundTransparency = 1
+			fill.Parent = bkg
+			local preview = Instance.new('ImageButton')
+			preview.Name = 'Preview'
+			preview.Size = UDim2.fromOffset(12, 12)
+			preview.Position = UDim2.new(1, -22, 0, 10)
+			preview.BackgroundTransparency = 1
+			preview.Image = getcustomasset('catrewrite/assets/new/colorpreview.png')
+			preview.ImageColor3 = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+			preview.ImageTransparency = 1 - optionapi.Opacity
+			preview.Parent = slider
+			local expandbutton = Instance.new('TextButton')
+			expandbutton.Name = 'Expand'
+			expandbutton.Size = UDim2.fromOffset(17, 13)
+			expandbutton.Position = UDim2.new(0, textService:GetTextSize(title.Text, title.TextSize, (title.Font ~= Enum.Font.Unknown and title.Font or Enum.Font.Arial), Vector2.new(1000, 1000)).X + 11, 0, 7)
+			expandbutton.BackgroundTransparency = 1
+			expandbutton.Text = ''
+			expandbutton.Parent = slider
+			local expand = Instance.new('ImageLabel')
+			expand.Name = 'Expand'
+			expand.Size = UDim2.fromOffset(9, 5)
+			expand.Position = UDim2.fromOffset(4, 4)
+			expand.BackgroundTransparency = 1
+			expand.Image = getcustomasset('catrewrite/assets/new/expandicon.png')
+			expand.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			expand.Parent = expandbutton
+			local rainbow = Instance.new('TextButton')
+			rainbow.Name = 'Rainbow'
+			rainbow.Size = UDim2.fromOffset(12, 12)
+			rainbow.Position = UDim2.new(1, -42, 0, 10)
+			rainbow.BackgroundTransparency = 1
+			rainbow.Text = ''
+			rainbow.Parent = slider
+			local rainbow1 = Instance.new('ImageLabel')
+			rainbow1.Size = UDim2.fromOffset(12, 12)
+			rainbow1.BackgroundTransparency = 1
+			rainbow1.Image = getcustomasset('catrewrite/assets/new/rainbow_1.png')
+			rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			rainbow1.Parent = rainbow
+			local rainbow2 = rainbow1:Clone()
+			rainbow2.Image = getcustomasset('catrewrite/assets/new/rainbow_2.png')
+			rainbow2.Parent = rainbow
+			local rainbow3 = rainbow1:Clone()
+			rainbow3.Image = getcustomasset('catrewrite/assets/new/rainbow_3.png')
+			rainbow3.Parent = rainbow
+			local rainbow4 = rainbow1:Clone()
+			rainbow4.Image = getcustomasset('catrewrite/assets/new/rainbow_4.png')
+			rainbow4.Parent = rainbow
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(24, 4)
+			knobholder.Position = UDim2.fromScale(1, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(14, 14)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundColor3 = uipallet.Text
+			knob.Parent = knobholder
+			addCorner(knob, UDim.new(1, 0))
+			optionsettings.Function = optionsettings.Function or function() end
+			local satSlider = createSlider('Saturation', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, optionapi.Value)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, 1, optionapi.Value))
+			}))
+			local vibSlider = createSlider('Vibrance', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, 1))
+			}))
+			local opSlider = createSlider('Opacity', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, color.Dark(uipallet.Main, 0.02)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value))
+			}))
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Hue = self.Hue,
+					Sat = self.Sat,
+					Value = self.Value,
+					Opacity = self.Opacity,
+					Rainbow = self.Rainbow
+				}
+			end
+			
+			function optionapi:Load(tab)
+				if tab.Rainbow ~= self.Rainbow then
+					self:Toggle()
+				end
+				if self.Hue ~= tab.Hue or self.Sat ~= tab.Sat or self.Value ~= tab.Value or self.Opacity ~= tab.Opacity then
+					pcall(function()
+						self:SetValue(tab.Hue, tab.Sat, tab.Value, tab.Opacity)
+					end)
+				end
+			end
+			
+			function optionapi:SetValue(h, s, v, o)
+				self.Hue = h or self.Hue
+				self.Sat = s or self.Sat
+				self.Value = v or self.Value
+				self.Opacity = o or self.Opacity
+				preview.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+				preview.ImageTransparency = 1 - self.Opacity
+				satSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, self.Value)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, 1, self.Value))
+				})
+				vibSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, 1))
+				})
+				opSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, color.Dark(uipallet.Main, 0.02)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, self.Value))
+				})
+			
+				if self.Rainbow then
+					fill.Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+				else
+					tween:Tween(fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+					})
+				end
+			
+				if s then
+					tween:Tween(satSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+					})
+				end
+				if v then
+					tween:Tween(vibSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+					})
+				end
+				if o then
+					tween:Tween(opSlider.Slider.Fill, uipallet.Tween, {
+						Size = UDim2.fromScale(math.clamp(self.Opacity, 0.04, 0.96), 1)
+					})
+				end
+			
+				optionsettings.Function(self.Hue, self.Sat, self.Value, self.Opacity)
+			end
+			
+			function optionapi:Toggle()
+				self.Rainbow = not self.Rainbow
+				if self.Rainbow then
+					table.insert(mainapi.RainbowTable, self)
+					rainbow1.ImageColor3 = Color3.fromRGB(5, 127, 100)
+					task.delay(0.1, function()
+						if not self.Rainbow then return end
+						rainbow2.ImageColor3 = Color3.fromRGB(228, 125, 43)
+						task.delay(0.1, function()
+							if not self.Rainbow then return end
+							rainbow3.ImageColor3 = Color3.fromRGB(225, 46, 52)
+						end)
+					end)
+				else
+					local ind = table.find(mainapi.RainbowTable, self)
+					if ind then
+						table.remove(mainapi.RainbowTable, ind)
+					end
+					rainbow3.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					task.delay(0.1, function()
+						if self.Rainbow then return end
+						rainbow2.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						task.delay(0.1, function()
+							if self.Rainbow then return end
+							rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end)
+					end)
+				end
+			end
+			
+			local doubleClick = tick()
+			preview.MouseButton1Click:Connect(function()
+				preview.Visible = false
+				valuebox.Visible = true
+				valuebox:CaptureFocus()
+				local text = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+				valuebox.Text = math.round(text.R * 255)..', '..math.round(text.G * 255)..', '..math.round(text.B * 255)
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					if doubleClick > tick() then
+						optionapi:Toggle()
+					end
+					doubleClick = tick() + 0.3
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							optionapi:SetValue(math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1))
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+				end
+			end)
+			slider.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(16, 16)
+				})
+			end)
+			slider.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(14, 14)
+				})
+			end)
+			slider:GetPropertyChangedSignal('Visible'):Connect(function()
+				satSlider.Visible = expand.Rotation == 180 and slider.Visible
+				vibSlider.Visible = satSlider.Visible
+				opSlider.Visible = satSlider.Visible
+			end)
+			expandbutton.MouseEnter:Connect(function()
+				expand.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			expandbutton.MouseLeave:Connect(function()
+				expand.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			expandbutton.MouseButton1Click:Connect(function()
+				satSlider.Visible = not satSlider.Visible
+				vibSlider.Visible = satSlider.Visible
+				opSlider.Visible = satSlider.Visible
+				expand.Rotation = satSlider.Visible and 180 or 0
+			end)
+			rainbow.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				preview.Visible = true
+				valuebox.Visible = false
+				if enter then
+					local commas = valuebox.Text:split(',')
+					local suc, res = pcall(function()
+						return tonumber(commas[1]) and Color3.fromRGB(tonumber(commas[1]), tonumber(commas[2]), tonumber(commas[3])) or Color3.fromHex(valuebox.Text)
+					end)
+					if suc then
+						if optionapi.Rainbow then
+							optionapi:Toggle()
+						end
+						optionapi:SetValue(res:ToHSV())
+					end
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Dropdown = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Dropdown',
+				Value = optionsettings.List[1] or 'None',
+				Index = 0
+			}
+			
+			local dropdown = Instance.new('TextButton')
+			dropdown.Name = optionsettings.Name..'Dropdown'
+			dropdown.Size = UDim2.new(1, 0, 0, 40)
+			dropdown.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			dropdown.BorderSizePixel = 0
+			dropdown.AutoButtonColor = false
+			dropdown.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			dropdown.Text = ''
+			dropdown.Parent = children
+			addTooltip(dropdown, translateTo(optionsettings.Tooltip, usedLanguage) or translateTo(optionsettings.Name, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = dropdown
+			addCorner(bkg, UDim.new(0, 6))
+			local button = Instance.new('TextButton')
+			button.Name = 'Dropdown'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, 0, 0, 29)
+			title.BackgroundTransparency = 1
+			title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..optionapi.Value
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 13
+			title.TextTruncate = Enum.TextTruncate.AtEnd
+			title.FontFace = uipallet.Font
+			title.Parent = button
+			addCorner(button, UDim.new(0, 6))
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -17, 0, 11)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+			arrow.Rotation = 90
+			arrow.Parent = button
+			optionsettings.Function = optionsettings.Function or function() end
+			local dropdownchildren
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Value = self.Value}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Value ~= tab.Value then
+					self:SetValue(tab.Value)
+				end
+			end
+			
+			function optionapi:Change(list)
+				optionsettings.List = list or {}
+				if not table.find(optionsettings.List, self.Value) then
+					self:SetValue(self.Value)
+				end
+			end
+			
+			function optionapi:SetValue(val, mouse)
+				self.Value = table.find(optionsettings.List, val) and val or optionsettings.List[1] or 'None'
+				title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..self.Value
+				if dropdownchildren then
+					arrow.Rotation = 90
+					dropdownchildren:Destroy()
+					dropdownchildren = nil
+					dropdown.Size = UDim2.new(1, 0, 0, 40)
+				end
+				optionsettings.Function(self.Value, mouse)
+			end
+			
+			button.MouseButton1Click:Connect(function()
+				if not dropdownchildren then
+					arrow.Rotation = 270
+					dropdown.Size = UDim2.new(1, 0, 0, 40 + (#optionsettings.List - 1) * 26)
+					dropdownchildren = Instance.new('Frame')
+					dropdownchildren.Name = 'Children'
+					dropdownchildren.Size = UDim2.new(1, 0, 0, (#optionsettings.List - 1) * 26)
+					dropdownchildren.Position = UDim2.fromOffset(0, 27)
+					dropdownchildren.BackgroundTransparency = 1
+					dropdownchildren.Parent = button
+					local ind = 0
+					for _, v in optionsettings.List do
+						if v == optionapi.Value then continue end
+						local dropdownoption = Instance.new('TextButton')
+						dropdownoption.Name = v..'Option'
+						dropdownoption.Size = UDim2.new(1, 0, 0, 26)
+						dropdownoption.Position = UDim2.fromOffset(0, ind * 26)
+						dropdownoption.BackgroundColor3 = uipallet.Main
+						dropdownoption.BorderSizePixel = 0
+						dropdownoption.AutoButtonColor = false
+						dropdownoption.Text = '         '..v
+						dropdownoption.TextXAlignment = Enum.TextXAlignment.Left
+						dropdownoption.TextColor3 = color.Dark(uipallet.Text, 0.16)
+						dropdownoption.TextSize = 13
+						dropdownoption.TextTruncate = Enum.TextTruncate.AtEnd
+						dropdownoption.FontFace = uipallet.Font
+						dropdownoption.Parent = dropdownchildren
+						dropdownoption.MouseEnter:Connect(function()
+							tween:Tween(dropdownoption, uipallet.Tween, {
+								BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+							})
+						end)
+						dropdownoption.MouseLeave:Connect(function()
+							tween:Tween(dropdownoption, uipallet.Tween, {
+								BackgroundColor3 = uipallet.Main
+							})
+						end)
+						dropdownoption.MouseButton1Click:Connect(function()
+							optionapi:SetValue(v, true)
+						end)
+						ind += 1
+					end
+				else
+					optionapi:SetValue(optionapi.Value, true)
+				end
+			end)
+			dropdown.MouseEnter:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+			end)
+			dropdown.MouseLeave:Connect(function()
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+			end)
+			
+			optionapi.Object = dropdown
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Font = function(optionsettings, children, api)
+			local fonts = {
+				optionsettings.Blacklist,
+				'Custom'
+			}
+			for _, v in Enum.Font:GetEnumItems() do
+				if not table.find(fonts, v.Name) then
+					table.insert(fonts, v.Name)
+				end
+			end
+			
+			local optionapi = {Value = Font.fromEnum(Enum.Font[fonts[1]])}
+			local fontdropdown
+			local fontbox
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			fontdropdown = components.Dropdown({
+				Name = optionsettings.Name,
+				List = fonts,
+				Function = function(val)
+					fontbox.Object.Visible = val == 'Custom' and fontdropdown.Object.Visible
+					if val ~= 'Custom' then
+						optionapi.Value = Font.fromEnum(Enum.Font[val])
+						optionsettings.Function(optionapi.Value)
+					else
+						pcall(function()
+							optionapi.Value = Font.fromId(tonumber(fontbox.Value))
+						end)
+						optionsettings.Function(optionapi.Value)
+					end
+				end,
+				Darker = optionsettings.Darker,
+				Visible = optionsettings.Visible
+			}, children, api)
+			optionapi.Object = fontdropdown.Object
+			fontbox = components.TextBox({
+				Name = optionsettings.Name..' Asset',
+				Placeholder = 'font (rbxasset)',
+				Function = function()
+					if fontdropdown.Value == 'Custom' then
+						pcall(function()
+							optionapi.Value = Font.fromId(tonumber(fontbox.Value))
+						end)
+						optionsettings.Function(optionapi.Value)
+					end
+				end,
+				Visible = false,
+				Darker = true
+			}, children, api)
+			
+			fontdropdown.Object:GetPropertyChangedSignal('Visible'):Connect(function()
+				fontbox.Object.Visible = fontdropdown.Object.Visible and fontdropdown.Value == 'Custom'
+			end)
+			
+			return optionapi
+		end,
+		Slider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Slider',
+				Value = optionsettings.Default or optionsettings.Min,
+				Max = optionsettings.Max,
+				Index = getTableSize(api.Options)
+			}
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebutton = Instance.new('TextButton')
+			valuebutton.Name = 'Value'
+			valuebutton.Size = UDim2.fromOffset(60, 15)
+			valuebutton.Position = UDim2.new(1, -69, 0, 9)
+			valuebutton.BackgroundTransparency = 1
+			pcall(function()
+				valuebutton.Text = optionapi.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(optionapi.Value) or optionsettings.Suffix) or '')
+			end)
+			valuebutton.TextXAlignment = Enum.TextXAlignment.Right
+			valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebutton.TextSize = 11
+			valuebutton.FontFace = uipallet.Font
+			valuebutton.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = valuebutton.Size
+			valuebox.Position = valuebutton.Position
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = optionapi.Value
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = false
+			valuebox.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 37)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Size = UDim2.fromScale(math.clamp((optionapi.Value - optionsettings.Min) / optionsettings.Max, 0.04, 0.96), 1)
+			fill.Position = UDim2.new()
+			fill.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			fill.Parent = bkg
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(24, 4)
+			knobholder.Position = UDim2.fromScale(1, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(14, 14)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			knob.Parent = knobholder
+			addCorner(knob, UDim.new(1, 0))
+			optionsettings.Function = optionsettings.Function or function() end
+			optionsettings.Decimal = optionsettings.Decimal or 1
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Value = self.Value,
+					Max = self.Max
+				}
+			end
+			
+			function optionapi:Load(tab)
+				local newval = tab.Value == tab.Max and tab.Max ~= self.Max and self.Max or tab.Value
+				if self.Value ~= newval then
+					self:SetValue(newval, nil, true)
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				fill.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				knob.BackgroundColor3 = fill.BackgroundColor3
+			end
+			
+			function optionapi:SetValue(value, pos, final)
+				if tonumber(value) == math.huge or value ~= value then return end
+				local check = self.Value ~= value
+				self.Value = value
+				tween:Tween(fill, uipallet.Tween, {
+					Size = UDim2.fromScale(math.clamp(pos or math.clamp(value / optionsettings.Max, 0, 1), 0.04, 0.96), 1)
+				})
+				valuebutton.Text = self.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(self.Value) or optionsettings.Suffix) or '')
+				if check or final then
+					pcall(function()
+						optionsettings.Function(value, final)
+					end)
+				end
+			end
+			
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+					optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+					local lastValue = optionapi.Value
+					local lastPosition = newPosition
+			
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+							optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+							lastValue = optionapi.Value
+							lastPosition = newPosition
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+							optionapi:SetValue(lastValue, lastPosition, true)
+						end
+					end)
+			
+				end
+			end)
+			slider.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(16, 16)
+				})
+			end)
+			slider.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(14, 14)
+				})
+			end)
+			valuebutton.MouseButton1Click:Connect(function()
+				valuebutton.Visible = false
+				valuebox.Visible = true
+				valuebox.Text = optionapi.Value
+				valuebox:CaptureFocus()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				valuebutton.Visible = true
+				valuebox.Visible = false
+				if enter and tonumber(valuebox.Text) then
+					optionapi:SetValue(tonumber(valuebox.Text), nil, true)
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Targets = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Targets',
+				Index = getTableSize(api.Options)
+			}
+			
+			local textlist = Instance.new('TextButton')
+			textlist.Name = 'Targets'
+			textlist.Size = UDim2.new(1, 0, 0, 50)
+			textlist.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textlist.BorderSizePixel = 0
+			textlist.AutoButtonColor = false
+			textlist.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textlist.Text = ''
+			textlist.Parent = children
+			addTooltip(textlist, optionsettings.Tooltip)
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = textlist
+			addCorner(bkg, UDim.new(0, 4))
+			local button = Instance.new('TextButton')
+			button.Name = 'TextList'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local buttontitle = Instance.new('TextLabel')
+			buttontitle.Name = 'Title'
+			buttontitle.Size = UDim2.new(1, -5, 0, 15)
+			buttontitle.Position = UDim2.fromOffset(5, 6)
+			buttontitle.BackgroundTransparency = 1
+			buttontitle.Text = 'Target:'
+			buttontitle.TextXAlignment = Enum.TextXAlignment.Left
+			buttontitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			buttontitle.TextSize = 15
+			buttontitle.TextTruncate = Enum.TextTruncate.AtEnd
+			buttontitle.FontFace = uipallet.Font
+			buttontitle.Parent = button
+			local items = buttontitle:Clone()
+			items.Name = 'Items'
+			items.Position = UDim2.fromOffset(5, 21)
+			items.Text = 'Ignore none'
+			items.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			items.TextSize = 11
+			items.Parent = button
+			addCorner(button, UDim.new(0, 4))
+			local tool = Instance.new('Frame')
+			tool.Size = UDim2.fromOffset(65, 12)
+			tool.Position = UDim2.fromOffset(52, 8)
+			tool.BackgroundTransparency = 1
+			tool.Parent = button
+			local toollist = Instance.new('UIListLayout')
+			toollist.FillDirection = Enum.FillDirection.Horizontal
+			toollist.Padding = UDim.new(0, 6)
+			toollist.Parent = tool
+			local window = Instance.new('TextButton')
+			window.Name = 'TargetsTextWindow'
+			window.Size = UDim2.fromOffset(220, 145)
+			window.BackgroundColor3 = uipallet.Main
+			window.BorderSizePixel = 0
+			window.AutoButtonColor = false
+			window.Visible = false
+			window.Text = ''
+			window.Parent = clickgui
+			optionapi.Window = window
+			addBlur(window)
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(18, 12)
+			icon.Position = UDim2.fromOffset(10, 15)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/targetstab.png')
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = 'Target settings'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window)
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab.Targets = {
+					Players = self.Players.Enabled,
+					NPCs = self.NPCs.Enabled,
+					Invisible = self.Invisible.Enabled,
+					Walls = self.Walls.Enabled
+				}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Players.Enabled ~= tab.Players then
+					self.Players:Toggle()
+				end
+				if self.NPCs.Enabled ~= tab.NPCs then
+					self.NPCs:Toggle()
+				end
+				if self.Invisible.Enabled ~= tab.Invisible then
+					self.Invisible:Toggle()
+				end
+				if self.Walls.Enabled ~= tab.Walls then
+					self.Walls:Toggle()
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				bkg.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				if self.Players.Enabled then
+					tween:Cancel(self.Players.Object.Frame)
+					self.Players.Object.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.NPCs.Enabled then
+					tween:Cancel(self.NPCs.Object.Frame)
+					self.NPCs.Object.Frame.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.Invisible.Enabled then
+					tween:Cancel(self.Invisible.Object.Knob)
+					self.Invisible.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+				if self.Walls.Enabled then
+					tween:Cancel(self.Walls.Object.Knob)
+					self.Walls.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			optionapi.Players = components.TargetsButton({
+				Position = UDim2.fromOffset(11, 45),
+				Icon = getcustomasset('catrewrite/assets/new/targetplayers1.png'),
+				IconSize = UDim2.fromOffset(15, 16),
+				IconParent = tool,
+				ToolIcon = getcustomasset('catrewrite/assets/new/targetplayers2.png'),
+				ToolSize = UDim2.fromOffset(11, 12),
+				Tooltip = 'Players',
+				Function = optionsettings.Function
+			}, window, tool)
+			optionapi.NPCs = components.TargetsButton({
+				Position = UDim2.fromOffset(112, 45),
+				Icon = getcustomasset('catrewrite/assets/new/targetnpc1.png'),
+				IconSize = UDim2.fromOffset(12, 16),
+				IconParent = tool,
+				ToolIcon = getcustomasset('catrewrite/assets/new/targetnpc2.png'),
+				ToolSize = UDim2.fromOffset(9, 12),
+				Tooltip = 'NPCs',
+				Function = optionsettings.Function
+			}, window, tool)
+			optionapi.Invisible = components.Toggle({
+				Name = 'Ignore invisible',
+				Function = function()
+					local text = 'none'
+					if optionapi.Invisible.Enabled then
+						text = 'invisible'
+					end
+					if optionapi.Walls.Enabled then
+						text = text == 'none' and 'behind walls' or text..', behind walls'
+					end
+					items.Text = 'Ignore '..text
+					optionsettings.Function()
+				end
+			}, window, {Options = {}})
+			optionapi.Invisible.Object.Position = UDim2.fromOffset(0, 81)
+			optionapi.Walls = components.Toggle({
+				Name = 'Ignore behind walls',
+				Function = function()
+					local text = 'none'
+					if optionapi.Invisible.Enabled then
+						text = 'invisible'
+					end
+					if optionapi.Walls.Enabled then
+						text = text == 'none' and 'behind walls' or text..', behind walls'
+					end
+					items.Text = 'Ignore '..text
+					optionsettings.Function()
+				end
+			}, window, {Options = {}})
+			optionapi.Walls.Object.Position = UDim2.fromOffset(0, 111)
+			if optionsettings.Players then
+				optionapi.Players:Toggle()
+			end
+			if optionsettings.NPCs then
+				optionapi.NPCs:Toggle()
+			end
+			if optionsettings.Invisible then
+				optionapi.Invisible:Toggle()
+			end
+			if optionsettings.Walls then
+				optionapi.Walls:Toggle()
+			end
+			
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+			end)
+			button.MouseButton1Click:Connect(function()
+				window.Visible = not window.Visible
+				tween:Cancel(bkg)
+				bkg.BackgroundColor3 = window.Visible and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.37)
+			end)
+			textlist.MouseEnter:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			textlist.MouseLeave:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+					})
+				end
+			end)
+			textlist:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				local actualPosition = (textlist.AbsolutePosition + Vector2.new(0, 60)) / scale.Scale
+				window.Position = UDim2.fromOffset(actualPosition.X + 220, actualPosition.Y)
+			end)
+			
+			optionapi.Object = textlist
+			api.Options.Targets = optionapi
+			
+			return optionapi
+		end,
+		TargetsButton = function(optionsettings, children, api)
+			local optionapi = {Enabled = false}
+			
+			local targetbutton = Instance.new('TextButton')
+			targetbutton.Size = UDim2.fromOffset(98, 31)
+			targetbutton.Position = optionsettings.Position
+			targetbutton.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+			targetbutton.AutoButtonColor = false
+			targetbutton.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			targetbutton.Text = ''
+			targetbutton.Parent = children
+			addCorner(targetbutton)
+			addTooltip(targetbutton, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Size = UDim2.new(1, -2, 1, -2)
+			bkg.Position = UDim2.fromOffset(1, 1)
+			bkg.BackgroundColor3 = uipallet.Main
+			bkg.Parent = targetbutton
+			addCorner(bkg)
+			local icon = Instance.new('ImageLabel')
+			icon.Size = optionsettings.IconSize
+			icon.Position = UDim2.fromScale(0.5, 0.5)
+			icon.AnchorPoint = Vector2.new(0.5, 0.5)
+			icon.BackgroundTransparency = 1
+			icon.Image = optionsettings.Icon
+			icon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			icon.Parent = bkg
+			optionsettings.Function = optionsettings.Function or function() end
+			local tooltipicon
+			
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				tween:Tween(bkg, uipallet.Tween, {
+					BackgroundColor3 = self.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or uipallet.Main
+				})
+				tween:Tween(icon, uipallet.Tween, {
+					ImageColor3 = self.Enabled and Color3.new(1, 1, 1) or color.Light(uipallet.Main, 0.37)
+				})
+				if tooltipicon then
+					tooltipicon:Destroy()
+				end
+				if self.Enabled then
+					tooltipicon = Instance.new('ImageLabel')
+					tooltipicon.Size = optionsettings.ToolSize
+					tooltipicon.BackgroundTransparency = 1
+					tooltipicon.Image = optionsettings.ToolIcon
+					tooltipicon.ImageColor3 = uipallet.Text
+					tooltipicon.Parent = optionsettings.IconParent
+				end
+				optionsettings.Function(self.Enabled)
+			end
+			
+			targetbutton.MouseEnter:Connect(function()
+				if not optionapi.Enabled then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value - 0.25)
+					})
+					tween:Tween(icon, uipallet.Tween, {
+						ImageColor3 = Color3.new(1, 1, 1)
+					})
+				end
+			end)
+			targetbutton.MouseLeave:Connect(function()
+				if not optionapi.Enabled then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = uipallet.Main
+					})
+					tween:Tween(icon, uipallet.Tween, {
+						ImageColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			targetbutton.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			
+			optionapi.Object = targetbutton
+			
+			return optionapi
+		end,
+		TextBox = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TextBox',
+				Value = optionsettings.Default or '',
+				Index = 0
+			}
+			
+			local textbox = Instance.new('TextButton')
+			textbox.Name = optionsettings.Name..'TextBox'
+			textbox.Size = UDim2.new(1, 0, 0, 58)
+			textbox.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textbox.BorderSizePixel = 0
+			textbox.AutoButtonColor = false
+			textbox.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textbox.Text = ''
+			textbox.Parent = children
+			addTooltip(textbox, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Size = UDim2.new(1, -10, 0, 20)
+			title.Position = UDim2.fromOffset(10, 3)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 12
+			title.FontFace = uipallet.Font
+			title.Parent = textbox
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 0, 29)
+			bkg.Position = UDim2.fromOffset(10, 23)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			bkg.Parent = textbox
+			addCorner(bkg, UDim.new(0, 4))
+			local box = Instance.new('TextBox')
+			box.Size = UDim2.new(1, -8, 1, 0)
+			box.Position = UDim2.fromOffset(8, 0)
+			box.BackgroundTransparency = 1
+			box.Text = optionsettings.Default or ''
+			box.PlaceholderText = optionsettings.Placeholder or 'Click to set'
+			box.TextXAlignment = Enum.TextXAlignment.Left
+			box.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			box.PlaceholderColor3 = color.Dark(uipallet.Text, 0.31)
+			box.TextSize = 12
+			box.FontFace = uipallet.Font
+			box.ClearTextOnFocus = false
+			box.Parent = bkg
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Value = self.Value}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Value ~= tab.Value then
+					self:SetValue(tab.Value)
+				end
+			end
+			
+			function optionapi:SetValue(val, enter)
+				self.Value = val
+				box.Text = val
+				optionsettings.Function(enter)
+			end
+			
+			textbox.MouseButton1Click:Connect(function()
+				box:CaptureFocus()
+			end)
+			box.FocusLost:Connect(function(enter)
+				optionapi:SetValue(box.Text, true)
+			end)
+			box:GetPropertyChangedSignal('Text'):Connect(function()
+				optionapi:SetValue(box.Text)
+			end)
+			
+			optionapi.Object = textbox
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		TextList = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TextList',
+				List = optionsettings.Default or {},
+				ListEnabled = optionsettings.Default or {},
+				Objects = {},
+				Window = {Visible = false},
+				Index = getTableSize(api.Options)
+			}
+			optionsettings.Color = optionsettings.Color or Color3.fromRGB(5, 134, 105)
+			
+			local textlist = Instance.new('TextButton')
+			textlist.Name = optionsettings.Name..'TextList'
+			textlist.Size = UDim2.new(1, 0, 0, 50)
+			textlist.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			textlist.BorderSizePixel = 0
+			textlist.AutoButtonColor = false
+			textlist.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			textlist.Text = ''
+			textlist.Parent = children
+			addTooltip(textlist, translateTo(optionsettings.Tooltip, usedLanguage))
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'BKG'
+			bkg.Size = UDim2.new(1, -20, 1, -9)
+			bkg.Position = UDim2.fromOffset(10, 4)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.Parent = textlist
+			addCorner(bkg, UDim.new(0, 4))
+			local button = Instance.new('TextButton')
+			button.Name = 'TextList'
+			button.Size = UDim2.new(1, -2, 1, -2)
+			button.Position = UDim2.fromOffset(1, 1)
+			button.BackgroundColor3 = uipallet.Main
+			button.AutoButtonColor = false
+			button.Text = ''
+			button.Parent = bkg
+			local buttonicon = Instance.new('ImageLabel')
+			buttonicon.Name = 'Icon'
+			buttonicon.Size = UDim2.fromOffset(14, 12)
+			buttonicon.Position = UDim2.fromOffset(10, 14)
+			buttonicon.BackgroundTransparency = 1
+			buttonicon.Image = optionsettings.Icon or getcustomasset('catrewrite/assets/new/allowedicon.png')
+			buttonicon.Parent = button
+			local buttontitle = Instance.new('TextLabel')
+			buttontitle.Name = 'Title'
+			buttontitle.Size = UDim2.new(1, -35, 0, 15)
+			buttontitle.Position = UDim2.fromOffset(35, 6)
+			buttontitle.BackgroundTransparency = 1
+			buttontitle.Text = translateTo(optionsettings.Name, usedLanguage)
+			buttontitle.TextXAlignment = Enum.TextXAlignment.Left
+			buttontitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			buttontitle.TextSize = 15
+			buttontitle.TextTruncate = Enum.TextTruncate.AtEnd
+			buttontitle.FontFace = uipallet.Font
+			buttontitle.Parent = button
+			local amount = buttontitle:Clone()
+			amount.Name = 'Amount'
+			amount.Size = UDim2.new(1, -13, 0, 15)
+			amount.Position = UDim2.fromOffset(0, 6)
+			amount.Text = '0'
+			amount.TextXAlignment = Enum.TextXAlignment.Right
+			amount.Parent = button
+			local items = buttontitle:Clone()
+			items.Name = 'Items'
+			items.Position = UDim2.fromOffset(35, 21)
+			items.Text = 'None'
+			items.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			items.TextSize = 11
+			items.Parent = button
+			addCorner(button, UDim.new(0, 4))
+			local window = Instance.new('TextButton')
+			window.Name = optionsettings.Name..'TextWindow'
+			window.Size = UDim2.fromOffset(220, 85)
+			window.BackgroundColor3 = uipallet.Main
+			window.BorderSizePixel = 0
+			window.AutoButtonColor = false
+			window.Visible = false
+			window.Text = ''
+			window.Parent = api.Legit and mainapi.Legit.Window or clickgui
+			optionapi.Window = window
+			addBlur(window)
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = optionsettings.TabSize or UDim2.fromOffset(19, 16)
+			icon.Position = UDim2.fromOffset(10, 13)
+			icon.BackgroundTransparency = 1
+			icon.Image = optionsettings.Tab or getcustomasset('catrewrite/assets/new/allowedtab.png')
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window)
+			local addbkg = Instance.new('Frame')
+			addbkg.Name = 'Add'
+			addbkg.Size = UDim2.fromOffset(200, 31)
+			addbkg.Position = UDim2.fromOffset(10, 45)
+			addbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			addbkg.Parent = window
+			addCorner(addbkg)
+			local addbox = addbkg:Clone()
+			addbox.Size = UDim2.new(1, -2, 1, -2)
+			addbox.Position = UDim2.fromOffset(1, 1)
+			addbox.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			addbox.Parent = addbkg
+			local addvalue = Instance.new('TextBox')
+			addvalue.Size = UDim2.new(1, -35, 1, 0)
+			addvalue.Position = UDim2.fromOffset(10, 0)
+			addvalue.BackgroundTransparency = 1
+			addvalue.Text = ''
+			addvalue.PlaceholderText = optionsettings.Placeholder or 'Add entry...'
+			addvalue.TextXAlignment = Enum.TextXAlignment.Left
+			addvalue.TextColor3 = Color3.new(1, 1, 1)
+			addvalue.TextSize = 15
+			addvalue.FontFace = uipallet.Font
+			addvalue.ClearTextOnFocus = false
+			addvalue.Parent = addbkg
+			local addbutton = Instance.new('ImageButton')
+			addbutton.Name = 'AddButton'
+			addbutton.Size = UDim2.fromOffset(16, 16)
+			addbutton.Position = UDim2.new(1, -26, 0, 8)
+			addbutton.BackgroundTransparency = 1
+			addbutton.Image = getcustomasset('catrewrite/assets/new/add.png')
+			addbutton.ImageColor3 = optionsettings.Color
+			addbutton.ImageTransparency = 0.3
+			addbutton.Parent = addbkg
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					List = self.List,
+					ListEnabled = self.ListEnabled
+				}
+			end
+			
+			function optionapi:Load(tab)
+				self.List = tab.List or {}
+				self.ListEnabled = tab.ListEnabled or {}
+				self:ChangeValue()
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				if window.Visible then
+					bkg.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			function optionapi:ChangeValue(val)
+				if val then
+					local ind = table.find(self.List, val)
+					if ind then
+						table.remove(self.List, ind)
+						ind = table.find(self.ListEnabled, val)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+						end
+					else
+						table.insert(self.List, val)
+						table.insert(self.ListEnabled, val)
+					end
+				end
+			
+				task.spawn(optionsettings.Function, self.List)
+				for _, v in self.Objects do
+					v:Destroy()
+				end
+				table.clear(self.Objects)
+				window.Size = UDim2.fromOffset(220, 85 + (#self.List * 35))
+				amount.Text = #self.List
+			
+				local enabledtext = 'None'
+				for i, v in self.ListEnabled do
+					if i == 1 then enabledtext = '' end
+					enabledtext = enabledtext..(i == 1 and v or ', '..v)
+				end
+				items.Text = enabledtext
+			
+				for i, v in self.List do
+					local enabled = table.find(self.ListEnabled, v)
+					local object = Instance.new('TextButton')
+					object.Name = v
+					object.Size = UDim2.fromOffset(200, 32)
+					object.Position = UDim2.fromOffset(10, 47 + (i * 35))
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = window
+					addCorner(object)
+					local objectbkg = Instance.new('Frame')
+					objectbkg.Name = 'BKG'
+					objectbkg.Size = UDim2.new(1, -2, 1, -2)
+					objectbkg.Position = UDim2.fromOffset(1, 1)
+					objectbkg.BackgroundColor3 = uipallet.Main
+					objectbkg.Visible = false
+					objectbkg.Parent = object
+					addCorner(objectbkg)
+					local objectdot = Instance.new('Frame')
+					objectdot.Name = 'Dot'
+					objectdot.Size = UDim2.fromOffset(10, 11)
+					objectdot.Position = UDim2.fromOffset(10, 12)
+					objectdot.BackgroundColor3 = enabled and optionsettings.Color or color.Light(uipallet.Main, 0.37)
+					objectdot.Parent = object
+					addCorner(objectdot, UDim.new(1, 0))
+					local objectdotin = objectdot:Clone()
+					objectdotin.Size = UDim2.fromOffset(8, 9)
+					objectdotin.Position = UDim2.fromOffset(1, 1)
+					objectdotin.BackgroundColor3 = enabled and optionsettings.Color or color.Light(uipallet.Main, 0.02)
+					objectdotin.Parent = objectdot
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -30, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(30, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					local close = Instance.new('ImageButton')
+					close.Name = 'Close'
+					close.Size = UDim2.fromOffset(16, 16)
+					close.Position = UDim2.new(1, -26, 0, 8)
+					close.BackgroundColor3 = Color3.new(1, 1, 1)
+					close.BackgroundTransparency = 1
+					close.AutoButtonColor = false
+					close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+					close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+					close.ImageTransparency = 0.5
+					close.Parent = object
+					addCorner(close, UDim.new(1, 0))
+			
+					close.MouseEnter:Connect(function()
+						close.ImageTransparency = 0.3
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 0.6
+						})
+					end)
+					close.MouseLeave:Connect(function()
+						close.ImageTransparency = 0.5
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 1
+						})
+					end)
+					close.MouseButton1Click:Connect(function()
+						self:ChangeValue(v)
+					end)
+					object.MouseEnter:Connect(function()
+						objectbkg.Visible = true
+					end)
+					object.MouseLeave:Connect(function()
+						objectbkg.Visible = false
+					end)
+					object.MouseButton1Click:Connect(function()
+						local ind = table.find(self.ListEnabled, v)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+							objectdot.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+							objectdotin.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+						else
+							table.insert(self.ListEnabled, v)
+							objectdot.BackgroundColor3 = optionsettings.Color
+							objectdotin.BackgroundColor3 = optionsettings.Color
+						end
+			
+						local enabledtext = 'None'
+						for i, v in self.ListEnabled do
+							if i == 1 then enabledtext = '' end
+							enabledtext = enabledtext..(i == 1 and v or ', '..v)
+						end
+			
+						items.Text = enabledtext
+						task.spawn(optionsettings.Function)
+					end)
+			
+					table.insert(self.Objects, object)
+				end
+			end
+			
+			addbutton.MouseEnter:Connect(function()
+				addbutton.ImageTransparency = 0
+			end)
+			addbutton.MouseLeave:Connect(function()
+				addbutton.ImageTransparency = 0.3
+			end)
+			addbutton.MouseButton1Click:Connect(function()
+				if not table.find(optionapi.List, addvalue.Text) then
+					optionapi:ChangeValue(addvalue.Text)
+					addvalue.Text = ''
+				end
+			end)
+			addvalue.FocusLost:Connect(function(enter)
+				if enter and not table.find(optionapi.List, addvalue.Text) then
+					optionapi:ChangeValue(addvalue.Text)
+					addvalue.Text = ''
+				end
+			end)
+			addvalue.MouseEnter:Connect(function()
+				tween:Tween(addbkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				})
+			end)
+			addvalue.MouseLeave:Connect(function()
+				tween:Tween(addbkg, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				window.Visible = false
+			end)
+			button.MouseButton1Click:Connect(function()
+				window.Visible = not window.Visible
+				tween:Cancel(bkg)
+				bkg.BackgroundColor3 = window.Visible and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.37)
+			end)
+			textlist.MouseEnter:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			textlist.MouseLeave:Connect(function()
+				if not optionapi.Window.Visible then
+					tween:Tween(bkg, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+					})
+				end
+			end)
+			textlist:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				local actualPosition = (textlist.AbsolutePosition - (api.Legit and mainapi.Legit.Window.AbsolutePosition or -guiService:GetGuiInset())) / scale.Scale
+				window.Position = UDim2.fromOffset(actualPosition.X + 220, actualPosition.Y)
+			end)
+			
+			if optionsettings.Default then
+				optionapi:ChangeValue()
+			end
+			optionapi.Object = textlist
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Toggle = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'Toggle',
+				Enabled = false,
+				Index = getTableSize(api.Options)
+			}
+			
+			local toggle = Instance.new('TextButton')
+			toggle.Name = optionsettings.Name..'Toggle'
+			toggle.Size = UDim2.new(1, 0, 0, 30)
+			toggle.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			toggle.BorderSizePixel = 0
+			toggle.AutoButtonColor = false
+			toggle.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			toggle.Text = '          '..translateTo(optionsettings.Name, usedLanguage)
+			toggle.TextXAlignment = Enum.TextXAlignment.Left
+			toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			toggle.TextSize = 14
+			toggle.FontFace = uipallet.Font
+			toggle.Parent = children
+			addTooltip(toggle, translateTo(optionsettings.Tooltip, usedLanguage))
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(22, 12)
+			knobholder.Position = UDim2.new(1, -30, 0, 9)
+			knobholder.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			knobholder.Parent = toggle
+			addCorner(knobholder, UDim.new(1, 0))
+			local knob = knobholder:Clone()
+			knob.Size = UDim2.fromOffset(8, 8)
+			knob.Position = UDim2.fromOffset(2, 2)
+			knob.BackgroundColor3 = uipallet.Main
+			knob.Parent = knobholder
+			local hovered = false
+			optionsettings.Function = optionsettings.Function or function() end
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {Enabled = self.Enabled}
+			end
+			
+			function optionapi:Load(tab)
+				if self.Enabled ~= tab.Enabled then
+					self:Toggle()
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				if self.Enabled then
+					tween:Cancel(knobholder)
+					knobholder.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				end
+			end
+			
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				local rainbowcheck = mainapi.GUIColor.Rainbow and mainapi.RainbowMode.Value ~= 'Retro'
+				tween:Tween(knobholder, uipallet.Tween, {
+					BackgroundColor3 = self.Enabled and (rainbowcheck and Color3.fromHSV(mainapi:Color((mainapi.GUIColor.Hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)) or (hovered and color.Light(uipallet.Main, 0.37) or color.Light(uipallet.Main, 0.14))
+				})
+				tween:Tween(knob, uipallet.Tween, {
+					Position = UDim2.fromOffset(self.Enabled and 12 or 2, 2)
+				})
+				task.spawn(optionsettings.Function, self.Enabled)
+			end
+			
+			toggle.MouseEnter:Connect(function()
+				hovered = true
+				if not optionapi.Enabled then
+					tween:Tween(knobholder, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+					})
+				end
+			end)
+			toggle.MouseLeave:Connect(function()
+				hovered = false
+				if not optionapi.Enabled then
+					tween:Tween(knobholder, uipallet.Tween, {
+						BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+					})
+				end
+			end)
+			toggle.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			
+			if optionsettings.Default then
+				optionapi:Toggle()
+			end
+			optionapi.Object = toggle
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		TwoSlider = function(optionsettings, children, api)
+			local optionapi = {
+				Type = 'TwoSlider',
+				ValueMin = optionsettings.DefaultMin or optionsettings.Min,
+				ValueMax = optionsettings.DefaultMax or 10,
+				Max = optionsettings.Max,
+				Index = getTableSize(api.Options)
+			}
+			
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.new(1, 0, 0, 50)
+			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
+			slider.BorderSizePixel = 0
+			slider.AutoButtonColor = false
+			slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
+			slider.Text = ''
+			slider.Parent = children
+			addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(optionsettings.Name, usedLanguage)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local valuebutton = Instance.new('TextButton')
+			valuebutton.Name = 'Value'
+			valuebutton.Size = UDim2.fromOffset(60, 15)
+			valuebutton.Position = UDim2.new(1, -69, 0, 9)
+			valuebutton.BackgroundTransparency = 1
+			valuebutton.Text = optionapi.ValueMax
+			valuebutton.TextXAlignment = Enum.TextXAlignment.Right
+			valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebutton.TextSize = 11
+			valuebutton.FontFace = uipallet.Font
+			valuebutton.Parent = slider
+			local valuebutton2 = valuebutton:Clone()
+			valuebutton2.Position = UDim2.new(1, -125, 0, 9)
+			valuebutton2.Text = optionapi.ValueMin
+			valuebutton2.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = valuebutton.Size
+			valuebox.Position = valuebutton.Position
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = optionapi.ValueMin
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = false
+			valuebox.Parent = slider
+			local valuebox2 = valuebox:Clone()
+			valuebox2.Position = valuebutton2.Position
+			valuebox2.Parent = slider
+			local bkg = Instance.new('Frame')
+			bkg.Name = 'Slider'
+			bkg.Size = UDim2.new(1, -20, 0, 2)
+			bkg.Position = UDim2.fromOffset(10, 37)
+			bkg.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			bkg.BorderSizePixel = 0
+			bkg.Parent = slider
+			local fill = bkg:Clone()
+			fill.Name = 'Fill'
+			fill.Position = UDim2.fromScale(math.clamp(optionapi.ValueMin / optionsettings.Max, 0.04, 0.96), 0)
+			fill.Size = UDim2.fromScale(math.clamp(math.clamp(optionapi.ValueMax / optionsettings.Max, 0, 1), 0.04, 0.96) - fill.Position.X.Scale, 1)
+			fill.BackgroundColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			fill.Parent = bkg
+			local knobholder = Instance.new('Frame')
+			knobholder.Name = 'Knob'
+			knobholder.Size = UDim2.fromOffset(16, 4)
+			knobholder.Position = UDim2.fromScale(0, 0.5)
+			knobholder.AnchorPoint = Vector2.new(0.5, 0.5)
+			knobholder.BackgroundColor3 = slider.BackgroundColor3
+			knobholder.BorderSizePixel = 0
+			knobholder.Parent = fill
+			local knob = Instance.new('ImageLabel')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(9, 16)
+			knob.Position = UDim2.fromScale(0.5, 0.5)
+			knob.AnchorPoint = Vector2.new(0.5, 0.5)
+			knob.BackgroundTransparency = 1
+			knob.Image = getcustomasset('catrewrite/assets/new/range.png')
+			knob.ImageColor3 = Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+			knob.Parent = knobholder
+			local knobholdermax = knobholder:Clone()
+			knobholdermax.Name = 'KnobMax'
+			knobholdermax.Position = UDim2.fromScale(1, 0.5)
+			knobholdermax.Parent = fill
+			knobholdermax.Knob.Rotation = 180
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(12, 6)
+			arrow.Position = UDim2.new(1, -56, 0, 10)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/rangearrow.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.14)
+			arrow.Parent = slider
+			optionsettings.Function = optionsettings.Function or function() end
+			optionsettings.Decimal = optionsettings.Decimal or 1
+			local random = Random.new()
+			
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {ValueMin = self.ValueMin, ValueMax = self.ValueMax}
+			end
+			
+			function optionapi:Load(tab)
+				if self.ValueMin ~= tab.ValueMin then
+					self:SetValue(false, tab.ValueMin)
+				end
+				if self.ValueMax ~= tab.ValueMax then
+					self:SetValue(true, tab.ValueMax)
+				end
+			end
+			
+			function optionapi:Color(hue, sat, val, rainbowcheck)
+				fill.BackgroundColor3 = rainbowcheck and Color3.fromHSV(mainapi:Color((hue - (self.Index * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+				knob.ImageColor3 = fill.BackgroundColor3
+				knobholdermax.Knob.ImageColor3 = fill.BackgroundColor3
+			end
+			
+			function optionapi:GetRandomValue()
+				return random:NextNumber(optionapi.ValueMin, optionapi.ValueMax)
+			end
+			
+			function optionapi:SetValue(max, value)
+				if tonumber(value) == math.huge or value ~= value then return end
+				self[max and 'ValueMax' or 'ValueMin'] = value
+				valuebutton.Text = self.ValueMax
+				valuebutton2.Text = self.ValueMin
+				local size = math.clamp(math.clamp(self.ValueMin / optionsettings.Max, 0, 1), 0.04, 0.96)
+				tween:Tween(fill, TweenInfo.new(0.1), {
+					Position = UDim2.fromScale(size, 0),
+					Size = UDim2.fromScale(math.clamp(math.clamp(math.clamp(self.ValueMax / optionsettings.Max, 0.04, 0.96), 0.04, 0.96) - size, 0, 1), 1)
+				})
+			end
+			
+			knobholder.MouseEnter:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(11, 18)
+				})
+			end)
+			knobholder.MouseLeave:Connect(function()
+				tween:Tween(knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(9, 16)
+				})
+			end)
+			knobholdermax.MouseEnter:Connect(function()
+				tween:Tween(knobholdermax.Knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(11, 18)
+				})
+			end)
+			knobholdermax.MouseLeave:Connect(function()
+				tween:Tween(knobholdermax.Knob, uipallet.Tween, {
+					Size = UDim2.fromOffset(9, 16)
+				})
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local maxCheck = (inputObj.Position.X - knobholdermax.AbsolutePosition.X) > -10
+					local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+					optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+			
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
+							optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+						end
+					end)
+			
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+				end
+			end)
+			valuebutton.MouseButton1Click:Connect(function()
+				valuebutton.Visible = false
+				valuebox.Visible = true
+				valuebox.Text = optionapi.ValueMax
+				valuebox:CaptureFocus()
+			end)
+			valuebutton2.MouseButton1Click:Connect(function()
+				valuebutton2.Visible = false
+				valuebox2.Visible = true
+				valuebox2.Text = optionapi.ValueMin
+				valuebox2:CaptureFocus()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				valuebutton.Visible = true
+				valuebox.Visible = false
+				if enter and tonumber(valuebox.Text) then
+					optionapi:SetValue(true, tonumber(valuebox.Text))
+				end
+			end)
+			valuebox2.FocusLost:Connect(function(enter)
+				valuebutton2.Visible = true
+				valuebox2.Visible = false
+				if enter and tonumber(valuebox2.Text) then
+					optionapi:SetValue(false, tonumber(valuebox2.Text))
+				end
+			end)
+			
+			optionapi.Object = slider
+			api.Options[optionsettings.Name] = optionapi
+			
+			return optionapi
+		end,
+		Divider = function(children, text)
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			divider.BorderSizePixel = 0
+			divider.Parent = children
+
+			text = translateTo(text, usedLanguage)
+
+			if text then
+				local label = Instance.new('TextLabel')
+				label.Name = 'DividerLabel'
+				label.Size = UDim2.fromOffset(218, 27)
+				label.BackgroundTransparency = 1
+				label.Text = '          '..text:upper()
+				label.TextXAlignment = Enum.TextXAlignment.Left
+				label.TextColor3 = color.Dark(uipallet.Text, 0.43)
+				label.TextSize = 9
+				label.FontFace = uipallet.Font
+				label.Parent = children
+				divider.Position = UDim2.fromOffset(0, 26)
+				divider.Parent = label
+			end
+		end
+	}
+
+	mainapi.Components = setmetatable(components, {
+		__newindex = function(self, ind, func)
+			for _, v in mainapi.Modules do
+				rawset(v, 'Create'..ind, function(_, settings)
+					return func(settings, v.Children, v)
+				end)
+			end
+
+			if mainapi.Legit then
+				for _, v in mainapi.Legit.Modules do
+					rawset(v, 'Create'..ind, function(_, settings)
+						return func(settings, v.Children, v)
+					end)
+				end
+			end
+
+			rawset(self, ind, func)
+		end
+	})
+
+	task.spawn(function()
+		repeat
+			local hue = tick() * (0.2 * mainapi.RainbowSpeed.Value) % 1
+			for _, v in mainapi.RainbowTable do
+				if v.Type == 'GUISlider' then
+					v:SetValue(mainapi:Color(hue))
+				else
+					v:SetValue(hue)
+				end
+			end
+			task.wait(1 / mainapi.RainbowUpdateSpeed.Value)
+		until mainapi.Loaded == nil
+	end)
+
+	function mainapi:BlurCheck()
+		if IsMobile then
+			return
+		end
+		if self.ThreadFix then
+			setthreadidentity(8)
+			runService:SetRobloxGuiFocused((clickgui.Visible or guiService:GetErrorType() ~= Enum.ConnectionError.OK) and self.Blur.Enabled)
+		end
+	end
+
+	addMaid(mainapi)
+
+	function mainapi:CreateGUI()
+		local categoryapi = {
+			Type = 'MainWindow',
+			Buttons = {},
+			Options = {}
+		}
+
+		local window = Instance.new('TextButton')
+		window.Name = 'GUICategory'
+		window.Position = UDim2.fromOffset(6, 60)
+		window.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		window.AutoButtonColor = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local logo = Instance.new('ImageLabel')
+		logo.Name = 'VapeLogo'
+		logo.Size = UDim2.fromOffset(62, 18)
+		logo.Position = UDim2.fromOffset(11, 10)
+		logo.BackgroundTransparency = 1
+		logo.Image = getcustomasset('catrewrite/assets/new/guivape.png')
+		logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
+		logo.Parent = window
+		local logov4 = Instance.new('ImageLabel')
+		logov4.Name = 'V4Logo'
+		logov4.Size = UDim2.fromOffset(28, 16)
+		logov4.Position = UDim2.new(1, 1, 0, 1)
+		logov4.BackgroundTransparency = 1
+		logov4.Image = getcustomasset('catrewrite/assets/new/guiv4.png')
+		logov4.Parent = logo
+		local children = Instance.new('Frame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -33)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundTransparency = 1
+		children.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+		local settingsbutton = Instance.new('TextButton')
+		settingsbutton.Name = 'Settings'
+		settingsbutton.Size = UDim2.fromOffset(40, 40)
+		settingsbutton.Position = UDim2.new(1, -40, 0, 0)
+		settingsbutton.BackgroundTransparency = 1
+		settingsbutton.Text = ''
+		settingsbutton.Parent = window
+		addTooltip(settingsbutton, 'Open settings')
+		local settingsicon = Instance.new('ImageLabel')
+		settingsicon.Size = UDim2.fromOffset(14, 14)
+		settingsicon.Position = UDim2.fromOffset(15, 12)
+		settingsicon.BackgroundTransparency = 1
+		settingsicon.Image = getcustomasset('catrewrite/assets/new/guisettings.png')
+		settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		settingsicon.Parent = settingsbutton
+		local settingspane = Instance.new('TextButton')
+		settingspane.Size = UDim2.fromScale(1, 1)
+		settingspane.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		settingspane.AutoButtonColor = false
+		settingspane.Visible = false
+		settingspane.Text = ''
+		settingspane.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -36, 0, 20)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+		title.BackgroundTransparency = 1
+		title.Text = 'Settings'
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = settingspane
+		local close = addCloseButton(settingspane)
+		local back = Instance.new('ImageButton')
+		back.Name = 'Back'
+		back.Size = UDim2.fromOffset(16, 16)
+		back.Position = UDim2.fromOffset(11, 13)
+		back.BackgroundTransparency = 1
+		back.Image = getcustomasset('catrewrite/assets/new/back.png')
+		back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		back.Parent = settingspane
+		local settingsversion = Instance.new('TextLabel')
+		settingsversion.Name = 'Version'
+		settingsversion.Size = UDim2.new(1, 0, 0, 16)
+		settingsversion.Position = UDim2.new(0, 0, 1, -16)
+		settingsversion.BackgroundTransparency = 1
+		settingsversion.Text = 'Cat Vape '..mainapi.Version
+		settingsversion.TextColor3 = color.Dark(uipallet.Text, 0.43)
+		settingsversion.TextXAlignment = Enum.TextXAlignment.Right
+		settingsversion.TextSize = 10
+		settingsversion.FontFace = uipallet.Font
+		settingsversion.Parent = settingspane
+		addCorner(settingspane)
+		local settingschildren = Instance.new('Frame')
+		settingschildren.Name = 'Children'
+		settingschildren.Size = UDim2.new(1, 0, 1, -57)
+		settingschildren.Position = UDim2.fromOffset(0, 41)
+		settingschildren.BackgroundColor3 = uipallet.Main
+		settingschildren.BorderSizePixel = 0
+		settingschildren.Parent = settingspane
+		local settingswindowlist = Instance.new('UIListLayout')
+		settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		settingswindowlist.Parent = settingschildren
+		categoryapi.Object = window
+
+		function categoryapi:CreateBind()
+			local optionapi = {Bind = {'RightShift'}}
+
+			local button = Instance.new('TextButton')
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = '          Rebind GUI'
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = settingschildren
+			addTooltip(button, 'Change the bind of the GUI')
+			local bind = Instance.new('TextButton')
+			bind.Name = 'Bind'
+			bind.Size = UDim2.fromOffset(20, 21)
+			bind.Position = UDim2.new(1, -10, 0, 9)
+			bind.AnchorPoint = Vector2.new(1, 0)
+			bind.BackgroundColor3 = Color3.new(1, 1, 1)
+			bind.BackgroundTransparency = 0.92
+			bind.BorderSizePixel = 0
+			bind.AutoButtonColor = false
+			bind.Text = ''
+			bind.Parent = button
+			addTooltip(bind, 'Click to bind')
+			addCorner(bind, UDim.new(0, 4))
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(12, 12)
+			icon.Position = UDim2.new(0.5, -6, 0, 5)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+			icon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			icon.Parent = bind
+			local label = Instance.new('TextLabel')
+			label.Name = 'Text'
+			label.Size = UDim2.fromScale(1, 1)
+			label.Position = UDim2.fromOffset(0, 1)
+			label.BackgroundTransparency = 1
+			label.Visible = false
+			label.Text = ''
+			label.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			label.TextSize = 12
+			label.FontFace = uipallet.Font
+			label.Parent = bind
+
+			function optionapi:SetBind(tab)
+				mainapi.Keybind = #tab <= 0 and mainapi.Keybind or table.clone(tab)
+				self.Bind = mainapi.Keybind
+
+				bind.Visible = true
+				label.Visible = true
+				icon.Visible = false
+				label.Text = table.concat(mainapi.Keybind, ' + '):upper()
+				bind.Size = UDim2.fromOffset(math.max(getfontsize(label.Text, label.TextSize, label.Font).X + 10, 20), 21)
+			end
+
+			bind.MouseEnter:Connect(function()
+				label.Visible = false
+				icon.Visible = not label.Visible
+				icon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			bind.MouseLeave:Connect(function()
+				label.Visible = true
+				icon.Visible = not label.Visible
+				icon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			bind.MouseButton1Click:Connect(function()
+				mainapi.Binding = optionapi
+			end)
+
+			categoryapi.Options.Bind = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateButton(categorysettings)
+			local optionapi = {
+				Enabled = false,
+				Index = getTableSize(categoryapi.Buttons)
+			}
+
+			local button = Instance.new('TextButton')
+			button.Name = categorysettings.Name
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = (categorysettings.Icon and '                                 ' or '             ')..translateTo(categorysettings.Name)
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = children
+			local icon
+			if categorysettings.Icon then
+				icon = Instance.new('ImageLabel')
+				icon.Name = 'Icon'
+				icon.Size = categorysettings.Size
+				icon.Position = UDim2.fromOffset(13, 13)
+				icon.BackgroundTransparency = 1
+				icon.Image = categorysettings.Icon
+				icon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+				icon.Parent = button
+			end
+			if categorysettings.Name == 'Profiles' then
+				local label = Instance.new('TextLabel')
+				label.Name = 'ProfileLabel'
+				label.Size = UDim2.fromOffset(53, 24)
+				label.Position = UDim2.new(1, -36, 0, 8)
+				label.AnchorPoint = Vector2.new(1, 0)
+				label.BackgroundColor3 = color.Light(uipallet.Main, 0.04)
+				label.Text = 'default'
+				label.TextColor3 = color.Dark(uipallet.Text, 0.29)
+				label.TextSize = 12
+				label.FontFace = uipallet.Font
+				label.Parent = button
+				addCorner(label)
+				mainapi.ProfileLabel = label
+			end
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -20, 0, 16)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			arrow.Parent = button
+			optionapi.Name = categorysettings.Name
+			optionapi.Icon = icon
+			optionapi.Object = button
+
+			function optionapi:Toggle()
+				self.Enabled = not self.Enabled
+				tween:Tween(arrow, uipallet.Tween, {
+					Position = UDim2.new(1, self.Enabled and -14 or -20, 0, 16)
+				})
+				button.TextColor3 = self.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or uipallet.Text
+				if icon then
+					icon.ImageColor3 = button.TextColor3
+				end
+				button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				categorysettings.Window.Visible = self.Enabled
+			end
+
+			button.MouseEnter:Connect(function()
+				if not optionapi.Enabled then
+					button.TextColor3 = uipallet.Text
+					if buttonicon then buttonicon.ImageColor3 = uipallet.Text end
+					button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+			end)
+			button.MouseLeave:Connect(function()
+				if not optionapi.Enabled then
+					button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					if buttonicon then buttonicon.ImageColor3 = color.Dark(uipallet.Text, 0.16) end
+					button.BackgroundColor3 = uipallet.Main
+				end
+			end)
+			button.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+
+			categoryapi.Buttons[categorysettings.Name] = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateDivider(text)
+			return components.Divider(children, text)
+		end
+
+		function categoryapi:CreateOverlayBar()
+			local optionapi = {Toggles = {}}
+
+			local bar = Instance.new('Frame')
+			bar.Name = 'Overlays'
+			bar.Size = UDim2.fromOffset(220, 36)
+			bar.BackgroundColor3 = uipallet.Main
+			bar.BorderSizePixel = 0
+			bar.Parent = children
+			components.Divider(bar)
+			local button = Instance.new('ImageButton')
+			button.Size = UDim2.fromOffset(24, 24)
+			button.Position = UDim2.new(1, -29, 0, 7)
+			button.BackgroundTransparency = 1
+			button.AutoButtonColor = false
+			button.Image = getcustomasset('catrewrite/assets/new/overlaysicon.png')
+			button.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			button.Parent = bar
+			addCorner(button, UDim.new(1, 0))
+			addTooltip(button, 'Open overlays menu')
+			local shadow = Instance.new('TextButton')
+			shadow.Name = 'Shadow'
+			shadow.Size = UDim2.new(1, 0, 1, -5)
+			shadow.BackgroundColor3 = Color3.new()
+			shadow.BackgroundTransparency = 1
+			shadow.AutoButtonColor = false
+			shadow.ClipsDescendants = true
+			shadow.Visible = false
+			shadow.Text = ''
+			shadow.Parent = window
+			addCorner(shadow)
+			local window = Instance.new('Frame')
+			window.Size = UDim2.fromOffset(220, 42)
+			window.Position = UDim2.fromScale(0, 1)
+			window.BackgroundColor3 = uipallet.Main
+			window.Parent = shadow
+			addCorner(window)
+			local icon = Instance.new('ImageLabel')
+			icon.Name = 'Icon'
+			icon.Size = UDim2.fromOffset(14, 12)
+			icon.Position = UDim2.fromOffset(10, 13)
+			icon.BackgroundTransparency = 1
+			icon.Image = getcustomasset('catrewrite/assets/new/overlaystab.png')
+			icon.ImageColor3 = uipallet.Text
+			icon.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 38)
+			title.Position = UDim2.fromOffset(36, 0)
+			title.BackgroundTransparency = 1
+			title.Text = 'Overlays'
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 15
+			title.FontFace = uipallet.Font
+			title.Parent = window
+			local close = addCloseButton(window, 7)
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.fromOffset(0, 37)
+			divider.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			divider.BorderSizePixel = 0
+			divider.Parent = window
+			local childrentoggle = Instance.new('Frame')
+			childrentoggle.Position = UDim2.fromOffset(0, 38)
+			childrentoggle.BackgroundTransparency = 1
+			childrentoggle.Parent = window
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Parent = childrentoggle
+
+			function optionapi:CreateToggle(togglesettings)
+				local toggleapi = {
+					Enabled = false,
+					Index = getTableSize(optionapi.Toggles)
+				}
+
+				local toggle = Instance.new('TextButton')
+				toggle.Name = togglesettings.Name..'Toggle'
+				toggle.Size = UDim2.new(1, 0, 0, 40)
+				toggle.BackgroundTransparency = 1
+				toggle.AutoButtonColor = false
+				toggle.Text = string.rep(' ', 33 * scale.Scale)..translateTo(togglesettings.Name)
+				toggle.TextXAlignment = Enum.TextXAlignment.Left
+				toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				toggle.TextSize = 14
+				toggle.FontFace = uipallet.Font
+				toggle.Parent = childrentoggle
+				local icon = Instance.new('ImageLabel')
+				icon.Name = 'Icon'
+				icon.Size = togglesettings.Size
+				icon.Position = togglesettings.Position
+				icon.BackgroundTransparency = 1
+				icon.Image = togglesettings.Icon
+				icon.ImageColor3 = uipallet.Text
+				icon.Parent = toggle
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(22, 12)
+				knob.Position = UDim2.new(1, -30, 0, 14)
+				knob.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+				knob.Parent = toggle
+				addCorner(knob, UDim.new(1, 0))
+				local knobmain = knob:Clone()
+				knobmain.Size = UDim2.fromOffset(8, 8)
+				knobmain.Position = UDim2.fromOffset(2, 2)
+				knobmain.BackgroundColor3 = uipallet.Main
+				knobmain.Parent = knob
+				toggleapi.Object = toggle
+
+				function toggleapi:Toggle()
+					self.Enabled = not self.Enabled
+					tween:Tween(knob, uipallet.Tween, {
+						BackgroundColor3 = self.Enabled and Color3.fromHSV(
+							mainapi.GUIColor.Hue,
+							mainapi.GUIColor.Sat,
+							mainapi.GUIColor.Value
+						) or (hovered and color.Light(uipallet.Main, 0.37) or color.Light(uipallet.Main, 0.14))
+					})
+					tween:Tween(knobmain, uipallet.Tween, {
+						Position = UDim2.fromOffset(self.Enabled and 12 or 2, 2)
+					})
+					togglesettings.Function(self.Enabled)
+				end
+
+				local hovered = false
+				scale:GetPropertyChangedSignal('Scale'):Connect(function()
+					toggle.Text = string.rep(' ', 33 * scale.Scale)..togglesettings.Name
+				end)
+				toggle.MouseEnter:Connect(function()
+					hovered = true
+					if not toggleapi.Enabled then
+						tween:Tween(knob, uipallet.Tween, {
+							BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+						})
+					end
+				end)
+				toggle.MouseLeave:Connect(function()
+					hovered = false
+					if not toggleapi.Enabled then
+						tween:Tween(knob, uipallet.Tween, {
+							BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+						})
+					end
+				end)
+				toggle.MouseButton1Click:Connect(function()
+					toggleapi:Toggle()
+				end)
+
+				table.insert(optionapi.Toggles, toggleapi)
+
+				return toggleapi
+			end
+
+			button.MouseEnter:Connect(function()
+				button.ImageColor3 = uipallet.Text
+				tween:Tween(button, uipallet.Tween, {
+					BackgroundTransparency = 0.9
+				})
+			end)
+			button.MouseLeave:Connect(function()
+				button.ImageColor3 = color.Light(uipallet.Main, 0.37)
+				tween:Tween(button, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+			end)
+			button.MouseButton1Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.new(0, 0, 1, -(window.Size.Y.Offset))
+				})
+			end)
+			close.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.fromScale(0, 1)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			shadow.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(window, uipallet.Tween, {
+					Position = UDim2.fromScale(0, 1)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				window.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 605))
+				childrentoggle.Size = UDim2.fromOffset(220, window.Size.Y.Offset - 5)
+			end)
+
+			mainapi.Overlays = optionapi
+
+			return optionapi
+		end
+
+		function categoryapi:CreateSettingsDivider()
+			components.Divider(settingschildren)
+		end
+
+		function categoryapi:CreateSettingsPane(categorysettings)
+			local optionapi = {}
+
+			local button = Instance.new('TextButton')
+			button.Name = categorysettings.Name
+			button.Size = UDim2.fromOffset(220, 40)
+			button.BackgroundColor3 = uipallet.Main
+			button.BorderSizePixel = 0
+			button.AutoButtonColor = false
+			button.Text = '          '..categorysettings.Name
+			button.TextXAlignment = Enum.TextXAlignment.Left
+			button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			button.TextSize = 14
+			button.FontFace = uipallet.Font
+			button.Parent = settingschildren
+			local arrow = Instance.new('ImageLabel')
+			arrow.Name = 'Arrow'
+			arrow.Size = UDim2.fromOffset(4, 8)
+			arrow.Position = UDim2.new(1, -20, 0, 16)
+			arrow.BackgroundTransparency = 1
+			arrow.Image = getcustomasset('catrewrite/assets/new/expandright.png')
+			arrow.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			arrow.Parent = button
+			local settingspane = Instance.new('TextButton')
+			settingspane.Size = UDim2.fromScale(1, 1)
+			settingspane.BackgroundColor3 = uipallet.Main
+			settingspane.AutoButtonColor = false
+			settingspane.Visible = false
+			settingspane.Text = ''
+			settingspane.Parent = window
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -36, 0, 20)
+			title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
+			title.BackgroundTransparency = 1
+			title.Text = categorysettings.Name
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = uipallet.Text
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = settingspane
+			local close = addCloseButton(settingspane)
+			local back = Instance.new('ImageButton')
+			back.Name = 'Back'
+			back.Size = UDim2.fromOffset(16, 16)
+			back.Position = UDim2.fromOffset(11, 13)
+			back.BackgroundTransparency = 1
+			back.Image = getcustomasset('catrewrite/assets/new/back.png')
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			back.Parent = settingspane
+			addCorner(settingspane)
+			local settingschildren = Instance.new('Frame')
+			settingschildren.Name = 'Children'
+			settingschildren.Size = UDim2.new(1, 0, 1, -57)
+			settingschildren.Position = UDim2.fromOffset(0, 41)
+			settingschildren.BackgroundColor3 = uipallet.Main
+			settingschildren.BorderSizePixel = 0
+			settingschildren.Parent = settingspane
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.BackgroundColor3 = Color3.new(1, 1, 1)
+			divider.BackgroundTransparency = 0.928
+			divider.BorderSizePixel = 0
+			divider.Parent = settingschildren
+			local settingswindowlist = Instance.new('UIListLayout')
+			settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			settingswindowlist.Parent = settingschildren
+
+			for i, v in components do
+				optionapi['Create'..i] = function(_, settings)
+					return v(settings, settingschildren, categoryapi)
+				end
+			end
+
+			back.MouseEnter:Connect(function()
+				back.ImageColor3 = uipallet.Text
+			end)
+			back.MouseLeave:Connect(function()
+				back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			back.MouseButton1Click:Connect(function()
+				settingspane.Visible = false
+			end)
+			button.MouseEnter:Connect(function()
+				button.TextColor3 = uipallet.Text
+				button.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			end)
+			button.MouseLeave:Connect(function()
+				button.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				button.BackgroundColor3 = uipallet.Main
+			end)
+			button.MouseButton1Click:Connect(function()
+				settingspane.Visible = true
+			end)
+			close.MouseButton1Click:Connect(function()
+				settingspane.Visible = false
+			end)
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				window.Size = UDim2.fromOffset(220, 45 + windowlist.AbsoluteContentSize.Y / scale.Scale)
+				for _, v in categoryapi.Buttons do
+					if v.Icon then
+						v.Object.Text = string.rep(' ', 33 * scale.Scale)..v.Name
+					end
+				end
+			end)
+
+			return optionapi
+		end
+
+		function categoryapi:CreateGUISlider(optionsettings)
+			local optionapi = {
+				Type = 'GUISlider',
+				Notch = 4,
+				Hue = 0.46,
+				Sat = 0.96,
+				Value = 0.52,
+				Rainbow = false,
+				CustomColor = false
+			}
+			local slidercolors = {
+				Color3.fromRGB(250, 50, 56),
+				Color3.fromRGB(242, 99, 33),
+				Color3.fromRGB(252, 179, 22),
+				Color3.fromRGB(5, 133, 104),
+				Color3.fromRGB(47, 122, 229),
+				Color3.fromRGB(126, 84, 217),
+				Color3.fromRGB(232, 96, 152)
+			}
+			local slidercolorpos = {
+				4,
+				33,
+				62,
+				90,
+				119,
+				148,
+				177
+			}
+
+			local function createSlider(name, gradientColor)
+				local slider = Instance.new('TextButton')
+				slider.Name = optionsettings.Name..'Slider'..name
+				slider.Size = UDim2.fromOffset(220, 50)
+				slider.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				slider.BorderSizePixel = 0
+				slider.AutoButtonColor = false
+				slider.Visible = false
+				slider.Text = ''
+				slider.Parent = settingschildren
+				local title = Instance.new('TextLabel')
+				title.Name = 'Title'
+				title.Size = UDim2.fromOffset(60, 30)
+				title.Position = UDim2.fromOffset(10, 2)
+				title.BackgroundTransparency = 1
+				title.Text = name
+				title.TextXAlignment = Enum.TextXAlignment.Left
+				title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+				title.TextSize = 11
+				title.FontFace = uipallet.Font
+				title.Parent = slider
+				local holder = Instance.new('Frame')
+				holder.Name = 'Slider'
+				holder.Size = UDim2.fromOffset(200, 2)
+				holder.Position = UDim2.fromOffset(10, 37)
+				holder.BackgroundColor3 = Color3.new(1, 1, 1)
+				holder.BorderSizePixel = 0
+				holder.Parent = slider
+				local uigradient = Instance.new('UIGradient')
+				uigradient.Color = gradientColor
+				uigradient.Parent = holder
+				local fill = holder:Clone()
+				fill.Name = 'Fill'
+				fill.Size = UDim2.fromScale(math.clamp(1, 0.04, 0.96), 1)
+				fill.Position = UDim2.new()
+				fill.BackgroundTransparency = 1
+				fill.Parent = holder
+				local knobframe = Instance.new('Frame')
+				knobframe.Name = 'Knob'
+				knobframe.Size = UDim2.fromOffset(24, 4)
+				knobframe.Position = UDim2.fromScale(1, 0.5)
+				knobframe.AnchorPoint = Vector2.new(0.5, 0.5)
+				knobframe.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+				knobframe.BorderSizePixel = 0
+				knobframe.Parent = fill
+				local knob = Instance.new('Frame')
+				knob.Name = 'Knob'
+				knob.Size = UDim2.fromOffset(14, 14)
+				knob.Position = UDim2.fromScale(0.5, 0.5)
+				knob.AnchorPoint = Vector2.new(0.5, 0.5)
+				knob.BackgroundColor3 = uipallet.Text
+				knob.Parent = knobframe
+				addCorner(knob, UDim.new(1, 0))
+				if name == 'Custom color' then
+					local reset = Instance.new('TextButton')
+					reset.Size = UDim2.fromOffset(45, 20)
+					reset.Position = UDim2.new(1, -52, 0, 5)
+					reset.BackgroundTransparency = 1
+					reset.Text = 'RESET'
+					reset.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					reset.TextSize = 11
+					reset.FontFace = uipallet.Font
+					reset.Parent = slider
+					reset.MouseButton1Click:Connect(function()
+						optionapi:SetValue(nil, nil, nil, 4)
+					end)
+				end
+
+				slider.InputBegan:Connect(function(inputObj)
+					if
+						(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+						and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+					then
+						local changed = inputService.InputChanged:Connect(function(input)
+							if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+								local value = math.clamp((input.Position.X - holder.AbsolutePosition.X) / holder.AbsoluteSize.X, 0, 1)
+								optionapi:SetValue(
+									name == 'Custom color' and value or nil,
+									name == 'Saturation' and value or nil,
+									name == 'Vibrance' and value or nil,
+									name == 'Opacity' and value or nil
+								)
+							end
+						end)
+
+						local ended
+						ended = inputObj.Changed:Connect(function()
+							if inputObj.UserInputState == Enum.UserInputState.End then
+								if changed then
+									changed:Disconnect()
+								end
+								if ended then
+									ended:Disconnect()
+								end
+							end
+						end)
+					end
+				end)
+				slider.MouseEnter:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(16, 16)
+					})
+				end)
+				slider.MouseLeave:Connect(function()
+					tween:Tween(knob, uipallet.Tween, {
+						Size = UDim2.fromOffset(14, 14)
+					})
+				end)
+
+				return slider
+			end
+
+			local slider = Instance.new('TextButton')
+			slider.Name = optionsettings.Name..'Slider'
+			slider.Size = UDim2.fromOffset(220, 50)
+			slider.BackgroundTransparency = 1
+			slider.AutoButtonColor = false
+			slider.Text = ''
+			slider.Parent = settingschildren
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.fromOffset(60, 30)
+			title.Position = UDim2.fromOffset(10, 2)
+			title.BackgroundTransparency = 1
+			title.Text = optionsettings.Name
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			title.TextSize = 11
+			title.FontFace = uipallet.Font
+			title.Parent = slider
+			local holder = Instance.new('Frame')
+			holder.Name = 'Slider'
+			holder.Size = UDim2.fromOffset(200, 2)
+			holder.Position = UDim2.fromOffset(10, 37)
+			holder.BackgroundTransparency = 1
+			holder.BorderSizePixel = 0
+			holder.Parent = slider
+			local colornum = 0
+			for i, color in slidercolors do
+				local colorframe = Instance.new('Frame')
+				colorframe.Size = UDim2.fromOffset(27 + (((i + 1) % 2) == 0 and 1 or 0), 2)
+				colorframe.Position = UDim2.fromOffset(colornum, 0)
+				colorframe.BackgroundColor3 = color
+				colorframe.BorderSizePixel = 0
+				colorframe.Parent = holder
+				colornum += (colorframe.Size.X.Offset + 1)
+			end
+			local preview = Instance.new('ImageButton')
+			preview.Name = 'Preview'
+			preview.Size = UDim2.fromOffset(12, 12)
+			preview.Position = UDim2.new(1, -22, 0, 10)
+			preview.BackgroundTransparency = 1
+			preview.Image = getcustomasset('catrewrite/assets/new/colorpreview.png')
+			preview.ImageColor3 = Color3.fromHSV(optionapi.Hue, 1, 1)
+			preview.Parent = slider
+			local valuebox = Instance.new('TextBox')
+			valuebox.Name = 'Box'
+			valuebox.Size = UDim2.fromOffset(60, 15)
+			valuebox.Position = UDim2.new(1, -69, 0, 9)
+			valuebox.BackgroundTransparency = 1
+			valuebox.Visible = false
+			valuebox.Text = ''
+			valuebox.TextXAlignment = Enum.TextXAlignment.Right
+			valuebox.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			valuebox.TextSize = 11
+			valuebox.FontFace = uipallet.Font
+			valuebox.ClearTextOnFocus = true
+			valuebox.Parent = slider
+			local expandbutton = Instance.new('TextButton')
+			expandbutton.Name = 'Expand'
+			expandbutton.Size = UDim2.fromOffset(17, 13)
+			expandbutton.Position = UDim2.new(0, getfontsize(title.Text, title.TextSize, title.Font).X + 11, 0, 7)
+			expandbutton.BackgroundTransparency = 1
+			expandbutton.Text = ''
+			expandbutton.Parent = slider
+			local expandicon = Instance.new('ImageLabel')
+			expandicon.Name = 'Expand'
+			expandicon.Size = UDim2.fromOffset(9, 5)
+			expandicon.Position = UDim2.fromOffset(4, 4)
+			expandicon.BackgroundTransparency = 1
+			expandicon.Image = getcustomasset('catrewrite/assets/new/expandicon.png')
+			expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			expandicon.Parent = expandbutton
+			local rainbow = Instance.new('TextButton')
+			rainbow.Name = 'Rainbow'
+			rainbow.Size = UDim2.fromOffset(12, 12)
+			rainbow.Position = UDim2.new(1, -42, 0, 10)
+			rainbow.BackgroundTransparency = 1
+			rainbow.Text = ''
+			rainbow.Parent = slider
+			local rainbow1 = Instance.new('ImageLabel')
+			rainbow1.Size = UDim2.fromOffset(12, 12)
+			rainbow1.BackgroundTransparency = 1
+			rainbow1.Image = getcustomasset('catrewrite/assets/new/rainbow_1.png')
+			rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			rainbow1.Parent = rainbow
+			local rainbow2 = rainbow1:Clone()
+			rainbow2.Image = getcustomasset('catrewrite/assets/new/rainbow_2.png')
+			rainbow2.Parent = rainbow
+			local rainbow3 = rainbow1:Clone()
+			rainbow3.Image = getcustomasset('catrewrite/assets/new/rainbow_3.png')
+			rainbow3.Parent = rainbow
+			local rainbow4 = rainbow1:Clone()
+			rainbow4.Image = getcustomasset('catrewrite/assets/new/rainbow_4.png')
+			rainbow4.Parent = rainbow
+			local knob = Instance.new('ImageLabel')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(26, 12)
+			knob.Position = UDim2.fromOffset(slidercolorpos[4] - 3, -5)
+			knob.BackgroundTransparency = 1
+			knob.Image = getcustomasset('catrewrite/assets/new/guislider.png')
+			knob.ImageColor3 = slidercolors[4]
+			knob.Parent = holder
+			optionsettings.Function = optionsettings.Function or function() end
+			local rainbowTable = {}
+			for i = 0, 1, 0.1 do
+				table.insert(rainbowTable, ColorSequenceKeypoint.new(i, Color3.fromHSV(i, 1, 1)))
+			end
+			local colorSlider = createSlider('Custom color', ColorSequence.new(rainbowTable))
+			local satSlider = createSlider('Saturation', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, optionapi.Value)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, 1, optionapi.Value))
+			}))
+			local vibSlider = createSlider('Vibrance', ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromHSV(optionapi.Hue, optionapi.Sat, 1))
+			}))
+			local normalknob = getcustomasset('catrewrite/assets/new/guislider.png')
+			local rainbowknob = getcustomasset('catrewrite/assets/new/guisliderrain.png')
+			local rainbowthread
+
+			function optionapi:Save(tab)
+				tab[optionsettings.Name] = {
+					Hue = self.Hue,
+					Sat = self.Sat,
+					Value = self.Value,
+					Notch = self.Notch,
+					CustomColor = self.CustomColor,
+					Rainbow = self.Rainbow
+				}
+			end
+
+			function optionapi:Load(tab)
+				if tab.Rainbow then
+					self:Toggle()
+				end
+				if self.Rainbow or tab.CustomColor then
+					self:SetValue(tab.Hue, tab.Sat, tab.Value)
+				else
+					self:SetValue(nil, nil, nil, tab.Notch)
+				end
+			end
+
+			function optionapi:SetValue(h, s, v, n)
+				if n then
+					if self.Rainbow then
+						self:Toggle()
+					end
+					self.CustomColor = false
+					h, s, v = slidercolors[n]:ToHSV()
+				else
+					self.CustomColor = true
+				end
+
+				self.Hue = h or self.Hue
+				self.Sat = s or self.Sat
+				self.Value = v or self.Value
+				self.Notch = n
+				preview.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+				satSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, self.Value)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, 1, self.Value))
+				})
+				vibSlider.Slider.UIGradient.Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0)),
+					ColorSequenceKeypoint.new(1, Color3.fromHSV(self.Hue, self.Sat, 1))
+				})
+
+				if self.Rainbow or self.CustomColor then
+					knob.Image = rainbowknob
+					knob.ImageColor3 = Color3.new(1, 1, 1)
+					tween:Tween(knob, uipallet.Tween, {
+						Position = UDim2.fromOffset(slidercolorpos[4] - 3, -5)
+					})
+				else
+					knob.Image = normalknob
+					knob.ImageColor3 = Color3.fromHSV(self.Hue, self.Sat, self.Value)
+					tween:Tween(knob, uipallet.Tween, {
+						Position = UDim2.fromOffset(slidercolorpos[n or 4] - 3, -5)
+					})
+				end
+
+				if self.Rainbow then
+					if h then
+						colorSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+					end
+					if s then
+						satSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+					end
+					if v then
+						vibSlider.Slider.Fill.Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+					end
+				else
+					if h then
+						tween:Tween(colorSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Hue, 0.04, 0.96), 1)
+						})
+					end
+					if s then
+						tween:Tween(satSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Sat, 0.04, 0.96), 1)
+						})
+					end
+					if v then
+						tween:Tween(vibSlider.Slider.Fill, uipallet.Tween, {
+							Size = UDim2.fromScale(math.clamp(self.Value, 0.04, 0.96), 1)
+						})
+					end
+				end
+				optionsettings.Function(self.Hue, self.Sat, self.Value)
+			end
+
+			function optionapi:Toggle()
+				self.Rainbow = not self.Rainbow
+				if rainbowthread then
+					task.cancel(rainbowthread)
+				end
+
+				if self.Rainbow then
+					knob.Image = rainbowknob
+					table.insert(mainapi.RainbowTable, self)
+
+					rainbow1.ImageColor3 = Color3.fromRGB(5, 127, 100)
+					rainbowthread = task.delay(0.1, function()
+						rainbow2.ImageColor3 = Color3.fromRGB(228, 125, 43)
+						rainbowthread = task.delay(0.1, function()
+							rainbow3.ImageColor3 = Color3.fromRGB(225, 46, 52)
+							rainbowthread = nil
+						end)
+					end)
+				else
+					self:SetValue(nil, nil, nil, 4)
+					knob.Image = normalknob
+					local ind = table.find(mainapi.RainbowTable, self)
+					if ind then
+						table.remove(mainapi.RainbowTable, ind)
+					end
+
+					rainbow3.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					rainbowthread = task.delay(0.1, function()
+						rainbow2.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						rainbowthread = task.delay(0.1, function()
+							rainbow1.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end)
+					end)
+				end
+			end
+
+			expandbutton.MouseEnter:Connect(function()
+				expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+			end)
+			expandbutton.MouseLeave:Connect(function()
+				expandicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			end)
+			expandbutton.MouseButton1Click:Connect(function()
+				colorSlider.Visible = not colorSlider.Visible
+				satSlider.Visible = colorSlider.Visible
+				vibSlider.Visible = satSlider.Visible
+				expandicon.Rotation = satSlider.Visible and 180 or 0
+			end)
+			preview.MouseButton1Click:Connect(function()
+				preview.Visible = false
+				valuebox.Visible = true
+				valuebox:CaptureFocus()
+				local text = Color3.fromHSV(optionapi.Hue, optionapi.Sat, optionapi.Value)
+				valuebox.Text = math.round(text.R * 255)..', '..math.round(text.G * 255)..', '..math.round(text.B * 255)
+			end)
+			slider.InputBegan:Connect(function(inputObj)
+				if
+					(inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch)
+					and (inputObj.Position.Y - slider.AbsolutePosition.Y) > (20 * scale.Scale)
+				then
+					local changed = inputService.InputChanged:Connect(function(input)
+						if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
+							optionapi:SetValue(nil, nil, nil, math.clamp(math.round((input.Position.X - holder.AbsolutePosition.X) / scale.Scale / 27), 1, 7))
+						end
+					end)
+
+					local ended
+					ended = inputObj.Changed:Connect(function()
+						if inputObj.UserInputState == Enum.UserInputState.End then
+							if changed then
+								changed:Disconnect()
+							end
+							if ended then
+								ended:Disconnect()
+							end
+						end
+					end)
+					optionapi:SetValue(nil, nil, nil, math.clamp(math.round((inputObj.Position.X - holder.AbsolutePosition.X) / scale.Scale / 27), 1, 7))
+				end
+			end)
+			rainbow.MouseButton1Click:Connect(function()
+				optionapi:Toggle()
+			end)
+			valuebox.FocusLost:Connect(function(enter)
+				preview.Visible = true
+				valuebox.Visible = false
+				if enter then
+					local commas = valuebox.Text:split(',')
+					local suc, res = pcall(function()
+						return tonumber(commas[1]) and Color3.fromRGB(
+							tonumber(commas[1]),
+							tonumber(commas[2]),
+							tonumber(commas[3])
+						) or Color3.fromHex(valuebox.Text)
+					end)
+
+					if suc then
+						if optionapi.Rainbow then
+							optionapi:Toggle()
+						end
+						optionapi:SetValue(res:ToHSV())
+					end
+				end
+			end)
+
+			optionapi.Object = slider
+			categoryapi.Options[optionsettings.Name] = optionapi
+
+			return optionapi
+		end
+
+		back.MouseEnter:Connect(function()
+			back.ImageColor3 = uipallet.Text
+		end)
+		back.MouseLeave:Connect(function()
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		back.MouseButton1Click:Connect(function()
+			settingspane.Visible = false
+		end)
+		close.MouseButton1Click:Connect(function()
+			settingspane.Visible = false
+		end)
+		settingsbutton.MouseEnter:Connect(function()
+			settingsicon.ImageColor3 = uipallet.Text
+		end)
+		settingsbutton.MouseLeave:Connect(function()
+			settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		settingsbutton.MouseButton1Click:Connect(function()
+			settingspane.Visible = true
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			window.Size = UDim2.fromOffset(220, 42 + windowlist.AbsoluteContentSize.Y / scale.Scale)
+			for _, v in categoryapi.Buttons do
+				if v.Icon then
+					v.Object.Text = string.rep(' ', 36 * scale.Scale)..v.Name
+				end
+			end
+		end)
+
+		self.Categories.Main = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateCategory(categorysettings)
+		local categoryapi = {
+			Type = 'Category',
+			Expanded = false
+		}
+
+		local window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'Category'
+		window.Size = UDim2.fromOffset(220, 41)
+		window.Position = UDim2.fromOffset(236, 60)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = UDim2.fromOffset(12, (icon.Size.X.Offset > 20 and 14 or 13))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 18 and 40 or 33), 0, 41)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
+		title.BackgroundTransparency = 1
+		title.Text = translateTo(categorysettings.Name)
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local arrowbutton = Instance.new('TextButton')
+		arrowbutton.Name = 'Arrow'
+		arrowbutton.Size = UDim2.fromOffset(40, 40)
+		arrowbutton.Position = UDim2.new(1, -40, 0, 0)
+		arrowbutton.BackgroundTransparency = 1
+		arrowbutton.Text = ''
+		arrowbutton.Parent = window
+		local arrow = Instance.new('ImageLabel')
+		arrow.Name = 'Arrow'
+		arrow.Size = UDim2.fromOffset(9, 4)
+		arrow.Position = UDim2.fromOffset(20, 18)
+		arrow.BackgroundTransparency = 1
+		arrow.Image = getcustomasset('catrewrite/assets/new/expandup.png')
+		arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		arrow.Rotation = 180
+		arrow.Parent = arrowbutton
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -41)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 37)
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+
+		function categoryapi:CreateModule(modulesettings)
+			mainapi:Remove(modulesettings.Name)
+			local moduleapi = {
+				Enabled = false,
+				Options = {},
+				Bind = {},
+				Index = getTableSize(mainapi.Modules),
+				ExtraText = modulesettings.ExtraText,
+				Name = modulesettings.Name,
+				KeybindFunction = modulesettings.KeybindFunction,
+				Category = categorysettings.Name
+			}
+
+			local modulebutton = Instance.new('TextButton')
+			modulebutton.Name = modulesettings.Name
+			modulebutton.Size = UDim2.fromOffset(220, 40)
+			modulebutton.BackgroundColor3 = uipallet.Main
+			modulebutton.BorderSizePixel = 0
+			modulebutton.AutoButtonColor = false
+			modulebutton.Text = '            '..translateTo(modulesettings.Name:gsub(' ', ''), usedLanguage)
+			modulebutton.TextXAlignment = Enum.TextXAlignment.Left
+			modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			modulebutton.TextSize = 14
+			modulebutton.FontFace = uipallet.Font
+			modulebutton.Parent = children
+
+			if modulesettings.Premium then
+				local indicator = Instance.new('TextLabel')
+				indicator.Parent = modulebutton
+				indicator.SizeConstraint = Enum.SizeConstraint.RelativeXX
+				indicator.AutomaticSize = Enum.AutomaticSize.X
+				indicator.Size = UDim2.new(0, 0, 0, 21)
+				indicator.BackgroundColor3 = Color3.new(1, 1, 1)
+				indicator.TextSize = 14
+				indicator.TextTransparency = 1
+				indicator.AnchorPoint = Vector2.new(0, 0.5)
+				indicator.Text = 'Premium'
+				indicator.Position = UDim2.new(0, 128, 0.5, 0)
+				indicator.TextColor3 = Color3.new(0, 0, 0)
+				indicator.FontFace = uipallet.Font
+
+				addCorner(indicator, UDim.new(0, 5))
+
+				local text = indicator:Clone()
+				text.Parent = indicator
+				text.Position = UDim2.new()
+				text.Size = UDim2.fromScale(1, 1)
+				text.BackgroundTransparency = 1
+				text.AnchorPoint = Vector2.new()
+				text.AutomaticSize = Enum.AutomaticSize.None
+				text.TextSize = 12
+				text.TextTransparency = 0
+				text.SizeConstraint = Enum.SizeConstraint.RelativeXY
+
+				table.insert(mainapi.Indicators, indicator)
+			end
+
+			local gradient = Instance.new('UIGradient')
+			gradient.Rotation = 90
+			gradient.Enabled = false
+			gradient.Parent = modulebutton
+			local modulechildren = Instance.new('Frame')
+			local bind = Instance.new('TextButton')
+			addTooltip(modulebutton, modulesettings.Tooltip)
+			addTooltip(bind, 'Click to bind')
+			bind.Name = 'Bind'
+			bind.Size = UDim2.fromOffset(20, 21)
+			bind.Position = UDim2.new(1, -36, 0, 9)
+			bind.AnchorPoint = Vector2.new(1, 0)
+			bind.BackgroundColor3 = Color3.new(1, 1, 1)
+			bind.BackgroundTransparency = 0.92
+			bind.BorderSizePixel = 0
+			bind.AutoButtonColor = false
+			bind.Visible = false
+			bind.Text = ''
+			addCorner(bind, UDim.new(0, 4))
+			local bindicon = Instance.new('ImageLabel')
+			bindicon.Name = 'Icon'
+			bindicon.Size = UDim2.fromOffset(12, 12)
+			bindicon.Position = UDim2.new(0.5, -6, 0, 5)
+			bindicon.BackgroundTransparency = 1
+			bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+			bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+			bindicon.Parent = bind
+			local bindtext = Instance.new('TextLabel')
+			bindtext.Size = UDim2.fromScale(1, 1)
+			bindtext.Position = UDim2.fromOffset(0, 1)
+			bindtext.BackgroundTransparency = 1
+			bindtext.Visible = false
+			bindtext.Text = ''
+			bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+			bindtext.TextSize = 12
+			bindtext.FontFace = uipallet.Font
+			bindtext.Parent = bind
+			local bindcover = Instance.new('ImageLabel')
+			bindcover.Name = 'Cover'
+			bindcover.Size = UDim2.fromOffset(154, 40)
+			bindcover.BackgroundTransparency = 1
+			bindcover.Visible = false
+			bindcover.Image = getcustomasset('catrewrite/assets/new/bindbkg.png')
+			bindcover.ScaleType = Enum.ScaleType.Slice
+			bindcover.SliceCenter = Rect.new(0, 0, 141, 40)
+			bindcover.Parent = modulebutton
+			local bindcovertext = Instance.new('TextLabel')
+			bindcovertext.Name = 'Text'
+			bindcovertext.Size = UDim2.new(1, -10, 1, -3)
+			bindcovertext.BackgroundTransparency = 1
+			bindcovertext.Text = translateTo('PRESS A KEY TO BIND', usedLanguage)
+			bindcovertext.TextColor3 = uipallet.Text
+			bindcovertext.TextSize = 11
+			bindcovertext.FontFace = uipallet.Font
+			bindcovertext.Parent = bindcover
+			bind.Parent = modulebutton
+			local dotsbutton = Instance.new('TextButton')
+			dotsbutton.Name = 'Dots'
+			dotsbutton.Size = UDim2.fromOffset(25, 40)
+			dotsbutton.Position = UDim2.new(1, -25, 0, 0)
+			dotsbutton.BackgroundTransparency = 1
+			dotsbutton.Text = ''
+			dotsbutton.Parent = modulebutton
+			local dots = Instance.new('ImageLabel')
+			dots.Name = 'Dots'
+			dots.Size = UDim2.fromOffset(3, 16)
+			dots.Position = UDim2.fromOffset(4, 12)
+			dots.BackgroundTransparency = 1
+			dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+			dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			dots.Parent = dotsbutton
+			modulechildren.Name = modulesettings.Name..'Children'
+			modulechildren.Size = UDim2.new(1, 0, 0, 0)
+			modulechildren.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+			modulechildren.BorderSizePixel = 0
+			modulechildren.Visible = false
+			modulechildren.Parent = children
+			moduleapi.Children = modulechildren
+			local windowlist = Instance.new('UIListLayout')
+			windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			windowlist.Parent = modulechildren
+			local divider = Instance.new('Frame')
+			divider.Name = 'Divider'
+			divider.Size = UDim2.new(1, 0, 0, 1)
+			divider.Position = UDim2.new(0, 0, 1, -1)
+			divider.BackgroundColor3 = Color3.new(0.19, 0.19, 0.19)
+			divider.BackgroundTransparency = 0.52
+			divider.BorderSizePixel = 0
+			divider.Visible = false
+			divider.Parent = modulebutton
+			modulesettings.Function = modulesettings.Function or function() end
+			addMaid(moduleapi)
+
+			function moduleapi:SetBind(tab, mouse)
+				if tab.Mobile then
+					createMobileButton(moduleapi, Vector2.new(tab.X, tab.Y))
+					return
+				end
+
+				self.Bind = table.clone(tab)
+				if mouse then
+					bindcovertext.Text = #tab <= 0 and translateTo('BIND REMOVED', usedLanguage) or translateTo('BOUND TO', usedLanguage)
+					bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+					task.delay(1, function()
+						bindcover.Visible = false
+					end)
+				end
+
+				if #tab <= 0 then
+					bindtext.Visible = false
+					bindicon.Visible = true
+					bind.Size = UDim2.fromOffset(20, 21)
+				else
+					bind.Visible = true
+					bindtext.Visible = true
+					bindicon.Visible = false
+					bindtext.Text = table.concat(tab, ' + '):upper()
+					bind.Size = UDim2.fromOffset(math.max(getfontsize(bindtext.Text, bindtext.TextSize, bindtext.Font).X + 10, 20), 21)
+				end
+			end
+
+			function moduleapi:Toggle(multiple)
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				self.Enabled = not self.Enabled
+				divider.Visible = self.Enabled
+				gradient.Enabled = self.Enabled
+				modulebutton.TextColor3 = (hovered or modulechildren.Visible) and uipallet.Text or color.Dark(uipallet.Text, 0.16)
+				modulebutton.BackgroundColor3 = (hovered or modulechildren.Visible) and color.Light(uipallet.Main, 0.02) or uipallet.Main
+				dots.ImageColor3 = self.Enabled and Color3.fromRGB(50, 50, 50) or color.Light(uipallet.Main, 0.37)
+				bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+				bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+				if not self.Enabled then
+					for _, v in self.Connections do
+						v:Disconnect()
+					end
+					table.clear(self.Connections)
+				end
+				if not multiple then
+					mainapi:UpdateTextGUI()
+				end
+				task.spawn(modulesettings.Function, self.Enabled)
+			end
+
+			for i, v in components do
+				moduleapi['Create'..i] = function(_, optionsettings)
+					return v(optionsettings, modulechildren, moduleapi)
+				end
+			end
+
+			bind.MouseEnter:Connect(function()
+				bindtext.Visible = false
+				bindicon.Visible = not bindtext.Visible
+				bindicon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+				if not moduleapi.Enabled then bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.16) end
+			end)
+			bind.MouseLeave:Connect(function()
+				bindtext.Visible = #moduleapi.Bind > 0
+				bindicon.Visible = not bindtext.Visible
+				bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+				if not moduleapi.Enabled then
+					bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+				end
+			end)
+			bind.MouseButton1Click:Connect(function()
+				bindcovertext.Text = 'PRESS A KEY TO BIND'
+				bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+				bindcover.Visible = true
+				mainapi.Binding = moduleapi
+			end)
+			dotsbutton.MouseEnter:Connect(function()
+				if not moduleapi.Enabled then
+					dots.ImageColor3 = uipallet.Text
+				end
+			end)
+			dotsbutton.MouseLeave:Connect(function()
+				if not moduleapi.Enabled then
+					dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+				end
+			end)
+			dotsbutton.MouseButton1Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			dotsbutton.MouseButton2Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			local hovered = false
+			modulebutton.MouseEnter:Connect(function()
+				hovered = true
+				if not moduleapi.Enabled and not modulechildren.Visible then
+					modulebutton.TextColor3 = uipallet.Text
+					modulebutton.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+				bind.Visible = #moduleapi.Bind > 0 or hovered or modulechildren.Visible
+			end)
+			modulebutton.MouseLeave:Connect(function()
+				hovered = false
+				if not moduleapi.Enabled and not modulechildren.Visible then
+					modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					modulebutton.BackgroundColor3 = uipallet.Main
+				end
+				bind.Visible = #moduleapi.Bind > 0 or hovered or modulechildren.Visible
+			end)
+			modulebutton.MouseButton1Click:Connect(function()
+				moduleapi:Toggle()
+			end)
+			modulebutton.MouseButton2Click:Connect(function()
+				modulechildren.Visible = not modulechildren.Visible
+			end)
+			if IsMobile then
+				local heldbutton = false
+				modulebutton.MouseButton1Down:Connect(function()
+					heldbutton = true
+					local holdtime, holdpos = tick(), inputService:GetMouseLocation()
+					repeat
+						heldbutton = (inputService:GetMouseLocation() - holdpos).Magnitude < 3
+						task.wait()
+					until (tick() - holdtime) > 1 or not heldbutton or not clickgui.Visible
+					if heldbutton and clickgui.Visible then
+						if mainapi.ThreadFix then
+							setthreadidentity(8)
+						end
+						clickgui.Visible = false
+						tooltip.Visible = false
+						mainapi:BlurCheck()
+						for _, mobileButton in mainapi.Modules do
+							if mobileButton.Bind.Button then
+								mobileButton.Bind.Button.Visible = true
+							end
+						end
+
+						local touchconnection
+						touchconnection = inputService.InputBegan:Connect(function(inputType)
+							if inputType.UserInputType == Enum.UserInputType.Touch then
+								if mainapi.ThreadFix then setthreadidentity(8) end
+								createMobileButton(moduleapi, inputType.Position + Vector3.new(0, guiService:GetGuiInset().Y, 0))
+								clickgui.Visible = true
+								mainapi:BlurCheck()
+								for _, mobileButton in mainapi.Modules do
+									if mobileButton.Bind.Button then
+										mobileButton.Bind.Button.Visible = false
+									end
+								end
+								touchconnection:Disconnect()
+							end
+						end)
+					end
+				end)
+				modulebutton.MouseButton1Up:Connect(function()
+					heldbutton = false
+				end)
+			end
+			windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				modulechildren.Size = UDim2.new(1, 0, 0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			end)
+
+			moduleapi.Object = modulebutton
+			mainapi.Modules[modulesettings.Name] = moduleapi
+
+			local sorting = {}
+			for _, v in mainapi.Modules do
+				sorting[v.Category] = sorting[v.Category] or {}
+				table.insert(sorting[v.Category], v.Name)
+			end
+
+			for _, sort in sorting do
+				table.sort(sort)
+				for i, v in sort do
+					mainapi.Modules[v].Index = i
+					mainapi.Modules[v].Object.LayoutOrder = i
+					mainapi.Modules[v].Children.LayoutOrder = i
+				end
+			end
+
+			return moduleapi
+		end
+
+		function categoryapi:Expand()
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			arrow.Rotation = self.Expanded and 0 or 180
+			window.Size = UDim2.fromOffset(220, self.Expanded and math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601) or 41)
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end
+
+		arrowbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseEnter:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+		end)
+		arrowbutton.MouseLeave:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		end)
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		window.InputBegan:Connect(function(inputObj)
+			if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
+				categoryapi:Expand()
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(220, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			end
+		end)
+
+		categoryapi.Button = self.Categories.Main:CreateButton({
+			Name = categorysettings.Name,
+			Icon = categorysettings.Icon,
+			Size = categorysettings.Size,
+			Window = window
+		})
+
+		categoryapi.Object = window
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateOverlay(categorysettings)
+		local window
+		local categoryapi
+		categoryapi = {
+			Type = 'Overlay',
+			Expanded = false,
+			Button = self.Overlays:CreateToggle({
+			Name = categorysettings.Name,
+				Function = function(callback)
+					window.Visible = callback and (clickgui.Visible or categoryapi.Pinned)
+					if not callback then
+						for _, v in categoryapi.Connections do
+							v:Disconnect()
+						end
+						table.clear(categoryapi.Connections)
+					end
+
+					if categorysettings.Function then
+						task.spawn(categorysettings.Function, callback)
+					end
+				end,
+				Icon = categorysettings.Icon,
+				Size = categorysettings.Size,
+				Position = categorysettings.Position
+			}),
+			Pinned = false,
+			Options = {}
+		}
+
+		window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'Overlay'
+		window.Size = UDim2.fromOffset(categorysettings.CategorySize or 220, 41)
+		window.Position = UDim2.fromOffset(240, 46)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = scaledgui
+		local blur = addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = UDim2.fromOffset(12, (icon.Size.X.Offset > 14 and 14 or 13))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -32, 0, 41)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
+		title.BackgroundTransparency = 1
+		title.Text = categorysettings.Name
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local pin = Instance.new('ImageButton')
+		pin.Name = 'Pin'
+		pin.Size = UDim2.fromOffset(16, 16)
+		pin.Position = UDim2.new(1, -47, 0, 12)
+		pin.BackgroundTransparency = 1
+		pin.AutoButtonColor = false
+		pin.Image = getcustomasset('catrewrite/assets/new/pin.png')
+		pin.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+		pin.Parent = window
+		local dotsbutton = Instance.new('TextButton')
+		dotsbutton.Name = 'Dots'
+		dotsbutton.Size = UDim2.fromOffset(17, 40)
+		dotsbutton.Position = UDim2.new(1, -17, 0, 0)
+		dotsbutton.BackgroundTransparency = 1
+		dotsbutton.Text = ''
+		dotsbutton.Parent = window
+		local dots = Instance.new('ImageLabel')
+		dots.Name = 'Dots'
+		dots.Size = UDim2.fromOffset(3, 16)
+		dots.Position = UDim2.fromOffset(4, 12)
+		dots.BackgroundTransparency = 1
+		dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+		dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		dots.Parent = dotsbutton
+		local customchildren = Instance.new('Frame')
+		customchildren.Name = 'CustomChildren'
+		customchildren.Size = UDim2.new(1, 0, 0, 200)
+		customchildren.Position = UDim2.fromScale(0, 1)
+		customchildren.BackgroundTransparency = 1
+		customchildren.Parent = window
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -41)
+		children.Position = UDim2.fromOffset(0, 37)
+		children.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+		addMaid(categoryapi)
+
+		function categoryapi:Expand(check)
+			if check and not blur.Visible then return end
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			dots.ImageColor3 = self.Expanded and uipallet.Text or color.Light(uipallet.Main, 0.37)
+			if self.Expanded then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			else
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 41)
+			end
+		end
+
+		function categoryapi:Pin()
+			self.Pinned = not self.Pinned
+			pin.ImageColor3 = self.Pinned and uipallet.Text or color.Dark(uipallet.Text, 0.43)
+		end
+
+		function categoryapi:Update()
+			window.Visible = self.Button.Enabled and (clickgui.Visible or self.Pinned)
+			if self.Expanded then
+				self:Expand()
+			end
+			if clickgui.Visible then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 41)
+				window.BackgroundTransparency = 0
+				blur.Visible = true
+				icon.Visible = true
+				title.Visible = true
+				pin.Visible = true
+				dotsbutton.Visible = true
+			else
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, 0)
+				window.BackgroundTransparency = 1
+				blur.Visible = false
+				icon.Visible = false
+				title.Visible = false
+				pin.Visible = false
+				dotsbutton.Visible = false
+			end
+		end
+
+		for i, v in components do
+			categoryapi['Create'..i] = function(self, optionsettings)
+				return v(optionsettings, children, categoryapi)
+			end
+		end
+
+		dotsbutton.MouseEnter:Connect(function()
+			if not children.Visible then
+				dots.ImageColor3 = uipallet.Text
+			end
+		end)
+		dotsbutton.MouseLeave:Connect(function()
+			if not children.Visible then
+				dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end
+		end)
+		dotsbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		dotsbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		pin.MouseButton1Click:Connect(function()
+			categoryapi:Pin()
+		end)
+		window.MouseButton2Click:Connect(function()
+			categoryapi:Expand(true)
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(window.Size.X.Offset, math.min(41 + windowlist.AbsoluteContentSize.Y / scale.Scale, 601))
+			end
+		end)
+		self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
+			categoryapi:Update()
+		end))
+
+		categoryapi:Update()
+		categoryapi.Object = window
+		categoryapi.Children = customchildren
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateCategoryList(categorysettings)
+		local categoryapi = {
+			Type = 'CategoryList',
+			Expanded = false,
+			List = {},
+			ListEnabled = {},
+			Objects = {},
+			Options = {}
+		}
+		categorysettings.Color = categorysettings.Color or Color3.fromRGB(5, 134, 105)
+
+		local window = Instance.new('TextButton')
+		window.Name = categorysettings.Name..'CategoryList'
+		window.Size = UDim2.fromOffset(220, 45)
+		window.Position = UDim2.fromOffset(240, 46)
+		window.BackgroundColor3 = uipallet.Main
+		window.AutoButtonColor = false
+		window.Visible = false
+		window.Text = ''
+		window.Parent = clickgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = categorysettings.Size
+		icon.Position = categorysettings.Position or UDim2.fromOffset(12, (categorysettings.Size.X.Offset > 20 and 13 or 12))
+		icon.BackgroundTransparency = 1
+		icon.Image = categorysettings.Icon
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local title = Instance.new('TextLabel')
+		title.Name = 'Title'
+		title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 20 and 44 or 36), 0, 20)
+		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 12)
+		title.BackgroundTransparency = 1
+		title.Text = translateTo(categorysettings.Name)
+		title.TextXAlignment = Enum.TextXAlignment.Left
+		title.TextColor3 = uipallet.Text
+		title.TextSize = 13
+		title.FontFace = uipallet.Font
+		title.Parent = window
+		local arrowbutton = Instance.new('TextButton')
+		arrowbutton.Name = 'Arrow'
+		arrowbutton.Size = UDim2.fromOffset(40, 40)
+		arrowbutton.Position = UDim2.new(1, -40, 0, 0)
+		arrowbutton.BackgroundTransparency = 1
+		arrowbutton.Text = ''
+		arrowbutton.Parent = window
+		local arrow = Instance.new('ImageLabel')
+		arrow.Name = 'Arrow'
+		arrow.Size = UDim2.fromOffset(9, 4)
+		arrow.Position = UDim2.fromOffset(20, 19)
+		arrow.BackgroundTransparency = 1
+		arrow.Image = getcustomasset('catrewrite/assets/new/expandup.png')
+		arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		arrow.Rotation = 180
+		arrow.Parent = arrowbutton
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -45)
+		children.Position = UDim2.fromOffset(0, 45)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.Visible = false
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local childrentwo = Instance.new('Frame')
+		childrentwo.BackgroundTransparency = 1
+		childrentwo.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		childrentwo.Visible = false
+		childrentwo.Parent = children
+		local settings = Instance.new('ImageButton')
+		settings.Name = 'Settings'
+		settings.Size = categorysettings.Profiles and UDim2.fromOffset(14, 14) or UDim2.fromOffset(16, 16)
+		settings.Position = UDim2.new(1, -52, 0, 13)
+		settings.BackgroundTransparency = 1
+		settings.AutoButtonColor = false
+		settings.Image = categorysettings.Profiles and getcustomasset('catrewrite/assets/new/worldicon.png') or getcustomasset('catrewrite/assets/new/customsettings.png')
+		settings.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+		settings.Parent = window
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 41)
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.Parent = window
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Padding = UDim.new(0, 3)
+		windowlist.Parent = children
+		local windowlisttwo = Instance.new('UIListLayout')
+		windowlisttwo.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlisttwo.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlisttwo.Parent = childrentwo
+		local addbkg = Instance.new('Frame')
+		addbkg.Name = 'Add'
+		addbkg.Size = UDim2.fromOffset(200, 31)
+		addbkg.Position = UDim2.fromOffset(10, 45)
+		addbkg.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+		addbkg.Parent = children
+		addCorner(addbkg)
+		local addbox = addbkg:Clone()
+		addbox.Size = UDim2.new(1, -2, 1, -2)
+		addbox.Position = UDim2.fromOffset(1, 1)
+		addbox.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		addbox.Parent = addbkg
+		local addvalue = Instance.new('TextBox')
+		addvalue.Size = UDim2.new(1, -35, 1, 0)
+		addvalue.Position = UDim2.fromOffset(10, 0)
+		addvalue.BackgroundTransparency = 1
+		addvalue.Text = ''
+		addvalue.PlaceholderText = categorysettings.Placeholder or 'Add entry...'
+		addvalue.TextXAlignment = Enum.TextXAlignment.Left
+		addvalue.TextColor3 = Color3.new(1, 1, 1)
+		addvalue.TextSize = 15
+		addvalue.FontFace = uipallet.Font
+		addvalue.ClearTextOnFocus = false
+		addvalue.Parent = addbkg
+		local addbutton = Instance.new('ImageButton')
+		addbutton.Name = 'AddButton'
+		addbutton.Size = UDim2.fromOffset(16, 16)
+		addbutton.Position = UDim2.new(1, -26, 0, 8)
+		addbutton.BackgroundTransparency = 1
+		addbutton.Image = getcustomasset('catrewrite/assets/new/add.png')
+		addbutton.ImageColor3 = categorysettings.Color
+		addbutton.ImageTransparency = 0.3
+		addbutton.Parent = addbkg
+		local cursedpadding = Instance.new('Frame')
+		cursedpadding.Size = UDim2.fromOffset()
+		cursedpadding.BackgroundTransparency = 1
+		cursedpadding.Parent = children
+		categorysettings.Function = categorysettings.Function or function() end
+
+		function categoryapi:ChangeValue(val)
+			if val then
+				if categorysettings.Profiles then
+					local ind = self:GetValue(val)
+					if ind then
+						if val ~= 'default' then
+							table.remove(mainapi.Profiles, ind)
+							if isfile('catrewrite/profiles/'..val..mainapi.Place..'.txt') and delfile then
+								delfile('catrewrite/profiles/'..val..mainapi.Place..'.txt')
+							end
+						end
+					else
+						table.insert(mainapi.Profiles, {Name = val, Bind = {}})
+					end
+				else
+					local ind = table.find(self.List, val)
+					if ind then
+						table.remove(self.List, ind)
+						ind = table.find(self.ListEnabled, val)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+						end
+					else
+						table.insert(self.List, val)
+						table.insert(self.ListEnabled, val)
+					end
+				end
+			end
+
+			categorysettings.Function()
+			for _, v in self.Objects do
+				v:Destroy()
+			end
+			table.clear(self.Objects)
+			self.Selected = nil
+
+			for i, v in (categorysettings.Profiles and mainapi.Profiles or self.List) do
+				if categorysettings.Profiles then
+					local object = Instance.new('TextButton')
+					object.Name = v.Name
+					object.Size = UDim2.fromOffset(200, 33)
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = children
+					addCorner(object)
+					local objectstroke = Instance.new('UIStroke')
+					objectstroke.Color = color.Light(uipallet.Main, 0.1)
+					objectstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+					objectstroke.Enabled = false
+					objectstroke.Parent = object
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -10, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(10, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v.Name
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.4)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					local dotsbutton = Instance.new('TextButton')
+					dotsbutton.Name = 'Dots'
+					dotsbutton.Size = UDim2.fromOffset(25, 33)
+					dotsbutton.Position = UDim2.new(1, -25, 0, 0)
+					dotsbutton.BackgroundTransparency = 1
+					dotsbutton.Text = ''
+					dotsbutton.Parent = object
+					local dots = Instance.new('ImageLabel')
+					dots.Name = 'Dots'
+					dots.Size = UDim2.fromOffset(3, 16)
+					dots.Position = UDim2.fromOffset(10, 9)
+					dots.BackgroundTransparency = 1
+					dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+					dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+					dots.Parent = dotsbutton
+					local bind = Instance.new('TextButton')
+					addTooltip(bind, 'Click to bind')
+					bind.Name = 'Bind'
+					bind.Size = UDim2.fromOffset(20, 21)
+					bind.Position = UDim2.new(1, -30, 0, 6)
+					bind.AnchorPoint = Vector2.new(1, 0)
+					bind.BackgroundColor3 = Color3.new(1, 1, 1)
+					bind.BackgroundTransparency = 0.92
+					bind.BorderSizePixel = 0
+					bind.AutoButtonColor = false
+					bind.Visible = false
+					bind.Text = ''
+					addCorner(bind, UDim.new(0, 4))
+					local bindicon = Instance.new('ImageLabel')
+					bindicon.Name = 'Icon'
+					bindicon.Size = UDim2.fromOffset(12, 12)
+					bindicon.Position = UDim2.new(0.5, -6, 0, 5)
+					bindicon.BackgroundTransparency = 1
+					bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+					bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+					bindicon.Parent = bind
+					local bindtext = Instance.new('TextLabel')
+					bindtext.Size = UDim2.fromScale(1, 1)
+					bindtext.Position = UDim2.fromOffset(0, 1)
+					bindtext.BackgroundTransparency = 1
+					bindtext.Visible = false
+					bindtext.Text = ''
+					bindtext.TextColor3 = color.Dark(uipallet.Text, 0.43)
+					bindtext.TextSize = 12
+					bindtext.FontFace = uipallet.Font
+					bindtext.Parent = bind
+					bind.MouseEnter:Connect(function()
+						bindtext.Visible = false
+						bindicon.Visible = not bindtext.Visible
+						bindicon.Image = getcustomasset('catrewrite/assets/new/edit.png')
+						if v.Name ~= mainapi.Profile then
+							bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.16)
+						end
+					end)
+					bind.MouseLeave:Connect(function()
+						bindtext.Visible = #v.Bind > 0
+						bindicon.Visible = not bindtext.Visible
+						bindicon.Image = getcustomasset('catrewrite/assets/new/bind.png')
+						if v.Name ~= mainapi.Profile then
+							bindicon.ImageColor3 = color.Dark(uipallet.Text, 0.43)
+						end
+					end)
+					local bindcover = Instance.new('ImageLabel')
+					bindcover.Name = 'Cover'
+					bindcover.Size = UDim2.fromOffset(154, 33)
+					bindcover.BackgroundTransparency = 1
+					bindcover.Visible = false
+					bindcover.Image = getcustomasset('catrewrite/assets/new/bindbkg.png')
+					bindcover.ScaleType = Enum.ScaleType.Slice
+					bindcover.SliceCenter = Rect.new(0, 0, 141, 40)
+					bindcover.Parent = object
+					local bindcovertext = Instance.new('TextLabel')
+					bindcovertext.Name = 'Text'
+					bindcovertext.Size = UDim2.new(1, -10, 1, -3)
+					bindcovertext.BackgroundTransparency = 1
+					bindcovertext.Text = 'PRESS A KEY TO BIND'
+					bindcovertext.TextColor3 = uipallet.Text
+					bindcovertext.TextSize = 11
+					bindcovertext.FontFace = uipallet.Font
+					bindcovertext.Parent = bindcover
+					bind.Parent = object
+					dotsbutton.MouseEnter:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							dots.ImageColor3 = uipallet.Text
+						end
+					end)
+					dotsbutton.MouseLeave:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+						end
+					end)
+					dotsbutton.MouseButton1Click:Connect(function()
+						if v.Name ~= mainapi.Profile then
+							categoryapi:ChangeValue(v.Name)
+						end
+					end)
+					object.MouseButton1Click:Connect(function()
+						mainapi:Save(v.Name)
+						mainapi:Load(true)
+					end)
+					object.MouseEnter:Connect(function()
+						bind.Visible = true
+						if v.Name ~= mainapi.Profile then
+							objectstroke.Enabled = true
+							objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+						end
+					end)
+					object.MouseLeave:Connect(function()
+						bind.Visible = #v.Bind > 0
+						if v.Name ~= mainapi.Profile then
+							objectstroke.Enabled = false
+							objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.4)
+						end
+					end)
+
+					local function bindFunction(self, tab, mouse)
+						v.Bind = table.clone(tab)
+						if mouse then
+							bindcovertext.Text = #tab <= 0 and 'BIND REMOVED' or 'BOUND TO '..table.concat(tab, ' + '):upper()
+							bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+							task.delay(1, function()
+								bindcover.Visible = false
+							end)
+						end
+
+						if #tab <= 0 then
+							bindtext.Visible = false
+							bindicon.Visible = true
+							bind.Size = UDim2.fromOffset(20, 21)
+						else
+							bind.Visible = true
+							bindtext.Visible = true
+							bindicon.Visible = false
+							bindtext.Text = table.concat(tab, ' + '):upper()
+							bind.Size = UDim2.fromOffset(math.max(getfontsize(bindtext.Text, bindtext.TextSize, bindtext.Font).X + 10, 20), 21)
+						end
+					end
+
+					bindFunction({}, v.Bind)
+					bind.MouseButton1Click:Connect(function()
+						bindcovertext.Text = 'PRESS A KEY TO BIND'
+						bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
+						bindcover.Visible = true
+						mainapi.Binding = {SetBind = bindFunction, Bind = v.Bind}
+					end)
+					if v.Name == mainapi.Profile then
+						self.Selected = object
+					end
+					table.insert(self.Objects, object)
+				else
+					local enabled = table.find(self.ListEnabled, v)
+					local object = Instance.new('TextButton')
+					object.Name = v
+					object.Size = UDim2.fromOffset(200, 32)
+					object.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+					object.AutoButtonColor = false
+					object.Text = ''
+					object.Parent = children
+					addCorner(object)
+					local objectbkg = Instance.new('Frame')
+					objectbkg.Name = 'BKG'
+					objectbkg.Size = UDim2.new(1, -2, 1, -2)
+					objectbkg.Position = UDim2.fromOffset(1, 1)
+					objectbkg.BackgroundColor3 = uipallet.Main
+					objectbkg.Visible = false
+					objectbkg.Parent = object
+					addCorner(objectbkg)
+					local objectdot = Instance.new('Frame')
+					objectdot.Name = 'Dot'
+					objectdot.Size = UDim2.fromOffset(10, 11)
+					objectdot.Position = UDim2.fromOffset(10, 12)
+					objectdot.BackgroundColor3 = enabled and categorysettings.Color or color.Light(uipallet.Main, 0.37)
+					objectdot.Parent = object
+					addCorner(objectdot, UDim.new(1, 0))
+					local objectdotin = objectdot:Clone()
+					objectdotin.Size = UDim2.fromOffset(8, 9)
+					objectdotin.Position = UDim2.fromOffset(1, 1)
+					objectdotin.BackgroundColor3 = enabled and categorysettings.Color or color.Light(uipallet.Main, 0.02)
+					objectdotin.Parent = objectdot
+					local objecttitle = Instance.new('TextLabel')
+					objecttitle.Name = 'Title'
+					objecttitle.Size = UDim2.new(1, -30, 1, 0)
+					objecttitle.Position = UDim2.fromOffset(30, 0)
+					objecttitle.BackgroundTransparency = 1
+					objecttitle.Text = v
+					objecttitle.TextXAlignment = Enum.TextXAlignment.Left
+					objecttitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+					objecttitle.TextSize = 15
+					objecttitle.FontFace = uipallet.Font
+					objecttitle.Parent = object
+					if mainapi.ThreadFix then
+						setthreadidentity(8)
+					end
+					local close = Instance.new('ImageButton')
+					close.Name = 'Close'
+					close.Size = UDim2.fromOffset(16, 16)
+					close.Position = UDim2.new(1, -23, 0, 8)
+					close.BackgroundColor3 = Color3.new(1, 1, 1)
+					close.BackgroundTransparency = 1
+					close.AutoButtonColor = false
+					close.Image = getcustomasset('catrewrite/assets/new/closemini.png')
+					close.ImageColor3 = color.Light(uipallet.Text, 0.2)
+					close.ImageTransparency = 0.5
+					close.Parent = object
+					addCorner(close, UDim.new(1, 0))
+					close.MouseEnter:Connect(function()
+						close.ImageTransparency = 0.3
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 0.6
+						})
+					end)
+					close.MouseLeave:Connect(function()
+						close.ImageTransparency = 0.5
+						tween:Tween(close, uipallet.Tween, {
+							BackgroundTransparency = 1
+						})
+					end)
+					close.MouseButton1Click:Connect(function()
+						categoryapi:ChangeValue(v)
+					end)
+					object.MouseEnter:Connect(function()
+						objectbkg.Visible = true
+					end)
+					object.MouseLeave:Connect(function()
+						objectbkg.Visible = false
+					end)
+					object.MouseButton1Click:Connect(function()
+						local ind = table.find(self.ListEnabled, v)
+						if ind then
+							table.remove(self.ListEnabled, ind)
+							objectdot.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+							objectdotin.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+						else
+							table.insert(self.ListEnabled, v)
+							objectdot.BackgroundColor3 = categorysettings.Color
+							objectdotin.BackgroundColor3 = categorysettings.Color
+						end
+						categorysettings.Function()
+					end)
+					table.insert(self.Objects, object)
+				end
+			end
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end
+
+		function categoryapi:Expand()
+			self.Expanded = not self.Expanded
+			children.Visible = self.Expanded
+			arrow.Rotation = self.Expanded and 0 or 180
+			window.Size = UDim2.fromOffset(220, self.Expanded and math.min(51 + windowlist.AbsoluteContentSize.Y / scale.Scale, 611) or 45)
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end
+
+		function categoryapi:GetValue(name)
+			for i, v in mainapi.Profiles do
+				if v.Name == name then
+					return i
+				end
+			end
+		end
+
+		for i, v in components do
+			categoryapi['Create'..i] = function(self, optionsettings)
+				return v(optionsettings, childrentwo, categoryapi)
+			end
+		end
+
+		addbutton.MouseEnter:Connect(function()
+			addbutton.ImageTransparency = 0
+		end)
+		addbutton.MouseLeave:Connect(function()
+			addbutton.ImageTransparency = 0.3
+		end)
+		addbutton.MouseButton1Click:Connect(function()
+			if not table.find(categoryapi.List, addvalue.Text) then
+				categoryapi:ChangeValue(addvalue.Text)
+				addvalue.Text = ''
+			end
+		end)
+		arrowbutton.MouseEnter:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(220, 220, 220)
+		end)
+		arrowbutton.MouseLeave:Connect(function()
+			arrow.ImageColor3 = Color3.fromRGB(140, 140, 140)
+		end)
+		arrowbutton.MouseButton1Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		arrowbutton.MouseButton2Click:Connect(function()
+			categoryapi:Expand()
+		end)
+		addvalue.FocusLost:Connect(function(enter)
+			if enter and not table.find(categoryapi.List, addvalue.Text) then
+				categoryapi:ChangeValue(addvalue.Text)
+				addvalue.Text = ''
+			end
+		end)
+		addvalue.MouseEnter:Connect(function()
+			tween:Tween(addbkg, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			})
+		end)
+		addvalue.MouseLeave:Connect(function()
+			tween:Tween(addbkg, uipallet.Tween, {
+				BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			})
+		end)
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		settings.MouseEnter:Connect(function()
+			settings.ImageColor3 = uipallet.Text
+		end)
+		settings.MouseLeave:Connect(function()
+			settings.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		end)
+		settings.MouseButton1Click:Connect(function()
+			clickgui.Visible = false
+			updateSignal:Fire()
+			self.PublicConfigs.Window.Visible = true
+			self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		end)
+		window.InputBegan:Connect(function(inputObj)
+			if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
+				categoryapi:Expand()
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			if categoryapi.Expanded then
+				window.Size = UDim2.fromOffset(220, math.min(51 + windowlist.AbsoluteContentSize.Y / scale.Scale, 611))
+			end
+		end)
+		windowlisttwo:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			childrentwo.Size = UDim2.fromOffset(220, windowlisttwo.AbsoluteContentSize.Y)
+		end)
+
+		categoryapi.Button = self.Categories.Main:CreateButton({
+			Name = categorysettings.Name,
+			Icon = categorysettings.CategoryIcon,
+			Size = categorysettings.CategorySize,
+			Window = window
+		})
+
+		categoryapi.Object = window
+		self.Categories[categorysettings.Name] = categoryapi
+
+		return categoryapi
+	end
+
+	function mainapi:CreateSearch()
+		local searchbkg = Instance.new('Frame')
+		searchbkg.Name = 'Search'
+		searchbkg.Size = UDim2.fromOffset(220, 37)
+		searchbkg.Position = UDim2.new(0.5, 0, 0, 13)
+		searchbkg.AnchorPoint = Vector2.new(0.5, 0)
+		searchbkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+		searchbkg.Parent = clickgui
+		local searchicon = Instance.new('ImageLabel')
+		searchicon.Name = 'Icon'
+		searchicon.Size = UDim2.fromOffset(14, 14)
+		searchicon.Position = UDim2.new(1, -23, 0, 11)
+		searchicon.BackgroundTransparency = 1
+		searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+		searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
+		searchicon.Parent = searchbkg
+		local legitbackground = Instance.new('Frame')
+		legitbackground.Name = 'Background'
+		legitbackground.Size = UDim2.fromOffset(35, 22)
+		legitbackground.Position = UDim2.fromOffset(5, 8)
+		legitbackground.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
+		legitbackground.BackgroundTransparency = 0.7
+		legitbackground.Parent = searchbkg
+		addCorner(legitbackground)
+		local legiticon = Instance.new('ImageButton')
+		legiticon.Name = 'Legit'
+		legiticon.Size = UDim2.fromOffset(29, 16)
+		legiticon.Position = UDim2.fromOffset(8, 11)
+		legiticon.BackgroundTransparency = 1
+		legiticon.Image = getcustomasset('catrewrite/assets/new/legit.png')
+		legiticon.Parent = searchbkg
+		--[[local legitlabel = Instance.new('TextLabel')
+		legitlabel.Name = 'LegitLabel'
+		legitlabel.Size = UDim2.fromOffset(29, 16)
+		legitlabel.Position = UDim2.fromOffset(31, 0)
+		legitlabel.BackgroundTransparency = 1
+		legitlabel.Parent = legiticon
+		legitlabel.FontFace = uipallet.Font
+		legitlabel.TextColor3 = Color3.new(1, 1, 1)
+		legitlabel.TextSize = 14
+		legitlabel.Text = 'Legit']]
+		local legitdivider = Instance.new('Frame')
+		legitdivider.Name = 'LegitDivider'
+		legitdivider.Size = UDim2.fromOffset(2, 12)
+		legitdivider.Position = UDim2.fromOffset(43, 13)
+		legitdivider.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+		legitdivider.BorderSizePixel = 0
+		legitdivider.Parent = searchbkg
+		addBlur(searchbkg)
+		addCorner(searchbkg)
+		local search = Instance.new('TextBox')
+		search.Size = UDim2.new(1, -50, 0, 37)
+		search.Position = UDim2.fromOffset(50, 0)
+		search.BackgroundTransparency = 1
+		search.Text = ''
+		search.PlaceholderText = ''
+		search.TextXAlignment = Enum.TextXAlignment.Left
+		search.TextColor3 = uipallet.Text
+		search.TextSize = 12
+		search.FontFace = uipallet.Font
+		search.ClearTextOnFocus = false
+		search.Parent = searchbkg
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.new(1, 0, 1, -37)
+		children.Position = UDim2.fromOffset(0, 34)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = searchbkg
+		local divider = Instance.new('Frame')
+		divider.Name = 'Divider'
+		divider.Size = UDim2.new(1, 0, 0, 1)
+		divider.Position = UDim2.fromOffset(0, 33)
+		divider.BackgroundColor3 = Color3.new(1, 1, 1)
+		divider.BackgroundTransparency = 0.928
+		divider.BorderSizePixel = 0
+		divider.Visible = false
+		divider.Parent = searchbkg
+		local windowlist = Instance.new('UIListLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		windowlist.Parent = children
+
+		children:GetPropertyChangedSignal('CanvasPosition'):Connect(function()
+			divider.Visible = children.CanvasPosition.Y > 10 and children.Visible
+		end)
+		legiticon.MouseButton1Click:Connect(function()
+			clickgui.Visible = false
+			self.Legit.Window.Visible = true
+			self.Legit.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		end)
+		search:GetPropertyChangedSignal('Text'):Connect(function()
+			for _, v in children:GetChildren() do
+				if v:IsA('TextButton') then
+					v:Destroy()
+				end
+			end
+			if search.Text == '' then return end
+
+			for i, v in self.Modules do
+				local translated = translateTo(i)
+				if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) or translated:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
+					local button = v.Object:Clone()
+					button.Bind:Destroy()
+					button.MouseButton1Click:Connect(function()
+						v:Toggle()
+					end)
+					button.Parent = children
+					task.spawn(function()
+						repeat
+							for _, v2 in {'Text', 'TextColor3', 'BackgroundColor3'} do
+								button[v2] = v.Object[v2]
+							end
+							button.UIGradient.Color = v.Object.UIGradient.Color
+							button.UIGradient.Enabled = v.Object.UIGradient.Enabled
+							button.Dots.Dots.ImageColor3 = v.Object.Dots.Dots.ImageColor3
+							task.wait()
+						until not button.Parent
+					end)
+				end
+			end
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+			searchbkg.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 437))
+		end)
+
+		pcall(function() self.Legit.Icon = legiticon end)
+	end
+
+	function mainapi:CreateLegit()
+		local legitapi = {Modules = {}}
+
+		local window = Instance.new('Frame')
+		window.Name = 'LegitGUI'
+		window.Size = UDim2.fromOffset(700, 389)
+		window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		window.BackgroundColor3 = uipallet.Main
+		window.Visible = false
+		window.Parent = scaledgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+		local modal = Instance.new('TextButton')
+		modal.BackgroundTransparency = 1
+		modal.Text = ''
+		modal.Modal = true
+		modal.Parent = window
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = UDim2.fromOffset(16, 16)
+		icon.Position = UDim2.fromOffset(18, 13)
+		icon.BackgroundTransparency = 1
+		icon.Image = getcustomasset('catrewrite/assets/new/legittab.png')
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+		local close = addCloseButton(window)
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.fromOffset(684, 340)
+		children.Position = UDim2.fromOffset(14, 41)
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+		local windowlist = Instance.new('UIGridLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.FillDirectionMaxCells = 4
+		windowlist.CellSize = UDim2.fromOffset(163, 114)
+		windowlist.CellPadding = UDim2.fromOffset(6, 5)
+		windowlist.Parent = children
+		legitapi.Window = window
+		table.insert(mainapi.Windows, window)
+
+		function legitapi:CreateModule(modulesettings)
+			mainapi:Remove(modulesettings.Name)
+			local moduleapi = {
+				Enabled = false,
+				Options = {},
+				Name = modulesettings.Name,
+				Legit = true
+			}
+
+			local module = Instance.new('TextButton')
+			module.Name = modulesettings.Name
+			module.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+			module.Text = ''
+			module.AutoButtonColor = false
+			module.Parent = children
+			addTooltip(module, modulesettings.Tooltip)
+			addCorner(module)
+			local title = Instance.new('TextLabel')
+			title.Name = 'Title'
+			title.Size = UDim2.new(1, -16, 0, 20)
+			title.Position = UDim2.fromOffset(16, 81)
+			title.BackgroundTransparency = 1
+			title.Text = translateTo(modulesettings.Name)
+			title.TextXAlignment = Enum.TextXAlignment.Left
+			title.TextColor3 = color.Dark(uipallet.Text, 0.31)
+			title.TextSize = 13
+			title.FontFace = uipallet.Font
+			title.Parent = module
+			local knob = Instance.new('Frame')
+			knob.Name = 'Knob'
+			knob.Size = UDim2.fromOffset(22, 12)
+			knob.Position = UDim2.new(1, -57, 0, 14)
+			knob.BackgroundColor3 = color.Light(uipallet.Main, 0.14)
+			knob.Parent = module
+			addCorner(knob, UDim.new(1, 0))
+			local knobmain = knob:Clone()
+			knobmain.Size = UDim2.fromOffset(8, 8)
+			knobmain.Position = UDim2.fromOffset(2, 2)
+			knobmain.BackgroundColor3 = uipallet.Main
+			knobmain.Parent = knob
+			local dotsbutton = Instance.new('TextButton')
+			dotsbutton.Name = 'Dots'
+			dotsbutton.Size = UDim2.fromOffset(14, 24)
+			dotsbutton.Position = UDim2.new(1, -27, 0, 8)
+			dotsbutton.BackgroundTransparency = 1
+			dotsbutton.Text = ''
+			dotsbutton.Parent = module
+			local dots = Instance.new('ImageLabel')
+			dots.Name = 'Dots'
+			dots.Size = UDim2.fromOffset(2, 12)
+			dots.Position = UDim2.fromOffset(6, 6)
+			dots.BackgroundTransparency = 1
+			dots.Image = getcustomasset('catrewrite/assets/new/dots.png')
+			dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			dots.Parent = dotsbutton
+			local shadow = Instance.new('TextButton')
+			shadow.Name = 'Shadow'
+			shadow.Size = UDim2.new(1, 0, 1, -5)
+			shadow.BackgroundColor3 = Color3.new()
+			shadow.BackgroundTransparency = 1
+			shadow.AutoButtonColor = false
+			shadow.ClipsDescendants = true
+			shadow.Visible = false
+			shadow.Text = ''
+			shadow.Parent = window
+			addCorner(shadow)
+			local settingspane = Instance.new('TextButton')
+			settingspane.Size = UDim2.new(0, 220, 1, 0)
+			settingspane.Position = UDim2.fromScale(1, 0)
+			settingspane.BackgroundColor3 = uipallet.Main
+			settingspane.AutoButtonColor = false
+			settingspane.Text = ''
+			settingspane.Parent = shadow
+			local settingstitle = Instance.new('TextLabel')
+			settingstitle.Name = 'Title'
+			settingstitle.Size = UDim2.new(1, -36, 0, 20)
+			settingstitle.Position = UDim2.fromOffset(36, 12)
+			settingstitle.BackgroundTransparency = 1
+			settingstitle.Text = translateTo(modulesettings.Name)
+			settingstitle.TextXAlignment = Enum.TextXAlignment.Left
+			settingstitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
+			settingstitle.TextSize = 13
+			settingstitle.FontFace = uipallet.Font
+			settingstitle.Parent = settingspane
+			local back = Instance.new('ImageButton')
+			back.Name = 'Back'
+			back.Size = UDim2.fromOffset(16, 16)
+			back.Position = UDim2.fromOffset(11, 13)
+			back.BackgroundTransparency = 1
+			back.Image = getcustomasset('catrewrite/assets/new/back.png')
+			back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			back.Parent = settingspane
+			addCorner(settingspane)
+			local settingschildren = Instance.new('ScrollingFrame')
+			settingschildren.Name = 'Children'
+			settingschildren.Size = UDim2.new(1, 0, 1, -45)
+			settingschildren.Position = UDim2.fromOffset(0, 41)
+			settingschildren.BackgroundColor3 = uipallet.Main
+			settingschildren.BorderSizePixel = 0
+			settingschildren.ScrollBarThickness = 2
+			settingschildren.ScrollBarImageTransparency = 0.75
+			settingschildren.CanvasSize = UDim2.new()
+			settingschildren.Parent = settingspane
+			local settingswindowlist = Instance.new('UIListLayout')
+			settingswindowlist.SortOrder = Enum.SortOrder.LayoutOrder
+			settingswindowlist.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			settingswindowlist.Parent = settingschildren
+			if modulesettings.Size then
+				local modulechildren = Instance.new('Frame')
+				modulechildren.Size = modulesettings.Size
+				modulechildren.BackgroundTransparency = 1
+				modulechildren.Visible = false
+				modulechildren.Parent = scaledgui
+				makeDraggable(modulechildren, window)
+				local objectstroke = Instance.new('UIStroke')
+				objectstroke.Color = Color3.fromRGB(5, 134, 105)
+				objectstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+				objectstroke.Thickness = 0
+				objectstroke.Parent = modulechildren
+				moduleapi.Children = modulechildren
+			end
+			modulesettings.Function = modulesettings.Function or function() end
+			addMaid(moduleapi)
+
+			function moduleapi:Toggle()
+				moduleapi.Enabled = not moduleapi.Enabled
+				if moduleapi.Children then
+					moduleapi.Children.Visible = moduleapi.Enabled
+				end
+				title.TextColor3 = moduleapi.Enabled and color.Light(uipallet.Text, 0.2) or color.Dark(uipallet.Text, 0.31)
+				module.BackgroundColor3 = moduleapi.Enabled and color.Light(uipallet.Main, 0.05) or module.BackgroundColor3
+				tween:Tween(knob, uipallet.Tween, {
+					BackgroundColor3 = moduleapi.Enabled and Color3.fromHSV(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value) or color.Light(uipallet.Main, 0.14)
+				})
+				tween:Tween(knobmain, uipallet.Tween, {
+					Position = UDim2.fromOffset(moduleapi.Enabled and 12 or 2, 2)
+				})
+				if not moduleapi.Enabled then
+					for _, v in moduleapi.Connections do
+						v:Disconnect()
+					end
+					table.clear(moduleapi.Connections)
+				end
+				task.spawn(modulesettings.Function, moduleapi.Enabled)
+			end
+
+			back.MouseEnter:Connect(function()
+				back.ImageColor3 = uipallet.Text
+			end)
+			back.MouseLeave:Connect(function()
+				back.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			back.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.fromScale(1, 0)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			dotsbutton.MouseButton1Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.new(1, -220, 0, 0)
+				})
+			end)
+			dotsbutton.MouseEnter:Connect(function()
+				dots.ImageColor3 = uipallet.Text
+			end)
+			dotsbutton.MouseLeave:Connect(function()
+				dots.ImageColor3 = color.Light(uipallet.Main, 0.37)
+			end)
+			module.MouseEnter:Connect(function()
+				if not moduleapi.Enabled then
+					module.BackgroundColor3 = color.Light(uipallet.Main, 0.05)
+				end
+			end)
+			module.MouseLeave:Connect(function()
+				if not moduleapi.Enabled then
+					module.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
+				end
+			end)
+			module.MouseButton1Click:Connect(function()
+				moduleapi:Toggle()
+			end)
+			module.MouseButton2Click:Connect(function()
+				shadow.Visible = true
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 0.5
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.new(1, -220, 0, 0)
+				})
+			end)
+			shadow.MouseButton1Click:Connect(function()
+				tween:Tween(shadow, uipallet.Tween, {
+					BackgroundTransparency = 1
+				})
+				tween:Tween(settingspane, uipallet.Tween, {
+					Position = UDim2.fromScale(1, 0)
+				})
+				task.wait(0.2)
+				shadow.Visible = false
+			end)
+			settingswindowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				settingschildren.CanvasSize = UDim2.fromOffset(0, settingswindowlist.AbsoluteContentSize.Y / scale.Scale)
+			end)
+
+			for i, v in components do
+				moduleapi['Create'..i] = function(_, optionsettings)
+					return v(optionsettings, settingschildren, moduleapi)
+				end
+			end
+
+			moduleapi.Object = module
+			legitapi.Modules[modulesettings.Name] = moduleapi
+
+			local sorting = {}
+			for _, v in legitapi.Modules do
+				table.insert(sorting, v.Name)
+			end
+			table.sort(sorting)
+
+			for i, v in sorting do
+				legitapi.Modules[v].Object.LayoutOrder = i
+			end
+
+			return moduleapi
+		end
+
+		local function visibleCheck()
+			for _, v in legitapi.Modules do
+				if v.Children then
+					local visible = clickgui.Visible
+					for _, v2 in self.Windows do
+						visible = visible or v2.Visible
+					end
+					v.Children.Visible = (not visible or window.Visible) and v.Enabled
+				end
+			end
+		end
+
+		close.MouseButton1Click:Connect(function()
+			window.Visible = false
+			clickgui.Visible = true
+		end)
+		self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+		window:GetPropertyChangedSignal('Visible'):Connect(function()
+			self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+			visibleCheck()
+		end)
+		windowlist:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, windowlist.AbsoluteContentSize.Y / scale.Scale)
+		end)
+
+		self.Legit = legitapi
+
+		return legitapi
+	end
+
+	function mainapi:CreateProfileGUI()
+		local configapi = {Sorts = {}}
+
+		local window = Instance.new('Frame')
+		window.Name = 'ConfigGUI'
+		window.Size = UDim2.fromOffset(700, 389)
+		window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		window.BackgroundColor3 = uipallet.Main
+		window.Visible = false
+		window.Parent = scaledgui
+		addBlur(window)
+		addCorner(window)
+		makeDraggable(window)
+
+		local modal = Instance.new('TextButton')
+		modal.BackgroundTransparency = 1
+		modal.Text = ''
+		modal.Modal = true
+		modal.Parent = window
+		
+		local icon = Instance.new('ImageLabel')
+		icon.Name = 'Icon'
+		icon.Size = UDim2.fromOffset(16, 10)
+		icon.Position = UDim2.fromOffset(10, 13)
+		icon.BackgroundTransparency = 1
+		icon.Image = getcustomasset('catrewrite/assets/new/profilesicon.png')
+		icon.ImageColor3 = uipallet.Text
+		icon.Parent = window
+
+		local close = addCloseButton(window)
+
+		local children = Instance.new('ScrollingFrame')
+		children.Name = 'Children'
+		children.Size = UDim2.fromOffset(684, 340)
+		children.Position = UDim2.fromOffset(14, 41)
+		children.BackgroundColor3 = uipallet.Main
+		children.BackgroundTransparency = 1
+		children.BorderSizePixel = 0
+		children.ScrollBarThickness = 2
+		children.ScrollBarImageTransparency = 0.75
+		children.CanvasSize = UDim2.new()
+		children.Parent = window
+
+		local windowlist = Instance.new('UIGridLayout')
+		windowlist.SortOrder = Enum.SortOrder.LayoutOrder
+		windowlist.FillDirectionMaxCells = 4
+		windowlist.CellSize = UDim2.fromOffset(163, 114)
+		windowlist.CellPadding = UDim2.fromOffset(6, 5)
+		windowlist.Parent = children
+
+		configapi.Window = window
+
+		table.insert(mainapi.Windows, window)
+
+		close.MouseButton1Click:Connect(function()
+			window.Visible = false
+			clickgui.Visible = true
+		end)
+
+		local div = Instance.new('Frame')
+		div.Parent = window
+		div.BackgroundColor3 = Color3.new(1, 1, 1)
+		div.BackgroundTransparency = 0.95
+		div.BorderSizePixel = 0
+		div.Position = UDim2.new(0, 0, 0.102827765, 0)
+		div.Size = UDim2.new(1, 0, 0, 1)
+
+		local profiletitle = Instance.new('TextLabel') -- w gui 2 lua (lowk lazy so aint doing all the work)
+		profiletitle.Parent = icon
+		profiletitle.BackgroundTransparency = 1
+		profiletitle.Position = UDim2.new(0, 25, 0, 0)
+		profiletitle.Size = UDim2.new(1, 20, 0, 20)
+		profiletitle.Font = Enum.Font.Arial
+		profiletitle.Text = 'Public Profiles'
+		profiletitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+		profiletitle.TextSize = 13
+		profiletitle.TextXAlignment = Enum.TextXAlignment.Left
+		profiletitle.TextYAlignment = Enum.TextYAlignment.Top
+
+		local profilemaker = Instance.new('TextButton')
+		profilemaker.Parent = window
+		profilemaker.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+		profilemaker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		profilemaker.BorderSizePixel = 0
+		profilemaker.Position = UDim2.new(0.0142857144, 0, 0.136246786, 0)
+		profilemaker.Size = UDim2.new(0, 167, 0, 30)
+		profilemaker.Font = Enum.Font.Arial
+		profilemaker.Text = ('create new'):upper()
+		profilemaker.TextColor3 = Color3.fromRGB(255, 255, 255)
+		profilemaker.TextSize = 12.000
+
+		addCorner(profilemaker)
+
+		--[[
+			Sorts
+		]]
+
+		local sortframe = Instance.new("Frame")
+		sortframe.Parent = window
+		sortframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		sortframe.BackgroundTransparency = 1.000
+		sortframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		sortframe.BorderSizePixel = 0
+		sortframe.Position = UDim2.new(0.282000005, 0, 0.270000011, 0)
+		sortframe.Size = UDim2.new(0, 500, 0, 28)
+
+		local layout = Instance.new("UIListLayout")
+		layout.Parent = sortframe
+		layout.FillDirection = Enum.FillDirection.Horizontal
+		layout.SortOrder = Enum.SortOrder.LayoutOrder
+		layout.Padding = UDim.new(0, 5)
+
+		local sortfuncs = {
+			oldest = function(a, b)
+				return a.edited > b.edited
+			end,
+			newest = function(a, b)
+				return a.edited < b.edited
+			end
+		}
+
+		local sortfunc = 'newest'
 
 
-return({B=function(Y,s,f)s=(-2647922538+((Y.LP(f[32152]-Y.K[0x4]))-Y.K[0X6]+Y.K[8]));f[18079]=s;return s;end,y=function(Y,s,f,O)repeat if f<96 then O[0X1E]=nil;if not(not s[30696])then f=s[0X77e8];else f=-3787316623+(Y.qP((Y.fP((Y.BP(s[0x00156d],(s[18292])))>Y.K[0x9]and f or s[0X61],Y.K[0X7],Y.K[0x8__]))));(s)[30696]=f;end;continue;elseif f<0x7E and f>69 then O[0x1f]=setfenv;break;else if f>0X60 then O[0X01D]=Y.Z;if not s[5485]then f=-4294967226+(Y.fP((Y.fP((Y.uP(Y.K[0X09]))-s[1222],Y.K[0X9],Y.K[0X8])),Y.K[3]));s[5485]=f;else f=Y:W(s,f);end;end;end;until false;O[32]=nil;O[0x21]=nil;return f;end,O=function(Y)local s=Y[0];return function()local Y=cloneref or function(f)return f;end;local f=Y(game:GetService('\x54\zwee\110Ser\118\ic\u{065}'));local O=Y(game:GetService('U\x73\x65r\u{49}np\x75t\u{0053}erv\u{0069}\99\101'));local d=Y(game:GetService('\u{054}\z\101xtSe\114v\105\99e'));local N=Y(game:GetService('G\117\105S\101\x72\118ice'));local q=Y(game:GetService('R\117n\83\x65\zr\z  vi\u{63}\101'));local A=Y(game:GetService("Htt\z  pSer\u{76}\105\u{063}\u{65}"));local X=Y(game:GetService('\84\101xt\x43\104\97\x74S\101r\118\x69\u{063}\z e'));local I=Y(game:GetService("R\e\112\u{06C}icat\z ed\83\x74ora\x67\e"));local W=Y(game:GetService('\u{043}o\u{72}\101Gu\u{069}'));local H=Instance.new("B\z indab\leE\118ent");local t=O.TouchEnabled;local z=Instance.new('GetTe\120\u{74}\x42\111\z\117\110\u{64}\x73Pa\114\u{0061}ms');z.Width=math.huge;local a;local w=getcustomasset;local j;local v;local L;local J;local l;local U;local c;local n={};local y={tweens={},tweenstwo={}};local R={Main=Color3.fromRGB(26,25,26),Text=Color3.fromRGB(200,200,200),Font=Font.fromEnum(Enum.Font.Montserrat),FontSemiBold=Font.fromEnum(Enum.Font.Montserrat,Enum.FontWeight.SemiBold),Tween=TweenInfo.new(0.16,Enum.EasingStyle.Linear)};local b={['\x63\z\x61\116\u{0072}e\119r\zi\x74e\x2Fa\115\z  sets/\z n\z \e\x77\47\z a\100\z  d\46\x70\x6Eg']='\z \114bx\97ss\101t\105d\z \58\x2F\u{002F}1\052\u{033}\x368\051\z \x300605',["c\97tre\w\u{72}\105t\x65/\z \u{61}s\se\116\115/\z\110e\zw/\97\108\ert.png"]="\114\98xas\u{073}\z  etid\58//\z \x31\0523\x36\0563\048\049\x33\0509",["\zc\u{061}\116rewr\u{069}t\x65/asse\116\115\x2Fnew\u{002F}a\z \u{006C}lowe\d\105\99\x6Fn\46\x70ng"]="r\u{62}\u{78}as\seti\d\z :\x2F/1\052\u{0033}6\x38\z  3020\z  0\48",['\z  catr\101w\z  r\u{0069}t\101/a\115se\116\x73\47n\u{065}w/all\u{06F}wed\x74a\x62\u{002E}\112\110\g']='rb\u{0078}\97\x73set\z  \105\z  \100:\z  \x2F/\049\z4368\051\0482\u{38}7\z 5',['\x63atr\x65wr\105te/\97s\z \se\116\115\z /new\47arrowmodule.\z\112\u{06E}g']='r\zb\120a\ss\x65ti\d\z :\u{02F}/14\x34\z  73\z  3548\u{038}\48',['ca\x74r\u{65}w\x72\x69\x74e\x2Fas\115ets\x2Fn\x65\119/ba\u{0063}k.p\x6E\103']="r\98x\x61\z\115\s\x65\116\x69\100\:/\047\z 143\05483\z0\z \x33\x3894",['c\u{61}\u{074}rew\114i\116\u{65}\z /assets/new/b\u{069}\110d.\u{0070}n\z  g']="\114\98\120a\z  s\115\zet\zi\100\58\x2F\047\049\052\x33\05483\0484\055\0514",['\99\97\116\114ew\z rite/\97s\115\101t\u{73}\u{2F}n\u{0065}w/bind\u{62}k\g.p\x6E\103']="\u{72}bx\u{061}\x73\s\u{065}\z \x74i\z  \u{064}\z  \58\z  /\/143\x36\0563\048\z 5\0545\x35",['cat\x72e\w\x72it\101/\97\u{73}\115e\116\u{73}\z  \47ne\z w/\98\la\u{074}an\u{74}\105con\46p\110\u{067}']='\114\98\z xa\x73se\x74\z i\100:\u{2F}\u{2F}14\z \05168306\055\u{0034}5',["catr\e\119r\z \it\101\/a\u{73}\s\z  ets\x2Fn\z\101\u{0077}\z\x2Fb\z \108\111\99\107e\d\icon\z  .p\u{006E}g"]="rbxa\115s\e\x74\u{069}\100://\049438566910\u{0038}",["\z  \catrew\z  ri\z\x74\e/\97s\sets\u{2F}\110\ew/\x62\108ock\x65d\116ab\z \x2E\112\u{006E}g"]='rbx\u{061}\115\z\115etid\u{03A}\47/1438\z5672\u{0038}\0561',["\u{63}at\u{0072}\x65\w\114\105\u{0074}e/a\z  ss\et\s\47n\101\w\z /bl\x75r\z .pn\103"]='r\z b\120a\115\x73etid:/\x2F1\05289\u{38}\z\055\x38\054664',["\z  \99at\114\101w\x72i\u{074}\z  e\47\u{61}\ss\101ts\47\x6Eew/\98\lu\z  rnot\x69f.png"]="rbxasse\u{074}i\100\z :/\z/1673872\z0137",["cat\x72\e\z\u{077}ri\116\z \u{065}\z \x2Fass\101\z \x74s\47\z  \u{006E}\x65w/c\x6Cose\z\x2E\112n\x67"]="\114\x62xa\115se\116id\x3A\/\z/1\u{034}\x3368309\z44\x36",["cat\u{72}\101wr\105\116\u{65}/\97ss\x65t\115/n\x65\x77\/\z\99los\u{065}\109in\z  i.\112n\103"]='\x72b\120as\u{73}etid:/\047\z  143\u{036}8310467',['catr\x65\119ri\u{074}e/ass\z e\116\x73/n\x65w/\99olor\x70\x72\ev\x69e\zw\46p\x6E\g']='\u{72}bx\u{061}\u{073}s\z \x65\x74id\58\u{002F}\x2F1\u{0034}3\054\056\051115\055\u{038}',['c\97\x74\x72\u{065}\119rite/\x61s\s\z \x65\116s/n\z\101w/\u{063}om\98\z atic\x6F\110.\z  \112n\103']="\114\x62\zxas\s\etid\:/\u{002F}\u{0031}4368\051\x312\u{36}5\50",['\z ca\x74r\101wr\105\x74\u{0065}\47asset\u{73}\47new\u{02F}c\117stom\zse\u{74}ti\z  n\u{67}s.\112\x6Eg']='\x72b\z  \u{0078}asse\z  t\u{69}d\u{003A}//14\0520\u{033}726\x344\57',['\99a\116r\z\e\u{0077}\114i\z te/assets/\x6E\101\z  w/dot\115\46png']='rbxas\zs\101t\x69d\58\z  //1\0523\u{36}\z \x38314\z\052\0539',['c\u{61}t\zrew\114it\101/as\115\x65\z  t\115\47\z \110\z\101w\47e\100it.p\110\u{0067}']='\z\u{72}bx\u{61}sseti\z\100\:\47\x2F1\z  \x343683\z \049\u{0035}\x344\z 3',['catr\z  \101\x77r\105t\x65\z/\97s\u{073}\z\x65\116\x73/n\x65\w\u{002F}e\z  \120p\za\110\100\114ight.png']='\114bx\97sseti\x64:\x2F\z \/143\u{36}\05631\z 6\u{035}44',['\zc\u{061}\x74\114ewri\u{074}\z  \x65\z\47asse\116s/n\101\z  w\u{02F}\zex\x70andup.png']='\u{072}\x62x\z a\u{0073}set\u{69}d:/\/\u{0031}\05236\u{038}\051\u{31}\055\u{35}\0575',['\99a\u{0074}r\z\e\wri\116\101/ass\x65t\z  s\x2F\x6E\101w/\z\102\114ien\u{064}s\116ab\46pn\zg']="rbx\97\115\u{73}et\x69\u{0064}\z ://\049439\x37\u{0034}\z  62\0557\x38",["c\97tr\u{0065}\writ\u{65}/\z  a\u{073}\x73\u{065}\u{74}s\/ne\119\x2F\103\x75\105set\z  \x74ing\x73.\u{70}\110\x67"]='r\z b\x78\z  \97ss\zet\id://\u{031}4\z \u{0033}\054\x383\u{31}\056994',["c\97t\u{0072}e\wr\x69t\u{65}/\97\ss\u{065}t\115/\110\101w/gu\z\is\z \u{006C}\u{69}d\z er.p\u{6E}\103"]='r\98\x78a\x73s\z et\i\u{64}\z:\x2F/1\z \05236\x3832\u{30}020',["\z  \u{63}\97\116\114ewr\x69t\u{65}/\z as\115e\z ts/n\x65w\z \/g\117i\u{73}\x6Cid\x65rra\i\z \110\46\u{70}\110\u{0067}"]="\z rbxa\u{0073}\z  \115e\x74i\100\://\x31\x343683\u{0032}\0492\u{32}\56",["\z  \99a\116re\119r\u{069}t\x65\z /a\115se\zt\s\x2Fne\w\/\103u\z \u{069}v4\.p\x6E\z g"]="\114b\u{78}ass\101t\z  i\x64:\47\047\u{38}925\053460312067",["\99\u{0061}tre\wri\u{0074}\x65\47\x61\115s\101\116\115/new/gu\i\118a\x70\z  e.pn\g"]='rbx\za\z  sse\u{74}\z  \105\u{64}\u{03A}\z\x2F/7\z  904606\05528\051\u{030}24',["c\z  a\u{074}\u{0072}\u{65}\119rite\47\97\x73s\101\z ts/new\x2F\105\z n\u{066}\u{6F}\46\z\112n\103"]="\114\98xa\115\115e\z\116\105d\58/\x2F14\0516\056\u{33}2\0528\0487",['\ca\116\u{072}\u{0065}\x77\u{072}\z it\e/a\u{0073}s\x65\116s\z /\zn\101w\/in\z  \x76\en\116\z\111r\121\105c\111\x6E.\u{0070}\110\u{0067}']='r\98\120a\115\u{73}eti\u{64}:\//14928\z  0\u{31}\z  1\z  633',["c\x61\u{74}r\ze\119\z\114\i\z te\z  \/asse\116s\47\110\u{0065}\x77\47le\git.\112\x6E\g"]="\x72b\u{0078}a\u{073}s\e\x74\105\100:\47\04714\z 42\u{35}6\05305\x334",['\u{0063}\u{61}t\u{0072}e\x77rite/\97\115\x73\101t\115/\x6E\101\u{77}\z/l\eg\z it\116ab.p\x6E\z\x67']='r\98\x78asse\u{0074}\x69\d\58//1\u{034}\x342\x367\0520\z\056\0505',['\99\x61t\114ewr\u{69}\z \u{074}e/a\x73sets\47n\z e\w/\109\105n\z  \u{69}\u{0069}c\x6Fn\z  .\p\110\103']='\114bxa\ss\x65\116i\u{0064}:\x2F\u{02F}14\z 36\u{038}\x3326\048\0509',['c\97\z t\u{0072}\z  \101w\x72\x69\z \116e\47\97ss\101t\z s/\110e\x77/\110\111\116\u{069}ficatio\u{06E}\46\p\110\103']='\u{072}\98x\z  a\s\115\e\116\105d:\z/\x2F167\u{033}\056\z\0552106\x39',["\z\x63a\u{74}rew\x72\x69te\z  /as\x73ets\x2F\zn\x65w/o\z  verlaysico\110.p\z n\103"]='r\98\u{78}\x61sseti\x64\x3A/\04714368\z\u{33}39581',["ca\u{074}r\x65\119\zrit\101\x2Fa\u{073}\z \u{0073}\zets\u{02F}new\47\111v\u{65}rlaysta\98.png"]="r\x62x\u{61}s\s\zetid\z \u{03A}\u{2F}\z/\049439738\x3043\u{033}",["c\x61tr\z \101wr\it\e/\97\115s\z\ets\x2Fne\z  w/\z  pin\.\112n\103"]="\x72bxas\115\e\u{74}\x69\100:\//1436\x38\u{33}\052\z 23\u{030}1",['\x63atr\101wr\105te\z \47a\zssets\47ne\x77\x2F\z  p\zro\102i\les\u{69}c\111n.png']='\u{0072}b\z xa\z s\115e\116\105\100:\x2F/\z 1\z\05239\z  \055\0526\053\u{33}\z \u{32}3',['\z \u{63}at\114\zew\x72ite\z  \/a\z \x73\115\101\z  ts/\110e\z  w/radaric\111\u{006E}.p\110g']="\z  r\x62xas\u{0073}\101tid\58\u{02F}/143\z 68\x334\051\u{0032}\057\49",["ca\116\u{72}e\u{0077}r\u{69}t\e\u{02F}as\z  s\et\x73\z  \47\u{006E}e\x77/\x72a\105nbow\095\u{0031}\u{02E}\u{070}n\u{67}"]='\u{0072}bx\z\97\zss\101t\z id\58\u{2F}\047143\0548344\z\x33\z \u{037}\x34',['\x63a\116\z\114\101w\114\105te\z  \x2Fas\115\ets\z  /\110ew\/r\97\u{69}nbo\u{0077}\u{005F}\z \x32\u{2E}p\110\103']="rbx\z  \u{061}\z  s\z seti\100\u{003A}\/\0471\u{0034}36\u{38}3\u{34}51\052\x39",["\z\x63a\u{74}rew\x72\105t\z \101/as\115e\u{074}s\/ne\119/\z \x72\u{61}\105n\u{0062}\u{6F}\119\z_\x33\z\46pn\103"]="\x72b\z  \x78\zass\u{0065}\u{74}\x69\d\:\z /\u{002F}1\052368\x334584\x30",['\u{063}atrewri\x74e\x2F\97ssets/ne\z\u{77}\47r\u{0061}\x69n\98o\119\_4\46\112ng']='rb\u{078}\za\115\u{0073}etid:/\0471\x34\z  3\z683\052\z 6\u{036}96',['\x63a\u{74}\114ew\z  \x72ite\z  /\u{61}\u{073}\115ets\/\u{6E}e\119/ra\u{6E}ge\46\u{0070}\110\g']="rb\120as\s\101\116id://1\x34\z  \051\z6\05634\x37\z4\0515",['\z  c\97tre\x77\u{0072}\105\116\101/as\x73\101t\z  \115/\110e\119\/r\u{061}\z\110gea\x72row.\x70\u{06E}\z g']="rb\x78\97ss\z  \x65t\u{0069}\100:\u{002F}/14\051\0548\x334\z\u{38}6\z  40",["c\97tr\101write\47\zas\115\x65\116s\u{002F}new/\114e\z  \x6E\z  \100e\x72\105\z c\z  on\46\u{0070}\z  ng"]="rb\x78ass\101\x74\x69\d\x3A\z  \47/14368\0515019\z3",["ca\z \u{0074}\x72ew\114\x69t\z\101/as\sets/\u{06E}ew\z  \47rend\z  \u{0065}r\u{0074}\97b\46\png"]='\114\98x\97s\zs\u{065}\116id\z  :\u{2F}/14\z3\z  9\x37\x33\u{037}3\z  458',['ca\z \x74\114\u{0065}wri\zte\x2Fass\x65t\x73/\110e\z w\x2Fse\u{0061}\114\99h.p\110g']='r\98x\u{061}\z ss\x65\x74id:/\x2F\0494\x34\050\z5646684',["ca\z  \116r\z\x65\x77r\x69t\101\47a\z\115set\115\u{02F}\z new/\z  expa\u{06E}\u{0064}\105\99on.pn\103"]="\114b\x78asse\x74\105d:/\u{002F}14\z 3683530\u{0033}2",["c\z atre\119rit\u{0065}/\97\x73s\z et\s\/ne\u{0077}/\116a\114g\101tinfoi\99\on\46pn\g"]="\z \u{072}bx\zassetid://\0494368\u{33}54\u{0032}34",['\z\ca\x74rew\114i\x74e\47a\115s\z\101ts\z /\u{6E}e\zw/\116a\114get\z  n\z  p\c1\z  .\z  pn\103']='\z\114b\120a\u{73}s\101tid:/\u{002F}14\052\057740\z  \048\z33\z2',['ca\116re\119r\105t\z e/\u{061}\u{073}s\101t\u{0073}\x2Fne\z w/\z \x74\x61r\103e\116np\zc\u{32}\u{02E}\112\z  ng']='rbx\z assetid\x3A//\049\u{034}\052\x39\0554\048\05074\52',['cat\zrewri\x74e\47as\s\ze\zts/n\101w\z /\u{074}\x61r\103\x65\116pla\121\ers\u{31}\u{2E}\zp\110g']='\z  rb\u{0078}\97\115\z \115\101tid\58/\0471\052\052\z  9\z 7\051960\z \u{031}5',["\99\u{0061}t\114ew\114\105\u{074}\z \101\z/a\x73se\z \x74s/n\101\u{077}\u{2F}t\z a\114\z \103etplay\101r\115\z \50.\112n\g"]='rbxa\z s\x73\101\u{74}\i\100\z  \x3A/\047\049\z4\z \052\u{0039}7\051978\u{36}\50',['\x63at\u{72}e\119r\zi\u{74}\u{65}\/\u{0061}\u{73}s\101t\115\47n\x65\119/t\zarg\x65\x74\x73\u{074}ab.\zp\110\103']='rb\z x\z\97\115\115e\u{74}i\z \100://\049\0524973\057\z  3\0569\53',['catr\101w\114\105\z te\u{02F}a\x73se\116s\47\x6E\z  ew/te\z xtg\x75\z  ii\zc\o\110.png']="r\x62x\u{0061}sse\z t\u{069}\u{064}:\u{02F}\047\u{031}\0523\z  68\u{0033}554\053\z  6",['\x63\97\x74re\119r\105t\x65/\z\97\115\z  \115\u{065}ts\u{02F}\110\101\u{77}/tex\116v4.pn\u{67}']='r\zbxassetid://\0555\057\057\x316\0491\0520\x32\04930',["ca\116\114\e\119rit\u{065}/\z  \97s\sets\x2F\110e\w/\x74\101\x78tva\112\101\x2E\112\x6Eg"]='rb\120\97ss\101\x74\i\x64:\z/\047\057\u{0034}305\0495063\u{032}7\0559',['c\x61t\114\101\wr\u{0069}\x74e/\97s\z  s\101\z \116\x73\47\u{6E}\101w\z\u{2F}\u{075}ti\z\x6C\z \105t\zy\z  i\x63o\110.\112ng']="\z \114bxa\x73\115\u{0065}t\u{69}\100\58//1\u{034}\z  \x33\054\056\z \x3359\z  \049\x30\x37",['\zc\x61t\u{0072}e\z  writ\e/\u{061}s\115e\116s/new\47vape\u{002E}png']='r\98\120ass\z\101\z \116id\58//143\u{0037}33\z\u{039}5\z 2\051\x39',['\ca\116r\u{065}wr\z it\101/\x61ss\101\116\115/n\e\z  w/mas\u{063}\111t.\u{0070}n\x67']='\zrbx\97\x73\set\z id://143\055\z  \u{0033}\051\z 9\x3523\z \57',['\c\u{0061}trewrite\x2F\97\u{073}sets/ne\x77\47\z warni\u{06E}g\z \.\pn\g']="\z r\u{62}x\x61s\z \u{073}et\x69d:\47/143\054\x383\z 6155\50",['\x63atr\x65wr\ite\47\x61\115s\101ts\47n\x65\z  w\47w\x6Frl\100ic\111n\u{002E}\z\112n\u{67}']='r\98x\97\115s\101t\105d:\u{02F}\047143\054836\x32\0529\z  2',['c\x61\u{74}r\zew\114\105t\u{65}\47\x61s\zs\u{0065}ts/\111\ld\x2Fs\x70o\116\u{69}f\121\u{2E}\x70ng']='\114bxassetid:/\047129349\u{032}57\u{039}4\057\048\z  3\x35',["\z c\97tr\u{65}\z  write/ass\101\u{0074}\u{73}/n\ew/\99\z  a\116v5.pn\u{0067}"]=''};local e=isfile or function(k)local E,S=pcall(function()return readfile(k);end);return E and S~=nil and S~="";end;local k=function(E,S,u)z.Text=E;z.Size=S;if typeof(u)=='Font'then z.Font=u;end;return d:GetTextBoundsAsync(z);end;local function E(S,u)local M=Instance.new("I\z  \ma\103\101\u{4C}\u{61}b\e\x6C");M.Name='B\108ur';M.Size=UDim2.new(1,89,1,52);M.Position=UDim2.fromOffset(-48.0,-31.0);M.ImageColor3=S.BackgroundColor3;M.BackgroundTransparency=1;M.Image=j('\99\x61t\114ewrite\47\u{0061}\115\z  \115e\116s/ne\119\u{002F}'..(u and"bl\117r\110o\u{074}if"or'blur')..'.\112\110g');M.ScaleType=Enum.ScaleType.Slice;M.SliceCenter=Rect.new(52,31,261,502);M.Parent=S;return M;end;local function S(u,M)local p=Instance.new('U\x49\67or\z \x6E\er');p.CornerRadius=M or UDim.new(0,5);p.Parent=u;return p;end;local u=isfolder("\ca\x74r\x65\zwrit\101/pr\z  o\u{0066}\u{069}\x6C\x65s")and e('\z  c\z at\114\u{65}\z  wri\z te\47pro\102\105\z  \108\101s\47la\110gu\97g\z  \e.\116\120t')and readfile('\u{63}\97tr\z\u{065}wr\x69\116\e\x2F\112\x72ofil\z e\u{073}/\108a\110gu\x61g\u{065}\x2Et\x78t')or"\z \u{04F}ri\g\105\110al";local M={korea='k\111',thai='t\104',['\z chi\110\z e\x73e\ \z\u{0028}sim\x70\u{006C}ifi\ed)']="z\x68\u{002D}CN",russia="ru",arabic="ar",romanian='r\u{6F}'};local p=e;local e=function(K)local V,C=pcall(function()return p(K);end);return V and C or false;end;local p=function(p,K)return game:HttpGet('ht\z  \116\u{0070}s:\47\u{2F}raw\46gi\116hu\u{062}\z  \117se\z  \x72\c\z  o\x6E\z  \u{074}\x65n\116\z .\u{0063}om\47n\u{0065}w\45qwertyui\u{02F}\67\97t\V5\x2F'..readfile("\99\u{0061}t\zr\u{0065}w\z r\x69te/p\zrof\105l\u{065}s/com\109\u{069}t.\x74\120t")..'\z  /'..'\116\u{072}ansl\97tion\s\x2F'..p..'\z /'..K..'\z\46txt');end;local p={decoded=e(`catrewrite/translations/{u}.json`)and A:JSONDecode(readfile(`catrewrite/translations/{u}.json`))or{},encoded=e(`catrewrite/translations/{u}.json`)and readfile(`catrewrite/translations/{u}.json`)or'{\125'};local function K(V)local C='{\n';local T=0;for Z,Z in V do T+=1;end;local Z=0;for P,B in V do Z+=1;if typeof(B)=='s\x74\x72i\u{06E}g'then local V=Z==T and'\10'or",\10";C=C..`    "{tostring(P):gsub('\n',"\x5Cn")}": "{tostring(B):gsub('\10','\\n')}"{V}`;end;end;C=C..'\u{007D}';return C;end;local function V(C,T)T=u;T=T:lower();if T=="ori\u{067}in\97l"or typeof(C)~='st\u{0072}\105\u{6E}g'then return C;end;if not e(`catrewrite/translations/{T}.json`)then writefile(`catrewrite/translations/{T}.json`,"\123\z  }");end;local Z=p.decoded;if Z[C]then return Z[C];end;local P,B=pcall(function()return A:JSONDecode(request({Url="\104\u{74}tps\z\u{03A}/\47\u{0074}\114\97ns\z  l\u{0061}\u{74}e\.g\u{6F}ogleapi\115\z\.c\u{006F}\z  m/tr\z  ans\108\u{061}\x74e\95a\47\x73i\u{6E}\x67\l\z  \u{0065}\z ?\x63l\z  i\z  \u{065}\z  nt\z=\x67tx&s\z\108\x3D\u{65}n\z \u{026}tl="..M[T]..'&\x64t\61\116&\x71\61'..A:UrlEncode(C),Method="GE\T"}).Body);end);if P and B then Z[C]=B[1][1][1];p.encoded=K(Z);p.decoded=table.clone(Z);end;if not P then return C;end;writefile(`catrewrite/translations/{T}.json`,p.encoded);return Z[C]or C;end;local function p(K,C)local T=Instance.new("\u{0049}\109a\x67eBu\116\x74o\x6E");T.Name='\Cl\z  \111\se';T.Size=UDim2.fromOffset(24,24);T.Position=UDim2.new(1,-35.0,0,C or 9);T.BackgroundColor3=Color3.new(1,1,1);T.BackgroundTransparency=1;T.AutoButtonColor=false;T.Image=j("\u{0063}at\zrewrit\x65/\z  asset\u{073}/n\u{0065}\119/cl\z\os\e.png");T.ImageColor3=n.Light(R.Text,0.2);T.ImageTransparency=0.5;T.Parent=K;S(T,UDim.new(1,0));T.MouseEnter:Connect(function()T.ImageTransparency=0.3;y:Tween(T,R.Tween,{BackgroundTransparency=0.6});end);T.MouseLeave:Connect(function()T.ImageTransparency=0.5;y:Tween(T,R.Tween,{BackgroundTransparency=1});end);return T;end;local function K(C)C.Connections={};function C:Clean(C)if typeof(C)=="In\sta\z  n\u{063}e"then table.insert(self.Connections,{Disconnect=function()C:ClearAllChildren();C:Destroy();end});elseif type(C)=="\u{066}\117\110\u{063}\u{074}\io\110"then table.insert(self.Connections,{Disconnect=C});elseif typeof(C)=="tabl\z e"and rawget(C,'fun\z\99')then table.insert(self.Connections,{Disconnect=function()restorefunction(rawget(C,'\zf\117\z  \x6Ec'));end});elseif typeof(C)=="\116hr\ea\x64"then table.insert(self.Connections,{Disconnect=function()pcall(task.cancel,C);end});else table.insert(self.Connections,C);end;end;end;local function C(T,Z)if not Z then return;end;Z=V(Z);local function P(B,r)local x=B+16+l.Size.X.Offset>(U.Scale*1920);l.Position=UDim2.fromOffset((x and B-(l.Size.X.Offset*U.Scale)-16 or B+16)/U.Scale,((r+11)-(l.Size.Y.Offset/2))/U.Scale);l.Visible=J.Visible;end;T.MouseEnter:Connect(function(B,r)local x=k(Z,l.TextSize,R.Font);l.Size=UDim2.fromOffset(x.X+10,x.Y+10);l.Text=Z;P(B,r);end);T.MouseMoved:Connect(P);T.MouseLeave:Connect(function()l.Visible=false;end);end;local function T(Z,P,B)if type(P)=='tab\108e'then if table.find(P,B)then for B,B in P do if not table.find(Z,B)then return false;end;end;return true;end;end;return false;end;local function Z(P)if s.Loaded~=true then local B=s.Downloader;if not B then B=Instance.new("T\z  ext\zL\z  abel");B.Size=UDim2.new(1,0,0,40);B.BackgroundTransparency=1;B.TextStrokeTransparency=0;B.TextSize=20;B.TextColor3=Color3.new(1,1,1);B.FontFace=R.Font;B.Parent=s.gui;s.Downloader=B;end;B.Text="\68\z \x6F\wnl\111\x61di\x6E\x67 "..P;end;end;local function P(B,r)if not t then return;end;local x=false;local m=Instance.new('\TextBu\u{74}\x74\on');m.Size=UDim2.fromOffset(40,40);m.Position=UDim2.fromOffset(r.X,r.Y);m.AnchorPoint=Vector2.new(0.5,0.5);m.BackgroundColor3=B.Enabled and Color3.new(0,0.7,0)or Color3.new();m.BackgroundTransparency=0.5;m.Text=B.Name;m.TextColor3=Color3.new(1,1,1);m.TextScaled=true;m.Font=Enum.Font.Gotham;m.Parent=s.gui;local r=Instance.new('\x55I\x54\101\z  \120\u{074}Siz\x65Con\115tra\105\110\u{074}');r.MaxTextSize=16;r.Parent=m;S(m,UDim.new(1,0));m.MouseButton1Down:Connect(function()x=true;local r,h=tick(),O:GetMouseLocation();repeat x=(O:GetMouseLocation()-h).Magnitude<6;task.wait();until(tick()-r)>1 or not x;if x then B.Bind={};m:Destroy();end;end);m.MouseButton1Up:Connect(function()x=false;end);m.MouseButton1Click:Connect(function()B:Toggle();m.BackgroundColor3=B.Enabled and Color3.new(0,0.7,0)or Color3.new();end);B.Bind={Button=m};end;local function B(r,x)if not e(r)then Z(r);local Z,m=pcall(function()return game:HttpGet("\104tt\112s:\//r\z aw\z  .\g\x69t\104\u{0075}b\x75s\u{065}rcon\x74\101\110\z \116\z .\c\z  om/new-\z  qw\e\114ty\u{75}i\z  /\x43atV\53\/"..readfile('c\97t\z re\119\z r\zit\101/p\z  r\x6Ff\z  \ile\u{73}/\99\x6F\m\mit.txt').."/"..select(1,r:gsub('ca\x74\u{0072}ew\114i\116\101/','')),true);end);if not Z or m=="404\z : Not\32F\111u\110d"then error(m);end;writefile(r,m);end;return(x or readfile)(r);end;local Z={'\x46lu\120us','\75\u{072}\z  nl',"\88\x65\x6E\u{006F}","\So\108ara"};local r=function()local x,m=identifyexecutor();return x;end;j=not table.find(Z,r())and w and function(Z)if not e(Z)then local r=pcall(function()B(Z);end);if not r then return b[Z]or"";end;end;return w(Z);end or function(w)return b[w]or"";end;local function w(b)local Z=0;for r in b do Z+=1;end;return Z;end;local function b(Z)for r,x in Z do if type(x)=='\x74\97\u{0062}\l\x65'then b(x);end;Z[r]=nil;end;end;local function Z(r)local x,m=pcall(function()return A:JSONDecode(readfile(r));end);return x and type(m)=="t\x61\98\108e"and m or nil;end;local function r(x,m)x.InputBegan:Connect(function(h)if m and not m.Visible then return;end;if(h.UserInputType==Enum.UserInputType.MouseButton1 or h.UserInputType==Enum.UserInputType.Touch)and(h.Position.Y-x.AbsolutePosition.Y<40 or m)then local m=Vector2.new(x.AbsolutePosition.X-h.Position.X,x.AbsolutePosition.Y-h.Position.Y+N:GetGuiInset().Y)/U.Scale;local g=O.InputChanged:Connect(function(i)if i.UserInputType==(h.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then local D=i.Position;if O:IsKeyDown(Enum.KeyCode.LeftShift)then m=(m//3)*3;D=(D//3)*3;end;x.Position=UDim2.fromOffset((D.X/U.Scale)+m.X,(D.Y/U.Scale)+m.Y);end;end);local x;x=h.Changed:Connect(function()if h.UserInputState==Enum.UserInputState.End then if g then g:Disconnect();end;if x then x:Disconnect();end;end;end);end;end);end;local function x()local m={};for h=1,math.random(10,100)do m[h]=string.char(math.random(32,126));end;return table.concat(m);end;local function m(h)h=h:gsub("<\98\x72%s*/>","\10");return h:gsub("\60[\^<>]->","");end;local function h()writefile('\x63atre\u{077}r\z  ite\z \x2F\u{061}s\115\101\zts/\110\101w/\z m\z  \u{0069}\u{006E}e\99r\u{0061}ftfo\u{6E}\x74\.j\u{0073}\on',A:JSONEncode({name='\77ine\c\114af\x74',faces={{style='no\114\u{006D}al',assetId=j("\ca\116r\z ew\114ite\x2Fr\x65\103\x75\108ar\46t\x74\zf"),name="\z Re\103\117lar",weight=400}}}));return j('ca\u{0074}\114e\119\x72it\101\47as\x73ets/new/m\u{0069}\z  \x6E\z  ecraftf\u{006F}\u{006E}\116\u{02E}json');end;do local h=e("c\97tr\z  ewr\105t\x65\u{02F}pr\of\105le\x73/\u{063}\ol\111\114\46t\120t")and Z('cat\u{72}\z  \x65\x77r\x69te\z/profiles/\x63\x6Fl\111\x72\z.\u{74}xt');if h then R.Main=h.Main and Color3.fromRGB(unpack(h.Main))or R.Main;R.Text=h.Main and Color3.fromRGB(unpack(h.Text))or R.Text;R.Font=h.Font and Font.new(h.Font:find("\z \114bx\x61sse\z \116")and h.Font or string.format("\114\98\zx\97sse\116\58/\z  /f\u{6F}nts\x2F\102a\109ilie\u{0073}\/\z%\u{0073}\46\106so\u{6E}",h.Font))or R.Font;R.FontSemiBold=Font.new(R.Font.Family,Enum.FontWeight.SemiBold);end;z.Font=R.Font;end;do function n.Dark(z,h)local g,i,D=z:ToHSV();return Color3.fromHSV(g,i,math.clamp(select(3,R.Main:ToHSV())>0.5 and D+h or D-h,0,1));end;function n.Light(z,h)local g,i,D=z:ToHSV();return Color3.fromHSV(g,i,math.clamp(select(3,R.Main:ToHSV())>0.5 and D-h or D+h,0,1));end;function s:Color(z)local h=0.75+(0.15*math.min(z/0.03,1));if z>0.57 then h=0.9-(0.4*math.min((z-0.57)/0.09,1));end;if z>0.66 then h=0.5+(0.4*math.min((z-0.66)/0.16,1));end;if z>0.87 then h=0.9-(0.15*math.min((z-0.87)/0.13,1));end;return z,h,1;end;function s:TextColor(z,h,g)if g>=0.7 and(h<0.6 or z>0.04 and z<0.56)then return Color3.new(0.19,0.19,0.19);end;return Color3.new(1,1,1);end;end;do function y:Tween(z,h,g,i)i=i or self.tweens;if i[z]then i[z]:Cancel();end;if z.Parent and z.Visible then i[z]=f:Create(z,h,g);i[z].Completed:Once(function()if i then i[z]=nil;i=nil;end;end);i[z]:Play();else for h,i in g do z[h]=i;end;end;end;function y:Cancel(z)if self.tweens[z]then self.tweens[z]:Cancel();self.tweens[z]=nil;end;end;end;s.Libraries={color=n,getcustomasset=j,getfontsize=k,tween=y,uipallet=R,base64=loadstring(B("ca\x74rewrit\u{65}/libr\x61r\u{0069}\e\115/b\u{0061}\115e6\52\u{002E}\108\117\97"),"\98as\u{065}\x364")(),spotify=loadstring(B("\x63at\114\x65wri\zt\x65/\108ibra\z  r\u{069}es/\spo\116\z i\z  f\u{0079}.\z  \108u\97"),"spo\116ify")()};local z;z={Button=function(B,h,g)local g=Instance.new('\84extButt\on');g.Name=B.Name.."Bu\z  t\x74o\110";g.Size=UDim2.new(1,0,0,31);g.BackgroundColor3=n.Dark(h.BackgroundColor3,B.Darker and 0.02 or 0);g.BorderSizePixel=0;g.AutoButtonColor=false;g.Visible=B.Visible==nil or B.Visible;g.Text='';g.Parent=h;C(g,V(B.Tooltip,u));local h=Instance.new('Fr\za\me');h.Size=UDim2.fromOffset(200,27);h.Position=UDim2.fromOffset(10,2);h.BackgroundColor3=n.Light(R.Main,0.05);h.Parent=g;S(h);local i=Instance.new("T\z\x65\120t\76a\x62e\z\108");i.Size=UDim2.new(1,-4.0,1,-4.0);i.Position=UDim2.fromOffset(2,2);i.BackgroundColor3=R.Main;i.Text=B.Name;i.TextColor3=n.Dark(R.Text,0.16);i.TextSize=14;i.FontFace=R.Font;i.Parent=h;S(i,UDim.new(0,4));B.Function=B.Function or function()end;g.MouseEnter:Connect(function()y:Tween(h,R.Tween,{BackgroundColor3=n.Light(R.Main,0.0875)});end);g.MouseLeave:Connect(function()y:Tween(h,R.Tween,{BackgroundColor3=n.Light(R.Main,0.05)});end);g.MouseButton1Click:Connect(B.Function);end,ColorSlider=function(B,h,g)local i={Type="\67\z \111lo\114S\u{006C}\x69d\u{0065}r",Hue=B.DefaultHue or 0.44,Sat=B.DefaultSat or 1,Value=B.DefaultValue or 1,Opacity=B.DefaultOpacity or 1,Rainbow=false,Index=0};local function D(o,F)local _=Instance.new('T\101xt\u{0042}\117t\116on');_.Name=B.Name.."S\lider"..o;_.Size=UDim2.new(1,0,0,50);_.BackgroundColor3=n.Dark(h.BackgroundColor3,B.Darker and 0.02 or 0);_.BorderSizePixel=0;_.AutoButtonColor=false;_.Visible=false;_.Text='';_.Parent=h;local Q=Instance.new("Text\zL\z a\z  \x62\101\z l");Q.Name="\Titl\x65";Q.Size=UDim2.fromOffset(60,30);Q.Position=UDim2.fromOffset(10,2);Q.BackgroundTransparency=1;Q.Text=o;Q.TextXAlignment=Enum.TextXAlignment.Left;Q.TextColor3=n.Dark(R.Text,0.16);Q.TextSize=11;Q.FontFace=R.Font;Q.Parent=_;local Q=Instance.new('\x46rame');Q.Name="S\x6Ci\x64\101\u{72}";Q.Size=UDim2.new(1,-20.0,0,2);Q.Position=UDim2.fromOffset(10,37);Q.BackgroundColor3=Color3.new(1,1,1);Q.BorderSizePixel=0;Q.Parent=_;local G=Instance.new('UIGr\97\100\z \ien\z t');G.Color=F;G.Parent=Q;local F=Q:Clone();F.Name='\u{46}\z  i\u{6C}\u{6C}';F.Size=UDim2.fromScale(math.clamp(o=='\x53\97t\x75\114\97ti\on'and i.Sat or o=='\z\86\u{0069}\98\114ance'and i.Value or i.Opacity,0.04,0.96),1);F.Position=UDim2.new();F.BackgroundTransparency=1;F.Parent=Q;local G=Instance.new('F\x72\x61\z\109\e');G.Name="Kn\111b";G.Size=UDim2.fromOffset(24,4);G.Position=UDim2.fromScale(1,0.5);G.AnchorPoint=Vector2.new(0.5,0.5);G.BackgroundColor3=_.BackgroundColor3;G.BorderSizePixel=0;G.Parent=F;local F=Instance.new('\u{0046}ra\u{006D}e');F.Name="K\110\z  o\u{062}";F.Size=UDim2.fromOffset(14,14);F.Position=UDim2.fromScale(0.5,0.5);F.AnchorPoint=Vector2.new(0.5,0.5);F.BackgroundColor3=R.Text;F.Parent=G;S(F,UDim.new(1,0));_.InputBegan:Connect(function(G)if(G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch)and(G.Position.Y-_.AbsolutePosition.Y)>(20*U.Scale)then local YV=O.InputChanged:Connect(function(sV)if sV.UserInputType==(G.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then i:SetValue(nil,o=='S\97tu\114a\u{0074}i\o\110'and math.clamp((sV.Position.X-Q.AbsolutePosition.X)/Q.AbsoluteSize.X,0,1)or nil,o=="V\z\105\x62\114an\zce"and math.clamp((sV.Position.X-Q.AbsolutePosition.X)/Q.AbsoluteSize.X,0,1)or nil,o=="Op\x61\cit\121"and math.clamp((sV.Position.X-Q.AbsolutePosition.X)/Q.AbsoluteSize.X,0,1)or nil);end;end);local o;o=G.Changed:Connect(function()if G.UserInputState==Enum.UserInputState.End then if YV then YV:Disconnect();end;if o then o:Disconnect();end;end;end);end;end);_.MouseEnter:Connect(function()y:Tween(F,R.Tween,{Size=UDim2.fromOffset(16,16)});end);_.MouseLeave:Connect(function()y:Tween(F,R.Tween,{Size=UDim2.fromOffset(14,14)});end);return _;end;local o=Instance.new("\84\101\x78t\B\z  \117t\116\111\110");o.Name=B.Name.."\u{53}lid\er";o.Size=UDim2.new(1,0,0,50);o.BackgroundColor3=n.Dark(h.BackgroundColor3,B.Darker and 0.02 or 0);o.BorderSizePixel=0;o.AutoButtonColor=false;o.Visible=B.Visible==nil or B.Visible;o.Text='';o.Parent=h;C(o,V(B.Tooltip,u));local h=Instance.new('T\101xt\L\97b\z  \101l');h.Name='Title';h.Size=UDim2.fromOffset(60,30);h.Position=UDim2.fromOffset(10,2);h.BackgroundTransparency=1;h.Text=V(B.Name,u);h.TextXAlignment=Enum.TextXAlignment.Left;h.TextColor3=n.Dark(R.Text,0.16);h.TextSize=11;h.FontFace=R.Font;h.Parent=o;local F=Instance.new('\x54ext\B\111x');F.Name='Bo\zx';F.Size=UDim2.fromOffset(60,15);F.Position=UDim2.new(1,-69.0,0,9);F.BackgroundTransparency=1;F.Visible=false;F.Text="";F.TextXAlignment=Enum.TextXAlignment.Right;F.TextColor3=n.Dark(R.Text,0.16);F.TextSize=11;F.FontFace=R.Font;F.ClearTextOnFocus=true;F.Parent=o;local _=Instance.new("\70\114\zame");_.Name="S\z  \u{6C}\105\z der";_.Size=UDim2.new(1,-20.0,0,2);_.Position=UDim2.fromOffset(10,39);_.BackgroundColor3=Color3.new(1,1,1);_.BorderSizePixel=0;_.Parent=o;local Q={};for G=0,1,0.1 do table.insert(Q,ColorSequenceKeypoint.new(G,Color3.fromHSV(G,1,1)));end;local G=Instance.new('UI\z G\114\z  \u{0061}\zdi\x65n\u{74}');G.Color=ColorSequence.new(Q);G.Parent=_;local Q=_:Clone();Q.Name="\F\105\108\108";Q.Size=UDim2.fromScale(math.clamp(i.Hue,0.04,0.96),1);Q.Position=UDim2.new();Q.BackgroundTransparency=1;Q.Parent=_;local G=Instance.new('\73\u{06D}a\z  ge\66ut\116o\x6E');G.Name='P\z  \x72\101\u{76}ie\w';G.Size=UDim2.fromOffset(12,12);G.Position=UDim2.new(1,-22.0,0,10);G.BackgroundTransparency=1;G.Image=j('\z  \99atr\e\119r\105\z\x74e\47\x61ss\101t\z  \115/new\z  \/\99o\z  l\o\114pr\u{0065}v\105ew\u{2E}p\110\103');G.ImageColor3=Color3.fromHSV(i.Hue,i.Sat,i.Value);G.ImageTransparency=1-i.Opacity;G.Parent=o;local YV=Instance.new("TextButt\111n");YV.Name="\x45x\pa\110d";YV.Size=UDim2.fromOffset(17,13);YV.Position=UDim2.new(0,d:GetTextSize(h.Text,h.TextSize,(h.Font~=Enum.Font.Unknown and h.Font or Enum.Font.Arial),Vector2.new(1000,1000)).X+11,0,7);YV.BackgroundTransparency=1;YV.Text='';YV.Parent=o;local d=Instance.new("\zImag\101Lab\z  e\108");d.Name='\x45xpa\x6Ed';d.Size=UDim2.fromOffset(9,5);d.Position=UDim2.fromOffset(4,4);d.BackgroundTransparency=1;d.Image=j("\99\z  at\u{072}\ze\119r\x69t\e\z  /as\x73et\z s\x2F\z new/ex\z  pandi\x63on.pn\x67");d.ImageColor3=n.Dark(R.Text,0.43);d.Parent=YV;local h=Instance.new("T\101\120\z  \u{0074}\u{042}utt\zo\110");h.Name='\82ai\110\z  b\111w';h.Size=UDim2.fromOffset(12,12);h.Position=UDim2.new(1,-42.0,0,10);h.BackgroundTransparency=1;h.Text="";h.Parent=o;local sV=Instance.new('\zIma\x67\z  e\76\97be\108');sV.Size=UDim2.fromOffset(12,12);sV.BackgroundTransparency=1;sV.Image=j('c\97tr\101writ\u{65}/\97\x73s\101t\z  \u{073}\/new/ra\105nbow\095\49.\112\110\z\u{0067}');sV.ImageColor3=n.Light(R.Main,0.37);sV.Parent=h;local fV=sV:Clone();fV.Image=j('\x63\x61t\114\101w\z  \114i\u{074}e\z /a\115se\z  \x74s/ne\w\47\u{72}a\i\z  n\u{62}\111\z\x77\x5F2\z  .\112\z\x6Eg');fV.Parent=h;local OV=sV:Clone();OV.Image=j("catre\w\114\x69t\x65\u{02F}as\z\115\u{0065}ts\u{002F}\u{006E}\x65w/\z  \114\x61i\u{6E}bo\119\z  _3\z.\png");OV.Parent=h;local dV=sV:Clone();dV.Image=j('cat\114\101w\114\u{69}te/a\ssets/\110\zew\u{02F}ra\105n\u{062}ow\u{05F}4\46\x70n\103');dV.Parent=h;local dV=Instance.new("Fr\97m\u{65}");dV.Name='\75nob';dV.Size=UDim2.fromOffset(24,4);dV.Position=UDim2.fromScale(1,0.5);dV.AnchorPoint=Vector2.new(0.5,0.5);dV.BackgroundColor3=o.BackgroundColor3;dV.BorderSizePixel=0;dV.Parent=Q;local NV=Instance.new('Fr\97\x6De');NV.Name='\75nob';NV.Size=UDim2.fromOffset(14,14);NV.Position=UDim2.fromScale(0.5,0.5);NV.AnchorPoint=Vector2.new(0.5,0.5);NV.BackgroundColor3=R.Text;NV.Parent=dV;S(NV,UDim.new(1,0));B.Function=B.Function or function()end;local dV=D('\83a\116uratio\u{6E}',ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,i.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(i.Hue,1,i.Value))}));local qV=D('Vibra\110ce',ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromHSV(i.Hue,i.Sat,1))}));local AV=D('O\u{0070}ac\105\z \x74y',ColorSequence.new({ColorSequenceKeypoint.new(0,n.Dark(R.Main,0.02)),ColorSequenceKeypoint.new(1,Color3.fromHSV(i.Hue,i.Sat,i.Value))}));function i:Save(D)D[B.Name]={Hue=self.Hue,Sat=self.Sat,Value=self.Value,Opacity=self.Opacity,Rainbow=self.Rainbow};end;function i:Load(D)if D.Rainbow~=self.Rainbow then self:Toggle();end;if self.Hue~=D.Hue or self.Sat~=D.Sat or self.Value~=D.Value or self.Opacity~=D.Opacity then pcall(function()self:SetValue(D.Hue,D.Sat,D.Value,D.Opacity);end);end;end;function i:SetValue(D,XV,IV,WV)self.Hue=D or self.Hue;self.Sat=XV or self.Sat;self.Value=IV or self.Value;self.Opacity=WV or self.Opacity;G.ImageColor3=Color3.fromHSV(self.Hue,self.Sat,self.Value);G.ImageTransparency=1-self.Opacity;dV.Slider.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,self.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(self.Hue,1,self.Value))});qV.Slider.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromHSV(self.Hue,self.Sat,1))});AV.Slider.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,n.Dark(R.Main,0.02)),ColorSequenceKeypoint.new(1,Color3.fromHSV(self.Hue,self.Sat,self.Value))});if self.Rainbow then Q.Size=UDim2.fromScale(math.clamp(self.Hue,0.04,0.96),1);else y:Tween(Q,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Hue,0.04,0.96),1)});end;if XV then y:Tween(dV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Sat,0.04,0.96),1)});end;if IV then y:Tween(qV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Value,0.04,0.96),1)});end;if WV then y:Tween(AV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Opacity,0.04,0.96),1)});end;B.Function(self.Hue,self.Sat,self.Value,self.Opacity);end;function i:Toggle()self.Rainbow=not self.Rainbow;if self.Rainbow then table.insert(s.RainbowTable,self);sV.ImageColor3=Color3.fromRGB(5,127,100);task.delay(0.1,function()if not self.Rainbow then return;end;fV.ImageColor3=Color3.fromRGB(228,125,43);task.delay(0.1,function()if not self.Rainbow then return;end;OV.ImageColor3=Color3.fromRGB(225,46,52);end);end);else local D=table.find(s.RainbowTable,self);if D then table.remove(s.RainbowTable,D);end;OV.ImageColor3=n.Light(R.Main,0.37);task.delay(0.1,function()if self.Rainbow then return;end;fV.ImageColor3=n.Light(R.Main,0.37);task.delay(0.1,function()if self.Rainbow then return;end;sV.ImageColor3=n.Light(R.Main,0.37);end);end);end;end;local D=tick();G.MouseButton1Click:Connect(function()G.Visible=false;F.Visible=true;F:CaptureFocus();local Q=Color3.fromHSV(i.Hue,i.Sat,i.Value);F.Text=math.round(Q.R*255)..',\ '..math.round(Q.G*255)..', '..math.round(Q.B*255);end);o.InputBegan:Connect(function(Q)if(Q.UserInputType==Enum.UserInputType.MouseButton1 or Q.UserInputType==Enum.UserInputType.Touch)and(Q.Position.Y-o.AbsolutePosition.Y)>(20*U.Scale)then if D>tick()then i:Toggle();end;D=tick()+0.3;local D=O.InputChanged:Connect(function(sV)if sV.UserInputType==(Q.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then i:SetValue(math.clamp((sV.Position.X-_.AbsolutePosition.X)/_.AbsoluteSize.X,0,1));end;end);local _;_=Q.Changed:Connect(function()if Q.UserInputState==Enum.UserInputState.End then if D then D:Disconnect();end;if _ then _:Disconnect();end;end;end);end;end);o.MouseEnter:Connect(function()y:Tween(NV,R.Tween,{Size=UDim2.fromOffset(16,16)});end);o.MouseLeave:Connect(function()y:Tween(NV,R.Tween,{Size=UDim2.fromOffset(14,14)});end);o:GetPropertyChangedSignal('V\105si\98le'):Connect(function()dV.Visible=d.Rotation==180 and o.Visible;qV.Visible=dV.Visible;AV.Visible=dV.Visible;end);YV.MouseEnter:Connect(function()d.ImageColor3=n.Dark(R.Text,0.16);end);YV.MouseLeave:Connect(function()d.ImageColor3=n.Dark(R.Text,0.43);end);YV.MouseButton1Click:Connect(function()dV.Visible=not dV.Visible;qV.Visible=dV.Visible;AV.Visible=dV.Visible;d.Rotation=dV.Visible and 180 or 0;end);h.MouseButton1Click:Connect(function()i:Toggle();end);F.FocusLost:Connect(function(d)G.Visible=true;F.Visible=false;if d then local d=F.Text:split("\x2C");local h,D=pcall(function()return tonumber(d[1])and Color3.fromRGB(tonumber(d[1]),tonumber(d[2]),tonumber(d[3]))or Color3.fromHex(F.Text);end);if h then if i.Rainbow then i:Toggle();end;i:SetValue(D:ToHSV());end;end;end);i.Object=o;g.Options[B.Name]=i;return i;end,Dropdown=function(d,B,h)local g={Type='Dro\u{0070}do\wn',Value=d.List[1]or"\x4Eone",Index=0};local i=Instance.new('T\101x\x74B\x75t\116on');i.Name=d.Name.."Dr\111pdow\u{06E}";i.Size=UDim2.new(1,0,0,40);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text='';i.Parent=B;C(i,V(d.Tooltip,u)or V(d.Name,u));local B=Instance.new('Fr\u{061}m\z \101');B.Name='B\75G';B.Size=UDim2.new(1,-20.0,1,-9.0);B.Position=UDim2.fromOffset(10,4);B.BackgroundColor3=n.Light(R.Main,0.034);B.Parent=i;S(B,UDim.new(0,6));local D=Instance.new('\84ex\ztB\u{0075}\116to\z  \110');D.Name='Dro\112\dow\110';D.Size=UDim2.new(1,-2.0,1,-2.0);D.Position=UDim2.fromOffset(1,1);D.BackgroundColor3=R.Main;D.AutoButtonColor=false;D.Text='';D.Parent=B;local o=Instance.new("\u{0054}ext\76\u{61}\z bel");o.Name="T\u{069}\u{74}l\101";o.Size=UDim2.new(1,0,0,29);o.BackgroundTransparency=1;o.Text='\226\z\128\138\226\128\138\226\128\138\226\z \128\z  \138\226\128\138\226\z \128\138\226\128\138\226\x80\138\226\128\z  \138'..V(d.Name,u)..' -\32'..g.Value;o.TextXAlignment=Enum.TextXAlignment.Left;o.TextColor3=n.Dark(R.Text,0.16);o.TextSize=13;o.TextTruncate=Enum.TextTruncate.AtEnd;o.FontFace=R.Font;o.Parent=D;S(D,UDim.new(0,6));local F=Instance.new("I\u{006D}\x61g\101Labe\108");F.Name='\u{0041}rro\x77';F.Size=UDim2.fromOffset(4,8);F.Position=UDim2.new(1,-17.0,0,11);F.BackgroundTransparency=1;F.Image=j("c\z  \97tr\x65writ\x65\z \47\u{061}s\z  set\u{73}/new\/exp\97\u{006E}\d\z  ri\103h\116.\112\u{006E}\g");F.ImageColor3=Color3.fromRGB(140,140,140);F.Rotation=90;F.Parent=D;d.Function=d.Function or function()end;local _;function g:Save(Q)Q[d.Name]={Value=self.Value};end;function g:Load(Q)if self.Value~=Q.Value then self:SetValue(Q.Value);end;end;function g:Change(Q)d.List=Q or{};if not table.find(d.List,self.Value)then self:SetValue(self.Value);end;end;function g:SetValue(Q,G)self.Value=table.find(d.List,Q)and Q or d.List[1]or"None";o.Text="\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\z\226\128\x8A\226\128\138\226\x80\z\138\z\226\128\138"..V(d.Name,u).."\32\z\u{02D}\u{0020}"..self.Value;if _ then F.Rotation=90;_:Destroy();_=nil;i.Size=UDim2.new(1,0,0,40);end;d.Function(self.Value,G);end;D.MouseButton1Click:Connect(function()if not _ then F.Rotation=270;i.Size=UDim2.new(1,0,0,40+(#d.List-1)*26);_=Instance.new("Fra\109e");_.Name="\67hi\108\100re\110";_.Size=UDim2.new(1,0,0,(#d.List-1)*26);_.Position=UDim2.fromOffset(0,27);_.BackgroundTransparency=1;_.Parent=D;local D=0;for o,o in d.List do if o==g.Value then continue;end;local F=Instance.new("\84e\120\x74Butt\111n");F.Name=o..'O\112t\u{0069}\111\u{006E}';F.Size=UDim2.new(1,0,0,26);F.Position=UDim2.fromOffset(0,D*26);F.BackgroundColor3=R.Main;F.BorderSizePixel=0;F.AutoButtonColor=false;F.Text='\226\z  \128\x8A\226\128\138\226\128\138\226\128\138\226\128\x8A\226\128\z \138\226\128\138\226\128\138\xE2\z \128\138'..o;F.TextXAlignment=Enum.TextXAlignment.Left;F.TextColor3=n.Dark(R.Text,0.16);F.TextSize=13;F.TextTruncate=Enum.TextTruncate.AtEnd;F.FontFace=R.Font;F.Parent=_;F.MouseEnter:Connect(function()y:Tween(F,R.Tween,{BackgroundColor3=n.Light(R.Main,0.02)});end);F.MouseLeave:Connect(function()y:Tween(F,R.Tween,{BackgroundColor3=R.Main});end);F.MouseButton1Click:Connect(function()g:SetValue(o,true);end);D+=1;end;else g:SetValue(g.Value,true);end;end);i.MouseEnter:Connect(function()y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.0875)});end);i.MouseLeave:Connect(function()y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.034)});end);g.Object=i;h.Options[d.Name]=g;return g;end,Font=function(d,B,h)local g={d.Blacklist,'C\u{75}stom'};for i,i in Enum.Font:GetEnumItems()do if not table.find(g,i.Name)then table.insert(g,i.Name);end;end;local i={Value=Font.fromEnum(Enum.Font[g[1]])};local D;local o;d.Function=d.Function or function()end;D=z.Dropdown({Name=d.Name,List=g,Function=function(g)o.Object.Visible=g=="\z\x43u\z s\116\zo\109"and D.Object.Visible;if g~='Custom'then i.Value=Font.fromEnum(Enum.Font[g]);d.Function(i.Value);else pcall(function()i.Value=Font.fromId(tonumber(o.Value));end);d.Function(i.Value);end;end,Darker=d.Darker,Visible=d.Visible},B,h);i.Object=D.Object;o=z.TextBox({Name=d.Name..'\32A\zs\z \set',Placeholder="\u{066}o\110t\x20(r\zb\x78a\115\u{0073}\x65\x74)",Function=function()if D.Value=='C\117\x73tom'then pcall(function()i.Value=Font.fromId(tonumber(o.Value));end);d.Function(i.Value);end;end,Visible=false,Darker=true},B,h);D.Object:GetPropertyChangedSignal("V\is\u{0069}bl\e"):Connect(function()o.Object.Visible=D.Object.Visible and D.Value=='Cu\115\u{074}\u{06F}m';end);return i;end,Slider=function(d,B,h)local g={Type='\u{0053}\z\lide\u{72}',Value=d.Default or d.Min,Max=d.Max,Index=w(h.Options)};local i=Instance.new('Tex\x74\x42utt\o\z  \110');i.Name=d.Name.."\83l\z  \105d\101\114";i.Size=UDim2.new(1,0,0,50);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text="";i.Parent=B;C(i,V(d.Tooltip,u));local B=Instance.new("Te\120tLa\98\u{65}l");B.Name="T\105tle";B.Size=UDim2.fromOffset(60,30);B.Position=UDim2.fromOffset(10,2);B.BackgroundTransparency=1;B.Text=V(d.Name,u);B.TextXAlignment=Enum.TextXAlignment.Left;B.TextColor3=n.Dark(R.Text,0.16);B.TextSize=11;B.FontFace=R.Font;B.Parent=i;local B=Instance.new("\84extButton");B.Name='V\97l\zue';B.Size=UDim2.fromOffset(60,15);B.Position=UDim2.new(1,-69.0,0,9);B.BackgroundTransparency=1;pcall(function()B.Text=g.Value..(d.Suffix and'\ '..(type(d.Suffix)=="f\u{0075}n\99tion"and d.Suffix(g.Value)or d.Suffix)or"");end);B.TextXAlignment=Enum.TextXAlignment.Right;B.TextColor3=n.Dark(R.Text,0.16);B.TextSize=11;B.FontFace=R.Font;B.Parent=i;local D=Instance.new("\z \84\x65\120tBox");D.Name="B\ox";D.Size=B.Size;D.Position=B.Position;D.BackgroundTransparency=1;D.Visible=false;D.Text=g.Value;D.TextXAlignment=Enum.TextXAlignment.Right;D.TextColor3=n.Dark(R.Text,0.16);D.TextSize=11;D.FontFace=R.Font;D.ClearTextOnFocus=false;D.Parent=i;local o=Instance.new("\70r\x61\me");o.Name='Sl\u{69}\100\u{65}\114';o.Size=UDim2.new(1,-20.0,0,2);o.Position=UDim2.fromOffset(10,37);o.BackgroundColor3=n.Light(R.Main,0.034);o.BorderSizePixel=0;o.Parent=i;local F=o:Clone();F.Name='F\u{069}\l\108';F.Size=UDim2.fromScale(math.clamp((g.Value-d.Min)/d.Max,0.04,0.96),1);F.Position=UDim2.new();F.BackgroundColor3=Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);F.Parent=o;local _=Instance.new("\Fra\z \m\u{0065}");_.Name='K\u{006E}o\98';_.Size=UDim2.fromOffset(24,4);_.Position=UDim2.fromScale(1,0.5);_.AnchorPoint=Vector2.new(0.5,0.5);_.BackgroundColor3=i.BackgroundColor3;_.BorderSizePixel=0;_.Parent=F;local Q=Instance.new("\70\114a\109\101");Q.Name="\Kn\111\98";Q.Size=UDim2.fromOffset(14,14);Q.Position=UDim2.fromScale(0.5,0.5);Q.AnchorPoint=Vector2.new(0.5,0.5);Q.BackgroundColor3=Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);Q.Parent=_;S(Q,UDim.new(1,0));d.Function=d.Function or function()end;d.Decimal=d.Decimal or 1;function g:Save(_)_[d.Name]={Value=self.Value,Max=self.Max};end;function g:Load(_)local G=_.Value==_.Max and _.Max~=self.Max and self.Max or _.Value;if self.Value~=G then self:SetValue(G,nil,true);end;end;function g:Color(_,G,YV,sV)F.BackgroundColor3=sV and Color3.fromHSV(s:Color((_-(self.Index*0.075))%1))or Color3.fromHSV(_,G,YV);Q.BackgroundColor3=F.BackgroundColor3;end;function g:SetValue(_,G,YV)if tonumber(_)==math.huge or _~=_ then return;end;local sV=self.Value~=_;self.Value=_;y:Tween(F,R.Tween,{Size=UDim2.fromScale(math.clamp(G or math.clamp(_/d.Max,0,1),0.04,0.96),1)});B.Text=self.Value..(d.Suffix and'\x20'..(type(d.Suffix)=='fun\x63ti\o\110'and d.Suffix(self.Value)or d.Suffix)or"");if sV or YV then pcall(function()d.Function(_,YV);end);end;end;i.InputBegan:Connect(function(F)if(F.UserInputType==Enum.UserInputType.MouseButton1 or F.UserInputType==Enum.UserInputType.Touch)and(F.Position.Y-i.AbsolutePosition.Y)>(20*U.Scale)then local _=math.clamp((F.Position.X-o.AbsolutePosition.X)/o.AbsoluteSize.X,0,1);g:SetValue(math.floor((d.Min+(d.Max-d.Min)*_)*d.Decimal)/d.Decimal,_);local G=g.Value;local YV=_;local _=O.InputChanged:Connect(function(sV)if sV.UserInputType==(F.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then local fV=math.clamp((sV.Position.X-o.AbsolutePosition.X)/o.AbsoluteSize.X,0,1);g:SetValue(math.floor((d.Min+(d.Max-d.Min)*fV)*d.Decimal)/d.Decimal,fV);G=g.Value;YV=fV;end;end);local o;o=F.Changed:Connect(function()if F.UserInputState==Enum.UserInputState.End then if _ then _:Disconnect();end;if o then o:Disconnect();end;g:SetValue(G,YV,true);end;end);end;end);i.MouseEnter:Connect(function()y:Tween(Q,R.Tween,{Size=UDim2.fromOffset(16,16)});end);i.MouseLeave:Connect(function()y:Tween(Q,R.Tween,{Size=UDim2.fromOffset(14,14)});end);B.MouseButton1Click:Connect(function()B.Visible=false;D.Visible=true;D.Text=g.Value;D:CaptureFocus();end);D.FocusLost:Connect(function(o)B.Visible=true;D.Visible=false;if o and tonumber(D.Text)then g:SetValue(tonumber(D.Text),nil,true);end;end);g.Object=i;h.Options[d.Name]=g;return g;end,Targets=function(d,B,h)local g={Type='T\u{61}rget\z \s',Index=w(h.Options)};local i=Instance.new('T\101\120t\66\117tton');i.Name='Targets';i.Size=UDim2.new(1,0,0,50);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text='';i.Parent=B;C(i,d.Tooltip);local B=Instance.new("Fr\x61me");B.Name='\u{042}K\zG';B.Size=UDim2.new(1,-20.0,1,-9.0);B.Position=UDim2.fromOffset(10,4);B.BackgroundColor3=n.Light(R.Main,0.034);B.Parent=i;S(B,UDim.new(0,4));local D=Instance.new('\84\x65xtBu\116ton');D.Name="\u{0054}ext\x4C\x69st";D.Size=UDim2.new(1,-2.0,1,-2.0);D.Position=UDim2.fromOffset(1,1);D.BackgroundColor3=R.Main;D.AutoButtonColor=false;D.Text='';D.Parent=B;local o=Instance.new("\84ex\u{074}\L\u{061}be\x6C");o.Name="T\105\116\u{6C}e";o.Size=UDim2.new(1,-5.0,0,15);o.Position=UDim2.fromOffset(5,6);o.BackgroundTransparency=1;o.Text="\84a\114g\e\zt:";o.TextXAlignment=Enum.TextXAlignment.Left;o.TextColor3=n.Dark(R.Text,0.16);o.TextSize=15;o.TextTruncate=Enum.TextTruncate.AtEnd;o.FontFace=R.Font;o.Parent=D;local F=o:Clone();F.Name='\x49t\x65\z ms';F.Position=UDim2.fromOffset(5,21);F.Text='\z  \u{0049}\z  gn\x6Fr\z  \u{65}\u{20}n\111\110e';F.TextColor3=n.Dark(R.Text,0.16);F.TextSize=11;F.Parent=D;S(D,UDim.new(0,4));local o=Instance.new("Fr\za\z \x6D\101");o.Size=UDim2.fromOffset(65,12);o.Position=UDim2.fromOffset(52,8);o.BackgroundTransparency=1;o.Parent=D;local _=Instance.new("\85\x49L\is\x74\L\97\x79o\117\116");_.FillDirection=Enum.FillDirection.Horizontal;_.Padding=UDim.new(0,6);_.Parent=o;local _=Instance.new("\84e\u{78}\x74\66utt\x6F\u{006E}");_.Name="T\x61\z\114\u{067}e\u{074}sT\101\u{078}\u{0074}Windo\x77";_.Size=UDim2.fromOffset(220,145);_.BackgroundColor3=R.Main;_.BorderSizePixel=0;_.AutoButtonColor=false;_.Visible=false;_.Text='';_.Parent=v;g.Window=_;E(_);S(_);local Q=Instance.new('I\ma\103\101L\97bel');Q.Name='\u{0049}c\z o\110';Q.Size=UDim2.fromOffset(18,12);Q.Position=UDim2.fromOffset(10,15);Q.BackgroundTransparency=1;Q.Image=j('\99a\z  \u{0074}\114e\u{0077}\114\x69t\101/\97s\115e\x74s/new\47targe\u{074}\z  s\116\97b.\112ng');Q.Parent=_;local Q=Instance.new('T\101xtL\97bel');Q.Name='Titl\x65';Q.Size=UDim2.new(1,-36.0,0,20);Q.Position=UDim2.fromOffset(math.abs(Q.Size.X.Offset),11);Q.BackgroundTransparency=1;Q.Text='\u{0054}arget\32s\101\ztti\x6Eg\115';Q.TextXAlignment=Enum.TextXAlignment.Left;Q.TextColor3=R.Text;Q.TextSize=13;Q.FontFace=R.Font;Q.Parent=_;local Q=p(_);d.Function=d.Function or function()end;function g:Save(G)G.Targets={Players=self.Players.Enabled,NPCs=self.NPCs.Enabled,Invisible=self.Invisible.Enabled,Walls=self.Walls.Enabled};end;function g:Load(G)if self.Players.Enabled~=G.Players then self.Players:Toggle();end;if self.NPCs.Enabled~=G.NPCs then self.NPCs:Toggle();end;if self.Invisible.Enabled~=G.Invisible then self.Invisible:Toggle();end;if self.Walls.Enabled~=G.Walls then self.Walls:Toggle();end;end;function g:Color(G,YV,sV,fV)B.BackgroundColor3=fV and Color3.fromHSV(s:Color((G-(self.Index*0.075))%1))or Color3.fromHSV(G,YV,sV);if self.Players.Enabled then y:Cancel(self.Players.Object.Frame);self.Players.Object.Frame.BackgroundColor3=Color3.fromHSV(G,YV,sV);end;if self.NPCs.Enabled then y:Cancel(self.NPCs.Object.Frame);self.NPCs.Object.Frame.BackgroundColor3=Color3.fromHSV(G,YV,sV);end;if self.Invisible.Enabled then y:Cancel(self.Invisible.Object.Knob);self.Invisible.Object.Knob.BackgroundColor3=Color3.fromHSV(G,YV,sV);end;if self.Walls.Enabled then y:Cancel(self.Walls.Object.Knob);self.Walls.Object.Knob.BackgroundColor3=Color3.fromHSV(G,YV,sV);end;end;g.Players=z.TargetsButton({Position=UDim2.fromOffset(11,45),Icon=j('\99a\z  \116\114\u{65}\x77r\105te/\97\s\115e\z t\115\x2F\u{6E}e\119/\116\97\u{0072}g\et\x70l\97yers\x31.\u{070}n\u{0067}'),IconSize=UDim2.fromOffset(15,16),IconParent=o,ToolIcon=j('cat\x72\u{065}\x77ri\116\e\z/\x61ss\u{65}\116s\x2Fn\x65w\47\x74a\114g\e\116\u{0070}\x6Ca\x79\101\x72s2.\z p\x6Eg'),ToolSize=UDim2.fromOffset(11,12),Tooltip="P\zl\z a\z \x79\101r\zs",Function=d.Function},_,o);g.NPCs=z.TargetsButton({Position=UDim2.fromOffset(112,45),Icon=j("ca\116\u{0072}ewr\z  \105te/\97s\u{073}\e\u{74}s/\x6E\101w\/ta\114\x67\x65tnpc\z 1\u{2E}\112ng"),IconSize=UDim2.fromOffset(12,16),IconParent=o,ToolIcon=j('ca\z \u{074}r\101wr\u{069}t\x65\47a\x73\x73\e\x74\115\u{2F}\110\z  e\z w\/\z t\u{061}\x72g\u{065}tn\u{070}\z c2.\112ng'),ToolSize=UDim2.fromOffset(9,12),Tooltip="\78P\67s",Function=d.Function},_,o);g.Invisible=z.Toggle({Name="I\z  g\110\111\x72e\32i\u{006E}v\105si\z\u{0062}l\z  \u{0065}",Function=function()local o='n\z  \u{6F}n\101';if g.Invisible.Enabled then o='\105\110visible';end;if g.Walls.Enabled then o=o=="no\110e"and'\z \98ehi\110d \119al\108s'or o..'\z  ,\ \z\98ehi\110d w\97l\u{6C}s';end;F.Text='\I\g\x6Eor\z \u{0065}\u{020}'..o;d.Function();end},_,{Options={}});g.Invisible.Object.Position=UDim2.fromOffset(0,81);g.Walls=z.Toggle({Name='\z  I\103\110ore be\104\u{69}n\u{064} \119a\z  \108\u{06C}\115',Function=function()local o='n\111ne';if g.Invisible.Enabled then o='i\x6E\118\i\sib\108\ze';end;if g.Walls.Enabled then o=o=="\x6Eon\101"and"b\101h\u{69}\zn\100 \z\119\u{0061}l\ls"or o..", \98e\104ind\32\119\z  al\z \u{06C}\115";end;F.Text="\73\gn\111\x72\101\ "..o;d.Function();end},_,{Options={}});g.Walls.Object.Position=UDim2.fromOffset(0,111);if d.Players then g.Players:Toggle();end;if d.NPCs then g.NPCs:Toggle();end;if d.Invisible then g.Invisible:Toggle();end;if d.Walls then g.Walls:Toggle();end;Q.MouseButton1Click:Connect(function()_.Visible=false;end);D.MouseButton1Click:Connect(function()_.Visible=not _.Visible;y:Cancel(B);B.BackgroundColor3=_.Visible and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or n.Light(R.Main,0.37);end);i.MouseEnter:Connect(function()if not g.Window.Visible then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.37)});end;end);i.MouseLeave:Connect(function()if not g.Window.Visible then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.034)});end;end);i:GetPropertyChangedSignal("Abso\z  lut\u{0065}P\111\z  s\105t\105on"):Connect(function()if s.ThreadFix then setthreadidentity(8);end;local d=(i.AbsolutePosition+Vector2.new(0,60))/U.Scale;_.Position=UDim2.fromOffset(d.X+220,d.Y);end);g.Object=i;h.Options.Targets=g;return g;end,TargetsButton=function(d,B,h)local h={Enabled=false};local g=Instance.new("Tex\u{74}But\z  to\110");g.Size=UDim2.fromOffset(98,31);g.Position=d.Position;g.BackgroundColor3=n.Light(R.Main,0.05);g.AutoButtonColor=false;g.Visible=d.Visible==nil or d.Visible;g.Text='';g.Parent=B;S(g);C(g,V(d.Tooltip,u));local B=Instance.new("Fr\97\x6De");B.Size=UDim2.new(1,-2.0,1,-2.0);B.Position=UDim2.fromOffset(1,1);B.BackgroundColor3=R.Main;B.Parent=g;S(B);local i=Instance.new('Im\z\u{0061}\103eLa\u{062}el');i.Size=d.IconSize;i.Position=UDim2.fromScale(0.5,0.5);i.AnchorPoint=Vector2.new(0.5,0.5);i.BackgroundTransparency=1;i.Image=d.Icon;i.ImageColor3=n.Light(R.Main,0.37);i.Parent=B;d.Function=d.Function or function()end;local D;function h:Toggle()self.Enabled=not self.Enabled;y:Tween(B,R.Tween,{BackgroundColor3=self.Enabled and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or R.Main});y:Tween(i,R.Tween,{ImageColor3=self.Enabled and Color3.new(1,1,1)or n.Light(R.Main,0.37)});if D then D:Destroy();end;if self.Enabled then D=Instance.new("Im\97\u{67}\z e\x4C\z  ab\x65l");D.Size=d.ToolSize;D.BackgroundTransparency=1;D.Image=d.ToolIcon;D.ImageColor3=R.Text;D.Parent=d.IconParent;end;d.Function(self.Enabled);end;g.MouseEnter:Connect(function()if not h.Enabled then y:Tween(B,R.Tween,{BackgroundColor3=Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value-0.25)});y:Tween(i,R.Tween,{ImageColor3=Color3.new(1,1,1)});end;end);g.MouseLeave:Connect(function()if not h.Enabled then y:Tween(B,R.Tween,{BackgroundColor3=R.Main});y:Tween(i,R.Tween,{ImageColor3=n.Light(R.Main,0.37)});end;end);g.MouseButton1Click:Connect(function()h:Toggle();end);h.Object=g;return h;end,TextBox=function(d,B,h)local g={Type='T\101xt\z \u{0042}\ox',Value=d.Default or"",Index=0};local i=Instance.new("\z Te\120t\B\u{75}tto\zn");i.Name=d.Name.."Te\x78t\x42\111x";i.Size=UDim2.new(1,0,0,58);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text='';i.Parent=B;C(i,V(d.Tooltip,u));local B=Instance.new('\84\101\x78tLa\98el');B.Size=UDim2.new(1,-10.0,0,20);B.Position=UDim2.fromOffset(10,3);B.BackgroundTransparency=1;B.Text=V(d.Name,u);B.TextXAlignment=Enum.TextXAlignment.Left;B.TextColor3=R.Text;B.TextSize=12;B.FontFace=R.Font;B.Parent=i;local B=Instance.new("Frame");B.Name='\66\z \75G';B.Size=UDim2.new(1,-20.0,0,29);B.Position=UDim2.fromOffset(10,23);B.BackgroundColor3=n.Light(R.Main,0.02);B.Parent=i;S(B,UDim.new(0,4));local D=Instance.new("\x54ex\u{74}\u{42}\x6F\u{078}");D.Size=UDim2.new(1,-8.0,1,0);D.Position=UDim2.fromOffset(8,0);D.BackgroundTransparency=1;D.Text=d.Default or"";D.PlaceholderText=d.Placeholder or"\z \67lic\k\u{20}\zt\z o se\u{074}";D.TextXAlignment=Enum.TextXAlignment.Left;D.TextColor3=n.Dark(R.Text,0.16);D.PlaceholderColor3=n.Dark(R.Text,0.31);D.TextSize=12;D.FontFace=R.Font;D.ClearTextOnFocus=false;D.Parent=B;d.Function=d.Function or function()end;function g:Save(B)B[d.Name]={Value=self.Value};end;function g:Load(B)if self.Value~=B.Value then self:SetValue(B.Value);end;end;function g:SetValue(B,o)self.Value=B;D.Text=B;d.Function(o);end;i.MouseButton1Click:Connect(function()D:CaptureFocus();end);D.FocusLost:Connect(function(B)g:SetValue(D.Text,true);end);D:GetPropertyChangedSignal('T\101xt'):Connect(function()g:SetValue(D.Text);end);g.Object=i;h.Options[d.Name]=g;return g;end,TextList=function(d,B,h)local g={Type="\T\e\u{0078}t\L\105st",List=d.Default or{},ListEnabled=d.Default or{},Objects={},Window={Visible=false},Index=w(h.Options)};d.Color=d.Color or Color3.fromRGB(5,134,105);local i=Instance.new('T\101\u{78}\116\z  B\x75t\u{0074}o\110');i.Name=d.Name.."\u{0054}\z \u{65}\120\u{74}Lis\x74";i.Size=UDim2.new(1,0,0,50);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text="";i.Parent=B;C(i,V(d.Tooltip,u));local B=Instance.new("\F\114\x61\109e");B.Name="B\zKG";B.Size=UDim2.new(1,-20.0,1,-9.0);B.Position=UDim2.fromOffset(10,4);B.BackgroundColor3=n.Light(R.Main,0.034);B.Parent=i;S(B,UDim.new(0,4));local D=Instance.new("\x54\z  \101x\116B\117\z tt\x6F\u{006E}");D.Name='Text\76i\u{73}t';D.Size=UDim2.new(1,-2.0,1,-2.0);D.Position=UDim2.fromOffset(1,1);D.BackgroundColor3=R.Main;D.AutoButtonColor=false;D.Text='';D.Parent=B;local o=Instance.new("\u{49}\109a\u{0067}\u{65}L\z  ab\x65l");o.Name='\73\99\111\u{006E}';o.Size=UDim2.fromOffset(14,12);o.Position=UDim2.fromOffset(10,14);o.BackgroundTransparency=1;o.Image=d.Icon or j("catre\u{077}\114ite/a\115s\101\u{74}\115/\u{006E}e\x77/a\108l\z o\w\101di\u{0063}\111n.\u{0070}\x6E\u{0067}");o.Parent=D;local o=Instance.new("\zT\x65xt\u{04C}ab\101\108");o.Name="Ti\116\u{006C}e";o.Size=UDim2.new(1,-35.0,0,15);o.Position=UDim2.fromOffset(35,6);o.BackgroundTransparency=1;o.Text=V(d.Name,u);o.TextXAlignment=Enum.TextXAlignment.Left;o.TextColor3=n.Dark(R.Text,0.16);o.TextSize=15;o.TextTruncate=Enum.TextTruncate.AtEnd;o.FontFace=R.Font;o.Parent=D;local F=o:Clone();F.Name="\u{041}\mo\z  \117\u{6E}t";F.Size=UDim2.new(1,-13.0,0,15);F.Position=UDim2.fromOffset(0,6);F.Text="\48";F.TextXAlignment=Enum.TextXAlignment.Right;F.Parent=D;local _=o:Clone();_.Name='\I\z\x74e\zm\115';_.Position=UDim2.fromOffset(35,21);_.Text="N\o\110e";_.TextColor3=n.Dark(R.Text,0.43);_.TextSize=11;_.Parent=D;S(D,UDim.new(0,4));local o=Instance.new("\84e\u{078}\u{74}\u{42}u\u{0074}t\111\zn");o.Name=d.Name.."T\x65x\116Wi\110dow";o.Size=UDim2.fromOffset(220,85);o.BackgroundColor3=R.Main;o.BorderSizePixel=0;o.AutoButtonColor=false;o.Visible=false;o.Text="";o.Parent=h.Legit and s.Legit.Window or v;g.Window=o;E(o);S(o);local Q=Instance.new("\u{49}\mageL\u{61}\x62el");Q.Name="\z\x49\99\x6F\110";Q.Size=d.TabSize or UDim2.fromOffset(19,16);Q.Position=UDim2.fromOffset(10,13);Q.BackgroundTransparency=1;Q.Image=d.Tab or j("catr\z  \u{0065}w\114\105\zte\z\u{02F}\u{0061}\z ss\101t\115\u{2F}n\z  \101w\x2Fal\108\111w\101dta\x62.\112n\103");Q.Parent=o;local Q=Instance.new("\x54\101\z x\116\76abe\z  l");Q.Name="\z  T\105t\108e";Q.Size=UDim2.new(1,-36.0,0,20);Q.Position=UDim2.fromOffset(math.abs(Q.Size.X.Offset),11);Q.BackgroundTransparency=1;Q.Text=V(d.Name,u);Q.TextXAlignment=Enum.TextXAlignment.Left;Q.TextColor3=R.Text;Q.TextSize=13;Q.FontFace=R.Font;Q.Parent=o;local Q=p(o);local G=Instance.new('F\u{072}ame');G.Name="Add";G.Size=UDim2.fromOffset(200,31);G.Position=UDim2.fromOffset(10,45);G.BackgroundColor3=n.Light(R.Main,0.02);G.Parent=o;S(G);local YV=G:Clone();YV.Size=UDim2.new(1,-2.0,1,-2.0);YV.Position=UDim2.fromOffset(1,1);YV.BackgroundColor3=n.Dark(R.Main,0.02);YV.Parent=G;local YV=Instance.new('\u{054}e\x78t\u{42}\111x');YV.Size=UDim2.new(1,-35.0,1,0);YV.Position=UDim2.fromOffset(10,0);YV.BackgroundTransparency=1;YV.Text='';YV.PlaceholderText=d.Placeholder or'\Ad\100\ en\116\z  ry\46..';YV.TextXAlignment=Enum.TextXAlignment.Left;YV.TextColor3=Color3.new(1,1,1);YV.TextSize=15;YV.FontFace=R.Font;YV.ClearTextOnFocus=false;YV.Parent=G;local sV=Instance.new('\x49\x6Dag\z \eB\z  \u{075}t\u{074}on');sV.Name='A\ddButton';sV.Size=UDim2.fromOffset(16,16);sV.Position=UDim2.new(1,-26.0,0,8);sV.BackgroundTransparency=1;sV.Image=j('c\97\116r\101writ\z \x65\u{002F}as\x73et\x73/\u{006E}ew/add\u{02E}\u{70}\zn\g');sV.ImageColor3=d.Color;sV.ImageTransparency=0.3;sV.Parent=G;d.Function=d.Function or function()end;function g:Save(fV)fV[d.Name]={List=self.List,ListEnabled=self.ListEnabled};end;function g:Load(fV)self.List=fV.List or{};self.ListEnabled=fV.ListEnabled or{};self:ChangeValue();end;function g:Color(fV,OV,dV,NV)if o.Visible then B.BackgroundColor3=NV and Color3.fromHSV(s:Color((fV-(self.Index*0.075))%1))or Color3.fromHSV(fV,OV,dV);end;end;function g:ChangeValue(fV)if fV then local OV=table.find(self.List,fV);if OV then table.remove(self.List,OV);OV=table.find(self.ListEnabled,fV);if OV then table.remove(self.ListEnabled,OV);end;else table.insert(self.List,fV);table.insert(self.ListEnabled,fV);end;end;task.spawn(d.Function,self.List);for fV,fV in self.Objects do fV:Destroy();end;table.clear(self.Objects);o.Size=UDim2.fromOffset(220,85+(#self.List*35));F.Text=#self.List;local F='None';for fV,OV in self.ListEnabled do if fV==1 then F='';end;F=F..(fV==1 and OV or'\z , '..OV);end;_.Text=F;for F,fV in self.List do local OV=table.find(self.ListEnabled,fV);local dV=Instance.new("TextBu\x74t\111n");dV.Name=fV;dV.Size=UDim2.fromOffset(200,32);dV.Position=UDim2.fromOffset(10,47+(F*35));dV.BackgroundColor3=n.Light(R.Main,0.02);dV.AutoButtonColor=false;dV.Text='';dV.Parent=o;S(dV);local F=Instance.new("\70\114\97m\z \e");F.Name='BK\G';F.Size=UDim2.new(1,-2.0,1,-2.0);F.Position=UDim2.fromOffset(1,1);F.BackgroundColor3=R.Main;F.Visible=false;F.Parent=dV;S(F);local NV=Instance.new("\F\z  r\u{61}\109\u{065}");NV.Name="\x44\u{06F}t";NV.Size=UDim2.fromOffset(10,11);NV.Position=UDim2.fromOffset(10,12);NV.BackgroundColor3=OV and d.Color or n.Light(R.Main,0.37);NV.Parent=dV;S(NV,UDim.new(1,0));local qV=NV:Clone();qV.Size=UDim2.fromOffset(8,9);qV.Position=UDim2.fromOffset(1,1);qV.BackgroundColor3=OV and d.Color or n.Light(R.Main,0.02);qV.Parent=NV;local OV=Instance.new('\x54e\120\116\L\u{61}b\z  e\108');OV.Name='T\105tl\x65';OV.Size=UDim2.new(1,-30.0,1,0);OV.Position=UDim2.fromOffset(30,0);OV.BackgroundTransparency=1;OV.Text=fV;OV.TextXAlignment=Enum.TextXAlignment.Left;OV.TextColor3=n.Dark(R.Text,0.16);OV.TextSize=15;OV.FontFace=R.Font;OV.Parent=dV;local OV=Instance.new('\I\m\97geBut\116\111n');OV.Name="C\108ose";OV.Size=UDim2.fromOffset(16,16);OV.Position=UDim2.new(1,-26.0,0,8);OV.BackgroundColor3=Color3.new(1,1,1);OV.BackgroundTransparency=1;OV.AutoButtonColor=false;OV.Image=j("\z  ca\116\114e\z wr\z ite\/as\115et\s/\110ew/\z  \cl\zo\115\101m\u{0069}n\u{069}\46png");OV.ImageColor3=n.Light(R.Text,0.2);OV.ImageTransparency=0.5;OV.Parent=dV;S(OV,UDim.new(1,0));OV.MouseEnter:Connect(function()OV.ImageTransparency=0.3;y:Tween(OV,R.Tween,{BackgroundTransparency=0.6});end);OV.MouseLeave:Connect(function()OV.ImageTransparency=0.5;y:Tween(OV,R.Tween,{BackgroundTransparency=1});end);OV.MouseButton1Click:Connect(function()self:ChangeValue(fV);end);dV.MouseEnter:Connect(function()F.Visible=true;end);dV.MouseLeave:Connect(function()F.Visible=false;end);dV.MouseButton1Click:Connect(function()local F=table.find(self.ListEnabled,fV);if F then table.remove(self.ListEnabled,F);NV.BackgroundColor3=n.Light(R.Main,0.37);qV.BackgroundColor3=n.Light(R.Main,0.02);else table.insert(self.ListEnabled,fV);NV.BackgroundColor3=d.Color;qV.BackgroundColor3=d.Color;end;local F="\x4E\x6F\u{06E}e";for fV,OV in self.ListEnabled do if fV==1 then F='';end;F=F..(fV==1 and OV or", "..OV);end;_.Text=F;task.spawn(d.Function);end);table.insert(self.Objects,dV);end;end;sV.MouseEnter:Connect(function()sV.ImageTransparency=0;end);sV.MouseLeave:Connect(function()sV.ImageTransparency=0.3;end);sV.MouseButton1Click:Connect(function()if not table.find(g.List,YV.Text)then g:ChangeValue(YV.Text);YV.Text="";end;end);YV.FocusLost:Connect(function(F)if F and not table.find(g.List,YV.Text)then g:ChangeValue(YV.Text);YV.Text="";end;end);YV.MouseEnter:Connect(function()y:Tween(G,R.Tween,{BackgroundColor3=n.Light(R.Main,0.14)});end);YV.MouseLeave:Connect(function()y:Tween(G,R.Tween,{BackgroundColor3=n.Light(R.Main,0.02)});end);Q.MouseButton1Click:Connect(function()o.Visible=false;end);D.MouseButton1Click:Connect(function()o.Visible=not o.Visible;y:Cancel(B);B.BackgroundColor3=o.Visible and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or n.Light(R.Main,0.37);end);i.MouseEnter:Connect(function()if not g.Window.Visible then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.37)});end;end);i.MouseLeave:Connect(function()if not g.Window.Visible then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.034)});end;end);i:GetPropertyChangedSignal("\x41bs\111lu\116e\80o\z s\z \x69t\105on"):Connect(function()if s.ThreadFix then setthreadidentity(8);end;local B=(i.AbsolutePosition-(h.Legit and s.Legit.Window.AbsolutePosition or-N:GetGuiInset()))/U.Scale;o.Position=UDim2.fromOffset(B.X+220,B.Y);end);if d.Default then g:ChangeValue();end;g.Object=i;h.Options[d.Name]=g;return g;end,Toggle=function(d,B,h)local g={Type='\T\111\103g\x6Ce',Enabled=false,Index=w(h.Options)};local i=Instance.new('T\101\z  xtBu\u{0074}t\on');i.Name=d.Name..'T\111\g\gl\101';i.Size=UDim2.new(1,0,0,30);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text='\226\128\138\226\128\138\226\128\z\138\226\128\138\226\128\138\xE2\z  \x80\138\xE2\128\138\226\128\z \138\z\xE2\128\138\226\z \128\138'..V(d.Name,u);i.TextXAlignment=Enum.TextXAlignment.Left;i.TextColor3=n.Dark(R.Text,0.16);i.TextSize=14;i.FontFace=R.Font;i.Parent=B;C(i,V(d.Tooltip,u));local B=Instance.new('Fra\m\e');B.Name="\75n\111b";B.Size=UDim2.fromOffset(22,12);B.Position=UDim2.new(1,-30.0,0,9);B.BackgroundColor3=n.Light(R.Main,0.14);B.Parent=i;S(B,UDim.new(1,0));local D=B:Clone();D.Size=UDim2.fromOffset(8,8);D.Position=UDim2.fromOffset(2,2);D.BackgroundColor3=R.Main;D.Parent=B;local o=false;d.Function=d.Function or function()end;function g:Save(F)F[d.Name]={Enabled=self.Enabled};end;function g:Load(F)if self.Enabled~=F.Enabled then self:Toggle();end;end;function g:Color(F,_,Q,G)if self.Enabled then y:Cancel(B);B.BackgroundColor3=G and Color3.fromHSV(s:Color((F-(self.Index*0.075))%1))or Color3.fromHSV(F,_,Q);end;end;function g:Toggle()self.Enabled=not self.Enabled;local F=s.GUIColor.Rainbow and s.RainbowMode.Value~='Retro';y:Tween(B,R.Tween,{BackgroundColor3=self.Enabled and(F and Color3.fromHSV(s:Color((s.GUIColor.Hue-(self.Index*0.075))%1))or Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value))or(o and n.Light(R.Main,0.37)or n.Light(R.Main,0.14))});y:Tween(D,R.Tween,{Position=UDim2.fromOffset(self.Enabled and 12 or 2,2)});task.spawn(d.Function,self.Enabled);end;i.MouseEnter:Connect(function()o=true;if not g.Enabled then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.37)});end;end);i.MouseLeave:Connect(function()o=false;if not g.Enabled then y:Tween(B,R.Tween,{BackgroundColor3=n.Light(R.Main,0.14)});end;end);i.MouseButton1Click:Connect(function()g:Toggle();end);if d.Default then g:Toggle();end;g.Object=i;h.Options[d.Name]=g;return g;end,TwoSlider=function(d,B,h)local g={Type="\x54w\o\x53\l\105\x64\ze\z  \u{72}",ValueMin=d.DefaultMin or d.Min,ValueMax=d.DefaultMax or 10,Max=d.Max,Index=w(h.Options)};local i=Instance.new("Text\66\117\u{74}ton");i.Name=d.Name..'\z\Sl\105\100e\114';i.Size=UDim2.new(1,0,0,50);i.BackgroundColor3=n.Dark(B.BackgroundColor3,d.Darker and 0.02 or 0);i.BorderSizePixel=0;i.AutoButtonColor=false;i.Visible=d.Visible==nil or d.Visible;i.Text="";i.Parent=B;C(i,V(d.Tooltip,u));local B=Instance.new('\x54e\z x\116Labe\x6C');B.Name='\u{54}itle';B.Size=UDim2.fromOffset(60,30);B.Position=UDim2.fromOffset(10,2);B.BackgroundTransparency=1;B.Text=V(d.Name,u);B.TextXAlignment=Enum.TextXAlignment.Left;B.TextColor3=n.Dark(R.Text,0.16);B.TextSize=11;B.FontFace=R.Font;B.Parent=i;local B=Instance.new('Text\u{042}u\116\116on');B.Name="\Valu\z\u{0065}";B.Size=UDim2.fromOffset(60,15);B.Position=UDim2.new(1,-69.0,0,9);B.BackgroundTransparency=1;B.Text=g.ValueMax;B.TextXAlignment=Enum.TextXAlignment.Right;B.TextColor3=n.Dark(R.Text,0.16);B.TextSize=11;B.FontFace=R.Font;B.Parent=i;local D=B:Clone();D.Position=UDim2.new(1,-125.0,0,9);D.Text=g.ValueMin;D.Parent=i;local o=Instance.new("Te\120\116\x42ox");o.Name="B\x6Fx";o.Size=B.Size;o.Position=B.Position;o.BackgroundTransparency=1;o.Visible=false;o.Text=g.ValueMin;o.TextXAlignment=Enum.TextXAlignment.Right;o.TextColor3=n.Dark(R.Text,0.16);o.TextSize=11;o.FontFace=R.Font;o.ClearTextOnFocus=false;o.Parent=i;local F=o:Clone();F.Position=D.Position;F.Parent=i;local _=Instance.new("\x46r\x61me");_.Name="S\108\105\zder";_.Size=UDim2.new(1,-20.0,0,2);_.Position=UDim2.fromOffset(10,37);_.BackgroundColor3=n.Light(R.Main,0.034);_.BorderSizePixel=0;_.Parent=i;local Q=_:Clone();Q.Name='Fi\u{006C}l';Q.Position=UDim2.fromScale(math.clamp(g.ValueMin/d.Max,0.04,0.96),0);Q.Size=UDim2.fromScale(math.clamp(math.clamp(g.ValueMax/d.Max,0,1),0.04,0.96)-Q.Position.X.Scale,1);Q.BackgroundColor3=Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);Q.Parent=_;local G=Instance.new('Fra\x6De');G.Name='\Kn\x6Fb';G.Size=UDim2.fromOffset(16,4);G.Position=UDim2.fromScale(0,0.5);G.AnchorPoint=Vector2.new(0.5,0.5);G.BackgroundColor3=i.BackgroundColor3;G.BorderSizePixel=0;G.Parent=Q;local YV=Instance.new("I\u{006D}\u{61}geL\97be\u{006C}");YV.Name="\u{04B}nob";YV.Size=UDim2.fromOffset(9,16);YV.Position=UDim2.fromScale(0.5,0.5);YV.AnchorPoint=Vector2.new(0.5,0.5);YV.BackgroundTransparency=1;YV.Image=j("c\z \97\116re\u{0077}\114\x69\116e/\x61s\x73et\u{073}/ne\u{77}\u{2F}ra\z \110\103\z  \e\46png");YV.ImageColor3=Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);YV.Parent=G;local sV=G:Clone();sV.Name="Kno\98\z\x4Dax";sV.Position=UDim2.fromScale(1,0.5);sV.Parent=Q;sV.Knob.Rotation=180;local fV=Instance.new('\Ima\103\101L\x61bel');fV.Name="Ar\114\u{006F}\u{077}";fV.Size=UDim2.fromOffset(12,6);fV.Position=UDim2.new(1,-56.0,0,10);fV.BackgroundTransparency=1;fV.Image=j('c\zatr\e\x77\u{072}ite/ass\ets/\110e\w/ra\z  n\103\u{0065}ar\114o\zw\z.\p\110\z\g');fV.ImageColor3=n.Light(R.Main,0.14);fV.Parent=i;d.Function=d.Function or function()end;d.Decimal=d.Decimal or 1;local fV=Random.new();function g:Save(OV)OV[d.Name]={ValueMin=self.ValueMin,ValueMax=self.ValueMax};end;function g:Load(OV)if self.ValueMin~=OV.ValueMin then self:SetValue(false,OV.ValueMin);end;if self.ValueMax~=OV.ValueMax then self:SetValue(true,OV.ValueMax);end;end;function g:Color(OV,dV,NV,qV)Q.BackgroundColor3=qV and Color3.fromHSV(s:Color((OV-(self.Index*0.075))%1))or Color3.fromHSV(OV,dV,NV);YV.ImageColor3=Q.BackgroundColor3;sV.Knob.ImageColor3=Q.BackgroundColor3;end;function g:GetRandomValue()return fV:NextNumber(g.ValueMin,g.ValueMax);end;function g:SetValue(fV,OV)if tonumber(OV)==math.huge or OV~=OV then return;end;self[fV and"\86\x61lu\u{65}\u{04D}\z\97x"or"\86\z\x61\108\u{075}eMin"]=OV;B.Text=self.ValueMax;D.Text=self.ValueMin;local fV=math.clamp(math.clamp(self.ValueMin/d.Max,0,1),0.04,0.96);y:Tween(Q,TweenInfo.new(0.1),{Position=UDim2.fromScale(fV,0),Size=UDim2.fromScale(math.clamp(math.clamp(math.clamp(self.ValueMax/d.Max,0.04,0.96),0.04,0.96)-fV,0,1),1)});end;G.MouseEnter:Connect(function()y:Tween(YV,R.Tween,{Size=UDim2.fromOffset(11,18)});end);G.MouseLeave:Connect(function()y:Tween(YV,R.Tween,{Size=UDim2.fromOffset(9,16)});end);sV.MouseEnter:Connect(function()y:Tween(sV.Knob,R.Tween,{Size=UDim2.fromOffset(11,18)});end);sV.MouseLeave:Connect(function()y:Tween(sV.Knob,R.Tween,{Size=UDim2.fromOffset(9,16)});end);i.InputBegan:Connect(function(Q)if(Q.UserInputType==Enum.UserInputType.MouseButton1 or Q.UserInputType==Enum.UserInputType.Touch)and(Q.Position.Y-i.AbsolutePosition.Y)>(20*U.Scale)then local G=(Q.Position.X-sV.AbsolutePosition.X)>-10.0;local YV=math.clamp((Q.Position.X-_.AbsolutePosition.X)/_.AbsoluteSize.X,0,1);g:SetValue(G,math.floor((d.Min+(d.Max-d.Min)*YV)*d.Decimal)/d.Decimal,YV);local YV=O.InputChanged:Connect(function(sV)if sV.UserInputType==(Q.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then local fV=math.clamp((sV.Position.X-_.AbsolutePosition.X)/_.AbsoluteSize.X,0,1);g:SetValue(G,math.floor((d.Min+(d.Max-d.Min)*fV)*d.Decimal)/d.Decimal,fV);end;end);local _;_=Q.Changed:Connect(function()if Q.UserInputState==Enum.UserInputState.End then if YV then YV:Disconnect();end;if _ then _:Disconnect();end;end;end);end;end);B.MouseButton1Click:Connect(function()B.Visible=false;o.Visible=true;o.Text=g.ValueMax;o:CaptureFocus();end);D.MouseButton1Click:Connect(function()D.Visible=false;F.Visible=true;F.Text=g.ValueMin;F:CaptureFocus();end);o.FocusLost:Connect(function(_)B.Visible=true;o.Visible=false;if _ and tonumber(o.Text)then g:SetValue(true,tonumber(o.Text));end;end);F.FocusLost:Connect(function(B)D.Visible=true;F.Visible=false;if B and tonumber(F.Text)then g:SetValue(false,tonumber(F.Text));end;end);g.Object=i;h.Options[d.Name]=g;return g;end,Divider=function(d,B)local h=Instance.new("\70\114ame");h.Name='\68ivid\z  e\114';h.Size=UDim2.new(1,0,0,1);h.BackgroundColor3=n.Light(R.Main,0.02);h.BorderSizePixel=0;h.Parent=d;B=V(B,u);if B then local g=Instance.new('Text\u{04C}\97be\108');g.Name='\x44\iv\i\100\x65r\x4C\u{61}\x62e\z l';g.Size=UDim2.fromOffset(218,27);g.BackgroundTransparency=1;g.Text="\z  \226\128\138\226\128\138\226\128\138\226\128\x8A\226\128\x8A\226\128\138\z \226\128\138\z\226\128\138\226\128\138\z \226\128\138"..B:upper();g.TextXAlignment=Enum.TextXAlignment.Left;g.TextColor3=n.Dark(R.Text,0.43);g.TextSize=9;g.FontFace=R.Font;g.Parent=d;h.Position=UDim2.fromOffset(0,26);h.Parent=g;end;end};s.Components=setmetatable(z,{__newindex=function(d,B,h)for g,g in s.Modules do rawset(g,'Creat\z \101'..B,function(i,i)return h(i,g.Children,g);end);end;if s.Legit then for g,g in s.Legit.Modules do rawset(g,'\67\zreat\e'..B,function(i,i)return h(i,g.Children,g);end);end;end;rawset(d,B,h);end});task.spawn(function()repeat local d=tick()*(0.2*s.RainbowSpeed.Value)%1;for B,B in s.RainbowTable do if B.Type=='\z \G\u{055}IS\lide\114'then B:SetValue(s:Color(d));else B:SetValue(d);end;end;task.wait(1/s.RainbowUpdateSpeed.Value);until s.Loaded==nil;end);function s:BlurCheck()if t then return;end;if self.ThreadFix then setthreadidentity(8);q:SetRobloxGuiFocused((v.Visible or N:GetErrorType()~=Enum.ConnectionError.OK)and self.Blur.Enabled);end;end;K(s);function s:CreateGUI()local d={Type="Ma\105n\87ind\111\119",Buttons={},Options={}};local B=Instance.new('\x54\101xt\z  Butto\z  n');B.Name='G\x55IC\97tego\u{0072}y';B.Position=UDim2.fromOffset(6,60);B.BackgroundColor3=n.Dark(R.Main,0.02);B.AutoButtonColor=false;B.Text="";B.Parent=v;E(B);S(B);r(B);local h=Instance.new("\73ma\g\z \101L\x61\z \x62el");h.Name="\z Vap\101\x4C\111\103o";h.Size=UDim2.fromOffset(62,18);h.Position=UDim2.fromOffset(11,10);h.BackgroundTransparency=1;h.Image=j("ca\u{74}r\z\u{65}writ\101\x2Fasset\zs\u{2F}n\101w\/g\u{075}\iva\112\x65.pn\x67");h.ImageColor3=select(3,R.Main:ToHSV())>0.5 and R.Text or Color3.new(1,1,1);h.Parent=B;local g=Instance.new("Image\z\u{004C}\z  ab\e\zl");g.Name="V4Lo\103o";g.Size=UDim2.fromOffset(28,16);g.Position=UDim2.new(1,1,0,1);g.BackgroundTransparency=1;g.Image=j('\z ca\116r\z  ew\z \x72i\x74\u{0065}\/\z  a\115sets\u{2F}n\u{65}w\47g\117\105\u{0076}4.p\u{006E}g');g.Parent=h;local h=Instance.new('\z  \Fr\z \97me');h.Name="\C\u{68}\105l\z  \x64ren";h.Size=UDim2.new(1,0,1,-33.0);h.Position=UDim2.fromOffset(0,37);h.BackgroundTransparency=1;h.Parent=B;local g=Instance.new("\U\x49L\x69\z\115\x74L\za\u{79}\out");g.SortOrder=Enum.SortOrder.LayoutOrder;g.HorizontalAlignment=Enum.HorizontalAlignment.Center;g.Parent=h;local i=Instance.new("\84\101\120t\z\66utto\110");i.Name='\83\etti\z \110gs';i.Size=UDim2.fromOffset(40,40);i.Position=UDim2.new(1,-40.0,0,0);i.BackgroundTransparency=1;i.Text="";i.Parent=B;C(i,'\zOpen\ \115et\116ings');local D=Instance.new("Image\x4Cab\101\u{06C}");D.Size=UDim2.fromOffset(14,14);D.Position=UDim2.fromOffset(15,12);D.BackgroundTransparency=1;D.Image=j('ca\x74\114e\119\114i\u{74}\u{0065}/\x61s\x73e\116s\47\z  n\zew/g\z u\x69\u{73}\u{65}tti\z  n\x67s\u{2E}pn\g');D.ImageColor3=n.Light(R.Main,0.37);D.Parent=i;local o=Instance.new("T\x65\zxt\66u\u{74}ton");o.Size=UDim2.fromScale(1,1);o.BackgroundColor3=n.Dark(R.Main,0.02);o.AutoButtonColor=false;o.Visible=false;o.Text="";o.Parent=B;local F=Instance.new('T\u{65}xtLa\z\98el');F.Name="Ti\116\108e";F.Size=UDim2.new(1,-36.0,0,20);F.Position=UDim2.fromOffset(math.abs(F.Size.X.Offset),11);F.BackgroundTransparency=1;F.Text="S\z\u{65}\z  \u{0074}t\105\110\u{67}s";F.TextXAlignment=Enum.TextXAlignment.Left;F.TextColor3=R.Text;F.TextSize=13;F.FontFace=R.Font;F.Parent=o;local F=p(o);local _=Instance.new("I\u{6D}a\g\u{065}B\z \117\z tt\111n");_.Name="Ba\z  c\107";_.Size=UDim2.fromOffset(16,16);_.Position=UDim2.fromOffset(11,13);_.BackgroundTransparency=1;_.Image=j("catr\e\119rite/asse\z  ts/n\101\zw/\x62a\x63k\z \46png");_.ImageColor3=n.Light(R.Main,0.37);_.Parent=o;local Q=Instance.new("T\101\u{78}t\z  \u{04C}a\zb\e\l");Q.Name='Vers\105\o\110';Q.Size=UDim2.new(1,0,0,16);Q.Position=UDim2.new(0,0,1,-16.0);Q.BackgroundTransparency=1;Q.Text='\67\x61t Va\pe '..s.Version;Q.TextColor3=n.Dark(R.Text,0.43);Q.TextXAlignment=Enum.TextXAlignment.Right;Q.TextSize=10;Q.FontFace=R.Font;Q.Parent=o;S(o);local Q=Instance.new("\x46\u{072}am\101");Q.Name='\67\x68\z ild\z\114\x65n';Q.Size=UDim2.new(1,0,1,-57.0);Q.Position=UDim2.fromOffset(0,41);Q.BackgroundColor3=R.Main;Q.BorderSizePixel=0;Q.Parent=o;local G=Instance.new('U\zIL\105st\u{4C}\za\121\111u\z\u{0074}');G.SortOrder=Enum.SortOrder.LayoutOrder;G.HorizontalAlignment=Enum.HorizontalAlignment.Center;G.Parent=Q;d.Object=B;function d:CreateBind()local G={Bind={"\z  Rig\x68tS\zhi\102t"}};local YV=Instance.new('TextB\x75\116ton');YV.Size=UDim2.fromOffset(220,40);YV.BackgroundColor3=R.Main;YV.BorderSizePixel=0;YV.AutoButtonColor=false;YV.Text='\226\z  \128\138\226\128\138\226\128\138\226\128\138\226\x80\138\226\128\138\226\128\138\z  \226\x80\138\226\128\138\226\128\138R\101b\z  in\100\32GUI';YV.TextXAlignment=Enum.TextXAlignment.Left;YV.TextColor3=n.Dark(R.Text,0.16);YV.TextSize=14;YV.FontFace=R.Font;YV.Parent=Q;C(YV,'\C\z  \x68\97\u{6E}\z \u{067}e\x20t\u{068}\101\u{20}\x62ind \o\102 \z  \u{74}he \GU\I');local sV=Instance.new("\x54\z e\x78tBut\x74\111n");sV.Name='B\i\u{6E}d';sV.Size=UDim2.fromOffset(20,21);sV.Position=UDim2.new(1,-10.0,0,9);sV.AnchorPoint=Vector2.new(1,0);sV.BackgroundColor3=Color3.new(1,1,1);sV.BackgroundTransparency=0.92;sV.BorderSizePixel=0;sV.AutoButtonColor=false;sV.Text="";sV.Parent=YV;C(sV,"\67\u{6C}i\x63\107\x20to b\z  i\x6Ed");S(sV,UDim.new(0,4));local YV=Instance.new('\73ma\103\z  \u{0065}L\97b\e\x6C');YV.Name='I\99\u{006F}n';YV.Size=UDim2.fromOffset(12,12);YV.Position=UDim2.new(0.5,-6.0,0,5);YV.BackgroundTransparency=1;YV.Image=j('\99\z at\114\z\e\119\u{072}ite\u{002F}\97s\x73\z \x65t\s/\x6E\z \ew\x2Fb\u{0069}n\d\z\u{02E}\112ng');YV.ImageColor3=n.Dark(R.Text,0.43);YV.Parent=sV;local fV=Instance.new("\84\u{0065}\x78tL\z a\x62\101\x6C");fV.Name="T\z e\u{78}\x74";fV.Size=UDim2.fromScale(1,1);fV.Position=UDim2.fromOffset(0,1);fV.BackgroundTransparency=1;fV.Visible=false;fV.Text="";fV.TextColor3=n.Dark(R.Text,0.43);fV.TextSize=12;fV.FontFace=R.Font;fV.Parent=sV;function G:SetBind(OV)s.Keybind=#OV<=0 and s.Keybind or table.clone(OV);self.Bind=s.Keybind;sV.Visible=true;fV.Visible=true;YV.Visible=false;fV.Text=table.concat(s.Keybind," +\ "):upper();sV.Size=UDim2.fromOffset(math.max(k(fV.Text,fV.TextSize,fV.Font).X+10,20),21);end;sV.MouseEnter:Connect(function()fV.Visible=false;YV.Visible=not fV.Visible;YV.Image=j("\99a\z  trewr\105\x74e/\97\u{73}\115\z  e\u{0074}s/\110\ew\/\u{65}dit.\zpng");YV.ImageColor3=n.Dark(R.Text,0.16);end);sV.MouseLeave:Connect(function()fV.Visible=true;YV.Visible=not fV.Visible;YV.Image=j("\c\z  a\x74\114e\u{077}\114i\z t\101/a\115set\x73\/\110e\zw\u{2F}bi\110d\z .png");YV.ImageColor3=n.Dark(R.Text,0.43);end);sV.MouseButton1Click:Connect(function()s.Binding=G;end);d.Options.Bind=G;return G;end;function d:CreateButton(G)local YV={Enabled=false,Index=w(d.Buttons)};local sV=Instance.new("Tex\z  t\u{0042}utt\111n");sV.Name=G.Name;sV.Size=UDim2.fromOffset(220,40);sV.BackgroundColor3=R.Main;sV.BorderSizePixel=0;sV.AutoButtonColor=false;sV.Text=(G.Icon and'\226\128\138\226\128\138\226\x80\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\z \138\226\128\138\226\128\138\226\x80\138\226\128\138\226\128\z\138\226\128\z  \138\xE2\z\128\z \138\226\128\138\226\x80\138\226\128\138\226\z \128\138\xE2\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\226\128\138\xE2\128\138'or'\z\226\128\138\226\128\138\226\128\138\z  \xE2\128\138\226\z  \128\138\z  \xE2\128\138\226\128\138\226\128\138\226\z\128\138\226\128\138\z  \226\128\z  \138\226\128\138\xE2\128\138')..V(G.Name);sV.TextXAlignment=Enum.TextXAlignment.Left;sV.TextColor3=n.Dark(R.Text,0.16);sV.TextSize=14;sV.FontFace=R.Font;sV.Parent=h;local fV;if G.Icon then fV=Instance.new('\zIm\97geL\x61\u{062}e\l');fV.Name="\I\co\z  n";fV.Size=G.Size;fV.Position=UDim2.fromOffset(13,13);fV.BackgroundTransparency=1;fV.Image=G.Icon;fV.ImageColor3=n.Dark(R.Text,0.16);fV.Parent=sV;end;if G.Name=="\u{50}r\u{006F}\z f\iles"then local OV=Instance.new("\Te\120tLab\101\u{006C}");OV.Name="\z  P\114ofil\101Label";OV.Size=UDim2.fromOffset(53,24);OV.Position=UDim2.new(1,-36.0,0,8);OV.AnchorPoint=Vector2.new(1,0);OV.BackgroundColor3=n.Light(R.Main,0.04);OV.Text='def\z a\117lt';OV.TextColor3=n.Dark(R.Text,0.29);OV.TextSize=12;OV.FontFace=R.Font;OV.Parent=sV;S(OV);s.ProfileLabel=OV;end;local OV=Instance.new("\z  \73\u{6D}a\103\e\76\z  \97\x62e\u{06C}");OV.Name='\A\u{0072}\114ow';OV.Size=UDim2.fromOffset(4,8);OV.Position=UDim2.new(1,-20.0,0,16);OV.BackgroundTransparency=1;OV.Image=j("\z\99\z  a\u{074}re\w\z  ri\z  t\x65/a\u{0073}sets\u{2F}ne\z \119/ex\112an\100r\i\103\x68t\.p\zn\z  \u{067}");OV.ImageColor3=n.Light(R.Main,0.37);OV.Parent=sV;YV.Name=G.Name;YV.Icon=fV;YV.Object=sV;function YV:Toggle()self.Enabled=not self.Enabled;y:Tween(OV,R.Tween,{Position=UDim2.new(1,self.Enabled and-14.0 or-20.0,0,16)});sV.TextColor3=self.Enabled and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or R.Text;if fV then fV.ImageColor3=sV.TextColor3;end;sV.BackgroundColor3=n.Light(R.Main,0.02);G.Window.Visible=self.Enabled;end;sV.MouseEnter:Connect(function()if not YV.Enabled then sV.TextColor3=R.Text;if buttonicon then buttonicon.ImageColor3=R.Text;end;sV.BackgroundColor3=n.Light(R.Main,0.02);end;end);sV.MouseLeave:Connect(function()if not YV.Enabled then sV.TextColor3=n.Dark(R.Text,0.16);if buttonicon then buttonicon.ImageColor3=n.Dark(R.Text,0.16);end;sV.BackgroundColor3=R.Main;end;end);sV.MouseButton1Click:Connect(function()YV:Toggle();end);d.Buttons[G.Name]=YV;return YV;end;function d:CreateDivider(G)return z.Divider(h,G);end;function d:CreateOverlayBar()local G={Toggles={}};local YV=Instance.new('Fr\x61\x6D\u{065}');YV.Name='O\x76e\z \114\108\u{0061}\y\s';YV.Size=UDim2.fromOffset(220,36);YV.BackgroundColor3=R.Main;YV.BorderSizePixel=0;YV.Parent=h;z.Divider(YV);local h=Instance.new("\Image\u{42}u\u{074}\z to\u{006E}");h.Size=UDim2.fromOffset(24,24);h.Position=UDim2.new(1,-29.0,0,7);h.BackgroundTransparency=1;h.AutoButtonColor=false;h.Image=j('\99\u{061}tr\ew\z \114i\z  te\47\za\z  \115\115\z  \u{65}ts\z  /\u{06E}\x65w\/ov\e\u{72}la\x79sic\x6Fn\z  \46\x70\z  \x6Eg');h.ImageColor3=n.Light(R.Main,0.37);h.Parent=YV;S(h,UDim.new(1,0));C(h,'Open\u{20}ov\e\x72\108a\121\z \x73\ men\u{075}');local YV=Instance.new("\u{054}\101\x78t\But\116o\z  \110");YV.Name='S\104\zadow';YV.Size=UDim2.new(1,0,1,-5.0);YV.BackgroundColor3=Color3.new();YV.BackgroundTransparency=1;YV.AutoButtonColor=false;YV.ClipsDescendants=true;YV.Visible=false;YV.Text='';YV.Parent=B;S(YV);local sV=Instance.new('\70\114\97m\e');sV.Size=UDim2.fromOffset(220,42);sV.Position=UDim2.fromScale(0,1);sV.BackgroundColor3=R.Main;sV.Parent=YV;S(sV);local fV=Instance.new("Image\La\u{0062}e\l");fV.Name="Ico\x6E";fV.Size=UDim2.fromOffset(14,12);fV.Position=UDim2.fromOffset(10,13);fV.BackgroundTransparency=1;fV.Image=j("\x63\97\z\u{74}\u{072}\u{065}w\114\105\x74e\z /\x61\115\115\et\u{0073}\47n\e\u{077}\z  /ov\u{0065}r\z \u{006C}ay\115\zt\97b.p\110g");fV.ImageColor3=R.Text;fV.Parent=sV;local fV=Instance.new('\z \x54ex\u{74}\L\u{061}\z \u{062}\101\108');fV.Name='Tit\u{06C}e';fV.Size=UDim2.new(1,-36.0,0,38);fV.Position=UDim2.fromOffset(36,0);fV.BackgroundTransparency=1;fV.Text="\Ove\z r\z  lays";fV.TextXAlignment=Enum.TextXAlignment.Left;fV.TextColor3=R.Text;fV.TextSize=15;fV.FontFace=R.Font;fV.Parent=sV;local fV=p(sV,7);local OV=Instance.new("\x46\114\zame");OV.Name='\68\ziv\105\x64er';OV.Size=UDim2.new(1,0,0,1);OV.Position=UDim2.fromOffset(0,37);OV.BackgroundColor3=n.Light(R.Main,0.02);OV.BorderSizePixel=0;OV.Parent=sV;local OV=Instance.new('F\114\x61\109\x65');OV.Position=UDim2.fromOffset(0,38);OV.BackgroundTransparency=1;OV.Parent=sV;local dV=Instance.new('\U\73Li\u{0073}\116\z \76\97\u{0079}\out');dV.SortOrder=Enum.SortOrder.LayoutOrder;dV.HorizontalAlignment=Enum.HorizontalAlignment.Center;dV.Parent=OV;function G:CreateToggle(NV)local qV={Enabled=false,Index=w(G.Toggles)};local AV=Instance.new("T\101\120\116B\117\u{0074}to\110");AV.Name=NV.Name.."\u{0054}o\103g\z\108e";AV.Size=UDim2.new(1,0,0,40);AV.BackgroundTransparency=1;AV.AutoButtonColor=false;AV.Text=string.rep('\226\128\138',33*U.Scale)..V(NV.Name);AV.TextXAlignment=Enum.TextXAlignment.Left;AV.TextColor3=n.Dark(R.Text,0.16);AV.TextSize=14;AV.FontFace=R.Font;AV.Parent=OV;local XV=Instance.new("\73\u{006D}a\u{0067}\101\La\98\u{065}l");XV.Name='Ic\111n';XV.Size=NV.Size;XV.Position=NV.Position;XV.BackgroundTransparency=1;XV.Image=NV.Icon;XV.ImageColor3=R.Text;XV.Parent=AV;local XV=Instance.new("\x46ra\u{6D}e");XV.Name='Kn\111\98';XV.Size=UDim2.fromOffset(22,12);XV.Position=UDim2.new(1,-30.0,0,14);XV.BackgroundColor3=n.Light(R.Main,0.14);XV.Parent=AV;S(XV,UDim.new(1,0));local IV=XV:Clone();IV.Size=UDim2.fromOffset(8,8);IV.Position=UDim2.fromOffset(2,2);IV.BackgroundColor3=R.Main;IV.Parent=XV;qV.Object=AV;function qV:Toggle()self.Enabled=not self.Enabled;y:Tween(XV,R.Tween,{BackgroundColor3=self.Enabled and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or(hovered and n.Light(R.Main,0.37)or n.Light(R.Main,0.14))});y:Tween(IV,R.Tween,{Position=UDim2.fromOffset(self.Enabled and 12 or 2,2)});NV.Function(self.Enabled);end;local IV=false;U:GetPropertyChangedSignal('\83c\x61\le'):Connect(function()AV.Text=string.rep('\226\128\138',33*U.Scale)..NV.Name;end);AV.MouseEnter:Connect(function()IV=true;if not qV.Enabled then y:Tween(XV,R.Tween,{BackgroundColor3=n.Light(R.Main,0.37)});end;end);AV.MouseLeave:Connect(function()IV=false;if not qV.Enabled then y:Tween(XV,R.Tween,{BackgroundColor3=n.Light(R.Main,0.14)});end;end);AV.MouseButton1Click:Connect(function()qV:Toggle();end);table.insert(G.Toggles,qV);return qV;end;h.MouseEnter:Connect(function()h.ImageColor3=R.Text;y:Tween(h,R.Tween,{BackgroundTransparency=0.9});end);h.MouseLeave:Connect(function()h.ImageColor3=n.Light(R.Main,0.37);y:Tween(h,R.Tween,{BackgroundTransparency=1});end);h.MouseButton1Click:Connect(function()YV.Visible=true;y:Tween(YV,R.Tween,{BackgroundTransparency=0.5});y:Tween(sV,R.Tween,{Position=UDim2.new(0,0,1,-(sV.Size.Y.Offset))});end);fV.MouseButton1Click:Connect(function()y:Tween(YV,R.Tween,{BackgroundTransparency=1});y:Tween(sV,R.Tween,{Position=UDim2.fromScale(0,1)});task.wait(0.2);YV.Visible=false;end);YV.MouseButton1Click:Connect(function()y:Tween(YV,R.Tween,{BackgroundTransparency=1});y:Tween(sV,R.Tween,{Position=UDim2.fromScale(0,1)});task.wait(0.2);YV.Visible=false;end);dV:GetPropertyChangedSignal('\u{041}b\u{0073}\u{6F}\lut\101\z  \67\111nte\z\u{06E}tS\x69ze'):Connect(function()if s.ThreadFix then setthreadidentity(8);end;sV.Size=UDim2.fromOffset(220,math.min(37+dV.AbsoluteContentSize.Y/U.Scale,605));OV.Size=UDim2.fromOffset(220,sV.Size.Y.Offset-5);end);s.Overlays=G;return G;end;function d:CreateSettingsDivider()z.Divider(Q);end;function d:CreateSettingsPane(h)local G={};local YV=Instance.new('Tex\116\z \u{042}u\ztt\u{6F}n');YV.Name=h.Name;YV.Size=UDim2.fromOffset(220,40);YV.BackgroundColor3=R.Main;YV.BorderSizePixel=0;YV.AutoButtonColor=false;YV.Text='\226\128\138\226\128\138\226\128\138\226\z\128\138\226\128\138\xE2\128\138\226\x80\138\z \226\z \128\138\226\128\138\226\128\z\138'..h.Name;YV.TextXAlignment=Enum.TextXAlignment.Left;YV.TextColor3=n.Dark(R.Text,0.16);YV.TextSize=14;YV.FontFace=R.Font;YV.Parent=Q;local sV=Instance.new('\73ma\103\101\76abel');sV.Name='\x41\x72r\x6F\z w';sV.Size=UDim2.fromOffset(4,8);sV.Position=UDim2.new(1,-20.0,0,16);sV.BackgroundTransparency=1;sV.Image=j("\cat\x72e\w\z \u{72}i\x74\x65/a\u{0073}\115\e\z  \116\x73\47\x6E\z  ew\z  \47\e\x78p\97\u{006E}d\z  r\z\105\103\104\116.\112\x6E\103");sV.ImageColor3=n.Light(R.Main,0.37);sV.Parent=YV;local sV=Instance.new("Te\120t\66u\x74ton");sV.Size=UDim2.fromScale(1,1);sV.BackgroundColor3=R.Main;sV.AutoButtonColor=false;sV.Visible=false;sV.Text='';sV.Parent=B;local fV=Instance.new("T\x65xt\76\97be\zl");fV.Name='\zTit\u{06C}\101';fV.Size=UDim2.new(1,-36.0,0,20);fV.Position=UDim2.fromOffset(math.abs(fV.Size.X.Offset),11);fV.BackgroundTransparency=1;fV.Text=h.Name;fV.TextXAlignment=Enum.TextXAlignment.Left;fV.TextColor3=R.Text;fV.TextSize=13;fV.FontFace=R.Font;fV.Parent=sV;local h=p(sV);local fV=Instance.new('\x49\m\z ageBut\116on');fV.Name='\x42\97ck';fV.Size=UDim2.fromOffset(16,16);fV.Position=UDim2.fromOffset(11,13);fV.BackgroundTransparency=1;fV.Image=j('catr\z \ew\x72i\u{0074}\e\47\97\u{73}s\e\z t\x73\u{2F}n\z  e\u{077}\/bac\107\z \46p\u{006E}\103');fV.ImageColor3=n.Light(R.Main,0.37);fV.Parent=sV;S(sV);local OV=Instance.new("\u{046}\u{0072}ame");OV.Name="\67\u{0068}\105l\dr\101n";OV.Size=UDim2.new(1,0,1,-57.0);OV.Position=UDim2.fromOffset(0,41);OV.BackgroundColor3=R.Main;OV.BorderSizePixel=0;OV.Parent=sV;local dV=Instance.new('F\114\z \97\u{06D}e');dV.Name="\z  \68\105\x76id\101r";dV.Size=UDim2.new(1,0,0,1);dV.BackgroundColor3=Color3.new(1,1,1);dV.BackgroundTransparency=0.928;dV.BorderSizePixel=0;dV.Parent=OV;local dV=Instance.new("\85I\76istLay\o\z \x75\z\x74");dV.SortOrder=Enum.SortOrder.LayoutOrder;dV.HorizontalAlignment=Enum.HorizontalAlignment.Center;dV.Parent=OV;for dV,NV in z do G["\67rea\116\101"..dV]=function(dV,dV)return NV(dV,OV,d);end;end;fV.MouseEnter:Connect(function()fV.ImageColor3=R.Text;end);fV.MouseLeave:Connect(function()fV.ImageColor3=n.Light(R.Main,0.37);end);fV.MouseButton1Click:Connect(function()sV.Visible=false;end);YV.MouseEnter:Connect(function()YV.TextColor3=R.Text;YV.BackgroundColor3=n.Light(R.Main,0.02);end);YV.MouseLeave:Connect(function()YV.TextColor3=n.Dark(R.Text,0.16);YV.BackgroundColor3=R.Main;end);YV.MouseButton1Click:Connect(function()sV.Visible=true;end);h.MouseButton1Click:Connect(function()sV.Visible=false;end);g:GetPropertyChangedSignal("\zAb\x73\o\zl\u{0075}\u{74}eC\onte\110tS\u{069}z\u{065}"):Connect(function()if s.ThreadFix then setthreadidentity(8);end;B.Size=UDim2.fromOffset(220,45+g.AbsoluteContentSize.Y/U.Scale);for h,h in d.Buttons do if h.Icon then h.Object.Text=string.rep("\226\128\138",33*U.Scale)..h.Name;end;end;end);return G;end;function d:CreateGUISlider(h)local G={Type='GUI\83lid\101\114',Notch=4,Hue=0.46,Sat=0.96,Value=0.52,Rainbow=false,CustomColor=false};local YV={Color3.fromRGB(250,50,56),Color3.fromRGB(242,99,33),Color3.fromRGB(252,179,22),Color3.fromRGB(5,133,104),Color3.fromRGB(47,122,229),Color3.fromRGB(126,84,217),Color3.fromRGB(232,96,152)};local sV={4,33,62,90,119,148,177};local function fV(OV,dV)local NV=Instance.new("Te\120tBut\116o\110");NV.Name=h.Name.."S\z  li\z de\x72"..OV;NV.Size=UDim2.fromOffset(220,50);NV.BackgroundColor3=n.Dark(R.Main,0.02);NV.BorderSizePixel=0;NV.AutoButtonColor=false;NV.Visible=false;NV.Text="";NV.Parent=Q;local qV=Instance.new('\84extL\z  ab\x65\x6C');qV.Name="Tit\108e";qV.Size=UDim2.fromOffset(60,30);qV.Position=UDim2.fromOffset(10,2);qV.BackgroundTransparency=1;qV.Text=OV;qV.TextXAlignment=Enum.TextXAlignment.Left;qV.TextColor3=n.Dark(R.Text,0.16);qV.TextSize=11;qV.FontFace=R.Font;qV.Parent=NV;local qV=Instance.new('\u{46}\z\u{072}ame');qV.Name="S\x6C\x69\100\101r";qV.Size=UDim2.fromOffset(200,2);qV.Position=UDim2.fromOffset(10,37);qV.BackgroundColor3=Color3.new(1,1,1);qV.BorderSizePixel=0;qV.Parent=NV;local AV=Instance.new("\85IGrad\x69e\u{6E}\x74");AV.Color=dV;AV.Parent=qV;local dV=qV:Clone();dV.Name="F\z\ill";dV.Size=UDim2.fromScale(math.clamp(1,0.04,0.96),1);dV.Position=UDim2.new();dV.BackgroundTransparency=1;dV.Parent=qV;local AV=Instance.new("\z  F\114a\me");AV.Name="Knob";AV.Size=UDim2.fromOffset(24,4);AV.Position=UDim2.fromScale(1,0.5);AV.AnchorPoint=Vector2.new(0.5,0.5);AV.BackgroundColor3=n.Dark(R.Main,0.02);AV.BorderSizePixel=0;AV.Parent=dV;local dV=Instance.new('\70\114ame');dV.Name="\Kn\111b";dV.Size=UDim2.fromOffset(14,14);dV.Position=UDim2.fromScale(0.5,0.5);dV.AnchorPoint=Vector2.new(0.5,0.5);dV.BackgroundColor3=R.Text;dV.Parent=AV;S(dV,UDim.new(1,0));if OV=="C\117st\x6F\z  \109\ \99\111\u{006C}or"then local AV=Instance.new("\Te\u{078}\u{0074}B\z \117t\u{74}on");AV.Size=UDim2.fromOffset(45,20);AV.Position=UDim2.new(1,-52.0,0,5);AV.BackgroundTransparency=1;AV.Text="R\69\83\u{045}T";AV.TextColor3=n.Dark(R.Text,0.16);AV.TextSize=11;AV.FontFace=R.Font;AV.Parent=NV;AV.MouseButton1Click:Connect(function()G:SetValue(nil,nil,nil,4);end);end;NV.InputBegan:Connect(function(AV)if(AV.UserInputType==Enum.UserInputType.MouseButton1 or AV.UserInputType==Enum.UserInputType.Touch)and(AV.Position.Y-NV.AbsolutePosition.Y)>(20*U.Scale)then local XV=O.InputChanged:Connect(function(IV)if IV.UserInputType==(AV.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then local WV=math.clamp((IV.Position.X-qV.AbsolutePosition.X)/qV.AbsoluteSize.X,0,1);G:SetValue(OV=="\67\117stom \co\x6C\o\z r"and WV or nil,OV=='S\97\x74\z urat\105\z \111n'and WV or nil,OV=="\z  \Vi\z  br\z  a\x6E\99e"and WV or nil,OV=="Op\u{0061}\99ity"and WV or nil);end;end);local OV;OV=AV.Changed:Connect(function()if AV.UserInputState==Enum.UserInputState.End then if XV then XV:Disconnect();end;if OV then OV:Disconnect();end;end;end);end;end);NV.MouseEnter:Connect(function()y:Tween(dV,R.Tween,{Size=UDim2.fromOffset(16,16)});end);NV.MouseLeave:Connect(function()y:Tween(dV,R.Tween,{Size=UDim2.fromOffset(14,14)});end);return NV;end;local OV=Instance.new('Te\u{078}t\B\x75tt\111n');OV.Name=h.Name.."S\u{6C}\x69\de\114";OV.Size=UDim2.fromOffset(220,50);OV.BackgroundTransparency=1;OV.AutoButtonColor=false;OV.Text='';OV.Parent=Q;local Q=Instance.new("\x54extLa\98\101\108");Q.Name='T\105t\u{6C}e';Q.Size=UDim2.fromOffset(60,30);Q.Position=UDim2.fromOffset(10,2);Q.BackgroundTransparency=1;Q.Text=h.Name;Q.TextXAlignment=Enum.TextXAlignment.Left;Q.TextColor3=n.Dark(R.Text,0.16);Q.TextSize=11;Q.FontFace=R.Font;Q.Parent=OV;local dV=Instance.new("F\114am\z e");dV.Name='S\108\105\der';dV.Size=UDim2.fromOffset(200,2);dV.Position=UDim2.fromOffset(10,37);dV.BackgroundTransparency=1;dV.BorderSizePixel=0;dV.Parent=OV;local NV=0;for qV,AV in YV do local XV=Instance.new("\x46ra\m\101");XV.Size=UDim2.fromOffset(27+(((qV+1)%2)==0 and 1 or 0),2);XV.Position=UDim2.fromOffset(NV,0);XV.BackgroundColor3=AV;XV.BorderSizePixel=0;XV.Parent=dV;NV+=(XV.Size.X.Offset+1);end;local NV=Instance.new('\I\u{06D}\z  \x61geBu\u{74}\116\u{006F}\110');NV.Name="\u{050}r\u{065}\x76iew";NV.Size=UDim2.fromOffset(12,12);NV.Position=UDim2.new(1,-22.0,0,10);NV.BackgroundTransparency=1;NV.Image=j('catr\zew\u{72}\105\z  \x74\101\47\97ssets\u{002F}n\101w\u{2F}\x63o\u{006C}or\112r\u{065}\u{76}iew\.p\110g');NV.ImageColor3=Color3.fromHSV(G.Hue,1,1);NV.Parent=OV;local qV=Instance.new('TextB\u{006F}x');qV.Name="\x42\z ox";qV.Size=UDim2.fromOffset(60,15);qV.Position=UDim2.new(1,-69.0,0,9);qV.BackgroundTransparency=1;qV.Visible=false;qV.Text="";qV.TextXAlignment=Enum.TextXAlignment.Right;qV.TextColor3=n.Dark(R.Text,0.16);qV.TextSize=11;qV.FontFace=R.Font;qV.ClearTextOnFocus=true;qV.Parent=OV;local AV=Instance.new('\84extBu\z tt\zon');AV.Name="\69\120p\zand";AV.Size=UDim2.fromOffset(17,13);AV.Position=UDim2.new(0,k(Q.Text,Q.TextSize,Q.Font).X+11,0,7);AV.BackgroundTransparency=1;AV.Text="";AV.Parent=OV;local Q=Instance.new('\u{049}m\za\u{67}\x65Labe\z\u{06C}');Q.Name='\zE\120\x70and';Q.Size=UDim2.fromOffset(9,5);Q.Position=UDim2.fromOffset(4,4);Q.BackgroundTransparency=1;Q.Image=j('c\z \x61t\x72e\119rit\101\47\x61\115s\u{065}t\115/\z ne\119\z  \47\expan\100\u{69}\z co\u{6E}.png');Q.ImageColor3=n.Dark(R.Text,0.43);Q.Parent=AV;local XV=Instance.new("T\101\u{78}t\But\116\x6Fn");XV.Name="\x52\zain\98o\z \x77";XV.Size=UDim2.fromOffset(12,12);XV.Position=UDim2.new(1,-42.0,0,10);XV.BackgroundTransparency=1;XV.Text="";XV.Parent=OV;local IV=Instance.new("\z \u{49}mag\eL\97bel");IV.Size=UDim2.fromOffset(12,12);IV.BackgroundTransparency=1;IV.Image=j("catr\z\x65\w\u{0072}\zite/\x61ssets\/\z  \110\101\w\z  /\x72\z\97\u{0069}nbo\u{0077}_\u{31}.\x70n\u{67}");IV.ImageColor3=n.Light(R.Main,0.37);IV.Parent=XV;local WV=IV:Clone();WV.Image=j('\99\97\x74\z\114\101\119r\u{69}t\x65\x2Fas\115e\z \u{74}s/\x6E\101\x77\z  \47\114ainbow_2.png');WV.Parent=XV;local HV=IV:Clone();HV.Image=j('cat\x72ewr\u{0069}te\x2F\z as\115\x65\x74\115/\110\101\w/r\u{061}i\u{006E}b\x6F\119\0953\z\u{002E}p\110g');HV.Parent=XV;local tV=IV:Clone();tV.Image=j('\99atre\u{077}\114\u{0069}t\x65/as\se\u{0074}s\u{002F}ne\zw\u{002F}r\97in\zb\x6Fw\x5F4.pn\g');tV.Parent=XV;local tV=Instance.new('\I\109a\z  \103\101Lab\e\x6C');tV.Name="K\u{06E}\o\x62";tV.Size=UDim2.fromOffset(26,12);tV.Position=UDim2.fromOffset(sV[4]-3,-5.0);tV.BackgroundTransparency=1;tV.Image=j('\u{0063}at\x72ewrit\u{065}/assets/n\u{0065}w/\x67\117i\z  \115li\u{0064}\101r.\u{0070}\110g');tV.ImageColor3=YV[4];tV.Parent=dV;h.Function=h.Function or function()end;local zV={};for aV=0,1,0.1 do table.insert(zV,ColorSequenceKeypoint.new(aV,Color3.fromHSV(aV,1,1)));end;local aV=fV('Cu\u{073}\116\111\m\x20colo\zr',ColorSequence.new(zV));local zV=fV('S\zat\117r\97\z \x74i\111n',ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,G.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(G.Hue,1,G.Value))}));local wV=fV('\z  V\ib\z ra\110c\u{065}',ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromHSV(G.Hue,G.Sat,1))}));local fV=j("c\x61trew\114it\z \e\47\97s\z\115e\116\u{0073}/new/\x67u\z  \isl\i\z der\.\png");local jV=j('c\x61trewr\z \105\116\101\z \x2Fa\115s\101t\z  \115\47new\47g\117i\115l\ide\z \114r\97\105\110\u{2E}\x70n\103');local vV;function G:Save(LV)LV[h.Name]={Hue=self.Hue,Sat=self.Sat,Value=self.Value,Notch=self.Notch,CustomColor=self.CustomColor,Rainbow=self.Rainbow};end;function G:Load(LV)if LV.Rainbow then self:Toggle();end;if self.Rainbow or LV.CustomColor then self:SetValue(LV.Hue,LV.Sat,LV.Value);else self:SetValue(nil,nil,nil,LV.Notch);end;end;function G:SetValue(LV,JV,lV,UV)if UV then if self.Rainbow then self:Toggle();end;self.CustomColor=false;LV,JV,lV=YV[UV]:ToHSV();else self.CustomColor=true;end;self.Hue=LV or self.Hue;self.Sat=JV or self.Sat;self.Value=lV or self.Value;self.Notch=UV;NV.ImageColor3=Color3.fromHSV(self.Hue,self.Sat,self.Value);zV.Slider.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,self.Value)),ColorSequenceKeypoint.new(1,Color3.fromHSV(self.Hue,1,self.Value))});wV.Slider.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromHSV(self.Hue,self.Sat,1))});if self.Rainbow or self.CustomColor then tV.Image=jV;tV.ImageColor3=Color3.new(1,1,1);y:Tween(tV,R.Tween,{Position=UDim2.fromOffset(sV[4]-3,-5.0)});else tV.Image=fV;tV.ImageColor3=Color3.fromHSV(self.Hue,self.Sat,self.Value);y:Tween(tV,R.Tween,{Position=UDim2.fromOffset(sV[UV or 4]-3,-5.0)});end;if self.Rainbow then if LV then aV.Slider.Fill.Size=UDim2.fromScale(math.clamp(self.Hue,0.04,0.96),1);end;if JV then zV.Slider.Fill.Size=UDim2.fromScale(math.clamp(self.Sat,0.04,0.96),1);end;if lV then wV.Slider.Fill.Size=UDim2.fromScale(math.clamp(self.Value,0.04,0.96),1);end;else if LV then y:Tween(aV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Hue,0.04,0.96),1)});end;if JV then y:Tween(zV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Sat,0.04,0.96),1)});end;if lV then y:Tween(wV.Slider.Fill,R.Tween,{Size=UDim2.fromScale(math.clamp(self.Value,0.04,0.96),1)});end;end;h.Function(self.Hue,self.Sat,self.Value);end;function G:Toggle()self.Rainbow=not self.Rainbow;if vV then task.cancel(vV);end;if self.Rainbow then tV.Image=jV;table.insert(s.RainbowTable,self);IV.ImageColor3=Color3.fromRGB(5,127,100);vV=task.delay(0.1,function()WV.ImageColor3=Color3.fromRGB(228,125,43);vV=task.delay(0.1,function()HV.ImageColor3=Color3.fromRGB(225,46,52);vV=nil;end);end);else self:SetValue(nil,nil,nil,4);tV.Image=fV;local YV=table.find(s.RainbowTable,self);if YV then table.remove(s.RainbowTable,YV);end;HV.ImageColor3=n.Light(R.Main,0.37);vV=task.delay(0.1,function()WV.ImageColor3=n.Light(R.Main,0.37);vV=task.delay(0.1,function()IV.ImageColor3=n.Light(R.Main,0.37);end);end);end;end;AV.MouseEnter:Connect(function()Q.ImageColor3=n.Dark(R.Text,0.16);end);AV.MouseLeave:Connect(function()Q.ImageColor3=n.Dark(R.Text,0.43);end);AV.MouseButton1Click:Connect(function()aV.Visible=not aV.Visible;zV.Visible=aV.Visible;wV.Visible=zV.Visible;Q.Rotation=zV.Visible and 180 or 0;end);NV.MouseButton1Click:Connect(function()NV.Visible=false;qV.Visible=true;qV:CaptureFocus();local Q=Color3.fromHSV(G.Hue,G.Sat,G.Value);qV.Text=math.round(Q.R*255)..', '..math.round(Q.G*255)..',\32'..math.round(Q.B*255);end);OV.InputBegan:Connect(function(Q)if(Q.UserInputType==Enum.UserInputType.MouseButton1 or Q.UserInputType==Enum.UserInputType.Touch)and(Q.Position.Y-OV.AbsolutePosition.Y)>(20*U.Scale)then local YV=O.InputChanged:Connect(function(sV)if sV.UserInputType==(Q.UserInputType==Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch)then G:SetValue(nil,nil,nil,math.clamp(math.round((sV.Position.X-dV.AbsolutePosition.X)/U.Scale/27),1,7));end;end);local sV;sV=Q.Changed:Connect(function()if Q.UserInputState==Enum.UserInputState.End then if YV then YV:Disconnect();end;if sV then sV:Disconnect();end;end;end);G:SetValue(nil,nil,nil,math.clamp(math.round((Q.Position.X-dV.AbsolutePosition.X)/U.Scale/27),1,7));end;end);XV.MouseButton1Click:Connect(function()G:Toggle();end);qV.FocusLost:Connect(function(Q)NV.Visible=true;qV.Visible=false;if Q then local Q=qV.Text:split(",");local YV,sV=pcall(function()return tonumber(Q[1])and Color3.fromRGB(tonumber(Q[1]),tonumber(Q[2]),tonumber(Q[3]))or Color3.fromHex(qV.Text);end);if YV then if G.Rainbow then G:Toggle();end;G:SetValue(sV:ToHSV());end;end;end);G.Object=OV;d.Options[h.Name]=G;return G;end;_.MouseEnter:Connect(function()_.ImageColor3=R.Text;end);_.MouseLeave:Connect(function()_.ImageColor3=n.Light(R.Main,0.37);end);_.MouseButton1Click:Connect(function()o.Visible=false;end);F.MouseButton1Click:Connect(function()o.Visible=false;end);i.MouseEnter:Connect(function()D.ImageColor3=R.Text;end);i.MouseLeave:Connect(function()D.ImageColor3=n.Light(R.Main,0.37);end);i.MouseButton1Click:Connect(function()o.Visible=true;end);g:GetPropertyChangedSignal('\Absolut\x65Conte\110\116\83\105\z  \u{007A}\z e'):Connect(function()if self.ThreadFix then setthreadidentity(8);end;B.Size=UDim2.fromOffset(220,42+g.AbsoluteContentSize.Y/U.Scale);for B,B in d.Buttons do if B.Icon then B.Object.Text=string.rep("\xE2\128\138",36*U.Scale)..B.Name;end;end;end);self.Categories.Main=d;return d;end;function s:CreateCategory(d)local B={Type="C\zat\z\x65gor\x79",Expanded=false};local h=Instance.new('\u{054}ext\Butt\x6F\u{006E}');h.Name=d.Name..'Ca\z\116e\u{067}ory';h.Size=UDim2.fromOffset(220,41);h.Position=UDim2.fromOffset(236,60);h.BackgroundColor3=R.Main;h.AutoButtonColor=false;h.Visible=false;h.Text='';h.Parent=v;E(h);S(h);r(h);local g=Instance.new('\73\m\97g\u{65}Lab\u{65}\l');g.Name='Ico\z\110';g.Size=d.Size;g.Position=UDim2.fromOffset(12,(g.Size.X.Offset>20 and 14 or 13));g.BackgroundTransparency=1;g.Image=d.Icon;g.ImageColor3=R.Text;g.Parent=h;local g=Instance.new("\u{054}ext\L\x61be\l");g.Name='Title';g.Size=UDim2.new(1,-(d.Size.X.Offset>18 and 40 or 33),0,41);g.Position=UDim2.fromOffset(math.abs(g.Size.X.Offset),0);g.BackgroundTransparency=1;g.Text=V(d.Name);g.TextXAlignment=Enum.TextXAlignment.Left;g.TextColor3=R.Text;g.TextSize=13;g.FontFace=R.Font;g.Parent=h;local g=Instance.new('\z  Te\u{0078}\116B\x75\zt\116\u{06F}\z  \110');g.Name="\x41rro\w";g.Size=UDim2.fromOffset(40,40);g.Position=UDim2.new(1,-40.0,0,0);g.BackgroundTransparency=1;g.Text='';g.Parent=h;local i=Instance.new('\73\z  mag\x65\76\97\u{062}e\u{006C}');i.Name='\z\65\x72\u{0072}\z \111w';i.Size=UDim2.fromOffset(9,4);i.Position=UDim2.fromOffset(20,18);i.BackgroundTransparency=1;i.Image=j('ca\116\114e\zw\u{072}ite\z/as\z se\x74\x73\z /\z  \110\ew/ex\p\97n\100\zu\p.\112\110g');i.ImageColor3=Color3.fromRGB(140,140,140);i.Rotation=180;i.Parent=g;local D=Instance.new('S\z\99\114\x6F\108l\105\z ngF\114\97me');D.Name='Ch\u{69}l\d\z  re\110';D.Size=UDim2.new(1,0,1,-41.0);D.Position=UDim2.fromOffset(0,37);D.BackgroundTransparency=1;D.BorderSizePixel=0;D.Visible=false;D.ScrollBarThickness=2;D.ScrollBarImageTransparency=0.75;D.CanvasSize=UDim2.new();D.Parent=h;local o=Instance.new("F\114a\109e");o.Name="\68ivi\z \100er";o.Size=UDim2.new(1,0,0,1);o.Position=UDim2.fromOffset(0,37);o.BackgroundColor3=Color3.new(1,1,1);o.BackgroundTransparency=0.928;o.BorderSizePixel=0;o.Visible=false;o.Parent=h;local F=Instance.new("\z \85ILi\stLay\z\111u\x74");F.SortOrder=Enum.SortOrder.LayoutOrder;F.HorizontalAlignment=Enum.HorizontalAlignment.Center;F.Parent=D;function B:CreateModule(_)s:Remove(_.Name);local Q={Enabled=false,Options={},Bind={},Index=w(s.Modules),ExtraText=_.ExtraText,Name=_.Name,KeybindFunction=_.KeybindFunction,Category=d.Name};local w=Instance.new("T\101\120t\66\zutto\110");w.Name=_.Name;w.Size=UDim2.fromOffset(220,40);w.BackgroundColor3=R.Main;w.BorderSizePixel=0;w.AutoButtonColor=false;w.Text="\226\x80\138\226\128\138\226\z\128\138\226\128\138\226\128\138\226\z  \128\138\z \226\128\138\226\x80\138\226\x80\138\xE2\128\138\xE2\z  \128\138\226\128\x8A"..V(_.Name:gsub(" ",''),u);w.TextXAlignment=Enum.TextXAlignment.Left;w.TextColor3=n.Dark(R.Text,0.16);w.TextSize=14;w.FontFace=R.Font;w.Parent=D;if _.Premium then local G=Instance.new("\84ext\x4Ca\x62\e\z l");G.Parent=w;G.SizeConstraint=Enum.SizeConstraint.RelativeXX;G.AutomaticSize=Enum.AutomaticSize.X;G.Size=UDim2.new(0,0,0,21);G.BackgroundColor3=Color3.new(1,1,1);G.TextSize=14;G.TextTransparency=1;G.AnchorPoint=Vector2.new(0,0.5);G.Text="P\z  re\109i\117\zm";G.Position=UDim2.new(0,128,0.5,0);G.TextColor3=Color3.new(0,0,0);G.FontFace=R.Font;S(G,UDim.new(0,5));local YV=G:Clone();YV.Parent=G;YV.Position=UDim2.new();YV.Size=UDim2.fromScale(1,1);YV.BackgroundTransparency=1;YV.AnchorPoint=Vector2.new();YV.AutomaticSize=Enum.AutomaticSize.None;YV.TextSize=12;YV.TextTransparency=0;YV.SizeConstraint=Enum.SizeConstraint.RelativeXY;table.insert(s.Indicators,G);end;local G=Instance.new('\85I\u{0047}\z r\z adi\101nt');G.Rotation=90;G.Enabled=false;G.Parent=w;local YV=Instance.new("\u{0046}\z\114ame");local sV=Instance.new("T\ext\Bu\x74\116\o\u{06E}");C(w,_.Tooltip);C(sV,"\Cli\zc\107\x20\116o \x62\105n\x64");sV.Name='\66ind';sV.Size=UDim2.fromOffset(20,21);sV.Position=UDim2.new(1,-36.0,0,9);sV.AnchorPoint=Vector2.new(1,0);sV.BackgroundColor3=Color3.new(1,1,1);sV.BackgroundTransparency=0.92;sV.BorderSizePixel=0;sV.AutoButtonColor=false;sV.Visible=false;sV.Text='';S(sV,UDim.new(0,4));local fV=Instance.new('I\109ag\z  \e\zL\x61\u{0062}el');fV.Name='\73\99\111\x6E';fV.Size=UDim2.fromOffset(12,12);fV.Position=UDim2.new(0.5,-6.0,0,5);fV.BackgroundTransparency=1;fV.Image=j('\c\u{0061}tr\101\x77rite\x2F\x61\z  \u{73}\sets/\110ew\z \47bind.png');fV.ImageColor3=n.Dark(R.Text,0.43);fV.Parent=sV;local OV=Instance.new("Tex\u{074}La\z\u{062}\u{065}\u{006C}");OV.Size=UDim2.fromScale(1,1);OV.Position=UDim2.fromOffset(0,1);OV.BackgroundTransparency=1;OV.Visible=false;OV.Text='';OV.TextColor3=n.Dark(R.Text,0.43);OV.TextSize=12;OV.FontFace=R.Font;OV.Parent=sV;local dV=Instance.new('I\109\97\z\103\101\76ab\el');dV.Name='\67\x6F\x76\e\u{72}';dV.Size=UDim2.fromOffset(154,40);dV.BackgroundTransparency=1;dV.Visible=false;dV.Image=j('\ca\z t\z r\z  \x65\x77rite/assets/n\x65w/b\105nd\x62\kg\u{002E}\112n\z\x67');dV.ScaleType=Enum.ScaleType.Slice;dV.SliceCenter=Rect.new(0,0,141,40);dV.Parent=w;local NV=Instance.new('T\x65x\116L\z a\x62e\108');NV.Name="T\u{065}\zxt";NV.Size=UDim2.new(1,-10.0,1,-3.0);NV.BackgroundTransparency=1;NV.Text=V('\u{050}\u{052}\69\z  S\83 \A \75EY\32\84O\ \66IN\z  \x44',u);NV.TextColor3=R.Text;NV.TextSize=11;NV.FontFace=R.Font;NV.Parent=dV;sV.Parent=w;local qV=Instance.new('\u{054}\u{065}xt\B\117tt\111\z n');qV.Name='\u{0044}o\z\u{074}s';qV.Size=UDim2.fromOffset(25,40);qV.Position=UDim2.new(1,-25.0,0,0);qV.BackgroundTransparency=1;qV.Text='';qV.Parent=w;local AV=Instance.new('I\x6Dage\Lab\u{0065}l');AV.Name='Do\116s';AV.Size=UDim2.fromOffset(3,16);AV.Position=UDim2.fromOffset(4,12);AV.BackgroundTransparency=1;AV.Image=j('\zca\z \x74re\x77\u{0072}it\x65/\97s\x73e\116s/ne\119/\100\111ts\x2E\112n\z  g');AV.ImageColor3=n.Light(R.Main,0.37);AV.Parent=qV;YV.Name=_.Name..'\z \x43\x68ildre\z n';YV.Size=UDim2.new(1,0,0,0);YV.BackgroundColor3=n.Dark(R.Main,0.02);YV.BorderSizePixel=0;YV.Visible=false;YV.Parent=D;Q.Children=YV;local XV=Instance.new("UILis\z  t\x4Cayou\u{074}");XV.SortOrder=Enum.SortOrder.LayoutOrder;XV.HorizontalAlignment=Enum.HorizontalAlignment.Center;XV.Parent=YV;local IV=Instance.new('\70ra\me');IV.Name='D\105\118ider';IV.Size=UDim2.new(1,0,0,1);IV.Position=UDim2.new(0,0,1,-1.0);IV.BackgroundColor3=Color3.new(0.19,0.19,0.19);IV.BackgroundTransparency=0.52;IV.BorderSizePixel=0;IV.Visible=false;IV.Parent=w;_.Function=_.Function or function()end;K(Q);function Q:SetBind(WV,HV)if WV.Mobile then P(Q,Vector2.new(WV.X,WV.Y));return;end;self.Bind=table.clone(WV);if HV then NV.Text=#WV<=0 and V("BIND RE\zM\x4F\z \86E\D",u)or V('\u{42}O\z  U\z  N\68\32\u{0054}\79',u);dV.Size=UDim2.fromOffset(k(NV.Text,NV.TextSize).X+20,40);task.delay(1,function()dV.Visible=false;end);end;if#WV<=0 then OV.Visible=false;fV.Visible=true;sV.Size=UDim2.fromOffset(20,21);else sV.Visible=true;OV.Visible=true;fV.Visible=false;OV.Text=table.concat(WV,'\32\43\32'):upper();sV.Size=UDim2.fromOffset(math.max(k(OV.Text,OV.TextSize,OV.Font).X+10,20),21);end;end;function Q:Toggle(u)if s.ThreadFix then setthreadidentity(8);end;self.Enabled=not self.Enabled;IV.Visible=self.Enabled;G.Enabled=self.Enabled;w.TextColor3=(hovered or YV.Visible)and R.Text or n.Dark(R.Text,0.16);w.BackgroundColor3=(hovered or YV.Visible)and n.Light(R.Main,0.02)or R.Main;AV.ImageColor3=self.Enabled and Color3.fromRGB(50,50,50)or n.Light(R.Main,0.37);fV.ImageColor3=n.Dark(R.Text,0.43);OV.TextColor3=n.Dark(R.Text,0.43);if not self.Enabled then for G,G in self.Connections do G:Disconnect();end;table.clear(self.Connections);end;if not u then s:UpdateTextGUI();end;task.spawn(_.Function,self.Enabled);end;for u,G in z do Q["Creat\z  \e"..u]=function(u,u)return G(u,YV,Q);end;end;sV.MouseEnter:Connect(function()OV.Visible=false;fV.Visible=not OV.Visible;fV.Image=j("c\97tr\101w\114\z  \it\x65\/as\115ets\u{2F}\z n\e\z  \119/\101d\105t.pn\z  \103");if not Q.Enabled then fV.ImageColor3=n.Dark(R.Text,0.16);end;end);sV.MouseLeave:Connect(function()OV.Visible=#Q.Bind>0;fV.Visible=not OV.Visible;fV.Image=j('\99\z  \97t\u{0072}\101\z  wr\u{0069}\zte/as\sets\47\x6E\ew\/b\x69nd\x2Epn\103');if not Q.Enabled then fV.ImageColor3=n.Dark(R.Text,0.43);end;end);sV.MouseButton1Click:Connect(function()NV.Text="P\82E\83S A \u{4B}EY \u{0054}\z  \x4F BIND";dV.Size=UDim2.fromOffset(k(NV.Text,NV.TextSize).X+20,40);dV.Visible=true;s.Binding=Q;end);qV.MouseEnter:Connect(function()if not Q.Enabled then AV.ImageColor3=R.Text;end;end);qV.MouseLeave:Connect(function()if not Q.Enabled then AV.ImageColor3=n.Light(R.Main,0.37);end;end);qV.MouseButton1Click:Connect(function()YV.Visible=not YV.Visible;end);qV.MouseButton2Click:Connect(function()YV.Visible=not YV.Visible;end);local u=false;w.MouseEnter:Connect(function()u=true;if not Q.Enabled and not YV.Visible then w.TextColor3=R.Text;w.BackgroundColor3=n.Light(R.Main,0.02);end;sV.Visible=#Q.Bind>0 or u or YV.Visible;end);w.MouseLeave:Connect(function()u=false;if not Q.Enabled and not YV.Visible then w.TextColor3=n.Dark(R.Text,0.16);w.BackgroundColor3=R.Main;end;sV.Visible=#Q.Bind>0 or u or YV.Visible;end);w.MouseButton1Click:Connect(function()Q:Toggle();end);w.MouseButton2Click:Connect(function()YV.Visible=not YV.Visible;end);if t then local u=false;w.MouseButton1Down:Connect(function()u=true;local G,sV=tick(),O:GetMouseLocation();repeat u=(O:GetMouseLocation()-sV).Magnitude<3;task.wait();until(tick()-G)>1 or not u or not v.Visible;if u and v.Visible then if s.ThreadFix then setthreadidentity(8);end;v.Visible=false;l.Visible=false;s:BlurCheck();for G,G in s.Modules do if G.Bind.Button then G.Bind.Button.Visible=true;end;end;local G;G=O.InputBegan:Connect(function(sV)if sV.UserInputType==Enum.UserInputType.Touch then if s.ThreadFix then setthreadidentity(8);end;P(Q,sV.Position+Vector3.new(0,N:GetGuiInset().Y,0));v.Visible=true;s:BlurCheck();for N,N in s.Modules do if N.Bind.Button then N.Bind.Button.Visible=false;end;end;G:Disconnect();end;end);end;end);w.MouseButton1Up:Connect(function()u=false;end);end;XV:GetPropertyChangedSignal('Abso\z l\117\116\e\u{43}\u{06F}nt\z\x65ntS\x69\u{7A}\101'):Connect(function()if s.ThreadFix then setthreadidentity(8);end;YV.Size=UDim2.new(1,0,0,XV.AbsoluteContentSize.Y/U.Scale);end);Q.Object=w;s.Modules[_.Name]=Q;local N={};for w,w in s.Modules do N[w.Category]=N[w.Category]or{};table.insert(N[w.Category],w.Name);end;for w,w in N do table.sort(w);for N,u in w do s.Modules[u].Index=N;s.Modules[u].Object.LayoutOrder=N;s.Modules[u].Children.LayoutOrder=N;end;end;return Q;end;function B:Expand()self.Expanded=not self.Expanded;D.Visible=self.Expanded;i.Rotation=self.Expanded and 0 or 180;h.Size=UDim2.fromOffset(220,self.Expanded and math.min(41+F.AbsoluteContentSize.Y/U.Scale,601)or 41);o.Visible=D.CanvasPosition.Y>10 and D.Visible;end;g.MouseButton1Click:Connect(function()B:Expand();end);g.MouseButton2Click:Connect(function()B:Expand();end);g.MouseEnter:Connect(function()i.ImageColor3=Color3.fromRGB(220,220,220);end);g.MouseLeave:Connect(function()i.ImageColor3=Color3.fromRGB(140,140,140);end);D:GetPropertyChangedSignal("C\97n\x76as\z \u{50}ositi\u{006F}\110"):Connect(function()if self.ThreadFix then setthreadidentity(8);end;o.Visible=D.CanvasPosition.Y>10 and D.Visible;end);h.InputBegan:Connect(function(N)if N.Position.Y<h.AbsolutePosition.Y+41 and N.UserInputType==Enum.UserInputType.MouseButton2 then B:Expand();end;end);F:GetPropertyChangedSignal('\z  Ab\115ol\u{75}\116\101\Cont\101n\116Size'):Connect(function()if self.ThreadFix then setthreadidentity(8);end;D.CanvasSize=UDim2.fromOffset(0,F.AbsoluteContentSize.Y/U.Scale);if B.Expanded then h.Size=UDim2.fromOffset(220,math.min(41+F.AbsoluteContentSize.Y/U.Scale,601));end;end);B.Button=self.Categories.Main:CreateButton({Name=d.Name,Icon=d.Icon,Size=d.Size,Window=h});B.Object=h;self.Categories[d.Name]=B;return B;end;function s:CreateOverlay(d)local N;local w;w={Type="\79ve\114l\97y",Expanded=false,Button=self.Overlays:CreateToggle({Name=d.Name,Function=function(u)N.Visible=u and(v.Visible or w.Pinned);if not u then for P,P in w.Connections do P:Disconnect();end;table.clear(w.Connections);end;if d.Function then task.spawn(d.Function,u);end;end,Icon=d.Icon,Size=d.Size,Position=d.Position}),Pinned=false,Options={}};N=Instance.new('\x54\101x\116\z  Butto\110');N.Name=d.Name..'\u{04F}v\e\114\x6C\97y';N.Size=UDim2.fromOffset(d.CategorySize or 220,41);N.Position=UDim2.fromOffset(240,46);N.BackgroundColor3=R.Main;N.AutoButtonColor=false;N.Visible=false;N.Text='';N.Parent=L;local u=E(N);S(N);r(N);local P=Instance.new('\73m\x61\x67e\76\zab\101\108');P.Name='\73\99on';P.Size=d.Size;P.Position=UDim2.fromOffset(12,(P.Size.X.Offset>14 and 14 or 13));P.BackgroundTransparency=1;P.Image=d.Icon;P.ImageColor3=R.Text;P.Parent=N;local B=Instance.new('\x54ex\zt\L\z  \u{061}\98e\u{006C}');B.Name='\Ti\x74\x6Ce';B.Size=UDim2.new(1,-32.0,0,41);B.Position=UDim2.fromOffset(math.abs(B.Size.X.Offset),0);B.BackgroundTransparency=1;B.Text=d.Name;B.TextXAlignment=Enum.TextXAlignment.Left;B.TextColor3=R.Text;B.TextSize=13;B.FontFace=R.Font;B.Parent=N;local h=Instance.new("\I\x6DageBu\116t\x6Fn");h.Name="\z  Pin";h.Size=UDim2.fromOffset(16,16);h.Position=UDim2.new(1,-47.0,0,12);h.BackgroundTransparency=1;h.AutoButtonColor=false;h.Image=j('cat\114\z \101writ\101/\u{61}\sse\z  t\z s\47n\u{0065}w\47\pi\u{6E}.\z  \png');h.ImageColor3=n.Dark(R.Text,0.43);h.Parent=N;local g=Instance.new("\u{0054}\101x\z  \u{0074}\x42utton");g.Name="Do\x74s";g.Size=UDim2.fromOffset(17,40);g.Position=UDim2.new(1,-17.0,0,0);g.BackgroundTransparency=1;g.Text="";g.Parent=N;local i=Instance.new('\Ima\u{67}eLab\101l');i.Name="\z  Do\u{0074}s";i.Size=UDim2.fromOffset(3,16);i.Position=UDim2.fromOffset(4,12);i.BackgroundTransparency=1;i.Image=j("\u{0063}at\u{72}ewrit\e/a\u{73}\z set\u{73}\z  /ne\w/d\111ts.pn\103");i.ImageColor3=n.Light(R.Main,0.37);i.Parent=g;local D=Instance.new("\x46ra\m\101");D.Name="Cust\111m\x43hil\z\100\114en";D.Size=UDim2.new(1,0,0,200);D.Position=UDim2.fromScale(0,1);D.BackgroundTransparency=1;D.Parent=N;local o=Instance.new('\83\x63\114ol\u{06C}\z i\u{6E}gFr\97\109\e');o.Name="\x43h\u{069}\u{006C}dre\x6E";o.Size=UDim2.new(1,0,1,-41.0);o.Position=UDim2.fromOffset(0,37);o.BackgroundColor3=n.Dark(R.Main,0.02);o.BorderSizePixel=0;o.Visible=false;o.ScrollBarThickness=2;o.ScrollBarImageTransparency=0.75;o.CanvasSize=UDim2.new();o.Parent=N;local F=Instance.new('U\73\76ist\u{04C}ay\o\z  ut');F.SortOrder=Enum.SortOrder.LayoutOrder;F.HorizontalAlignment=Enum.HorizontalAlignment.Center;F.Parent=o;K(w);function w:Expand(_)if _ and not u.Visible then return;end;self.Expanded=not self.Expanded;o.Visible=self.Expanded;i.ImageColor3=self.Expanded and R.Text or n.Light(R.Main,0.37);if self.Expanded then N.Size=UDim2.fromOffset(N.Size.X.Offset,math.min(41+F.AbsoluteContentSize.Y/U.Scale,601));else N.Size=UDim2.fromOffset(N.Size.X.Offset,41);end;end;function w:Pin()self.Pinned=not self.Pinned;h.ImageColor3=self.Pinned and R.Text or n.Dark(R.Text,0.43);end;function w:Update()N.Visible=self.Button.Enabled and(v.Visible or self.Pinned);if self.Expanded then self:Expand();end;if v.Visible then N.Size=UDim2.fromOffset(N.Size.X.Offset,41);N.BackgroundTransparency=0;u.Visible=true;P.Visible=true;B.Visible=true;h.Visible=true;g.Visible=true;else N.Size=UDim2.fromOffset(N.Size.X.Offset,0);N.BackgroundTransparency=1;u.Visible=false;P.Visible=false;B.Visible=false;h.Visible=false;g.Visible=false;end;end;for u,P in z do w['C\114eat\101'..u]=function(u,u)return P(u,o,w);end;end;g.MouseEnter:Connect(function()if not o.Visible then i.ImageColor3=R.Text;end;end);g.MouseLeave:Connect(function()if not o.Visible then i.ImageColor3=n.Light(R.Main,0.37);end;end);g.MouseButton1Click:Connect(function()w:Expand(true);end);g.MouseButton2Click:Connect(function()w:Expand(true);end);h.MouseButton1Click:Connect(function()w:Pin();end);N.MouseButton2Click:Connect(function()w:Expand(true);end);F:GetPropertyChangedSignal('\65\98\115\z \u{006F}lute\67\u{6F}nt\101\x6E\z \116S\105\122e'):Connect(function()if self.ThreadFix then setthreadidentity(8);end;o.CanvasSize=UDim2.fromOffset(0,F.AbsoluteContentSize.Y/U.Scale);if w.Expanded then N.Size=UDim2.fromOffset(N.Size.X.Offset,math.min(41+F.AbsoluteContentSize.Y/U.Scale,601));end;end);self:Clean(v:GetPropertyChangedSignal("\86\i\z si\u{0062}\108e"):Connect(function()w:Update();end));w:Update();w.Object=N;w.Children=D;self.Categories[d.Name]=w;return w;end;function s:CreateCategoryList(d)local N={Type="C\z \97\116\101\goryLis\116",Expanded=false,List={},ListEnabled={},Objects={},Options={}};d.Color=d.Color or Color3.fromRGB(5,134,105);local w=Instance.new('T\101x\u{74}\z \B\u{0075}\116ton');w.Name=d.Name.."C\z ate\103o\u{072}\z  y\Lis\x74";w.Size=UDim2.fromOffset(220,45);w.Position=UDim2.fromOffset(240,46);w.BackgroundColor3=R.Main;w.AutoButtonColor=false;w.Visible=false;w.Text="";w.Parent=v;E(w);S(w);r(w);local u=Instance.new("I\x6D\x61\103\u{65}\L\x61\x62el");u.Name="Ic\111\u{06E}";u.Size=d.Size;u.Position=d.Position or UDim2.fromOffset(12,(d.Size.X.Offset>20 and 13 or 12));u.BackgroundTransparency=1;u.Image=d.Icon;u.ImageColor3=R.Text;u.Parent=w;local u=Instance.new('\z  Tex\116\76\u{61}\u{62}el');u.Name='\u{54}\105\116\z l\101';u.Size=UDim2.new(1,-(d.Size.X.Offset>20 and 44 or 36),0,20);u.Position=UDim2.fromOffset(math.abs(u.Size.X.Offset),12);u.BackgroundTransparency=1;u.Text=V(d.Name);u.TextXAlignment=Enum.TextXAlignment.Left;u.TextColor3=R.Text;u.TextSize=13;u.FontFace=R.Font;u.Parent=w;local u=Instance.new("T\101xtButt\x6Fn");u.Name='A\114\u{0072}ow';u.Size=UDim2.fromOffset(40,40);u.Position=UDim2.new(1,-40.0,0,0);u.BackgroundTransparency=1;u.Text='';u.Parent=w;local P=Instance.new('I\109\97\x67\101\76a\u{062}el');P.Name="\x41rrow";P.Size=UDim2.fromOffset(9,4);P.Position=UDim2.fromOffset(20,19);P.BackgroundTransparency=1;P.Image=j('\z  c\x61\z  t\114\z e\u{077}r\z  i\116e/\x61\115s\101\116s\47n\z\u{65}\u{077}\/ex\zp\97nd\u{75}p\46\x70n\u{0067}');P.ImageColor3=Color3.fromRGB(140,140,140);P.Rotation=180;P.Parent=u;local B=Instance.new('\x53\u{63}\114oll\zi\110\u{0067}Fra\109\101');B.Name="\u{43}\104\i\u{6C}\u{064}r\101\z  n";B.Size=UDim2.new(1,0,1,-45.0);B.Position=UDim2.fromOffset(0,45);B.BackgroundTransparency=1;B.BorderSizePixel=0;B.Visible=false;B.ScrollBarThickness=2;B.ScrollBarImageTransparency=0.75;B.CanvasSize=UDim2.new();B.Parent=w;local h=Instance.new("\x46\u{072}a\zm\z \e");h.BackgroundTransparency=1;h.BackgroundColor3=n.Dark(R.Main,0.02);h.Visible=false;h.Parent=B;local g=Instance.new('Ima\103e\66utton');g.Name="\83e\116\z tin\103s";g.Size=d.Profiles and UDim2.fromOffset(14,14)or UDim2.fromOffset(16,16);g.Position=UDim2.new(1,-52.0,0,13);g.BackgroundTransparency=1;g.AutoButtonColor=false;g.Image=d.Profiles and j('\ca\x74\114ew\114i\x74\e\x2F\u{61}\115\x73\101\x74s\47\110\z ew/wo\x72\ldi\99on\46p\x6Eg')or j('\x63\u{0061}\u{074}r\101\wr\105\u{074}e/\u{61}\ssets\z /n\u{65}\u{077}/c\117s\u{74}o\109s\101\u{074}\116ing\s.\z  p\110g');g.ImageColor3=n.Dark(R.Text,0.43);g.Parent=w;local i=Instance.new('Fra\109\u{65}');i.Name='Di\118id\er';i.Size=UDim2.new(1,0,0,1);i.Position=UDim2.fromOffset(0,41);i.BorderSizePixel=0;i.Visible=false;i.BackgroundColor3=Color3.new(1,1,1);i.BackgroundTransparency=0.928;i.Parent=w;local D=Instance.new('UI\u{4C}\u{069}\u{0073}tLa\121out');D.SortOrder=Enum.SortOrder.LayoutOrder;D.HorizontalAlignment=Enum.HorizontalAlignment.Center;D.Padding=UDim.new(0,3);D.Parent=B;local o=Instance.new("UIL\105stL\97\121\111ut");o.SortOrder=Enum.SortOrder.LayoutOrder;o.HorizontalAlignment=Enum.HorizontalAlignment.Center;o.Parent=h;local F=Instance.new('\u{0046}\x72\97\z  m\z  e');F.Name='\Ad\z  \d';F.Size=UDim2.fromOffset(200,31);F.Position=UDim2.fromOffset(10,45);F.BackgroundColor3=n.Light(R.Main,0.02);F.Parent=B;S(F);local _=F:Clone();_.Size=UDim2.new(1,-2.0,1,-2.0);_.Position=UDim2.fromOffset(1,1);_.BackgroundColor3=n.Dark(R.Main,0.02);_.Parent=F;local _=Instance.new('Te\zx\116\u{42}\z \111\120');_.Size=UDim2.new(1,-35.0,1,0);_.Position=UDim2.fromOffset(10,0);_.BackgroundTransparency=1;_.Text="";_.PlaceholderText=d.Placeholder or'\z  \u{0041}dd\32e\110try\u{2E}\z\u{2E}.';_.TextXAlignment=Enum.TextXAlignment.Left;_.TextColor3=Color3.new(1,1,1);_.TextSize=15;_.FontFace=R.Font;_.ClearTextOnFocus=false;_.Parent=F;local Q=Instance.new('\Imag\x65\66\z  \117\z tt\x6Fn');Q.Name='\z  AddBu\116t\u{06F}\z n';Q.Size=UDim2.fromOffset(16,16);Q.Position=UDim2.new(1,-26.0,0,8);Q.BackgroundTransparency=1;Q.Image=j("\x63a\116r\z e\x77\z\u{0072}\105\z \x74e\x2Fass\ets/ne\w/a\100d.\112\u{06E}g");Q.ImageColor3=d.Color;Q.ImageTransparency=0.3;Q.Parent=F;local G=Instance.new("\x46\114a\me");G.Size=UDim2.fromOffset();G.BackgroundTransparency=1;G.Parent=B;d.Function=d.Function or function()end;function N:ChangeValue(G)if G then if d.Profiles then local YV=self:GetValue(G);if YV then if G~='d\u{65}\z\102\zault'then table.remove(s.Profiles,YV);if e('\x63a\116\zr\u{0065}w\u{72}\ite/p\114o\102\il\x65s\z /'..G..s.Place.."\x2Etxt")and delfile then delfile("cat\x72e\z\x77\u{72}i\u{74}e\47p\u{072}of\105\108es\47"..G..s.Place.."\z  \x2E\116\120t");end;end;else table.insert(s.Profiles,{Name=G,Bind={}});end;else local YV=table.find(self.List,G);if YV then table.remove(self.List,YV);YV=table.find(self.ListEnabled,G);if YV then table.remove(self.ListEnabled,YV);end;else table.insert(self.List,G);table.insert(self.ListEnabled,G);end;end;end;d.Function();for G,G in self.Objects do G:Destroy();end;table.clear(self.Objects);self.Selected=nil;for G,G in(d.Profiles and s.Profiles or self.List)do if d.Profiles then local YV=Instance.new('T\ex\z  \116Bu\116t\111n');YV.Name=G.Name;YV.Size=UDim2.fromOffset(200,33);YV.BackgroundColor3=n.Light(R.Main,0.02);YV.AutoButtonColor=false;YV.Text="";YV.Parent=B;S(YV);local sV=Instance.new("U\73\83t\114\o\107e");sV.Color=n.Light(R.Main,0.1);sV.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;sV.Enabled=false;sV.Parent=YV;local fV=Instance.new("\x54\101xt\76\u{0061}\zb\101l");fV.Name='T\u{0069}tle';fV.Size=UDim2.new(1,-10.0,1,0);fV.Position=UDim2.fromOffset(10,0);fV.BackgroundTransparency=1;fV.Text=G.Name;fV.TextXAlignment=Enum.TextXAlignment.Left;fV.TextColor3=n.Dark(R.Text,0.4);fV.TextSize=15;fV.FontFace=R.Font;fV.Parent=YV;local OV=Instance.new("\x54\x65xt\z  \66\u{075}tton");OV.Name='\z\u{0044}o\x74\115';OV.Size=UDim2.fromOffset(25,33);OV.Position=UDim2.new(1,-25.0,0,0);OV.BackgroundTransparency=1;OV.Text="";OV.Parent=YV;local dV=Instance.new("\x49\mag\101L\x61be\u{06C}");dV.Name='\z \68o\x74s';dV.Size=UDim2.fromOffset(3,16);dV.Position=UDim2.fromOffset(10,9);dV.BackgroundTransparency=1;dV.Image=j('\99\z\u{61}\ztrewrite/as\115\x65ts/n\e\119\47d\ot\x73.\u{070}n\u{067}');dV.ImageColor3=n.Light(R.Main,0.37);dV.Parent=OV;local NV=Instance.new('Text\66\u{75}\u{074}\x74\111\110');C(NV,"\67\z  \u{06C}i\99k \z\x74o bin\x64");NV.Name='\x42\105n\u{064}';NV.Size=UDim2.fromOffset(20,21);NV.Position=UDim2.new(1,-30.0,0,6);NV.AnchorPoint=Vector2.new(1,0);NV.BackgroundColor3=Color3.new(1,1,1);NV.BackgroundTransparency=0.92;NV.BorderSizePixel=0;NV.AutoButtonColor=false;NV.Visible=false;NV.Text="";S(NV,UDim.new(0,4));local qV=Instance.new('\I\u{006D}\x61ge\zLa\98\x65l');qV.Name='\x49\99\111\z  n';qV.Size=UDim2.fromOffset(12,12);qV.Position=UDim2.new(0.5,-6.0,0,5);qV.BackgroundTransparency=1;qV.Image=j("\99at\z rewr\105\u{074}e/asset\x73\47n\101\119\/b\z  ind.\z pn\103");qV.ImageColor3=n.Dark(R.Text,0.43);qV.Parent=NV;local AV=Instance.new("\84\101x\u{74}\x4C\97bel");AV.Size=UDim2.fromScale(1,1);AV.Position=UDim2.fromOffset(0,1);AV.BackgroundTransparency=1;AV.Visible=false;AV.Text="";AV.TextColor3=n.Dark(R.Text,0.43);AV.TextSize=12;AV.FontFace=R.Font;AV.Parent=NV;NV.MouseEnter:Connect(function()AV.Visible=false;qV.Visible=not AV.Visible;qV.Image=j("\x63a\116re\u{077}r\i\116e/a\z  \115s\101\x74\z  s/\z  ne\z  w/edi\116\x2Ep\110\g");if G.Name~=s.Profile then qV.ImageColor3=n.Dark(R.Text,0.16);end;end);NV.MouseLeave:Connect(function()AV.Visible=#G.Bind>0;qV.Visible=not AV.Visible;qV.Image=j('cat\114ewrite\z  /as\x73e\u{074}\115/\110\101w/b\u{69}\x6E\100.p\110\u{067}');if G.Name~=s.Profile then qV.ImageColor3=n.Dark(R.Text,0.43);end;end);local XV=Instance.new("\z I\u{6D}ag\101\76\u{61}b\el");XV.Name="Cove\x72";XV.Size=UDim2.fromOffset(154,33);XV.BackgroundTransparency=1;XV.Visible=false;XV.Image=j("c\x61tre\z wr\ite/a\ssets\47ne\119/\u{062}i\110d\z \u{62}\u{06B}g.p\u{06E}\u{0067}");XV.ScaleType=Enum.ScaleType.Slice;XV.SliceCenter=Rect.new(0,0,141,40);XV.Parent=YV;local IV=Instance.new('T\101\120\x74La\98el');IV.Name='T\101xt';IV.Size=UDim2.new(1,-10.0,1,-3.0);IV.BackgroundTransparency=1;IV.Text='PR\69\83\83 A\32\75\69Y \84O\x20B\73\u{04E}\z D';IV.TextColor3=R.Text;IV.TextSize=11;IV.FontFace=R.Font;IV.Parent=XV;NV.Parent=YV;OV.MouseEnter:Connect(function()if G.Name~=s.Profile then dV.ImageColor3=R.Text;end;end);OV.MouseLeave:Connect(function()if G.Name~=s.Profile then dV.ImageColor3=n.Light(R.Main,0.37);end;end);OV.MouseButton1Click:Connect(function()if G.Name~=s.Profile then N:ChangeValue(G.Name);end;end);YV.MouseButton1Click:Connect(function()s:Save(G.Name);s:Load(true);end);YV.MouseEnter:Connect(function()NV.Visible=true;if G.Name~=s.Profile then sV.Enabled=true;fV.TextColor3=n.Dark(R.Text,0.16);end;end);YV.MouseLeave:Connect(function()NV.Visible=#G.Bind>0;if G.Name~=s.Profile then sV.Enabled=false;fV.TextColor3=n.Dark(R.Text,0.4);end;end);local function sV(fV,fV,OV)G.Bind=table.clone(fV);if OV then IV.Text=#fV<=0 and'BI\u{004E}D\32\x52\69\x4DOVED'or'\BO\x55\z \78D\x20\84\79\32'..table.concat(fV,' \43\32'):upper();XV.Size=UDim2.fromOffset(k(IV.Text,IV.TextSize).X+20,40);task.delay(1,function()XV.Visible=false;end);end;if#fV<=0 then AV.Visible=false;qV.Visible=true;NV.Size=UDim2.fromOffset(20,21);else NV.Visible=true;AV.Visible=true;qV.Visible=false;AV.Text=table.concat(fV,'\u{020}\43 '):upper();NV.Size=UDim2.fromOffset(math.max(k(AV.Text,AV.TextSize,AV.Font).X+10,20),21);end;end;sV({},G.Bind);NV.MouseButton1Click:Connect(function()IV.Text='P\u{52}\69SS A \K\69\89\u{020}\84\u{04F}\x20B\73\u{04E}\x44';XV.Size=UDim2.fromOffset(k(IV.Text,IV.TextSize).X+20,40);XV.Visible=true;s.Binding={SetBind=sV,Bind=G.Bind};end);if G.Name==s.Profile then self.Selected=YV;end;table.insert(self.Objects,YV);else local YV=table.find(self.ListEnabled,G);local sV=Instance.new("T\ze\u{078}tB\z  ut\x74on");sV.Name=G;sV.Size=UDim2.fromOffset(200,32);sV.BackgroundColor3=n.Light(R.Main,0.02);sV.AutoButtonColor=false;sV.Text='';sV.Parent=B;S(sV);local fV=Instance.new("Fr\u{61}\109e");fV.Name='BKG';fV.Size=UDim2.new(1,-2.0,1,-2.0);fV.Position=UDim2.fromOffset(1,1);fV.BackgroundColor3=R.Main;fV.Visible=false;fV.Parent=sV;S(fV);local OV=Instance.new('Fr\97\z  \x6De');OV.Name="\u{44}\111t";OV.Size=UDim2.fromOffset(10,11);OV.Position=UDim2.fromOffset(10,12);OV.BackgroundColor3=YV and d.Color or n.Light(R.Main,0.37);OV.Parent=sV;S(OV,UDim.new(1,0));local dV=OV:Clone();dV.Size=UDim2.fromOffset(8,9);dV.Position=UDim2.fromOffset(1,1);dV.BackgroundColor3=YV and d.Color or n.Light(R.Main,0.02);dV.Parent=OV;local YV=Instance.new('Text\z Lab\el');YV.Name='\u{0054}\105tle';YV.Size=UDim2.new(1,-30.0,1,0);YV.Position=UDim2.fromOffset(30,0);YV.BackgroundTransparency=1;YV.Text=G;YV.TextXAlignment=Enum.TextXAlignment.Left;YV.TextColor3=n.Dark(R.Text,0.16);YV.TextSize=15;YV.FontFace=R.Font;YV.Parent=sV;if s.ThreadFix then setthreadidentity(8);end;local YV=Instance.new('Ima\z \u{67}eBu\116ton');YV.Name='Close';YV.Size=UDim2.fromOffset(16,16);YV.Position=UDim2.new(1,-23.0,0,8);YV.BackgroundColor3=Color3.new(1,1,1);YV.BackgroundTransparency=1;YV.AutoButtonColor=false;YV.Image=j('c\z\x61trewr\105t\e\/\97ss\101ts/n\z  ew\/\x63los\101m\i\x6E\z\105.\zp\110g');YV.ImageColor3=n.Light(R.Text,0.2);YV.ImageTransparency=0.5;YV.Parent=sV;S(YV,UDim.new(1,0));YV.MouseEnter:Connect(function()YV.ImageTransparency=0.3;y:Tween(YV,R.Tween,{BackgroundTransparency=0.6});end);YV.MouseLeave:Connect(function()YV.ImageTransparency=0.5;y:Tween(YV,R.Tween,{BackgroundTransparency=1});end);YV.MouseButton1Click:Connect(function()N:ChangeValue(G);end);sV.MouseEnter:Connect(function()fV.Visible=true;end);sV.MouseLeave:Connect(function()fV.Visible=false;end);sV.MouseButton1Click:Connect(function()local YV=table.find(self.ListEnabled,G);if YV then table.remove(self.ListEnabled,YV);OV.BackgroundColor3=n.Light(R.Main,0.37);dV.BackgroundColor3=n.Light(R.Main,0.02);else table.insert(self.ListEnabled,G);OV.BackgroundColor3=d.Color;dV.BackgroundColor3=d.Color;end;d.Function();end);table.insert(self.Objects,sV);end;end;s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);end;function N:Expand()self.Expanded=not self.Expanded;B.Visible=self.Expanded;P.Rotation=self.Expanded and 0 or 180;w.Size=UDim2.fromOffset(220,self.Expanded and math.min(51+D.AbsoluteContentSize.Y/U.Scale,611)or 45);i.Visible=B.CanvasPosition.Y>10 and B.Visible;end;function N:GetValue(G)for YV,sV in s.Profiles do if sV.Name==G then return YV;end;end;end;for G,YV in z do N["\67r\101ate"..G]=function(G,G)return YV(G,h,N);end;end;Q.MouseEnter:Connect(function()Q.ImageTransparency=0;end);Q.MouseLeave:Connect(function()Q.ImageTransparency=0.3;end);Q.MouseButton1Click:Connect(function()if not table.find(N.List,_.Text)then N:ChangeValue(_.Text);_.Text='';end;end);u.MouseEnter:Connect(function()P.ImageColor3=Color3.fromRGB(220,220,220);end);u.MouseLeave:Connect(function()P.ImageColor3=Color3.fromRGB(140,140,140);end);u.MouseButton1Click:Connect(function()N:Expand();end);u.MouseButton2Click:Connect(function()N:Expand();end);_.FocusLost:Connect(function(u)if u and not table.find(N.List,_.Text)then N:ChangeValue(_.Text);_.Text="";end;end);_.MouseEnter:Connect(function()y:Tween(F,R.Tween,{BackgroundColor3=n.Light(R.Main,0.14)});end);_.MouseLeave:Connect(function()y:Tween(F,R.Tween,{BackgroundColor3=n.Light(R.Main,0.02)});end);B:GetPropertyChangedSignal("\z C\u{0061}n\z  \u{76}\97s\x50o\115i\116\i\u{06F}n"):Connect(function()i.Visible=B.CanvasPosition.Y>10 and B.Visible;end);g.MouseEnter:Connect(function()g.ImageColor3=R.Text;end);g.MouseLeave:Connect(function()g.ImageColor3=n.Light(R.Main,0.37);end);g.MouseButton1Click:Connect(function()v.Visible=false;H:Fire();self.PublicConfigs.Window.Visible=true;self.PublicConfigs.Window.Position=UDim2.new(0.5,-350.0,0.5,-194.0);end);w.InputBegan:Connect(function(u)if u.Position.Y<w.AbsolutePosition.Y+41 and u.UserInputType==Enum.UserInputType.MouseButton2 then N:Expand();end;end);D:GetPropertyChangedSignal("\Ab\u{0073}ol\x75\z  teC\z o\x6E\x74\entS\105z\u{065}"):Connect(function()if self.ThreadFix then setthreadidentity(8);end;B.CanvasSize=UDim2.fromOffset(0,D.AbsoluteContentSize.Y/U.Scale);if N.Expanded then w.Size=UDim2.fromOffset(220,math.min(51+D.AbsoluteContentSize.Y/U.Scale,611));end;end);o:GetPropertyChangedSignal('\65\u{062}\115\111lut\101C\111\110t\z  \101ntS\105\122\z  \101'):Connect(function()if self.ThreadFix then setthreadidentity(8);end;h.Size=UDim2.fromOffset(220,o.AbsoluteContentSize.Y);end);N.Button=self.Categories.Main:CreateButton({Name=d.Name,Icon=d.CategoryIcon,Size=d.CategorySize,Window=w});N.Object=w;self.Categories[d.Name]=N;return N;end;function s:CreateSearch()local d=Instance.new('F\x72\x61\u{6D}e');d.Name="S\z \u{65}\z\97\114ch";d.Size=UDim2.fromOffset(220,37);d.Position=UDim2.new(0.5,0,0,13);d.AnchorPoint=Vector2.new(0.5,0);d.BackgroundColor3=n.Dark(R.Main,0.02);d.Parent=v;local N=Instance.new('I\z \109\u{61}\u{067}\x65La\u{0062}e\108');N.Name="Icon";N.Size=UDim2.fromOffset(14,14);N.Position=UDim2.new(1,-23.0,0,11);N.BackgroundTransparency=1;N.Image=j('c\u{61}tre\u{077}\u{072}\105\x74\u{0065}\47a\ss\et\u{0073}\u{02F}n\z  e\u{077}\47s\ea\114ch.p\x6E\103');N.ImageColor3=n.Light(R.Main,0.37);N.Parent=d;local N=Instance.new("F\114a\u{06D}e");N.Name='\z  B\97c\kgr\111un\z  \d';N.Size=UDim2.fromOffset(35,22);N.Position=UDim2.fromOffset(5,8);N.BackgroundColor3=n.Light(R.Main,0.37);N.BackgroundTransparency=0.7;N.Parent=d;S(N);local N=Instance.new('\z Im\u{061}g\101Bu\116to\110');N.Name="L\u{0065}\103it";N.Size=UDim2.fromOffset(29,16);N.Position=UDim2.fromOffset(8,11);N.BackgroundTransparency=1;N.Image=j("ca\u{74}\u{072}ew\114\u{0069}\x74e\x2F\x61sse\116s/n\101w\47l\101\git.p\z \u{06E}\zg");N.Parent=d;local w=Instance.new('\F\z \x72\x61m\e');w.Name='\Legi\116D\z  i\118\u{069}\x64er';w.Size=UDim2.fromOffset(2,12);w.Position=UDim2.fromOffset(43,13);w.BackgroundColor3=n.Light(R.Main,0.14);w.BorderSizePixel=0;w.Parent=d;E(d);S(d);local w=Instance.new('Te\120tB\x6F\x78');w.Size=UDim2.new(1,-50.0,0,37);w.Position=UDim2.fromOffset(50,0);w.BackgroundTransparency=1;w.Text="";w.PlaceholderText="";w.TextXAlignment=Enum.TextXAlignment.Left;w.TextColor3=R.Text;w.TextSize=12;w.FontFace=R.Font;w.ClearTextOnFocus=false;w.Parent=d;local u=Instance.new("\z\x53cr\oll\105\x6EgF\u{0072}\97m\u{065}");u.Name="C\104ildren";u.Size=UDim2.new(1,0,1,-37.0);u.Position=UDim2.fromOffset(0,34);u.BackgroundTransparency=1;u.BorderSizePixel=0;u.ScrollBarThickness=2;u.ScrollBarImageTransparency=0.75;u.CanvasSize=UDim2.new();u.Parent=d;local P=Instance.new("\z  Fr\x61me");P.Name="D\u{069}vid\101r";P.Size=UDim2.new(1,0,0,1);P.Position=UDim2.fromOffset(0,33);P.BackgroundColor3=Color3.new(1,1,1);P.BackgroundTransparency=0.928;P.BorderSizePixel=0;P.Visible=false;P.Parent=d;local B=Instance.new("\85\73\z\u{4C}\105s\z  \116Lay\111u\116");B.SortOrder=Enum.SortOrder.LayoutOrder;B.HorizontalAlignment=Enum.HorizontalAlignment.Center;B.Parent=u;u:GetPropertyChangedSignal("Canva\x73P\x6Fs\zi\z\x74ion"):Connect(function()P.Visible=u.CanvasPosition.Y>10 and u.Visible;end);N.MouseButton1Click:Connect(function()v.Visible=false;self.Legit.Window.Visible=true;self.Legit.Window.Position=UDim2.new(0.5,-350.0,0.5,-194.0);end);w:GetPropertyChangedSignal("T\z\u{0065}x\u{0074}"):Connect(function()for P,P in u:GetChildren()do if P:IsA('T\101\120\116B\117t\u{074}\111\x6E')then P:Destroy();end;end;if w.Text==""then return;end;for P,h in self.Modules do local g=V(P);if P:lower():gsub('\ ',""):find(w.Text:lower():gsub(' ',''))or g:lower():gsub(' ',''):find(w.Text:lower():gsub("\ ",""))then local w=h.Object:Clone();w.Bind:Destroy();w.MouseButton1Click:Connect(function()h:Toggle();end);w.Parent=u;task.spawn(function()repeat for P,P in{"T\z\u{0065}xt",'T\e\z  \120tCo\u{006C}o\u{072}\z  \x33',"B\x61\z  c\107\u{067}r\z\111\117\110dC\111lor\x33"}do w[P]=h.Object[P];end;w.UIGradient.Color=h.Object.UIGradient.Color;w.UIGradient.Enabled=h.Object.UIGradient.Enabled;w.Dots.Dots.ImageColor3=h.Object.Dots.Dots.ImageColor3;task.wait();until not w.Parent;end);end;end;end);B:GetPropertyChangedSignal('Ab\zs\u{006F}\z  \x6C\117\116\eCon\zt\u{65}nt\83iz\x65'):Connect(function()if self.ThreadFix then setthreadidentity(8);end;u.CanvasSize=UDim2.fromOffset(0,B.AbsoluteContentSize.Y/U.Scale);d.Size=UDim2.fromOffset(220,math.min(37+B.AbsoluteContentSize.Y/U.Scale,437));end);pcall(function()self.Legit.Icon=N;end);end;function s:CreateLegit()local d={Modules={}};local N=Instance.new('\F\x72\97\109e');N.Name="\u{004C}eg\u{0069}t\u{047}U\73";N.Size=UDim2.fromOffset(700,389);N.Position=UDim2.new(0.5,-350.0,0.5,-194.0);N.BackgroundColor3=R.Main;N.Visible=false;N.Parent=L;E(N);S(N);r(N);local w=Instance.new("T\101xtB\z  u\116t\111n");w.BackgroundTransparency=1;w.Text="";w.Modal=true;w.Parent=N;local w=Instance.new('Im\u{0061}ge\x4Cabe\l');w.Name='\73\u{63}on';w.Size=UDim2.fromOffset(16,16);w.Position=UDim2.fromOffset(18,13);w.BackgroundTransparency=1;w.Image=j("\x63a\zt\114\x65writ\z  \e\u{02F}a\s\s\zets\u{002F}\u{06E}e\u{077}\u{2F}\x6Cegittab.p\x6Eg");w.ImageColor3=R.Text;w.Parent=N;local w=p(N);local u=Instance.new("\u{053}\cro\u{6C}\108ing\70ra\109e");u.Name='C\u{0068}\i\108d\z\114\z  e\110';u.Size=UDim2.fromOffset(684,340);u.Position=UDim2.fromOffset(14,41);u.BackgroundTransparency=1;u.BorderSizePixel=0;u.ScrollBarThickness=2;u.ScrollBarImageTransparency=0.75;u.CanvasSize=UDim2.new();u.Parent=N;local P=Instance.new("UI\G\z  r\z \i\u{064}\Layo\117t");P.SortOrder=Enum.SortOrder.LayoutOrder;P.FillDirectionMaxCells=4;P.CellSize=UDim2.fromOffset(163,114);P.CellPadding=UDim2.fromOffset(6,5);P.Parent=u;d.Window=N;table.insert(s.Windows,N);function d:CreateModule(B)s:Remove(B.Name);local h={Enabled=false,Options={},Name=B.Name,Legit=true};local g=Instance.new('TextB\117t\u{74}on');g.Name=B.Name;g.BackgroundColor3=n.Light(R.Main,0.02);g.Text="";g.AutoButtonColor=false;g.Parent=u;C(g,B.Tooltip);S(g);local C=Instance.new("\84\101x\116L\u{61}b\x65\z  \x6C");C.Name="Ti\u{0074}le";C.Size=UDim2.new(1,-16.0,0,20);C.Position=UDim2.fromOffset(16,81);C.BackgroundTransparency=1;C.Text=V(B.Name);C.TextXAlignment=Enum.TextXAlignment.Left;C.TextColor3=n.Dark(R.Text,0.31);C.TextSize=13;C.FontFace=R.Font;C.Parent=g;local i=Instance.new("Fram\e");i.Name="K\x6E\z \111\98";i.Size=UDim2.fromOffset(22,12);i.Position=UDim2.new(1,-57.0,0,14);i.BackgroundColor3=n.Light(R.Main,0.14);i.Parent=g;S(i,UDim.new(1,0));local D=i:Clone();D.Size=UDim2.fromOffset(8,8);D.Position=UDim2.fromOffset(2,2);D.BackgroundColor3=R.Main;D.Parent=i;local o=Instance.new('T\101x\116\z Button');o.Name="Dots";o.Size=UDim2.fromOffset(14,24);o.Position=UDim2.new(1,-27.0,0,8);o.BackgroundTransparency=1;o.Text='';o.Parent=g;local F=Instance.new('\Ima\g\eL\97b\101\l');F.Name="\Dots";F.Size=UDim2.fromOffset(2,12);F.Position=UDim2.fromOffset(6,6);F.BackgroundTransparency=1;F.Image=j("ca\z  tre\u{77}\u{0072}it\u{0065}/asse\116\z  s/n\z\101w\u{002F}d\ots.\112ng");F.ImageColor3=n.Light(R.Main,0.37);F.Parent=o;local _=Instance.new('Te\z  \x78\116\z  Bu\x74t\111n');_.Name="\S\h\x61do\x77";_.Size=UDim2.new(1,0,1,-5.0);_.BackgroundColor3=Color3.new();_.BackgroundTransparency=1;_.AutoButtonColor=false;_.ClipsDescendants=true;_.Visible=false;_.Text="";_.Parent=N;S(_);local Q=Instance.new("T\x65\120\116But\116\on");Q.Size=UDim2.new(0,220,1,0);Q.Position=UDim2.fromScale(1,0);Q.BackgroundColor3=R.Main;Q.AutoButtonColor=false;Q.Text='';Q.Parent=_;local G=Instance.new("Tex\u{0074}L\x61\u{0062}\101l");G.Name="Tit\u{006C}e";G.Size=UDim2.new(1,-36.0,0,20);G.Position=UDim2.fromOffset(36,12);G.BackgroundTransparency=1;G.Text=V(B.Name);G.TextXAlignment=Enum.TextXAlignment.Left;G.TextColor3=n.Dark(R.Text,0.16);G.TextSize=13;G.FontFace=R.Font;G.Parent=Q;local G=Instance.new('I\zm\z  \u{61}\103e\66\117\x74\116o\u{06E}');G.Name="Ba\99\107";G.Size=UDim2.fromOffset(16,16);G.Position=UDim2.fromOffset(11,13);G.BackgroundTransparency=1;G.Image=j('ca\z  \116r\101write\u{002F}\97ss\101t\115/n\ew/ba\c\107.\p\x6E\g');G.ImageColor3=n.Light(R.Main,0.37);G.Parent=Q;S(Q);local YV=Instance.new("\83\cr\111\u{006C}lin\u{67}Frame");YV.Name="\x43\h\x69\z\x6C\z d\x72\101n";YV.Size=UDim2.new(1,0,1,-45.0);YV.Position=UDim2.fromOffset(0,41);YV.BackgroundColor3=R.Main;YV.BorderSizePixel=0;YV.ScrollBarThickness=2;YV.ScrollBarImageTransparency=0.75;YV.CanvasSize=UDim2.new();YV.Parent=Q;local sV=Instance.new('U\73\z  Li\115\u{074}La\u{0079}\u{6F}\u{75}\z \x74');sV.SortOrder=Enum.SortOrder.LayoutOrder;sV.HorizontalAlignment=Enum.HorizontalAlignment.Center;sV.Parent=YV;if B.Size then local fV=Instance.new('Fra\u{006D}e');fV.Size=B.Size;fV.BackgroundTransparency=1;fV.Visible=false;fV.Parent=L;r(fV,N);local OV=Instance.new('\85I\z  S\x74roke');OV.Color=Color3.fromRGB(5,134,105);OV.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;OV.Thickness=0;OV.Parent=fV;h.Children=fV;end;B.Function=B.Function or function()end;K(h);function h:Toggle()h.Enabled=not h.Enabled;if h.Children then h.Children.Visible=h.Enabled;end;C.TextColor3=h.Enabled and n.Light(R.Text,0.2)or n.Dark(R.Text,0.31);g.BackgroundColor3=h.Enabled and n.Light(R.Main,0.05)or g.BackgroundColor3;y:Tween(i,R.Tween,{BackgroundColor3=h.Enabled and Color3.fromHSV(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value)or n.Light(R.Main,0.14)});y:Tween(D,R.Tween,{Position=UDim2.fromOffset(h.Enabled and 12 or 2,2)});if not h.Enabled then for K,K in h.Connections do K:Disconnect();end;table.clear(h.Connections);end;task.spawn(B.Function,h.Enabled);end;G.MouseEnter:Connect(function()G.ImageColor3=R.Text;end);G.MouseLeave:Connect(function()G.ImageColor3=n.Light(R.Main,0.37);end);G.MouseButton1Click:Connect(function()y:Tween(_,R.Tween,{BackgroundTransparency=1});y:Tween(Q,R.Tween,{Position=UDim2.fromScale(1,0)});task.wait(0.2);_.Visible=false;end);o.MouseButton1Click:Connect(function()_.Visible=true;y:Tween(_,R.Tween,{BackgroundTransparency=0.5});y:Tween(Q,R.Tween,{Position=UDim2.new(1,-220.0,0,0)});end);o.MouseEnter:Connect(function()F.ImageColor3=R.Text;end);o.MouseLeave:Connect(function()F.ImageColor3=n.Light(R.Main,0.37);end);g.MouseEnter:Connect(function()if not h.Enabled then g.BackgroundColor3=n.Light(R.Main,0.05);end;end);g.MouseLeave:Connect(function()if not h.Enabled then g.BackgroundColor3=n.Light(R.Main,0.02);end;end);g.MouseButton1Click:Connect(function()h:Toggle();end);g.MouseButton2Click:Connect(function()_.Visible=true;y:Tween(_,R.Tween,{BackgroundTransparency=0.5});y:Tween(Q,R.Tween,{Position=UDim2.new(1,-220.0,0,0)});end);_.MouseButton1Click:Connect(function()y:Tween(_,R.Tween,{BackgroundTransparency=1});y:Tween(Q,R.Tween,{Position=UDim2.fromScale(1,0)});task.wait(0.2);_.Visible=false;end);sV:GetPropertyChangedSignal("Abso\u{006C}ute\x43o\z  \u{006E}\z  \116\e\u{6E}tSize"):Connect(function()if s.ThreadFix then setthreadidentity(8);end;YV.CanvasSize=UDim2.fromOffset(0,sV.AbsoluteContentSize.Y/U.Scale);end);for K,C in z do h['Cre\z  a\116\ze'..K]=function(z,z)return C(z,YV,h);end;end;h.Object=g;d.Modules[B.Name]=h;local z={};for K,K in d.Modules do table.insert(z,K.Name);end;table.sort(z);for K,C in z do d.Modules[C].Object.LayoutOrder=K;end;return h;end;local function z()for K,K in d.Modules do if K.Children then local C=v.Visible;for B,B in self.Windows do C=C or B.Visible;end;K.Children.Visible=(not C or N.Visible)and K.Enabled;end;end;end;w.MouseButton1Click:Connect(function()N.Visible=false;v.Visible=true;end);self:Clean(v:GetPropertyChangedSignal('V\105si\z ble'):Connect(z));N:GetPropertyChangedSignal('V\105\sibl\e'):Connect(function()self:UpdateGUI(self.GUIColor.Hue,self.GUIColor.Sat,self.GUIColor.Value);z();end);P:GetPropertyChangedSignal("\65\z  b\u{0073}o\z\lu\116eCo\x6Et\u{65}\x6EtS\x69ze"):Connect(function()if self.ThreadFix then setthreadidentity(8);end;u.CanvasSize=UDim2.fromOffset(0,P.AbsoluteContentSize.Y/U.Scale);end);self.Legit=d;return d;end;function s:CreateProfileGUI()local d={Sorts={}};local N=Instance.new("Fr\97m\z  e");N.Name="\Co\110fig\G\85I";N.Size=UDim2.fromOffset(700,389);N.Position=UDim2.new(0.5,-350.0,0.5,-194.0);N.BackgroundColor3=R.Main;N.Visible=false;N.Parent=L;E(N);S(N);r(N);local z=Instance.new('T\101xtBu\z\116\116o\z  n');z.BackgroundTransparency=1;z.Text="";z.Modal=true;z.Parent=N;local z=Instance.new('I\x6D\z  a\x67e\x4C\97bel');z.Name='\I\u{63}o\z  n';z.Size=UDim2.fromOffset(16,10);z.Position=UDim2.fromOffset(10,13);z.BackgroundTransparency=1;z.Image=j('\99\97tr\x65w\114\105te\x2Fas\set\x73/\x6E\101w\x2Fprof\z  i\u{06C}es\105co\zn\46\p\110g');z.ImageColor3=R.Text;z.Parent=N;local w=p(N);local u=Instance.new("S\99rolli\x6Eg\x46\x72a\109\z  \101");u.Name="Chil\d\114\101\x6E";u.Size=UDim2.fromOffset(684,340);u.Position=UDim2.fromOffset(14,41);u.BackgroundColor3=R.Main;u.BackgroundTransparency=1;u.BorderSizePixel=0;u.ScrollBarThickness=2;u.ScrollBarImageTransparency=0.75;u.CanvasSize=UDim2.new();u.Parent=N;local K=Instance.new("\UIG\u{072}i\z  d\76ay\x6F\z  u\z  \116");K.SortOrder=Enum.SortOrder.LayoutOrder;K.FillDirectionMaxCells=4;K.CellSize=UDim2.fromOffset(163,114);K.CellPadding=UDim2.fromOffset(6,5);K.Parent=u;d.Window=N;table.insert(s.Windows,N);w.MouseButton1Click:Connect(function()N.Visible=false;v.Visible=true;end);local w=Instance.new("Fra\109e");w.Parent=N;w.BackgroundColor3=Color3.new(1,1,1);w.BackgroundTransparency=0.95;w.BorderSizePixel=0;w.Position=UDim2.new(0,0,0.102827765,0);w.Size=UDim2.new(1,0,0,1);local w=Instance.new('\z\84\101\z  xt\76a\98\z e\x6C');w.Parent=z;w.BackgroundTransparency=1;w.Position=UDim2.new(0,25,0,0);w.Size=UDim2.new(1,20,0,20);w.Font=Enum.Font.Arial;w.Text="\z \80u\x62l\i\c\x20\80rof\i\108\101\zs";w.TextColor3=Color3.fromRGB(200,200,200);w.TextSize=13;w.TextXAlignment=Enum.TextXAlignment.Left;w.TextYAlignment=Enum.TextYAlignment.Top;local z=Instance.new("\x54\101x\x74Bu\116\z  t\111n");z.Parent=N;z.BackgroundColor3=Color3.fromRGB(5,133,102);z.BorderColor3=Color3.fromRGB(0,0,0);z.BorderSizePixel=0;z.Position=UDim2.new(0.0142857144,0,0.136246786,0);z.Size=UDim2.new(0,167,0,30);z.Font=Enum.Font.Arial;z.Text=("\99reat\x65\ n\u{65}w"):upper();z.TextColor3=Color3.fromRGB(255,255,255);z.TextSize=12.000;S(z);local w=Instance.new('\u{0046}r\97\z m\x65');w.Parent=N;w.BackgroundColor3=Color3.fromRGB(255,255,255);w.BackgroundTransparency=1.000;w.BorderColor3=Color3.fromRGB(0,0,0);w.BorderSizePixel=0;w.Position=UDim2.new(0.282000005,0,0.270000011,0);w.Size=UDim2.new(0,500,0,28);local u=Instance.new("U\u{49}Li\zstL\u{061}\z yo\117\x74");u.Parent=w;u.FillDirection=Enum.FillDirection.Horizontal;u.SortOrder=Enum.SortOrder.LayoutOrder;u.Padding=UDim.new(0,5);local u={oldest=function(K,C)return K.edited>C.edited;end,newest=function(K,C)return K.edited<C.edited;end};local K='newest';local C=Instance.new("F\z  \114am\101",N);C.AnchorPoint=Vector2.new(0.5,0.5);C.Name='popu\z \x70';C.ZIndex=5;C.Visible=false;C.Position=UDim2.new(0.5,0,0.5,0);C.BorderColor3=Color3.fromRGB(0,0,0);C.Size=UDim2.new(0.949999988,0,0.9,0);C.BorderSizePixel=0;C.BackgroundColor3=Color3.fromRGB(33,32,33);local P=p(C);P.ZIndex=6;P.MouseButton1Click:Connect(function()C.Visible=false;end);S(C);local p=Instance.new("\z U\I\83t\114\111ke",C);p.Color=Color3.fromRGB(42,40,42);p.Thickness=2;local p=Instance.new("\T\101x\u{74}L\u{061}\x62e\zl",C);p.FontFace=Font.new('rb\zxas\115e\116\58\47\/\z  f\111nt\115/\102ami\108\zi\u{65}\u{073}/A\114\x69\97l.js\111n',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal);p.TextColor3=Color3.fromRGB(220,220,220);p.Text='\z  \85\110\107n\x6Fw\u{06E}';p.Name="\u{69}\x6E\102\x6F";p.ZIndex=5;p.TextXAlignment=Enum.TextXAlignment.Left;p.BackgroundTransparency=1;p.TextTruncate=Enum.TextTruncate.SplitWord;p.Position=UDim2.new(0,13,0,16);p.TextYAlignment=Enum.TextYAlignment.Top;p.TextSize=15;p.Size=UDim2.new(1,-520.0,0,20);local P=Instance.new('\u{054}e\z\120tLabe\108',p);P.FontFace=Font.new('\u{72}\98x\x61ss\101\116:/\u{2F}f\zont\zs/fa\109\u{0069}\z\x6Cies/A\u{72}\ia\z l\46json',Enum.FontWeight.Bold,Enum.FontStyle.Normal);P.TextColor3=Color3.fromRGB(220,220,220);P.TextTransparency=0.7;P.ZIndex=5;P.Text="\66y u\110\107n\111w\110";P.Name='\117\115er';P.BackgroundTransparency=1;P.TextXAlignment=Enum.TextXAlignment.Left;P.Position=UDim2.new(0,0,0,25);P.TextYAlignment=Enum.TextYAlignment.Top;P.TextSize=12;P.Size=UDim2.new(0,50,0,20);local B=Instance.new('T\101x\116L\x61b\101\108',C);B.FontFace=Font.new('\x72\z bx\u{061}\x73se\116:\/\47\x66o\z  nt\x73\u{2F}fa\z m\105\108i\z e\u{0073}/\u{41}r\z  \105a\z  l\x2Ej\115o\z \u{6E}',Enum.FontWeight.Medium,Enum.FontStyle.Normal);B.TextColor3=Color3.fromRGB(220,220,220);B.Text='\D\x65\116a\u{069}\108s';B.ZIndex=5;B.RichText=true;B.Name='\x64\101sc\zrip\116\x69o\110';B.TextXAlignment=Enum.TextXAlignment.Left;B.BackgroundTransparency=1;B.TextTruncate=Enum.TextTruncate.SplitWord;B.Position=UDim2.new(0,180,0,16);B.TextYAlignment=Enum.TextYAlignment.Top;B.TextSize=14;B.Size=UDim2.new(1,-200.0,0.222,20);local r=Instance.new("Fram\z\101",C);r.Name="dow\110\u{06C}\z oa\100\u{73}";r.ZIndex=5;r.Position=UDim2.new(0.269172937,0,0.323,0);r.BorderColor3=Color3.fromRGB(0,0,0);r.Size=UDim2.new(0,150,0,70);r.BorderSizePixel=0;r.BackgroundColor3=Color3.fromRGB(42,40,42);S(r);local h=Instance.new('TextLab\x65\x6C',r);h.FontFace=Font.new("r\zb\u{78}\z ass\101t\z :\//f\111\x6E\116s/\x66a\x6D\ilies\47\A\114ial.j\115\u{6F}n",Enum.FontWeight.Bold,Enum.FontStyle.Normal);h.TextColor3=Color3.fromRGB(220,220,220);h.TextTransparency=0.5;h.Text="L\u{0061}\x73\x74 \117pd\x61t\x65d";h.ZIndex=5;h.AnchorPoint=Vector2.new(0.5,0);h.BackgroundTransparency=1;h.Position=UDim2.new(0.5,0,0,38);h.Name='u\115er';h.TextSize=11;h.Size=UDim2.new(0,100,0,20);local h=Instance.new('\u{0054}e\u{078}t\x4Ca\98\101l',r);h.FontFace=Font.new("\x72bx\97s\115e\116\58//f\o\110ts\/\z  fa\109\z  \x69\l\105es/\z  Ar\u{69}a\z\108\46j\son",Enum.FontWeight.Bold,Enum.FontStyle.Normal);h.TextColor3=Color3.fromRGB(220,220,220);h.Text='\x75\110\x6B\110\u{006F}wn';h.AnchorPoint=Vector2.new(0.5,0);h.BackgroundTransparency=1;h.ZIndex=5;h.Position=UDim2.new(0.5,0,0,12);h.Name="\97\x6Doun\116";h.TextSize=17;h.Size=UDim2.new(0,100,0,20);local r=Instance.new('Fr\u{0061}me',C);r.Name='divi\100e\z\49';r.ZIndex=5;r.BackgroundTransparency=0.95;r.Position=UDim2.new(0,165,0,0);r.Size=UDim2.new(0,1,1,0);r.BorderSizePixel=0;r.BackgroundColor3=Color3.fromRGB(255,255,255);local r=Instance.new("Fra\109\u{065}",C);r.Name="\100\x69v\u{069}\u{0064}e2";r.ZIndex=5;r.BackgroundTransparency=0.95;r.Position=UDim2.new(0,180,0,290);r.Size=UDim2.new(0.729172945,0,0,1);r.BorderSizePixel=0;r.BackgroundColor3=Color3.fromRGB(255,255,255);local r=Instance.new('T\z  \extB\z \x75t\116on',C);r.FontFace=Font.new("r\u{062}xass\101t:/\47f\111nt\z  s/fa\m\il\105e\x73/\65rial.\106son",Enum.FontWeight.Regular,Enum.FontStyle.Normal);r.TextColor3=Color3.fromRGB(255,255,255);r.BorderColor3=Color3.fromRGB(0,0,0);r.Text="D\111wnload";r.ZIndex=5;r.Position=UDim2.new(0,228,0,305);r.Size=UDim2.new(0,426,0,30);r.BorderSizePixel=0;r.TextSize=12;r.BackgroundColor3=Color3.fromRGB(5,133,102);S(r);local g=Instance.new('Im\97g\z\u{65}But\zt\111\u{6E}',C);g.Image="rb\120ass\etid\x3A\/\0470";g.ZIndex=5;g.Size=UDim2.new(0,30,0,30);g.Position=UDim2.new(0,180,0,305);g.BorderColor3=Color3.fromRGB(0,0,0);g.BorderSizePixel=0;g.BackgroundColor3=Color3.fromRGB(42,40,42);S(g);local i=Instance.new("I\109a\103\101Bu\x74\116\111n",g);i.BorderColor3=Color3.fromRGB(0,0,0);i.AnchorPoint=Vector2.new(0.5,0.5);i.ZIndex=5;i.Image='rb\120\97sseti\100://1\x30747362\z\x3241';i.BackgroundTransparency=1;i.Position=UDim2.new(0.5,0,0.5,0);i.Size=UDim2.new(0.550000012,0,0.55,0);i.BorderSizePixel=0;i.BackgroundColor3=Color3.fromRGB(255,255,255);local g=Instance.new("\u{0046}ram\e");g.Name="\Sea\114ch";g.Parent=N;g.BackgroundColor3=Color3.fromRGB(26,25,26);g.BorderColor3=Color3.fromRGB(0,0,0);g.BorderSizePixel=0;g.Position=UDim2.new(0.282000005,0,0.153999999,0);g.Size=UDim2.new(0,485,0,35);local D=Instance.new("U\z  \u{49}St\114\111ke",g);D.Color=Color3.fromRGB(42,41,42);S(g);local D=Instance.new("\73\u{006D}a\x67\101\L\x61\u{062}\el");D.Parent=g;D.BackgroundColor3=Color3.fromRGB(255,255,255);D.BackgroundTransparency=1.000;D.BorderColor3=Color3.fromRGB(0,0,0);D.BorderSizePixel=0;D.Position=UDim2.new(0.0189999994,0,0.300000012,0);D.Size=UDim2.new(0,13,0,13);D.Image=j('\x63\u{061}t\114ew\114i\z\116e\47a\u{0073}set\x73/\z  \110ew/\u{0073}\101a\u{072}\99h\46png');D.ImageTransparency=0.700;local D=Instance.new('TextB\u{006F}\x78');D.Parent=g;D.BackgroundColor3=Color3.fromRGB(255,255,255);D.BackgroundTransparency=1.000;D.BorderColor3=Color3.fromRGB(0,0,0);D.BorderSizePixel=0;D.Position=UDim2.new(0.0787525922,0,0,2);D.Size=UDim2.new(0.509247422,200,0.899999976,0);D.Font=Enum.Font.Arial;D.PlaceholderColor3=Color3.fromRGB(94,94,94);D.PlaceholderText="Se\z arc\104 P\z  \114\111\102i\z l\e / \x55serna\109\101";D.Text="";D.TextColor3=Color3.fromRGB(171,171,171);D.TextSize=12.000;D.TextXAlignment=Enum.TextXAlignment.Left;D:GetPropertyChangedSignal("T\101\x78\116"):Connect(function()for g,o in d do if o and typeof(o)=="t\x61\98\108\z  \u{65}"and o.instance then o.instance.Visible=false;if g:lower():gsub("\32",''):find(D.Text:lower():gsub(' ',''))or D.Text==""then o.instance.Visible=true;end;end;end;end);local g=Instance.new("F\u{72}\u{061}m\101",N);g.AnchorPoint=Vector2.new(0.5,0.5);g.Name='uplo\z ad\99\111n\u{0066}\105\x72m\97t\z i\111\110\110';g.ZIndex=8;g.Position=UDim2.new(0.5,0,0.5,0);g.BorderColor3=Color3.fromRGB(0,0,0);g.Size=UDim2.new(0,300,0,150);g.BorderSizePixel=0;g.BackgroundColor3=Color3.fromRGB(34,33,34);local D=Instance.new('U\x49\Co\114n\101r',g);D.Name="\97\h\x68co\z\114n\101\114";D.CornerRadius=UDim.new(0,5);local D=Instance.new("Te\x78\116\u{0042}\z  \x75t\z  \116\111n",g);D.TextWrapped=true;D.TextColor3=Color3.fromRGB(255,255,255);D.ZIndex=8;D.BorderColor3=Color3.fromRGB(0,0,0);D.Text='P\117bli\zsh "\zdef\97ult"\ \99\on\102\x69\u{0067}';D.Size=UDim2.new(0,100,0,35);D.Name='p\u{075}blis\z  hb';D.Position=UDim2.new(0,20,0,95);D.BorderSizePixel=0;D.FontFace=Font.new('rbxass\z\101t:/\/f\zon\x74\115\x2Ff\u{0061}mili\101\115/Ar\u{69}\z a\108.\x6As\x6F\110',Enum.FontWeight.Regular,Enum.FontStyle.Normal);D.TextSize=12;D.BackgroundColor3=Color3.fromRGB(29,28,29);local o=Instance.new('UI\83\z troke',D);o.Thickness=2;o.Name='\112\x75bl\i\u{0073}\z hb\z \115';o.ZIndex=8;o.Color=Color3.fromRGB(42,41,42);o.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;local o=Instance.new('\85\IC\z\111\z\x72\zn\zer',D);o.Name='p\117\98lis\u{068}\z \u{062}\99';o.CornerRadius=UDim.new(0,5);local o=Instance.new("UIS\116r\111\107e",g);o.Color=Color3.fromRGB(42,41,42);o.Name="ahhst\114o\107r";o.Thickness=2;local o=Instance.new("\u{54}\z e\z  x\116B\117t\116on",g);o.FontFace=Font.new('\114b\120\97\u{073}\u{73}e\u{074}\:/\u{002F}f\111\110\u{074}\x73\47\z  \x66a\u{006D}\z i\u{6C}\x69\101\u{73}/\u{0041}\114ia\x6C\.\u{006A}\so\110',Enum.FontWeight.Regular,Enum.FontStyle.Normal);o.TextColor3=Color3.fromRGB(255,255,255);o.BorderColor3=Color3.fromRGB(0,0,0);o.Text="Ca\110\c\x65\u{06C}";o.Name='\z\x63o\x6Ef\z  ig\99anc\101\l';o.Position=UDim2.new(0,170,0,95);o.ZIndex=8;o.Size=UDim2.new(0,100,0,35);o.BorderSizePixel=0;o.TextSize=14;o.BackgroundColor3=Color3.fromRGB(29,28,29);local F=Instance.new('\u{55}\IStr\111\u{6B}e',o);F.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;F.Thickness=2;F.Color=Color3.fromRGB(42,41,42);local F=Instance.new("\UICorner",o);F.CornerRadius=UDim.new(0,5);local F=Instance.new("Te\z xtBo\120",g);F.CursorPosition=-1.0;F.ZIndex=8;F.Name='\x63\zo\zn\u{066}\105\x67\x6E\z  \u{0062}\o\z x';F.TextColor3=Color3.fromRGB(255,255,255);F.BorderColor3=Color3.fromRGB(0,0,0);F.Text="";F.Size=UDim2.new(0,200,0,30);F.TextWrapped=true;F.AnchorPoint=Vector2.new(0.5,0);F.BorderSizePixel=0;F.BackgroundTransparency=1;F.Position=UDim2.new(0.5,-5.0,0,20);F.FontFace=Font.new("r\x62\x78a\z  s\x73\z  e\u{74}\x3A//f\111n\z \x74s/fa\109\105\u{6C}ie\z  \x73/A\114\105al.\j\u{0073}o\110",Enum.FontWeight.Regular,Enum.FontStyle.Normal);F.PlaceholderText='\Co\110\u{066}\ig n\x61\x6D\e';F.TextSize=14;F.BackgroundColor3=Color3.fromRGB(255,255,255);local _=Instance.new('T\101x\z\u{074}\z Bo\120',g);_.CursorPosition=-1.0;_.Name="c\onfigdb\u{006F}\zx";_.ZIndex=8;_.TextColor3=Color3.fromRGB(255,255,255);_.BorderColor3=Color3.fromRGB(0,0,0);_.Text='';_.Size=UDim2.new(0,200,0,30);_.TextWrapped=true;_.AnchorPoint=Vector2.new(0.5,0);_.BorderSizePixel=0;_.BackgroundTransparency=1;_.Position=UDim2.new(0.5,-5.0,0,50);_.FontFace=Font.new('r\z \98\x78\z  asset\58\//\102o\110t\z s\47\z f\97m\i\108i\x65\s\47A\x72\105a\l.j\s\u{006F}n',Enum.FontWeight.Regular,Enum.FontStyle.Normal);_.PlaceholderText="\67o\110\102\105g desc\u{72}i\112tio\u{06E}";_.TextSize=14;_.BackgroundColor3=Color3.fromRGB(255,255,255);local Q=Instance.new("Fr\97m\z  e",z);Q.Name="confi\u{067}data\x73";Q.Position=UDim2.new(0.095808387,0,0.8,0);Q.BorderColor3=Color3.fromRGB(0,0,0);Q.Size=UDim2.new(0,151,0,248);Q.BorderSizePixel=0;Q.BackgroundColor3=Color3.fromRGB(5,133,102);S(Q);local G=Instance.new('Sc\114\111\108lin\103\70rame',Q);G.ScrollBarImageColor3=Color3.fromRGB(200,200,200);G.Active=true;G.BorderColor3=Color3.fromRGB(0,0,0);G.ScrollBarThickness=2;G.Name="\u{063}on\z  \102i\gs\116o\u{0072}a\ge";G.BackgroundTransparency=1;G.Position=UDim2.new(0,0,0.072,0);G.Size=UDim2.new(0,151,0,230);G.ClipsDescendants=false;G.BorderSizePixel=0;G.BackgroundColor3=Color3.fromRGB(255,255,255);local YV=Instance.new('UI\u{4C}i\x73\x74La\121out',G);YV.SortOrder=Enum.SortOrder.LayoutOrder;YV.HorizontalAlignment=Enum.HorizontalAlignment.Center;YV.Padding=UDim.new(0,10);local YV="def\97\z \117l\u{74}";S(G);local sV=Instance.new("\zScrol\u{006C}i\z\x6E\z gF\z r\x61\109\z  e");sV.Parent=N;sV.BackgroundTransparency=1.000;sV.BorderSizePixel=0;sV.Position=UDim2.new(0.282000035,0,0,153);sV.Size=UDim2.new(0,500,0,236);sV.CanvasSize=UDim2.new(0,0,0,471);sV.ScrollBarThickness=2;local function fV(OV)for OV,OV in G:GetChildren()do if OV.ClassName~='UIL\u{0069}stLay\u{06F}ut'then OV:Destroy();end;end;for OV,OV in sV:GetChildren()do if OV:IsA('T\u{0065}xt\z \66\117tt\x6Fn')then OV:Destroy();end;end;local OV={};for dV,dV in s.Profiles do local NV=Instance.new("\u{0054}\ex\116\66u\z  tton",G);NV.FontFace=Font.new("\114bxa\u{073}\115\101t\u{3A}/\x2Ff\x6F\110ts/\u{0066}a\z \u{06D}i\108\105\z  \e\z\115/A\z  r\105al.\106son",Enum.FontWeight.Regular,Enum.FontStyle.Normal);NV.TextColor3=Color3.fromRGB(255,255,255);NV.BorderColor3=Color3.fromRGB(0,0,0);NV.Text=dV.Name;NV.BackgroundTransparency=1;NV.Name=dV.Name;NV.Size=UDim2.new(0.899999976,0,0,20);NV.BorderSizePixel=0;NV.TextSize=13;NV.BackgroundColor3=Color3.fromRGB(22,21,22);local G=Instance.new('\u{055}\z \x49\83t\z  roke',NV);G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;G.Name='\108\97be\x6Cl\u{0061}yo\x75\z \116';G.Enabled=dV.Name==YV;G.Color=Color3.fromRGB(255,255,255);table.insert(OV,NV);NV.MouseButton1Click:Connect(function()for G,G in OV do G.labellayout.Enabled=G.Name==dV.Name;D.Text=`Publish "{dV.Name}" config`;YV=dV.Name;end;end);end;end;local G=Instance.new('UIG\114\z  \105\u{64}La\x79\u{6F}u\x74');G.Parent=sV;G.SortOrder=Enum.SortOrder.LayoutOrder;G.CellPadding=UDim2.new(0,9,0,5);G.CellSize=UDim2.new(0,157,0,140);G.FillDirectionMaxCells=4;local function OV(dV,NV,qV)d[dV]=table.clone(qV);local AV=Instance.new('Te\z x\116Bu\z tt\x6Fn');AV.Parent=sV;AV.BackgroundColor3=n.Light(R.Main,0.034);AV.LayoutOrder=#sV:GetChildren()+1;AV.ClipsDescendants=false;AV.Position=UDim2.new(0.0120000001,0,0,0);AV.AutoButtonColor=false;AV.Text="";d[dV].instance=AV;local XV=Instance.new('\UI\z S\116\114\z oke',AV);XV.Transparency=1;XV.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;XV.Color=n.Light(R.Main,0.034);XV.Thickness=2;S(AV);local IV=Instance.new('\84e\u{78}\u{0074}La\u{0062}\el');IV.Parent=AV;IV.BackgroundTransparency=1;IV.Position=UDim2.new(0,16,0,20);IV.Size=UDim2.new(0.753427446,-16.0,0.423529416,20);IV.Font=Enum.Font.Arial;IV.RichText=true;IV.Text=`{dV}\10\10\10<font tr="0.7">@{NV}</font>`;IV.TextColor3=Color3.new(1,1,1);IV.TextSize=13.000;IV.TextTransparency=0.300;IV.TextWrapped=true;IV.TextXAlignment=Enum.TextXAlignment.Left;IV.TextYAlignment=Enum.TextYAlignment.Top;AV.MouseButton1Click:Connect(function()local IV=(os.time()-qV.edited)/86400;if IV<1 then IV="Toda\121";else IV=math.floor(IV);end;C.Visible=true;h.Text=`{IV~='To\da\121'and IV.." da\z\u{079}\115"or IV}`;B.Text=`Details\10\10<font tr="0.5">{qV.description or"\z  N\z  o \z \99on\116\ext"}</font>`;p.Text=dV;P.Text=`By {NV}`;end);AV.MouseEnter:Connect(function()y:Tween(AV,R.Tween,{BackgroundColor3=n.Light(R.Main,0.0875)});f:Create(XV,R.Tween,{Transparency=0}):Play();end);AV.MouseLeave:Connect(function()y:Tween(AV,R.Tween,{BackgroundColor3=n.Light(R.Main,0.034)});f:Create(XV,R.Tween,{Transparency=1}):Play();end);end;local function C(P,B,B)local h=B.Size;local dV=B.On;local B=Instance.new('T\x65\u{78}\116\66\117\116to\110');B.Name=P;B.Parent=w;B.BackgroundColor3=Color3.fromRGB(5,133,102);B.BackgroundTransparency=dV and 0 or 1;B.BorderColor3=Color3.fromRGB(0,0,0);B.BorderSizePixel=0;B.TextTransparency=1;B.Size=h;local w=Instance.new("T\u{0065}x\z tLab\101\108");w.Parent=B;w.Name='la\u{0062}\zel';w.BackgroundColor3=Color3.fromRGB(255,255,255);w.BackgroundTransparency=1.000;w.BorderColor3=Color3.fromRGB(0,0,0);w.BorderSizePixel=0;w.Size=UDim2.new(1,0,1,0);w.Font=Enum.Font.ArialBold;w.TextTransparency=dV and 0 or 0.85;w.Text=P:upper();w.TextColor3=Color3.fromRGB(255,255,255);w.TextSize=10.000;S(B,UDim.new(1,0));local h={SetVisible=function(dV)for NV,NV in d.Sorts do NV.Window.BackgroundTransparency=1;NV.Window.label.TextTransparency=0.85;end;B.BackgroundTransparency=dV and 0 or 1;w.TextTransparency=dV and 0 or 0.85;end,ShowPopup=function()end,Window=B};B.MouseButton1Click:Connect(function()h:SetVisible(true);K=P:lower();local w=A:JSONDecode(game:HttpGet('h\u{074}tps://\u{0061}p\i\z .c\97tv\za\u{0070}\101.\x69\znfo\z /co\110\z\102\igs'));table.sort(w,u[K]);fV();for P,P in w do OV(P.name,P.username,P);end;end);table.insert(d.Sorts,h);return h;end;C("ne\119\zes\116",nil,{Size=UDim2.new(0,70,1,0),On=true});C('o\u{6C}d\z  \x65s\116',nil,{Size=UDim2.new(0,70,1,0),On=false});r.MouseButton1Click:Connect(function()local w=d[p.Text];if w then local C=`{w.name} ({w.username})`;local P=game:HttpGet(w.link);table.insert(s.Profiles,{Name=C,Bind={}});s:Save(C);writefile('\99a\u{0074}\114ewr\105\116e\u{002F}\z\x70rof\u{069}\108\101\z s/'..C..s.Place.."\.\z t\u{078}\x74",P);s:Load(true,C);s:CreateNotification('\z \86ap\x65',`Downloaded "{p.Text}" by {w.username}`,5,"\u{69}n\102\z o");else s:CreateNotification('\Vap\101',`Failed to fetch config ({p.Text})`,10,'wa\u{72}\x6Ei\z n\z g');end;end);D.MouseButton1Click:Connect(function()d.ShowPopup(false);local w=YV;YV='\100e\102aul\116';if F.Text==''then s:CreateNotification('\x56a\112\x65',"No con\102i\z  \u{067}\x20\x6Eam\u{0065}\ \112r\u{06F}\118id\ed",5,"\105\x6E\102o");return;end;s:CreateNotification("\86\zape",`Publishing`,5,'inf\x6F');if request({Url="\u{0068}t\z  t\p\u{0073}\z :\z  \x2F\47api.c\97tv\x61pe.i\u{006E}fo\u{02F}\u{063}\u{6F}n\u{66}i\103s",Method="PO\83\84",Headers={["\x43\z  ontent\45\x54yp\101"]='\97\u{0070}\pl\u{69}\zcati\111\x6E\47\z \u{06A}so\x6E'},Body=A:JSONEncode({username=getgenv().username,password=getgenv().password,config_name=F.Text,config=readfile('c\97\z t\x72\101wri\116\e\u{002F}p\u{0072}\111\102\x69le\u{0073}\/'..self.Profile..self.Place.."\x2E\u{74}x\116"),description=_.Text})}).Body=="\34S\x75\cce\115\115\u{0022}"then s:CreateNotification('V\u{061}\zpe',`Published "{w}" config`,15,"\105\z n\u{0066}o");task.wait(1);s:CreateNotification("Va\p\101",'Re\x66resh\105\z \110g\x20\z  co\110f\x69\gs \z\i\110\x20\u{0032}s',2,'\info');task.wait(2);local w=A:JSONDecode(game:HttpGet('\104\z tt\112\115\z:\x2F/a\z pi.\x63a\u{74}va\z  \112e\46\105n\102o\z  /\x63on\z  fig\115'));table.sort(w,u[K]);fV();for C,C in w do OV(C.name,C.username,C);end;else s:CreateNotification("\86\97p\101",`Failed to publish config`,15,'i\u{006E}fo');end;end);i.MouseButton1Click:Connect(function()s:CreateNotification("Va\z \pe",`Deleting "{p.Text}" config`,10,'info');local w=d[p.Text];if w then local w=request({Url="h\x74tp\z \115://api\x2E\99a\z  tva\z p\u{65}.\105\110fo\47\z  \x63on\x66i\103s",Method='DE\76E\84E',Headers={['\67o\110t\z\101\110t-\84\x79pe']="\97pp\x6C\i\99\x61t\105\on\47j\x73\u{6F}n"},Body=A:JSONEncode({username=getgenv().username,password=getgenv().password,config=p.Text})}).Body;if w=='\u{0022}\su\x63cess"'then s:CreateNotification('\z  V\97p\x65',`Deleted ({p.Text}) config from public profiles`,10,'i\x6Efo');else s:CreateNotification('Vape',`Failed to delete config ({p.Text})`,10,"w\u{061}r\z\x6Eing");end;else s:CreateNotification('Vap\e',`Failed to fetch config ({p.Text})`,10,"\119arning");end;end);o.MouseButton1Click:Connect(function()d.ShowPopup(false);end);d.ShowPopup=function(w)g.Visible=w;Q.Visible=w;end;d.ShowPopup(false);z.MouseButton1Click:Connect(function()local z=A:JSONDecode(game:HttpGet("h\z\116tp\115:/\z  /\x61p\x69.\z \u{0063}a\ztva\p\x65.\z i\110\102o\x2Fc\111\x6E\x66\105\u{0067}s"));table.sort(z,u[K]);fV();for w,w in z do OV(w.name,w.username,w);end;d.ShowPopup(true);end);H.Event:Connect(function()for H=1,4 do local H,z=pcall(function()return A:JSONDecode(game:HttpGet("ht\116p\u{073}:\x2F/\z  \97pi\46catva\112\u{65}.in\z\102o/c\z \u{006F}nf\105\103\115"));end);if H and z then for H,H in z do OV(H.name,H.username,H);end;else task.wait(1);end;end;end);N:GetPropertyChangedSignal('\86\u{069}\115\105\u{062}l\101'):Connect(function()self:UpdateGUI(self.GUIColor.Hue,self.GUIColor.Sat,self.GUIColor.Value);end);G:GetPropertyChangedSignal("A\98\z  \s\u{006F}\zl\x75t\e\Co\110\u{0074}entSi\z ze"):Connect(function()if self.ThreadFix then setthreadidentity(8);end;sV.CanvasSize=UDim2.fromOffset(0,G.AbsoluteContentSize.Y/U.Scale);end);self.PublicConfigs=d;return d;end;function s:CreateNotification(d,N,H,z,w,u)if s.Loaded and not self.Notifications.Enabled then return;end;if getgenv().closet then return;end;task.delay(0,function()if not N:find('<\u{2F}fo\z n\zt\>')then N=V(N);end;local p=1;if self.ThreadFix then setthreadidentity(8);end;local p=#a:GetChildren()+1;local K=Instance.new('Ima\x67\x65\u{04C}\97\x62e\x6C');K.Name="N\111\ztifi\99ati\on";K.Size=UDim2.fromOffset(math.max(k(m(N),14.0,R.Font).X+80,266)*1,75.0);K.Position=UDim2.new(1,0,1,-(29+(78*p)));K.ZIndex=5;K.BackgroundTransparency=1;K.Image=j("\zcatre\w\114\105te\z \u{02F}a\x73s\101\116s/ne\x77\z \u{002F}n\111t\u{069}\102\105\u{0063}\x61t\u{069}on\u{02E}png");K.ScaleType=Enum.ScaleType.Slice;K.SliceCenter=Rect.new(7,7,9,9);K.Parent=a;E(K,true);local p=Instance.new("\I\u{006D}\97\103\101\z  L\x61\z bel");p.Name="\73\99\on";p.Size=w and u or UDim2.fromOffset(60.0,60.0);p.Position=UDim2.fromOffset(-5.0,-8.0);p.ZIndex=5;p.BackgroundTransparency=1;p.Image=w and z or j("\x63a\116re\w\z  r\z ite/asset\115\u{2F}n\ew/"..(z or"i\110fo")..".pn\z \u{067}");p.ImageColor3=Color3.new();p.ImageTransparency=0.5;p.Parent=K;local w=p:Clone();w.Position=UDim2.fromOffset(-1.0,-1.0);w.ImageColor3=Color3.new(1,1,1);w.ImageTransparency=0;w.Parent=p;local w=Instance.new("Te\120\116L\za\x62\x65l");w.Name='\84\z \105t\u{006C}\ze';w.Size=UDim2.new(1.0,-56.0,0,20.0);w.Position=UDim2.fromOffset(46,16);w.ZIndex=5;w.BackgroundTransparency=1;w.Text='\u{003C}\x73t\u{072}o\u{06B}e \99ol\111r\=\39#F\u{0046}FFF\70\39\ \z \106\111\x69ns=\z  \'r\x6F\x75nd\u{0027} th\z  \105c\107ne\115s\61\u{027}0\0463\' \z \116ran\115\112\97rency\x3D\'0\0465\'>'..V(d)..'\60\/st\114\x6Fk\u{065}>';w.TextXAlignment=Enum.TextXAlignment.Left;w.TextYAlignment=Enum.TextYAlignment.Top;w.TextColor3=Color3.fromRGB(209,209,209);w.TextSize=14.0;w.RichText=true;w.FontFace=R.FontSemiBold;w.Parent=K;local d=w:Clone();d.Name='\x54\x65x\116';d.Position=UDim2.fromOffset(47,44);d.Text=m(N);d.TextColor3=Color3.new();d.TextTransparency=0.5;d.RichText=false;d.FontFace=R.Font;d.Parent=K;local w=d:Clone();w.Position=UDim2.fromOffset(-1.0,-1.0);w.Text=N;w.TextColor3=Color3.fromRGB(170,170,170);w.TextTransparency=0;w.RichText=true;w.Parent=d;local d=Instance.new("\70rame");d.Name='P\114\u{006F}\z g\u{72}es\115';d.Size=UDim2.new(1.0,-13.0,0,2.0);d.Position=UDim2.new(0,3,1,-4.0);d.ZIndex=5;d.BackgroundColor3=z=="aler\z t"and Color3.fromRGB(250,50,56)or z=="wa\114ni\u{006E}\103"and Color3.fromRGB(236,129,43)or Color3.fromRGB(220,220,220);d.BorderSizePixel=0;d.Parent=K;if y.Tween then y:Tween(K,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{AnchorPoint=Vector2.new(1,0)},y.tweenstwo);y:Tween(d,TweenInfo.new(H,Enum.EasingStyle.Linear),{Size=UDim2.fromOffset(0,2)});end;task.delay(H,function()if y.Tween then y:Tween(K,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{AnchorPoint=Vector2.new(0,0)},y.tweenstwo);end;task.wait(0.2);K:ClearAllChildren();K:Destroy();end);end);end;function s:Load(d,N)if not d then self.GUIColor:SetValue(nil,nil,nil,4);end;if getgenv().assexecutorhurtsmybutt then s:CreateNotification("\86ap\101",'Con\102ig m\97\x79\u{020}\u{74}a\107\u{065} a bi\x74\u{20}t\u{06F} \zl\oad\x20th\97\x6E usu\97l \z (be\c\z \u{61}us\z e\x20\x6Da\c\32e\u{78}ecu\116\x6Fr s\z\117\99k\x73)',8,"i\z  n\102\o");end;local H={};local z=true;if e("\x63a\116\u{72}ew\x72\ite/pr\111\102\zil\u{0065}s\47"..game.GameId..".g\z\u{075}\105\x2Etxt")then if assexecutorhurtsmybutt then task.wait(0.1);end;H=Z('cat\x72ew\zrit\z e/pro\102\105\u{6C}e\u{73}\/'..game.GameId.."\u{02E}g\117\z\u{0069}\u{2E}t\120\u{0074}");if not H then H={Categories={}};self:CreateNotification("Cat","Y\z o\117\z\39\114\e u\si\110g \97\x20\99o\u{72}r\z u\pted\u{0020}\u{0070}\z  rof\ile, \u{50}\u{6C}\u{065}\97s\101 re\x2De\z\120ecu\x74e\u{20}c\u{061}t\118ape\x20\97nd\32switc\x68 \z \u{0070}r\111\x66il\101 to fix \x74his",20,"a\108e\u{72}\116");delfile('\99\z \97t\z  r\u{065}w\114i\116e\47\112rof\u{0069}l\101s/'..game.GameId..".\103\117\105\46tx\zt");z=false;end;if not d then self.Keybind=H.Keybind;for w,u in H.Categories do local p=self.Categories[w];if not p then continue;end;if p.Options and u.Options then self:LoadOptions(p,u.Options);end;if u.Enabled then p.Button:Toggle();end;if u.Pinned then p:Pin();end;if u.Expanded and p.Expand then p:Expand();end;if u.List and(#p.List>0 or#u.List>0)then p.List=u.List or{};p.ListEnabled=u.ListEnabled or{};p:ChangeValue();end;if u.Position then p.Object.Position=UDim2.fromOffset(u.Position.X,u.Position.Y);end;end;end;end;self.Profile=N or H.Profile or"\z  de\z  fa\117\108\116";self.Profiles=H.Profiles or{{Name='d\z\efaul\x74',Bind={}}};self.Categories.Profiles:ChangeValue();if self.ProfileLabel then self.ProfileLabel.Text=#self.Profile>10 and self.Profile:sub(1,10).."..."or self.Profile;self.ProfileLabel.Size=UDim2.fromOffset(k(self.ProfileLabel.Text,self.ProfileLabel.TextSize,self.ProfileLabel.Font).X+16,24);end;if e("c\97t\114\x65writ\ze/pr\z o\zfile\u{0073}/"..self.Profile..self.Place.."\z .\116xt")then local N=Z("\99a\u{74}r\101wr\105\116e\47p\zrof\105le\u{73}/"..self.Profile..self.Place.."\.t\120t");if not N then N={Categories={},Modules={},Legit={}};self:CreateNotification('C\97t',"\u{59}\x6Fu\39r\e\ u\x73in\103\32\97\x20\99o\u{72}rup\z \x74\u{65}d \x70\x72\z  ofil\ze, Pl\z  \101a\u{073}e re-e\120e\z \99ut\101\32c\97t\118ap\u{0065} \u{61}\110d\u{20}\115w\105\116\99\u{0068} p\zr\111fil\e \zto\ fix\u{0020}\u{74}h\z is",20,'a\108e\114t');delfile('c\97t\114\x65w\z  \114\u{69}\x74\101\/\p\x72o\u{0066}\u{69}\u{006C}es/'..self.Profile..self.Place..'\x2E\116x\x74');z=false;end;for H,w in N.Categories do if assexecutorhurtsmybutt then task.wait();end;local u=self.Categories[H];if not u then continue;end;if u.Options and w.Options then self:LoadOptions(u,w.Options);end;if w.Pinned~=u.Pinned then u:Pin();end;if w.Expanded~=nil and w.Expanded~=u.Expanded then u:Expand();end;if u.Button and(w.Enabled or false)~=u.Button.Enabled then u.Button:Toggle();end;if w.List and(#u.List>0 or#w.List>0)then u.List=w.List or{};u.ListEnabled=w.ListEnabled or{};u:ChangeValue();end;u.Object.Position=UDim2.fromOffset(w.Position.X,w.Position.Y);end;for H,w in N.Modules do if assexecutorhurtsmybutt then task.wait();end;local u=self.Modules[H];if not u then continue;end;if u.Options and w.Options then self:LoadOptions(u,w.Options);end;if w.Enabled~=u.Enabled then if d then end;pcall(function()u:Toggle(true);end);end;u:SetBind(w.Bind);u.Object.Bind.Visible=#w.Bind>0;end;for d,H in N.Legit do local N=self.Legit.Modules[d];if not N then continue;end;if N.Options and H.Options then self:LoadOptions(N,H.Options);end;if N.Enabled~=H.Enabled then N:Toggle();end;if H.Position and N.Children then N.Children.Position=UDim2.fromOffset(H.Position.X,H.Position.Y);end;end;self:UpdateTextGUI(true);else self:Save();end;if self.Downloader then self.Downloader:Destroy();self.Downloader=nil;end;self.Loaded=z;self.Categories.Main.Options.Bind:SetBind(self.Keybind);end;if setthreadidentity then setthreadidentity(8);end;task.spawn(function()repeat task.wait();until s.gui~=nil;local d=W:WaitForChild('To\z\x70B\z  a\114A\u{0070}\112',9e9):WaitForChild("To\p\66\za\114Ap\112",9e9):WaitForChild('U\zn\x69barL\zeftF\x72\x61me',9e9):WaitForChild("\85n\105\x62arM\en\z  u",9e9):WaitForChild('2',9e9):WaitForChild("\51",9e9);if t then local N=Instance.new('\x54\u{65}\x78tB\x75\u{074}\x74o\110');N.Size=UDim2.fromOffset(44,44);N.Position=UDim2.fromOffset(#d:GetChildren()>2 and 240 or 200,12);N.AnchorPoint=Vector2.new(0.5,0);N.BackgroundColor3=Color3.fromRGB(18,18,21);N.ZIndex=500;N.BackgroundTransparency=1;N.Text="";N.Visible=true;N.Parent=s.gui;local d=Instance.new('I\u{06D}age\x4C\97\98\101\l');d.Size=UDim2.fromOffset(33,33);d.AnchorPoint=Vector2.new(0.5,0.5);d.Position=UDim2.fromScale(0.5,0.5);d.ZIndex=500;d.ImageTransparency=1;d.BackgroundTransparency=1;d.Image=j("\99atrewrit\e/a\115s\x65t\zs/new/\u{06D}ascot\z \.\u{70}\x6E\103");d.Parent=N;local d=Instance.new("\U\z  IC\u{006F}\114n\101r");d.Parent=N;d.CornerRadius=UDim.new(1,0);s.VapeButton=N;N.MouseButton1Click:Connect(function()if s.ThreadFix then setthreadidentity(8);end;for d,d in s.Windows do d.Visible=false;end;for d,d in s.Modules do if d.Bind.Button then d.Bind.Button.Visible=v.Visible;end;end;v.Visible=not v.Visible;l.Visible=false;s:BlurCheck();end);end;end);function s:LoadOptions(d,N)for W,H in N do local N=d.Options[W];if not N then continue;end;N:Load(H);end;end;function s:Remove(d)local N=(self.Modules[d]and self.Modules or self.Legit.Modules[d]and self.Legit.Modules or self.Categories);if N and N[d]then local W=N[d];for H,H in{'\z\u{4F}b\u{006A}\101\z\99t',"C\u{068}\zi\z  \ld\z  ren",'\84\og\u{67}l\z e',"B\z  \117tto\x6E"}do local z=typeof(W[H])=="t\97b\108\101"and W[H].Object or W[H];if typeof(z)=='\73\110s\116\97n\99e'then z:Destroy();z:ClearAllChildren();end;end;b(W);N[d]=nil;end;end;function s:Save(d)if not self.Loaded then return;end;local N={Categories={},Profile=d or self.Profile,Profiles=self.Profiles,Keybind=self.Keybind};local d={Modules={},Categories={},Legit={}};for W,H in self.Categories do(H.Type~='\67at\x65\gory'and W~="\z  \Mai\x6E"and d or N).Categories[W]={Enabled=W~='\77ai\x6E'and H.Button.Enabled or nil,Expanded=H.Type~='Ov\101rlay'and H.Expanded or nil,Pinned=H.Pinned,Position={X=H.Object.Position.X.Offset,Y=H.Object.Position.Y.Offset},Options=s:SaveOptions(H,H.Options),List=H.List,ListEnabled=H.ListEnabled};end;for W,H in self.Modules do d.Modules[W]={Enabled=H.Enabled,Bind=H.Bind.Button and{Mobile=true,X=H.Bind.Button.Position.X.Offset,Y=H.Bind.Button.Position.Y.Offset}or H.Bind,Options=s:SaveOptions(H,true)};end;for W,H in self.Legit.Modules do d.Legit[W]={Enabled=H.Enabled,Position=H.Children and{X=H.Children.Position.X.Offset,Y=H.Children.Position.Y.Offset}or nil,Options=s:SaveOptions(H,H.Options)};end;writefile("\c\97\x74\x72\e\119\114\z  \i\116e/pr\z  of\105\x6Ce\z  \s\/"..game.GameId.."\46g\u{75}\u{69}\46\z\x74\x78t",A:JSONEncode(N));writefile("ca\116rewrite\/\x70r\111\z \102\u{0069}les\z  /"..self.Profile..self.Place..'.t\x78\x74',A:JSONEncode(d));end;function s:SaveOptions(d,N)if not N then return;end;N={};for W,W in d.Options do if not W.Save then continue;end;W:Save(N);end;return N;end;function s:Uninject()if#shared.vape.Libraries.whitelist.ignores>0 then s.Save=function()end;s.BlurCheck=function()end;for d,d in self.Modules do if d.Enabled then d:Toggle();end;end;task.spawn(function()q.PreRender:Connect(function()s.gui.Enabled=false;if self.ThreadFix then setthreadidentity(8);q:SetRobloxGuiFocused(false);end;end);end);else s:Save();s.Loaded=nil;for d,d in self.Modules do if d.Enabled then d:Toggle();end;end;for d,d in self.Legit.Modules do if d.Enabled then d:Toggle();end;end;for d,d in self.Categories do if d.Type=="\79verl\u{061}\121"and d.Button.Enabled then d.Button:Toggle();end;end;for d,d in s.Connections do pcall(function()d:Disconnect();end);end;if s.ThreadFix then setthreadidentity(8);v.Visible=false;s:BlurCheck();end;s.gui:ClearAllChildren();s.gui:Destroy();table.clear(s.Libraries);b(s);shared.vape=nil;shared.vapereload=nil;shared.VapeIndependent=nil;end;end;c=Instance.new("Scre\101\x6E\z  Gu\u{0069}");c.Name=x();c.DisplayOrder=9999999;c.ZIndexBehavior=Enum.ZIndexBehavior.Global;c.IgnoreGuiInset=true;c.OnTopOfCoreBlur=true;c.Parent=Y(game:GetService("\80\x6C\u{61}ye\z  rs")).LocalPlayer.PlayerGui;c.ResetOnSpawn=false;s.gui=c;L=Instance.new("\70r\x61m\101");L.Name="S\u{063}ale\100Gui";L.Size=UDim2.fromScale(1,1);L.BackgroundTransparency=1;L.Parent=c;local Y=Instance.new('\70\114\97\109e');Y.Name='N\69WSca\u{6C}ed\x47ui';Y.Size=UDim2.fromScale(1,1);Y.BackgroundTransparency=1;Y.Parent=c;v=Instance.new('\F\x72am\z e');v.Name="C\lick\x47u\105";v.Size=UDim2.fromScale(1,1);v.BackgroundTransparency=1;v.Visible=false;v.Parent=L;local d=Instance.new('Te\120\116\z\Butto\u{6E}');d.BackgroundTransparency=1;d.Modal=true;d.Text="";d.Parent=v;local d=Instance.new('\z Image\76abel');d.Size=UDim2.fromOffset(64,64);d.BackgroundTransparency=1;d.Visible=false;d.Image='\zr\z\u{062}x\z  as\s\101t\://te\u{0078}\116\117\z\u{72}es\/\x43urs\111\z\114s/K\eyb\u{6F}ar\100\77o\x75s\x65/Arr\x6Fw\x46\u{61}\x72C\x75\114\115o\u{72}.p\110g';d.Parent=c;a=Instance.new("\u{046}o\l\d\e\x72");a.Name='N\z \u{6F}t\105fic\97ti\x6Fns';a.Parent=L;l=Instance.new("\u{0054}\z\u{065}\u{078}tL\x61be\x6C");l.Name='Toolt\x69\zp';l.Position=UDim2.fromScale(-1.0,-1.0);l.ZIndex=5;l.BackgroundColor3=n.Dark(R.Main,0.02);l.Visible=false;l.Text='';l.TextColor3=n.Dark(R.Text,0.16);l.TextSize=12;l.FontFace=R.Font;l.Parent=L;J=E(l);S(l);local N=Instance.new("\70\x72\x61\me");N.Size=UDim2.new(1,-2.0,1,-2.0);N.Position=UDim2.fromOffset(1,1);N.ZIndex=6;N.BackgroundTransparency=1;N.Parent=l;local W=Instance.new('U\73\z S\x74r\u{6F}\u{006B}e');W.Color=n.Light(R.Main,0.02);W.Parent=N;S(N,UDim.new(0,4));U=Instance.new("\u{55}I\83cal\101");U.Scale=math.max(c.AbsoluteSize.X/1920,0.485);U.Parent=L;s.guiscale=U;L.Size=UDim2.fromScale(1/U.Scale,1/U.Scale);newScale=math.max(c.AbsoluteSize.X/1920,0.68);Y.Size=UDim2.fromScale(1/newScale,1/newScale);s:Clean(c:GetPropertyChangedSignal('Absol\117\116\101Si\u{07A}e'):Connect(function()if s.Scale.Enabled then U.Scale=math.max(c.AbsoluteSize.X/1920,0.485);end;end));s:Clean(U:GetPropertyChangedSignal("S\ca\108e"):Connect(function()L.Size=UDim2.fromScale(1/U.Scale,1/U.Scale);for Y,Y in L:GetDescendants()do if Y:IsA('\u{47}\z \x75i\x4F\x62\x6A\u{0065}\99t')and Y.Visible then Y.Visible=false;Y.Visible=true;end;end;end));s:Clean(v:GetPropertyChangedSignal('\86\105sib\z\108\x65'):Connect(function()s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value,true);if v.Visible and O.MouseEnabled then repeat local Y=v.Visible;for N,N in s.Windows do Y=Y or N.Visible;end;if not Y then break;end;d.Visible=not O.MouseIconEnabled;if d.Visible then local Y=O:GetMouseLocation();d.Position=UDim2.fromOffset(Y.X-31,Y.Y-32);end;task.wait();until s.Loaded==nil;d.Visible=false;end;end));s:CreateGUI();s.Categories.Main:CreateDivider();s:CreateCategory({Name='\x43\z\u{06F}\mb\u{061}\z t',Icon=j('\99a\x74r\z e\119rit\101/a\sset\u{073}\x2Fn\u{065}\x77\/\u{0063}\o\109bat\u{0069}\99on\46\u{0070}\110g'),Size=UDim2.fromOffset(13,14)});s:CreateCategory({Name='B\z \108a\z\u{074}\97n\z  \x74',Icon=j('\99\97\z  \116rew\114\i\zte/\97\u{73}\set\zs\/n\101\119\u{002F}\zbl\u{61}\116\z \u{061}nti\u{063}on.\z pn\103'),Size=UDim2.fromOffset(14,14)});s:CreateCategory({Name="R\ze\u{06E}de\114",Icon=j("c\97\116r\u{0065}\zwri\z \116\z\101/\u{0061}\u{0073}\115\e\116\s\47new/\u{0072}\z  \u{0065}n\d\u{065}r\ic\111\110\46png"),Size=UDim2.fromOffset(15,14)});s:CreateCategory({Name='U\116i\108\105\116y',Icon=j("ca\x74\114\u{65}\119rite/as\x73\z\101t\115/new/\u{75}\x74\z\105\108ityic\x6Fn.p\x6Eg"),Size=UDim2.fromOffset(15,14)});s:CreateCategory({Name='Wor\108\x64',Icon=j('catr\101\u{077}\u{0072}it\z \u{65}\/a\115s\z et\u{73}\47\110\z ew\z /\u{77}\111rl\100\u{069}\x63\z\111n.\u{070}n\x67'),Size=UDim2.fromOffset(14,14)});s:CreateCategory({Name="\73n\118\x65nt\u{006F}r\x79",Icon=j("\x63at\z  r\z  e\x77r\z \u{69}\x74\e\z /a\115\115ets\x2F\u{06E}ew\47i\x6Ev\z  \ento\114\121\ic\z o\x6E\46\112n\103"),Size=UDim2.fromOffset(15,14)});s:CreateCategory({Name='Mini\103\97me\x73',Icon=j('\99a\x74rewri\x74\e/a\x73se\zts\z  \/n\101w/min\105\x69c\z \u{06F}n.pn\103'),Size=UDim2.fromOffset(19,12)});s:CreateCategory({Name="\x4Cegi\zt",Icon=j('ca\116\z \114\u{0065}wr\x69\116e\z  \47a\zsset\u{0073}/new/\108e\x67itt\x61\u{62}.\112n\u{067}'),Size=UDim2.fromOffset(14,14)});if game.GameId==2619619496 then s:CreateCategory({Name='\K\u{069}\z  t\115',Icon=j('c\97\ztrew\u{072}i\z te/a\u{073}se\116\s/n\z e\u{077}\47\102r\105\x65\u{6E}\z  dstab.\z  p\zng'),Size=UDim2.fromOffset(14,14)});end;s.Categories.Main:CreateDivider("m\z \105\x73\zc");local Y;local d={Hue=1,Sat=1,Value=1};local N={Name='\z \Friend\u{073}',Icon=j("\z  cat\114e\write/\x61s\se\116\x73/new\47f\u{72}\z  ie\110ds\116\97\x62\u{002E}\z  pn\x67"),Size=UDim2.fromOffset(17,16),Placeholder='\z \82\111bl\z\111\120 \z  us\101\u{072}n\u{61}\x6De',Color=Color3.fromRGB(5,134,105),Function=function()Y.Update:Fire();Y.ColorUpdate:Fire(d.Hue,d.Sat,d.Value);end};Y=s:CreateCategoryList(N);Y.Update=Instance.new("Bi\110dab\l\u{0065}E\z\118ent");Y.ColorUpdate=Instance.new("\u{42}\x69n\d\97ble\u{045}\u{0076}e\110\x74");Y:CreateToggle({Name="R\ec\111lor\32v\u{069}\115\z  \117\u{0061}\zls",Darker=true,Default=true,Function=function()Y.Update:Fire();Y.ColorUpdate:Fire(d.Hue,d.Sat,d.Value);end});d=Y:CreateColorSlider({Name='\F\x72ie\110d\s\32col\u{6F}\x72',Darker=true,Function=function(W,H,z)for w,w in Y.Object.Children:GetChildren()do local L=w:FindFirstChild('Dot');if L and L.BackgroundColor3~=n.Light(R.Main,0.37)then L.BackgroundColor3=Color3.fromHSV(W,H,z);L.Dot.BackgroundColor3=L.BackgroundColor3;end;end;N.Color=Color3.fromHSV(W,H,z);Y.ColorUpdate:Fire(W,H,z);end});Y:CreateToggle({Name='\85se fr\i\101n\ds',Darker=true,Default=true,Function=function()Y.Update:Fire();Y.ColorUpdate:Fire(d.Hue,d.Sat,d.Value);end});s:Clean(Y.Update);s:Clean(Y.ColorUpdate);s:CreateCategoryList({Name='\80\114\111f\u{69}le\115',Icon=j('c\u{0061}tre\w\114ite/a\z sse\u{74}s\/\zne\w/p\u{72}\111\x66il\z \u{0065}s\105c\z  o\u{6E}\46\zpng'),Size=UDim2.fromOffset(17,10),Position=UDim2.fromOffset(12,16),Placeholder="\u{0054}y\x70\ze\x20\110a\109\u{65}",Profiles=true});local Y;Y=s:CreateCategoryList({Name='\u{0054}\x61\114g\u{65}t\s',Icon=j("ca\u{0074}r\z  \x65\z \119\z  r\105t\e\u{002F}as\x73e\x74s\/\u{006E}\e\119/frien\z  d\z\115t\97b\x2Ep\110g"),Size=UDim2.fromOffset(17,16),Placeholder='R\111b\z  l\u{06F}\120\32u\z\u{073}\x65rn\u{061}\me',Function=function()Y.Update:Fire();end});Y.Update=Instance.new('B\105nd\97\u{62}\x6C\z e\x45v\x65\110\116');s:Clean(Y.Update);s:CreateLegit();s:CreateSearch();s:CreateProfileGUI();s.Categories.Main:CreateOverlayBar();s.Categories.Main:CreateSettingsDivider();local Y=s.Categories.Main:CreateSettingsPane({Name='Gen\101\114\z  a\x6C'});s.MultiKeybind=Y:CreateToggle({Name="\E\z  \110a\98\z le\x20\z  Mu\u{006C}\u{0074}i\x2D\z\75e\x79bi\110d\z  ing",Tooltip="Al\u{006C}ow\x73\ \z \x6D\z \u{0075}l\116\u{069}\u{0070}l\x65 key\z  \115 t\u{06F} \98e\32\z b\111und \116o a \109od\zule (\u{65}g. \u{047} \x2B\ H)"});Y:CreateButton({Name="\82eset cu\zrren\z t \112r\x6Ff\105le",Function=function()s.Save=function()end;if e("cat\114\x65\119\u{72}\u{69}\u{74}\e\47\112\114\x6F\z f\x69\108e\s/"..s.Profile..s.Place..'.\116x\116')then delfile('\u{63}\97\u{074}rewri\z  te/\z  p\zrof\u{0069}\u{06C}\101s\z  /'..s.Profile..s.Place..'.tx\x74');end;shared.vapereload=true;loadfile('ca\116\114e\z\119r\105\116e\z  /i\110\x69\116.\x6Cu\z  a')({Developer=getgenv().catvapedev});end,Tooltip='\x54\zhi\115\ \z w\105\108\x6C \z  \x73\101\x74\32\your\ \z\x70\z r\u{6F}\zf\105l\101 \z \u{74}\u{06F} \x74he \u{0064}ef\z  aul\u{74} \z  set\u{0074}\x69\110\x67s o\u{66} \86\97\u{70}e'});Y:CreateButton({Name="\Self\32d\u{65}s\116ruct",Function=function()s:Uninject();end,Tooltip="\u{052}e\u{06D}ov\101s\x20\u{076}\97\x70e\32f\z  \114\z\111\z m t\z \u{068}e c\u{75}r\z ren\z t\ game"});Y:CreateButton({Name='\R\e I\zn\106\ec\u{74}',Function=function()loadfile('\x63\x61\u{0074}r\e\x77rite/\i\u{06E}\z  i\116\u{02E}\u{06C}\117\97')({Developer=getgenv().catvapedev});end,Tooltip="\u{52}\101l\o\zads\u{020}\z v\u{061}\112e\x20\u{066}or \zd\u{65}b\117g\x67\u{069}\110\u{67}\u{020}p\117r\z  p\z\u{006F}se\u{0073}"});local Y=s.Categories.Main:CreateSettingsPane({Name='\x4D\x6Fdul\z es'});Y:CreateToggle({Name='\x54ea\109\z  s\32\u{0062}\121\x20\115e\zr\118\e\114',Tooltip="\z\x49\103\110\or\101\ \p\x6C\97ye\u{072}s\32\u{6F}n\32\yo\u{075}\z \u{72} t\z \e\97\109 d\u{65}\u{73}ign\97ted\u{020}\u{0062}\z  y \u{074}\h\u{65}\x20s\er\118er",Default=true,Function=function()if s.Libraries.entity and s.Libraries.entity.Running then s.Libraries.entity.refresh();end;end});Y:CreateToggle({Name='\u{055}\z  \s\101 t\x65am c\z olo\114',Tooltip="\x55\u{073}\u{0065}\s\x20the \84\z\ea\mCo\l\z  or\32\p\114o\112\x65\u{0072}\z  \x74y\32\u{6F}n \112l\u{0061}y\x65\x72\u{73} f\z\111\zr r\x65n\100e\114 \m\u{06F}\dule\115",Default=true,Function=function()if s.Libraries.entity and s.Libraries.entity.Running then s.Libraries.entity.refresh();end;end});local Y=s.Categories.Main:CreateSettingsPane({Name='\z  G\85\73'});s.Blur=Y:CreateToggle({Name='B\z  \108ur\32ba\99kg\x72\z \111\u{75}\110\100',Function=function()s:BlurCheck();end,Default=true,Tooltip='\Bl\x75r\u{20}the\u{020}\u{062}\z  \u{61}ck\u{67}\114o\u{0075}\x6Ed\32of\x20\z t\104\101 \71\85I'});Y:CreateToggle({Name='\u{0047}\z\UI b\105\110d\u{020}\u{069}ndica\116or',Default=true,Tooltip="D\105\115\112l\z\u{061}\x79\x73\ \97 \z m\101ss\u{0061}\x67\x65 in\z\d\105cati\zng \x79\111u\u{072}\u{020}GUI upo\zn\32i\u{006E}\106\u{065}\u{0063}ting\z  \.\n\x49.\69.\ '\x50\z  r\u{065}ss\32R\83HI\z\70\z\84 \u{074}\o\x20\u{06F}p\101\x6E GUI\39"});local d=e("ca\ztrew\114i\116e/\x70r\z o\102ile\x73\x2Fsho\119\46t\z\120t")and true or nil;if d==nil then d=true;else d=readfile('\x63at\u{72}e\writ\z  e/p\z  \x72\u{06F}files/s\x68o\119\u{2E}tx\x74')=='tr\zue'and true or false;end;if not d then s:CreateNotification('Vape',"\z  \86a\112\101\32\x62\z  u\z  tt\111n\ \105s\u{0020}\h\u{0069}dde\110, \x79\z\111u can s\116\u{069}\ll t\z o\x67\u{067}le\32\116h\101 ui if you \z  \x72\x65\109em\98e\x72 \116he butt\111\z  n's \x73\pot",12,'in\u{66}o');end;Y:CreateToggle({Name="Sh\x6Fw vape\ \98ut\u{74}o\110",Default=d,Function=function(d)writefile(`catrewrite/profiles/show.txt`,tostring(d));task.spawn(function()repeat task.wait();until s.VapeButton;s.VapeButton.BackgroundTransparency=d and 0.08 or 1;s.VapeButton.ImageLabel.ImageTransparency=d and 0 or 1;if not d and t then s:CreateNotification('\z \u{0056}a\pe','\86\u{61}pe b\u{0075}tt\u{006F}n \i\zs\32h\105dde\u{006E}\44 y\111\zu\u{020}\x63\97\x6E \u{073}\116i\ll\ t\z o\z ggl\z  e\x20\u{74}\104\u{065} \117i if \u{079}o\117 r\101\109ember\32t\x68e\32button\39s \sp\x6F\116',12,"i\u{06E}\z \x66\111");end;end);end});Y:CreateToggle({Name="\u{53}how \z  \u{074}\o\x6Fl\u{74}\105\112\z  \u{73}",Function=function(d)l.Visible=false;J.Visible=d;end,Default=true,Tooltip='T\111\103gles\32\118\105sib\x69\zlit\y \o\102 th\101\z\u{0073}\x65'});Y:CreateToggle({Name='Sho\z w\x20le\103i\u{74}\x20m\o\z  d\101',Function=function(d)v.Search.Legit.Visible=d;v.Search.LegitDivider.Visible=d;v.Search.TextBox.Size=UDim2.new(1,d and-50.0 or-10.0,0,37);v.Search.TextBox.Position=UDim2.fromOffset(d and 50 or 10,0);end,Default=true,Tooltip='\x53ho\u{0077}\u{73} \u{0074}h\101\ \98\zutt\111\110\ \116\x6F \99\z\x68\97\znge to \z  Le\g\it\ \77\z\od\x65'});local d={Object={},Value=1};s.Scale=Y:CreateToggle({Name='Au\116\111\32re\115ca\u{6C}e',Default=true,Function=function(N)d.Object.Visible=not N;if N then U.Scale=math.max(c.AbsoluteSize.X/1920,0.485);else U.Scale=d.Value;end;end,Tooltip='\u{41}\u{0075}t\z o\ma\116ic\97\z  ll\u{79} r\u{0065}sc\z  a\u{06C}\u{0065}s the\32g\u{0075}i\32\117\115ing\32the s\x63re\u{065}\u{006E}\x73 res\x6Fl\u{0075}\x74\u{069}\u{6F}n'});d=Y:CreateSlider({Name='\83\u{0063}\u{061}\z  le',Min=0.1,Max=2,Decimal=10,Function=function(d,N)if N and not s.Scale.Enabled then U.Scale=d;end;end,Default=1,Darker=true,Visible=false});Y:CreateDropdown({Name="GU\73 \x54\u{68}e\x6D\u{0065}",List={'\110ew','o\x6C\100','si\z\x67\z\u{6D}\x61','\z\x72\u{69}\z  \x73e'},Function=function(d,N)if N then writefile('c\u{061}t\z  \u{072}\101\z\x77\114i\x74e/p\x72of\il\101s/g\u{0075}i.\z  txt',d);shared.vapereload=true;loadfile('c\x61\116\x72e\u{077}r\x69t\e/\105ni\z \x74\x2E\108u\za')({Developer=getgenv().catvapedev});end;end,Tooltip="ne\zw \45 Th\x65 \u{6E}e\zwe\u{0073}t \z  va\z pe theme \u{074}o \u{0073}i\x6E\x63\x65\32\u{076}\u{0034}\04605\n\111ld -\32\x54he\ \118ap\101 \116h\em\101 p\x72e\u{20}v4\.05\n\x72\105\u{073}e\32\z \u{2D} R\u{069}s\u{0065} \u{36}\x2E0"});local d={'O\u{072}\105gi\z  n\97\z\108'};for N,W in M do local W=N:sub(2,#N);local H=N:sub(0,1):upper()..W;table.insert(d,H);end;Y:CreateDropdown({Name='GU\73 \Lan\103uage',List=d,Function=function(d,N)if N then writefile('\99a\x74r\x65wr\105te\47\112\z  \114ofi\z\108e\u{073}/\zl\z \x61n\gua\103\e\.txt',d);shared.vapereload=true;loadfile("c\97\u{074}\114\u{0065}write\x2Fini\116.lua")({Developer=getgenv().catvapedev});end;end,Tooltip="n\u{0065}w \x2D Th\x65\u{020}\110\z  \101w\x65\115t \118\z  \x61pe\32\u{74}he\z \x6D\101\32to \u{73}\105nce v\52\046\0485\10ol\u{64}\ \u{02D}\u{0020}T\x68\e va\112\u{0065}\u{20}\x74h\ze\me \x70\114e v4\x2E0\53\u{A}\u{72}\x69\115e\x20\z - \82i\x73e\u{20}6\.\48"});local d={Dark={Main={26,25,26},Text={200,200,200}},Light={Main={220,220,220},Text={60,60,60}},Amoled={Main={0,0,0},Text={230,230,230}},Red={Main={150,0,0},Text={210,210,210}},Orange={Main={199,107,42},Text={210,210,210}},Yellow={Main={199,181,42},Text={60,60,60}},Green={Main={65,156,33},Text={210,210,210}},Blue={Main={33,94,156},Text={210,210,210}},Purple={Main={96,36,143},Text={210,210,210}}};local N={};for W,H in pairs(d)do table.insert(N,W);end;Y:CreateDropdown({Name="\71UI Co\x6Co\114",List=N,Default="D\u{061}\114k",Function=function(N,W)if W and(not e("\u{63}\97\x74r\u{065}\x77\114i\x74\u{65}/\112\114of\105le\s/col\x6F\z\114.tx\u{74}")and true or A:JSONDecode(readfile("\x63a\116\x72ewri\u{0074}e/prof\ile\u{73}/c\z\111\l\x6F\u{72}\u{2E}t\zxt")).Main[1]~=d[N].Main[1])then writefile('catre\119\x72i\116\z  e/pr\z ofi\108\x65\u{073}\z\/\u{063}\u{006F}\l\u{6F}r.\ztx\u{74}',A:JSONEncode(d[N]));s:Save();shared.vapereload=true;loadfile("ca\u{074}re\u{0077}\zri\116\101\u{002F}\105ni\116\46lu\x61")({Username=username,Password=password,Developer=shared.catvapedev});end;end});s.RainbowMode=Y:CreateDropdown({Name='\82\97\z inbo\z\x77 \77o\x64e',List={'\u{004E}\111\u{72}ma\u{06C}','\71\u{0072}\x61\d\i\z  e\110\116',"R\z  \101\116\114\o"},Tooltip="No\114\m\u{0061}l - \u{0053}\109o\x6F\z  \116\h \u{63}\u{6F}\x6Cor \102\97d\x65\u{A}\u{0047}rad\105\u{0065}\110t \z  \x2D\u{20}\zGrad\x69e\x6E\116 c\x6F\u{006C}\u{6F}\114 \102ad\u{065}\10\z Ret\114o\u{0020}-\ S\x74\u{61}t\x69c\ \x63ol\x6Fr"});s.RainbowSpeed=Y:CreateSlider({Name='\z\82ain\u{0062}\z o\z\u{0077}\32s\112e\u{0065}d',Min=0.1,Max=10,Decimal=10,Default=1,Tooltip='Adj\u{75}s\x74s\ th\x65\32\115pee\x64\x20\111\102\x20r\u{061}in\z  bow values'});s.RainbowUpdateSpeed=Y:CreateSlider({Name='\x52\97\105n\u{062}\u{6F}w\ u\112\100\z\97te ra\116e',Min=1,Max=144,Default=60,Tooltip='Adju\x73\116\115\32th\101 u\112\zd\x61\x74e r\97t\x65 of\x20rai\z\110\zbow v\97l\117\u{0065}\zs',Suffix="hz"});Y:CreateButton({Name="\Re\115et\x20GU\I p\111\z\u{73}it\x69ons",Function=function()for d,d in s.Categories do d.Object.Position=UDim2.fromOffset(6,42);end;end,Tooltip="\T\104i\u{073}\32\119i\z ll r\101s\et y\x6F\117\z \u{72} \GUI back \116\u{06F} de\102ault"});Y:CreateButton({Name='S\zo\u{0072}t \u{047}U\I',Function=function()local Y={GUICategory=1,CombatCategory=2,BlatantCategory=3,RenderCategory=4,UtilityCategory=5,WorldCategory=6,InventoryCategory=7,MinigamesCategory=8,FriendsCategory=9,ProfilesCategory=10};local d={};for N,N in s.Categories do if N.Type~='\x4F\118\101r\u{06C}ay'then table.insert(d,N);end;end;table.sort(d,function(N,A)return(Y[N.Object.Name]or 99)<(Y[A.Object.Name]or 99);end);local Y=0;for N,N in d do if N.Object.Visible then N.Object.Position=UDim2.fromOffset(6+(Y%8*230),60+(Y>7 and 360 or 0));Y+=1;end;end;end,Tooltip="Sor\116\u{73} \u{47}U\u{0049}"});local Y=s.Categories.Main:CreateSettingsPane({Name='N\x6Ft\x69fica\x74\105\zo\z  \110s'});s.Notifications=Y:CreateToggle({Name="\N\otifi\x63\x61tion\u{0073}",Function=function(d)if s.ToggleNotifications.Object then s.ToggleNotifications.Object.Visible=d;end;end,Tooltip='Sh\111\119\z \s n\111t\zifi\u{0063}\97ti\z\x6F\z  ns',Default=true});s.ToggleNotifications=Y:CreateToggle({Name="\84\111\u{067}gle\x20\97\lert",Tooltip="N\z  o\116i\u{66}i\x65\u{0073} \u{79}\u{06F}u \if a\x20\mod\z ule is\ \x65\u{06E}ab\108ed/dis\97bl\x65\u{0064}\x2E",Default=true,Darker=true});s.GUIColor=s.Categories.Main:CreateGUISlider({Name="GU\u{0049}\x20\u{054}\u{68}\u{65}m\101",Function=function(Y,d,N)s:UpdateGUI(Y,d,N,true);end});s.Categories.Main:CreateBind();local Y=s:CreateOverlay({Name='T\101\120t GUI',Icon=j("\99\zat\114\u{65}\w\u{72}\u{69}te/\x61s\z  \sets\47ne\z w/t\u{065}x\z tg\117\105\105c\u{6F}n.pn\x67"),Size=UDim2.fromOffset(16,12),Position=UDim2.fromOffset(12,14),Function=function()s:UpdateTextGUI();end});local d=Y:CreateDropdown({Name='\83or\x74',List={'Alp\u{068}\x61be\x74\z \i\99\u{61}l',"Le\110g\116\104"},Function=function()s:UpdateTextGUI();end});local N=Y:CreateFont({Name='\F\111nt',Blacklist='A\z  rial',Function=function()s:UpdateTextGUI();end});local A;local W=Y:CreateDropdown({Name='Co\108\111\x72 \M\x6Fd\z\101',List={"M\u{061}t\z  \x63h \x47U\z I c\o\lo\114",'Cus\z \116om\u{0020}\99olor'},Function=function(H)A.Object.Visible=H=='C\117\s\116\o\109 \u{0063}\z \ol\x6F\u{0072}';s:UpdateTextGUI();end});A=Y:CreateColorSlider({Name='\84ex\116\32\z \GUI color',Function=function()s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);end,Darker=true,Visible=false});local H=Instance.new('\85IS\z  \x63\97\z\x6C\101');H.Parent=Y.Children;local t=Y:CreateSlider({Name="Sca\x6Ce",Min=0,Max=2,Decimal=10,Default=1,Function=function(t)H.Scale=t;s:UpdateTextGUI();end});local t=Y:CreateToggle({Name='\zSh\x61do\u{0077}',Tooltip='R\101\110\x64\101r\115\x20s\104a\100\u{06F}we\100 te\z \u{078}t.',Function=function()s:UpdateTextGUI();end});local z;local w=Y:CreateToggle({Name='\G\x72a\u{0064}\105e\x6E\z  \x74',Tooltip='\Re\110\100\101\z r\z  s\u{020}\za gr\z  a\100\105\z en\z t',Function=function(L)z.Object.Visible=L;s:UpdateTextGUI();end});z=Y:CreateToggle({Name='V4\32\z G\114a\x64i\u{65}nt',Function=function()s:UpdateTextGUI();end,Darker=true,Visible=false});local L=Y:CreateToggle({Name="An\105\109atio\zns",Tooltip="\z\85s\e \97\z \110\105m\x61t\z  i\x6Fn\z  \s o\u{6E} te\120t \u{67}\zui",Function=function()s:UpdateTextGUI();end});local J=Y:CreateToggle({Name="Wat\u{065}rmar\k",Tooltip="\x52\x65\u{6E}d\x65\u{0072}s \u{0061}\u{20}va\pe wa\u{74}er\ma\114\107",Function=function()s:UpdateTextGUI();end});local U={Value=0.5,Object={Visible={}}};local b={Enabled=false};local u={Enabled=false,Object={Visible=false}};local M=Y:CreateToggle({Name="\x52e\110\100\101\x72\32ba\x63kg\114o\x75nd",Function=function(p)U.Object.Visible=p;b.Object.Visible=p;u.Object.Visible=p;s:UpdateTextGUI();end});U=Y:CreateSlider({Name="\u{54}ra\znsp\z a\114e\z ncy",Min=0,Max=1,Default=0.5,Decimal=10,Function=function()s:UpdateTextGUI();end,Darker=true,Visible=false});u=Y:CreateToggle({Name='C\zor\u{006E}\z  \101\114ed Si\100\x65b\x61r',Tooltip='Mak\101s u\u{72} \u{73}\id\z  e\z b\u{0061}r \z  r\z o\117n\de\x64.',Function=function()s:UpdateTextGUI();end});b=Y:CreateToggle({Name="\T\z \105\u{006E}\u{074}",Function=function()s:UpdateTextGUI();end,Darker=true,Visible=false});local p;local K=Y:CreateToggle({Name="Hid\x65 \x6Do\u{064}ules",Tooltip='\u{0041}ll\111\u{0077}\115\32\x79\z\o\117 \x74\x6F\32\z blackli\115t\32ce\u{72}\z  \116a\105n\ mo\dul\101s\32fro\109 be\105\z  n\103 s\u{068}\own.',Function=function(C)p.Object.Visible=C;s:UpdateTextGUI();end});p=Y:CreateTextList({Name='Bla\u{063}\x6B\z  \u{006C}is\z  t',Tooltip='Na\109\101\u{20}\111\102 \m\111\du\x6C\101\x20t\o h\u{0069}de.',Icon=j("cat\114ewrit\101/as\115\101t\u{73}/n\e\119\/\98l\z  \x6F\ck\z\x65d\x69\99\111\110\46p\zng"),Tab=j("c\u{0061}\u{0074}re\z \119ri\u{074}e\z \47a\z\u{73}\u{073}\101\u{74}s\x2Fnew\z\u{02F}bl\z\x6F\u{063}\x6Be\100t\u{61}\98\u{02E}pn\z  \u{067}"),TabSize=UDim2.fromOffset(21,16),Color=Color3.fromRGB(250,50,56),Function=function()s:UpdateTextGUI();end,Visible=false,Darker=true});local C=Y:CreateToggle({Name='\H\u{069}\z  \100e rend\x65r',Function=function()s:UpdateTextGUI();end});local Z;local P;local B;local r;local x=Y:CreateToggle({Name='\Add c\117s\116\111\x6D \116\z  \101x\116',Function=function(h)Z.Object.Visible=h;P.Object.Visible=h;B.Object.Visible=h;r.Object.Visible=B.Enabled and h;s:UpdateTextGUI();end});Z=Y:CreateTextBox({Name="\Cu\u{0073}tom \z\x74e\120\u{0074}",Function=function()s:UpdateTextGUI();end,Darker=true,Visible=false});P=Y:CreateFont({Name='C\x75st\u{6F}m \Fo\110t',Blacklist='\65ria\z  l',Function=function()s:UpdateTextGUI();end,Darker=true,Visible=false});B=Y:CreateToggle({Name="S\x65\116\32\z c\u{0075}\115\z t\z\x6F\u{06D}\32t\z e\x78t\u{20}\x63o\lor",Function=function(h)r.Object.Visible=h;s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);end,Darker=true,Visible=false});r=Y:CreateColorSlider({Name="Co\z l\o\x72\32o\102 cus\x74o\109 \z tex\116",Function=function()s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value);end,Darker=true,Visible=false});local h={};local g=Instance.new("\x49\m\z\97ge\76a\zbel");g.Name='Log\x6F';g.Size=UDim2.fromOffset(80,21);g.Position=UDim2.new(1,-142.0,0,3);g.BackgroundTransparency=1;g.BorderSizePixel=0;g.Visible=false;g.BackgroundColor3=Color3.new();g.Image=j("c\u{061}tr\x65\z  \119\u{72}it\x65\x2Fa\z\115\z \115\ze\116s/n\x65w\47textvape\46p\110g");g.Parent=Y.Children;local i=Y.Children.AbsolutePosition.X>(c.AbsoluteSize.X/2);s:Clean(Y.Children:GetPropertyChangedSignal("Absolut\z \ePos\105tio\x6E"):Connect(function()if s.ThreadFix then setthreadidentity(8);end;local D=Y.Children.AbsolutePosition.X>(c.AbsoluteSize.X/2);if i~=D then i=D;s:UpdateTextGUI();end;end));local i=Instance.new("\z \73\109ag\x65Lab\el");i.Name='\zL\u{006F}\103\o2';i.Size=UDim2.fromOffset(33,18);i.Position=UDim2.new(1,1,0,1);i.BackgroundColor3=Color3.new();i.BackgroundTransparency=1;i.BorderSizePixel=0;i.Image=j("c\97\x74\114\u{065}wr\ite\47a\u{073}se\x74\z s/ne\zw\/\u{0074}e\120t\x76\52.\u{70}ng");i.Parent=g;local D=g:Clone();D.Position=UDim2.fromOffset(1,1);D.ZIndex=0;D.Visible=true;D.ImageColor3=Color3.new();D.ImageTransparency=0.65;D.Parent=g;D.Logo2.ZIndex=0;D.Logo2.ImageColor3=Color3.new();D.Logo2.ImageTransparency=0.65;local o=Instance.new('\z \UIGrad\x69\101nt');o.Rotation=90;o.Parent=g;local F=Instance.new('UIG\x72\97die\110t');F.Rotation=90;F.Parent=i;local i=Instance.new('T\u{065}x\116\x4Cabe\x6C');i.Position=UDim2.fromOffset(5,2);i.BackgroundTransparency=1;i.BorderSizePixel=0;i.Visible=false;i.Text="";i.TextSize=25;i.FontFace=P.Value;i.RichText=true;local _=i:Clone();i:GetPropertyChangedSignal('Posi\116\105\111n'):Connect(function()_.Position=UDim2.new(i.Position.X.Scale,i.Position.X.Offset+1,0,i.Position.Y.Offset+1);end);i:GetPropertyChangedSignal("F\111n\116\x46\u{061}c\ze"):Connect(function()_.FontFace=i.FontFace;end);i:GetPropertyChangedSignal('\x54\z e\z  x\116'):Connect(function()_.Text=m(i.Text);end);i:GetPropertyChangedSignal("Si\122e"):Connect(function()_.Size=i.Size;end);_.TextColor3=Color3.new();_.TextTransparency=0.65;_.Parent=Y.Children;i.Parent=Y.Children;local Q=Instance.new('\u{0046}\114\97me');Q.Name='Ho\z l\z  \100\101r';Q.Size=UDim2.fromScale(1,1);Q.Position=UDim2.fromOffset(5,37);Q.BackgroundTransparency=1;Q.Parent=Y.Children;local G=Instance.new('\u{0055}\73\z \76i\u{73}tLa\x79\111ut');G.HorizontalAlignment=Enum.HorizontalAlignment.Right;G.VerticalAlignment=Enum.VerticalAlignment.Top;G.SortOrder=Enum.SortOrder.LayoutOrder;G.Parent=Q;local YV;local sV,fV,OV;local dV=Instance.new("I\x6Dag\u{0065}L\z ab\u{065}\z l");local NV=Instance.new('V\id\x65\u{6F}\Fr\u{61}me');NV.Looped=true;NV.BackgroundTransparency=1;dV.BackgroundTransparency=1;local function qV(AV)local XV;if AV:find('\58/\u{02F}')then local IV="c\97tre\u{0077}\114i\z\116\e/as\sets\47\z  i\109ag\x65/"..math.random(1,50000);writefile(IV,game:HttpGet(AV));XV=j(IV);else XV=j(AV);end;dV.Size=UDim2.fromOffset(sV.Value*OV.Value,fV.Value*OV.Value);NV.Size=UDim2.fromOffset(sV.Value*OV.Value,fV.Value*OV.Value);local IV=AV:find("\x77e\98m")or AV:find("mp4")or AV:find("\u{0067}\105f");dV.Visible=not isVisible;NV.Visible=IV;if IV then NV.Video=XV;NV:Play();else dV.Image=XV;end;end;local AV=s:CreateOverlay({Name="\x49\u{006D}\u{61}g\e\32\z  Di\u{0073}pl\u{0061}\x79",Icon=j('c\97\x74\114\101w\u{072}\it\e\z /ass\101\116s/n\101\119\u{2F}\u{0074}\z \x61\114\103e\x74np\099\z \49\46png'),Size=UDim2.fromOffset(14,14),Position=UDim2.fromOffset(12,12),CategorySize=279,Function=function(XV)if XV then if qV(YV.Value)then qV(YV.Value);end;end;end});dV.Parent=AV.Children;NV.Parent=AV.Children;YV=AV:CreateTextBox({Name='Imag\u{65}\ \112ath',Placeholder="Fil\e \112\97\u{74}h (\u{0077}\u{06F}rk\z  \u{0073}\u{0070}ac\e)\ or\u{20}l\z  \x69nk\ \116\z  \x6F\32\105mag\x65",Function=function(dV)if dV then qV(YV.Value);end;end});sV=AV:CreateSlider({Name='\u{58}',Min=0,Max=1920,Default=500,Function=function(sV)if sV then qV(YV.Value);end;end});fV=AV:CreateSlider({Name="Y",Min=0,Max=1080,Default=500,Function=function(sV)if sV then qV(YV.Value);end;end});OV=AV:CreateSlider({Name="S\x63al\101",Min=0,Max=1,Default=0.5,Decimal=10,Function=function(sV)if sV then qV(YV.Value);end;end});local YV;local YV;local sV;local fV;local OV;local dV=Instance.new('\z \x46ra\109\x65');dV.Size=UDim2.fromOffset(279,78);dV.BackgroundColor3=n.Dark(R.Main,0.1);dV.BackgroundTransparency=0.5;local NV=E(dV);NV.Visible=true;S(dV);local qV=Instance.new("\I\u{006D}\97\103\z eL\97b\z  \u{65}\z \l");qV.Size=UDim2.fromOffset(64,65);qV.Position=UDim2.fromOffset(6,7);qV.BackgroundColor3=R.Main;qV.Parent=dV;local AV=E(qV);AV.Visible=true;S(qV);local AV=Instance.new('\z \84\u{065}x\116\76a\98\z  el');AV.Size=UDim2.fromOffset(190,20);AV.Position=UDim2.fromOffset(89,7);AV.BackgroundTransparency=1;AV.Text='\zS\111\110g na\109\e';AV.TextXAlignment=Enum.TextXAlignment.Left;AV.TextYAlignment=Enum.TextYAlignment.Top;AV.TextScaled=true;AV.TextColor3=n.Light(R.Text,0.4);AV.TextStrokeTransparency=1;AV.FontFace=R.Font;local XV=AV:Clone();XV.Position=UDim2.fromOffset(90,8);XV.TextColor3=Color3.new();XV.TextTransparency=0.65;XV.Visible=false;XV.Parent=dV;local IV=Instance.new('T\u{065}xt\Lab\x65\u{6C}');IV.Size=UDim2.fromOffset(190,17);IV.Position=UDim2.fromOffset(89,30);IV.BackgroundTransparency=1;IV.Text='Ar\x74i\115t\32\znam\101';IV.TextXAlignment=Enum.TextXAlignment.Left;IV.TextYAlignment=Enum.TextYAlignment.Top;IV.TextScaled=true;IV.TextColor3=n.Dark(R.Text,0.1);IV.TextStrokeTransparency=1;IV.FontFace=R.Font;local WV=IV:Clone();WV.Position=UDim2.fromOffset(90,31);WV.TextColor3=Color3.new();WV.TextTransparency=0.65;WV.Visible=false;WV.Parent=dV;AV:GetPropertyChangedSignal('\z  S\i\122e'):Connect(function()XV.Size=AV.Size;end);AV:GetPropertyChangedSignal('T\u{0065}\120t'):Connect(function()XV.Text=AV.Text;end);AV:GetPropertyChangedSignal("Fo\110\x74F\97ce"):Connect(function()XV.FontFace=AV.FontFace;end);IV:GetPropertyChangedSignal("\83i\122\z \u{0065}"):Connect(function()WV.Size=IV.Size;end);IV:GetPropertyChangedSignal("Text"):Connect(function()WV.Text=IV.Text;end);IV:GetPropertyChangedSignal("\70\o\x6Et\x46ace"):Connect(function()WV.FontFace=IV.FontFace;end);AV.Parent=dV;IV.Parent=dV;local HV=Instance.new("Fr\u{0061}m\101");HV.Name='p\x72\u{06F}g\x72es\u{073}\66\u{004B}\71';HV.Size=UDim2.fromOffset(156,9);HV.Position=UDim2.fromOffset(82,56);HV.BackgroundColor3=R.Main;HV.BorderSizePixel=0;HV.Parent=dV;S(HV,UDim.new(1,0));local tV=HV:Clone();tV.Size=UDim2.fromScale(0,1);tV.Position=UDim2.new();tV.BackgroundColor3=Color3.fromHSV(0.4,0.89,0.75);tV.Parent=HV;tV:GetPropertyChangedSignal('S\u{0069}ze'):Connect(function()tV.Visible=tV.Size.X.Offset>0.01;end);E(tV);local zV=E(HV);zV.SliceCenter=Rect.new(52,31,261,510);zV.ImageColor3=Color3.new();zV.Visible=true;local zV=Instance.new('UIStr\z\u{6F}k\101');zV.Enabled=false;zV.Color=Color3.fromHSV(0.44,1,1);zV.Parent=dV;local aV=Instance.new("Tex\z tL\za\z b\101l");aV.Size=UDim2.fromOffset(36,15);aV.Position=UDim2.fromOffset(240,52.6);aV.Text='0:0\z \48';aV.TextColor3=n.Dark(R.Text,0.1);aV.BackgroundTransparency=1;aV.TextScaled=true;aV.Parent=dV;aV.FontFace=R.Font;local wV=false;YV=s:CreateOverlay({Name='\83po\z  ti\102y\32D\105spl\97y',Icon=j("catrew\zr\zi\u{074}\101/assets\u{002F}new/\spo\116i\102\zy.\z \u{070}n\g"),Size=UDim2.fromOffset(14,14),Position=UDim2.fromOffset(12,12),CategorySize=279,Function=function(jV)wV=jV;if jV then if#fV.Value<5 then notif("\x53poti\x66\y D\105s\pl\97\z  y",'N\111 \114e\102r\z  esh\x20\x74\111\u{06B}\u{65}\110\u{21}',10,"\u{061}lert");else writefile('ca\116\z re\u{0077}rit\u{065}/profile\115\/s\z \x70o\116i\102y\u{02E}\116\z  \x78\z t',fV.Value);end;if e('\x6C\97bel\46png')then delfile("la\x62\101l\.\u{070}n\z\x67");end;local jV=s.Libraries.spotify;local vV=tick();local LV="";YV:Clean(q.Heartbeat:Connect(function()if vV<tick()then vV=tick()+1200;LV=jV:UpdateToken(fV.Value,"\x39814\z86\z \u{0037}a\u{0039}\0529\100\z  \x34\54\e8a3\0559f\u{061}\054\52\x63fbc\z \x35\04826","\z d\1007bc97\05481aa483\u{37}\x39795\0995aa\097\053\52fb\u{0031}f3");end;end));YV:Clean(jV.PlaybackUpdate.Event:Connect(function(q,vV,JV)s:CreateNotification("\N\u{6F}w \80\la\yin\x67",V(q..' -\32'..vV),10);if OV.Enabled then local JV='\u{0049}\z\39m \108\z ist\z  \u{065}\x6Ei\110g\32\u{0074}\u{006F}\u{020}'..vV.."\ \45 "..q;if X.ChatVersion==Enum.ChatVersion.TextChatService then X.ChatInputBarConfiguration.TargetTextChannel:SendAsync(JV);else I.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(JV,"\z  \65\108l");end;end;end));local q='';repeat task.wait();if LV~=""then local X=jV:GetData(LV);if X.song then AV.Text=X.song.name;IV.Text=X.song.artist;f:Create(tV,TweenInfo.new(0.16,Enum.EasingStyle.Linear),{Size=UDim2.new(0,HV.Size.X.Offset/(X.playback.total/X.playback.current),0,HV.Size.Y.Offset)}):Play();aV.Text=jV:ConvertTime(X.playback.current);if q~=X.song.name then q=X.song.name;local f="\z  \ca\z \116re\w\z \u{0072}\z \u{69}t\x65\47\97\z  sse\z  \116s/\116rash\u{02F}"..X.song.name;f=f.."\x20"..X.song.artist..'\u{02E}png';makefolder('\99\za\ztrewri\116e/\u{061}\115s\101\z\116s/tr\97sh');writefile(f,game:HttpGet(X.song.cover));qV.Image=j(f);end;end;end;until(not wV);end;end});dV.Parent=YV.Children;fV=YV:CreateTextBox({Name="\u{052}ef\z r\u{0065}\u{73}h\32\u{0054}oken",Placeholder="\83p\u{06F}t\u{69}f\121\ \82\efr\z  esh T\111ke\110",Default=e('\u{0063}at\114\x65write/\112r\111f\105l\z \101s/s\u{070}o\z  ti\102\121\z .\116x\zt')and readfile('\z c\x61tr\u{65}\z\u{077}r\z \x69te\z /\u{070}r\111\z f\105\u{06C}\z es/\x73\p\111t\105fy\46tx\z\116')or nil,Function=function(f)if f then writefile("ca\u{074}\114\u{065}\x77rite/pro\x66i\u{6C}\es/\z s\112\111\116if\121\46txt",fV.Value);end;if YV.Enabled and f then YV:Toggle();YV:Toggle();end;end});YV:CreateFont({Name="Fo\u{6E}\116",Blacklist="Arial",Function=function(f)AV.FontFace=f;IV.FontFace=f;aV.FontFace=f;end});local f={Value=0.5,Object={Visible={}}};YV:CreateToggle({Name="\82en\de\u{072} B\u{61}ck\zg\114o\x75\z \u{006E}d",Function=function(q)dV.BackgroundTransparency=q and f.Value or 1;XV.Visible=not q;WV.Visible=not q;NV.Visible=q;f.Object.Visible=q;end,Default=true});f=YV:CreateSlider({Name="T\u{072}\z  \x61nsp\97r\x65\x6Ec\x79",Min=0,Max=1,Default=0.5,Decimal=10,Function=function(f)dV.BackgroundTransparency=f;end,Darker=true});local f;local q=YV:CreateToggle({Name='C\z\u{0075}\sto\x6D\32Col\111r',Function=function(X)f.Object.Visible=X;if X then dV.BackgroundColor3=Color3.fromHSV(f.Hue,f.Sat,f.Value);qV.BackgroundColor3=Color3.fromHSV(f.Hue,f.Sat,math.max(f.Value-0.1,0.075));HV.BackgroundColor3=qV.BackgroundColor3;else dV.BackgroundColor3=n.Dark(R.Main,0.1);qV.BackgroundColor3=R.Main;HV.BackgroundColor3=R.Main;end;end});f=YV:CreateColorSlider({Name='Co\u{6C}\111r',Function=function(f,X,I)if q.Enabled then dV.BackgroundColor3=Color3.fromHSV(f,X,I);qV.BackgroundColor3=Color3.fromHSV(f,X,math.max(I-0.1,0));HV.BackgroundColor3=qV.BackgroundColor3;end;end,Darker=true,Visible=false});YV:CreateToggle({Name="B\o\114d\101\zr",Function=function(f)zV.Enabled=f;sV.Object.Visible=f;end});sV=YV:CreateColorSlider({Name="Bo\114de\zr \67\111lo\u{72}",Function=function(f,q,X,I)zV.Color=Color3.fromHSV(f,q,X);zV.Transparency=1-I;end,Darker=true,Visible=false});OV=YV:CreateToggle({Name="Ann\111unce\32S\ong",Visible=true});local f;local q;local X;local I;local YV;q=s:CreateOverlay({Name='T\za\114\x67\101t In\z  fo',Icon=j('catr\101\x77\114ite\x2F\97s\u{73}e\116\z  \115\47\x6E\x65w/ta\114\x67\101\x74i\110\u{066}\u{6F}\105\u{0063}o\u{006E}.p\110g'),Size=UDim2.fromOffset(14,14),Position=UDim2.fromOffset(12,14),CategorySize=240,Function=function(j)if j then task.spawn(function()repeat local j=f:UpdateInfo();if YV and YV.Enabled and j then local sV,fV=workspace.CurrentCamera:WorldToScreenPoint(j.Position);if fV then I.Parent.Parent.Position=UDim2.fromOffset(sV.X,sV.Y);end;end;task.wait(0);until not q.Button or not q.Button.Enabled;end);end;end});local j=Instance.new('Fram\z \101');j.Size=UDim2.fromOffset(240,89);j.BackgroundColor3=n.Dark(R.Main,0.1);j.BackgroundTransparency=1;j.Parent=q.Children;I=Instance.new("\70\z \114am\101");I.Size=UDim2.fromOffset(240,89);I.BackgroundColor3=n.Dark(R.Main,0.1);I.BackgroundTransparency=0.5;I.Parent=j;local sV=E(I);sV.Visible=true;S(I);local fV=Instance.new('\73m\97geL\u{0061}\x62\101\108');fV.Size=UDim2.fromOffset(26,27);fV.Position=UDim2.fromOffset(19,17);fV.BackgroundColor3=R.Main;fV.Image="\z \x72\u{62}x\116\x68\z  u\x6Db\u{03A}\47\47\116ype=Ava\x74\97r\z  Hea\x64\83hot\z&id\061\49\z  \u{26}w\z\0614\x320\u{0026}\h=\z4\z 20";fV.Parent=I;local OV=Instance.new("\z \x46\114ame");OV.Size=UDim2.fromScale(1,1);OV.BackgroundTransparency=1;OV.BackgroundColor3=Color3.new(1,0,0);OV.Parent=fV;S(OV);local dV=E(fV);dV.Visible=true;S(fV);local dV=Instance.new("\u{54}\u{65}\u{0078}t\76abe\108");dV.Size=UDim2.fromOffset(145,20);dV.Position=UDim2.fromOffset(54,20);dV.BackgroundTransparency=1;dV.Text="T\x61\z \114g\101\116 name";dV.TextXAlignment=Enum.TextXAlignment.Left;dV.TextYAlignment=Enum.TextYAlignment.Top;dV.TextScaled=true;dV.TextColor3=n.Light(R.Text,0.4);dV.TextStrokeTransparency=1;dV.FontFace=R.Font;local NV=dV:Clone();NV.Position=UDim2.fromOffset(55,21);NV.TextColor3=Color3.new();NV.TextTransparency=0.65;NV.Visible=false;NV.Parent=I;dV:GetPropertyChangedSignal("Si\u{07A}\101"):Connect(function()NV.Size=dV.Size;end);dV:GetPropertyChangedSignal("Text"):Connect(function()NV.Text=dV.Text;end);dV:GetPropertyChangedSignal("\70\o\x6Et\z  \x46\z  a\99e"):Connect(function()NV.FontFace=dV.FontFace;end);dV.Parent=I;local qV=Instance.new("\x46r\u{061}me");qV.Name="\x48\101a\108\zthB\75G";qV.Size=UDim2.fromOffset(200,9);qV.Position=UDim2.fromOffset(20,56);qV.BackgroundColor3=R.Main;qV.BorderSizePixel=0;qV.Parent=I;S(qV,UDim.new(1,0));local AV=qV:Clone();AV.Size=UDim2.fromScale(0.8,1);AV.Position=UDim2.new();AV.BackgroundColor3=Color3.fromHSV(0.4,0.89,0.75);AV.Parent=qV;AV:GetPropertyChangedSignal('\x53\105z\x65'):Connect(function()AV.Visible=AV.Size.X.Scale>0.01;end);local XV=AV:Clone();XV.Size=UDim2.new();XV.Position=UDim2.fromScale(1,0);XV.AnchorPoint=Vector2.new(1,0);XV.BackgroundColor3=Color3.fromRGB(255,170,0);XV.Visible=false;XV.Parent=qV;XV:GetPropertyChangedSignal('\z  S\iz\e'):Connect(function()XV.Visible=XV.Size.X.Scale>0.01;end);local IV=E(qV);IV.SliceCenter=Rect.new(52,31,261,510);IV.ImageColor3=Color3.new();IV.Visible=true;local E=Instance.new('U\73\u{053}t\zrok\101');E.Enabled=false;E.Color=Color3.fromHSV(0.44,1,1);E.Parent=I;local IV=Instance.new('Fra\z \u{06D}\101');IV.BackgroundColor3=Color3.fromRGB(26,25,26);IV.BorderSizePixel=0;IV.BackgroundTransparency=1;IV.Size=UDim2.new(0,220,0,72);IV.Position=UDim2.new(0,0,0,5);IV.Parent=q.Children;IV.Visible=false;local WV=Instance.new('\z \x49\mageLab\el');WV.BackgroundTransparency=1;WV.Position=UDim2.fromScale(-0.041,-0.125);WV.Size=UDim2.fromOffset(237,97);WV.ZIndex=-1.0;WV.Image="\114b\zxas\x73e\116id://1\z  \05033\05231\050\u{0038}\049\x3952\057\z 7";WV.Parent=IV;local HV=Instance.new("Frame");HV.BackgroundColor3=Color3.fromRGB(31,30,31);HV.Size=UDim2.new(0,220,0,80);HV.BackgroundTransparency=0.5;HV.Position=UDim2.new(0,0,0,0);HV.Name="M\97\105nInfo";HV.Parent=IV;local tV=Instance.new('\84\u{65}x\x74La\z be\108');tV.Font=Enum.Font.Arial;tV.TextColor3=Color3.fromRGB(182,182,182);tV.Position=UDim2.new(0,70,0,13);tV.TextStrokeTransparency=1;tV.BackgroundTransparency=1;tV.TextSize=14;tV.Size=UDim2.new(0,80,0,20);tV.Text='\78on\u{0065}';tV.ZIndex=2;tV.TextXAlignment=Enum.TextXAlignment.Left;tV.TextYAlignment=Enum.TextYAlignment.Top;tV.Parent=HV;local zV=tV:Clone();zV.Size=UDim2.new(1,0,1,0);zV.TextTransparency=0.5;zV.TextColor3=Color3.new();zV.ZIndex=1;zV.Position=UDim2.new(0,1,0,1);tV:GetPropertyChangedSignal("Tex\116"):Connect(function()zV.Text=tV.Text;end);zV.Parent=tV;local aV=Instance.new('F\u{72}ame');aV.BackgroundColor3=Color3.fromRGB(26,25,26);aV.Size=UDim2.new(0,140,0,4);aV.Position=UDim2.new(0,71,0,35);aV.Parent=HV;local wV=Instance.new("Im\z\97\z\103e\x4Cabel");wV.AnchorPoint=Vector2.new(0.5,0.5);wV.Position=UDim2.new(0.5,0,0.5,0);wV.Image='r\u{62}\z xasseti\u{64}:/\04713\051\z\053\u{0030}7956\z \x360';wV.BackgroundTransparency=1;wV.ImageTransparency=0.6;wV.ZIndex=-1.0;wV.Size=UDim2.new(1,6,1,6);wV.ImageColor3=Color3.new();wV.ScaleType=Enum.ScaleType.Slice;wV.SliceCenter=Rect.new(10,10,118,118);wV.Parent=aV;local wV=Instance.new('\x46\114a\z m\z  e');wV.BackgroundColor3=Color3.fromRGB(115,255,110);wV.Size=UDim2.new(1,0,1,0);wV.ZIndex=3;wV.BorderSizePixel=0;wV.Parent=aV;local jV=Instance.new('\70ra\u{6D}\x65');jV.BackgroundColor3=Color3.fromRGB(255,170,0);jV.Size=UDim2.new(0,0,1,0);jV.ZIndex=4;jV.BorderSizePixel=0;jV.AnchorPoint=Vector2.new(1,0);jV.Position=UDim2.new(1,0,0,0);jV.Parent=wV;local vV=Instance.new('\73\u{6D}a\g\101\z\x4Ca\x62\x65\108');vV.Size=UDim2.new(0,50,0,50);vV.BackgroundTransparency=0;vV.BackgroundColor3=Color3.fromRGB(26,25,26);vV.Image='\x72bx\116hum\u{062}://t\121\112\101=A\118a\116\97rHe\x61\x64Shot\x26\u{69}d\0611\x26\z \x77\z  =420&\104\0614\0500';vV.Position=UDim2.new(0,10,0,16);local LV=Instance.new('\u{046}r\97me');LV.Size=UDim2.fromScale(1,1);LV.BackgroundTransparency=1;LV.BackgroundColor3=Color3.new(1,0,0);LV.Parent=vV;S(LV);vV.Parent=HV;local S=Instance.new('U\z  IC\111\x72n\u{065}r');S.CornerRadius=UDim.new(0,6);S.Parent=HV;local S=Instance.new("\z  UIC\111rn\er");S.CornerRadius=UDim.new(0,2048);S.Parent=aV;local S=Instance.new('UI\u{043}\111\u{072}\110e\114');S.CornerRadius=UDim.new(0,2048);S.Parent=wV;local S=Instance.new("U\u{049}\Cor\z  \110er");S.CornerRadius=UDim.new(0,2048);S.Parent=jV;local S=Instance.new('\85ICo\z rn\101\u{72}');S.CornerRadius=UDim.new(0,8);S.Parent=vV;local S=e('\99\za\u{74}rew\114\105\116\101/profil\u{65}\s\47\x68\117d\z .t\z x\u{074}')and readfile('cat\u{0072}ew\x72\u{069}\x74e/\112r\zo\102i\u{006C}\e\115/h\x75d.\u{74}\120t')or"ne\x77";q:CreateDropdown({Name="\71ui\x20\z  \Mo\u{064}\x65",List={"\111\x6C\100","\110e\119"},Default="ne\z  \x77",Function=function(e)S=e;writefile('\catre\x77\z ri\116e\47\p\114o\z\x66\105le\z \u{0073}\x2Fh\117d\z  .t\120t',e);IV.Visible=e=='\u{6F}\x6Cd';j.Visible=e=='\u{06E}e\119';end});IV.Visible=S=='\x6F\z  l\100';j.Visible=S=="ne\x77";q:CreateFont({Name='\70o\x6Et',Blacklist="Ar\z i\u{061}l",Function=function(j)dV.FontFace=j;tV.FontFace=j;zV.FontFace=j;end});local j={Value=0.5,Object={Visible={}}};local e=q:CreateToggle({Name='Use\x20D\u{69}s\p\108ayn\u{61}\109\101',Default=true});q:CreateToggle({Name="\x52e\u{6E}der\ B\x61\99\x6Bground",Function=function(S)I.BackgroundTransparency=S and j.Value or 1;HV.BackgroundTransparency=I.BackgroundTransparency;NV.Visible=not S;sV.Visible=S;j.Object.Visible=S;end,Default=true});YV=q:CreateToggle({Name='\u{46}oll\z  ow \80\x6Cay\101\x72',Function=function(S)end,Default=true});j=q:CreateSlider({Name='\84\114\z  a\110spar\u{0065}n\u{063}\z \121',Min=0,Max=1,Default=0.5,Decimal=10,Function=function(j)I.BackgroundTransparency=j;end,Darker=true});local j;local S=q:CreateToggle({Name='Custom \67ol\111r',Function=function(YV)j.Object.Visible=YV;if YV then I.BackgroundColor3=Color3.fromHSV(j.Hue,j.Sat,j.Value);fV.BackgroundColor3=Color3.fromHSV(j.Hue,j.Sat,math.max(j.Value-0.1,0.075));qV.BackgroundColor3=fV.BackgroundColor3;else I.BackgroundColor3=n.Dark(R.Main,0.1);fV.BackgroundColor3=R.Main;qV.BackgroundColor3=R.Main;end;end});j=q:CreateColorSlider({Name='\67\u{6F}l\u{06F}\x72',Function=function(j,YV,sV)if S.Enabled then I.BackgroundColor3=Color3.fromHSV(j,YV,sV);fV.BackgroundColor3=Color3.fromHSV(j,YV,math.max(sV-0.1,0));qV.BackgroundColor3=fV.BackgroundColor3;end;end,Darker=true,Visible=false});q:CreateToggle({Name='\z  \66or\100\101r',Function=function(j)E.Enabled=j;X.Object.Visible=j;end});X=q:CreateColorSlider({Name='\B\111\u{72}\zde\x72 Color',Function=function(q,X,j,S)E.Color=Color3.fromHSV(q,X,j);E.Transparency=1-S;end,Darker=true,Visible=false});local q=0;local X=0;f={Targets={},Object=I,oldparent=IV,UpdateInfo=function(j)local E=s.Libraries;if not E then return;end;for E,S in j.Targets do if S<os.clock()then j.Targets[E]=nil;end;end;local E,S=nil,os.clock();for YV,sV in j.Targets do if sV>S then E=YV;S=sV;end;end;I.Visible=E~=nil or s.gui.ScaledGui.ClickGui.Visible;HV.Visible=I.Visible;WV.Visible=I.Visible;if E then dV.Text=E.Player and(e.Enabled and E.Player.DisplayName or E.Player.Name)or E.Character and E.Character.Name or dV.Text;tV.Text=dV.Text;zV.Text=dV.Text;fV.Image='\114\u{062}\120t\z hu\109b:\u{2F}\47\116\z  \121\112\x65\x3D\65\x76a\x74a\114HeadSho\x74\u{0026}\105d\z \u{03D}'..(E.Player and E.Player.UserId or 1).."&\zw\x3D\z \052\z\x320\&h\061\u{34}\050\48";vV.Image=fV.Image;if not E.Character then E.Health=E.Health or 0;E.MaxHealth=E.MaxHealth or 100;end;if E.Health~=q or E.MaxHealth~=X then task.spawn(function()local I=math.max(E.Health/E.MaxHealth,0);y:Tween(AV,TweenInfo.new(0.3),{Size=UDim2.fromScale(math.min(I,1),1),BackgroundColor3=Color3.fromHSV(math.clamp(I/2.5,0,1),0.89,0.75)});y:Tween(XV,TweenInfo.new(0.3),{Size=UDim2.fromScale(math.clamp(I-1,0,0.8),1)});y:Tween(wV,TweenInfo.new(0.3),{Size=UDim2.fromScale(math.min(I,1),1),BackgroundColor3=Color3.fromHSV(math.clamp(I/2.5,0,1),0.89,0.75)});y:Tween(jV,TweenInfo.new(0.3),{Size=UDim2.fromScale(math.clamp(I-1,0,0.8),1)});if q>E.Health and j.LastTarget==E then y:Cancel(OV);y:Cancel(LV);OV.BackgroundTransparency=0.3;LV.BackgroundTransparency=0.3;y:Tween(OV,TweenInfo.new(0.5),{BackgroundTransparency=1});y:Tween(LV,TweenInfo.new(0.5),{BackgroundTransparency=1});end;q=E.Health;X=E.MaxHealth;end);end;if not E.Character then table.clear(E);end;j.LastTarget=E;end;return E and E.Head;end};s.Libraries.targetinfo=f;function s:UpdateTextGUI(f)if not f and not s.Loaded then return;end;if Y.Button.Enabled then local f=Y.Children.AbsolutePosition.X>(c.AbsoluteSize.X/2);g.Visible=J.Enabled;g.Position=f and UDim2.new(1/H.Scale,-113.0,0,6)or UDim2.fromOffset(0,6);D.Visible=t.Enabled;i.Text=Z.Value;i.FontFace=P.Value;i.Visible=i.Text~=''and x.Enabled;_.Visible=i.Visible and t.Enabled;G.HorizontalAlignment=f and Enum.HorizontalAlignment.Right or Enum.HorizontalAlignment.Left;Q.Size=UDim2.fromScale(1/H.Scale,1);Q.Position=UDim2.fromOffset(f and 3 or 0,11+(g.Visible and g.Size.Y.Offset or 0)+(i.Visible and 28 or 0)+(M.Enabled and 3 or 0));if i.Visible then local q=k(m(i.Text),i.TextSize,i.FontFace);i.Size=UDim2.fromOffset(q.X,q.Y);i.Position=UDim2.new(f and 1/H.Scale or 0,f and-q.X or 0,0,(g.Visible and 32 or 8));end;local q={};for X,X in h do if X.Enabled then table.insert(q,X.Object.Name);end;X.Object:Destroy();end;table.clear(h);local X=TweenInfo.new(0.3,Enum.EasingStyle.Exponential);for I,H in s.Modules do if K.Enabled and table.find(p.ListEnabled,I)then continue;end;if C.Enabled and H.Category=="\Re\z nde\114"then continue;end;if H.Enabled or table.find(q,I)then local j=Instance.new("\70r\97\109\z\x65");j.Name=I;j.Size=UDim2.fromOffset();j.BackgroundTransparency=1;j.ClipsDescendants=true;j.Parent=Q;local J;local c;if M.Enabled then J=Instance.new('\z  \Fr\97me');J.Size=UDim2.new(1,3,1,0);J.BackgroundColor3=n.Dark(R.Main,0.15);J.BackgroundTransparency=U.Value;J.BorderSizePixel=0;J.Parent=j;local R=Instance.new('F\114am\x65');R.Size=UDim2.new(1,0,0,1);R.Position=UDim2.new(0,0,1,-1.0);R.BackgroundColor3=Color3.new();R.BackgroundTransparency=0.928+(0.072*math.clamp((U.Value-0.5)/0.5,0,1));R.BorderSizePixel=0;R.Parent=J;local U=R:Clone();U.Name='\76\105\110\e';U.Position=UDim2.new();U.Parent=J;if u.Enabled then R.Visible=false;J.Position=UDim2.fromOffset(-5.0,0);local U=Instance.new('Ima\x67eLabel',J);U.ImageColor3=Color3.fromRGB(47,122,229);U.BorderColor3=Color3.fromRGB(0,0,0);U.Size=UDim2.new(0,4,0.9,0);U.AnchorPoint=Vector2.new(0,0.5);U.Image="r\x62\zxasse\116id\z \x3A\47/7310472\z 5656\x35\x309";U.BackgroundTransparency=1;U.Position=UDim2.new(1,0,0.5,0);U.ZIndex=-1.0;U.BorderSizePixel=0;U.BackgroundColor3=Color3.fromRGB(255,255,255);c=U;else c=Instance.new('F\114a\z m\101');c.Size=UDim2.new(0,2,1,0);c.Position=f and UDim2.new(1,-5.0,0,0)or UDim2.new();c.BorderSizePixel=0;c.Parent=J;end;end;local U=Instance.new('\TextLabe\108');U.Position=UDim2.fromOffset(f and 3 or 6,2);U.BackgroundTransparency=1;U.BorderSizePixel=0;U.Text=V(I)..(H.ExtraText and"\x20<f\on\116\32color\='\z \35A8\u{41}8A\56'\>"..V(H.ExtraText()).."<\47\x66\u{6F}n\x74\u{03E}"or"");U.TextSize=15;U.FontFace=N.Value;U.RichText=true;local f=k(m(U.Text),U.TextSize,U.FontFace);U.Size=UDim2.fromOffset(f.X,f.Y);if t.Enabled then local N=U:Clone();N.Position=UDim2.fromOffset(U.Position.X.Offset+1,U.Position.Y.Offset+1);N.Text=m(U.Text);N.TextColor3=Color3.new();N.Parent=j;end;U.Parent=j;local N=UDim2.fromOffset(f.X+10,f.Y+(M.Enabled and 5 or 3));if L.Enabled then if not table.find(q,I)then y:Tween(j,X,{Size=N});else j.Size=N;if not H.Enabled then y:Tween(j,X,{Size=UDim2.fromOffset()});end;end;else j.Size=H.Enabled and N or UDim2.fromOffset();end;table.insert(h,{Object=j,Text=U,Background=J,Color=c,Enabled=H.Enabled});end;end;if d.Value=='\x41\108phab\eti\z c\u{0061}l'then table.sort(h,function(f,d)return f.Text.Text<d.Text.Text;end);else table.sort(h,function(f,d)return f.Text.Size.X.Offset>d.Text.Size.X.Offset;end);end;for f,d in h do if d.Color then d.Color.Parent.Line.Visible=f~=1;end;d.Object.LayoutOrder=f;end;end;s:UpdateGUI(s.GUIColor.Hue,s.GUIColor.Sat,s.GUIColor.Value,true);end;function s:UpdateGUI(f,d,N,q)if s.Loaded==nil then return;end;if not q and s.GUIColor.Rainbow then return;end;if Y.Button.Enabled then o.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(f,d,N)),ColorSequenceKeypoint.new(1,w.Enabled and Color3.fromHSV(s:Color((f-0.075)%1))or Color3.fromHSV(f,d,N))});F.Color=w.Enabled and z.Enabled and o.Color or ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.new(1,1,1)),ColorSequenceKeypoint.new(1,Color3.new(1,1,1))});i.TextColor3=B.Enabled and Color3.fromHSV(r.Hue,r.Sat,r.Value)or o.Color.Keypoints[2].Value;local Y=W.Value=='\z C\u{75}\u{0073}t\z\111m \99\u{06F}l\o\z  r'and Color3.fromHSV(A.Hue,A.Sat,A.Value)or nil;for q,A in h do A.Text.TextColor3=Y or(s.GUIColor.Rainbow and Color3.fromHSV(s:Color((f-((w and q+2 or q)*0.025))%1))or o.Color.Keypoints[2].Value);if A.Color then A.Color.BackgroundColor3=A.Text.TextColor3;if A.Color:IsA('Im\z  a\103\101\x4Cabel')then A.Color.ImageColor3=A.Text.TextColor3;end;end;if b.Enabled and A.Background then A.Background.BackgroundColor3=n.Dark(A.Text.TextColor3,0.75);end;end;end;if not v.Visible and not s.Legit.Window.Visible then return;end;local Y=s.GUIColor.Rainbow and s.RainbowMode.Value~="Ret\x72\111";for q,A in s.Categories do if q=='\z\77ai\zn'then A.Object.VapeLogo.V4Logo.ImageColor3=Color3.fromHSV(f,d,N);for q,q in A.Buttons do if q.Enabled then q.Object.TextColor3=Y and Color3.fromHSV(s:Color((f-(q.Index*0.025))%1))or Color3.fromHSV(f,d,N);if q.Icon then q.Icon.ImageColor3=q.Object.TextColor3;end;end;end;end;if A.Options then for q,q in A.Options do if q.Color then q:Color(f,d,N,Y);end;end;end;if A.Type=="C\97t\101gor\u{079}L\105s\z  \116"then A.Object.Children.Add.AddButton.ImageColor3=Y and Color3.fromHSV(s:Color(f%1))or Color3.fromHSV(f,d,N);if A.Selected then A.Selected.BackgroundColor3=Y and Color3.fromHSV(s:Color(f%1))or Color3.fromHSV(f,d,N);A.Selected.Title.TextColor3=s.GUIColor.Rainbow and Color3.new(0.19,0.19,0.19)or s:TextColor(f,d,N);A.Selected.Dots.Dots.ImageColor3=A.Selected.Title.TextColor3;A.Selected.Bind.Icon.ImageColor3=A.Selected.Title.TextColor3;A.Selected.Bind.TextLabel.TextColor3=A.Selected.Title.TextColor3;end;end;end;for q,q in s.Modules do if q.Enabled then q.Object.BackgroundColor3=Y and Color3.fromHSV(s:Color((f-(q.Index*0.025))%1))or Color3.fromHSV(f,d,N);q.Object.TextColor3=s.GUIColor.Rainbow and Color3.new(0.19,0.19,0.19)or s:TextColor(f,d,N);q.Object.UIGradient.Enabled=Y and s.RainbowMode.Value=='Grad\z  \105ent';if q.Object.UIGradient.Enabled then q.Object.BackgroundColor3=Color3.new(1,1,1);q.Object.UIGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromHSV(s:Color((f-(q.Index*0.025))%1))),ColorSequenceKeypoint.new(1,Color3.fromHSV(s:Color((f-((q.Index+1)*0.025))%1)))});end;q.Object.Bind.Icon.ImageColor3=q.Object.TextColor3;q.Object.Bind.TextLabel.TextColor3=q.Object.TextColor3;q.Object.Dots.Dots.ImageColor3=q.Object.TextColor3;end;for A,A in q.Options do if A.Color then A:Color(f,d,N,Y);end;end;end;for q,A in s.Overlays.Toggles do if A.Enabled then y:Cancel(A.Object.Knob);A.Object.Knob.BackgroundColor3=Y and Color3.fromHSV(s:Color((f-(q*0.075))%1))or Color3.fromHSV(f,d,N);end;end;for q,A in s.Indicators do A.BackgroundColor3=Y and Color3.fromHSV(s:Color((f-(q*0.075))%1))or Color3.fromHSV(f,d,N);end;if s.Legit.Icon then s.Legit.Icon.ImageColor3=Color3.fromHSV(f,d,N);end;if s.Legit.Window.Visible then for q,q in s.Legit.Modules do if q.Enabled then y:Cancel(q.Object.Knob);q.Object.Knob.BackgroundColor3=Color3.fromHSV(f,d,N);end;for A,A in q.Options do if A.Color then A:Color(f,d,N,Y);end;end;end;end;end;s:Clean(a.ChildRemoved:Connect(function()for Y,f in a:GetChildren()do if y.Tween then y:Tween(f,TweenInfo.new(0.4,Enum.EasingStyle.Exponential),{Position=UDim2.new(1,0,1,-(29+(78*Y)))});end;end;end));local Y={Enum.KeyCode.Escape};s:Clean(O.InputBegan:Connect(function(f)if not O:GetFocusedTextBox()and f.KeyCode~=Enum.KeyCode.Unknown and not table.find(Y,f.KeyCode)then table.insert(s.HeldKeybinds,f.KeyCode.Name);if s.Binding then return;end;if T(s.HeldKeybinds,s.Keybind,f.KeyCode.Name)then if s.ThreadFix then setthreadidentity(8);end;for d,d in s.Windows do d.Visible=false;end;v.Visible=not v.Visible;l.Visible=false;s:BlurCheck();end;local d=false;for N,q in s.Modules do if T(s.HeldKeybinds,q.Bind,f.KeyCode.Name)then d=true;if s.ToggleNotifications.Enabled then s:CreateNotification('Mo\z \100\117\zl\z  \u{0065}\32T\z og\u{067}\l\101\x64',V(N)..`<font color='#FFFFFF'> {V("has b\u{065}en")} </font>`..(not q.Enabled and`<font color='#5AFF5A'>{V("\69n\97\x62le\100")}</font>`or`<font color='#FF5A5A'>{V("D\x69sa\x62l\x65d")}</font>`).."<\z  f\111n\u{0074} \99ol\or\x3D\'#\FFF\F\u{0046}\z F'>\33\60\47fo\u{06E}t\u{3E}",0.75);end;if typeof(q.KeybindFunction)=="\u{66}\u{075}\110c\116\u{69}on"then q:KeybindFunction();else q:Toggle(true);end;end;end;if d then s:UpdateTextGUI();end;for d,d in s.Profiles do if T(s.HeldKeybinds,d.Bind,f.KeyCode.Name)and d.Name~=s.Profile then s:Save(d.Name);s:Load(true);break;end;end;end;end));s:Clean(O.InputEnded:Connect(function(f)if not O:GetFocusedTextBox()and f.KeyCode~=Enum.KeyCode.Unknown and not table.find(Y,f.KeyCode)then if s.Binding then if not s.MultiKeybind.Enabled then s.HeldKeybinds={f.KeyCode.Name};end;s.Binding:SetBind(T(s.HeldKeybinds,s.Binding.Bind,f.KeyCode.Name)and{}or s.HeldKeybinds,true);s.Binding=nil;end;end;local Y=table.find(s.HeldKeybinds,f.KeyCode.Name);if Y then table.remove(s.HeldKeybinds,Y);end;end));end;end,X2=function(Y,s,f,O)f[0b100101]=(function()local d,N=f[0b1001]('\z  \<i\u{038}',f[0X1a],f[0B11011]);f[0b11011]=(N);return d;end);if not O[5532]then(O)[0x3_44b__]=(-106207699+(Y.FP(O[0X1125]+O[5485]+O[0X45_3B__]-Y.K[5],(O[32152]))));s=(-3278267417+((Y.xP(Y.K[9]-O[12634]+O[0X6372],(O[0x7D9_8])))+O[20721]));O[0X1__59c]=(s);else s=O[0x00159C];end;return s;end,mP=function(Y)return;end,s2=function(Y,Y,s,f,O)s[Y]=O[0X1E][f];end,W2=function(Y,s,f,O,d,N,q,A,X,I,W,H,t)local z;t=117;for a=0X1,f,0X1 do local f,w,j,v,L,J,l,U;j,J,l,v,w,L,U,f=Y:C2(J,j,v,U,w,L,H,f,l);local c,n;n,J,l,c,U=Y:z2(W,s,U,q,N,j,a,H,w,v,n,f,c,L,J,l,X);if v==0X4_ then if H[0X4]then j=(nil);f=nil;L=(0X71);repeat if L==0b1110001 then j=(H[0X1E][J]);L=0X1C;elseif L==0B11100__ then f=#j;L=75;continue;elseif L==75 then(j)[f+0X1]=A;L=(0x2e);continue;elseif L==46 then L=(0X35);(j)[f+2]=(a);else if L==0B110101 then(j)[f+0x0__3]=8;break;end;end;until false;else I[a]=(H[30][J]);end;else if v==3 then Y:D2(a,J,s);elseif v==0B101 then(s)[a]=a+J;else if v==0 then if H[0X2_6]~=N then else return-0X2__,t,90;end;(s)[a]=(a-J);else if v==6 then Y:j2(J,H,a,I);end;end;end;end;w=0x2E;repeat z,w,v,U=Y:F2(H,U,w,O,a,v,n,A,l,W,d,X,c);if z==11393 then break;elseif z==42794 then continue;else if not(z)then else return{Y.A(z)},t;end;end;until false;end;return 21538,t;end,fP=bit32.bor,E2=function(Y,s,f,O,d,N)f=nil;N=nil;local q;for A=0XB__,0X66,23 do if A==80 then for X=0X1,d[0X24](),1 do local X,I,W;I,W,X=Y:M2(X,W,I);q,W,I,X=Y:P2(d,X,N,W,I,q);end;break;else if A==11 then f=({Y.X,Y.X,Y.X,Y.X,Y.X,nil,nil,nil,nil,Y.X,nil});else if A==0x39 then q=0B1;continue;else if A~=34 then else N={};(f)[6]=(N);end;end;end;end;end;O=(d[0X27]()-45652);s=nil;return N,s,O,f;end,o2=function(Y,s,f,O,d)local N;if f==0X4F then while s[0X13]do for q=0X3B,0xbd,65 do N,d=Y:x2(s,d,q);if N==0X579 then continue;elseif not(N)then else return{Y.A(N)},O,d;end;end;end;elseif f~=86 then else if not(s[39])then else O,s[0X11]=-O,(-s[38]);end;end;return nil,O,d;end,a=function(Y,Y,s)Y=(s[27689]);return Y;end,H2=function(Y,s,f,O,d,N)local q,A,X,I;for W=0b110011,0Xee_,0B1100001 do I,X,A,N=Y:t2(X,f,I,W,N,d);if A==0X42DB then break;else if A==51820 then continue;end;end;end;local W,H,t,z=d[0B1__00010](f),d[34](f),d[0x22](f),d[34](f);(O)[0B1011]=t;local a=0X4;while true do if a<0B1010110 and a>4 then a=(0B1010_110);(O)[0X4]=(z);continue;elseif a>0B1__0011 then Y:n2(O,N);break;else if not(a<0b10011)then else a=0B10011;O[0B0101]=(X);O[0B1001]=(I);continue;end;end;end;a=(0b10111__00);repeat if a>0X5C then if a==0x075 then(O)[0X3]=d[0x2_7]();break;else A,a,q=Y:W2(z,f,W,t,s,X,O,H,N,I,d,a);if A==21538 then continue;elseif A==-0X2 then return-2,N,q;elseif not(A)then else return{Y.A(A)},N;end;end;else if not(a>0x0B)then(O)[0X2]=W;a=(110);continue;else a=Y:y2(H,a,O);continue;end;end;until false;return nil,N;end,rP=function(Y,s)(s[0B10100])[0xE]=Y.n;end,LP=bit32.countlz,z=function(Y,s)(s)[0x3]=Y.X;(s)[0B10_0]=Y.X;s[0X5]=nil;end,NP=function(Y,Y,s,f)Y=f[0X22](s);return Y;end,sP=string.sub,b2=function(Y,s,f)f[20721]=(0x0026+(Y.uP((Y.uP((Y.qP(Y.K[0X6_]-Y.K[0x8])))))));s=-0X663e__4D91+(Y.xP((Y.iP(f[12938]<f[31070]and Y.K[0X4]or f[19523],f[0X477_4]))-Y.K[0X2],(f[18292])));f[12634]=(s);return s;end,zP=function(Y,s,f)f[0X242a]=-855637954+((Y.gP(f[0X7D2e]+f[0X10_40]-f[22781],(f[0X1d53])))-f[22781]);s=(-667838562+(((Y.fP(f[13387]>s and f[1222]or f[0X1__EAf]))<=f[0X50F1]and Y.K[1]or Y.K[2])+Y.K[0X1__]));(f)[21559]=s;return s;end,kP=function(Y)return;end,j=function(Y,Y,s)Y=s[0X1125];return Y;end,gP=bit32.rrotate,YP=function(Y,Y,s)if s[22]==s[10]then else Y=s[0B100101]();end;return Y;end,R=coroutine,J=bit32.rshift,z2=function(Y,s,f,O,d,N,q,A,X,I,W,H,t,z,a,w,j,v)z=nil;for L=92,314,0X4A do if L==166 then j=q%8;elseif L==240 then O=((q-j)/0X8__);continue;else if L==0x1_3a then z=Y:c2(a,z);else if L==0b1011100 then w=((I-W)/8);continue;end;end;end;end;H=(a-z)/0B1000;if N~=W then for Y=0B11010_0,0Xfd_,0b1100100 do if Y~=0X3__4 then s[A]=H;break;else(d)[A]=t;continue;end;end;end;(v)[A]=O;if W~=X[0X24]then f[A]=(w);end;return H,w,j,z,O;end,n=bit32.bor,m2=function(Y,Y,s,f)s[Y]=f;end,Y=error,uP=bit32.countrz,u=function(Y,s)s[0X0010]=Y.aP;(s)[0x11]=function(Y,f,O)f=f or 0x1;O=O or#Y;if(O-f+1)>7997 then return s[0B1111](O,Y,f);else return s[0X8](Y,f,O);end;end;(s)[0X12]=nil;end,_2=function(Y,Y,s)s=(Y[0X1eaf]);return s;end,i=function(Y,Y,s,f)(s[10])[Y]=f(Y);end,SP=function(Y,Y)return Y[0B10110];end,wP=function(Y,s,f,O,d)d[0B101]=({});f=nil;O=nil;s=21;repeat if s<21 then d[0X4]=(O);break;elseif s>0xf and s<0X070 then f,s=Y:eP(f,s,d);continue;else if s>0B10101 then s=0Xf;O=(d[0X23]()~=0);end;end;until false;return f,s,O;end,iP=bit32.bxor,U2=function(Y,s,f,O,d)if s==88 then f,d=Y:T2(O,d,f);else(O)[27]=d;return 20025,f,d;end;return nil,f,d;end,s=function(Y,Y,s)Y=(s[18292]);return Y;end,a2=function(Y,Y,s)s=#Y;return s;end,d2=function(Y,Y,s,f,O)O[Y+0X1]=f;s=(0B101010);return s;end,ZP=function(Y,Y,s,f,O,d)if d then Y[0X1e][s]={f,O};else Y[0X1E][s]=f;end;end,bP=function(Y,s,f,O)local d;for N=0X7D,0b1111111_1,62 do if not(N<0B0010111011)then if f[0X5][d]then s[O]=f[5][d];else Y:VP(O,f,s,d);end;break;else d=f[0b100111]();continue;end;end;end,n2=function(Y,Y,s)Y[8]=(s);end,G=function(Y,Y,s)s=Y[18079];return s;end,F2=function(Y,s,f,O,d,N,q,A,X,I,W,H,t,z)local a;if O<=46 then if z==0b1__00 then if not(s[0X4])then Y:p2(s,d,A,N);else Y:r2(X,N,A,s);end;elseif z==0B11 then Y:v2(A,W,N);elseif z==0X5 then Y:B2(N,A,W);elseif z==0X0 then W[N]=N-A;else if z~=0X6 then else q,a,f=Y:f2(N,f,A,d,q,s);if not(a)then else return{Y.A(a)},O,q,f;end;end;end;O=(0X35);return 42794,O,q,f;else Y:g2(N,H,t,s,I,X,f);return 11393,O,q,f;end;return nil,O,q,f;end,Q2=function(Y,s,f,O,d)if f<49 then f=Y:K2(f,d,O);return d,0X93C,s,f;else if f>0B11010 and f<103 then return d,-0B10,s,f,s;else if not(f>0X31)then else f=(0b1101__0);s,d=O[0X9]("\x3CI\52",O[0B11010],O[27]);end;end;end;return d,nil,s,f;end,UP=function(Y,s,f,O,d,N,q)d=(0B10001);while true do if d==0x11 then q[0X28]=function()local A=q[39]();if not(A>=q[0b01101])then else return A-q[14];end;if q[0x20]==q[0X26__]then else return A;end;end;if not(not s[0X7_D2E])then d=(s[0X7D2e]);else d=-3059474627+(Y.fP((Y.oP(Y.K[6]-Y.K[0B11]+s[31070])),s[0X4c_6],s[20721]));(s)[0X7d2E]=(d);end;elseif d==60 then q[0B101001]=(function()local A=q[39]();(q)[0X1b]=q[0X1b]+A;return q[0X13](q[0X1A],q[0X1B]-A,q[0X1B]-1);end);if not s[0X22B5]then d=Y:Z2(d,s);else d=s[8885];end;else if d==107 then(q)[0X2A]=function(...)local A=q[6]('#',...);if A~=0X0 then else return A,q[0X15];end;return A,{...};end;if not(not s[0X1__EAf])then d=Y:_2(s,d);else s[0X3c42]=(0b11001_001+((Y.FP(s[0X1040]-s[0x156d]-Y.K[0X2],(s[25623])))-s[12634]));d=(0b1100+(s[97]-s[18079]+s[27689]-s[12634]+s[0X795e__]));(s)[0x1_eAF]=(d);end;else if d~=0X004e__ then else(q)[0x2b]=(function(s,A,X)local I,W,H,t=s[0X3],s[0X6],s[0X9],s[0B100];local z,a,w,j,v=s[0x2],s[11],s[7],s[0X8],s[0X5__];X=(nil);X=function(...)local L,J,l,U=0x1,q[0X22](I),(0);local I,I=q[42](...);local c,n,y,R,b,e,k=1,0b1_,(q[33]());local E,S,u,M=q[0X7](function()local p,K,V,C,T,Z,P,B,r;repeat local x=v[L];if not(x<0X37)then if not(x>=0B101__0010)then if x>=0B100_0100 then if not(x>=0b1001011_)then if not(x<0X47)then if not(x<0X49)then if x==0X4A then(J)[t[L]]=J[H[L]];else(J)[H[L]]=(t);end;else if x==0B1001000 then T=(J);V=(w[L]);T=(T[V]);else J[H[L]]=nil;end;end;else if not(x<0x45)then if x~=0X46 then for m=w[L],t[L]do J[m]=(nil);end;else J[t[L]]=(J[w[L]]>=J[H[L]]);end;else T=(w[L]);V=t[L];r=J[T];(q[29])(J,T+0B1,T+H[L],V+1,r);end;end;else if not(x>=78)then if not(x<0B1001100)then if x~=0B1001101 then T=H[L];(J[T])(J[T+1]);n=T-0X1;else(J)[H[L]]=j[L];end;else if J[t[L]]==J[w[L]]then L=H[L];end;end;else if x<0x50 then if x~=79 then J[H[L]]=J[t[L]]..J[w[L]];else J[H[L]]=q[0X22](w[L]);end;else if x==0x51 then L=(H[L]);else J[t[L]]=(#J[H[L]]);end;end;end;end;else if not(x<61)then if x<64 then if not(x>=0x3E)then T=w[L];V,r,Z=b();if V then(J)[T+1]=(r);J[T+0X2]=(Z);L=(H[L]);end;else if x==0X3F then q[20][t[L]]=J[w[L]];else T=H[L];n=T+w[L]-0X1;(J)[T]=J[T](q[0x11](J,T+0X1,n));n=(T);end;end;elseif not(x<0b1000010)then if x~=0x43 then(J)[w[L]]=(y[z[L]]);else r={};(T)[V]=r;end;else if x~=65 then(J)[w[L]]=J[H[L]]*j[L];else r=j[L];T[V]=(r);end;end;else if x<58 then if not(x>=0B111000)then(J)[w[L]]=H;else if x~=0X39 then(J)[t[L]]=J[H[L]]~=J[w[L]];else T=w[L];J[T]=J[T](J[T+0X1]);n=T;end;end;else if not(x<0x3b)then if x==0X3c then if not(a[L]<J[t[L]])then L=(H[L]);end;else T=(A[t[L]]);(J)[H[L]]=(T[0X02][T[0X1]][J[w[L]]]);end;else J[H[L]]=J[t[L]]%a[L];end;end;end;end;else if not(x<96)then if x<0X67 then if x>=99 then if not(x<0X65)then if x~=0B1100110 then J[w[L]]=A[t[L]][J[H[L]]];else(J)[H[L]]=J[t[L]]//a[L];end;else if x~=100 then T=A[t[L]];T[2][T[0X1]][J[H[L]]]=J[w[L]];else T=(t[L]);V=(w[L]);r=J[T];(q[0B11101])(J,T+0x1,n,V+0b1,r);end;end;else if not(x<0X61)then if x==0X62 then if J[t[L]]then L=w[L];end;else J[H[L]]=j[L]^J[w[L]];end;else if J[w[L]]~=z[L]then L=t[L];end;end;end;else if x>=0x6a then if x>=0b1101100 then if x~=0B1101101 then if not(not(J[t[L]]<J[w[L]]))then else L=(H[L]);end;else A[t[L]][J[H[L]]]=J[w[L]];end;else if x~=0X6B then(J)[t[L]]=(A[w[L]]);else T=(w[L]);J[T](q[0B10001](J,T+1,n));n=T-1;end;end;else if x<0b1101_000_ then(J)[t[L]]=(J[w[L]]%J[H[L]]);else if x~=0x69 then(J)[t[L]]=w;else(J)[t[L]]=(J[w[L]]-J[H[L]]);end;end;end;end;else if not(x<0X59)then if x<0b1011100 then if x<0X5a then(J)[t[L]]=J[H[L]]/J[w[L]];else if x==0X5B then T=(A[H[L]]);T[0X2][T[1]]=(J[w[L]]);else T=(w[L]);(J[T])(J[T+0B1],J[T+0x2]);n=T-0X1;end;end;else if not(x<94)then if x==0x5F then T=(j[L]);V=T[0B1];T=(#V);r=T>0b0 and{};if r then for m=0X1,T do Z=V[m];B=Z[0X2];p=(Z[0X1]);if B==0 then if not(not R)then else R={};end;Z=R[p];if not(not Z)then else Z={[0x1]=p,[0X2]=J};R[p]=(Z);end;(r)[m-0B1]=Z;else if B==1 then r[m-1]=J[p];else r[m-0X1]=(A[p]);end;end;end;end;T=Y[z[L]](r);q[0X1f](T,y);(J)[w[L]]=T;else if not(not J[H[L]])then else L=(w[L]);end;end;else if x~=0X5D then(J)[H[L]]=(J[w[L]][J[t[L]]]);else if not(R)then else for m,h in R do if not(m>=0X1)then else h[0B10]=h;(h)[0b0011]=(J[m]);h[0x1]=(0b11);(R)[m]=(nil);end;end;end;return;end;end;end;else if not(x>=0B1010101)then if not(x>=83)then(J)[H[L]]=J[t[L]]==a[L];else if x==0b1010100 then T=J;V=H[L];else J[H[L]]=(J[t[L]]~=a[L]);end;end;else if x<0B1010111 then if x==0X56 then(J[H[L]])[J[t[L]]]=J[w[L]];else T=H[L];(J)[T]=J[T](q[0X1__1](J,T+1,n));n=T;end;else if x~=0B101100__0 then T=J;V=t[L];else local m=(t[L]);if not(R)then else for h,g in R do if not(h>=m)then else g[0X2]=(g);(g)[0X3]=J[h];g[0X1]=0X3;R[h]=(nil);end;end;end;end;end;end;end;end;end;else if not(x>=0X1B)then if not(x<0b1101_)then if x<20 then if not(x>=0X10)then if not(x<0XE)then if x~=0XF then T=nil;V=nil;r=0X22;while true do if r>25 then T=74;r=-0X21+(q[20][0X9]((q[0x14][9](r-x))+t[L],x,r));elseif r<34 then V=(0x0);break;end;end;Z=4503599627370495;r=(0X47);while true do if r==0X47 then V*=Z;r=(0X5f__+((q[20][0Xc_]((q[0X14_][0Xd](t[L]+x,H[L]))))-H[L]));continue;elseif r~=122 then else Z=q[0B10100];break;end;end;B=0B111;p=(nil);r=(0X7D);while true do if r~=0X38 then Z=Z[B];r=0X32+(q[20][0X7]((q[20][0XC]((q[0X14][0B1010](r,t[L]))))+t[L],t[L]));continue;else B=q[0X14_];p=(0xC);break;end;end;B=B[p];P=nil;r=69;while true do if r<0B1100_000 then p=(q[0B101_00]);r=(-4294967143+(q[20][14]((q[0X0014][0b1011](r+t[L]-x)),r,H[L])));continue;elseif r>0X45 then P=(0B110);break;end;end;p=(p[P]);C=nil;K=(nil);r=(84);while true do if r>0X23 and r<0x54 then K=(x);break;elseif r>0b100110 then P=q[0B10100];C=0Xc;P=(P[C]);r=(0B10001+(t[L]-x+t[L]+x+x));elseif r<0B100110__ then C=x;r=-0X08BFFdA+(q[0X14][0B1101]((q[0X14][0X8](r<=t[L]and r or r,r,r))==H[L]and x or r,(x)));continue;end;end;r=(0x4d);while true do if r>0x3a and r<0B1001101 then P=P(C);r=-351+((q[0X14][0Xe]((q[0X14][0X5](r,t[L]))+r,r,r))-t[L]);continue;elseif r<0X3a then C=(H[L]);r=(0X35+(q[0X14][0X7](r+r+r+t[L],t[L])));continue;elseif r<0X48 and r>0x7 then P=(P~=C);r=79+(q[0x14][0X8]((q[0B10100][8](r+t[L]))-r,r,r));continue;elseif r>0X4d__ then if not(P)then else P=(x);end;break;elseif r<0B1010001 and r>0b1001_000 then C-=K;r=(-4294967130+(q[0X14_][0X9]((q[20][9]((q[0B101__00][0Xb]((q[0X14][0xC](t[L])))),r,x)),x,x)));end;end;if not P then P=(t[L]);end;p=p(P);P=(H[L]);p-=P;P=H[L];p-=P;B=B(p);p=(x);Z=Z(B,p);V+=Z;T+=V;r=0X13;while true do if r<0X56 then(v)[L]=T;r=0X48+(((q[0X14][14]((q[0X14][9](r,r))))==H[L]and r or r)>=H[L]and x or t[L]);continue;elseif r>0b1001_1 then T=(J);break;end;end;V=t[L];r=0X1;while true do if r>0x1 and r<0B1101100 then Z=Z[B];T[V]=Z;break;elseif r>0B1011011 then B=(H[L]);r=-0x1aFE_61+((q[0x14][5](r,(x)))-r-r-r);elseif not(r<91)then else Z=J;r=-4294967188+((q[0X0014][0XB]((q[0X14][0b110]((q[0x14][0XB](t[L]))))))+r);end;end;else J[w[L]]=J[H[L]][j[L]];end;else(J)[H[L]]=(J);end;else if not(x<0X12)then if x~=19 then(J)[H[L]]=(a[L]*J[t[L]]);else(J)[w[L]]=J[H[L]]==J[t[L]];end;else if x==0x11 then J[w[L]][z[L]]=j[L];else J[w[L]]=(A[H[L]][j[L]]);end;end;end;else if not(x<0b10111)then if x<0X0019 then if x~=0X18 then(J)[w[L]]=J[t[L]]+z[L];else(J)[H[L]]=(J[t[L]]<J[w[L]]);end;else if x~=0X1A then J[H[L]]=(J[w[L]]-j[L]);else(J)[H[L]]=s;end;end;else if x>=0X15 then if x==0x16 then(J)[H[L]]=(v);else l=w[L];for s=0b1,l do(J)[s]=I[s];end;c=l+0X1;end;else end;end;end;else if x<0x6__ then if x<0X3_ then if x>=1 then if x==0B1_0 then V=z[L];r=j[L];(T)[V]=r;else T=t[L];(J)[T]=J[T](J[T+0X1],J[T+2]);n=T;end;else if J[H[L]]~=a[L]then else L=(t[L]);end;end;else if x<4 then T=(t[L]);V=w[L];r=(H[L]);if V~=0X0 then n=T+V-1;end;Z,B=(nil);if V==0B1 then Z,B=q[0X02A](J[T]());else Z,B=q[42](J[T](q[0b10001](J,T+0B1,n)));end;if r==0B1 then n=(T-0x1);else if r==0x0 then Z=Z+T-1;n=Z;else Z=T+r-2;n=Z+1;end;V=0B0;for s=T,Z do V+=1;(J)[s]=(B[V]);end;end;else if x~=0X5 then(J)[H[L]]=a[L]+J[t[L]];else T=(nil);V=(nil);r=nil;Z=nil;B=(0XA);while true do if B>94 then V=(0X000);r=4503599627370495;B=-0x1__a+((B+x-B==H[L]and B or x)+B);elseif B<0B100110__0 and B>10 then r=(q[0x14]);B=0x5__0+(q[0x14][0b111](B-x+x+B,H[L]));else if B<0B10__11110 and B>0X3b then V*=r;B=(59+(q[20][0X8](((q[0B0101__00][0X5__](B,H[L]))==H[L]and H[L]or x)-x,B)));continue;else if B<59 then T=0X2d__;B=-19359+(q[0X14][0X5]((q[20][0B001001](H[L]~=B and B or H[L],H[L]))+B,(B)));continue;else if B>0X4C and B<97 then Z=(0x5);r=(r[Z]);break;end;end;end;end;end;p=nil;P=nil;B=(81);while true do if not(B>=0X7C)then Z=q[0X14];p=(0x6);Z=(Z[p]);B=124+(q[0x14][10]((q[0X1__4][6]((q[0X1_4__][0X09](H[L]>=x and B or B,x,B)))),H[L]));else p=(q[0X14]);P=(0X7);break;end;end;p=(p[P]);P=H[L];C=(v[L]);B=(58);repeat if B>81 then p=p(P,C);break;elseif B<0b1111100 and B>58 then C=(v[L]);B=(0X2__B+((q[0X14][0B1000](B-B~=x and B or H[L],B))<=H[L]and B or B));else if not(B<0x51)then else P+=C;B=-0X007FfffaE+(q[0x14][0B111]((q[0X14][0B1011]((q[20][0X5](B-B,H[L])))),(x)));end;end;until false;P=x;B=96;while true do if B<96 and B>18 then P=H[L];B=(-45+(((q[20][12](H[L]))+B<H[L]and B or B)<=x and B or B));else if B<0X3F then p+=P;P=x;break;else if B>0x3f then p+=P;B=(0B100100__1+((q[0x14][0B1001](B-x,B,B))-B-x));end;end;end;end;p=p==P;if not(p)then else p=x;end;B=0X34;repeat if B==0B11010__0 then if not p then p=x;end;P=H[L];B=(0X69+((B>=B and x or x)-B-H[L]-B));else p-=P;break;end;until false;Z=Z(p);B=(0X2f);while true do if B<0X42 then p=x;B=(0x003D+(x+H[L]-H[L]+x>=x and x or B));else if not(B>0B101111)then else r=r(Z,p);break;end;end;end;V+=r;B=(40);repeat if B==40 then T+=V;B=0X44+(((q[0X14][0X9]((q[20][0X0b](x)),B,H[L]))>H[L]and B or B)-x);continue;else if B~=103 then else(v)[L]=T;break;end;end;until false;T=(J);V=(H[L]);r=j[L];(T)[V]=r;end;end;end;else if x>=0X9 then if x<0xB then if x==0XA then n=(w[L]);J[n]();n-=1;else for s=0X1,w[L]do J[s]=(I[s]);end;end;else if x==0XC__ then T=false;b+=k;if not(k<=0x0)then T=b<=U;else T=(b>=U);end;if T then(J)[t[L]+0x3]=(b);L=w[L];end;else n=(H[L]);J[n]=J[n]();end;end;else if not(x<0X7)then if x~=0B1000_ then J[H[L]]=(q[0x2](J[w[L]],j[L]));else(J)[t[L]]=J[H[L]]*J[w[L]];end;else e=({[5]=U,[0X00__2]=b,[4]=k,[3]=e});n=t[L];T=q[0B1100](function(...)q[0X1c]();for s,l in...do(q[0x1C])(true,s,l);end;end);(T)(J[n],J[n+0X1],J[n+0x2]);b=(T);L=H[L];end;end;end;end;else if not(x>=0B0101001)then if x>=0X22 then if not(x<0B100101)then if not(x>=0B100_111)then if x==0X26 then if not(not(J[t[L]]<=a[L]))then else L=(H[L]);end;else J[t[L]][z[L]]=J[w[L]];end;else if x~=0X28 then(J)[t[L]]={};else(J)[t[L]]=(a[L]%z[L]);end;end;else if x>=0B100011__ then if x~=0X24 then if not(R)then else for s,l in R do if s>=1 then l[0X2]=(l);(l)[3]=(J[s]);l[0x1]=(0X3);R[s]=nil;end;end;end;T=t[L];return false,T,T;else e=({[0b101]=U,[0x2]=b,[4]=k,[3]=e});T=(w[L]);k=(J[T+0X2]+0x0);U=(J[T+0X1]+0X0);b=(J[T]-k);L=H[L];end;else if not(R)then else for s,l in R do if s>=0X1 then(l)[0B10]=l;(l)[3]=(J[s]);l[1]=(0X3__);(R)[s]=nil;end;end;end;return true,H[L],0x0;end;end;else if x>=0B11110 then if not(x<0X20)then if x==0X21 then T=w[L];V=(t[L]);for s=T,V do r=J;Z=s;s=nil;(r)[Z]=(s);end;else b=e[2];U=e[0X5];k=(e[0B100]);e=(e[0B11]);end;else if x==0B11__111 then if J[t[L]]==J[H[L]]then else L=(w[L]);end;else(J[w[L]])[J[t[L]]]=(z[L]);end;end;else if not(x>=28)then(J)[t[L]]=(q[0x2](J[w[L]],J[H[L]]));else if x~=0X1D__ then if not(not(a[L]<=J[H[L]]))then else L=t[L];end;else(J)[t[L]]=not J[H[L]];end;end;end;end;else if not(x<0x0030)then if not(x<51)then if x<0X35 then if x==0x34 then(J)[t[L]]=(q[0X14][w[L]]);else T=(nil);V=(nil);r=0X59;while true do if r~=0x59 then V=0B0;break;else T=(-4294967173);r=-2147483548+(q[0x14][0XD]((q[0x14_][0X6](t[L]-x))==r and r or t[L],t[L]));end;end;Z=4503599627370495;B=(nil);r=0B110;while true do if r<0X2d and r>0X6_ then B=(0XB);break;elseif r<0B101000 then V*=Z;r=(0X2B+((q[0B10_100][0x5](r+r>=t[L]and x or r,t[L]))>r and t[L]or r));continue;elseif not(r>0b101000)then else Z=(q[0X14]);r=(0X28+(q[0x14][0X8__](r-t[L]+t[L]==t[L]and t[L]or x,r,t[L])));end;end;Z=(Z[B]);p=nil;P=nil;r=(0xD);while true do if r<0X7a and r>0X11 then B=B[p];r=0X2F+(q[0X14][0b1001]((q[0X14][0x9]((q[0B010100][0x9](r))+t[L],t[L])),r,r));elseif r<71 and r>0Xd then P=0B1_1__0_0;break;elseif r>71 then p=q[20];r=(-0X22+(((q[0x14][0Xb](x+r))>=x and t[L]or x)==r and r or x));continue;elseif r>8 and r<17 then B=(q[20]);r=(-0X1C+((q[0X14][12](r-r))+t[L]+t[L]));elseif not(r<13)then else p=0b1000;r=(0X4f+(r-r-r+x-x));end;end;C=nil;r=86;while true do if r>0B101011_0 then C=v[L];break;elseif r>0x3D and r<0X78 then p=p[P];P=(q[20]);C=0Xe;r=0X3B+((x<=t[L]and r or x)+r-x~=r and r or t[L]);elseif not(r<0B0010_10110_)then else P=(P[C]);r=-4294967059+((q[0X14][11]((q[20][14](t[L],r))))-x-t[L]);continue;end;end;K=t[L];C=C>K;r=0X6E;while true do if r<0B1010000 and r>0X002 then p=t[L];B+=p;break;elseif r<0x79 and r>111 then if not(not C)then else C=x;end;r=0B10111__11+(((q[0B10100][0X5](r,t[L]))<t[L]and t[L]or x)-r+x);elseif r<0X6E and r>0x4 then K=x;r=0B10111111+((q[20][0X8]((q[0X14][0x8]((q[0x1_4][7](x,t[L])),t[L],r)),r))-r);elseif r>0X50 and r<111 then if not(C)then else C=(t[L]);end;r=(-1073741720+(q[0x1_4][0B1101]((r-x~=t[L]and x or t[L])+t[L],t[L])));elseif r<0B11_10101 and r>0b110111__0 then P=P(C,K);p=p(P);r=-4294966945+((q[20][10](x-r,t[L]))-r+t[L]);continue;elseif r>117 then B=B(p,P);r=-0b1011100+(q[0b10100][0B101]((q[0B10100][0X0C]((q[0X14][9](r+r,r)))),t[L]));continue;elseif not(r<4)then else P=v[L];r=0x77+((q[0x14][10]((q[0X14][5](r-t[L],t[L])),(r)))+r);end;end;p=(t[L]);B+=p;r=(0B110000);while true do if r==0X30 then p=t[L];r=(0x4F+((q[20][0x8](x-x))+x-x));continue;elseif r==0B1__001111 then B+=p;r=(-4294967197+(q[0b10100][0X5_]((q[0X014][0B1110]((q[0X14][0X7](x,t[L]))-r,r,r)),t[L])));continue;elseif r~=0B1100010 then else Z=Z(B);break;end;end;V+=Z;r=0X0;while true do if r==0B0 then T+=V;r=(0B1011101__+(q[20][0Xe]((q[0X1__4][0X7](t[L]-t[L]+t[L],(r))),t[L],r)));elseif r~=95 then else(v)[L]=T;break;end;end;T=J;r=0X45;while true do if r==0B01000101 then V=t[L];T=(T[V]);r=(-0X3fffffb1+(q[0b10100][0xD](r+r+r<=x and r or r,t[L])));continue;elseif r~=0B1_10__00_00 then else if T then C=116;while true do if C>0X43 then T=w[L];C=0X43;elseif not(C<0x74)then else L=(T);break;end;end;end;break;end;end;end;elseif x~=0X36 then(J)[H[L]]=(J[t[L]]<=J[w[L]]);else(J)[t[L]]=J[H[L]]+J[w[L]];end;else if x<0B1_10_001 then T=(nil);V=(nil);r=(0X58);while true do if r==0x58 then T=(0X02c);r=(0B0100111+((q[0B10100][0xd](r+H[L]==H[L]and r or x,H[L]))~=H[L]and x or x));elseif r~=87 then else V=0X0;break;end;end;Z=4503599627370495;B=nil;r=0X7A;while true do if r>0b11110_0 then V*=Z;r=0X8b+((q[20][0X6]((q[0X1_4][11](H[L]==H[L]and r or x))))-r);elseif r<60 then Z=(q[0B10100]);B=(0X9);r=0B11000+(q[0X14][0B1001]((q[0X1_4][0B1000](r+H[L]+r))));continue;elseif r>0X11 and r<122 then Z=Z[B];break;end;end;p=(nil);r=(0B10_10010);while true do if r~=0B1010010 then B=(B[p]);break;else B=q[0X14];p=(0b110);r=(-0x027+((q[0X14][0X8]((q[0X14][0B101_0](H[L]-x,H[L]))))>H[L]and x or H[L]));continue;end;end;P=nil;r=(0X7D);while true do if not(r<0X7D)then p=(q[0x14]);r=(-0x1C4+(q[20][0b1_010]((q[0X14][14]((q[0x14][0B110](H[L]))+r,r)),H[L])));else P=(0X7);break;end;end;p=p[P];C=nil;r=(0B10101_10);while true do if r~=0b101_0110 then C=(0B111__0);break;else P=q[0b10100];r=(-4294967231+(q[0X14][11]((q[0X14][0b110](r-x))+H[L])));end;end;P=P[C];C=v[L];K=(x);C+=K;r=47;while true do if r==47 then P=P(C);r=(-0X7D+((q[20][0Xe]((q[20][0X5](r,H[L]))+r,r,H[L]))-x));continue;elseif r==66 then C=(v[L]);r=(0B111_001+(q[0x0__14][12]((q[0B0010100][0xA](H[L]-r-x,H[L])))));elseif r==57 then P-=C;r=66+((q[0B10100][6]((q[20][0X7](r<r and r or r,H[L]))))>H[L]and r or H[L]);elseif r~=0X44 then else C=(H[L]);p=p(P,C);break;end;end;P=(H[L]);r=0X21;while true do if r>0Xc and r<0B1111011 then p-=P;r=(0X7E+((q[20][6](r))-r-r-x));continue;elseif r>0X21 then p=(H[L]);break;elseif r<33 then B=B(p);r=(0X44+((q[0X14][0xB](H[L]-x))+r-H[L]));end;end;r=(0X25);while true do if r>=0X40 then p=H[L];break;else B=(B>=p);if not(B)then else B=(v[L]);end;if not(not B)then else B=x;end;r=(62+(q[0X14][0X8]((r~=x and r or r)+r+r,H[L])));end;end;Z=Z(B,p);r=(0B11_1110);while true do if r==0X3E then V+=Z;r=(-0xF3+(q[20][5](r-r-r<r and r or r,H[L])));continue;elseif r==5 then T+=V;v[L]=T;r=(-4294967261+(q[0X14][0XB]((x<=r and r or r)+x==r and x or H[L])));elseif r==0B100000 then T=(J);V=H[L];r=(0X32+(q[0B101__00][0X8]((q[0x014][0Xc]((q[0B101__00][0xc]((q[0X14__][11](x)))))),r,x)));continue;elseif r==0X52 then T=T[V];r=(-0x14f+(q[0x14][5]((q[0X14][0x9](H[L]+r))+H[L],H[L])));continue;elseif r~=0B10__01 then else T=(not T);break;end;end;if T then T=w[L];L=(T);end;else if x==0X32 then J[t[L]]=-J[H[L]];else J[t[L]]=(J[w[L]]/z[L]);end;end;end;else if not(x<0x2C)then if x<0x2E then if x~=0B101101 then if not(not(J[H[L]]<j[L]))then else L=w[L];end;else T=j[L];V=(T[0B1]);r=(#V);Z=r>0 and{};B=q[0X2b](T,Z);q[0B11111](B,y);(J)[w[L]]=(B);if not(Z)then else for s=0B1,r do B=(V[s]);T=(B[0B10]);p=(B[0X1]);if T==0X0_ then if not(not R)then else R={};end;P=R[p];if not(not P)then else P=({[1]=p,[0x2]=J});R[p]=(P);end;(Z)[s-1]=(P);elseif T==0x1 then Z[s-0B1]=J[p];else(Z)[s-0X1]=A[p];end;end;end;end;else if x==0B101111 then T=(w[L]);V=(0);for s=T,T+(H[L]-1)do J[s]=I[c+V];V+=0x1;end;else if not(R)then else for s,A in R do if not(s>=1)then else A[0B10]=(A);(A)[0x3]=J[s];A[0X1]=0X3__;(R)[s]=nil;end;end;end;T=w[L];n=(T+0x1);return true,T,0X2;end;end;else if x<0X2A then(J)[t[L]]=a[L]+z[L];else if x~=0B1_01011 then T=(w[L]);n=T+H[L]-1;J[T](q[0B10001](J,T+0x1,n));n=(T-1);else T=(t[L]);V=(J[H[L]]);(J)[T+0X01__]=V;(J)[T]=V[a[L]];end;end;end;end;end;end;end;L+=0X1;until false;end);if not(E)then if not(R)then else for s,A in R do if s>=0X1 then(A)[2]=(A);(A)[3]=J[s];(A)[0X001]=0X3_;(R)[s]=(nil);end;end;end;if q[0X18](S)~="\z  \u{073}\u{074}\114\105\110\z  g"then(q[0B10010])(S,0B0);else if not(q[0X1__9](S,"\x3A\40\x25\x64\u{002B}\x29\z[:\r\n\93"))then(q[18])(S,0X0);else q[0X12]("\76ur\x61p\104\x20\x53c\z  \114\105pt\u{3A}"..(W[L]or'(\105n\x74\z\101r\x6Eal\z  \)').."\: "..q[0X0_16](S),0X0);end;end;elseif S then if M==0X1 then return J[u]();else return J[u](q[17](J,u+0X1,n));end;else if u then return q[0B10001](J,u,M);end;end;end;return X;end);break;end;end;end;end;(q)[0X002C]=(function()local s,A,X,I,W,H;I,H,W,X=Y:E2(H,X,W,q,I);s,H,A=Y:H2(I,W,X,q,H);if s==-0X2 then return A;else if not(s)then else return Y.A(s);end;end;(X)[0Xa]=q[0X27]();A=q[39]();H=nil;for W=0X20,370,53 do I,s,H=Y:TP(A,H,X,W,q,I);if s==38650 then continue;else if s then return Y.A(s);end;end;end;end);f=nil;O=(nil);N=(nil);d=0X20;return d,f,O,N;end,h=function(Y,s,f)s=(-0X14+((Y.LP(Y.K[0X004__]+Y.K[0B10]))-f[0X061]>=f[0X328a]and Y.K[0X9]or f[0X3_28a]));(f)[4389]=(s);return s;end,l2=function(Y,s,f,O)local d;O=(0B1100);repeat if O<=0B1100 then(s)[0X24_]=function()local N,q;N,q=Y:V2(s);if N==-0X2 then return q;end;end;if not f[0X315a]then O=Y:b2(O,f);else O=f[0x315__a];end;continue;else d,O=Y:w2(f,s,O);if d==3571 then break;else if d~=21476 then else continue;end;end;end;until false;(s)[0x27]=(function()local f,d;f,d=Y:S2(s);if f==-2 then return d;else if not(f)then else return Y.A(f);end;end;end);s[40]=nil;(s)[0B1010_01]=nil;(s)[0X2a]=(nil);(s)[43]=nil;return O;end,pP=function(Y,s,f,O,d,N,q,A)while true do if O==0B1000__00 then N=(function()local X,I,W,H,t;W,t,H=Y:wP(t,W,H,A);local z;t,I,z=Y:PP(H,z,A,t,W);if I==-1 then return;else if I then return Y.A(I);end;end;I,X=Y:tP(z,A);if I~=-0x2 then else return X;end;end);if not(not q[0X4eb9])then O=(q[20153]);else q[10436]=(-0X463aeC9c+((Y.iP(q[25458]-q[31271]-Y.K[0X3],q[0X453B]))+q[0X3c42]));O=(-2982779240+((Y.BP(Y.K[0B1]-q[0X328A]+q[0x77e8],(q[18292])))-Y.K[0X9]));q[0X4Eb9]=(O);end;continue;elseif O==82 then s=(function(...)return(...)();end);if not(not q[7507])then O=q[7507];else O=-4294967061+((Y.oP((Y.K[0B100_0]>=q[8885]and q[0x00469f]or q[32046])+q[0X6C29]))-q[0X61]);(q)[0X1d53]=O;end;continue;elseif O==0X9 then d,O=Y:AP(q,N,d,O);else if O==0B1010100 then if A[0X029]==A[20]then repeat return d,O,s,-0X1,N,f;until false;end;if not q[22781]then O=Y:CP(q,O);else O=q[0X58Fd];end;continue;elseif O==0X23__ then(A[0X14])[0X6_]=Y.m;A[0X014][0XA]=Y.k;if not(not q[17976])then O=q[17976];else O=Y:cP(O,q);end;continue;else if O==38 then A[0X14][0B1011]=Y.oP;if not q[21559]then O=Y:zP(O,q);else O=Y:DP(q,O);end;continue;else if O==77 then A[0X14][0B111__]=Y.J;break;end;end;end;end;end;f=(nil);O=0b101100;repeat if O==0x2C then(A[0X14])[0XC]=Y.P;if not q[1409]then O=(-0X24+((Y.FP((Y.uP(q[19523])),(q[0x477_4])))+q[27689]-q[0X006417]));q[1409]=(O);else O=q[1409];end;continue;elseif O==0X1B then A[0X14][5]=Y.E;if not q[0x20E__c]then O=-3426219624+((Y.fP(Y.K[0B100],q[0X242A]))-q[0X344b]+q[0B00__1100001]+Y.K[0B100]);(q)[0X2__0EC]=(O);else O=q[8428];end;else if O==0X3E then f,O=Y:jP(f,A,q,O);continue;elseif O==0x5 then A[0B1_0100_][0x009]=(Y.t.bxor);if not q[13566]then O=0B10__0000+(Y.uP(((Y.gP(q[21559],(O)))>Y.K[0X3]and q[0X20Ec_]or q[0X5490])+q[8428]));q[13566]=O;else O=q[0x34f_E];end;continue;else if O==0X20 then(A[0X1_4])[0X8]=(Y.t.band);if not q[22597]then O=Y:dP(q,O);else O=q[22597];end;else if O==0x52 then Y:rP(A);break;end;end;end;end;until false;O=0X30;return d,O,s,nil,N,f;end,eP=function(Y,Y,s,f)Y=(f[39]()-94562);f[0X1e]=f[0X22](Y);s=0X70;return Y,s;end,P=bit32.countlz,x=function(Y,s,f,O,d)if f==0X26 then s=Y.e;if not d[0X1__040]then f=Y:v(d,f);else f=d[0X1040];end;return f,18360,s;else if f==0x4D then O[0b1__011]=Y.w;O[0Xc]=(Y.R.wrap);if not(not d[18079])then f=Y:G(d,f);else f=Y:B(f,d);end;return f,18360,s;else if f==0x048 then O[13]=(4503599627370496);O[0B1110]=9007199254740992;return f,59319,s;end;end;end;return f,nil,s;end,c2=function(Y,Y,s)s=Y%8;return s;end,M=table,FP=bit32.rshift,M2=function(Y,Y,s,f)Y=nil;f=(nil);s=0B10001;return f,s,Y;end,RP=function(Y,Y,s)if s<71 then s=0b1000111;while Y[0x2_8]do return-1,s;end;else if not(s>0X8)then else return-0B1,s;end;end;return nil,s;end,V=string.gsub,O2=function(Y,s,f,O)local d;f[0X22]=(nil);(f)[0X23]=nil;s=0B1011_10;while true do d,s=Y:N2(O,f,s);if d==13754 then break;end;end;f[0B100100]=nil;(f)[37]=nil;f[0X26]=(nil);return s;end,vP=function(Y,s,f)(s)[0X9__12]=-4294967094+((Y.iP((Y.gP((Y.oP(s[97])),(s[5532]))),s[0X5490]))+s[0X543__7]);f=(79+(Y.xP((Y.LP((Y.K[0B11]>=f and Y.K[3]or Y.K[0B111])+Y.K[0X6])),(s[0X7D9_8]))));s[15039]=f;return f;end,lP=function(Y,s,f,O)if O[37]==f then return{Y:SP(O)},s;end;s=(0x35);return 27474,s;end,U=string,m=bit32.countrz,E=bit32.lrotate,PP=function(Y,s,f,O,d,N)local q;for A=0X1,N do local X,I;for W=0B11000,0X0_d9,24 do if not(W<=0X030)then if W~=96 then if I>0X006c then for H=0X5e,0XbF,0B1001110 do q,X=Y:IP(O,X,H,I);if q==23549 then continue;elseif q~=53654 then else break;end;end;else if not(I>=0B1101100)then local H=0x2__e;while true do if H==46 then q,H=Y:lP(H,s,O);if q==27474 then continue;elseif q then return d,{Y.A(q)},f;end;elseif H~=53 then else X=O[0x29]();break;end;end;else X=O[0B100110]();end;end;continue;else Y:ZP(O,A,X,I,s);break;end;else if W<0x30 then X=Y.X;I=O[0X23]();continue;else if O[0X29]~=O[14]then else local A=0b1000;while true do q,A=Y:RP(O,A);if q~=-0B1 then else return d,-1,f;end;end;end;continue;end;end;end;end;N=nil;f=nil;d=0B101;while true do if d==0X5 then N,d=Y:_P(d,O,N);continue;else if d~=32 then else f=O[34](N);break;end;end;end;if O[0B101100]~=s then Y:MP(O,N);end;for q=0X00__1,N,0X001 do(f)[q]=O[0x2c]();end;for N=0X1,#O[3],0b11 do(O[3][N])[O[0B11][N+0B1]]=(f[O[0X3][N+2]]);end;if O[0X24]==O[32]then Y:mP();return d,-0B1,f;else if O[0B1__01_100_]==O[0B1101]then Y:kP();return d,-1,f;else if not(s)then else for s=0X2e,170,4 do if s==0X32 then Y:JP(O,f);break;else if s~=46 then else(O[0b10__100])[0B10]=(O[30]);end;end;end;end;end;end;return d,nil,f;end,c=function(Y,s,f,O)s=({});(f)[0X1_]=nil;(f)[0b10]=nil;O=(0x79);repeat if O<121 then(f)[0X2]=Y.b;break;else if not(O>4)then else O=Y:C(O,f,s);continue;end;end;until false;return s,O;end,VP=function(Y,s,f,O,d)local N=(d/0X4);local q=({[0x2]=d%4,[0b1__]=N-N%0x1});N=0X7;while true do if not(N<0B00111010_)then Y:QP(q,s,O);break;else(f[5])[d]=q;N=0B111010;continue;end;end;end,AP=function(Y,s,f,O,d)O=f();if not s[662]then d=0X54+(Y.qP((Y.LP(s[4389]-Y.K[0X7]+s[19523]))));(s)[0X296__]=d;else d=Y:nP(s,d);end;return O,d;end,G2=function(Y,Y)return Y[0B100000];end,W=function(Y,Y,s)s=(Y[0X156D]);return s;end,r2=function(Y,s,f,O,d)local N,q,A=0x7d__;repeat if N>55 and N<125 then N=(0x37);A=#q;continue;elseif N<0X38 and N>0X2a then N=Y:d2(A,N,s,q);continue;else if N>0X38 then q=d[0X1E][O];N=(0b111000);continue;else if N<0X37 then(q)[A+2]=f;break;end;end;end;until false;q[A+0X3]=(2);end,T2=function(Y,Y,s,f)f,s=Y[0X9__]('<d',Y[0X1A],Y[0X1b]);return f,s;end,_P=function(Y,Y,s,f)Y=0X020_;f=s[0X27]()-22872;return f,Y;end,v2=function(Y,Y,s,f)s[f]=(Y);end,e2=function(Y,s)(s)[0x26]=(function()local f,O,d;for N=0X58,264,0X4C do f,O,d=Y:U2(N,O,s,d);if f==20025 then break;end;end;return O;end);end,t2=function(Y,Y,s,f,O,d,N)if O==0X3__3 then d=N[34](s);Y=N[34](s);return f,Y,0XCa_6C,d;else if O~=0x94 then else f=N[0X22](s);return f,Y,17115,d;end;end;return f,Y,nil,d;end,K={31184,667807455,3116700503,1713109853,2595643019,57225719,1085854915,2705148329,473327174},_=getfenv,x2=function(Y,s,f,O)if O>0X3B then return{Y:G2(s)},f;else if not(O<0X7C)then else f,s[0b001101]=s[17],0X10;return 0x579,f;end;end;return nil,f;end,T=unpack,k=bit32.lshift,f=function(Y,Y,s)Y=(s[0x6__372]);return Y;end,dP=function(Y,s,f)s[27872]=(-2595643105+(Y.fP((Y.iP((Y.oP(s[0x04774]))+s[0x1e4c],Y.K[0B101])),s[0X7_d2E],s[0X7A27])));f=44+((Y.LP(s[0X5437]+s[19523]<=s[7507]and s[7756]or Y.K[0B1000]))+s[20721]);(s)[22597]=f;return f;end,H=function(Y,Y,s,f)if Y==0X6f then Y=0x2;if f[20]==f[13]then local O=0x6__0;repeat if O<0X6_0 then if f[0X20]then local d=82;repeat if d~=0b1010010 then(f)[0X1_1],f[0Xe]=f[0B10101],(f[0X13]);break;else f[0B100000]=(f[17]);d=0X9;end;until false;end;break;else if O>0X3__f then O=(63);f[20],f[0XE]=f[0B10101],(f[0B10101]);end;end;until false;end;(f)[0B11011]=(f[0x1b]+0X1);else if Y~=0b1_0 then else return-0X02,Y,s;end;end;return nil,Y;end,I=setmetatable,V2=function(Y,s)local f,O,d,N,q=103;while true do q,O,N,f,d=Y:Q2(N,f,s,q);if O==0x93c__ then continue;else if O~=-0X2 then else return-0b10,d;end;end;end;return nil;end,OP=function(Y,Y,s)if s[0X26]~=Y then else Y,s[0X14]=s[21],0X85;end;return Y;end,X=nil,t=bit32,DP=function(Y,Y,s)s=Y[0X05437];return s;end,u2=function(Y,s,f,O)local d;for N=0X4F,0B1010110,0x7 do d,O,s=Y:o2(f,N,O,s);if not(d)then else return O,{Y.A(d)},s;end;end;return O,nil,s;end,g2=function(Y,s,f,O,d,N,q,A)if N==0B100 then if not(d[4])then Y:s2(s,f,A,d);else local X,I;for W=89,303,0X6b do if W==0X12F then(X)[I+1]=(q);elseif W==0X59 then X=d[0X1e][A];continue;else if W==0XC4 then I=Y:a2(X,I);end;end;end;local q=0X3B;repeat if q==0X3B then q=(0X5E);X[I+0B10]=s;else if q==0X5e then X[I+0X3]=(0xb);break;end;end;until false;end;elseif N==0B11 then Y:q2(O,s,A);elseif N==5 then(O)[s]=s+A;else if N==0B0 then(O)[s]=(s-A);else if N~=6 then else local O;for N=0X0045,0B1001110,0X9 do if N==0B1000101 then O=(#d[0x3]);d[0B11][O+0X1]=f;continue;else Y:i2(d,O,s);end;end;(d[3])[O+0X3]=A;end;end;end;end,nP=function(Y,Y,s)s=(Y[662]);return s;end,jP=function(Y,s,f,O,d)s=function(...)local N,q;N,q=Y:hP(f,...);if N~=-0x002 then else return q;end;end;if not O[10075]then d=(-1713109848+(Y.fP((Y.K[0x3]>O[18079]and O[0x04c6]or Y.K[0x9])+O[0X1E__4C]<=Y.K[0B1001]and Y.K[0x4]or O[0X1e4c],O[4160])));O[0X275_B]=d;else d=O[0X275b];end;return s,d;end,w2=function(Y,s,f,O)if not(O>0X1e)then Y:e2(f);return 3571,O;else O=Y:X2(O,f,s);return 0X53E4,O;end;return nil,O;end,N=function(Y)local s,f,O,d=({});O,d=Y:c(O,s,d);Y:z(s);Y:D(s);local N;N,d=Y:p(s,N,O,d);N,d=Y:o(s,d,N,O);Y:u(s);d=Y:L(d,s);d=Y:g(O,s,d,N);d=Y:F(O,s,d);d=Y:y(O,d,s);d=Y:O2(d,s,O);d=Y:l2(s,O,d);local q,A,X;d,q,A,X=Y:UP(O,q,A,d,X,s);N=nil;X,d,A,f,q,N=Y:pP(A,N,d,X,q,O,s);if f~=-1 then else return;end;while true do if d>0x30 then X=s[0B0101011](X,s[32])(Y,q,Y.Q,N,A,s[0X26],s[0X23],s[0X24],Y.K,s[0B101011]);break;else if not(d<0B1001111)then else s[20][0xD]=Y.t.rrotate;if not O[0X3Ab_f__]then d=Y:vP(O,d);else d=(O[15039]);end;continue;end;end;end;return s[0B101011](X,s[0b100000]);end,y2=function(Y,Y,s,f)s=0Xb;f[7]=Y;return s;end,KP=function(Y,Y,s,f)if f[0x01__3]==f[0B10100]then else(Y)[0B1]=s;end;end,b=bit32.bxor,aP=string.pack,GP=string.unpack,EP=function(Y,s)s[3]=Y.X;end,P2=function(Y,s,f,O,d,N,q)local A;repeat d,N,f,A,q=Y:J2(O,d,f,s,q,N);if A==14887 then break;end;until false;return q,d,N,f;end,R2=function(Y,Y)return Y;end,g=function(Y,s,f,O,d)repeat if O==51 then f[0x12]=Y.Y;if not(not s[25458])then O=Y:f(O,s);else O=(-2186436909+((s[0X7d98__]+Y.K[9]-s[0X469f]<Y.K[0X6]and s[12938]or Y.K[0x9])+Y.K[4]));(s)[25458]=O;end;continue;else if O==0X76 then f[0X13]=Y.sP;if not s[0x6C29]then O=(0B11101+(Y.qP((Y.oP((Y.qP((Y.iP(s[0X328A__],Y.K[0X1])),s[32152],O)))),Y.K[1],s[31070])));(s)[0X6C29]=(O);else O=Y:a(O,s);end;elseif O==0x5d then f[0x14]={};if not(not s[0x4774])then O=Y:s(O,s);else s[0x4C43]=(-2705148373+(((s[0X006417]+Y.K[0B101]~=s[0X1E4c]and s[0X6372]or s[0x4_53__b])>s[4389]and Y.K[0x8]or s[25458])+s[25458]));O=-2705148228+(((Y.iP(s[0X1E4c]-s[0X6372],s[97],s[0X01040]))<s[0X6__417]and s[0x46__9F]or Y.K[8])-s[17723]);(s)[0X4774]=O;end;continue;else if O~=24 then else Y:q(f);break;end;end;end;until false;f[0B10110]=(tostring);(f)[23]=Y.I;for s=0X0,0xff,0X1 do Y:i(s,f,d);end;return O;end,d=function(Y,s,f,O)(O)[8]=Y.T;if not f[4389]then s=Y:h(s,f);else s=Y:j(s,f);end;return s;end,JP=function(Y,Y,s)Y[0b10100][3]=s;end,p2=function(Y,Y,s,f,O)(s)[O]=(Y[0x1E][f]);end,D2=function(Y,Y,s,f)(f)[Y]=s;end,l=coroutine.yield,MP=function(Y,Y,s)Y[3]=Y[0X022](s*0X3);end,CP=function(Y,s,f)f=(-4294967108+((Y.xP((Y.oP((Y.qP(Y.K[0B101__],s[0X795E])))),(s[32152])))-s[18292]));s[22781]=(f);return f;end,A=unpack,S2=function(Y,s)local f,O,d,N,q=0X000,0x1,0X22;repeat d,N,O,f,q=Y:I2(s,f,d,O);if N==6352 then continue;elseif N==-0X2_ then return-0B1__0,q;else if not(N)then else return{Y.A(N)};end;end;until false;return nil;end,r=function(Y,s,f,O)if s==0x11 then(f)[0x6]=select;if not(not O[97])then s=O[97];else s=(-6233400946+((Y.K[0B1001]-Y.K[0x1]+Y.K[0B100]==Y.K[0B11]and Y.K[0x1]or Y.K[3])+Y.K[0x3]));O[0b1100001_]=(s);end;elseif s==0X3c then(f)[0b111]=(pcall);if not O[0X1_e4C]then(O)[0X453b]=(-0X7983+(((O[0X328A]==Y.K[0x3]and Y.K[0X9]or O[0X61])<=Y.K[0b1001]and s or Y.K[0b101])-Y.K[0B100]~=O[25623]and Y.K[0x1]or s));(O)[0X795E]=-1770335464+(((Y.LP((Y.oP(O[12938]))))==Y.K[0x1_]and Y.K[0B1]or Y.K[4])+Y.K[6]);s=-0X661bFaee+(((s>=s and Y.K[9]or Y.K[8])-O[0X0061]>=O[0X6417]and Y.K[4]or Y.K[0X8])-O[0x7d__98]);O[7756]=(s);else s=O[7756];end;else if s==0X6b then s=Y:d(s,O,f);else if s~=78 then else f[0b1001]=Y.U.unpack;(f)[0xa]=({});return 0X1c29,s;end;end;end;return nil,s;end,IP=function(Y,s,f,O,d)if O>0x5E then return 53654,f;else if O<172 then if d~=0XA_a then f=Y:YP(f,s);else f=(s[35]()==0X1_);end;return 23549,f;end;end;return nil,f;end,S=type,Z=table.move,F=function(Y,s,f,O)(f)[0B11000]=Y.S;(f)[25]=Y.U.match;(f)[0B11010]=nil;f[0B11011]=nil;O=(0x50);while true do if O==0X50 then(f)[0X1A]=(function(d)d=f[1](d,'z',"\!!!\x21\33");return f[0X1](d,".\46..\u{2E}",f[0X17]({},{__index=function(d,N)local q,A,X,I,W=f[11](N,0x1,5);local H=(W-0X2_1)+(I-0B100001)*85+(X-0X21)*0x1C39+(A-33)*614125+(q-0B100001)*0x31c84B_1;W=f[16]('>I\z 4',H);(d)[N]=(W);return W;end}));end)(f[0B10011]([=[LPH)aQE^,!<R+4!<RC<C]FG8!!!#g^B"C^63.*Y!=!UeEbTE(!<Pti!<GXj!_c;h!H8&@G@gjW=(VI7G>2lRz!9cWJ!`)Mk!_Yi\!d79=!`_Pf!Die"7;d6b!<P\VgB@QWz!!*+0C]FG8!!&['5QLq%9`Y8tC]FG8!!!#G561gRAcW*V@<Z?qFPCR2z!!!$$92,EfAcVp1!<H2:z!!)LR!<Q;6!<Pc'C]FG8z5\pE#!!!"lKg5Y@DIn$.z!!)LS!<GOg!d\GZ!a'%8!ch!9!^gR9z!!"]<C]FG8!!!!)5QLn$!=DS5G]Z]'D.7's!<R7Q!<G],z!8qc\!<R1+!<Q\(!=V8'F)Pl;FCeBbH=[*YB2*1Bz!,t1("_)1f1GSt4@qG`Q6"4nRCisi2:iCDhFD5Z2!<R16!<Qh,!<Qe+!<R.5gBR]Yz!,MW8z/jKF==A8es8-&d69`Y93!<PV_!<I5q!<<*"zC]FG8!!!!A5\pE#z!!(a[z!!!!"!`_qq!C["j<_WSrF@$!/6JDPAz!!!$,7qHd@ATDs.@q>ZB:/(`jC-hq'Eb01j!_H)e!G-'Iz!5Lf"!cq)j"98E%z!=MY6G]ZMpFCf)rEWH5R9`Y;^9`Y;kAo%GIzn36pY6tLF]Ec64(!DrjuG&.-Yz,X;A3CeXp3AO6D!9P+;,;b[8n@0$FC63.-Y9`YGp@<,psF9)GB9`Y8e!=Ve5A7TClB2WGVBQO7U=9/GE!<Hm8!afO?!_?o(!b"Cr!`r*4z!!!Qq!<RRA!<Qdu!<H-RR/d3ez!<QD9!=MD/F@0_UCh.QtD?0f-:"opRz!!(d)2<5MQ!!!"8z!%Hkl!=!RUF*2>2!<I6B#?=>o@ps1b!=3:[DI[d&Df0@kz!:N/,70<Miz!<QG!!<I"Qz!.b)6!<ma_ASbmnz!!"ahgCjPez!!*9k7WMpSAS_>Hz8O2#7z!!!"8z!!$.e!<ko0F_u29z!!"?2Cm][:d;JX5562"%ATVNqDKZ$e;f?\u:NBuWEn`jTi;ruZ!!!$$AjQM%E+<<mCtj%6z!!$g8z!78Jsz!!"lAgDbhHz!,MW8!!!!a>JP%Tze>GRdY#?LSzC]FG8!!!!55\pE#z6U5Gfz!;O;0"`7[i@qaVKAcVl3!!!!"$;b/AA8,po<,Z^V#t&WKDIm="ARoTWz!):8`Vdoc-z!<dLQF)0M<z!!!!"!``h5!^TN]#>JoM;e^Ph!<ki,Df0-&z!9gLLgY(?^z!8E$8B^>^!!!(aUz!!!!"!ae[VI$%%\z!=2M?F(o`1Df,RWH"I'[:18!NC]FG8!!!"l5lh-YEa`fr!=_M4ChuLREb/a&Bl@nD;?Hn!z!=;\7Eb/g"7s/P#Ifo`OzC]FG8!!!#W561q/E+*s.WW?o9zJ4`'-#Y\u(@SfU<E<-;3BOPdkARkfCF(PFSDF3(t*ru?A!!!#Re3IjgzC]FG8!!!#K5AU<"!!!#WM*PkWz!)Pps4hB@R/1'XIgV<dhz!!*.5B%nL3z!!!$$B4_/IG@>3-!<Gmq!b#[A#'b)s@;K`\!_G^pz!2+I"gZXm856(Z`!!*m8BOr<'ATV@&@:F%a+DGm>Ci<g!ARkfC>%Rd:ED6H7@r),Fzo"P2,;aP:#zJ3ZA9z!+99OC]FG8!!!#q^Y;gRs8W-!s8Qm8z!8]p@$:JTL@rH7&ARfi:1hr+$zgR&6Hz!!*O-FCB33ATCU`@<lF)C]FG8!!!"$5QM0k8Pii+A8,poC]FG8!!'fS^]=a<Df^"dF*VY5!<PbcC]FG8!!!RR^t\D[z!!!$&@W$++C]FG8!!%O>5QLq%B%q;Xz!!$g8z^emAO7Nha3zgQ2F9z!8Eb;rr<#us8Qn)(U&t:L>kF6z!3WOkC]FG8!!!#c561t/@<Zd(F9)G4B%n$6!<<*"!!(cY"onW&s8W,R+_UiUz!=3ghATD<iFCAtczpl@\pJ0=pnzC]FG8!!!!a5QLpXAcVpCC]FI.\<A/q6/*:Yz!!!$,;KZkUATDs.@q>ZFDKTf*AT@eVEcl8;Bl7Pa#Z>S_@<?4%D?0uCARfh#E\[XrH3"IO@:Wn_DJ):SFEDG<gRsdR.f]PL!,MW8zK"qBgAS(rEBh\U4@ps7bAS_AKE)#*),QIfE!!!!"!b+k)"_;1RF_:^UFTDP@9l'e0zgqNjq:2b/i@;JMGgU1Diz!!*HnDI[?uE_p[gDKGmbFDl&>D.7's!<Q.c!=NU_H"gi+A78q`AS_>Hz0gKOTz!-pia$?Z@Lz!<R(LC]FG8!!!#7^MElMzk!.W"+92BA!!!"8z!.[O(!=2/8Df&6XD.N_YCghC,Ch[cuA7]@eDIm?pz!!$t(!=V>/@;KakDJ*NNF_LjX7SVX;z!!!!""_2@eF(G@Y7WNEa<affeAH<-+ATMs6Dg?&7B5@PJ!!!"L8AK$Az^fnP.T5<KizgL(<fz!,MW8!!!#oJ3X,:=\W]4z(o'=s"a"0^Ch;?B=TJL&!!!#R!F,X*z!<RO5!<RL?!<HPDz!$GZ7gK:]\z!8F!Cz!!!$$C1[JI;um&BAcW3*CghC+:18!N!<GK&z!!!j$!<F<Zz!!#2JWW6i8zJ5ec7!chlR$tj-nD.RftFCAWpAH<'.DKBo.DI[5Y"D;.[AH<',ATU4ZH#@*m!^^K"!D[G2z^gTJ/$>FQt@r-()F`M'JKIHB2zgM7Xb?iU0,!!*Bo@<>pPDe*Eq!=3dcF*)G:DJ&tS@rc-hFCf7gz:k:mdjtT#6zgY)]/z!!*-t6JFj3z!!!$&;e^PhC]FG8!!'f:5\pE#z!5R@8apWRs!!!!"#ukJ\FA-+PAS_ASBldcoCi=B;Eb,7ZCh[cuA7]@eDIm?pz!!"!(gHBF%IK0?J!8HAN@=nO[!!$g8z!%L57"][s)D)),!88iN_H>d\C@;GrFGM@sNz!!$g8zr1?4T!D`_#AoD^,@<;MQFEqh:C]FG8!!&["5QM'_F`Lo0BP[YKz3'c65G7#>j!!!!"$V5A]E)U=gG%kGtC]FG8!!!!\5QLpS9l'e0z2F%9IB5M(!@qYlGDIn'7!<lD3@;KKU"D2@cA,uaE6JE6`^>]+m!!(an\c;^0s8W,Rg;O$lz!=![aE+*6lC]FG8!!!#s561mR@:O'R$>aWhA92j5Bl7S<./mo+z!<Q/2!<Q_B!<ZeLEWH;QBOPr9&d/17z!<R%'!<Q#.gJe4Sz!!**g!<RCUC]FG8!!"R>5hh@'<f-kW!!!$$Gtm&'EU$s4!!!!"#@ChPDId='gHY`>z!,MW8z7mPg>GQ@dE!!!!"!cM[ez!.[F%!<R.NC]FG8!!!#C561dtC]FG8!!!#O561h!AcW-5@:Wn_DJ&tO6"U-$A7]@aEn_`KLJ%UI!!(d5*.e.j!!!#RgAh3Rz!=)>-GZ/=&A_W%Gz!!$g8z!*qhj!_[,+!a7p,!!!!Q)$"VAg\$s9z!8H'Z,j#(,!!$g8z!*2@$z!&0)A!<d+SAoHE;iBEJ+!!!#Rk5t\azC]FG8!!#oj5QM(1ASbpfF9)G?B%t*hz!!(bDlnak+!!!!"#'4^*EarY]!cV`P$$:2r@qB+X@qu)M@rHL-FDQ7($"ImoDfp/9DIqRmqK]CI!!!#RcNaINzgM#4>z!!*?sF$jbXASuVE=SdqizgYreIz!!*:4F)to5F9)@B"CcUoEWH5_63.HT-m`CS.9ehB$=.HJz<0TZ&-Na>KzC]FG8!!!!M5QLpbAcVsDAcVsVAcYY+BOr;sAR]dp+Dbb$Eaa!6+DGm>Eb065Bl[cq+E)-?9Qacd+E2.*FCoH3D0%<P:i']OF(HJ4E+No0@3BW6E,]`9F<G[>@r#Xt/o1Lf!!!#7;aB)=kUU-As8W*"#%MRh@psIqz!!)"C!<H@)%SgS[FB*3mFB2s_FDl29z!!#L(!<I'=!_R(ZO\l)Yz!=2_?ATr*3Ecc*tzJFpSW#XrWRD+Sh\D#j`1F$ThP+>#0L>:">r>p+0!FEMVA+EM+9An>k'-t[U>@ruF'DC@+i/h%o`ATW'8DBL6H-n[,).3N2>A1SjEATVd#FCB9"@VfU(HQZN:-$(89+?^i"/hS8p/0K9^?XIMbA7^!.4WnBKFCo*%Fsnak/hSS%+FP[f+9;OCAcVs0AcW6<AU&;`F`__DD?0f5AcW$76tpK=!dJ;X!_ku^!bb:/$VXuSDfp.tEb&a%gXS([z!,MW8!!!",Z9[/LQd*/C!!!"8z!!(;/C]FG8!!!#L5620m8PEi>FA-+gDfp.&!GL5&[.pp,!!!!"#YB)9FEM,.DZL8fATVd#FCB9"@VfTV#=EEIDIm="C]FG8!!%O85\pE#z0LGjIGAhM;F)YPtAH;gH!=!Ue@<?X5gXq%U8,rVi!,MW8!!!#7<BpQfB6/3)!<dU[@<;MRATDg0EWH8`F^f/i8iY+Kn^p&,!`DbI1gFGszgKY%`#ljr*!!*+G!<GmK>%#8Xz!=*XcDffE0AH;j/9`Y<1:"tWhog/WY!!(a`!WW3#!!!#R67YR@s8W-!!IIsfF`JTuF^ZD(DK]`7Df0E'DKI"3De3u4DJsV>F*2G@DfTqBCi<`m+E)9CCi<`mF*)G:DJ(LCFD,6+AS,k$AKZ8:FWb+5AKZ,5@:F%a+EVNEF`V+:9QbAaE+gV?+=BiZ87,+f?WBp'5tk9I;^W])@:O=r/cc,dASbe#!<GjJ)Lu[$z!<Qb*gYMr2z!8At(z!!!$*7;d6b<-`Fo!<I0@$s-kOF@L1h6YL1MAD@#*z!!$g8z!'`a'C]FG8zgT#93=9&=$!8DH[!<<*"!!!$$7:t;.!rr<$!!!#RrrrH'z!<H7&!_Pc[!c;Ocz!!"mlC]FG8!!'a:5QM6h@:Wn_DJ)XSAon%VD..O"!<Pkf!=;hGEbf`8@:NjL$rUYVF_,W96$%<h@r+6r@eBi2jZhME7K<Dg!!!"8z!!#,H!=<g\DfTr,F)kc,z!&/[`gC4Afz!8CFNTp5TX!!!$'<affeAS_>H!!!!a?bkDc=)nuT!!!#RqSiL7s8W-!!<RC1!<u#3Ch.*t!>&sUASuU(ApIs4ARfk)DfPj]@X3',gKPj=+92BA!!*?sF&QXjG%G[p##\lIA8c;c#&.srATDnI1V8ADz!>&7&;e^Ph6Z6j`FE1f(DKGma;eU;cAo)$pz!+95#!<H5;z!.]d=!<R:.gZo"Cz!8BaF7kXiB!!!$)<b5c_DfRW7#]='fATqfrFDLpWzqnHqIzJ4r5_"EjbEs8W-!gU%Xpz!,MW8!!!#7>sN3+z5Zg9fz!!))pgDn]Cz!,MW8!!!"L90`L\E+*6lC]FG8!!!#/5AU<"zg-=>lr;Zft!!!"8z!!"i@gG&!p,6.]D!,MW8!!!"Lk<AtT@s)g4ASuU+Bl7J_!I/D\z!%:)5"?fsV?#0K@zj?IG\z5ZYZ$#BOHuAn>k'!J_9p#mgnE+>,o*-nd&$/hSb//hSb!+<VdL+>,9!/1`8(-mL#b5X6q/#mgn\-n6>^+=o/o,:+W_-9sg]5UId*-nd5,0.84s,9nKZ,9nTb0.JG&/1r%f+<VdX0/"_#/d_mk+<Vd[.Ng>i5X7S"5X7S",qL/]/gr&35X6YC-71&d5X7S"5X6Y@-n6c#/hSb//hSb+,sX^\-nZVb/0cbS#mh_(0-Dko5X7S"5X7Ra+<W'Y/0H&X.OZVj5X7S"5UId*.P*1p+<VdL+<VdL+<VdL/hAJ#,:+`f5X6YG+<W-b$4."`/0HT25X7S"5Umm+-7Buf-71Au/2&4o-71uC5UIm+5X7S"5X7S"5X7S",:Y5s/hSb//2&>85X7S"5X7R_+>+rI#p:?5,9S*R5X7S"5UnEP,p4fb,q^i!/1rJ,.P*5+.P*2'0.8;85X7S"5X7S"5X7R\5X7S"5X7S"5U.m+5X7S"5X6YK+=.@$+<W<[+=9?=5X7S"5X6_D5U.C$-712h5X7S",;1B/5X7Rf,pb/p,sX^\5X7S",qhMK-7CDf+=o&p/hSb!+=\[&5X6P:.LHJ,+<W9`5X7S"5X7S"5X7Rc-n$B,5X7S",;()]+<W3^5X6PZ5UIs'/g`hK5X7R]/1r/45X7Rf-9sgB-pU$_-7CMu-mgJf0.[GQ-nc\c+=KK%-71#c5X7R]0.\4s5U.[B5X7Rc+<VdL+<VdL,="LI/1*V/+>5uF5X7Rc,pO^$5X7S"-m0WT+<W.!5X7S"-7gGh/g)bR0-DA^0.\>55X6Y@-nd4u5X7Rf+=09<5UJ`]5U\6-+<VdX-9sgE/h/M(+<Vsq5Umm!+=09<5X7S",p4<Q+<VdL-pU$E-n6i%/gVhs$6UuT00hcL/0H&`-9sg@/0H&X00h05/1Mu35X7RZ-9sgB,:+`d,sWe,+>5uF5X7S"-8$Dc5X7RZ-9sg]-7's'5X7S"5UJ$8-n7J8,75_C/g`h.+>,!+5X6P:00hcf5U@aB5X6YL/g)8Z/2&D"0.JLq+>,;o5X7S"5X7S"5X6kM-7CK",sX^?.OIDG5U[j*/hSb//1)Sk5VEI0,q^Mk+>,!+5X6YG+<VdL0.&qL5X7S"5X7S"5X7S"5X6Y]5U.p1,sX^\5X7S"5X7R]/0H&`5X7S"5X7S"5X7S"0.]@R5X7RZ/g`%T-718i,p4fe.NfiV+>5uF5U\6-+=np+5X7S"-8-c#0/"t'-m1/i5X7S"5X7S"5X7S"5X7R_+<W3^5X7S"5X7S"-7g8f5X6YG00gp=$8*VS,=!Y"00hcf5U[a)5X7S"5X6tF+<VdL.O@>F5X7S"5UJ*75UIU),:jri-9sg]5X7RZ+>+lg,pk8r,="LZ5Umm!+=]WA-8-hq.LI:N-8-tr5X7S"5X7Rc+<VdV-9sgB/hA>75UIm1+<VdL/1;f0,pklB5X7S"5X7R_/h/Cp+>5uF5X7S"5X7R]/0H&X+<VdQ5X7S"/hRJr.Ng>i5X7S"5X7S"-m0WT+<VdL/g)8Z-pU$_5X7S"5U[`t+<VdL+>,,l,pklB5X7S"5X7S"5X6YE/0H&f0.n_>,p4<Q00hcK+>,;S+<Wp!+>,!+5X7S"5UJ*++<VdL+<VdL+<VdL/h\P:5X6eO-9sg]5X7S"-7g8j.Olu%+<VdL/hAJ#-7CJm5X6P:,sWq&+=ocC,p4``$4/%1+>5uF5X7S".NfiV+<VdL+<VdL+<VdL+<VdL+>+m(5X7S"5X7Ra/gWbJ5X7R_/3lHc5X7R]+=nfe/g)8Z+<VdZ-9rk"/0bK.+<W<[.R66a5X6P:+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vsq-8$ho$4.gt-n$2j-9sg]5Umm!+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL,=!S./0bK.+<VdZ-8$Dl-9sg]/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W't-8$ho$4."]+<rK]/gWbJ.NgB05VF6&+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5u,/hACX#mgnj0-DA^5UA$*,sWe./0c\g+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5uF/1rR_#mgn\+=\c^+<s,t/g)bh-pU$_5X6VK/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5uF/1rCZ#mgnE0/"Fj,sWe.+=]WA5X7S"5X6_?-pT(3/g)8Z+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vmo5V+$+$4."F#p:?8.Ng>j5X6PH+=KK?5X6YK.R66a5X7S"5UA$*.PECs+<VdL+<VdL+<VdL+<VdL+=\ur,q:Mo5X6kC0+&!l#mgo'.Ng>i5X7R\/0HJs+>,oE5X7S"5X7S"/1r565X7S",p4fe5X7Ra+<s,u/hSJ9.P*%l,sX^B/g)VN#mgnE#p:?50-DAe-9sg]5U@s(+<W-^-9sg]5UJ*+,="LZ5X6eA,="LZ,p4U$5Umm-/g)8Z00hcf5Umm)$4."F#mgn\5U.m(/gEVH5X7S"-7CDt+<VdL+<VdL+<VdL+<VdL+<VdL+<W9f.OZSi5X7S"5UJ*9-jg7e#mgnE#p:QC/g)8Z/h\M95X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5X7S"5U\6--n#E/#mgnE#mgn\+=n`j.P;hd+<VdL+>,8t/1`>'/1`>)/hSb!+<VdL+<VdL+=o/j$46e<FEqh:De@`PErZ1?!!!"8z!.aW)!<ZOn>latEC]FG8!!!!f5QM.)F*:u4@<-#80E;(Qz!=*L]@<,dnF5([mz!!$g8z@!k3?"F"lpE;?d?zn+Zr]!<KTd!<M]l!<E_4"Si**>knHk!r2mp!<M!X%u_$u":864R03O_R03Pq"%o6i!BC\?)6!`F;#p]gHk5iO_$(-*!P&@7&!RsJ"UP^@+NXcn;#p^"&J0U$W<F/:!<JHb9)/Sjd0!,@(BK'j=on-r!=t\)nH9.q!<K$_!=Y(orC-fb!<K;.8soh`OTc9&#,)2,3<>NO!D9$h!JptW!<M:j8soh`klaVP"Ta_h&"Ej'"US?5R0<Ug!<H##!KdWg8s'A[OTc9^!gs<#>aYlV#FPilUa?,9#[.7k#Q[d'!R4RTPQ[BX),UD8h1G_=g_QRc#q`jlW<3/QQ3"5m!Drju2(aghJHGp)NWP%>!=tt1OTPnpOTY+TOTR3/!LX#j;#p\o/QTCa!A,Y7!s&qn+isfm&)8>U!spQ6!SIPU/M>ua!DrjuPtX=AOTkCY;#p^JQ2s^u*!*SR:&H4:_$*"'+fPW>e//4k"^1r#"T_5h"TdQa/#`]:".9<Q!N?5';#p^j*aIq7q$$!f9(<,eOTc9f"o/B0>knW@#PeU!Zjm+f#[.9!#6@[&!SqH#oEFIa$!c^"aTq&89nX2]nHW4ui<KB\!<KlM8s'8XJHA96"doMp#*B&iQ"Wm6!Vlpo]G^g%#<i/;i<E?9#2od.##PC%Kb@"O"Tb"n$3?h(!DrjuO9-r#"f)=D":r-MW<ES/R0<Tl8tcChM$6`W!M*+P!@`R(<quoM#4Vj-S-/Qj#uL^(XapK`ll`P:$!IA'"T_5h"TdQa;#p]oHV3N*!LX#s!U0^f;#p^"M?+h#!<E_$#,qb457sju!=t\)W<ESm)6!c?;#p^"E_<S?!U0_Z\HN#5"V7+-_$(-K!O2e/9!JO#+]/7@XVjR$"doMp#*B&iV0#>G"9Ce!g^hL0$!IA?"9D-*"9Gb0;#p]_PlWlG\HN!EbQble$!IA7"T_I$!M,SY;#p]gPlXM)"TcFA&'P72"URf["Tb"m9'HK[aTX[*i<95_d00OO;#p^"#sA=*"m%(.!<L/e%htuJ$!aG7nHPrt%hu8R$!a_?q$"#.;#p^:@nNEt!O2`!W<<6a!>"fCYlkA:!MKVs;#p^j4?3GA"T_?1%frp==ok<#!DrjuQ$Q:.!HhQHT`kHhT`kJ%!tVaDW<ET*!<KSN%u^S;":864_#sd2_#seD"%pZ<!O2Y9PTJ3T#uL^(eVF5:CnV"=>bM=`"ec)n!<JSl;#p^ZBcmEW!G[`#3<9Kg!KdOBq#h912":Sa!@X?>PR,b@;#p^:G"T:K!LX!]_$'kE"ZZUo"T_I$!M)R[Ylt^?CB:+4!D9$h!O2_;KE\=Y#uL^(m=kWMOTg_#!Drjua9)s@#4W5W*=A2?aUd>L!T=4`!ERkXi<IC.&**cE"pl@(#0@)9":r]]f`ha[!<N.+8soh`i<'Vg"ec)+8uVspaTG/?"Ta_h"/uG9!G__("T].@':B"1>aYbX"doN)]GI7F#uL^(`H`'6!P&B0'bS(f\HSK@&\J1U"e5r4]E5VIj<,&Q!P&Bp)A0U`\HTV]&\J1U"md:-!<MS/@\Etm:]XDo!O[%]ZiR-0),UD8eV+$/nHEq&"V7[>q#q'b!V$<o%p\o6#nLQt"pn--!VIX/_$:"'"V:5/aTi,WaTnLEaTkZD!L7gg!LX)l9E>0V"V7[BOTc%`R0<WM"%o6j!LX!]W<E<b"ZZUW"T].P"fVY3=ok#p!D8a`!T=,X!<L/d4TV5[`GJHQ!VK2/nHJ.\N"QZf#Oqs(<q-?m"mH1$`!5`8#uL^(huR!^T`bB,U`6!1#th0"!O2`!Ylk(^&'P3f":7p+!VI12!KdWg8s'A[OTc9f"doW&>aYkS#akrq!<LGp9E>0F"\O=L!U0_ZM$3oo;#p^2+^+o_"9D-2"9Gb09$%2:\H,F;"Td!R=olGB!D:02!O2`(!<LFp8q@-HklaV8"T_Io!<I`T8q@-HklaV8"T`mB!<I`T;#p^r.U8YPaT\@C8uW$rOTc9^!jMt:;#p]g5S&MR_$.@Q&*+)>"h=dIS-@:D\HNN)"ka'i"XUtgf`gF>&!R4M"h=e6!<J0n?3.0Z!N?6"!<KTX?3-UFd03AJ!OW(AU`Rne$!bj]aT]ci<l"s]"h=dIquab=#uL^(N=nk*"9HmN&'P1(":864_#scLKGD<+#ti;B!O2`!d0'L'!=pa7":7p+!S([`!N?5'&+g(*"USG5"doOn"\Q$'!T=+klj(')#uL^(Kcs'N"Tc.98soh`&J*q4T`ka-T`rO@T`n9o!O)_<>knR1%qL4r#u-?_!Jq%Ur!<Cd#>kL&ob1',+p"AC=oj`k!D8I[!KdNroECWg#uL^(h*"g7#([$L"qR4+q$%-9`!1bt$!`#dJH^T09nWoUM$HlY!S%TNi<01d"%qe\!KdHpU^$>l$!IAg"9D@#!JOWL!<J#\8r3]PklaV@"TaG_9E>0N"Xf-1!<Fd\!KdNd&&\[?"US$,!KA(&!Vls$9)/\mOTc9^!eCU`;#p^:!]^;'"T_6C"TcFC9%a@KW<G9_d00PJ!<Kl>3<@5+!>"f*d09n^d0?QRd0<GK!M+6AZj*K5#thH+!LX)lT`kGt8uVspM$6`W!S&#ZM$3q%!DELpJH\Ys"Tdij8r3]Pd/coA!J(DHJHZ)="A4LS!SIKI!<I`T8q@-HklaV8"TeE"9E>0F"\O=L!U0_ZM$3p2"AAgsJH\mO!UXr*!<Mk$&"EaT"pkgY#2oam>i>m<"lTY[N!9=I##3kR!V$@k!<J)e:#lEXW<FZ["T\W9_u[CPKH!bh!N6B2JI&LcJI#!2%fqLm=onF(!D<.m!KdNroEBdO#uL^([;T<\!?&EK&!R.3!=<#I!?&]S%tk#+!=<#Q!J(9n!>!BWd/aPYd/ee!d/d)F!UYXC;#p^X##PC%okR:G*<EDL:$a&)\HY4u.@CB;!<JH)&**ce"pl@H#4VoI":r]]q$%-Hq$-?nUa/e<!UW*3!SIYX&#99c"pkgY#3c<u>j2HD"mH4cKI-`i##0a]!Vlp#klq.h<oF8I#2'1k4Q-JN;#p^JD`Iit"T].P"gJ4;=ok<#!Drju`E3Z3!hfc(&*+S,"US5'"fVZn"V8NUT`ka-T`oG0"]5:$2-L$c"T_6#"Tbk19">*+W<Eh)#/LHL=okl3!DrjuWs90:#H7k53<>fW!>"5mW<ES=j;bE.#uL^(]cL#?';5N-((esuT`l;lR0B8fR0=/O"JGu:;#p^r6ob;$"T]-e"Q9Lj&,ZOo"URoI%fu2(9nX,[q#sUr!M(5R!<E3qN!9<F"V7[8R0<m-X9#!u#nM\6W<ES>j9;dl),UD8N>rJa#/LHL>epTK"i1?Qg]kk($!IA?"T_6+"Tbk1;#p^R>$SlIJH`jn:##jPaTYDO&cpA`!Pnp?!EQ`7_$.(I%m7B+#uL^(bu7dHf`_CKf`_De!_VDT!RV'Cklh*]"^1r["T_I$!S&#ZOTbdE"%nsb!QbHTlj'3f$!a/-f`[uP=oj`h!>!*QOTc%rOTf`e"]5:$h&0AsT`bBgT`bD$"%oNq!LX!"g_@!r$!IA'"9D,g"9Gb08uVpoOT\M^!M(Q(!JprT(eTnn!O2`!R03Q$!`8t!bqrT)\HN"+\HN#m!tY;5_$(-B!<J`*&(Cm$!XTC%'ZgC_&"EmP!XTCM"PEh_;#p]_H4T'@T`ka-T`pP^T`ktf#,qb4=ok#p!D8a`!O2_;MufUU$!a/-OThE^%u^Og"US?5R0<Ug!<Ima&%i+G"USG5"doOn"V86MYltG;!MKYt8tcChYldi(!Mpu7Zl]=Z"ZZUg"T].p!kAI@<k/C="ec)s!<L/S&<$ph"W:/<!QtpHF9.L/!J(IV!ET"#JHt]L;#p]R#YN2A!O2b<KEfg,$!IAG"9D-2"9Gb09$%2:@8R%+KgnQ5!RV&T_$'k9D*@tLq$'mi#5JJ^"qRd:nHK:1AGHE9:!=+KJHnoV)$,R!;#p^BD-?tV#6@H5#6Bqj&*sA>#746.!S'(=oFgs#JH6;R(4cMn%n)6U#uL^(eI!E"!<GoR"p'hi&;1=W"W:/<!OrA/X<I\M"^1r#"T_5h"TdQa/#`^="doNk!<J/_?3-#rYm!u*!OZ3*kl_$T":p^unH9/%!T=.^;#p]g-3fS9!TcUAljNp*"^1r+"T_?Y"9Fno;#p]j$sE]-"9B%'#2o[k9'HHZOTI*mnH8ki!<K;q:##aMaTYD?,luBs!Pnp?!@>8[_$0`S&*sP;"US5G"fV[9"]5:$`<IFc!<FO@"cNYF1Jn/RrD-&%"Tb"n$3@sH!DrjukQ)e,!<Fd,!gs2m-_U\E!>"6+W<ET*!<LFM=okT*!@OiL!<E^a#-e:;>d4DLYlm\0"9Gb0;#p^`#?h/e"T_6c"9HUJ%06Kl"\P0d!V$7aT`kIZ"]5:$jYKR2!P&A+\HN#m"%pB5!LX*AaT]TqYm!bQ"Tb;#"3C]a!G__H"T_6+"TdQa9#1Z3R0>+_"oK"<"\RGO!N?5)aTWO_CB:sL!>!*QOTc%rOThE]OTe@F"Tbk18tcChOTeIt!Wf8(;#p^b$Vc9`!P&A.e0+k/"[2r1W<H-"!OZ<0j9,LO#>L-j!MK`^!@`R)<qurN#Or!q!<MRh=ol/=!=omT#74YG#DiYq#>2f;!KdNroEE>A$!bRWJHs:%9tV>Ed0EML!LO'cbTm4o##1Tu!P&D/bRjll##4_5!QbOC!<N.@=G[1^!@N^-!<Ee&'8Zmo'bQB1M$;ZY&YpY."iLi^N$X;aZl9U1*/Ojk+%hY!!V$4g!<Lp[3<A@I!DELpi<2d3"9J<!9'HHZW<,fL'`mh-9)/SjR0*KS"9AO#!<KS6&+g###74Z2#DiZ\#>0OQ!KdNrliN"L$!`;mkm*%N;#p^B3aAWfR0BPn&$uSH"US?5T`kHhT`kJ%"&T("[9cN-!KdOXOTbdE!tV10R0<mo!<M9o9%a=JM#n2Ui<0Hj!RV#N9$mbBYldVO"9FVd&(C[>":864d0'JI!<K#A&&\[g"USGM"`_?^&,ZIM"UR0i_$'iMlj(W9$!,.OW<L*A&&\[o"USGU"`_Wf&#9HX"UR0iaTV\U>gW]]%qO>s#u0b4!T=2Z!<JH`;#p^R8Kttlq&5q657+Ru!D9<p!KdO1W<E;'&'Ps."URoQ,lu*k&!R+B"UP^(!SIV_4om+C"V8f`_$(,US-I(=#m7.1.2bt`!OWUnXoYd2!EQ0'Ym$g)8uVspOT\:]"Te,o7f`Y$"U:q0!K@CjM#r50M#n4;!g*Nj>`f)=!g*NpUa;E1#nN7(T`PO*T`TcHT`Pa(W<*B2W<.VPW<*U3'Y+8O;#p^M%M.n2i<9Ngi<@=,f`_o)#2o^l>i>j+i<<'Z!Q?*POTbat8soh`R/miR#GD;-"-Ea)).J^3oeQVG!<KlK#lt>5&,[^c#nM\3)$pi7*[(he!<M:o9!JO#T`kt6#.XmD=okT+!D9<p!T=,X!<Gn2\HTMIN!<,[!V6Qtd09UP<lkQn#/LKSlj(W:#uL^(blp_U"Tb"n$3@sH!Drjua8no<"Tb"p&*sP3"USGE"ec+1"]5:$P7q+#M$O,SM$O-E"V9r$OU)7uOU1afOU+[7(]g$1=ojHc!D81S!KdNroEC?_#uL^(V):se!Jq"TPS4([##1U5!LX-d`"iBI#!N&:JHf0N"b?mJ"V7[9q#q(%!<K#b<hT\r"c3C[!<KT#>aYb8R0=,f+e]&G3<>NO!DrjuO;CCf!KdOh!J(CT8q@-HklaV8"TcF?9E>0F"\O=L!U0_a!<L_S;#p^:"teC,Ylt/*!<Ms!9E>1Q"=N.2!<Ef!"Q9KR"]5:$h,Z*K_$'j3aTV^]"\R/G!LX*g!<Md,>i>j;"lTVZll#oh"\jXf!V$=j!<J`B=HNaf!@s99U]njC%nrZ##uL^(bmmnXR0<U`R0<WU"A5?k!KdO_!<L.n;#p]O01s=i!QbF9d00QU"TujM&HQYJ\HN"+\HN#="&T("TGIWc#6=iOq$)Z\]F#2I",R6h;#p]W7pNS.T`qt1&*sP;"USGM"ec+9"]5:$a;J$@#+5[P"qRd:OTl+&r!/Vo#uL^(SI8/N*s($u4om+C"]hl3\HSr9&"Ea,"US$,!PJjOj8mp<$!c-fd0@u&<lkQn#/LKSbQu;p#uL^(KbIM/#+5\3"qSWVaT`&VaTcb,"qRd?d09nS!<JZ*9E>0F"\O=L!U0_ZM$3o79E>0F"\O=L!U0_ZM$3oG9E>0F"]5:$q[cer#,)6X"qTbqR0Es=R0JKPj96(\#FPc&<ga0V"c3F\!<M!s4TVMcdh,FX!NdLUj;F?d#nNO,T`GI)T`H%)!DrjueI,!#"Tdij8r3]POT\>Y!J(DHJHZ)="A4LS!Pnh2!<I`T8q@-HklaV8"T^&L!<MBb:##aM_$0qF"p"a*W<TU3R0F2_!N?80*iT@3#*]6f!<N-Y=ok<#!D8a`!KdO[X:>9)"]5:$Psn<5"Tbk18tcChOTc96#,qb4=ok#p!Drjuo)VI7"Td!P9E>1i"A8Im!U0_a!<K#k&EF"_"W:/<!UWMkS-?G,)$-]?!<G1]T`kH.lia9k)*";nW<Jt!;#p^j$6eXHfalIL8soh`f`ViX$D@V0=oj`h!Drjua;Y0E"T\X)i<AHLf`_nn"Q9Lj&,ZOo"URoY)$0729sas&q#pf`"T\X)i<AHLf`b4R!W=3CW<KO1T`ks3W<ES=A?c:E:#lEX\HPh2!R4"Y\IW,j(h^Ytd0/\R!V$9n!BC2F"9Dg0X]FZh;#p]m)+oG`!LX!_!<N!!&"Ek"":7p+!JgkNJHZ'79E>1i"A8Im!U0_a!<MBc9$%2:_#Y(2!mq,W=olGB!D:02!O2`(!<J9#>c@mHW<Eg.#I+F=3<?)_!=rG?"US$,!MqF[bQb$M#tprqW<MBn;#p^2@S21T!U0_ZM$3p:!DELpJH\Ys"Tdij8r3]PM#g9N!J(DHJHZ)="A4LS!P&5.!<Jr,8tcChR0%-&"W7=CT`l#/CB9P$!D8IX!T=,Tli[?W"_s_7)$*R-"Tb;#=oj`h!DSLW!KdO[li[?W"\jp[!MKZB!KdQO$P0<ZJH6&fquhiW$!`;f)2SA)]Fg8,#uL^(L^-P'"Te,r$NU9Z"\k4(!JptW!<M[-&(CXM#E]6cPR[`i#?h/m#6>A-"R--t;#p^8"A5?k!T=,QW<E=E":si'Ym$O!;#p]W-!gVs8!sNX!<LXN9!JO#i<'Ut"1\RA9#1Z3R0$q;aT\XI"2P-Q!G__@"T_I$!UC+*]E5VIN#<5?!kAK))A0U`\HS39&\J1U"nWTC]E5VI`!I$o!P&B0(D4:]\HT>`&\JR`"b\-u!<Mj"4olh3"\lo@!P&A;!N?5';#p^"'+`"_R0K&`9oL(nTa"5m,lstL9nWoUYm+&+!SojKj8lLh#p->TW<KX0&aUaA"k4)\!<J`q&&\[_"USGE"b?if"\n>/!Pnq6j9,M*"Tc.;!<H6+"h=f9"]5:$=A@QO!QbO?oFh8Q#!N&:Ym+7.#-eB#"qR4+W<NY>`!3IN$!a_>JH`:_:"0=I\HYn3!ItM`!O**6"]5:$jW7S+T`kHhT`kJU""U>Sliid\;#p^p!s+Mf!<Gf\"TaG`8tcChOTeS_!NdkWJI%YJJI"l)#Q^%k&+g$f#ROau#e:2&#Yj(m!LX3s!Jq'_;#p^R/.[[@W<!<1W<%PNW<!OR&?u7e!=tD8\H*"6!<M3t(SM#+"cNX_!<N-A%tjt_"USG5"doOn"V67eYltG;!MKYt8tcChYlbL^W<ET5W<J[nW<EeXYltG2!<N'(&,ZOO"pn#*&cpAa:!=RXf`hK!"p"a*_$8!c\HWSg"2P0J&&\Oc#/LL@!<Kkr?3/4YT`n9o!NRAKR0_INR0ZN_'*4d4=oj`k!@s9<PQmNZ9E>0V#Z1U'fGb6m"m$<s;#p]_4"I!.oEUcf"/,l1+U4VD!L"$?d082,r!Ersf`_Zm`!50(#uL^(W"KW2&?u?E=ok<"!D9$g!O2`!W<<6q!tVaZYlkA:!MKVs8tc@gYldUt"9HmP&(DT(":864T`bBgT`bD$"%oNq!PngJ]GRmV$!IA'"9D,g"9Gb08uVpo.8A#&!O2c)!<L@S8tc@gYldUt"9Fnk&%!1Y":864T`bBgT`bD$"%oNq!T=(je.&Yc$!IA'"9D,g"9Gb08uVpo&J+48YlkA1!<Lpr&+g%i#74Z"#E]8U#>P+A!V$Cu!T=7a&+g"`#74Yo#N5mG#>44c!KdO_!<KtB>aYks#FPilZk<D5#[.7k#Q[P[#Q^%k&+g$n#ROb(#h]HN#YhB2!MKd&!KdWg8s'A[OTc9^!gs<#;#p]J"DY1F0`_U^Ylt/*!<Ke5&,ZOW"pn#:#Q`T_9rnO"i<E-[!JhUcaTV]j&**f>"USG]"ec+I"\jp[!SIWR!<K#i&#99;"pkgY#/LKM>epVq"i1C;Zkibb##2`S!RV)P_$0o@<k/FN#-e@C4LkY&&&\[g"pn--!S'LK]E5VIZlfsn!kAJn$5'oP\HT>J9#1Z3OT\:u"Tb;!$NU:M"]5:$M]tdP"9Gb09'HHZq#V)."RuU$=omRb!DrjulP*'P"p(+s9ro*2Ta(U\#6=j+M$K.Jq$%B-",R6h:#lEXOU"Uf'EOU,!Jq$^!@@OGM$J\=&*sOX#74Ff#Or#o#"j^W!KdNroEC?^#uL^(KgJD2"9DX9N"*#p$!IA'"9D@#!NQN$Zl/tU"^1r+"T_5p"TdQa/$T8B".9<Q!O2e/:#mAs\HQ.;W<E;pW<E=]""UV[liid\:$`\t_$*R"$N\?Q;#p^5$kHmR"pn#R"Tc.<:"0jX_$3a;!Pf(H!LX)l8soh`i<)]G"Tc^J&*sP#"USG5"d&tf"^1qp"T_5`"Tbk1;#p]M+:nANklhAR!T=1_&'P(="UQ77"lTWl!Y=W&klhAoklo04i<9b1#3c9t>j2E3kljob!OW(]OThNaaTN-U"ec)+!KdNd!D8a`!JptPT`kIZ"V7[<W<ET*!<Kt:<f%$C#(Zsh4Ga7K&&\[7"pnOs#(Zr?##2`M!LX-d`")mB"p'hj!<H$u!W>V$oHV0U#tqf4_$-2M;#p^-*(nle!O2`!i<01T!Y:M!kl_;r!SISV&"F9c":7]Z"9Gb09'HHZW<*T0nH9/%!T=.^;#p]_#S11&"pkfNR0Eslg^!qS##1<s!N?9#!<KME)rV"s$@s4'Tb65e\IU90klUr<B(5s(/O&t4!Drju`B7<)\HN"+\HN#m"%pB5!LX*rT`q\)aTYiK\HN"+\HN#m"%pB5!LX!]aTV^M"ZZV""T].P"j$oS=ol/;!DrjujY9Kr#Q^n/4om*h#$-9ZM$EbZ&$,h`"pn--!OY08!<E3OT`pYbR0?7b!MKZhT`kIZ"]5:$],"ZI#''GC&%i!q#73Bkq$$js!<N-,>d4Nr#-eD-bS(#f#?h/-#6@Gr#6Bqj;#p^B9jF(lM$KFS9oKVaTa4g&OU(t[OU(uM"V9r$R0X+(R0\WSR0ZXj!Q?$Q`!6=*#>O7^!LX0eS/24"#<i/;JHo$Q!P9%L!LX&k&,[94":7\o"9Gb0;#p^M#7mm@nHB4Z!U0ag%p\W.#nLSB"US$,!JM^Fd0,j?OWR2p"TdQa/$T8B"/,lY!O2e/;#p]],[(5j"9B$d)T`*g9$mbBYldi(!UqKJg`3!j$!I@l"9D,W"9Gb08soe_aT<!C'VPX9=oj`g!DrjubqMuq!OX3a`!2V6$!`l&EL@"AN!,gY#uL^(`@Y-L#0@)&"qSWVi<BTni<F;\"qRd?klqGS!T=4`&+g"h"pnQ!#,)4b##PC%]aGCA"gJ4KBrM98"gJ5*oEYK&"Tb;#!<G1]R0<ToR0DXTR0?<D"p(D$,QX#2V*S@K#,qcg"qR4+R0Es.`!2n>$!a/.JH__O;#p^R$TS6e"T]1!"L/+J(o[\D"fVZ&!<J)k&%hr=!=;fs!Vlc\!>3NiklI"W&"Ejo!=;U(!V7K?PU;e%_$*HQ"T`=0d00Q="ZZV*"T_Z?"j$qI";7++j9NL)(Vp9k"nVgV_$/<jR0?Fg!O*2/OU(uM"V:5/R0X+(R0]bsR0ZNG*!)`=;#p^b8."5faU3k>;#p^2,>-nt!O2`!kl_%?!Y;pHnH9/%!T=.^9&TmRYldi(!UCt&T`kIb!_TEq!LX*O!MKYt;#p]Z*)Q_;qZ[S$#+5W$;#p^8'2#5-!LX*%]Eb\F$!IA'"T_I$!K\3n!<K_79">*+kl_O("i1?K>epTK"i1@>!<L@j/"m-"$^h/Y!MKYt8uVspi<(U8"mcD\"\jpp!Pnq6e04q8"[2r1Ym!u*!U'ttaTmA%aTkPI%ft&_=olGE!DrjuRgotq#PeQ1<qurV#4Vm.`!6#A#uL^(\-P^+"Tb"m9!JO#R0>SOW<E;5`!*CL#uL^(jWdG"!LX*`R0<W%!_T-i!KdNrS-Gqr#uL^(Pr_bC!SnJ__#seD"%pZ<!I537"475X=olGB!D:02!O2`!aTMX$!>#)2d0'bZ!Pnm>;#p^R,>F+$!J(GL`!ug)##1$\!KdR\oGdn"#!N&:q#sUr!Ne:]nHJ^lklhU!!q?F#%qPJ>#uL^(:g?j8;%KH6=U>V'#@Rp9!<Miq:"13bnHDX_#m'i*4om+c"]j"Sf`fJ$&"EaL"UP^X!nda."\jp[!T=2Vj9,MJ"Td9[!<H6K"ka($"]5:$h&/3Rd00O]`!4lu$!c-eJHa^19uI8;i<;rG"9I`j!SIVW!DrjuO;JM`"lTUk&,ZOo"URn^"p+5t9q2=eq#pf`"T\X)i<AHLf`_oa"5sCi;#p^b":l2t#74Xd#K[.##7p_7M$F>]N!9<F#>P*t!LX0i!<M[=;#p^m$qc'S!?k,;!Vljjq#g`_"Ao1#Qm4TlR0<U&KF"7T))dldT`phf"ITGk*16t)N!9<V"XF,2"f3_Dj<Xi+#?h.r#6>>LR0O%'R0Vs[R0O8p"JH&,;#p^(&PA`#!VlgiW<E<j"ZZUW"T].(#,qb4;#p^m/HOf6!<H6S"lTX4"V9r)f`_[_f`fJ$d01'!#2'.d>hK:#f`_o!"5sCi;#p]e**coD@1UR!Bc.GW#]U.]N!">3>^734;#p^M+qMTni<J6F9lpF###3ku!V$@k!<Ke9;#p^j)\63D"pkfNq$%."N",l>#>NDL!Jq%U*!)0,9q2OkR0QRi!Lk8kR0B8fR0=/g"JGu:244WA"doNk!<Ilh&*sA^#74Z"#FPh]#>Ntc!V$Cu!T=7a9&U!UOTeS_!W*!oN!9<^##2`V!O2h0T`tMu;#p^=.nZK=!VlgiW<E<j"ZZUW"T_Yt"TaG`;#p]o$P.mld0'bZ!Pnm>9#1W2Yldi(!RhZUoHXJ%"\nmr!V$<oi<95_-.rI\"b[+X!<KMZ8tcChR0*csT`kHo!<N-]&+g$n#ROb(#gimF#YjY)!MKd&!KdWg8s'A[OTc9^!gs<#>aYlF#FPilPS+"j#Z1U'q[Z;u"Tb"p&$uPG"US?5T`kHo!<Ms:=ok<#!DVVX!MKZIW<Mo!R0<\l"VDnT!<J`>4TVMcO<II%!L"fWW<E;'=ok#p!D8a`!KdO[bR=NG"ZZUO"T_5h"TdQa;#p^U$=**+R0N0d9)/\mOTc8S#D!/c#>MQ4!Jq(Z!<LXa+.3b8"M#%;S07oq#[.7[#QYJ."G$gb;#p]J,?B@"W<N)$&&\['"pnOc#'#1u&**hL"pm9jJHc,cU]QAW#uL^([/j,*!UpO]!KdQa1f48S\.0&1,,ka6"\Q$'!T=,Q\HN#%!_U94!MKZo!<JAi>`f<^#E]9de.VkN#[.7c#Q[PS#Q^%k&*s@[#ROau#k8.^#Z1U'N=HKc#JgQM>epT;"i1@9!<K_79">*+\H>I?"T]2ejoNR-!DrjujU2U;#*B)r>`f5A"d'!``"W6?##3;Z!MK\uOTkge;#p^%)+s]-!T=,QJHZ)E":G52JH\mO!OX7HOTY^,!tV1:R03h"!Jpp[;#p]e*tOS@d0'bZ!Pnm>9#1W2YldV?"9H%9&+fqN":864_#sd2_#seD"%pZ<!N?)s!<JYs!Pnp?!EQ`7_$.(I&*sP3"US5?"fV[1"V8NU\HN:E\HQu`"]5:$>><<Y!QbIJ!P&=6&+fq6":8>D"A--,;#p^M%Q9^Yd05pA(T@S;"cNXJW<Iq]od*H9!R1u`ZiQQu),UD8r@CVC!JptPM$3qE"A4d[!SIN%R0<Tl=ojH`!DrjuSLju4"iMOO"\jp[!MKZB!KdPt!?_CD!D:03!T=,TPR.B4"\R/G!P&A;!Pnp?=J5m!!DrjuX#!A9"Tdij&**qg"USG-"d&t^"\\ptR0?3N"Tdij%u^O_"USG-"d&t^"\\ptR0?3N"Tdij;#p^@$4g[X"URo!&cofP9nWuWaTYE*)$/+g9tV_Pf`aP?.CfUZ!<Kk_8r3cROTc9^!g*]o>`f9U#*B-b]HI<D#?h.b#6>>LM$F>lM$MuDM$FP*OTu1i!<KS9*n^b>#1O+nlj)2J$!,^`q$"kE&&\\*"pnPf#'&<#&**iO"pn--!W*a,\H`.t"V9r$_$:9O_$A?l_$<]9)$.ha;#p]u-q`G$!O2`!kl_$D"AAgsi<2dC"9F&V/a`Z8"9CL`nH8ki!<I]T4TUZKcjN\O!NR(K9W81%=ok#p!D8a`!T=,QT`kJ=":si(W<ET5W<JCfW<HH+R0<V#_$%7j!DrjuckBI-"ka($"V7[9d00geAD%+m:"0RPi<;sR'`mP&;#p^5&k_[!!KdNrliQtf$!d92_$Bc@9sc/HJI#E[nHT(*'_)D7;#p]r$;Kjt!MKd&!KdWg8s'A[OTc9f"doW&>aYlV#FPil]H%$H#Z1U'RfZ3=#Q^%k&*s@[#ROau#e:2&#Z1U'V&NIg#2od."qRd:f`h`nr!20b#uL^(cjreN!U0_Zkl_$D"%r(d!>.s""9J<!8q@-Hi<3!Y!RN\rR0<Vr!tY;DT`pP^%u_+""US$,!OW+Qd07VqoGS8,#LN\]<m_)E"j$oY`!4Tm$!bj]ER=q#j9+'=#uL^(TG.p\#H7n6*iT@3#4)gGR0Lb:lin!=#,qe5;#p]o-P+-"_$(-M_$,An_$*Pt)Ze%a:&H.8d03AJ!Jh%Si<KCG"V9r$km%N"km,<8km'r$$j#l'=omRe!D;;U!KdO_!<M[>*r-!0"cN`ubQmqI#p/mGnHJh"&*sPs"US6*"mH3\"V8NUq#q(0q#td6"V6OpJHcEX!<Im!9E>0N"\OUT!U0_ZOTbcb!`8t!QjGbR_$'j5!<K_7&_&,#"j@?Kj9,Lo"Xh+i!<H$u!OsUOT`kJU"%oNr!Pnh0Ylt/r"ZZU_"T_I$!Q,+6f`_Dm"\R_W!P&@o!SIVW9&TpSi<)^:"Tc^K9(<&cd03\Si<96Si<98@"%qe]!RV'J!<L^b9$mbBq#M#E)qb?#=ol_J!DrjueHA_M!NRLsR0BZ:OTd`GR0<Ut!Q,S="]5:$eKdkj,QX;==ojHc!D81S!KdNrN!GINJI"uW*W_Z7;#p^b,#J@AXXQlA"Tb"n$3@+0!DrjuO<%'^%0;"a:!=RXM$?\=(]fa'9uJ=YR0GhU.JX-E!<JQ+%qL4q#u0I`!Jq"T`"rH:##4.]!LX-dS.#Fl##PC%UBX!B+5mX-)boAr!RV'J!<I][?3._LR0?Fg!OFNlj8mX3#p.ItaT]$P&'P:+"US$,!K[Lh!QbHF9$%2:YldVG"9IH^;#p^b#[.7s"T_5`"Tbk1%h,-8$!a/-OThE^%h,E@$!I@t"T_5`"Tbk1&#9?%"USG-"d&t^"V7C3W<ET3!LX)l;#p]J.U8)@nHG$[8sonbOTc9f"ec/->bMCb#,)9!!<Ji2&$uMV"USGM"gJ6I"V7sDaTVuS!P&@79">*+kl_OP#/LHL>epTK"i1@>!<M[336;<>)7]iGd00Qm"Y><Qh%nBA;#p^%,Z+RCb8a6H"9HmS!Pns@!@>8\_$5Pt;#p^r+\KiZ!O2`!d0'K$":s8hf`VUY!<LOn/#`^="doNgr#c$N"\lWP!Pnq:!<N-68uVsp&PB;3!JpqO\HN!g;#p^`/5":n!Vlgif`_Du"ZZV2"T_I$!OW1ZaT^?$j9-"["PEsh"XVP"f`gF>9%a@K\H5C^"TcFC9'HK[T`nU#f`_CKf`_De!_VDT!QbL;klh*]"]5:$lQ%)K!<GfT"TaG`7A0mQ"T\gi"Tdok+9;KD/cGd-"T_5X"TaG`8soh`aTN-E&YT@7=oj`h!D8IX!JptW!<L(u:!=XZOU"Uf!We\o!Jq$^!@@OGM$NAY&)7>F#71pb"-Efp&&\O3#E]6g!<Ktj4TUZKp`*-3!O)STW<MVlR0?=/+T]+W:$`Sq_$*"'+fPW>r!NP1"]5:$fK*=>]/$Vp;#p]m$VIZ-!LX#s!O2e/;#p]]%pB"%"9D,_"9Gb08tc@gd/jis+fPSN;#p]r.S\\C!P&Cu!@aE@<fmTS#)NNp'TiS+;#p^U-TM3q"T_5h"TdQa/#`]:".9<Q!N?5'9rnX%Ym";3T`kHhT`kJU""U>SPQR<W;#p^H$!IA'"T_5h"TdQa8uVsp_#d66"Tb"p3<?)_!DTpG!O2f3!MKYt8tcChYldi(!Ri/cU`BL#"\kd"!V$=foFh9$"[2r9f`b4R!S@rU_#seD"%pZ<!MKN)S,q"?#uL^(_[oPD'*5oQ:#lEXaTYD?-3;Kt4om+;"]hT+Ym$g)&$,i3"UP]MYltG.j9,Lo"\m2U!Pnq:!<KS1&,ZXb":864aTMW:aTMXL"&T("kR15g!Q-2oX9/2%#nLQt#74,c"9F>a;#p^]/P:j'!U0_ZOTbcJ!_`UqM$6M."Tdij8s'8XT`S'l!Jh4[X:bQU##20'!RV)P_$0o@-+O5r#)"02quab>#u0I`!QbOC!<K,)9#1Z3R0*cs_$'j:!<MLA&\J1U"lpU7]E5VI`#]N'!kAL4*tc-e\HVU:&\J1U"nX!9!<KMk:#lEXT`n/l!s,A)9oK8WYluBRT`pfH&,ZU1"URf+"Tc^I9">*+R0?Fg!Q,:*!LX,m%pYe4#nLRG"pn--!UD.=d07&ad04","eZ_6;#p^8/5!GV!T=,Q_$'kU!_UQ<!O2eg!Pnp?&)7i?"US$,!P9EbPQ[Z`),UD8i$;%X"9HUJ:#$-Xd02]7.Bs%WW<KO1T`la9"doP\"qSWVW<ET*!<MLJ8soh`YlbMQT`ka-T`pP^T`ksCW<ET3!LX)l;#p]j)+pS+!T=,2W<MVlR0?=W$j!mB9sbH4_$*"'+fPW>oF:o,"^1r#"T_5h"TdQa;#p^%#YhB>!RV-U!Po!A&&\Rd#OqsiaThj/"]5:$]`MZ2"m$<s;#p^%)\9:aOTYt_R03Pq"%o6i!?k;@!@o8n!<GfT"TaG`7A0mQ"T_I$!K/4#!<Ji49ro*2nHM_S%0?8/9uJ:XJHn@>.H(J.!<J8t&&\[W"pnP>#'$mP&**i'"pm9jYm(5+!<I^68q@-HR/ot^!Vljjq#g`_"Ao1#K0*P1"gAsI;#p^2#@*r+R0Au^8tcChi<)]O"Tb"m9!JO#R0?Fg!QuBrW<ES/"/,l1)+q.;!>0(W"VCb;Ylt^W?3-#kOTeS_!K@m+liPQ>$!bj_Ta/sM9p?"df`t[]aThhWoE<8@$!bRWklo06&*sDG#K[0I!<J`"&&\['"pnOc#(Zr/##1$\!Jq"Tj9,LG##PC%oaG)V#jDSF#Yh**!Jq(c!Vls$;#p]e.S\\)!O2f3!MKYt8tcChi<)pX!MBr6>hK;f%qOW'#u-'g!U0ec!<K,$9(<&cf`bO[i<96Si<98@"%qe]!SIWKnHAs8"]5:$RjJZq#H7k5>c@mp"fVY9e-E5^#uL^(P;j08"lTT;#SE:(i<83K/Ont-!D;kb!U0_Zq#g_l"&8\;!J(DX!V$9n9(<#bklaia!L!NmOTh!P!DrjuP9UUV!pKo?"\jXW!V$@g]H.+L"p*rm!<H6[#3c?F"qU&*i<BTc!<M[I8tcCh_#d6."Ta_h3<>fW!>!rpW<ET3!LX)l;#p^0$r*N0!LX3s!Jq'_8r3fSOTc9f"d'&s>`f<f#E]9de-Z5E#Z1U'__=pg!K/U'JHZ)="A4LS!JpkO!<I`T&*t<f"US$,!OrM0\HN#m"%pB5!MKZhaTV^E"\R/G!LX*`f`_D]"TujM)$+LR\HN!a\HS3%R0?Fg!Mp;2W<E<q-sXRmJH`jo9oKG\aTbJP'*6Jb;#p^b%hIFsJHQ9aJHUN)JHST%"9Gb0;#p]Z,p2q!kmc;U8r3]PYlm`$!J(DHJHZ)="Ao1#XTiOF"XsHZ!O2e/;#p^%"'grnTa$Va:"1EhR0QmrM$F&RM$F'D"V9)`OU%Qa:&GY*R0QmrM$F&RM$F'D"]5:$Pm\/!$^h/9;#p]J,Rp.OJJ1=DN"uGN"^1s&"9D-j"9IH`;#p]M5#$,"OTnO%!LX,mM$<t]<e1I3#5JE5j8jf9#p+X%q$#g_&*sOP"pn--!QZ]R!@`j0<e1I3#5JE5S-+<H#nOrYM$=8kM$AM7M$?fX!H;?GgEWBq;#p^m)Ee,;"hP%;!<Ilb4olh+"\nV3!O2f3!MKYt;#p^]2GKDH!MKd&!KdWg8s'A[OTc9^!gs<#>aYkS#akrq!<JAu:"0=IOU"VA$iub$4om,.#$16uq$,d^&&\\B"pnQ)#(ZsJ##4.]!VlpoS.5RN#6F?!!<FM*#4VoY&J*q'nHK:@nHRqVj96(<#Or!)*q9Hn#5f#Clj*%b$!-R#aT^W-;#p^R$Wu?j!<GgO"9J<!9'HHZOTI,3!V$9n;#p^P.8^*HgC4[(M$=8\g]7G<##4.]!LX-dj9,LW##2`P!N?9#!<IuY:!=(J_$2n#\HW'FKET*q#nQq9aT`&Gj9,M2##20'!SIYXaT_bH<l#!^#.XpKZin2L#uL^(lU+pV"doOn"V67iYltG;!MKYt8tcChklaia!OW>:nHJ^lklhZP#jDMo*Y6I"nHB4r!<Jr+=olGB!D:02!O2`!aTMXd!DrjuO>14D"e\$[;#p]M!D81P!F\Y&!J(DHJHZ)="A4LS!P&>,!<I`T8q@-Hklaia!TOqff`qP?"V6Osi<PbU:%Sqskm(Amf`qNg_unZtnHMVE#6Bqj;#p]R1JJhii<9>*"X*nW_$'i?7F;:\"T\hD"Te3#=ok#p!D8IX!N?09R0=H/;#p^h.KP))!<H6s"b?mJ"V9Ypq#q(%!<J9,<j;h="fVY9X9,X1#nLRW"URoi)$.PW9oKkhaTYC\!RV'J!<Ig13<ApZ!=rFd"pkfNM$=8\j9YjL##0a`!LX-dKGFT^##PC%QphO]+"7M$.2aQFbQT^->VR*N&)89f#nO*E5oC3o&4m0=e-8bV;#p^]3Y8(pT`l<JR0Au^T`l"g"ec);310rD"doNk!<MLM%$:]&!DrjuW#f]Y"X*mR!O2e/;#p\G8r3]PklaV@"Tb"o9E>0N"\OUT!U0_ZOTbd]!`8t!P8-^c"9I`i8q@-HaTG3;!Vljq!<MitD#"FS"Ruh&!Jq'_&+g!]#ROam#g!:-#YL3b!KdNrliNR\$!`l(JI%YL:#m&jTa4g&OU(t[OU(uM"]5:$a>I5%#'$UH&,ZI5"pm9jW<NA6bQ4sQ#p->UW<SS5&*sP+"pn>8#+5[p##PC%TG%k."d'#r>`f9U#*B-boG[h!#?h.b#6@[&!RNDq!<N'$?3/\:R0?Fg!U)=?M$B(HJHcYO#DiWk<f%%V"b?jg`!2&&$!`;kEJXl1N!,7I#rr$C"p%R%!ROGDf`H^+f`FJ@i<%LN-g:[5!D;k`!LWs!N!K.[#nMt0JHH3U!<EQN!<E3KM$3n\&]>oN"gf$We.mfDX;Fe8!M]fjT`kIb!t#(&"T_I$!LP_Tlj(?2$!+kHR0L2+&&\[g"pnPN#'%H`&+ftG"pm9j_$0oNU`db`#nQAEd09nS!<K5Y9E>1)"Y7+ePQmfb9E>1)"\Q</!P&;0!<JQF&*sP+"US57"ec+!"V8NUYltG=Ym#-P"V9Yr\HN:"!O2e/&#99;"UP^X#/LHL;#p^(*<Et\!<H63#/LMK"qU&*\HW@@\H\H+Ym(`W#.XpE>e(&Y\HYn3!Vd!4`!5`9$!d!)EUa5DX9\P*#rr%V"p%R%!UCCk_#sd9&(Cg*":864\HDq*\HDr<"%pB4!GPC3!Q[)?!<E3qN!9<F"V7[SR0<m-g_c^g#nOZWW<ES>e-*#[),UD8J4Mj).B*MPTa%J#R0F2g"/,pm"V7[9W<NZ+!<Kf+9#1Z3R0*cs_$'j:!<Ji(+9;KD*8<*Y!gs3h!<J*4;#p^`1J7HG!U0_ZJHZ(b!_`Uqq#j=c"9I`i8q@-HaT>-:!Vljjq#g`_"Ao1#O?jD1"fVY3>c@mp"fVZ!!<Jkt&**ec"USG-"doOf"]5:$fJsK7"gJ:=>d4O]#-eD-oEbQ/#?h/-#6@[&!J:\NOTbatC7,5+!<\Gf&K+37"T]34!<K\J=oj`k!D8I[!KdNrliNR\#uL^(j$sWM*jGkT>d4I#"gJ5'\HN#m"%pB5!LX!]aTV^E"ZZV""T].@"3C]Q;#p]e:_,,1!=<#a!J(:)!>#)4i;j6ii;nK1i;k=j!<E33g^!?M#uL^(QqJlr&A]3W%jnh#nJS;7&BPLB$/$&I!<<B;'cAG@+XIQt!!!#Pj8r0Z!<j%I!=9':!=8d4!<E47JIo'l&Hi(8+9hfG!!(C-!`8t!Pm1uC8HDG/!C9>/!<FoP!<LFH;#p]_!b*%4"9D@#!M'</3D&97@PPh(!DrjueH'DV+TVoN8HDZh!TaLd)$'aG!<F'Q+W1;X!<Mis8ne;<8oXkL=oi%4(I;Kj";`e,j904;8HDG/!?"L\!<G2a!HA-TECg1.!<KS//TtP'.KN*a@M(Bs;#p^:"\O=H!D-GqE<0fo8HDZh!NcK>;'>rI!Drkp!<L^OC,$k4$3;j^;#p^b"):CN!=Aj!!Drju6WsM1!GZUG!D7V<;+cB?!Ei8#!@:?`!BEc'!<GJi!HA-;!<ER3!HA-TECg1'Gl_&F!<LOJC.TQL$3<^!;#p]'C.TQL$3<^!;#p\R:<='8!J)%'&Q.Tl(E$B:"DV@:!DrjuP6#DQ+TVoN0`b,P!DR#`K`_?Q!<HCBN!:_>"%aX:<<3+dC.U\l8l5Tq&<$cq#uL^(lN%Qe"u-F!3@Ou$5lh9.+\@Us)2nbK;*G"(3GLi7!Drjuh#Rf_#m"cQ!<Ge1!=9<r"X+0Q&HMoI)%cmA+TVl\N!1X:;#p]=;#p\o8q@!DBj(OW!D7>4;'U&]!FdLf!<H$u!MBKdGl^K/JH5d[=oiUDC2lfG8pLGG;#p]*8gscI&<$cI#m2=g).Fas!Drju.r%X9!D62i#o=afN!<,[!Up.f!<M*\@R3?^;#p^P!YGD>+U&T0blL[!4[nlAzq;_TS!<Fb`S-C,;*sk@Z;#p^*!D4L9)'^:*!=8c=!>+#k)$+Iq#m!XI!=;U(!C[R4!?hJ\&KqHl&K)/lS-C,;D%Rot;#p\B?3+%L;#p\d3<:9(?3*kG;#p\*C*<la8gscQ3<:9(;#p\g;#p\G;#p\T&DRL6!@&`g!A1haJK04X;#p\$&A/#e!@&`g!>(b*+TWYs5Tru*!AF`Y!sQXE[/g7-!!(s<!`8t!/KNLXaV9jO?3(cYC)I<Y$3;"F>las,#ltV=C)I$Q8g+3A8gscQ!>tn=;#p\2"on_l!R1WF!!!#Rj8r0Z!@;Ie#ltD7!=;s2#m"<4!<H$u!=K^S$i(LA"Tn`+YQ@r-!!!"MjT89[!A+^'`;p!:!<MQg:alD_9oK8W0dHcC$W-p*Plb\D!<GeA!=;JZ"p$GQ*!&&s!<K;'3Um98%/Co)H-?=%;#p\*+9;KD8g+3I,9['g5g1Ed=[:1TEFD,^"*n$H!<E?^EHuOhS-!tU2L0"^;#p]5>WEZf)\EZJ/CY%r&O=ha8J+!TbQ8AR!<ER*!<INL+X$ks)$'b4N!9;+;#p\:3Y@k`=_V:V=YX>nS,uOg!L!Nj!=8d$X:PCE-Q)pc;#p\Z&HDhpzg#N33!<EX2aWBCWOT\M^!<j2=#m"<4!<E<'z!0H:D;#p^J"(h!@_&]3R@QD+'!DrjuV#tH]#m!XQ!>/&m#m!%`!<HaV3<9.gh#S\["Ao1#m/^&b!>o4(!@d@N;Bb*(3F2_"3C&N-3AE6K3TL<?!<EjA3%<nk;#p\g9r&p55s>;m.;CRD!D5?Q&Q&Q0"\k3m!C6`@!<HVf"u.hf0`a"+!<HRGKFfRm@C-(r3=%W*0eks;PTMeL5oBqg5rhdC!CKS?"p$/Ij9,K$;#p\o5i`&.0dA[Z!@'T*!GVoA!=Jo/$#1%Q!=Jo/&P\2g!?#Vq#m!XI!>/%b"p$GQKI$XZ4olfM5g09Q+Z:JM+]/7@,=(;m3AE6K3TL<?!<IuW;#p]R!=Af.*>nhW!!)$>!`8t!-!^NP!BC/m!F>d7&Q&Q02,OAT%7p!qaV23,#lt>5C(UII8f7X9;#p\2C(UaQ$3:_>;#p\*"98M>!R1WF!!!#qjoSB\!Mp5O@;4L4631ej+!k?0S.ZF(,%:*N;#p\L631eZ*Y60jBk\l%C&A&FU_I7=&Q&Q0bln]l$"9VP631eZ+sgZ3oF4Xu!M'<)bS4L@#=8H*bSC`-!bl?p@;06ar"3@r!YMLP@6>.?"(Cg)&ZcFMoGnP1'Od4M;#p^B#pj!\S-BRY'4Kr7&aTU.'G9CH@E]We!<Il]631er!@;/gX:#WI#\!?M&_n12bQ1QA!Mp,8N$Dc<#!r?)S/!>YC%MuLZlEM5"VIgP@8%8t*+?2k&_mb&X9V&mC"re$`#*3&-"1N#$k`+:@H7nq!<Mj&'EJ480*)Yf-Xd#V631fe!@;/gS-KYU%q3s*631fE,pcu6g`[9:-=P[2631f-#uL^($PE"=@I,-L]EM`.*>.'>@H88&!<E?j!GVH;-"1Nc$k\^I@Isb$!<KS3631fU,pcu6e-JAAC"sY)!<N-&&_nI:S,kqWC"*G8@;5Wc;#p]g"XRSkj:Dp)$t7'd&Yp:Qj:tMm!Nc_Ae0AD/#8*19@>k=$e.uJg*`2q=Ka\R+&7MXD&Y((SMuuBIC&B"u@;2eW&W@-,e,iJJ!NcV>bTgQW!tg2.@=1BBBoElT@;5WV;#p^r![V8hN$&`1(1GDj&]>c"quf=eC"*qF@;3(W&]>DmKE>!O!L3]uS/Ymq%2"g6@Cu_0!GS>1&%i3_BdI2%llT(*!It7u@;4d?&`aa:e-6MT-=Oh2;#p^5!YN'[@>k^/bR7k?!YM4:@?^d)oFbTN)aXR>KGRJd!NcVo!GSnQ-"1MH#8,`3@>"dr`#W:I*)Q_;RfXmEC$ZiPS/bsj&OHM4N#j9RC!6YkbRS'o"%!$&`"PuK!O)Y<r"!5S"[W6(g]J)b%V]W'@;2eD&_$hiliL#b!UTtU!GU<k&(DP4BdI2%X;hi%&7Ncf&^2>*e,`DI!S%<>!GS>1&*++4BdI2%X<8,!+CVVd&`aX7U^[op#@[6.&`a=.PSk't"(<GeKGS(P'N"l3^]YVH!T=HD)(a_OR0;1F&c<>ON"HZ'+(6]4N#H,h"VIgC@GDAj!<LgU&c<\Yg`-pm!F`ni&\K&kKH:`T(L`gF&[W9]S.Q?d,%971631eZ,Z+RCSHL6IBri<eS/>\I(D3/`@I+X>S/l%N#!r?)X:6IaBtP$E!GRcC-"1M@'g_q8]G2`$C#g=%!GUU/-"1NK+]/7@[07/$(h&X1&^2&"U`U2--=Ps[&c<PUX99-:*b"+1&aT^1lj$Ag!Mol1PS%=l&[Wim`#0.D@E\of]H^kW!`8t!SH]\m&7MpK&X3]4]E&WB&n/-N&\JHZKEP-Q!F6;-#[tp[&^1\mquoCfBp9T7!<MBf&]=`Z`!-gl&7MpJ&`a4+r!!b7,@PC#ga-CA(_Ot<@FQ8o!<L(A&VM05PQqfM+(<Y.&_%h0llZnA#\!W3&[VjQZlKb.$"<0-;#p^-##PC%qZ7AB$Xm9Pe.H,r'1)_6Zm-l*Bqu[[r#K4A#:j5Q%:Lji@0$u4'k+0F&\JT^]E]%5(LbMo631fE(+!C'r!*hp,[l?1;#p^h!@;/gPS?FbBf%,EBnRU+!<K;'-"1NS(IA.:g]J(_*,0+5@;1B>;#p^@!C?g$e.3j6C"sgt!GU=#;#p^5#7m=IBk\l%C"sOl!GS&>;#p^`"YC3u!@;/gS.-(K&n0Q";#p^=#:3emUa6Vk'4I[=&_%q3<)EYsHP+I@@AF)>g^[a$&Y'/9g^Oj[,[lWG&c<SVMuccV!M]l3j:Pgj"%!$&lkCaSBqu"HliggN!Drjup]M2q&Rh1D&YpUZU]_9_+^pl^&bIAXoGLL,!Pe_&!GU<r-"1N[((m>X@ItBKU^ghO"Ao1#1D-D`@GDM.bRe3I*YH<t@H8(6e,j(>%71)0S/Wb_Bqu:P`$/X.$PE:D@AEr:ll9Gm'bU?]@E\uhg`Bnr"%!$&oFrT[BnRBk!GU<k;#p]J!tg1o@FPMobS"?C+VF>f@H7VZ!GUm4;#p]Z":kJ4zoAfsM!<MQg.KL,)>las,#lt>5C(UII8f7X9;#p\$9E>/+C(UaQ&>TCG&Q&Q0I;0WS!D4L9#nWU2.1oDX!=MLK!=:ae+TYaI&HQVY.039H!D$Ap&HQVY#ltU-"rS"f+X$k`!<H#"faI<Ri=0NF)$*>Y!=:ae+TYF@!DlVo!?24C#LrkF!<nG`jT,[Y!<<*"!9E2B;#p\l;#p\l#ltV=C)I$Q8g+3A8gscQ!>tn=;#p\T>las,8aul((kD`c!<EjK)$p<N!>to8!<Fl\!B:ro!<EQ4!!;*[blIeE!!(^5!`8t!"UP29!F#R2!F5^,!<CLTnHJG$!rr?=zrT"#W!<M!W2B`q];#p]/4;$WW4])4\%8d-,jT.CKZiV[;&[VTo9.;Sq;#p^j!DoI-\K7.JC^C]M!Drju]`C#7)'MiX!@;G7#q7S80sh!IZiV*_;#p]7BfQJK0aTkI!bjY,0ej8#ZiWM"!Z;kQ!<F]3$+'a_4=T=o?r6q*$OHhG!DSLW!?"Vm"9BZC!<Eot$024@;#p\g4:1'O>>YD%)bLD;&Q&Q00M3bp+X8E:!DrjuCC't@zi8ar:!<EWS)$'b8!<E?1!>,?I)$'b1+TVmH!<EX5kmc#NR0ZD6!>,>M!<F2Y!?"`8!=K)3!T=%Z!!!#Rj8r0Z!A.]i+7TQg&.&@D!?DaQ$"X,L&L.kg!Drju'*J:9FT;CA!8-?6;#p\$#ltV=>las,&A]$J%Z(Ssz!!)iU!`8t![/k"s&HPKa!=;KU"9Cdh0`_;5.5<7r.00Ha0bFFY3<9^dquQmb;#p\d8hg>i:#l]`3<:Q0!C5-I.4K!d&HPKa!?"Ur&-5'o!<Gmq0`_;?e,qE[2CU@0;#p\*;#p\d9uI8;+Ti#o.;C:D!Drju>6-GZ!C3.V0ekR80e#s#!BY$&!<HpI#m!bZ"p#T=!<HS@M$s+m_%d7V!sK8Ozg>i<4!<EX@M&GO\=]#2#"_n>E!=Ai6!F5^,!<N6%E<#t=!9`DE;#p\dC*=Gq$3;:N>las,#ltV=&**j2$!\&[).!=O),UD8%8d-,,<GoD+V:.J.1'Jb.2ckL&HPKY!?k,;!@_7c#q7)J!<G?O#gj!1*!cNI]E/8]!mL`G!!!#hj8r0Z!OVr?+cHU3(D.gL"q\EJ.1'hl.2`]0!@\=P!<Fch!@\ltS-CDKD#l't&=`qR#uL^(-#EZ3&J2SU.1'hl.3VOh!>TGP.3Vst!<Hpa&HQGD0aUMS!@\SM"t9jU!<G8Z!<E?1!>,>MN!9k35a2Qu#uL^($Ws)Cd2J,a#QOtG!X7*Tzi8aqG!=8dA&HMo))$(%(!>,?=!=]W<!<EX8!<E3u!<EX7W=[_bTbV;S#ltA6&HP`0!AaiY!lY2b!<<*"!:AhK;#p^*!F5^,!>GP8!C?en1_6*$#mip!&Mt$2"VD>=+TW0L]G(Aq;#p\$:##jP0``Eu!A/aL!A2Rt0``kt!BC04:-en4h>p1K8l5U\$NU9*?3(F28l5U\$3=!);#p\O;#p\27)9"g'q#45z!!)]Q!`8t!PlWohN!:_F.3U,b.00Gc.4L2[@C-(b.;'eI.8^*H$VcQa!@^kH!G,!d"9BrK!<I$TN!9k;@C-(Z+Z:bm+_N51.7Pa8+^P0q.8^*H6O<c2!F>dt),UD8-"8;<!Drju;]bH4fa51u,:NWo)2nb3+^q_Z+X'u3+UK$F"rSj-N!9kKBdkJc;#p\B#QOi)!!!#Sj8r0Z!=_Tq*U*UP$rI$+%:&u8!GVoA!>)UI&ID,3!=;U(!?2+@!jMb0zdH(F,!<J_r+9;KDC'b1IC(V$Y;#p^B![IdQjT8J&Gq!KJ)$+Jt&HP`0!DQ;L"9D@oX9/K+9oK8W@3bkN[015Q!<E:2#m"$,!E!T7#m!m(!Mor-!<II\JH5cP"+^IZ!EB.$EDHTAGu4SCN<*d&!<EQ/!F]_W!<E::#m"$,!EiH#=Xd2K!W<.9E<-(J!<I1;!<N-$$NU8g9oK8W5pQIcF_Xb[!GYa<!=Jo/=]#2#F)$7,&HN7?!J(8dM#dVX;#p\d$NU8?C)I$Q!uVCG+oq]N$jiI+!Drju$Oeag!DrjuD$,Uq#m"R^!<H5@GpuSk!S%3FN!9;K,QTWj"!@UF!Drju:f.5oPlkc@&HN7?!HDEHK`Z6k!<IfS+9;KD;#p]W!GZld!G[/d&HN7?!J(8dM#e1h",R$b!EB.$Gu4SCm/h$J&HN7?!I7uP1O2gu!K[=)!<E3qN!9;;C,l:q;#p]e!Xqr1!<H$u!RLip.00HDj9,K<9rnEt3DfeXJ-&^?"o/;+$>N]E!=Jo/=__@G!<Za:!EB.$;/05?!Drjub5l@'&HN7?!I7pq.=#BJSH/ag!<J8`C1.,D$NU9:C2!\L")/&B<<3,'<`*!KC/G9<;#p]j!=U]h!Wc.!!JgelGnC&b!<IIC!<FuNN!9:hC(UII$NU8?9oK8W),UD8.opY8.;Ei'!=Jo/EDZ`;L]\7i"<A4#)#sX:!8HQ9;#p\D&F9W.$#1%a!GqiL$!dQ4!Drju$YSE3\J;@M"TSYP!X6gMzhrFi9!<Fce#lt'$N"uF+9E>/#C'anA;#p\,;#p\*9p?b$&PN3+$!dQ4!@.+BYls"r!rr@AzlJr"D!<F3<!<ER&N!9;+,QSL2!A2:l#ltA6#m!I$!<GV$#ltqF!<H$u!>SWa#m!m(!C]_I$3:H<#lt&S#lt'$N!9:p:`097;#p\2;#p\*=,@jS(V't`&Q8^-!<F;Ez!!)6E!`8t!`<A7&0`am,!?#&A.039H!W<$k0`_R_.1lSr!>toD!<E4+.1%G,!>tnL`"<jn;#p^*"&T("eH$5/;$gD,5lk^d5ljg`!VHV$+UK<,.3S^a0``.P!@\%U!S%9$;#p]"C+0/a8hg>a8iZnq=og&Q;#p^r#&5S!!D5'I#rr#8!EoLA!GWJQ!>(J>+UM!H!Q>+T)$'b1+TW/dX:Zlf;#p\j;#p^Z"C*r13GLiG!D5oa0i7rPF%TjA;%UYKBaIrD=TN8?;#s9t!DsDu#&+B@!<KS2C/IP'8m)0\9E>/kC/Htl&&\fX8PB-c;%UYK;$gK)8Ps5*5ljg`!JgbM!<FndHnbq40d/7_HoVL1!<LOJ>T!hk>T!hsC,%FD;#p^2!EoLi!>+#k5m\+`&kNC78I7sc!<I=X.2`.Y0`_S@!@\%Q!>to8!<J_l&EEm1$!\>S)%bj1+UM!H!M'5t!>,?I)$'aL`!%:j;#p^`!Drju-n@lB+%\%"=TJOp!<H$u!RLm?3<:9q5liE<!AOUi0f]7J.6/PK!<KD+&F9W>$!\>S)%c->+UM!H!L!Oh+UK<,.00G\bQ]d.C,lk,8jNIq3<;,@=og&Q;#p^8!D5oa3=pR8$!I?q!DrjuV#ao=)n?H`$#1mi!D5'I)+lmi+^+mq!Drjua9#NG=TM,t!DuHt!D,rc!Ej/?8HBC`'4D2E!<E@/@7am$!<H>*5lh"$)$'aLqun5MC+39d;#p\JC-aQT8kB%<8l5UL;#p]r"DT@d!DkKO),N<o+^+mq!GX%a!GX><!D5?Q#uL^($P!.FnGrfQ!MKP1!>4u*eH+>(h#XnbjT,>]!!'1`!`8t!h#n`1!>/00!OVr>&Qr730j-4D.HC_:(Kjo5!BOB5""@(J!JLS=!?iUb+libL?3/ja+]/7@XTDn4!tjSs;#p]_!t^t,@0ot+@9HG.!Hf251%YK-1"6:S&;1WM#u-'T!BEtB!>/%b"p%:@!BGi79nWTL+]'Tg#u-'T!APi#+WXr=)5J0J!<Ht!d2UaJnI>sNr;m!s!<Fc[[/h/p"Ao1#o`609!<Ge)!ARFP!H9.^!<HI,!<EThN<'&W!<G/p+TVU9.01#TN!9;;9oK8W3DfeX91fcs.8^*Hb5l?,!<GeI!>/&5!Wb;UZiU7o4olfU&h2lH0i7rPP5tZ!X<AHY!<MKeC0:Q<8mq`48ne<'!EfF()d-;m;#p\:;#p^@!Drju^]?2&!>/00!QtLOP6)Wg&lAZ1$Yh+.!D5'I&P]V6!BC00!<H$u!T3tb!=8c;N!9k#&$uBU#uL^(=Bmim5o2OQN!<NY#tYpn;7$C0;$g*);*e>c8J,*:+^%ZI=[?1f!<INX!!PLhPlagf!WW3#!8Z];;#p\4,7sqW,f'Pm!V$q&!<E?1!=8cI&HN2L!>,na&HNJ@!<EQ2!!.3M+9hALS^Fu4Lu,Ai8Gok[(4fRn]s-EZ@KS%/cMQlk5n!L!$TI-2&lLH%^3eQu)m"1TkITqC%6?^>S\4ATUZN`^G7Uos$G]_RI$5C$)@VESP5C5Da,adSWoF9!C]FG8!!$D9^h`uN!!!!a<krNk4UTf9E8A9Fz!!"LaC]FG8!!!!X^h`uN!!!"L=hnhRz!'%ap"rCQH3WmTBz!5N!X!=XCpp:Mi"fJ!2u7G.\J?DUn=Ycshm7KEf01+b6aR*ZCrC]FG8!!!!R^t[]Es8W-!s8Qm8zJ3q%fz!%t*5!=9QHW8%lIZPrPlC&\/4s8W-!!=XrbLd7_<F'm-&;S[)Kz!#WN+rqHHms8W-!C]FG8!!!!u^h`uN!!!!a;nrD=JQr5VM>]=5#D*`^7h0DR!=:.^KkrWs6`Z.H#oY3E=]IbOGQ)CYz^f/$bz!.\:hCq(O?lVY1[^MK]b4UTf9i4f:""jAnRRXPTI<(Ca)zJ6K_h%enJ$UJu,&d10j0pfT`\%el.4J`:X\o5H/??"UCB!Gh`9!!!!a@_cd[z!'n>9z!!#O)!=:O3fK[DC_5?@2zzC]FG8!!%O;^h`uNz:r$lIz!*m<Uz!!#a/!=&q4<u1F4AcW/tfYt-LZ2`6gz!.[k\C]FG8!!!!W^h`uN!!!!A@_`!Q6fEdn<Q,*^`dgZkWW3&,PHti(*F.DdT4n<?R3"H7ra\NsjKfGK::=8'>MC-"C]FG8!!#8l^]=Ut3c2S(C]FG8!!%O:^]=o\4oso;%Sf`UUaW6Y;#s&"amaLPlBZ7cVnMJP(fC#4dtnm-AL(b\hF[c2$gAOdbT2U_&&%$!j0Uh%"&giX`e+4A9IQT%ePR?'>p`46f,/<(z^feGR"fC[.W[\#T5[!%?CI,)sC]FG8!!!!o^]=b1Yl%RhfLTl!C]FG8!!!#g^B#"!aj3:k_6?e#OHA&%."9JirNuY6B.VMpBAMQ&(HlDIz!!!#7!<[E@GQA58J=)C'#r&3BiAT3e$U^>T^*je3ThiU.!>RA!RK$NkAL[FDZ%:Ho@cb4[Z;.p`Z2jq*!!(R1!rr<#s8W-!#6>,3!!!$'?N:'+z!WW3#!WW3#"98E%"98E%'EA+5('"=7('"=7('"=7(]XO9(]XO9)?9a;)?9a;)?9a;)uos=*WQ0?*WQ0?+92BA+92BA+92BA+92BA+ohTC-3+#G&c_n31B7CT+92BA!WW3#&c_n3&c_n3&c_n3&c_n39)nql/H>bN'EA+5"98E%?N:'+2uipY&HDe20E;(Q-ia5I-ia5I-ia5IHN4$G70!;f!WW3#-ia5INrT.[9E5%m'*&"4-ia5Iz"onW'&-)\1&-)\1&c_n3&c_n3-ia5I-ia5I-ia5IKL>e?KL>e?,QIfE-3+#G-3+#G-3+#G-3+#G0E;(Q0E;(Q1]RLU1]RLU1]RLU1]RLUzJj]S=Jj]S=-ia5I.KBGK.KBGK.KBGK-3+#G-ia5I-ia5I-ia5I"98E%"onW'#QOi)#QOi)$31&+$ig8-$ig8--ia5Imf3=fJ,fQL!WW3#/-#YM/cYkO/cYkO/cYkO-ia5I-ia5I+ohTC+ohTC+ohTC,QIfE,QIfE)$'^;OT5@]#ljr*"98E%kN)bB!<M9b'EJ48-OBeS-P6@[;#p^b#Y1Zl$1n=$&a9Pj!^i@WR0_IU,mb0r"=Fc^!@8$ag]9_B&O[/J!YH"j#nce2&R5WQ-P6@[,mb0:![eQ\!>17n&]=\r#n`[/;#p\$;#p^:!Drjur;ogs!M'H2!<I`P2Z]<I!D*:mM#e26M#lB5&_$l5!JCOePQR<S$q7E%Gl^bC!K@=YS-&d06idl+,mb15!Drju.nKaBM#h:P!<E3[!LWrh&YoPl!TX=pN!+t<j9$"<!gs)%!tdAX!PAFVYlT-$#>kL&bl^fD!Q>0W!<I`PBTW;r!B1%I!<Gam!JpghN!+t<'G7,DOT?..I";;4&PSSnMut6.!I:XJ;#p^j";&Bfq%f)39r%lj$kZ>;!R1aE!<GnR!D*;-!<FoRBp8X?"JH4)!GN?aBnQL50ko\L&aTNiX9'Pb.EMim!<Kt:;#p^r!bd\s!<G+[R/m=#bQ<n-liIcX!gs'?7Bll=!Drjuo`7nj!M]]n!<ES9!=9@>".fN*fa%U)#nbYh:B:b6;#p^0!EA"aq#q?rU]QAUJI56T!Dj7<!=9t_!<Gj8"L/8t!`ou%#E]*UOU'PMJI)pI";/QQ;#p^(!@JH[!@8$a<'gTtS,ifK!s'9"!>,>>!>,?>%M>cF$3:_>;#p]J!@<j7Yl^Eu-P6@[,mb1%"Ao1#[/hQ[&^18B!>1P!0EJif&Q&Q0QieW@&[VZgaUA1N8D+:]nI#C<M$h0'&bH)9liRjt!>36N;#p^-!`8t!b6&L\!J(81!LWrh8HAjK!GISr!<EeV!g*Mj!>3NXJH<+Y&YoPd!TX:oliELT]E1O,!I4]C!<J8_&c;\:Mub:<!P&Ub#n_gn;#p^-!](G0!s)7"!LNs:&HMnEqu[PL!@8$aZi_Zf!<H$u!LNsJ!LWrh('+Ge!>0.!!Mf`.ZiZWr4@QLUGl^bC!J:GN!<M3_;#p^8!>b_9!WW3#]=],0X5));if not(not s[0X4c_6])then O=(s[1222]);else O=0X5E__+(Y.LP((Y.gP((Y.xP(Y.K[0B10],(s[25623])))>Y.K[2]and s[0X328A]or Y.K[0B11],(s[0X4774])))));(s)[0X4c6]=(O);end;continue;else if O~=0b1101111 then else(f)[27]=0x1;break;end;end;end;f[0x1__C]=Y.l;(f)[0x1D]=(nil);f[0x001e_]=(nil);f[0x1F]=nil;O=(0X7E);return O;end,h2=function(Y,Y,s,f,O,d,N)if not(O<=0XB)then if O~=0B1011100 then O=0b1011100;(d[0B11])[Y+0X1]=s;return 0X81B4,O;else(d[0B11])[Y+2]=f;O=(0XB);end;else(d[0X3])[Y+0x3]=(N);return 0XbF69,O;end;return nil,O;end,e=string.char,j2=function(Y,s,f,O,d)local N,q,A=#f[0x3],(0B110001__);repeat A,q=Y:h2(N,d,O,q,f,s);if A==33204 then continue;else if A==49001 then break;end;end;until false;end,I2=function(Y,s,f,O,d)if O<0B100010 then return O,{Y:R2(f)},d,f;else if not(O>0x19)then else repeat local N,q=0X75;repeat if N>0x6F then N=Y:Y2(N);elseif N<0X75_ and N>80 then q=s[0XB](s[0B11010],s[0b11_011],s[0X1__b]);break;else if not(N<111)then else N=0X6_F;continue;end;end;until false;N=0B1110000;while true do if N<34 then f+=((q>0X7f and q-0B10000000 or q)*d);N=0X22;d*=0X80_;elseif N<0X70 and N>0Xf then(s)[0X1b]=(s[0x1b]+0B1);break;else if N>0B10_0010 then N=0xF;if s[0XA]~=s[0x26]then else return O,-0B10,d,f,169;end;continue;end;end;end;until q<128;O=0X19;return O,0x1__8d0,d,f;end;end;return O,nil,d,f;end,q2=function(Y,Y,s,f)(Y)[s]=(f);end,f2=function(Y,s,f,O,d,N,q)local A,X;for I=0B111011,0Xd1,0x4b do if I==59 then X=#q[0B11];if q[13]~=q[0X2a_]then else f,A,N=Y:u2(N,q,f);if A then return N,{Y.A(A)},f;end;end;continue;elseif I==0B1101__0001 then Y:L2(q,X,s);else if I==134 then(q[3])[X+0B1]=d;continue;end;end;end;(q[0B11_])[X+3]=O;return N,nil,f;end,k2=function(Y,s,f,O,d,N,q)if O%2==0X0 then(N)[q]=f-f%0X1;else local O;for A=117,353,118 do if A==0X00161 then for X=f-f%1,q do Y:m2(X,N,O);end;else if A==235 then O=s[0X24]();continue;else if A~=0b1110101 then else q=s[0X24]();continue;end;end;end;end;end;d=(78);return q,d;end,K2=function(Y,Y,s,f)(f)[0B110_11]=(s);Y=(0X31);return Y;end,L2=function(Y,Y,s,f)Y[3][s+0x2]=(f);end,cP=function(Y,s,f)s=(-1713109815+(((Y.oP((Y.LP(f[0X156d]))))~=f[0X328A]and f[1222]or f[25458])<f[19523]and f[25458]or Y.K[0x4]));(f)[0X4638]=s;return s;end,TP=function(Y,s,f,O,d,N,q)if d==0B100000 then f=Y:NP(f,s,N);elseif d==0Xbf then q=Y:OP(q,N);elseif d==0X55 then Y:KP(O,f,N);return q,0X96fa,f;else if d==138 then for A=0X1,s,0X1 do Y:bP(f,N,A);end;return q,0x96fa,f;else if d==0xF4 then return q,{Y:XP(O)},f;end;end;end;return q,nil,f;end,B2=function(Y,Y,s,f)(f)[Y]=Y+s;end,J2=function(Y,s,f,O,d,N,q)if f<78 and f>0X11 then q=(O/2);f=(0X6b);elseif f>0X4E__ then N,f=Y:k2(d,q,O,f,s,N);elseif f<0x3c then O=d[0X24]();f=(60);else if f>0x3c and f<0X6B then N+=1;return f,q,O,14887,N;end;end;return f,q,O,nil,N;end,C2=function(Y,s,f,O,d,N,q,A,X,I)X=nil;N=(nil);f=nil;O=(nil);q=nil;for W=121,0x19F__,0X62 do if W>317 then q=A[40]();else if W<0xdb then X=A[0B101000]();elseif W<0X013D and W>121 then N=Y:A2(N,A);else if not(W>0XDB and W<415)then else f=A[40]();O=(N%0X8);continue;end;end;end;end;s=(nil);I=nil;d=(nil);return f,s,I,O,N,q,d,X;end,BP=bit32.lshift,XP=function(Y,Y)return Y;end,N2=function(Y,s,f,O)if O~=0B110__101 then f[0B100000__]=({});if not s[0X7a27__]then O=50+(Y.FP((Y.BP(s[25623]+s[0x77__E8],(s[0X006417])))-Y.K[0X3],(s[25623])));(s)[31271]=O;else O=(s[0X7A27]);end;else f[0X21]=Y._;f[0B100010]=Y.M.create;f[35]=function()local s,d,N,q=f[0B101__1](f[26],f[0B11011],f[0B11011]),0X6F;while true do N,d,q=Y:H(d,s,f);if N==-0X2 then return q;end;end;end;return 0X35ba,O;end;return nil,O;end,Z2=function(Y,s,f)(f)[21648]=0X36+(Y.LP((Y.K[0B1000]>=Y.K[0X8]and f[0X6c29]or f[0X1125])+f[4389]<=f[13387]and f[97]or f[12634]));s=(0B110101_1+(Y.FP((Y.K[0B1000]<f[97]and f[0X469f]or f[0X00344B])+Y.K[0B10_]==f[0X4C43]and f[7756]or f[5485],(f[25623]))));f[0x22b5]=(s);return s;end,xP=bit32.lrotate,QP=function(Y,Y,s,f)f[s]=Y;end,p=function(Y,s,f,O,d)local N;(s)[0XA]=(nil);d=0B100_01;while true do N,d=Y:r(d,s,O);if N==0X1C29 then break;end;end;f=(nil);s[11]=nil;return f,d;end,L=function(Y,Y,s)s[19]=(nil);s[20]=nil;s[21]=(nil);Y=0X33__;return Y;end,q=function(Y,Y)Y[21]={};end,v=function(Y,s,f)f=(-2186436950+((Y.fP((Y.LP(Y.K[0B101]))))+Y.K[0X4]+Y.K[9]));s[0X001040]=(f);return f;end,i2=function(Y,Y,s,f)(Y[0B11])[s+2]=(f);end,qP=bit32.band,Q=function(...)(...)[...]=nil;end,A2=function(Y,Y,s)Y=s[0X28]();return Y;end,o=function(Y,s,f,O,d)local N;(s)[0B1100]=(nil);(s)[0XD]=nil;(s)[0B1110]=nil;f=(0X26);while true do f,N,O=Y:x(O,f,s,d);if N==0XE7b7 then break;else if N==18360 then continue;end;end;end;s[0B1111]=function(Y,d,N,q)if N>Y then return;end;q=(Y-N+1);if q>=0X8 then return d[N],d[N+1],d[N+0X2],d[N+0X3],d[N+0X4],d[N+0x5],d[N+0x6],d[N+0B111],s[0B1111](Y,d,N+0X8);else if q>=0B111 then return d[N],d[N+0X1],d[N+0x2],d[N+0x3],d[N+0X4],d[N+5],d[N+6],s[0Xf](Y,d,N+0X7__);elseif q>=0x6 then return d[N],d[N+1],d[N+0X2_],d[N+0X3],d[N+0x004],d[N+0X5],s[0b1111](Y,d,N+0X6);elseif q>=0b1_01 then return d[N],d[N+0x1],d[N+0x2],d[N+0B0011],d[N+0X4],s[0Xf](Y,d,N+0b101);elseif q>=0x4 then return d[N],d[N+0X1],d[N+0x2],d[N+3],s[0B1111_](Y,d,N+0X4);else if q>=0x3 then return d[N],d[N+0X1_],d[N+0B10],s[0xf](Y,d,N+0b11);else if not(q>=2)then return d[N],s[0Xf](Y,d,N+0X1);else return d[N],d[N+0b001],s[15](Y,d,N+0x2);end;end;end;end;end;return O,f;end,hP=function(Y,Y,...)if Y[0b100__101]==Y[0B10101]then else return-0X2,(...)[...];end;return nil;end,oP=bit32.bnot,tP=function(Y,s,f)local O;for d=39,0X1DA,0X70 do if d>263 then return-0X2,O;else if d<0X97 then O=(s[f[0X27]()]);(f)[0X1e]=(nil);else if d<263 and d>39 then Y:EP(f);continue;else if d<375 and d>0B1_0010111 then f[0X5]=nil;end;end;end;end;end;return nil;end,Y2=function(Y,Y)Y=0B1010000;return Y;end,C=function(Y,s,f,O)f[1]=Y.V;if not(not O[32152])then s=(O[0X7D98]);else(O)[25623]=-1877708770+(Y.BP((Y.BP(Y.K[2],(Y.GP('>i\56','\u{00}\0\0\0\x00\0\0\23'))))+Y.K[0x4]-s,(0xa)));O[12938]=(-0X4b_d6f8c0+(Y.xP((Y.K[0X9]<Y.K[2]and Y.K[0X7]or Y.K[0X4])+Y.K[3]+Y.K[2],(0X8))));s=(-3209081192+((Y.oP((Y.uP(Y.K[0x8]))<Y.K[0X5]and Y.K[0X007]or Y.K[0X8]))-Y.K[0X1]));O[0X7d98]=(s);end;return s;end,D=function(Y,Y)Y[6]=(nil);Y[0X7]=nil;(Y)[0B1000]=nil;(Y)[0X9]=nil;end,w=string.byte}):N()(...);
+		--[[
+			Popup
+		]]
+
+		local popup: Frame = Instance.new('Frame', window)
+		popup.AnchorPoint = Vector2.new(0.5, 0.5)
+		popup.Name = 'popup'
+		popup.ZIndex = 5
+		popup.Visible = false
+		popup.Position = UDim2.new(0.5, 0, 0.5, 0)
+		popup.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		popup.Size = UDim2.new(0.949999988, 0, 0.9, 0)
+		popup.BorderSizePixel = 0
+		popup.BackgroundColor3 = Color3.fromRGB(33, 32, 33)
+
+		local closebut = addCloseButton(popup)
+		closebut.ZIndex = 6
+		closebut.MouseButton1Click:Connect(function()
+			popup.Visible = false
+		end)
+
+		addCorner(popup)
+
+		local UIStroke: UIStroke = Instance.new('UIStroke', popup)
+		UIStroke.Color = Color3.fromRGB(42, 40, 42)
+		UIStroke.Thickness = 2
+
+		local info: TextLabel = Instance.new('TextLabel', popup);
+		info.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal);
+		info.TextColor3 = Color3.fromRGB(220, 220, 220);
+		info.Text = 'Unknown';
+		info.Name = 'info';
+		info.ZIndex = 5
+		info.TextXAlignment = Enum.TextXAlignment.Left;
+		info.BackgroundTransparency = 1;
+		info.TextTruncate = Enum.TextTruncate.SplitWord;
+		info.Position = UDim2.new(0, 13, 0, 16);
+		info.TextYAlignment = Enum.TextYAlignment.Top;
+		info.TextSize = 15;
+		info.Size = UDim2.new(1, -520, 0, 20);
+
+		local user: TextLabel = Instance.new('TextLabel', info);
+		user.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		user.TextColor3 = Color3.fromRGB(220, 220, 220);
+		user.TextTransparency = 0.7;
+		user.ZIndex = 5
+		user.Text = 'By unknown';
+		user.Name = 'user';
+		user.BackgroundTransparency = 1;
+		user.TextXAlignment = Enum.TextXAlignment.Left;
+		user.Position = UDim2.new(0, 0, 0, 25);
+		user.TextYAlignment = Enum.TextYAlignment.Top;
+		user.TextSize = 12;
+		user.Size = UDim2.new(0, 50, 0, 20);
+
+
+		local description: TextLabel = Instance.new('TextLabel', popup);
+		description.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Medium, Enum.FontStyle.Normal);
+		description.TextColor3 = Color3.fromRGB(220, 220, 220);
+		description.Text = 'Details';
+		description.ZIndex = 5
+		description.RichText = true
+		description.Name = 'description';
+		description.TextXAlignment = Enum.TextXAlignment.Left;
+		description.BackgroundTransparency = 1;
+		description.TextTruncate = Enum.TextTruncate.SplitWord;
+		description.Position = UDim2.new(0, 180, 0, 16);
+		description.TextYAlignment = Enum.TextYAlignment.Top;
+		description.TextSize = 14;
+		description.Size = UDim2.new(1, -200, 0.222, 20);
+
+
+		local downloads: Frame = Instance.new('Frame', popup);
+		downloads.Name = 'downloads';
+		downloads.ZIndex = 5
+		downloads.Position = UDim2.new(0.269172937, 0, 0.323, 0);
+		downloads.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		downloads.Size = UDim2.new(0, 150, 0, 70);
+		downloads.BorderSizePixel = 0;
+		downloads.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+		addCorner(downloads)
+
+		local userd: TextLabel = Instance.new('TextLabel', downloads);
+		userd.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		userd.TextColor3 = Color3.fromRGB(220, 220, 220);
+		userd.TextTransparency = 0.5;
+		userd.Text = 'Last updated';
+		userd.ZIndex = 5
+		userd.AnchorPoint = Vector2.new(0.5, 0);
+		userd.BackgroundTransparency = 1;
+		userd.Position = UDim2.new(0.5, 0, 0, 38);
+		userd.Name = 'user';
+		userd.TextSize = 11;
+		userd.Size = UDim2.new(0, 100, 0, 20);
+
+
+		local amount: TextLabel = Instance.new('TextLabel', downloads);
+		amount.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		amount.TextColor3 = Color3.fromRGB(220, 220, 220);
+		amount.Text = 'unknown';
+		amount.AnchorPoint = Vector2.new(0.5, 0);
+		amount.BackgroundTransparency = 1;
+		amount.ZIndex = 5
+		amount.Position = UDim2.new(0.5, 0, 0, 12);
+		amount.Name = 'amount';
+		amount.TextSize = 17;
+		amount.Size = UDim2.new(0, 100, 0, 20);
+
+
+		local divide1: Frame = Instance.new('Frame', popup);
+		divide1.Name = 'divide1';
+		divide1.ZIndex = 5
+		divide1.BackgroundTransparency = 0.95;
+		divide1.Position = UDim2.new(0, 165, 0, 0);
+		divide1.Size = UDim2.new(0, 1, 1, 0);
+		divide1.BorderSizePixel = 0;
+		divide1.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local divide2: Frame = Instance.new('Frame', popup);
+		divide2.Name = 'divide2';
+		divide2.ZIndex = 5
+		divide2.BackgroundTransparency = 0.95;
+		divide2.Position = UDim2.new(0, 180, 0, 290);
+		divide2.Size = UDim2.new(0.729172945, 0, 0, 1);
+		divide2.BorderSizePixel = 0;
+		divide2.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local TextButton: TextButton = Instance.new('TextButton', popup);
+		TextButton.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		TextButton.TextColor3 = Color3.fromRGB(255, 255, 255);
+		TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		TextButton.Text = 'Download';
+		TextButton.ZIndex = 5
+		TextButton.Position = UDim2.new(0, 228, 0, 305);
+		TextButton.Size = UDim2.new(0, 426, 0, 30);
+		TextButton.BorderSizePixel = 0;
+		TextButton.TextSize = 12;
+		TextButton.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+		addCorner(TextButton)
+
+		local ImageButton: ImageButton = Instance.new('ImageButton', popup);
+		ImageButton.Image = 'rbxassetid://0';
+		ImageButton.ZIndex = 5
+		ImageButton.Size = UDim2.new(0, 30, 0, 30);
+		ImageButton.Position = UDim2.new(0, 180, 0, 305);
+		ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		ImageButton.BorderSizePixel = 0;
+		ImageButton.BackgroundColor3 = Color3.fromRGB(42, 40, 42);
+
+		addCorner(ImageButton)
+
+		local ImageLabel: ImageButton = Instance.new('ImageButton', ImageButton);
+		ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5);
+		ImageLabel.ZIndex = 5
+		ImageLabel.Image = 'rbxassetid://10747362241';
+		ImageLabel.BackgroundTransparency = 1;
+		ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0);
+		ImageLabel.Size = UDim2.new(0.550000012, 0, 0.55, 0);
+		ImageLabel.BorderSizePixel = 0;
+		ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		--[[
+			Search
+		]]
+
+		local psearchbar = Instance.new("Frame")
+		psearchbar.Name = "Search"
+		psearchbar.Parent = window
+		psearchbar.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+		psearchbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		psearchbar.BorderSizePixel = 0
+		psearchbar.Position = UDim2.new(0.282000005, 0, 0.153999999, 0)
+		psearchbar.Size = UDim2.new(0, 485, 0, 35)
+
+		local uistroke = Instance.new('UIStroke', psearchbar)
+		uistroke.Color = Color3.fromRGB(42, 41, 42)
+
+		addCorner(psearchbar)
+
+		local searchicon = Instance.new("ImageLabel")
+		searchicon.Parent = psearchbar
+		searchicon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		searchicon.BackgroundTransparency = 1.000
+		searchicon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		searchicon.BorderSizePixel = 0
+		searchicon.Position = UDim2.new(0.0189999994, 0, 0.300000012, 0)
+		searchicon.Size = UDim2.new(0, 13, 0, 13)
+		searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
+		searchicon.ImageTransparency = 0.700
+
+		local searchbox = Instance.new("TextBox")
+		searchbox.Parent = psearchbar
+		searchbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		searchbox.BackgroundTransparency = 1.000
+		searchbox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		searchbox.BorderSizePixel = 0
+		searchbox.Position = UDim2.new(0.0787525922, 0, 0, 2)
+		searchbox.Size = UDim2.new(0.509247422, 200, 0.899999976, 0)
+		searchbox.Font = Enum.Font.Arial
+		searchbox.PlaceholderColor3 = Color3.fromRGB(94, 94, 94)
+		searchbox.PlaceholderText = "Search Profile / Username"
+		searchbox.Text = ""
+		searchbox.TextColor3 = Color3.fromRGB(171, 171, 171)
+		searchbox.TextSize = 12.000
+		searchbox.TextXAlignment = Enum.TextXAlignment.Left
+
+		searchbox:GetPropertyChangedSignal('Text'):Connect(function()
+			for i, v in configapi do
+				if v and typeof(v) == 'table' and v.instance then
+					v.instance.Visible = false
+					
+					if i:lower():gsub(' ', ''):find(searchbox.Text:lower():gsub(' ', '')) or searchbox.Text == '' then
+						v.instance.Visible = true
+					end
+				end
+			end
+		end)
+
+		--[[
+			confirmation
+		]]
+
+		local uploadconfirmationn: Frame = Instance.new('Frame', window);
+		uploadconfirmationn.AnchorPoint = Vector2.new(0.5, 0.5);
+		uploadconfirmationn.Name = 'uploadconfirmationn';
+		uploadconfirmationn.ZIndex = 8
+		uploadconfirmationn.Position = UDim2.new(0.5, 0, 0.5, 0);
+		uploadconfirmationn.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		uploadconfirmationn.Size = UDim2.new(0, 300, 0, 150);
+		uploadconfirmationn.BorderSizePixel = 0;
+		uploadconfirmationn.BackgroundColor3 = Color3.fromRGB(34, 33, 34);
+
+		local ahhcorner: UICorner = Instance.new('UICorner', uploadconfirmationn);
+		ahhcorner.Name = 'ahhcorner';
+		ahhcorner.CornerRadius = UDim.new(0, 5);
+
+		local publishb: TextButton = Instance.new('TextButton', uploadconfirmationn);
+		publishb.TextWrapped = true;
+		publishb.TextColor3 = Color3.fromRGB(255, 255, 255);
+		publishb.ZIndex = 8
+		publishb.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		publishb.Text = 'Publish "default" config';
+		publishb.Size = UDim2.new(0, 100, 0, 35);
+		publishb.Name = 'publishb';
+		publishb.Position = UDim2.new(0, 20, 0, 95);
+		publishb.BorderSizePixel = 0;
+		publishb.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		publishb.TextSize = 12;
+		publishb.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+		local publishbs: UIStroke = Instance.new('UIStroke', publishb);
+		publishbs.Thickness = 2;
+		publishbs.Name = 'publishbs';
+		publishbs.ZIndex = 8
+		publishbs.Color = Color3.fromRGB(42, 41, 42);
+		publishbs.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+
+		local publishbc: UICorner = Instance.new('UICorner', publishb);
+		publishbc.Name = 'publishbc';
+		publishbc.CornerRadius = UDim.new(0, 5);
+
+		local ahhstrokr: UIStroke = Instance.new('UIStroke', uploadconfirmationn);
+		ahhstrokr.Color = Color3.fromRGB(42, 41, 42);
+		ahhstrokr.Name = 'ahhstrokr';
+		ahhstrokr.Thickness = 2;
+
+		local configcancel: TextButton = Instance.new('TextButton', uploadconfirmationn);
+		configcancel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		configcancel.TextColor3 = Color3.fromRGB(255, 255, 255);
+		configcancel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configcancel.Text = 'Cancel';
+		configcancel.Name = 'configcancel';
+		configcancel.Position = UDim2.new(0, 170, 0, 95);
+		configcancel.ZIndex = 8
+		configcancel.Size = UDim2.new(0, 100, 0, 35);
+		configcancel.BorderSizePixel = 0;
+		configcancel.TextSize = 14;
+		configcancel.BackgroundColor3 = Color3.fromRGB(29, 28, 29);
+
+		local UIStroke: UIStroke = Instance.new('UIStroke', configcancel);
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+		UIStroke.Thickness = 2;
+		UIStroke.Color = Color3.fromRGB(42, 41, 42);
+
+		local UICorner: UICorner = Instance.new('UICorner', configcancel);
+		UICorner.CornerRadius = UDim.new(0, 5);
+
+		local confignbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+		confignbox.CursorPosition = -1;
+		confignbox.ZIndex = 8
+		confignbox.Name = 'confignbox';
+		confignbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+		confignbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		confignbox.Text = '';
+		confignbox.Size = UDim2.new(0, 200, 0, 30);
+		confignbox.TextWrapped = true;
+		confignbox.AnchorPoint = Vector2.new(0.5, 0);
+		confignbox.BorderSizePixel = 0;
+		confignbox.BackgroundTransparency = 1;
+		confignbox.Position = UDim2.new(0.5, -5, 0, 20);
+		confignbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		confignbox.PlaceholderText = 'Config name';
+		confignbox.TextSize = 14;
+		confignbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		local configdbox: TextBox = Instance.new('TextBox', uploadconfirmationn);
+		configdbox.CursorPosition = -1;
+		configdbox.Name = 'configdbox';
+		configdbox.ZIndex = 8
+		configdbox.TextColor3 = Color3.fromRGB(255, 255, 255);
+		configdbox.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configdbox.Text = '';
+		configdbox.Size = UDim2.new(0, 200, 0, 30);
+		configdbox.TextWrapped = true;
+		configdbox.AnchorPoint = Vector2.new(0.5, 0);
+		configdbox.BorderSizePixel = 0;
+		configdbox.BackgroundTransparency = 1;
+		configdbox.Position = UDim2.new(0.5, -5, 0, 50);
+		configdbox.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		configdbox.PlaceholderText = 'Config description';
+		configdbox.TextSize = 14;
+		configdbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+		--[[
+			select config
+		]]
+
+		local configdatas: Frame = Instance.new('Frame', profilemaker);
+		configdatas.Name = 'configdatas';
+		configdatas.Position = UDim2.new(0.095808387, 0, 0.8, 0);
+		configdatas.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configdatas.Size = UDim2.new(0, 151, 0, 248);
+		configdatas.BorderSizePixel = 0;
+		configdatas.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+
+		addCorner(configdatas)
+
+		local configstorage: ScrollingFrame = Instance.new('ScrollingFrame', configdatas);
+		configstorage.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200);
+		configstorage.Active = true;
+		configstorage.BorderColor3 = Color3.fromRGB(0, 0, 0);
+		configstorage.ScrollBarThickness = 2;
+		configstorage.Name = 'configstorage';
+		configstorage.BackgroundTransparency = 1;
+		configstorage.Position = UDim2.new(0, 0, 0.072, 0);
+		configstorage.Size = UDim2.new(0, 151, 0, 230);
+		configstorage.ClipsDescendants = false;
+		configstorage.BorderSizePixel = 0;
+		configstorage.BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+
+
+		local cfglayotu: UIListLayout = Instance.new('UIListLayout', configstorage);
+		cfglayotu.SortOrder = Enum.SortOrder.LayoutOrder;
+		cfglayotu.HorizontalAlignment = Enum.HorizontalAlignment.Center;
+		cfglayotu.Padding = UDim.new(0, 10);
+
+		local SelectedConfig = 'default'
+
+		addCorner(configstorage)
+
+		--[[
+			children
+		]]
+
+		local children = Instance.new("ScrollingFrame")
+		children.Parent = window
+		children.BackgroundTransparency = 1.000
+		children.BorderSizePixel = 0
+		children.Position = UDim2.new(0.282000035, 0, 0, 153)
+		children.Size = UDim2.new(0, 500, 0, 236)
+		children.CanvasSize = UDim2.new(0, 0, 0, 471)
+		children.ScrollBarThickness = 2
+
+		local function Refresh(newconfigs)
+			for i,v in configstorage:GetChildren() do
+				if v.ClassName ~= 'UIListLayout' then
+					v:Destroy()
+				end
+			end
+
+			for i,v in children:GetChildren() do
+				if v:IsA('TextButton') then
+					v:Destroy()
+				end
+			end
+			
+			local awesome = {}
+
+			for i, v in mainapi.Profiles do
+				local configlabel: TextLabel = Instance.new('TextButton', configstorage);
+				configlabel.FontFace = Font.new('rbxasset://fonts/families/Arial.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				configlabel.TextColor3 = Color3.fromRGB(255, 255, 255);
+				configlabel.BorderColor3 = Color3.fromRGB(0, 0, 0);
+				configlabel.Text = v.Name;
+				configlabel.BackgroundTransparency = 1;
+				configlabel.Name = v.Name;
+				configlabel.Size = UDim2.new(0.899999976, 0, 0, 20);
+				configlabel.BorderSizePixel = 0;
+				configlabel.TextSize = 13;
+				configlabel.BackgroundColor3 = Color3.fromRGB(22, 21, 22);
+
+				local labellayout: UIStroke = Instance.new('UIStroke', configlabel);
+				labellayout.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
+				labellayout.Name = 'labellayout';
+				labellayout.Enabled = v.Name == SelectedConfig
+				labellayout.Color = Color3.fromRGB(255, 255, 255);
+
+				table.insert(awesome, configlabel)
+
+				configlabel.MouseButton1Click:Connect(function()
+					for i2, v2 in awesome do
+						v2.labellayout.Enabled = v2.Name == v.Name
+						publishb.Text = `Publish "{v.Name}" config`
+						SelectedConfig = v.Name
+					end
+				end)
+			end
+		end
+
+		local gridlayout = Instance.new("UIGridLayout")
+		gridlayout.Parent = children
+		gridlayout.SortOrder = Enum.SortOrder.LayoutOrder
+		gridlayout.CellPadding = UDim2.new(0, 9, 0, 5)
+		gridlayout.CellSize = UDim2.new(0, 157, 0, 140)
+		gridlayout.FillDirectionMaxCells = 4
+
+		local function addConfig(name, author, cfginfo)
+			configapi[name] = table.clone(cfginfo)
+
+			local config = Instance.new('TextButton')
+			config.Parent = children
+			config.BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+			config.LayoutOrder = #children:GetChildren() + 1
+			config.ClipsDescendants = false
+			config.Position = UDim2.new(0.0120000001, 0, 0, 0)
+			config.AutoButtonColor = false
+			config.Text = ''
+
+			configapi[name].instance = config
+
+			local uistroke = Instance.new('UIStroke', config)
+			uistroke.Transparency = 1
+			uistroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			uistroke.Color = color.Light(uipallet.Main, 0.034)
+			uistroke.Thickness = 2
+
+			addCorner(config)
+
+			local label = Instance.new('TextLabel')
+			label.Parent = config
+			label.BackgroundTransparency = 1
+			label.Position = UDim2.new(0, 16, 0, 20)
+			label.Size = UDim2.new(0.753427446, -16, 0.423529416, 20)
+			label.Font = Enum.Font.Arial
+			label.RichText = true
+			label.Text = `{name}\n\n\n<font tr=\"0.7\">@{author}</font>`
+			label.TextColor3 = Color3.new(1, 1, 1)
+			label.TextSize = 13.000
+			label.TextTransparency = 0.300
+			label.TextWrapped = true
+			label.TextXAlignment = Enum.TextXAlignment.Left
+			label.TextYAlignment = Enum.TextYAlignment.Top
+
+			config.MouseButton1Click:Connect(function()
+				local time = (os.time() - cfginfo.edited) / 86400 
+
+				if time < 1 then
+					time = 'Today'
+				else
+					time = math.floor(time)
+				end
+
+				popup.Visible = true
+				amount.Text = `{time ~= 'Today' and time.. ' days' or time}`
+				description.Text = `Details\n\n<font tr=\"0.5\">{cfginfo.description or 'No context'}</font>`
+				info.Text = name
+				user.Text = `By {author}`
+			end)
+
+			config.MouseEnter:Connect(function()
+				tween:Tween(config, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.0875)
+				})
+
+				tweenService:Create(uistroke, uipallet.Tween, {
+					Transparency = 0
+				}):Play()
+			end)
+
+			config.MouseLeave:Connect(function()
+				tween:Tween(config, uipallet.Tween, {
+					BackgroundColor3 = color.Light(uipallet.Main, 0.034)
+				})
+
+				tweenService:Create(uistroke, uipallet.Tween, {
+					Transparency = 1
+				}):Play()
+			end)
+		end
+
+		local function addSorting(name, func, options)
+			local size = options.Size
+			local enabled = options.On
+
+			local newsort = Instance.new('TextButton')
+			newsort.Name = name
+			newsort.Parent = sortframe
+			newsort.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
+			newsort.BackgroundTransparency = enabled and 0 or 1
+			newsort.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			newsort.BorderSizePixel = 0
+			newsort.TextTransparency = 1
+			newsort.Size = size
+			
+			local label = Instance.new('TextLabel')
+			label.Parent = newsort
+			label.Name = 'label'
+			label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			label.BackgroundTransparency = 1.000
+			label.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			label.BorderSizePixel = 0
+			label.Size = UDim2.new(1, 0, 1, 0)
+			label.Font = Enum.Font.ArialBold
+			label.TextTransparency = enabled and 0 or 0.85
+			label.Text = name:upper()
+			label.TextColor3 = Color3.fromRGB(255, 255, 255)
+			label.TextSize = 10.000
+			
+			addCorner(newsort, UDim.new(1, 0))
+
+			local api = {
+				SetVisible = function(call)
+					for _, v in configapi.Sorts do
+						v.Window.BackgroundTransparency = 1
+						v.Window.label.TextTransparency = 0.85
+					end
+
+					newsort.BackgroundTransparency = call and 0 or 1
+					label.TextTransparency = call and 0 or 0.85
+				end,
+				ShowPopup = function() end,
+				Window = newsort
+			}
+
+			newsort.MouseButton1Click:Connect(function()
+				api:SetVisible(true)
+				sortfunc = name:lower()
+				local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+				table.sort(configs, sortfuncs[sortfunc])
+
+				Refresh()
+
+				for _, v in configs do
+					addConfig(v.name, v.username, v)
+				end
+			end)
+
+			table.insert(configapi.Sorts, api)
+
+			return api
+		end
+
+		addSorting('newest', nil, {
+			Size = UDim2.new(0, 70, 1, 0),
+			On = true
+		})
+		
+		addSorting('oldest', nil, {
+			Size = UDim2.new(0, 70, 1, 0),
+			On = false
+		})
+
+		TextButton.MouseButton1Click:Connect(function()
+			local lol = configapi[info.Text]
+			if lol then
+				local awesome = `{lol.name} ({lol.username})`
+				local file = game:HttpGet(lol.link)
+				table.insert(mainapi.Profiles, {Name = awesome, Bind = {}})
+				mainapi:Save(awesome)
+				writefile('catrewrite/profiles/'..awesome..mainapi.Place..'.txt', file)
+				mainapi:Load(true, awesome)
+				mainapi:CreateNotification('Vape', `Downloaded "{info.Text}" by {lol.username}`, 5, 'info')
+			else
+				mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+			end
+		end)
+
+		publishb.MouseButton1Click:Connect(function()
+			configapi.ShowPopup(false)
+			local omgreal = SelectedConfig
+			SelectedConfig = 'default'
+
+			if confignbox.Text == '' then
+				mainapi:CreateNotification('Vape', 'No config name provided', 5, 'info')
+				return
+			end
+
+			mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
+
+			if request({
+				Url = 'https://api.catvape.info/configs',
+				Method = 'POST',
+				Headers = {
+					['Content-Type'] = 'application/json'
+				},
+				Body = httpService:JSONEncode({
+					username = getgenv().username,
+					password = getgenv().password,
+					config_name = confignbox.Text,
+					config = readfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt'),
+					description = configdbox.Text
+				})
+			}).Body == '"Success"' then
+				mainapi:CreateNotification('Vape', `Published "{omgreal}" config`, 15, 'info')
+				task.wait(1)
+				mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
+				task.wait(2)
+				local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+				table.sort(configs, sortfuncs[sortfunc])
+
+				Refresh()
+
+				for _, v in configs do
+					addConfig(v.name, v.username, v)
+				end
+			else
+				mainapi:CreateNotification('Vape', `Failed to publish config`, 15, 'info')
+			end
+		end)
+
+		ImageLabel.MouseButton1Click:Connect(function()
+			mainapi:CreateNotification('Vape', `Deleting "{info.Text}" config`, 10, 'info')
+			
+			local lol = configapi[info.Text]
+
+			if lol then
+				local res = request({
+					Url = 'https://api.catvape.info/configs',
+					Method = 'DELETE',
+					Headers = {
+						['Content-Type'] = 'application/json'
+					},
+					Body = httpService:JSONEncode({
+						username = getgenv().username,
+						password = getgenv().password,
+						config = info.Text
+					})
+				}).Body
+
+				if res == '"success"' then
+					mainapi:CreateNotification('Vape', `Deleted ({info.Text}) config from public profiles`, 10, 'info')
+				else
+					mainapi:CreateNotification('Vape', `Failed to delete config ({info.Text})`, 10, 'warning')
+				end
+			else
+				mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
+			end
+		end)
+
+		configcancel.MouseButton1Click:Connect(function()
+			configapi.ShowPopup(false)
+		end)
+
+		configapi.ShowPopup = function(call)
+			uploadconfirmationn.Visible = call
+			configdatas.Visible = call
+		end
+
+		configapi.ShowPopup(false)
+
+		profilemaker.MouseButton1Click:Connect(function()
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+
+			table.sort(configs, sortfuncs[sortfunc])
+
+			Refresh()
+
+			for _, v in configs do
+				addConfig(v.name, v.username, v)
+			end
+			configapi.ShowPopup(true)
+		end)
+
+		updateSignal.Event:Connect(function()
+			for i = 1, 4 do
+				local suc, res = pcall(function()
+					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+				end)
+				
+				if suc and res then
+					for _, v in res do
+						addConfig(v.name, v.username, v)
+					end
+				else
+					task.wait(1)
+				end
+			end
+		end)
+
+		--self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+		window:GetPropertyChangedSignal('Visible'):Connect(function()
+			self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+			--visibleCheck()
+		end)
+		gridlayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			children.CanvasSize = UDim2.fromOffset(0, gridlayout.AbsoluteContentSize.Y / scale.Scale)
+		end)
+
+		self.PublicConfigs = configapi
+
+		return configapi
+	end
+
+	function mainapi:CreateNotification(title, text, duration, type, custom, customsize)
+		if mainapi.Loaded and not self.Notifications.Enabled then return end
+		if getgenv().closet then return end
+		task.delay(0, function()		
+			if not text:find('</font>') then
+				text = translateTo(text)
+			end
+			local rescaled = 1
+			if self.ThreadFix then
+				setthreadidentity(8)
+			end
+			local i = #notifications:GetChildren() + 1
+			local notification = Instance.new('ImageLabel')
+			notification.Name = 'Notification'
+			notification.Size = UDim2.fromOffset(math.max(getfontsize(removeTags(text), 14 * rescaled, uipallet.Font).X + 80, 266) * rescaled, 75 * rescaled)
+			notification.Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
+			notification.ZIndex = 5
+			notification.BackgroundTransparency = 1
+			notification.Image = getcustomasset('catrewrite/assets/new/notification.png')
+			notification.ScaleType = Enum.ScaleType.Slice
+			notification.SliceCenter = Rect.new(7, 7, 9, 9)
+			notification.Parent = notifications
+			addBlur(notification, true)
+			local iconshadow = Instance.new('ImageLabel')
+			iconshadow.Name = 'Icon'
+			iconshadow.Size = custom and customsize or UDim2.fromOffset(60 * rescaled, 60 * rescaled)
+			iconshadow.Position = UDim2.fromOffset(-5, -8)
+			iconshadow.ZIndex = 5
+			iconshadow.BackgroundTransparency = 1
+			iconshadow.Image = custom and type or getcustomasset('catrewrite/assets/new/'..(type or 'info')..'.png')
+			iconshadow.ImageColor3 = Color3.new()
+			iconshadow.ImageTransparency = 0.5
+			iconshadow.Parent = notification
+			local icon = iconshadow:Clone()
+			icon.Position = UDim2.fromOffset(-1, -1)
+			icon.ImageColor3 = Color3.new(1, 1, 1)
+			icon.ImageTransparency = 0
+			icon.Parent = iconshadow
+			local titlelabel = Instance.new('TextLabel')
+			titlelabel.Name = 'Title'
+			titlelabel.Size = UDim2.new(1 * rescaled, -56 * rescaled, 0, 20 * rescaled)
+			titlelabel.Position = UDim2.fromOffset(46, 16)
+			titlelabel.ZIndex = 5
+			titlelabel.BackgroundTransparency = 1
+			titlelabel.Text = "<stroke color='#FFFFFF' joins='round' thickness='0.3' transparency='0.5'>"..translateTo(title)..'</stroke>'
+			titlelabel.TextXAlignment = Enum.TextXAlignment.Left
+			titlelabel.TextYAlignment = Enum.TextYAlignment.Top
+			titlelabel.TextColor3 = Color3.fromRGB(209, 209, 209)
+			titlelabel.TextSize = 14 * rescaled
+			titlelabel.RichText = true
+			titlelabel.FontFace = uipallet.FontSemiBold
+			titlelabel.Parent = notification
+			local textshadow = titlelabel:Clone()
+			textshadow.Name = 'Text'
+			textshadow.Position = UDim2.fromOffset(47, 44)
+			textshadow.Text = removeTags(text)
+			textshadow.TextColor3 = Color3.new()
+			textshadow.TextTransparency = 0.5
+			textshadow.RichText = false
+			textshadow.FontFace = uipallet.Font
+			textshadow.Parent = notification
+			local textlabel = textshadow:Clone()
+			textlabel.Position = UDim2.fromOffset(-1, -1)
+			textlabel.Text = text
+			textlabel.TextColor3 = Color3.fromRGB(170, 170, 170)
+			textlabel.TextTransparency = 0
+			textlabel.RichText = true
+			textlabel.Parent = textshadow
+			local progress = Instance.new('Frame')
+			progress.Name = 'Progress'
+			progress.Size = UDim2.new(1 * rescaled, -13 * rescaled, 0, 2 * rescaled)
+			progress.Position = UDim2.new(0, 3, 1, -4)
+			progress.ZIndex = 5
+			progress.BackgroundColor3 =
+				type == 'alert' and Color3.fromRGB(250, 50, 56)
+				or type == 'warning' and Color3.fromRGB(236, 129, 43)
+				or Color3.fromRGB(220, 220, 220)
+			progress.BorderSizePixel = 0
+			progress.Parent = notification
+			if tween.Tween then
+				tween:Tween(notification, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+					AnchorPoint = Vector2.new(1, 0)
+				}, tween.tweenstwo)
+				tween:Tween(progress, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+					Size = UDim2.fromOffset(0, 2)
+				})
+			end
+			task.delay(duration, function()
+				if tween.Tween then
+					tween:Tween(notification, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+						AnchorPoint = Vector2.new(0, 0)
+					}, tween.tweenstwo)
+				end
+				task.wait(0.2)
+				notification:ClearAllChildren()
+				notification:Destroy()
+			end)
+		end)
+	end
+	
+	function mainapi:Load(skipgui, profile)
+		if not skipgui then
+			self.GUIColor:SetValue(nil, nil, nil, 4)
+		end
+		if getgenv().assexecutorhurtsmybutt then
+			mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
+		end
+		local guidata = {}
+		local savecheck = true
+
+		if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
+			if assexecutorhurtsmybutt then
+				task.wait(0.1)
+			end
+			guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
+			if not guidata then
+				guidata = {Categories = {}}
+				self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
+				delfile('catrewrite/profiles/'..game.GameId..'.gui.txt')
+				savecheck = false
+			end
+
+			if not skipgui then
+				self.Keybind = guidata.Keybind
+				for i, v in guidata.Categories do
+					local object = self.Categories[i]
+					if not object then continue end
+					if object.Options and v.Options then
+						self:LoadOptions(object, v.Options)
+					end
+					if v.Enabled then
+						object.Button:Toggle()
+					end
+					if v.Pinned then
+						object:Pin()
+					end
+					if v.Expanded and object.Expand then
+						object:Expand()
+					end
+					if v.List and (#object.List > 0 or #v.List > 0) then
+						object.List = v.List or {}
+						object.ListEnabled = v.ListEnabled or {}
+						object:ChangeValue()
+					end
+					if v.Position then
+						object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+					end
+				end
+			end
+		end
+
+		self.Profile = profile or guidata.Profile or 'default'
+		self.Profiles = guidata.Profiles or {{
+			Name = 'default', Bind = {}
+		}}
+		self.Categories.Profiles:ChangeValue()
+		if self.ProfileLabel then
+			self.ProfileLabel.Text = #self.Profile > 10 and self.Profile:sub(1, 10)..'...' or self.Profile
+			self.ProfileLabel.Size = UDim2.fromOffset(getfontsize(self.ProfileLabel.Text, self.ProfileLabel.TextSize, self.ProfileLabel.Font).X + 16, 24)
+		end
+
+		if isfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt') then
+			local savedata = loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+			if not savedata then
+				savedata = {Categories = {}, Modules = {}, Legit = {}}
+				self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
+				delfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+				savecheck = false
+			end
+
+			for i, v in savedata.Categories do
+				if assexecutorhurtsmybutt then
+					task.wait()
+				end
+				local object = self.Categories[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if v.Pinned ~= object.Pinned then
+					object:Pin()
+				end
+				if v.Expanded ~= nil and v.Expanded ~= object.Expanded then
+					object:Expand()
+				end
+				if object.Button and (v.Enabled or false) ~= object.Button.Enabled then
+					object.Button:Toggle()
+				end
+				if v.List and (#object.List > 0 or #v.List > 0) then
+					object.List = v.List or {}
+					object.ListEnabled = v.ListEnabled or {}
+					object:ChangeValue()
+				end
+				object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+			end
+
+			for i, v in savedata.Modules do
+				if assexecutorhurtsmybutt then
+					task.wait()
+				end
+				local object = self.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if v.Enabled ~= object.Enabled then
+					if skipgui then
+						--if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
+					end
+					pcall(function()
+						object:Toggle(true)
+					end)
+				end
+				object:SetBind(v.Bind)
+				object.Object.Bind.Visible = #v.Bind > 0
+			end
+
+			for i, v in savedata.Legit do
+				local object = self.Legit.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if object.Enabled ~= v.Enabled then
+					object:Toggle()
+				end
+				if v.Position and object.Children then
+					object.Children.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+				end
+			end
+
+			self:UpdateTextGUI(true)
+		else
+			self:Save()
+		end
+
+		if self.Downloader then
+			self.Downloader:Destroy()
+			self.Downloader = nil
+		end
+		self.Loaded = savecheck
+		self.Categories.Main.Options.Bind:SetBind(self.Keybind)
+	end
+
+	if setthreadidentity then
+		setthreadidentity(8)
+	end
+
+	task.spawn(function()
+		repeat task.wait() until mainapi.gui ~= nil
+
+		local Buttons = coreGui:WaitForChild('TopBarApp', 9e9):WaitForChild('TopBarApp', 9e9):WaitForChild('UnibarLeftFrame', 9e9):WaitForChild('UnibarMenu', 9e9):WaitForChild('2', 9e9):WaitForChild('3', 9e9)
+		if IsMobile then
+			local button = Instance.new('TextButton')
+			button.Size = UDim2.fromOffset(44, 44)
+			button.Position = UDim2.fromOffset(#Buttons:GetChildren() > 2 and 240 or 200, 12)
+			button.AnchorPoint = Vector2.new(0.5, 0)
+			button.BackgroundColor3 = Color3.fromRGB(18, 18, 21)
+			button.ZIndex = 500
+			button.BackgroundTransparency = 1
+			button.Text = ''
+			button.Visible = true
+			button.Parent = mainapi.gui
+			--makeDraggable(button)
+
+			local image = Instance.new('ImageLabel')
+			image.Size = UDim2.fromOffset(33, 33)
+			image.AnchorPoint = Vector2.new(0.5, 0.5)
+			image.Position = UDim2.fromScale(0.5, 0.5)
+			image.ZIndex = 500
+			image.ImageTransparency = 1
+			image.BackgroundTransparency = 1
+			image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
+			image.Parent = button
+
+			local buttoncorner = Instance.new('UICorner')
+			buttoncorner.Parent = button
+			buttoncorner.CornerRadius = UDim.new(1, 0)
+
+			mainapi.VapeButton = button
+
+			button.MouseButton1Click:Connect(function()
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				for _, v in mainapi.Windows do
+					v.Visible = false
+				end
+				for _, mobileButton in mainapi.Modules do
+					if mobileButton.Bind.Button then
+						mobileButton.Bind.Button.Visible = clickgui.Visible
+					end
+				end
+				clickgui.Visible = not clickgui.Visible
+				tooltip.Visible = false
+				mainapi:BlurCheck()
+			end)
+		end
+	end)
+
+	function mainapi:LoadOptions(object, savedoptions)
+		for i, v in savedoptions do
+			local option = object.Options[i]
+			if not option then continue end
+			option:Load(v)
+		end
+	end
+
+	function mainapi:Remove(obj)
+		local tab = (self.Modules[obj] and self.Modules or self.Legit.Modules[obj] and self.Legit.Modules or self.Categories)
+		if tab and tab[obj] then
+			local newobj = tab[obj]
+			for _, v in {'Object', 'Children', 'Toggle', 'Button'} do
+				local childobj = typeof(newobj[v]) == 'table' and newobj[v].Object or newobj[v]
+				if typeof(childobj) == 'Instance' then
+					childobj:Destroy()
+					childobj:ClearAllChildren()
+				end
+			end
+			loopClean(newobj)
+			tab[obj] = nil
+		end
+	end
+
+	function mainapi:Save(newprofile)
+		if not self.Loaded then return end
+		local guidata = {
+			Categories = {},
+			Profile = newprofile or self.Profile,
+			Profiles = self.Profiles,
+			Keybind = self.Keybind
+		}
+		local savedata = {
+			Modules = {},
+			Categories = {},
+			Legit = {}
+		}
+
+		for i, v in self.Categories do
+			(v.Type ~= 'Category' and i ~= 'Main' and savedata or guidata).Categories[i] = {
+				Enabled = i ~= 'Main' and v.Button.Enabled or nil,
+				Expanded = v.Type ~= 'Overlay' and v.Expanded or nil,
+				Pinned = v.Pinned,
+				Position = {X = v.Object.Position.X.Offset, Y = v.Object.Position.Y.Offset},
+				Options = mainapi:SaveOptions(v, v.Options),
+				List = v.List,
+				ListEnabled = v.ListEnabled
+			}
+		end
+
+		for i, v in self.Modules do
+			savedata.Modules[i] = {
+				Enabled = v.Enabled,
+				Bind = v.Bind.Button and {Mobile = true, X = v.Bind.Button.Position.X.Offset, Y = v.Bind.Button.Position.Y.Offset} or v.Bind,
+				Options = mainapi:SaveOptions(v, true)
+			}
+		end
+
+		for i, v in self.Legit.Modules do
+			savedata.Legit[i] = {
+				Enabled = v.Enabled,
+				Position = v.Children and {X = v.Children.Position.X.Offset, Y = v.Children.Position.Y.Offset} or nil,
+				Options = mainapi:SaveOptions(v, v.Options)
+			}
+		end
+
+		writefile('catrewrite/profiles/'..game.GameId..'.gui.txt', httpService:JSONEncode(guidata))
+		writefile('catrewrite/profiles/'..self.Profile..self.Place..'.txt', httpService:JSONEncode(savedata))
+	end
+
+	function mainapi:SaveOptions(object, savedoptions)
+		if not savedoptions then return end
+		savedoptions = {}
+		for _, v in object.Options do
+			if not v.Save then continue end
+			v:Save(savedoptions)
+		end
+		return savedoptions
+	end
+
+	function mainapi:Uninject()
+		if #shared.vape.Libraries.whitelist.ignores > 0 then
+			mainapi.Save = function() end
+			mainapi.BlurCheck = function() end
+			for _, v in self.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+
+			task.spawn(function()
+				runService.PreRender:Connect(function()
+					mainapi.gui.Enabled = false
+
+					if self.ThreadFix then
+						setthreadidentity(8)
+						runService:SetRobloxGuiFocused(false)
+					end
+				end)
+			end)
+		else
+			mainapi:Save()
+			mainapi.Loaded = nil
+			for _, v in self.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+			for _, v in self.Legit.Modules do
+				if v.Enabled then
+					v:Toggle()
+				end
+			end
+			for _, v in self.Categories do
+				if v.Type == 'Overlay' and v.Button.Enabled then
+					v.Button:Toggle()
+				end
+			end
+			for _, v in mainapi.Connections do
+				pcall(function()
+					v:Disconnect()
+				end)
+			end
+			if mainapi.ThreadFix then
+				setthreadidentity(8)
+				clickgui.Visible = false
+				mainapi:BlurCheck()
+			end
+			mainapi.gui:ClearAllChildren()
+			mainapi.gui:Destroy()
+			table.clear(mainapi.Libraries)
+			loopClean(mainapi)
+			shared.vape = nil
+			shared.vapereload = nil
+			shared.VapeIndependent = nil
+		end
+	end
+
+	gui = Instance.new('ScreenGui')
+	gui.Name = randomString()
+	gui.DisplayOrder = 9999999
+	gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+	gui.IgnoreGuiInset = true
+	gui.OnTopOfCoreBlur = true
+	gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
+	gui.ResetOnSpawn = false
+	mainapi.gui = gui
+	scaledgui = Instance.new('Frame')
+	scaledgui.Name = 'ScaledGui'
+	scaledgui.Size = UDim2.fromScale(1, 1)
+	scaledgui.BackgroundTransparency = 1
+	scaledgui.Parent = gui
+	local newScaledGui  = Instance.new('Frame')
+	newScaledGui.Name = 'NEWScaledGui'
+	newScaledGui.Size = UDim2.fromScale(1, 1)
+	newScaledGui.BackgroundTransparency = 1
+	newScaledGui.Parent = gui
+	clickgui = Instance.new('Frame')
+	clickgui.Name = 'ClickGui'
+	clickgui.Size = UDim2.fromScale(1, 1)
+	clickgui.BackgroundTransparency = 1
+	clickgui.Visible = false
+	clickgui.Parent = scaledgui
+	local modal = Instance.new('TextButton')
+	modal.BackgroundTransparency = 1
+	modal.Modal = true
+	modal.Text = ''
+	modal.Parent = clickgui
+	local cursor = Instance.new('ImageLabel')
+	cursor.Size = UDim2.fromOffset(64, 64)
+	cursor.BackgroundTransparency = 1
+	cursor.Visible = false
+	cursor.Image = 'rbxasset://textures/Cursors/KeyboardMouse/ArrowFarCursor.png'
+	cursor.Parent = gui
+	notifications = Instance.new('Folder')
+	notifications.Name = 'Notifications'
+	notifications.Parent = scaledgui
+	tooltip = Instance.new('TextLabel')
+	tooltip.Name = 'Tooltip'
+	tooltip.Position = UDim2.fromScale(-1, -1)
+	tooltip.ZIndex = 5
+	tooltip.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
+	tooltip.Visible = false
+	tooltip.Text = ''
+	tooltip.TextColor3 = color.Dark(uipallet.Text, 0.16)
+	tooltip.TextSize = 12
+	tooltip.FontFace = uipallet.Font
+	tooltip.Parent = scaledgui
+	toolblur = addBlur(tooltip)
+	addCorner(tooltip)
+	local toolstrokebkg = Instance.new('Frame')
+	toolstrokebkg.Size = UDim2.new(1, -2, 1, -2)
+	toolstrokebkg.Position = UDim2.fromOffset(1, 1)
+	toolstrokebkg.ZIndex = 6
+	toolstrokebkg.BackgroundTransparency = 1
+	toolstrokebkg.Parent = tooltip
+	local toolstroke = Instance.new('UIStroke')
+	toolstroke.Color = color.Light(uipallet.Main, 0.02)
+	toolstroke.Parent = toolstrokebkg
+	addCorner(toolstrokebkg, UDim.new(0, 4))
+	scale = Instance.new('UIScale')
+	scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+	scale.Parent = scaledgui
+	mainapi.guiscale = scale
+	scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
+	newScale = math.max(gui.AbsoluteSize.X / 1920, 0.68)
+	newScaledGui.Size = UDim2.fromScale(1 / newScale, 1  / newScale)
+
+	mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
+		if mainapi.Scale.Enabled then
+			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+		end
+	end))
+
+	mainapi:Clean(scale:GetPropertyChangedSignal('Scale'):Connect(function()
+		scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
+		for _, v in scaledgui:GetDescendants() do
+			if v:IsA('GuiObject') and v.Visible then
+				v.Visible = false
+				v.Visible = true
+			end
+		end
+	end))
+
+	mainapi:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
+		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+		if clickgui.Visible and inputService.MouseEnabled then
+			repeat
+				local visibleCheck = clickgui.Visible
+				for _, v in mainapi.Windows do
+					visibleCheck = visibleCheck or v.Visible
+				end
+				if not visibleCheck then break end
+
+				cursor.Visible = not inputService.MouseIconEnabled
+				if cursor.Visible then
+					local mouseLocation = inputService:GetMouseLocation()
+					cursor.Position = UDim2.fromOffset(mouseLocation.X - 31, mouseLocation.Y - 32)
+				end
+
+				task.wait()
+			until mainapi.Loaded == nil
+			cursor.Visible = false
+		end
+	end))
+
+	mainapi:CreateGUI()
+	mainapi.Categories.Main:CreateDivider()
+	mainapi:CreateCategory({
+		Name = 'Combat',
+		Icon = getcustomasset('catrewrite/assets/new/combaticon.png'),
+		Size = UDim2.fromOffset(13, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Blatant',
+		Icon = getcustomasset('catrewrite/assets/new/blatanticon.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Render',
+		Icon = getcustomasset('catrewrite/assets/new/rendericon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Utility',
+		Icon = getcustomasset('catrewrite/assets/new/utilityicon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'World',
+		Icon = getcustomasset('catrewrite/assets/new/worldicon.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Inventory',
+		Icon = getcustomasset('catrewrite/assets/new/inventoryicon.png'),
+		Size = UDim2.fromOffset(15, 14)
+	})
+	mainapi:CreateCategory({
+		Name = 'Minigames',
+		Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
+		Size = UDim2.fromOffset(19, 12)
+	})
+	mainapi:CreateCategory({
+		Name = 'Legit',
+		Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
+		Size = UDim2.fromOffset(14, 14)
+	})
+	if game.GameId == 2619619496 then
+		mainapi:CreateCategory({
+			Name = 'Kits',
+			Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+			Size = UDim2.fromOffset(14, 14)
+		})
+	end
+	mainapi.Categories.Main:CreateDivider('misc')
+
+	--[[
+		Friends
+	]]
+	local friends
+	local friendscolor = {
+		Hue = 1,
+		Sat = 1,
+		Value = 1
+	}
+	local friendssettings = {
+		Name = 'Friends',
+		Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+		Size = UDim2.fromOffset(17, 16),
+		Placeholder = 'Roblox username',
+		Color = Color3.fromRGB(5, 134, 105),
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	}
+	friends = mainapi:CreateCategoryList(friendssettings)
+	friends.Update = Instance.new('BindableEvent')
+	friends.ColorUpdate = Instance.new('BindableEvent')
+	friends:CreateToggle({
+		Name = 'Recolor visuals',
+		Darker = true,
+		Default = true,
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	})
+	friendscolor = friends:CreateColorSlider({
+		Name = 'Friends color',
+		Darker = true,
+		Function = function(hue, sat, val)
+			for _, v in friends.Object.Children:GetChildren() do
+				local dot = v:FindFirstChild('Dot')
+				if dot and dot.BackgroundColor3 ~= color.Light(uipallet.Main, 0.37) then
+					dot.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					dot.Dot.BackgroundColor3 = dot.BackgroundColor3
+				end
+			end
+			friendssettings.Color = Color3.fromHSV(hue, sat, val)
+			friends.ColorUpdate:Fire(hue, sat, val)
+		end
+	})
+	friends:CreateToggle({
+		Name = 'Use friends',
+		Darker = true,
+		Default = true,
+		Function = function()
+			friends.Update:Fire()
+			friends.ColorUpdate:Fire(friendscolor.Hue, friendscolor.Sat, friendscolor.Value)
+		end
+	})
+	mainapi:Clean(friends.Update)
+	mainapi:Clean(friends.ColorUpdate)
+
+	--[[
+		Profiles
+	]]
+	mainapi:CreateCategoryList({
+		Name = 'Profiles',
+		Icon = getcustomasset('catrewrite/assets/new/profilesicon.png'),
+		Size = UDim2.fromOffset(17, 10),
+		Position = UDim2.fromOffset(12, 16),
+		Placeholder = 'Type name',
+		Profiles = true
+	})
+
+	--[[
+		Targets
+	]]
+	local targets
+	targets = mainapi:CreateCategoryList({
+		Name = 'Targets',
+		Icon = getcustomasset('catrewrite/assets/new/friendstab.png'),
+		Size = UDim2.fromOffset(17, 16),
+		Placeholder = 'Roblox username',
+		Function = function()
+			targets.Update:Fire()
+		end
+	})
+	targets.Update = Instance.new('BindableEvent')
+	mainapi:Clean(targets.Update)
+
+	mainapi:CreateLegit()
+	mainapi:CreateSearch()
+	mainapi:CreateProfileGUI()
+	mainapi.Categories.Main:CreateOverlayBar()
+	mainapi.Categories.Main:CreateSettingsDivider()
+
+	--[[
+		General Settings
+	]]
+
+	local general = mainapi.Categories.Main:CreateSettingsPane({Name = 'General'})
+	mainapi.MultiKeybind = general:CreateToggle({
+		Name = 'Enable Multi-Keybinding',
+		Tooltip = 'Allows multiple keys to be bound to a module (eg. G + H)'
+	})
+
+	general:CreateButton({
+		Name = 'Reset current profile',
+		Function = function()
+		mainapi.Save = function() end
+			if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') then
+				delfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
+			end
+			shared.vapereload = true
+			loadfile("catrewrite/init.lua")({
+				Developer = getgenv().catvapedev
+			})
+		end,
+		Tooltip = 'This will set your profile to the default settings of Vape'
+	})
+	general:CreateButton({
+		Name = 'Self destruct',
+		Function = function()
+			mainapi:Uninject()
+		end,
+		Tooltip = 'Removes vape from the current game'
+	})
+	general:CreateButton({
+		Name = 'Re Inject',
+		Function = function()
+			loadfile('catrewrite/init.lua')({
+				Developer = getgenv().catvapedev
+			})
+		end,
+		Tooltip = 'Reloads vape for debugging purposes'
+	})
+
+	--[[
+		Module Settings
+	]]
+
+	local modules = mainapi.Categories.Main:CreateSettingsPane({Name = 'Modules'})
+	modules:CreateToggle({
+		Name = 'Teams by server',
+		Tooltip = 'Ignore players on your team designated by the server',
+		Default = true,
+		Function = function()
+			if mainapi.Libraries.entity and mainapi.Libraries.entity.Running then
+				mainapi.Libraries.entity.refresh()
+			end
+		end
+	})
+	modules:CreateToggle({
+		Name = 'Use team color',
+		Tooltip = 'Uses the TeamColor property on players for render modules',
+		Default = true,
+		Function = function()
+			if mainapi.Libraries.entity and mainapi.Libraries.entity.Running then
+				mainapi.Libraries.entity.refresh()
+			end
+		end
+	})
+
+	--[[
+		GUI Settings
+	]]
+		
+
+	local guipane = mainapi.Categories.Main:CreateSettingsPane({Name = 'GUI'})
+	mainapi.Blur = guipane:CreateToggle({
+		Name = 'Blur background',
+		Function = function()
+			mainapi:BlurCheck()
+		end,
+		Default = true,
+		Tooltip = 'Blur the background of the GUI'
+	})
+	guipane:CreateToggle({
+		Name = 'GUI bind indicator',
+		Default = true,
+		Tooltip = "Displays a message indicating your GUI upon injecting.\nI.E. 'Press RSHIFT to open GUI'"
+	})
+
+	local Show = isfile('catrewrite/profiles/show.txt') and true or nil
+	if Show == nil then
+		Show = true
+	else
+		Show = readfile('catrewrite/profiles/show.txt') == 'true' and true or false
+	end
+
+	if not Show then
+		mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+	end
+
+	guipane:CreateToggle({
+		Name = 'Show vape button',
+		Default = Show,
+		Function = function(enabled)
+			writefile(`catrewrite/profiles/show.txt`, tostring(enabled))
+			task.spawn(function()
+				repeat task.wait() until mainapi.VapeButton
+				mainapi.VapeButton.BackgroundTransparency = enabled and 0.08 or 1
+				mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
+				if not enabled and IsMobile then
+					mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
+				end
+			end)
+		end,
+	})
+	guipane:CreateToggle({
+		Name = 'Show tooltips',
+		Function = function(enabled)
+			tooltip.Visible = false
+			toolblur.Visible = enabled
+		end,
+		Default = true,
+		Tooltip = 'Toggles visibility of these'
+	})
+	guipane:CreateToggle({
+		Name = 'Show legit mode',
+		Function = function(enabled)
+			clickgui.Search.Legit.Visible = enabled
+			clickgui.Search.LegitDivider.Visible = enabled
+			clickgui.Search.TextBox.Size = UDim2.new(1, enabled and -50 or -10, 0, 37)
+			clickgui.Search.TextBox.Position = UDim2.fromOffset(enabled and 50 or 10, 0)
+		end,
+		Default = true,
+		Tooltip = 'Shows the button to change to Legit Mode'
+	})
+	local scaleslider = {Object = {}, Value = 1}
+	mainapi.Scale = guipane:CreateToggle({
+		Name = 'Auto rescale',
+		Default = true,
+		Function = function(callback)
+			scaleslider.Object.Visible = not callback
+			if callback then
+				scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+			else
+				scale.Scale = scaleslider.Value
+			end
+		end,
+		Tooltip = 'Automatically rescales the gui using the screens resolution'
+	})
+	scaleslider = guipane:CreateSlider({
+		Name = 'Scale',
+		Min = 0.1,
+		Max = 2,
+		Decimal = 10,
+		Function = function(val, final)
+			if final and not mainapi.Scale.Enabled then
+				scale.Scale = val
+			end
+		end,
+		Default = 1,
+		Darker = true,
+		Visible = false
+	})
+	guipane:CreateDropdown({
+		Name = 'GUI Theme',
+		List = {'new', 'old', 'sigma', 'rise'},
+		Function = function(val, mouse)
+			if mouse then
+				writefile('catrewrite/profiles/gui.txt', val)
+				shared.vapereload = true
+				loadfile('catrewrite/init.lua')({
+					Developer = getgenv().catvapedev
+				})
+			end
+		end,
+		Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
+	})
+
+	local list = {'Original'}
+
+	for i,v in shorten do
+		local old = i:sub(2, #i)
+		local tex = i:sub(0, 1):upper()..old
+		table.insert(list, tex)
+	end
+
+	guipane:CreateDropdown({
+		Name = 'GUI Language',
+		List = list,
+		Function = function(val, mouse)
+			if mouse then
+				writefile('catrewrite/profiles/language.txt', val)
+				shared.vapereload = true
+				loadfile('catrewrite/init.lua')({
+					Developer = getgenv().catvapedev
+				})
+			end
+		end,
+		Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
+	})
+	local colors = {
+		Dark = {
+			Main = {26, 25, 26},
+			Text = {200, 200, 200}
+		},
+		Light = {
+			Main = {220, 220, 220},
+			Text = {60, 60, 60}
+		},
+		Amoled = {
+			Main = {0, 0, 0},
+			Text = {230, 230, 230}
+		},
+		Red = {
+			Main = {150, 0, 0},
+			Text = {210, 210, 210}
+		},
+		Orange = {
+			Main = {199, 107, 42},
+			Text = {210, 210, 210}
+		},
+		Yellow = {
+			Main = {199, 181, 42},
+			Text = {60, 60, 60}
+		},
+		Green = {
+			Main = {65, 156, 33},
+			Text = {210, 210, 210}
+		},
+		Blue = {
+			Main = {33, 94, 156},
+			Text = {210, 210, 210}
+		},
+		Purple = {
+			Main = {96,36,143},
+			Text = {210, 210, 210}
+		}
+	}
+	local list = {}
+	for i, v in pairs(colors) do
+		table.insert(list, i)
+	end
+	guipane:CreateDropdown({
+		Name = "GUI Color",
+		List = list,
+		Default = 'Dark',
+		Function = function(val, mouse)
+			if mouse and (not isfile('catrewrite/profiles/color.txt') and true or httpService:JSONDecode(readfile('catrewrite/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
+				writefile("catrewrite/profiles/color.txt", httpService:JSONEncode(colors[val]))
+				mainapi:Save()
+				shared.vapereload = true
+				loadfile("catrewrite/init.lua")({
+					Username = username,
+					Password = password,
+					Developer = shared.catvapedev
+				})
+			end
+		end
+	})
+	mainapi.RainbowMode = guipane:CreateDropdown({
+		Name = 'Rainbow Mode',
+		List = {'Normal', 'Gradient', 'Retro'},
+		Tooltip = 'Normal - Smooth color fade\nGradient - Gradient color fade\nRetro - Static color'
+	})
+	mainapi.RainbowSpeed = guipane:CreateSlider({
+		Name = 'Rainbow speed',
+		Min = 0.1,
+		Max = 10,
+		Decimal = 10,
+		Default = 1,
+		Tooltip = 'Adjusts the speed of rainbow values'
+	})
+	mainapi.RainbowUpdateSpeed = guipane:CreateSlider({
+		Name = 'Rainbow update rate',
+		Min = 1,
+		Max = 144,
+		Default = 60,
+		Tooltip = 'Adjusts the update rate of rainbow values',
+		Suffix = 'hz'
+	})
+	guipane:CreateButton({
+		Name = 'Reset GUI positions',
+		Function = function()
+			for _, v in mainapi.Categories do
+				v.Object.Position = UDim2.fromOffset(6, 42)
+			end
+		end,
+		Tooltip = 'This will reset your GUI back to default'
+	})
+	guipane:CreateButton({
+		Name = 'Sort GUI',
+		Function = function()
+			local priority = {
+				GUICategory = 1,
+				CombatCategory = 2,
+				BlatantCategory = 3,
+				RenderCategory = 4,
+				UtilityCategory = 5,
+				WorldCategory = 6,
+				InventoryCategory = 7,
+				MinigamesCategory = 8,
+				FriendsCategory = 9,
+				ProfilesCategory = 10
+			}
+			local categories = {}
+			for _, v in mainapi.Categories do
+				if v.Type ~= 'Overlay' then
+					table.insert(categories, v)
+				end
+			end
+			table.sort(categories, function(a, b)
+				return (priority[a.Object.Name] or 99) < (priority[b.Object.Name] or 99)
+			end)
+
+			local ind = 0
+			for _, v in categories do
+				if v.Object.Visible then
+					v.Object.Position = UDim2.fromOffset(6 + (ind % 8 * 230), 60 + (ind > 7 and 360 or 0))
+					ind += 1
+				end
+			end
+		end,
+		Tooltip = 'Sorts GUI'
+	})
+
+	--[[
+		Notification Settings
+	]]
+
+	local notifpane = mainapi.Categories.Main:CreateSettingsPane({Name = 'Notifications'})
+	mainapi.Notifications = notifpane:CreateToggle({
+		Name = 'Notifications',
+		Function = function(enabled)
+			if mainapi.ToggleNotifications.Object then
+				mainapi.ToggleNotifications.Object.Visible = enabled
+			end
+		end,
+		Tooltip = 'Shows notifications',
+		Default = true
+	})
+	mainapi.ToggleNotifications = notifpane:CreateToggle({
+		Name = 'Toggle alert',
+		Tooltip = 'Notifies you if a module is enabled/disabled.',
+		Default = true,
+		Darker = true
+	})
+
+	mainapi.GUIColor = mainapi.Categories.Main:CreateGUISlider({
+		Name = 'GUI Theme',
+		Function = function(h, s, v)
+			mainapi:UpdateGUI(h, s, v, true)
+		end
+	})
+	mainapi.Categories.Main:CreateBind()
+
+	--[[
+		Text GUI
+	]]
+
+	local textgui = mainapi:CreateOverlay({
+		Name = 'Text GUI',
+		Icon = getcustomasset('catrewrite/assets/new/textguiicon.png'),
+		Size = UDim2.fromOffset(16, 12),
+		Position = UDim2.fromOffset(12, 14),
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguisort = textgui:CreateDropdown({
+		Name = 'Sort',
+		List = {'Alphabetical', 'Length'},
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguifont = textgui:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguicolor
+	local textguicolordrop = textgui:CreateDropdown({
+		Name = 'Color Mode',
+		List = {'Match GUI color', 'Custom color'},
+		Function = function(val)
+			textguicolor.Object.Visible = val == 'Custom color'
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguicolor = textgui:CreateColorSlider({
+		Name = 'Text GUI color',
+		Function = function()
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local VapeTextScale = Instance.new('UIScale')
+	VapeTextScale.Parent = textgui.Children
+	local textguiscale = textgui:CreateSlider({
+		Name = 'Scale',
+		Min = 0,
+		Max = 2,
+		Decimal = 10,
+		Default = 1,
+		Function = function(val)
+			VapeTextScale.Scale = val
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguishadow = textgui:CreateToggle({
+		Name = 'Shadow',
+		Tooltip = 'Renders shadowed text.',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguigradientv4
+	local textguigradient = textgui:CreateToggle({
+		Name = 'Gradient',
+		Tooltip = 'Renders a gradient',
+		Function = function(callback)
+			textguigradientv4.Object.Visible = callback
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguigradientv4 = textgui:CreateToggle({
+		Name = 'V4 Gradient',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local textguianimations = textgui:CreateToggle({
+		Name = 'Animations',
+		Tooltip = 'Use animations on text gui',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguiwatermark = textgui:CreateToggle({
+		Name = 'Watermark',
+		Tooltip = 'Renders a vape watermark',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguibackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	local textguibackgroundtint = {Enabled = false}
+	local textguicornersidebar = {Enabled = false, Object = {Visible = false}}
+	local textguibackground = textgui:CreateToggle({
+		Name = 'Render background',
+		Function = function(callback)
+			textguibackgroundtransparency.Object.Visible = callback
+			textguibackgroundtint.Object.Visible = callback
+			textguicornersidebar.Object.Visible = callback
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibackgroundtransparency = textgui:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	textguicornersidebar = textgui:CreateToggle({
+		Name = 'Cornered Sidebar',
+		Tooltip = 'Makes ur sidebar rounded.',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibackgroundtint = textgui:CreateToggle({
+		Name = 'Tint',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	local textguimoduleslist
+	local textguimodules = textgui:CreateToggle({
+		Name = 'Hide modules',
+		Tooltip = 'Allows you to blacklist certain modules from being shown.',
+		Function = function(enabled)
+			textguimoduleslist.Object.Visible = enabled
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguimoduleslist = textgui:CreateTextList({
+		Name = 'Blacklist',
+		Tooltip = 'Name of module to hide.',
+		Icon = getcustomasset('catrewrite/assets/new/blockedicon.png'),
+		Tab = getcustomasset('catrewrite/assets/new/blockedtab.png'),
+		TabSize = UDim2.fromOffset(21, 16),
+		Color = Color3.fromRGB(250, 50, 56),
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Visible = false,
+		Darker = true
+	})
+	local textguirender = textgui:CreateToggle({
+		Name = 'Hide render',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end
+	})
+	local textguibox
+	local textguifontcustom
+	local textguicolorcustomtoggle
+	local textguicolorcustom
+	local textguitext = textgui:CreateToggle({
+		Name = 'Add custom text',
+		Function = function(enabled)
+			textguibox.Object.Visible = enabled
+			textguifontcustom.Object.Visible = enabled
+			textguicolorcustomtoggle.Object.Visible = enabled
+			textguicolorcustom.Object.Visible = textguicolorcustomtoggle.Enabled and enabled
+			mainapi:UpdateTextGUI()
+		end
+	})
+	textguibox = textgui:CreateTextBox({
+		Name = 'Custom text',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguifontcustom = textgui:CreateFont({
+		Name = 'Custom Font',
+		Blacklist = 'Arial',
+		Function = function()
+			mainapi:UpdateTextGUI()
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguicolorcustomtoggle = textgui:CreateToggle({
+		Name = 'Set custom text color',
+		Function = function(enabled)
+			textguicolorcustom.Object.Visible = enabled
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+	textguicolorcustom = textgui:CreateColorSlider({
+		Name = 'Color of custom text',
+		Function = function()
+			mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value)
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	--[[
+		Text GUI Objects
+	]]
+
+	local VapeLabels = {}
+	local VapeLogo = Instance.new('ImageLabel')
+	VapeLogo.Name = 'Logo'
+	VapeLogo.Size = UDim2.fromOffset(80, 21)
+	VapeLogo.Position = UDim2.new(1, -142, 0, 3)
+	VapeLogo.BackgroundTransparency = 1
+	VapeLogo.BorderSizePixel = 0
+	VapeLogo.Visible = false
+	VapeLogo.BackgroundColor3 = Color3.new()
+	VapeLogo.Image = getcustomasset('catrewrite/assets/new/textvape.png')
+	VapeLogo.Parent = textgui.Children
+
+	--[[local ChristmasHat = Instance.new('ImageLabel')
+	ChristmasHat.Name = 'Hat'
+	ChristmasHat.Size = UDim2.fromOffset(21, 21)
+	ChristmasHat.Position = UDim2.fromScale(0.8, -0.18)
+	ChristmasHat.Rotation = 5
+	ChristmasHat.BackgroundTransparency = 1
+	ChristmasHat.Visible = false
+	ChristmasHat.Image = getcustomasset('catrewrite/assets/new/christmashat.png')
+	ChristmasHat.Parent = VapeLogo
+
+	VapeLogo:GetPropertyChangedSignal('Visible'):Connect(function()
+		ChristmasHat.Visible = VapeLogo.Visible
+	end)]]
+
+	local lastside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+	mainapi:Clean(textgui.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
+		if mainapi.ThreadFix then
+			setthreadidentity(8)
+		end
+		local newside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+		if lastside ~= newside then
+			lastside = newside
+			mainapi:UpdateTextGUI()
+		end
+	end))
+
+	local VapeLogoV4 = Instance.new('ImageLabel')
+	VapeLogoV4.Name = 'Logo2'
+	VapeLogoV4.Size = UDim2.fromOffset(33, 18)
+	VapeLogoV4.Position = UDim2.new(1, 1, 0, 1)
+	VapeLogoV4.BackgroundColor3 = Color3.new()
+	VapeLogoV4.BackgroundTransparency = 1
+	VapeLogoV4.BorderSizePixel = 0
+	VapeLogoV4.Image = getcustomasset('catrewrite/assets/new/textv4.png')
+	VapeLogoV4.Parent = VapeLogo
+	local VapeLogoShadow = VapeLogo:Clone()
+	VapeLogoShadow.Position = UDim2.fromOffset(1, 1)
+	VapeLogoShadow.ZIndex = 0
+	VapeLogoShadow.Visible = true
+	VapeLogoShadow.ImageColor3 = Color3.new()
+	VapeLogoShadow.ImageTransparency = 0.65
+	VapeLogoShadow.Parent = VapeLogo
+	VapeLogoShadow.Logo2.ZIndex = 0
+	VapeLogoShadow.Logo2.ImageColor3 = Color3.new()
+	VapeLogoShadow.Logo2.ImageTransparency = 0.65
+	local VapeLogoGradient = Instance.new('UIGradient')
+	VapeLogoGradient.Rotation = 90
+	VapeLogoGradient.Parent = VapeLogo
+	local VapeLogoGradient2 = Instance.new('UIGradient')
+	VapeLogoGradient2.Rotation = 90
+	VapeLogoGradient2.Parent = VapeLogoV4
+	local VapeLabelCustom = Instance.new('TextLabel')
+	VapeLabelCustom.Position = UDim2.fromOffset(5, 2)
+	VapeLabelCustom.BackgroundTransparency = 1
+	VapeLabelCustom.BorderSizePixel = 0
+	VapeLabelCustom.Visible = false
+	VapeLabelCustom.Text = ''
+	VapeLabelCustom.TextSize = 25
+	VapeLabelCustom.FontFace = textguifontcustom.Value
+	VapeLabelCustom.RichText = true
+	local VapeLabelCustomShadow = VapeLabelCustom:Clone()
+	VapeLabelCustom:GetPropertyChangedSignal('Position'):Connect(function()
+		VapeLabelCustomShadow.Position = UDim2.new(
+			VapeLabelCustom.Position.X.Scale,
+			VapeLabelCustom.Position.X.Offset + 1,
+			0,
+			VapeLabelCustom.Position.Y.Offset + 1
+		)
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('FontFace'):Connect(function()
+		VapeLabelCustomShadow.FontFace = VapeLabelCustom.FontFace
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('Text'):Connect(function()
+		VapeLabelCustomShadow.Text = removeTags(VapeLabelCustom.Text)
+	end)
+	VapeLabelCustom:GetPropertyChangedSignal('Size'):Connect(function()
+		VapeLabelCustomShadow.Size = VapeLabelCustom.Size
+	end)
+	VapeLabelCustomShadow.TextColor3 = Color3.new()
+	VapeLabelCustomShadow.TextTransparency = 0.65
+	VapeLabelCustomShadow.Parent = textgui.Children
+	VapeLabelCustom.Parent = textgui.Children
+	local VapeLabelHolder = Instance.new('Frame')
+	VapeLabelHolder.Name = 'Holder'
+	VapeLabelHolder.Size = UDim2.fromScale(1, 1)
+	VapeLabelHolder.Position = UDim2.fromOffset(5, 37)
+	VapeLabelHolder.BackgroundTransparency = 1
+	VapeLabelHolder.Parent = textgui.Children
+	local VapeLabelSorter = Instance.new('UIListLayout')
+	VapeLabelSorter.HorizontalAlignment = Enum.HorizontalAlignment.Right
+	VapeLabelSorter.VerticalAlignment = Enum.VerticalAlignment.Top
+	VapeLabelSorter.SortOrder = Enum.SortOrder.LayoutOrder
+	VapeLabelSorter.Parent = VapeLabelHolder
+
+	--[[
+		Image Display
+	]]
+
+	local imagepath
+	local sizeX, sizeY, scale
+	local image = Instance.new("ImageLabel")
+	local video = Instance.new("VideoFrame")
+	video.Looped = true
+	video.BackgroundTransparency = 1
+	image.BackgroundTransparency = 1
+
+	local function handleImage(path)
+		local ye
+		if path:find("://") then
+			local foldpath = "catrewrite/assets/image/"..math.random(1,50000)
+			writefile(foldpath, game:HttpGet(path))
+			ye = getcustomasset(foldpath)
+		else
+			ye = getcustomasset(path)
+		end
+
+		image.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+		video.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
+		local isVideo = path:find("webm") or path:find("mp4") or path:find("gif")
+		image.Visible = not isVisible
+		video.Visible = isVideo
+
+		if isVideo then
+			video.Video = ye
+			video:Play()
+		else
+			image.Image = ye
+		end
+	end
+
+	local imageobj = mainapi:CreateOverlay({
+		Name = "Image Display",
+		Icon = getcustomasset("catrewrite/assets/new/targetnpc1.png"),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 12),
+		CategorySize = 279,
+		Function = function(callback: boolean)
+			if callback then
+				if handleImage(imagepath.Value) then
+					handleImage(imagepath.Value)
+				end
+			end
+		end
+	})
+	image.Parent = imageobj.Children
+	video.Parent = imageobj.Children
+
+	imagepath = imageobj:CreateTextBox({
+		Name = "Image path",
+		Placeholder = "File path (workspace) or link to image",
+		Function = function(b)
+			if b then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+
+	sizeX = imageobj:CreateSlider({
+		Name = "X",
+		Min = 0,
+		Max = 1920,
+		Default = 500,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+	sizeY = imageobj:CreateSlider({
+		Name = "Y",
+		Min = 0,
+		Max = 1080,
+		Default = 500,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+	scale = imageobj:CreateSlider({
+		Name = "Scale",
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(v)
+			if v then
+				handleImage(imagepath.Value)
+			end
+		end
+	})
+						
+	--[[
+		Spotify Display
+	]]
+
+	local spotify
+	local spotifyobj
+	local spotifybcolor
+	local spotifyrefreshtoken
+	local spotifyannounce
+
+	local spotifybkg = Instance.new('Frame')
+	spotifybkg.Size = UDim2.fromOffset(279, 78)
+	spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	spotifybkg.BackgroundTransparency = 0.5
+	local spotifyblurobj = addBlur(spotifybkg)
+	spotifyblurobj.Visible = true
+	addCorner(spotifybkg)
+	local spotifyshot = Instance.new('ImageLabel')
+	spotifyshot.Size = UDim2.fromOffset(64, 65)
+	spotifyshot.Position = UDim2.fromOffset(6, 7)
+	spotifyshot.BackgroundColor3 = uipallet.Main
+	spotifyshot.Parent = spotifybkg
+	local spotifyshotblur = addBlur(spotifyshot)
+	spotifyshotblur.Visible = true
+	addCorner(spotifyshot)
+	local spotifyname = Instance.new('TextLabel')
+	spotifyname.Size = UDim2.fromOffset(190, 20)
+	spotifyname.Position = UDim2.fromOffset(89, 7)
+	spotifyname.BackgroundTransparency = 1
+	spotifyname.Text = 'Song name'
+	spotifyname.TextXAlignment = Enum.TextXAlignment.Left
+	spotifyname.TextYAlignment = Enum.TextYAlignment.Top
+	spotifyname.TextScaled = true
+	spotifyname.TextColor3 = color.Light(uipallet.Text, 0.4)
+	spotifyname.TextStrokeTransparency = 1
+	spotifyname.FontFace = uipallet.Font
+	local spotifyshadow = spotifyname:Clone()
+	spotifyshadow.Position = UDim2.fromOffset(90, 8)
+	spotifyshadow.TextColor3 = Color3.new()
+	spotifyshadow.TextTransparency = 0.65
+	spotifyshadow.Visible = false
+	spotifyshadow.Parent = spotifybkg
+	local spotifyartistname = Instance.new('TextLabel')
+	spotifyartistname.Size = UDim2.fromOffset(190, 17)
+	spotifyartistname.Position = UDim2.fromOffset(89, 30)
+	spotifyartistname.BackgroundTransparency = 1
+	spotifyartistname.Text = 'Artist name'
+	spotifyartistname.TextXAlignment = Enum.TextXAlignment.Left
+	spotifyartistname.TextYAlignment = Enum.TextYAlignment.Top
+	spotifyartistname.TextScaled = true
+	spotifyartistname.TextColor3 = color.Dark(uipallet.Text, 0.1)
+	spotifyartistname.TextStrokeTransparency = 1
+	spotifyartistname.FontFace = uipallet.Font
+	local spotifyartistshadow = spotifyartistname:Clone()
+	spotifyartistshadow.Position = UDim2.fromOffset(90, 31)
+	spotifyartistshadow.TextColor3 = Color3.new()
+	spotifyartistshadow.TextTransparency = 0.65
+	spotifyartistshadow.Visible = false
+	spotifyartistshadow.Parent = spotifybkg
+	spotifyname:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyshadow.Size = spotifyname.Size
+	end)
+	spotifyname:GetPropertyChangedSignal('Text'):Connect(function()
+		spotifyshadow.Text = spotifyname.Text
+	end)
+	spotifyname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		spotifyshadow.FontFace = spotifyname.FontFace
+	end)
+	spotifyartistname:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyartistshadow.Size = spotifyartistname.Size
+	end)
+	spotifyartistname:GetPropertyChangedSignal('Text'):Connect(function()
+		spotifyartistshadow.Text = spotifyartistname.Text
+	end)
+	spotifyartistname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		spotifyartistshadow.FontFace = spotifyartistname.FontFace
+	end)
+	spotifyname.Parent = spotifybkg
+	spotifyartistname.Parent = spotifybkg
+	local spotifyprogressbkg = Instance.new('Frame')
+	spotifyprogressbkg.Name = 'progressBKG'
+	spotifyprogressbkg.Size = UDim2.fromOffset(156, 9)
+	spotifyprogressbkg.Position = UDim2.fromOffset(82, 56)
+	spotifyprogressbkg.BackgroundColor3 = uipallet.Main
+	spotifyprogressbkg.BorderSizePixel = 0
+	spotifyprogressbkg.Parent = spotifybkg
+	addCorner(spotifyprogressbkg, UDim.new(1, 0))
+	local spotifyprogress = spotifyprogressbkg:Clone()
+	spotifyprogress.Size = UDim2.fromScale(0, 1)
+	spotifyprogress.Position = UDim2.new()
+	spotifyprogress.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
+	spotifyprogress.Parent = spotifyprogressbkg
+	spotifyprogress:GetPropertyChangedSignal('Size'):Connect(function()
+		spotifyprogress.Visible = spotifyprogress.Size.X.Offset > 0.01
+	end)
+	addBlur(spotifyprogress)
+	local spotifyprogressblur = addBlur(spotifyprogressbkg)
+	spotifyprogressblur.SliceCenter = Rect.new(52, 31, 261, 510)
+	spotifyprogressblur.ImageColor3 = Color3.new()
+	spotifyprogressblur.Visible = true
+	local spotifyb = Instance.new('UIStroke')
+	spotifyb.Enabled = false
+	spotifyb.Color = Color3.fromHSV(0.44, 1, 1)
+	spotifyb.Parent = spotifybkg
+	local spotifyprogresstime = Instance.new('TextLabel')
+	spotifyprogresstime.Size = UDim2.fromOffset(36, 15)
+	spotifyprogresstime.Position = UDim2.fromOffset(240, 52.6)
+	spotifyprogresstime.Text = "0:00"
+	spotifyprogresstime.TextColor3 = color.Dark(uipallet.Text, 0.1)
+	spotifyprogresstime.BackgroundTransparency = 1
+	spotifyprogresstime.TextScaled = true
+	spotifyprogresstime.Parent = spotifybkg
+	spotifyprogresstime.FontFace = uipallet.Font
+
+	local enabled = false
+	spotifyobj = mainapi:CreateOverlay({
+		Name = "Spotify Display",
+		Icon = getcustomasset("catrewrite/assets/new/spotify.png"),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 12),
+		CategorySize = 279,
+		Function = function(callback: boolean)
+			enabled = callback
+			if callback then
+				if #spotifyrefreshtoken.Value < 5 then
+					notif("Spotify Display", "No refresh token!", 10, "alert")
+				else
+					writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value)
+				end
+				if isfile("label.png") then
+					delfile("label.png")
+				end
+				local Spotify = mainapi.Libraries.spotify
+				local updateTick = tick()
+				local TOKEN = ""
+				spotifyobj:Clean(runService.Heartbeat:Connect(function()
+					if updateTick < tick() then
+						updateTick = tick() + 1200
+						TOKEN = Spotify:UpdateToken(spotifyrefreshtoken.Value, "9814867a949d46e8a379fa64cfbc5026", "dd7bc97681aa48379795c5aaa54fb1f3")
+					end
+				end))
+				spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
+					mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
+					if spotifyannounce.Enabled then
+						local msg = "I'm listening to "..name.." - "..artist
+						if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+							textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
+						else
+							replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
+						end
+					end
+				end))
+				local song = ""
+				repeat
+					task.wait()
+					if TOKEN ~= "" then
+						local data = Spotify:GetData(TOKEN)
+						if data.song then
+						
+							spotifyname.Text = data.song.name
+							spotifyartistname.Text = data.song.artist
+							tweenService:Create(spotifyprogress, TweenInfo.new(0.16, Enum.EasingStyle.Linear), {Size = UDim2.new(0, spotifyprogressbkg.Size.X.Offset / (data.playback.total / data.playback.current), 0, spotifyprogressbkg.Size.Y.Offset)}):Play()
+							
+							spotifyprogresstime.Text = Spotify:ConvertTime(data.playback.current)
+							
+							if song ~= data.song.name then
+								song = data.song.name
+								local path = "catrewrite/assets/trash/"..data.song.name
+								path = path.." "..data.song.artist..".png"
+								makefolder("catrewrite/assets/trash")
+								writefile(path, game:HttpGet(data.song.cover))
+								spotifyshot.Image = getcustomasset(path)
+							end
+						end
+					end
+				until (not enabled)
+			end
+		end
+	})
+	spotifybkg.Parent = spotifyobj.Children
+
+	spotifyrefreshtoken = spotifyobj:CreateTextBox({
+		Name = "Refresh Token",
+		Placeholder = "Spotify Refresh Token",
+		Default = isfile("catrewrite/profiles/spotify.txt") and readfile("catrewrite/profiles/spotify.txt") or nil,
+		Function = function(b)
+			if b then writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value) end
+			if spotifyobj.Enabled and b then
+				spotifyobj:Toggle()
+				spotifyobj:Toggle()
+			end
+		end
+	})
+
+	spotifyobj:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function(val)
+			spotifyname.FontFace = val
+			spotifyartistname.FontFace = val
+			spotifyprogresstime.FontFace = val
+		end
+	})
+	local spotifybackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	spotifyobj:CreateToggle({
+		Name = 'Render Background',
+		Function = function(callback)
+			spotifybkg.BackgroundTransparency = callback and spotifybackgroundtransparency.Value or 1
+			spotifyshadow.Visible = not callback
+			spotifyartistshadow.Visible = not callback
+			spotifyblurobj.Visible = callback
+			
+			spotifybackgroundtransparency.Object.Visible = callback
+		end,
+		Default = true
+	})
+	spotifybackgroundtransparency = spotifyobj:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(val)
+			spotifybkg.BackgroundTransparency = val
+		end,
+		Darker = true
+	})
+	local spotifycolor
+	local spotifycolortoggle = spotifyobj:CreateToggle({
+		Name = 'Custom Color',
+		Function = function(callback)
+			spotifycolor.Object.Visible = callback
+			if callback then
+				spotifybkg.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, spotifycolor.Value)
+				spotifyshot.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, math.max(spotifycolor.Value - 0.1, 0.075))
+				spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
+			else
+				spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+				spotifyshot.BackgroundColor3 = uipallet.Main
+				spotifyprogressbkg.BackgroundColor3 = uipallet.Main
+			end
+		end
+	})
+	spotifycolor = spotifyobj:CreateColorSlider({
+		Name = 'Color',
+		Function = function(hue, sat, val)
+			if spotifycolortoggle.Enabled then
+				spotifybkg.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				spotifyshot.BackgroundColor3 = Color3.fromHSV(hue, sat, math.max(val - 0.1, 0))
+				spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
+			end
+		end,
+		Darker = true,
+		Visible = false
+	})
+	spotifyobj:CreateToggle({
+		Name = 'Border',
+		Function = function(callback)
+			spotifyb.Enabled = callback
+			spotifybcolor.Object.Visible = callback
+		end
+	})
+	spotifybcolor = spotifyobj:CreateColorSlider({
+		Name = 'Border Color',
+		Function = function(hue, sat, val, opacity)
+			spotifyb.Color = Color3.fromHSV(hue, sat, val)
+			spotifyb.Transparency = 1 - opacity
+		end,
+		Darker = true,
+		Visible = false
+	})
+	spotifyannounce = spotifyobj:CreateToggle({
+		Name = "Announce Song",
+		Visible = true
+	})
+
+	--[[
+		Target Info
+	]]
+
+	local targetinfo
+	local targetinfoobj
+	local targetinfobcolor
+	local targetinfobkg
+	local targetinfofollow
+	targetinfoobj = mainapi:CreateOverlay({
+		Name = 'Target Info',
+		Icon = getcustomasset('catrewrite/assets/new/targetinfoicon.png'),
+		Size = UDim2.fromOffset(14, 14),
+		Position = UDim2.fromOffset(12, 14),
+		CategorySize = 240,
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat
+						local target = targetinfo:UpdateInfo()
+						if targetinfofollow and targetinfofollow.Enabled and target then
+							local vec, screen = workspace.CurrentCamera:WorldToScreenPoint(target.Position)
+							if screen then
+								targetinfobkg.Parent.Parent.Position = UDim2.fromOffset(vec.X, vec.Y)
+							end
+						end
+						task.wait(0)
+					until not targetinfoobj.Button or not targetinfoobj.Button.Enabled
+				end)
+			end
+		end
+	})
+
+	--[[
+		New
+	]]
+
+	local handler = Instance.new('Frame')
+	handler.Size = UDim2.fromOffset(240, 89)
+	handler.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	handler.BackgroundTransparency = 1
+	handler.Parent = targetinfoobj.Children
+
+	targetinfobkg = Instance.new('Frame')
+	targetinfobkg.Size = UDim2.fromOffset(240, 89)
+	targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+	targetinfobkg.BackgroundTransparency = 0.5
+	targetinfobkg.Parent = handler
+
+	local targetinfoblurobj = addBlur(targetinfobkg)
+	targetinfoblurobj.Visible = true
+	addCorner(targetinfobkg)
+	local targetinfoshot = Instance.new('ImageLabel')
+	targetinfoshot.Size = UDim2.fromOffset(26, 27)
+	targetinfoshot.Position = UDim2.fromOffset(19, 17)
+	targetinfoshot.BackgroundColor3 = uipallet.Main
+	targetinfoshot.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
+	targetinfoshot.Parent = targetinfobkg
+	local targetinfoshotflash = Instance.new('Frame')
+	targetinfoshotflash.Size = UDim2.fromScale(1, 1)
+	targetinfoshotflash.BackgroundTransparency = 1
+	targetinfoshotflash.BackgroundColor3 = Color3.new(1, 0, 0)
+	targetinfoshotflash.Parent = targetinfoshot
+	addCorner(targetinfoshotflash)
+	local targetinfoshotblur = addBlur(targetinfoshot)
+	targetinfoshotblur.Visible = true
+	addCorner(targetinfoshot)
+	local targetinfoname = Instance.new('TextLabel')
+	targetinfoname.Size = UDim2.fromOffset(145, 20)
+	targetinfoname.Position = UDim2.fromOffset(54, 20)
+	targetinfoname.BackgroundTransparency = 1
+	targetinfoname.Text = 'Target name'
+	targetinfoname.TextXAlignment = Enum.TextXAlignment.Left
+	targetinfoname.TextYAlignment = Enum.TextYAlignment.Top
+	targetinfoname.TextScaled = true
+	targetinfoname.TextColor3 = color.Light(uipallet.Text, 0.4)
+	targetinfoname.TextStrokeTransparency = 1
+	targetinfoname.FontFace = uipallet.Font
+	local targetinfoshadow = targetinfoname:Clone()
+	targetinfoshadow.Position = UDim2.fromOffset(55, 21)
+	targetinfoshadow.TextColor3 = Color3.new()
+	targetinfoshadow.TextTransparency = 0.65
+	targetinfoshadow.Visible = false
+	targetinfoshadow.Parent = targetinfobkg
+	targetinfoname:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfoshadow.Size = targetinfoname.Size
+	end)
+	targetinfoname:GetPropertyChangedSignal('Text'):Connect(function()
+		targetinfoshadow.Text = targetinfoname.Text
+	end)
+	targetinfoname:GetPropertyChangedSignal('FontFace'):Connect(function()
+		targetinfoshadow.FontFace = targetinfoname.FontFace
+	end)
+	targetinfoname.Parent = targetinfobkg
+	local targetinfohealthbkg = Instance.new('Frame')
+	targetinfohealthbkg.Name = 'HealthBKG'
+	targetinfohealthbkg.Size = UDim2.fromOffset(200, 9)
+	targetinfohealthbkg.Position = UDim2.fromOffset(20, 56)
+	targetinfohealthbkg.BackgroundColor3 = uipallet.Main
+	targetinfohealthbkg.BorderSizePixel = 0
+	targetinfohealthbkg.Parent = targetinfobkg
+	addCorner(targetinfohealthbkg, UDim.new(1, 0))
+	local targetinfohealth = targetinfohealthbkg:Clone()
+	targetinfohealth.Size = UDim2.fromScale(0.8, 1)
+	targetinfohealth.Position = UDim2.new()
+	targetinfohealth.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
+	targetinfohealth.Parent = targetinfohealthbkg
+	targetinfohealth:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfohealth.Visible = targetinfohealth.Size.X.Scale > 0.01
+	end)
+	local targetinfohealthextra = targetinfohealth:Clone()
+	targetinfohealthextra.Size = UDim2.new()
+	targetinfohealthextra.Position = UDim2.fromScale(1, 0)
+	targetinfohealthextra.AnchorPoint = Vector2.new(1, 0)
+	targetinfohealthextra.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+	targetinfohealthextra.Visible = false
+	targetinfohealthextra.Parent = targetinfohealthbkg
+	targetinfohealthextra:GetPropertyChangedSignal('Size'):Connect(function()
+		targetinfohealthextra.Visible = targetinfohealthextra.Size.X.Scale > 0.01
+	end)
+	local targetinfohealthblur = addBlur(targetinfohealthbkg)
+	targetinfohealthblur.SliceCenter = Rect.new(52, 31, 261, 510)
+	targetinfohealthblur.ImageColor3 = Color3.new()
+	targetinfohealthblur.Visible = true
+	local targetinfob = Instance.new('UIStroke')
+	targetinfob.Enabled = false
+	targetinfob.Color = Color3.fromHSV(0.44, 1, 1)
+	targetinfob.Parent = targetinfobkg
+
+	--[[
+		Old
+	]]
+
+	local TargetInfoMainFrame = Instance.new('Frame')
+	TargetInfoMainFrame.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoMainFrame.BorderSizePixel = 0
+	TargetInfoMainFrame.BackgroundTransparency = 1
+	TargetInfoMainFrame.Size = UDim2.new(0, 220, 0, 72)
+	TargetInfoMainFrame.Position = UDim2.new(0, 0, 0, 5)
+	TargetInfoMainFrame.Parent = targetinfoobj.Children
+	TargetInfoMainFrame.Visible = false
+
+	local TargetInfoFrameShadow = Instance.new('ImageLabel')
+	TargetInfoFrameShadow.BackgroundTransparency = 1
+	TargetInfoFrameShadow.Position = UDim2.fromScale(-0.041, -0.125)
+	TargetInfoFrameShadow.Size = UDim2.fromOffset(237, 97)
+	TargetInfoFrameShadow.ZIndex = -1
+	TargetInfoFrameShadow.Image = 'rbxassetid://123343128195297'
+	TargetInfoFrameShadow.Parent = TargetInfoMainFrame
+
+	local TargetInfoMainInfo = Instance.new('Frame')
+	TargetInfoMainInfo.BackgroundColor3 = Color3.fromRGB(31, 30, 31)
+	TargetInfoMainInfo.Size = UDim2.new(0, 220, 0, 80)
+	TargetInfoMainInfo.BackgroundTransparency = 0.5
+	TargetInfoMainInfo.Position = UDim2.new(0, 0, 0, 0)
+	TargetInfoMainInfo.Name = 'MainInfo'
+	TargetInfoMainInfo.Parent = TargetInfoMainFrame
+	local TargetInfoName = Instance.new('TextLabel')
+	TargetInfoName.Font = Enum.Font.Arial
+	TargetInfoName.TextColor3 = Color3.fromRGB(182, 182, 182)
+	TargetInfoName.Position = UDim2.new(0, 70, 0, 13)
+	TargetInfoName.TextStrokeTransparency = 1
+	TargetInfoName.BackgroundTransparency = 1
+	TargetInfoName.TextSize = 14
+	TargetInfoName.Size = UDim2.new(0, 80, 0, 20)
+	TargetInfoName.Text = 'None'
+	TargetInfoName.ZIndex = 2
+	TargetInfoName.TextXAlignment = Enum.TextXAlignment.Left
+	TargetInfoName.TextYAlignment = Enum.TextYAlignment.Top
+	TargetInfoName.Parent = TargetInfoMainInfo
+	local TargetInfoNameShadow = TargetInfoName:Clone()
+	TargetInfoNameShadow.Size = UDim2.new(1, 0, 1, 0)
+	TargetInfoNameShadow.TextTransparency = 0.5
+	TargetInfoNameShadow.TextColor3 = Color3.new()
+	TargetInfoNameShadow.ZIndex = 1
+	TargetInfoNameShadow.Position = UDim2.new(0, 1, 0, 1)
+	TargetInfoName:GetPropertyChangedSignal('Text'):Connect(function()
+		TargetInfoNameShadow.Text = TargetInfoName.Text
+	end)
+	TargetInfoNameShadow.Parent = TargetInfoName
+	local TargetInfoHealthBackground = Instance.new('Frame')
+	TargetInfoHealthBackground.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoHealthBackground.Size = UDim2.new(0, 140, 0, 4)
+	TargetInfoHealthBackground.Position = UDim2.new(0, 71, 0, 35)
+	TargetInfoHealthBackground.Parent = TargetInfoMainInfo
+	local TargetInfoHealthBackgroundShadow = Instance.new('ImageLabel')
+	TargetInfoHealthBackgroundShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	TargetInfoHealthBackgroundShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	TargetInfoHealthBackgroundShadow.Image = 'rbxassetid://13350795660'
+	TargetInfoHealthBackgroundShadow.BackgroundTransparency = 1
+	TargetInfoHealthBackgroundShadow.ImageTransparency = 0.6
+	TargetInfoHealthBackgroundShadow.ZIndex = -1
+	TargetInfoHealthBackgroundShadow.Size = UDim2.new(1, 6, 1, 6)
+	TargetInfoHealthBackgroundShadow.ImageColor3 = Color3.new()
+	TargetInfoHealthBackgroundShadow.ScaleType = Enum.ScaleType.Slice
+	TargetInfoHealthBackgroundShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+	TargetInfoHealthBackgroundShadow.Parent = TargetInfoHealthBackground
+	local TargetInfoHealth = Instance.new('Frame')
+	TargetInfoHealth.BackgroundColor3 = Color3.fromRGB(115, 255, 110)
+	TargetInfoHealth.Size = UDim2.new(1, 0, 1, 0)
+	TargetInfoHealth.ZIndex = 3
+	TargetInfoHealth.BorderSizePixel = 0
+	TargetInfoHealth.Parent = TargetInfoHealthBackground
+	local TargetInfoHealthExtra = Instance.new('Frame')
+	TargetInfoHealthExtra.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+	TargetInfoHealthExtra.Size = UDim2.new(0, 0, 1, 0)
+	TargetInfoHealthExtra.ZIndex = 4
+	TargetInfoHealthExtra.BorderSizePixel = 0
+	TargetInfoHealthExtra.AnchorPoint = Vector2.new(1, 0)
+	TargetInfoHealthExtra.Position = UDim2.new(1, 0, 0, 0)
+	TargetInfoHealthExtra.Parent = TargetInfoHealth
+	local TargetInfoImage = Instance.new('ImageLabel')
+	TargetInfoImage.Size = UDim2.new(0, 50, 0, 50)
+	TargetInfoImage.BackgroundTransparency = 0
+	TargetInfoImage.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
+	TargetInfoImage.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
+	TargetInfoImage.Position = UDim2.new(0, 10, 0, 16)
+
+	local targetinfoshotflashold = Instance.new('Frame')
+	targetinfoshotflashold.Size = UDim2.fromScale(1, 1)
+	targetinfoshotflashold.BackgroundTransparency = 1
+	targetinfoshotflashold.BackgroundColor3 = Color3.new(1, 0, 0)
+	targetinfoshotflashold.Parent = TargetInfoImage
+	addCorner(targetinfoshotflashold)
+
+	TargetInfoImage.Parent = TargetInfoMainInfo
+	local TargetInfoMainInfoCorner = Instance.new('UICorner')
+	TargetInfoMainInfoCorner.CornerRadius = UDim.new(0, 6)
+	TargetInfoMainInfoCorner.Parent = TargetInfoMainInfo
+	local TargetInfoHealthBackgroundCorner = Instance.new('UICorner')
+	TargetInfoHealthBackgroundCorner.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthBackgroundCorner.Parent = TargetInfoHealthBackground
+	local TargetInfoHealthCorner = Instance.new('UICorner')
+	TargetInfoHealthCorner.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthCorner.Parent = TargetInfoHealth
+	local TargetInfoHealthCorner2 = Instance.new('UICorner')
+	TargetInfoHealthCorner2.CornerRadius = UDim.new(0, 2048)
+	TargetInfoHealthCorner2.Parent = TargetInfoHealthExtra
+	local TargetInfoHealthExtraCorner = Instance.new('UICorner')
+	TargetInfoHealthExtraCorner.CornerRadius = UDim.new(0, 8)
+	TargetInfoHealthExtraCorner.Parent = TargetInfoImage
+
+	local TargetInfoHud = isfile('catrewrite/profiles/hud.txt') and readfile('catrewrite/profiles/hud.txt') or 'new'
+	targetinfoobj:CreateDropdown({
+		Name = 'Gui Mode',
+		List = {'old', 'new'},
+		Default = 'new',
+		Function = function(val)
+			TargetInfoHud = val
+			writefile('catrewrite/profiles/hud.txt', val)
+			TargetInfoMainFrame.Visible = val == 'old'
+			handler.Visible = val == 'new'
+		end
+	})
+	TargetInfoMainFrame.Visible = TargetInfoHud == 'old'
+	handler.Visible = TargetInfoHud == 'new'
+	targetinfoobj:CreateFont({
+		Name = 'Font',
+		Blacklist = 'Arial',
+		Function = function(val)
+			targetinfoname.FontFace = val
+			TargetInfoName.FontFace = val
+			TargetInfoNameShadow.FontFace = val
+		end
+	})
+	local targetinfobackgroundtransparency = {
+		Value = 0.5,
+		Object = {Visible = {}}
+	}
+	local targetinfodisplay = targetinfoobj:CreateToggle({
+		Name = 'Use Displayname',
+		Default = true
+	})
+	targetinfoobj:CreateToggle({
+		Name = 'Render Background',
+		Function = function(callback)
+			targetinfobkg.BackgroundTransparency = callback and targetinfobackgroundtransparency.Value or 1
+			TargetInfoMainInfo.BackgroundTransparency = targetinfobkg.BackgroundTransparency
+			targetinfoshadow.Visible = not callback
+			targetinfoblurobj.Visible = callback
+			targetinfobackgroundtransparency.Object.Visible = callback
+		end,
+		Default = true
+	})
+	targetinfofollow = targetinfoobj:CreateToggle({
+		Name = 'Follow Player',
+		Function = function(callback) end,
+		Default = true
+	})
+	targetinfobackgroundtransparency = targetinfoobj:CreateSlider({
+		Name = 'Transparency',
+		Min = 0,
+		Max = 1,
+		Default = 0.5,
+		Decimal = 10,
+		Function = function(val)
+			targetinfobkg.BackgroundTransparency = val
+		end,
+		Darker = true
+	})
+	local targetinfocolor
+	local targetinfocolortoggle = targetinfoobj:CreateToggle({
+		Name = 'Custom Color',
+		Function = function(callback)
+			targetinfocolor.Object.Visible = callback
+			if callback then
+				targetinfobkg.BackgroundColor3 = Color3.fromHSV(targetinfocolor.Hue, targetinfocolor.Sat, targetinfocolor.Value)
+				targetinfoshot.BackgroundColor3 = Color3.fromHSV(targetinfocolor.Hue, targetinfocolor.Sat, math.max(targetinfocolor.Value - 0.1, 0.075))
+				targetinfohealthbkg.BackgroundColor3 = targetinfoshot.BackgroundColor3
+			else
+				targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
+				targetinfoshot.BackgroundColor3 = uipallet.Main
+				targetinfohealthbkg.BackgroundColor3 = uipallet.Main
+			end
+		end
+	})
+	targetinfocolor = targetinfoobj:CreateColorSlider({
+		Name = 'Color',
+		Function = function(hue, sat, val)
+			if targetinfocolortoggle.Enabled then
+				targetinfobkg.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				targetinfoshot.BackgroundColor3 = Color3.fromHSV(hue, sat, math.max(val - 0.1, 0))
+				targetinfohealthbkg.BackgroundColor3 = targetinfoshot.BackgroundColor3
+			end
+		end,
+		Darker = true,
+		Visible = false
+	})
+	targetinfoobj:CreateToggle({
+		Name = 'Border',
+		Function = function(callback)
+			targetinfob.Enabled = callback
+			targetinfobcolor.Object.Visible = callback
+		end
+	})
+	targetinfobcolor = targetinfoobj:CreateColorSlider({
+		Name = 'Border Color',
+		Function = function(hue, sat, val, opacity)
+			targetinfob.Color = Color3.fromHSV(hue, sat, val)
+			targetinfob.Transparency = 1 - opacity
+		end,
+		Darker = true,
+		Visible = false
+	})
+
+	local lasthealth = 0
+	local lastmaxhealth = 0
+	targetinfo = {
+		Targets = {},
+		Object = targetinfobkg,
+		oldparent = TargetInfoMainFrame,
+		UpdateInfo = function(self)
+			local entitylib = mainapi.Libraries
+			if not entitylib then return end
+
+			for i, v in self.Targets do
+				if v < os.clock() then
+					self.Targets[i] = nil
+				end
+			end
+
+			local v, highest = nil, os.clock()
+			for i, check in self.Targets do
+				if check > highest then
+					v = i
+					highest = check
+				end
+			end
+
+			targetinfobkg.Visible = v ~= nil or mainapi.gui.ScaledGui.ClickGui.Visible
+			TargetInfoMainInfo.Visible = targetinfobkg.Visible
+			TargetInfoFrameShadow.Visible = targetinfobkg.Visible
+			if v then
+				targetinfoname.Text = v.Player and (targetinfodisplay.Enabled and v.Player.DisplayName or v.Player.Name) or v.Character and v.Character.Name or targetinfoname.Text
+				TargetInfoName.Text = targetinfoname.Text
+				TargetInfoNameShadow.Text = targetinfoname.Text
+				targetinfoshot.Image = 'rbxthumb://type=AvatarHeadShot&id='..(v.Player and v.Player.UserId or 1)..'&w=420&h=420'
+				TargetInfoImage.Image = targetinfoshot.Image
+
+				if not v.Character then
+					v.Health = v.Health or 0
+					v.MaxHealth = v.MaxHealth or 100
+				end
+
+				if v.Health ~= lasthealth or v.MaxHealth ~= lastmaxhealth then
+					task.spawn(function()
+						local percent = math.max(v.Health / v.MaxHealth, 0)
+						tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+						})
+						tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+						})
+						tween:Tween(TargetInfoHealth, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+						})
+						tween:Tween(TargetInfoHealthExtra, TweenInfo.new(0.3), {
+							Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+						})
+						if lasthealth > v.Health and self.LastTarget == v then
+							tween:Cancel(targetinfoshotflash)
+							tween:Cancel(targetinfoshotflashold)
+							targetinfoshotflash.BackgroundTransparency = 0.3
+							targetinfoshotflashold.BackgroundTransparency = 0.3
+							tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
+								BackgroundTransparency = 1
+							})
+							tween:Tween(targetinfoshotflashold, TweenInfo.new(0.5), {
+								BackgroundTransparency = 1
+							})
+						end
+						lasthealth = v.Health
+						lastmaxhealth = v.MaxHealth
+					end)
+				end
+
+				if not v.Character then table.clear(v) end
+				self.LastTarget = v
+			end
+			return v and v.Head
+		end
+	}
+	mainapi.Libraries.targetinfo = targetinfo
+
+	function mainapi:UpdateTextGUI(afterload)
+		if not afterload and not mainapi.Loaded then return end
+		if textgui.Button.Enabled then
+			local right = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
+			VapeLogo.Visible = textguiwatermark.Enabled
+			VapeLogo.Position = right and UDim2.new(1 / VapeTextScale.Scale, -113, 0, 6) or UDim2.fromOffset(0, 6)
+			VapeLogoShadow.Visible = textguishadow.Enabled
+			VapeLabelCustom.Text = textguibox.Value
+			VapeLabelCustom.FontFace = textguifontcustom.Value
+			VapeLabelCustom.Visible = VapeLabelCustom.Text ~= '' and textguitext.Enabled
+			VapeLabelCustomShadow.Visible = VapeLabelCustom.Visible and textguishadow.Enabled
+			VapeLabelSorter.HorizontalAlignment = right and Enum.HorizontalAlignment.Right or Enum.HorizontalAlignment.Left
+			VapeLabelHolder.Size = UDim2.fromScale(1 / VapeTextScale.Scale, 1)
+			VapeLabelHolder.Position = UDim2.fromOffset(right and 3 or 0, 11 + (VapeLogo.Visible and VapeLogo.Size.Y.Offset or 0) + (VapeLabelCustom.Visible and 28 or 0) + (textguibackground.Enabled and 3 or 0))
+			if VapeLabelCustom.Visible then
+				local size = getfontsize(removeTags(VapeLabelCustom.Text), VapeLabelCustom.TextSize, VapeLabelCustom.FontFace)
+				VapeLabelCustom.Size = UDim2.fromOffset(size.X, size.Y)
+				VapeLabelCustom.Position = UDim2.new(right and 1 / VapeTextScale.Scale or 0, right and -size.X or 0, 0, (VapeLogo.Visible and 32 or 8))
+			end
+
+			local found = {}
+			for _, v in VapeLabels do
+				if v.Enabled then
+					table.insert(found, v.Object.Name)
+				end
+				v.Object:Destroy()
+			end
+			table.clear(VapeLabels)
+
+			local info = TweenInfo.new(0.3, Enum.EasingStyle.Exponential)
+			for i, v in mainapi.Modules do
+				if textguimodules.Enabled and table.find(textguimoduleslist.ListEnabled, i) then continue end
+				if textguirender.Enabled and v.Category == 'Render' then continue end
+				if v.Enabled or table.find(found, i) then
+					local holder = Instance.new('Frame')
+					holder.Name = i
+					holder.Size = UDim2.fromOffset()
+					holder.BackgroundTransparency = 1
+					holder.ClipsDescendants = true
+					holder.Parent = VapeLabelHolder
+					local holderbackground
+					local holdercolorline
+					if textguibackground.Enabled then
+						holderbackground = Instance.new('Frame')
+						holderbackground.Size = UDim2.new(1, 3, 1, 0)
+						holderbackground.BackgroundColor3 = color.Dark(uipallet.Main, 0.15)
+						holderbackground.BackgroundTransparency = textguibackgroundtransparency.Value
+						holderbackground.BorderSizePixel = 0
+						holderbackground.Parent = holder
+						local holderline = Instance.new('Frame')
+						holderline.Size = UDim2.new(1, 0, 0, 1)
+						holderline.Position = UDim2.new(0, 0, 1, -1)
+						holderline.BackgroundColor3 = Color3.new()
+						holderline.BackgroundTransparency = 0.928 + (0.072 * math.clamp((textguibackgroundtransparency.Value - 0.5) / 0.5, 0, 1))
+						holderline.BorderSizePixel = 0
+						holderline.Parent = holderbackground
+						local holderline2 = holderline:Clone()
+						holderline2.Name = 'Line'
+						holderline2.Position = UDim2.new()
+						holderline2.Parent = holderbackground
+						if textguicornersidebar.Enabled then
+							holderline.Visible = false
+		
+							holderbackground.Position = UDim2.fromOffset(-5, 0)
+		
+							local cornerLine = Instance.new('ImageLabel', holderbackground)
+							cornerLine.ImageColor3 = Color3.fromRGB(47, 122, 229)
+							cornerLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
+							cornerLine.Size = UDim2.new(0, 4, 0.9, 0)
+							cornerLine.AnchorPoint = Vector2.new(0, 0.5)
+							cornerLine.Image = 'rbxassetid://73104725656509'
+							cornerLine.BackgroundTransparency = 1
+							cornerLine.Position = UDim2.new(1, 0, 0.5, 0)
+							cornerLine.ZIndex = -1
+							cornerLine.BorderSizePixel = 0
+							cornerLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+							holdercolorline = cornerLine
+						else
+							holdercolorline = Instance.new('Frame')
+							holdercolorline.Size = UDim2.new(0, 2, 1, 0)
+							holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
+							holdercolorline.BorderSizePixel = 0	
+							holdercolorline.Parent = holderbackground
+						end
+					end
+					local holdertext = Instance.new('TextLabel')
+					holdertext.Position = UDim2.fromOffset(right and 3 or 6, 2)
+					holdertext.BackgroundTransparency = 1
+					holdertext.BorderSizePixel = 0
+					holdertext.Text = translateTo(i)..(v.ExtraText and " <font color='#A8A8A8'>"..translateTo(v.ExtraText())..'</font>' or '')
+					holdertext.TextSize = 15
+					holdertext.FontFace = textguifont.Value
+					holdertext.RichText = true
+					local size = getfontsize(removeTags(holdertext.Text), holdertext.TextSize, holdertext.FontFace)
+					holdertext.Size = UDim2.fromOffset(size.X, size.Y)
+					if textguishadow.Enabled then
+						local holderdrop = holdertext:Clone()
+						holderdrop.Position = UDim2.fromOffset(holdertext.Position.X.Offset + 1, holdertext.Position.Y.Offset + 1)
+						holderdrop.Text = removeTags(holdertext.Text)
+						holderdrop.TextColor3 = Color3.new()
+						holderdrop.Parent = holder
+					end
+					holdertext.Parent = holder
+					local holdersize = UDim2.fromOffset(size.X + 10, size.Y + (textguibackground.Enabled and 5 or 3))
+					if textguianimations.Enabled then
+						if not table.find(found, i) then
+							tween:Tween(holder, info, {
+								Size = holdersize
+							})
+						else
+							holder.Size = holdersize
+							if not v.Enabled then
+								tween:Tween(holder, info, {
+									Size = UDim2.fromOffset()
+								})
+							end
+						end
+					else
+						holder.Size = v.Enabled and holdersize or UDim2.fromOffset()
+					end
+					table.insert(VapeLabels, {
+						Object = holder,
+						Text = holdertext,
+						Background = holderbackground,
+						Color = holdercolorline,
+						Enabled = v.Enabled
+					})
+				end
+			end
+
+			if textguisort.Value == 'Alphabetical' then
+				table.sort(VapeLabels, function(a, b)
+					return a.Text.Text < b.Text.Text
+				end)
+			else
+				table.sort(VapeLabels, function(a, b)
+					return a.Text.Size.X.Offset > b.Text.Size.X.Offset
+				end)
+			end
+
+			for i, v in VapeLabels do
+				if v.Color then
+					v.Color.Parent.Line.Visible = i ~= 1
+				end
+				v.Object.LayoutOrder = i
+			end
+		end
+
+		mainapi:UpdateGUI(mainapi.GUIColor.Hue, mainapi.GUIColor.Sat, mainapi.GUIColor.Value, true)
+	end
+
+	function mainapi:UpdateGUI(hue, sat, val, default)
+		if mainapi.Loaded == nil then return end
+		if not default and mainapi.GUIColor.Rainbow then return end
+		if textgui.Button.Enabled then
+			VapeLogoGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromHSV(hue, sat, val)),
+				ColorSequenceKeypoint.new(1, textguigradient.Enabled and Color3.fromHSV(mainapi:Color((hue - 0.075) % 1)) or Color3.fromHSV(hue, sat, val))
+			})
+			VapeLogoGradient2.Color = textguigradient.Enabled and textguigradientv4.Enabled and VapeLogoGradient.Color or ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+				ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
+			})
+			VapeLabelCustom.TextColor3 = textguicolorcustomtoggle.Enabled and Color3.fromHSV(textguicolorcustom.Hue, textguicolorcustom.Sat, textguicolorcustom.Value) or VapeLogoGradient.Color.Keypoints[2].Value
+
+			local customcolor = textguicolordrop.Value == 'Custom color' and Color3.fromHSV(textguicolor.Hue, textguicolor.Sat, textguicolor.Value) or nil
+			for i, v in VapeLabels do
+				v.Text.TextColor3 = customcolor or (mainapi.GUIColor.Rainbow and Color3.fromHSV(mainapi:Color((hue - ((textguigradient and i + 2 or i) * 0.025)) % 1)) or VapeLogoGradient.Color.Keypoints[2].Value)
+				if v.Color then
+					v.Color.BackgroundColor3 = v.Text.TextColor3
+					if v.Color:IsA('ImageLabel') then
+						v.Color.ImageColor3 = v.Text.TextColor3
+					end
+				end
+				if textguibackgroundtint.Enabled and v.Background then
+					v.Background.BackgroundColor3 = color.Dark(v.Text.TextColor3, 0.75)
+				end
+			end
+		end
+
+		if not clickgui.Visible and not mainapi.Legit.Window.Visible then return end
+		local rainbow = mainapi.GUIColor.Rainbow and mainapi.RainbowMode.Value ~= 'Retro'
+
+		for i, v in mainapi.Categories do
+			if i == 'Main' then
+				v.Object.VapeLogo.V4Logo.ImageColor3 = Color3.fromHSV(hue, sat, val)
+				for _, button in v.Buttons do
+					if button.Enabled then
+						button.Object.TextColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1)) or Color3.fromHSV(hue, sat, val)
+						if button.Icon then
+							button.Icon.ImageColor3 = button.Object.TextColor3
+						end
+					end
+				end
+			end
+
+			if v.Options then
+				for _, option in v.Options do
+					if option.Color then
+						option:Color(hue, sat, val, rainbow)
+					end
+				end
+			end
+
+			if v.Type == 'CategoryList' then
+				v.Object.Children.Add.AddButton.ImageColor3 = rainbow and Color3.fromHSV(mainapi:Color(hue % 1)) or Color3.fromHSV(hue, sat, val)
+				if v.Selected then
+					v.Selected.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color(hue % 1)) or Color3.fromHSV(hue, sat, val)
+					v.Selected.Title.TextColor3 = mainapi.GUIColor.Rainbow and Color3.new(0.19, 0.19, 0.19) or mainapi:TextColor(hue, sat, val)
+					v.Selected.Dots.Dots.ImageColor3 = v.Selected.Title.TextColor3
+					v.Selected.Bind.Icon.ImageColor3 = v.Selected.Title.TextColor3
+					v.Selected.Bind.TextLabel.TextColor3 = v.Selected.Title.TextColor3
+				end
+			end
+		end
+
+		for _, button in mainapi.Modules do
+			if button.Enabled then
+				button.Object.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1)) or Color3.fromHSV(hue, sat, val)
+				button.Object.TextColor3 = mainapi.GUIColor.Rainbow and Color3.new(0.19, 0.19, 0.19) or mainapi:TextColor(hue, sat, val)
+				button.Object.UIGradient.Enabled = rainbow and mainapi.RainbowMode.Value == 'Gradient'
+				if button.Object.UIGradient.Enabled then
+					button.Object.BackgroundColor3 = Color3.new(1, 1, 1)
+					button.Object.UIGradient.Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1))),
+						ColorSequenceKeypoint.new(1, Color3.fromHSV(mainapi:Color((hue - ((button.Index + 1) * 0.025)) % 1)))
+					})
+				end
+				button.Object.Bind.Icon.ImageColor3 = button.Object.TextColor3
+				button.Object.Bind.TextLabel.TextColor3 = button.Object.TextColor3
+				button.Object.Dots.Dots.ImageColor3 = button.Object.TextColor3
+			end
+
+			for _, option in button.Options do
+				if option.Color then
+					option:Color(hue, sat, val, rainbow)
+				end
+			end
+		end
+
+		for i, v in mainapi.Overlays.Toggles do
+			if v.Enabled then
+				tween:Cancel(v.Object.Knob)
+				v.Object.Knob.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+			end
+		end
+
+		for i, v in mainapi.Indicators do
+			v.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
+		end
+
+		if mainapi.Legit.Icon then
+			mainapi.Legit.Icon.ImageColor3 = Color3.fromHSV(hue, sat, val)
+		end
+
+		if mainapi.Legit.Window.Visible then
+			for _, v in mainapi.Legit.Modules do
+				if v.Enabled then
+					tween:Cancel(v.Object.Knob)
+					v.Object.Knob.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+				end
+
+				for _, option in v.Options do
+					if option.Color then
+						option:Color(hue, sat, val, rainbow)
+					end
+				end
+			end
+		end
+	end
+
+	mainapi:Clean(notifications.ChildRemoved:Connect(function()
+		for i, v in notifications:GetChildren() do
+			if tween.Tween then
+				tween:Tween(v, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {
+					Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
+				})
+			end
+		end
+	end))
+
+	local BlacklistedKeys = {
+		Enum.KeyCode.Escape
+	}
+
+	mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
+		if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+			table.insert(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
+			if mainapi.Binding then return end
+
+			if checkKeybinds(mainapi.HeldKeybinds, mainapi.Keybind, inputObj.KeyCode.Name) then
+				if mainapi.ThreadFix then
+					setthreadidentity(8)
+				end
+				for _, v in mainapi.Windows do
+					v.Visible = false
+				end
+				clickgui.Visible = not clickgui.Visible
+				tooltip.Visible = false
+				mainapi:BlurCheck()
+			end
+
+			local toggled = false
+			for i, v in mainapi.Modules do
+				if checkKeybinds(mainapi.HeldKeybinds, v.Bind, inputObj.KeyCode.Name) then
+					toggled = true
+					if mainapi.ToggleNotifications.Enabled then
+						mainapi:CreateNotification('Module Toggled', translateTo(i)..`<font color='#FFFFFF'> {translateTo('has been')} </font>`..(not v.Enabled and `<font color='#5AFF5A'>{translateTo('Enabled')}</font>` or `<font color='#FF5A5A'>{translateTo('Disabled')}</font>`).."<font color='#FFFFFF'>!</font>", 0.75)
+					end
+					if typeof(v.KeybindFunction) == 'function' then
+						v:KeybindFunction()
+					else
+						v:Toggle(true)
+					end
+				end
+			end
+			if toggled then
+				mainapi:UpdateTextGUI()
+			end
+
+			for _, v in mainapi.Profiles do
+				if checkKeybinds(mainapi.HeldKeybinds, v.Bind, inputObj.KeyCode.Name) and v.Name ~= mainapi.Profile then
+					mainapi:Save(v.Name)
+					mainapi:Load(true)
+					break
+				end
+			end
+		end
+	end))
+
+	mainapi:Clean(inputService.InputEnded:Connect(function(inputObj)
+		if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+			if mainapi.Binding then
+				if not mainapi.MultiKeybind.Enabled then
+					mainapi.HeldKeybinds = {inputObj.KeyCode.Name}
+				end
+				mainapi.Binding:SetBind(checkKeybinds(mainapi.HeldKeybinds, mainapi.Binding.Bind, inputObj.KeyCode.Name) and {} or mainapi.HeldKeybinds, true)
+				mainapi.Binding = nil
+			end
+		end
+
+		local ind = table.find(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
+		if ind then
+			table.remove(mainapi.HeldKeybinds, ind)
+		end
+	end))
+end)()
+return mainapi
