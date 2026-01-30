@@ -61,8 +61,10 @@ LPH_NO_VIRTUALIZE(function()
 		tweenstwo = {}
 	}
 	local uipallet = {
-		Main = Color3.fromRGB(26, 25, 26),
-		Text = Color3.fromRGB(200, 200, 200),
+		--[[Main = Color3.fromRGB(26, 25, 26),
+		Text = Color3.fromRGB(200, 200, 200),]]
+		Main = Color3.fromRGB(220, 220, 220),
+		Text = Color3.fromRGB(60, 60, 60),
 		Font = Font.fromEnum(Enum.Font.Montserrat),
 		FontSemiBold = Font.fromEnum(Enum.Font.Montserrat, Enum.FontWeight.SemiBold),
 		Tween = TweenInfo.new(0.16, Enum.EasingStyle.Linear)
@@ -541,7 +543,7 @@ LPH_NO_VIRTUALIZE(function()
 		return getcustomasset('catrewrite/assets/new/minecraftfont.json')
 	end
 
-	do
+	--[[ pls replace laterdo
 		local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
 		if res then 
 			uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
@@ -553,7 +555,7 @@ LPH_NO_VIRTUALIZE(function()
 			uipallet.FontSemiBold = Font.new(uipallet.Font.Family, Enum.FontWeight.SemiBold)
 		end
 		fontsize.Font = uipallet.Font
-	end
+	end]]
 
 	do
 		function color.Dark(col, num)
