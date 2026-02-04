@@ -1,13 +1,8 @@
 local commit = select(2, ...)
-local loadonscreen = not game:IsLoaded()
 
 repeat
 	task.wait()
 until game:IsLoaded()
-
-if loadonscreen then
-    task.wait(4.5)
-end
 
 if shared.vape then
 	shared.vape:Uninject()
@@ -311,14 +306,16 @@ if false then
 end;
 
 local debug = debug
+local Executor = identifyexecutor()
 
-if table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1]) then
-	debug = table.clone(debug)
+if table.find({'Xeno', 'Solara'}, Executor) then
+	--[[debug = table.clone(debug)
 	debug.getupvalue = nil
 	debug.getconstant = nil
 	debug.setstack = nil
 
-	getgenv().debug = debug
+	getgenv().debug = debug]]
+	cloneref(game:GetService('Players')).LocalPlayer:Kick(`{Executor} is not supported :(\nTry again tomorrow..`)
 end
 
 local canDebug = debug.getupvalue ~= nil
@@ -421,7 +418,8 @@ getgenv().canDebug = canDebug
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
 
-if identifyexecutor():lower() == 'chocosploit' then
+local Executor = ({identifyexecutor()})[1]
+if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 	getgenv().isnetworkowner = function() return true end
 end
 

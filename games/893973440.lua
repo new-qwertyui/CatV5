@@ -649,17 +649,9 @@ run(function()
         end
         return nil
     end
-    local function getPod()
-        for i, v in pairs(store.Map:GetChildren()) do       --print(v)
-            if v.Name == "FreezePod" then
-                return v
-            end
-        end
-        return nil
-    end
     local function getAllPods()
 	    local pods = {}
-        for i, v in pairs(store.Map:GetChildren()) do       --print(v)
+        for i, v in pairs(store.Map:GetChildren()) do    
             if v.Name == "FreezePod" then
                 table.insert(pods, v)
             end
@@ -1085,7 +1077,7 @@ run(function()
 
 	local function getAllPods()
 		local pods = {}
-		for i, v in pairs(store.Map:GetChildren()) do       --print(v)
+		for i, v in pairs(store.Map:GetChildren()) do 
 			if v.Name == "FreezePod" then
 				table.insert(pods, v)
 			end

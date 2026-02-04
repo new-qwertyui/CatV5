@@ -10,13 +10,12 @@ local lplr = playersService.LocalPlayer
 local vape = shared.vape
 local entitylib = vape.Libraries.entity
 local sessioninfo = vape.Libraries.sessioninfo
-local bedwars = {}
+local bedwars = nil
 
 local function notif(...)
 	return vape:CreateNotification(...)
 end
 
-local getupvalue = debug.getupvalue
 local require = require
 
 local KnitInit, Knit
@@ -50,6 +49,7 @@ run(function()
 		EmoteImage = require(replicatedStorage.TS.locker.emote['emote-image']).EmoteImage,
 		EmoteMeta = require(replicatedStorage.TS.locker.emote['emote-meta']).EmoteMeta,
 		CrateItemMeta = debug.getupvalue(Flamework.resolveDependency('client/controllers/global/reward-crate/crate-controller@CrateController').onStart, 3),
+		RankMeta = require(replicatedStorage.TS.rank['rank-meta']).RankMeta,
 		QueueMeta = require(replicatedStorage.TS.game['queue-meta']).QueueMeta,
 		Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore
 	}, {

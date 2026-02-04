@@ -25,6 +25,10 @@ local coreGui: CoreGui = cloneref(game:GetService('CoreGui'))
 
 local game = cloneref(game)
 
+if shared.vape then
+	shared.vape:Uninject()
+end
+
 local function downloadFile(path: string, func): string?
 	local scr
 	if not isfile(path) or not shared.VapeDeveloper then
@@ -46,8 +50,6 @@ end
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
-	makestage(5, 'Finished!')
-
 	task.spawn(function()
 		repeat
 			vape:Save()
@@ -56,36 +58,37 @@ local function finishLoading()
 	end)
 
 	local teleportedServers
-	if not table.find({'Bunni', 'Potassium'}, ({identifyexecutor()})[1]) then
-		vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
-			if (not teleportedServers) and (not shared.VapeIndependent) then
-				teleportedServers = true
-				local teleportScript = [[
-					shared.vapereload = true
-					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua', true), 'init.lua')()
-				]]
-				if getgenv().catvapedev then
-					teleportScript = 'getgenv().catvapedev = true\n'.. teleportScript
-				end
-				if shared.VapeDeveloper then
-					teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
-				end
-				if getgenv().username then
-					teleportScript = teleportScript:gsub('tpusername', (getgenv().username or ''))
-				end
-				if getgenv().password then
-					teleportScript = teleportScript:gsub('tppassword', (getgenv().password or ''))
-				end
-				if getgenv().closet then
-					teleportScript = 'getgenv().closet = true\n'.. teleportScript
-				end
-				if shared.VapeCustomProfile then
-					teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
-				end
-				vape:Save()
-				queue_on_teleport(teleportScript)
+	vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
+		if (not teleportedServers) and (not shared.VapeIndependent) then
+			teleportedServers = true
+			local teleportScript = [[
+				shared.vapereload = true
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua', true), 'init.lua')({
+					Username = 'catvapeaccount',
+					Password = 'catvapepassword',
+					Closet = catvapecloset,
+					Developer = developermode
+				})
+			]]
+			teleportScript = teleportScript:gsub('developermode', tostring(getgenv().catvapedev or false))
+			teleportScript = teleportScript:gsub('catvapeaccount', tostring(getgenv().username or ''))
+			teleportScript = teleportScript:gsub('catvapepassword', tostring(getgenv().password or ''))
+			teleportScript = teleportScript:gsub('catvapecloset', tostring(getgenv().closet or 'nil'))
+
+
+			if shared.VapeCustomProfile then
+				teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
 			end
-		end))
+			vape:Save()
+			queue_on_teleport(teleportScript)
+		end
+	end))
+
+	if not shared.maincat then
+		vape:CreateNotification('Cat', 'You are using an outdated version of catvape, Please go get the new script from the website or discord', 60, 'warning')
+		task.delay(5, function()
+			vape:CreateNotification('Cat', 'discord.gg/catvape', 10, 'info')
+		end)
 	end
 
 	if not shared.vapereload then
@@ -139,7 +142,9 @@ if shared.vape then
 end
 
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
+repeat task.wait() until vape and vape.Loaded ~= nil
 shared.vape = vape
+repeat task.wait() until shared.vape
 
 local function callback(func)
 	local success, result

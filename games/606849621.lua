@@ -305,7 +305,6 @@ run(function()
 		if rem ~= 'LookAngle' and rem ~= 'AimPosition' then
 			local called = getfenv(3)
 			called = called and called.script
-			if called and (not rem) then print(id, 'called with', called:GetFullName()) end
 		end
 
 		return hook(self, id, ...)

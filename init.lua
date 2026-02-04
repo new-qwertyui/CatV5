@@ -2,6 +2,10 @@ if not isfolder('catrewrite') then
     makefolder('catrewrite')
 end
 
+if shared.vape then
+	shared.vape:Uninject()
+end
+
 local arg = ... or {}
 
 local function downloadFile(path, comm, func)
