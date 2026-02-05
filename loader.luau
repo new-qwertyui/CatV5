@@ -309,13 +309,13 @@ local debug = debug
 local Executor = identifyexecutor()
 
 if table.find({'Xeno', 'Solara'}, Executor) then
-	--[[debug = table.clone(debug)
+	debug = table.clone(debug)
 	debug.getupvalue = nil
 	debug.getconstant = nil
 	debug.setstack = nil
 
-	getgenv().debug = debug]]
-	cloneref(game:GetService('Players')).LocalPlayer:Kick(`{Executor} is not supported :(\nTry again tomorrow..`)
+	getgenv().debug = debug
+	--cloneref(game:GetService('Players')).LocalPlayer:Kick(`{Executor} is not supported :(\nTry again tomorrow..`)
 end
 
 local canDebug = debug.getupvalue ~= nil
