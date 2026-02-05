@@ -30,6 +30,8 @@ if shared.vape then
 	shared.vape:Uninject()
 end
 
+print('ran latest ver')
+
 local function downloadFile(path: string, func): string?
 	print(path, select(1, path:gsub('catrewrite/', '')))
 	warn('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')))
@@ -38,7 +40,8 @@ local function downloadFile(path: string, func): string?
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			error(`Failed to download {path}: {res}`)
+			warn(`Failed to download {path}: {res}`)
+			return ''
 		end
 		if path:find('.lua') then
 			res = '\n'..res
