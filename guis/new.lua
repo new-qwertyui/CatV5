@@ -39,7 +39,7 @@ local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 local coreGui = cloneref(game:GetService('CoreGui'))
 
 local updateSignal = Instance.new('BindableEvent')
-local IsMobile = not inputService.KeyboardEnabled
+local IsMobile = inputService.TouchEnabled or not inputService.KeyboardEnabled
 
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
