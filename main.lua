@@ -31,7 +31,6 @@ if shared.vape then
 end
 
 local function downloadFile(path: string, func): string?
-	local scr
 	print(path, select(1, path:gsub('catrewrite/', '')))
 	warn('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')))
 	if not isfile(path) then
@@ -44,10 +43,9 @@ local function downloadFile(path: string, func): string?
 		if path:find('.lua') then
 			res = '\n'..res
 		end
-		scr = res
 		writefile(path, res)
 	end
-	return not func and scr or (func or readfile)(path)
+	return (func or readfile)(path)
 end
 
 local function finishLoading()
