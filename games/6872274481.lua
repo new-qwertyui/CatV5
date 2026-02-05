@@ -7410,6 +7410,8 @@ run(function() --> by max
 								found = true
 								break
 							end
+						end
+
 						if not found and v.Character then
 							for i,v in v.Character:GetDescendants() do
 								if v.ClassName == 'Part' or v.ClassName == 'MeshPart' then
