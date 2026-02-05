@@ -3122,7 +3122,7 @@ run(function()
 		Tooltip = 'Inflates when you fall into the void'
 	})
 end)
-	
+
 run(function()
 	local AutoPearl
 	local LegitSwitch
@@ -7380,5 +7380,136 @@ run(function()
 	List = WinEffect:CreateDropdown({
 		Name = 'Effects',
 		List = WinEffectName
+	})
+end)
+
+run(function() --> by max
+	local NoCollision
+
+	local last = {}
+
+	NoCollision = vape.Categories.Legit:CreateModule({
+		Name = 'No Collision',
+		Tooltip = 'Removes player\'s collision when ur near a bed',
+		Function = function(callback)
+			if callback then
+				NoCollision:Clean(runService.PreSimulation:Connect(function()
+					local plrs = {}
+
+					for i, v in entitylib.List do
+						if not v.NPC then
+							table.insert(plrs, v)
+						end
+					end
+
+					for _, v in last do
+						local found = false
+
+						for _, v2 in plrs do
+							if v.Player == v2.Player then
+								found = true
+								break
+							end
+						if not found and v.Character then
+							for i,v in v.Character:GetDescendants() do
+								if v.ClassName == 'Part' or v.ClassName == 'MeshPart' then
+									v.CanQuery = true
+								end
+							end
+						end
+					end
+
+					for _, v in plrs do
+						if v.Character then
+							for i,v in v.Character:GetDescendants() do
+								if v.ClassName == 'Part' or v.ClassName == 'MeshPart' then
+									v.CanQuery = false
+									v.CanTouch = false
+									v.CanCollide = false
+								end
+							end
+						end
+					end
+
+					last = plrs
+				end))
+			end
+		end
+	})
+end)
+
+run(function() --> by max, idea from monia
+	local BedAlarm
+
+	local function getBed()
+		if entitylib.isAlive then
+			local id = lplr.Character:GetAttribute('Team')
+			for i,v in collectionService:GetTagged('bed') do
+				if tonumber(id) == tonumber(v:GetAttribute('TeamId')) then
+					return v
+				end
+			end
+		end
+
+		return
+	end
+
+	BedAlarm = vape.Categories.Legit:CreateModule({
+		Name = 'Bed Alarm',
+		Function = function(callback)
+			if callback then
+				local Notifytick = os.clock()
+
+				repeat
+					local bed, localpos = getBed(), nil
+					if bed then
+						localpos = bed:GetPivot().Position
+					end
+
+					if localpos then
+						local entity = localpos and entitylib.EntityPosition({
+							Origin = localpos,
+							Range = 65,
+							Part = 'RootPart',
+							Players = true
+						})
+
+						if entity and os.clock() > Notifytick then
+							Notifytick = os.clock() + 3.05
+							bedwars.NotificationController:sendInfoNotification({
+								message = '[Bed Alarm]: An intruder is near your bed!',
+							})
+							bedwars.SoundManager:playSound(bedwars.SoundList.BED_ALARM, {
+								volumeMultiplier = 1.4
+							})
+						end
+					end
+					task.wait(0.1)
+				until not BedAlarm.Enabled
+			end
+		end,
+		Tooltip = 'Notifies when theres an enemy near bed'
+	})
+end)
+
+run(function()
+	local Disguise
+	local Block
+
+	Disguise = vape.Categories.Kits:CreateModule({
+		Name = 'Milo Disguise',
+		Function = function(call)
+			if call then
+				bedwars.Client:Get('MimicBlock'):SendToServer({
+					data = {
+						blockType = Block.Value
+					}
+				})
+				Disguise:Toggle()
+			end
+		end
+	})
+	Block = Disguise:CreateTextBox({
+		Name = 'Block'
 	})
 end)
