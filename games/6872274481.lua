@@ -1253,10 +1253,8 @@ run(function()
 	end
 
 	local storeChanged = bedwars.Store.changed:connect(updateStore)
-	task.delay(30, function()
-		if Updated == nil then
-			updateStore(bedwars.Store:getState(), {})
-		end
+	task.delay(5, function()
+		updateStore(bedwars.Store:getState(), {})
 	end)
 
 	if not canDebug then
@@ -1610,7 +1608,7 @@ run(function()
 	BlockCPS = AutoClicker:CreateTwoSlider({
 		Name = 'Block CPS',
 		Min = 1,
-		Max = 12,
+		Max = 20,
 		DefaultMin = 12,
 		DefaultMax = 12,
 		Darker = true

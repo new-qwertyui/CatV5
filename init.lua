@@ -5,13 +5,14 @@ end
 if shared.vape then
 	shared.vape:Uninject()
 end
+shared.start = tick()
 
 local arg = ... or {}
 
 local outdated = isfolder('catrewrite') and isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or ''
 
 local function downloadFile(path, comm, func)
-	if not arg.Developer or outdated ~= comm then
+	if not arg.Developer and outdated ~= comm then
 		local suc, res = pcall(function()
 			return game:HttpGet(`https://raw.githubusercontent.com/new-qwertyui/CatV5/{comm}/{({path:gsub('catrewrite', '')})[1]}`, true)
 		end)

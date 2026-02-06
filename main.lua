@@ -1,7 +1,24 @@
-shared.maincat = true
+repeat task.wait() until game:IsLoaded()
+if shared.vape then shared.vape:Uninject() end
+
+if isnetworkowner then
+	if table.find({'Velocity', 'ChocoSploit'}, ({identifyexecutor()})[1]) then
+		getgenv().isnetworkowner = nil
+	end
+end
+
+local listfiles = listfiles
+if listfiles then
+	getgenv().listfiles = function(...)
+		local res, new = listfiles(...), {}
+		for i, v in res do
+			new[i] = v:gsub('\\', '/')
+		end
+		return new
+	end
+end
+
 local vape
-local closet = getgenv().closet
-local makestage = getgenv().makestage or function() end
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
@@ -19,20 +36,10 @@ end
 local cloneref = cloneref or function(obj)
 	return obj
 end
-local httpService: HttpService = cloneref(game:GetService('HttpService'))
-local playersService: Players = cloneref(game:GetService('Players'))
-local inputService: UserInputService = cloneref(game:GetService('UserInputService'))
-local coreGui: CoreGui = cloneref(game:GetService('CoreGui'))
+local playersService = cloneref(game:GetService('Players'))
+local httpService = cloneref(game:GetService('HttpService'))
 
-local game = cloneref(game)
-
-if shared.vape then
-	shared.vape:Uninject()
-end
-
-local function downloadFile(path: string, func): string?
-	local scr
-	
+local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
@@ -40,15 +47,24 @@ local function downloadFile(path: string, func): string?
 		if not suc or res == '404: Not Found' then
 			error(res)
 		end
-		if path:find('.lua') then
-			res = '\n'..res
-		end
-		scr = res
 		writefile(path, res)
 	end
-	return not func and scr or (func or readfile)(path)
+	return (func or readfile)(path)
 end
 
+local function loadJson()
+	local suc, tab = pcall(function()
+		return httpService:JSONDecode(downloadFile('catrewrite/version.json'))
+	end)
+	
+	return suc and typeof(tab) == 'table' and tab.version or 'null'
+end
+
+local function compileTable()
+		
+end
+
+local version = loadJson()
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
@@ -65,19 +81,13 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
-				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua', true), 'init.lua')({
-					Username = 'catvapeaccount',
-					Password = 'catvapepassword',
-					Closet = catvapecloset,
-					Developer = developermode
-				})
+				if shared.VapeDeveloper then
+					loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+				else
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true), 'loader')(data)
+				end
 			]]
-			teleportScript = teleportScript:gsub('developermode', tostring(getgenv().catvapedev or false))
-			teleportScript = teleportScript:gsub('catvapeaccount', tostring(getgenv().username or ''))
-			teleportScript = teleportScript:gsub('catvapepassword', tostring(getgenv().password or ''))
-			teleportScript = teleportScript:gsub('catvapecloset', tostring(getgenv().closet or 'nil'))
-
-
+			teleportScript = teleportScript:gsub('data', compileTable(shared.catdata or {}))
 			if shared.VapeCustomProfile then
 				teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
 			end
@@ -86,43 +96,16 @@ local function finishLoading()
 		end
 	end))
 
-	if not shared.maincat then
-		vape:CreateNotification('Cat', 'You are using an outdated version of catvape, Please go get the new script from the website or discord', 60, 'warning')
-		task.delay(5, function()
-			vape:CreateNotification('Cat', 'discord.gg/catvape', 10, 'info')
-		end)
-	end
-
 	if not shared.vapereload then
 		if not vape.Categories then return end
-		task.spawn(pcall, function()
-			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-				vape:CreateNotification('Finished Loading', inputService.TouchEnabled and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
-				task.wait(3.5)
-				vape:CreateNotification('Cat', `Initialized as {(getgenv().username or 'Guest')} with role {getgenv().catrole or 'Basic'}`, 2.5, 'info')
-				task.wait(1)
-				if not isfile('newusercat2') then
-					vape:CreateNotification('Cat', 'You have been redirected to cat\'s discord server', 3, 'warning')
-					writefile('newusercat2', 'True')
-					request({
-						Url = 'http://127.0.0.1:6463/rpc?v=1',
-						Method = 'POST',
-						Headers = {
-							['Content-Type'] = 'application/json',
-							Origin = 'https://discord.com'
-						},
-						Body = httpService:JSONEncode({
-							invlink = 'catvape',
-							cmd = 'INVITE_BROWSER',
-							args = {
-								code = 'catvape'
-							},
-							nonce = httpService:GenerateGUID(true)
-						})
-					})
-				end
+		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
+			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
+			local last = isfile('kitty_version') and readfile('kitty_version') or '5.49'
+			if last ~= version then
+				writefile('kitty_version', tostring(version))
+				vape:CreateNotification('Cat', `We have updated from v{last} to v{version}, Check the discord for more detail!`, 12, 'info')
 			end
-		end)
+		end
 	end
 end
 
@@ -131,91 +114,28 @@ if not isfile('catrewrite/profiles/gui.txt') then
 end
 local gui = readfile('catrewrite/profiles/gui.txt')
 
-if gui == nil or gui == '' or not table.find({'rise', 'new', 'old'}, gui) then
-	gui = 'new'
-end
-
 if not isfolder('catrewrite/assets/'..gui) then
 	makefolder('catrewrite/assets/'..gui)
 end
-
-if shared.vape then
-	shared.vape:Uninject()
-end
-
-vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
-repeat task.wait() until vape and vape.Loaded ~= nil
+vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
-repeat task.wait() until shared.vape
-
-local function callback(func)
-	local success, result
-
-	task.spawn(function()
-		success, result = pcall(func)
-	end)
-
-	local Start = os.clock()
-
-	repeat task.wait() until success ~= nil or (os.clock() - Start) >= 10
-
-	return success, result
-end
 
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	callback(function() loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login.lua')(); end)
-	local success, result = callback(function(...)
-		if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
-			loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
-		else
-			if not shared.VapeDeveloper then
-				local suc, res = pcall(function()
-					return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
-				end)
-				if suc and res ~= '404: Not Found' then
-					loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
-				end
+	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
+		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+	else
+		if not shared.VapeDeveloper then
+			local suc, res = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
+			end)
+			if suc and res ~= '404: Not Found' then
+				loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 			end
 		end
-	end)
-
-	if success or not canDebug then
-		loadstring(downloadFile('catrewrite/scripts/script.luau'), 'mainscript.luau')()
-		finishLoading()
-	else
-		task.spawn(error, result)
-		if not closet then
-			callback(function()
-				if setthreadidentity then
-					setthreadidentity(8)
-				end
-
-				local errorPrompt = getrenv().require(coreGui:WaitForChild('RobloxGui', 9e9):WaitForChild('Modules', 9e9):WaitForChild('ErrorPrompt', 9e9))
-
-				local gui = Instance.new('ScreenGui', coreGui)
-				gui.OnTopOfCoreBlur = true
-
-
-				local prompt = errorPrompt.new('Default')
-				prompt._hideErrorCode = true
-				prompt:setErrorTitle('Loading Failure')
-
-				prompt:updateButtons({
-					{
-						Text = 'Ok',
-						Callback = function()
-							prompt:_close()
-						end,
-						Primary = true
-					}
-				}, 'Default')
-
-				prompt:setParent(gui)
-				prompt:_open('Failed to load catvape with this error code, Please report this to the discord server\n\n'.. result.. '\n(Error Code: 0)')
-			end)
-		end
 	end
+	loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
+	finishLoading()
 else
 	vape.Init = finishLoading
 	return vape

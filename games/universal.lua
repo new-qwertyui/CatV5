@@ -1,4 +1,3 @@
-
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err and vape then
@@ -41,7 +40,6 @@ end
 
 local playersService = cloneref(game:GetService('Players'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
-local proximityPromptService = cloneref(game:GetService('ProximityPromptService'))
 local runService = cloneref(game:GetService('RunService'))
 local inputService = cloneref(game:GetService('UserInputService'))
 local tweenService = cloneref(game:GetService('TweenService'))
@@ -216,9 +214,6 @@ getgenv().updateVelocity = updateVelocity
 local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
 local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
 entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
-
-warn('??')
-setclipboard(hash.sha512('Jadegentless'..tostring(3526623946)..'SelfReport'))
 
 weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
 weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()

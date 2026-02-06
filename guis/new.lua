@@ -17,29 +17,23 @@ local mainapi = {
 	RainbowUpdateSpeed = {Value = 60},
 	RainbowTable = {},
 	Scale = {Value = 1},
-	ThreadFix = setthreadidentity and true or false,
+	ThreadFix = nil,
 	ToggleNotifications = {},
-	Version = 'v4.500',
-	Windows = {},
-	Indicators = {}
+	Version = ... or 'kitty',
+	Windows = {}
 }
 
 local cloneref = cloneref or function(obj)
 	return obj
 end
-
 local tweenService = cloneref(game:GetService('TweenService'))
 local inputService = cloneref(game:GetService('UserInputService'))
 local textService = cloneref(game:GetService('TextService'))
 local guiService = cloneref(game:GetService('GuiService'))
 local runService = cloneref(game:GetService('RunService'))
 local httpService = cloneref(game:GetService('HttpService'))
-local textChatService = cloneref(game:GetService("TextChatService"))
-local replicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
-local coreGui = cloneref(game:GetService('CoreGui'))
 
-local updateSignal = Instance.new('BindableEvent')
-local IsMobile = not inputService.KeyboardEnabled
+local lplr = cloneref(game:GetService('Players')).LocalPlayer
 
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
@@ -61,8 +55,8 @@ local tween = {
 local uipallet = {
 	Main = Color3.fromRGB(26, 25, 26),
 	Text = Color3.fromRGB(200, 200, 200),
-	Font = Font.fromEnum(Enum.Font.Montserrat),
-	FontSemiBold = Font.fromEnum(Enum.Font.Montserrat, Enum.FontWeight.SemiBold),
+	Font = Font.fromEnum(Enum.Font.Arial),
+	FontSemiBold = Font.fromEnum(Enum.Font.Arial, Enum.FontWeight.SemiBold),
 	Tween = TweenInfo.new(0.16, Enum.EasingStyle.Linear)
 }
 
@@ -70,6 +64,7 @@ local getcustomassets = {
 	['catrewrite/assets/new/add.png'] = 'rbxassetid://14368300605',
 	['catrewrite/assets/new/alert.png'] = 'rbxassetid://14368301329',
 	['catrewrite/assets/new/allowedicon.png'] = 'rbxassetid://14368302000',
+	['catrewrite/assets/new/mascot.png'] = 'rbxassetid://110703296275845',
 	['catrewrite/assets/new/allowedtab.png'] = 'rbxassetid://14368302875',
 	['catrewrite/assets/new/arrowmodule.png'] = 'rbxassetid://14473354880',
 	['catrewrite/assets/new/back.png'] = 'rbxassetid://14368303894',
@@ -85,16 +80,18 @@ local getcustomassets = {
 	['catrewrite/assets/new/colorpreview.png'] = 'rbxassetid://14368311578',
 	['catrewrite/assets/new/combaticon.png'] = 'rbxassetid://14368312652',
 	['catrewrite/assets/new/customsettings.png'] = 'rbxassetid://14403726449',
+	['catrewrite/assets/new/discord.png'] = '',
 	['catrewrite/assets/new/dots.png'] = 'rbxassetid://14368314459',
 	['catrewrite/assets/new/edit.png'] = 'rbxassetid://14368315443',
+	['catrewrite/assets/new/expandicon.png'] = 'rbxassetid://14368353032',
 	['catrewrite/assets/new/expandright.png'] = 'rbxassetid://14368316544',
 	['catrewrite/assets/new/expandup.png'] = 'rbxassetid://14368317595',
-	['catrewrite/assets/new/friendstab.png'] = 'rbxassetid://14397462778',
+	['catrewrite/assets/new/friendstab.png'] = 'rbxassetid://106739759659697',
 	['catrewrite/assets/new/guisettings.png'] = 'rbxassetid://14368318994',
 	['catrewrite/assets/new/guislider.png'] = 'rbxassetid://14368320020',
 	['catrewrite/assets/new/guisliderrain.png'] = 'rbxassetid://14368321228',
-	['catrewrite/assets/new/guiv4.png'] = 'rbxassetid://89255460312067',
-	['catrewrite/assets/new/guivape.png'] = 'rbxassetid://79046067283024',
+	['catrewrite/assets/new/guiv4.png'] = 'rbxassetid://14368322199',
+	['catrewrite/assets/new/guivape.png'] = 'rbxassetid://14657521312',
 	['catrewrite/assets/new/info.png'] = 'rbxassetid://14368324807',
 	['catrewrite/assets/new/inventoryicon.png'] = 'rbxassetid://14928011633',
 	['catrewrite/assets/new/legit.png'] = 'rbxassetid://14425650534',
@@ -115,7 +112,6 @@ local getcustomassets = {
 	['catrewrite/assets/new/rendericon.png'] = 'rbxassetid://14368350193',
 	['catrewrite/assets/new/rendertab.png'] = 'rbxassetid://14397373458',
 	['catrewrite/assets/new/search.png'] = 'rbxassetid://14425646684',
-	['catrewrite/assets/new/expandicon.png'] = 'rbxassetid://14368353032',
 	['catrewrite/assets/new/targetinfoicon.png'] = 'rbxassetid://14368354234',
 	['catrewrite/assets/new/targetnpc1.png'] = 'rbxassetid://14497400332',
 	['catrewrite/assets/new/targetnpc2.png'] = 'rbxassetid://14497402744',
@@ -123,15 +119,12 @@ local getcustomassets = {
 	['catrewrite/assets/new/targetplayers2.png'] = 'rbxassetid://14497397862',
 	['catrewrite/assets/new/targetstab.png'] = 'rbxassetid://14497393895',
 	['catrewrite/assets/new/textguiicon.png'] = 'rbxassetid://14368355456',
-	['catrewrite/assets/new/textv4.png'] = 'rbxassetid://75991611402130',
-	['catrewrite/assets/new/textvape.png'] = 'rbxassetid://94305150632779',
+	['catrewrite/assets/new/textv4.png'] = 'rbxassetid://14368357095',
+	['catrewrite/assets/new/textvape.png'] = 'rbxassetid://14368358200',
 	['catrewrite/assets/new/utilityicon.png'] = 'rbxassetid://14368359107',
 	['catrewrite/assets/new/vape.png'] = 'rbxassetid://14373395239',
-	['catrewrite/assets/new/mascot.png'] = 'rbxassetid://14373395239',
 	['catrewrite/assets/new/warning.png'] = 'rbxassetid://14368361552',
-	['catrewrite/assets/new/worldicon.png'] = 'rbxassetid://14368362492',
-	['catrewrite/assets/old/spotify.png'] = 'rbxassetid://129349257949035',
-	['catrewrite/assets/new/catv5.png'] = ''
+	['catrewrite/assets/new/worldicon.png'] = 'rbxassetid://14368362492'
 }
 
 local isfile = isfile or function(file)
@@ -155,7 +148,6 @@ local function addBlur(parent, notif)
 	blur.Name = 'Blur'
 	blur.Size = UDim2.new(1, 89, 1, 52)
 	blur.Position = UDim2.fromOffset(-48, -31)
-	blur.ImageColor3 = parent.BackgroundColor3
 	blur.BackgroundTransparency = 1
 	blur.Image = getcustomasset('catrewrite/assets/new/'..(notif and 'blurnotif' or 'blur')..'.png')
 	blur.ScaleType = Enum.ScaleType.Slice
@@ -171,92 +163,6 @@ local function addCorner(parent, radius)
 	corner.Parent = parent
 
 	return corner
-end
-
-local usedLanguage = isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/language.txt') and readfile('catrewrite/profiles/language.txt') or 'Original'
-
-local shorten = {
-	korea = 'ko',
-	thai = 'th',
-	['chinese (simplified)'] = 'zh-CN',
-	russia = 'ru',
-	arabic = 'ar',
-	romanian = 'ro'
-}
-
-local old = isfile
-local isfile = function(file)
-	local suc, res = pcall(function()
-		return old(file)
-	end)
-	return suc and res or false
-end
-
-local getText = function(language, text)
-	return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'.. 'translations/'.. language.. '/'.. text .. '.txt')
-end
-
-local jsons = {
-	decoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and httpService:JSONDecode(readfile(`catrewrite/translations/{usedLanguage}.json`)) or {},
-	encoded = isfile(`catrewrite/translations/{usedLanguage}.json`) and readfile(`catrewrite/translations/{usedLanguage}.json`) or '{}'
-}
-	
-local function encodeTable(tab)
-	local str = '{\n'
-	local len = 0
-	for i,v in tab do
-		len += 1
-	end
-	local goal = 0
-	for i,v in tab do
-		goal += 1
-		if typeof(v) == 'string' then
-			local string = goal == len and '\n' or ',\n'
-			str = str.. `    "{tostring(i):gsub('\n', '\\n')}": "{tostring(v):gsub('\n', '\\n')}"{string}`
-		end
-	end
-	str = str .. '}'
-	return str
-end
-
-local function translateTo(text, language)
-	language = usedLanguage
-	language = language:lower()
-	
-	if language == 'original' or typeof(text) ~= 'string' then
-		return text
-	end
-
-	if not isfile(`catrewrite/translations/{language}.json`) then
-		writefile(`catrewrite/translations/{language}.json`, '{}')
-	end
-	
-	local json = jsons.decoded
-	if json[text] then
-		return json[text]
-	end
-
-	local success, res = pcall(function()
-		return httpService:JSONDecode(request({
-			Url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' .. shorten[language] .. '&dt=t&q=' .. httpService:UrlEncode(text),
-			Method = 'GET'
-		}).Body)
-	end)
-	
-	if success and res then
-		json[text] = res[1][1][1]
-
-		jsons.encoded = encodeTable(json)
-		jsons.decoded = table.clone(json)
-	end
-
-	if not success then
-		return text
-	end
-
-	writefile(`catrewrite/translations/{language}.json`, jsons.encoded)
-
-	return json[text] or text
 end
 
 local function addCloseButton(parent, offset)
@@ -324,8 +230,6 @@ end
 local function addTooltip(gui, text)
 	if not text then return end
 
-	text = translateTo(text)
-
 	local function tooltipMoved(x, y)
 		local right = x + 16 + tooltip.Size.X.Offset > (scale.Scale * 1920)
 		tooltip.Position = UDim2.fromOffset(
@@ -381,7 +285,6 @@ local function createDownloader(text)
 end
 
 local function createMobileButton(buttonapi, position)
-	if not IsMobile then return end
 	local heldbutton = false
 	local button = Instance.new('TextButton')
 	button.Size = UDim2.fromOffset(40, 40)
@@ -431,34 +334,16 @@ local function downloadFile(path, func)
 		if not suc or res == '404: Not Found' then
 			error(res)
 		end
+		if path:find('.lua') then
+			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+		end
 		writefile(path, res)
 	end
 	return (func or readfile)(path)
 end
 
-local blacklistedexecs = {'Fluxus', 'Krnl', 'Xeno', 'Solara'}
-
-local getexecutorname = function()
-	return ({identifyexecutor()})[1]
-end
-getcustomasset = not table.find(blacklistedexecs, getexecutorname()) and assetfunction and function(v)
-	if not isfile(v) then
-		local suc = pcall(function()
-			downloadFile(v)
-		end)
-		if not suc then
-			return getcustomassets[v] or ''
-		end
-	end
-	local suc, res = pcall(function()
-		return assetfunction(v)
-	end)
-
-	if not suc then
-		return getcustomassets[v] or ''
-	else
-		return res
-	end
+getcustomasset = not inputService.TouchEnabled and assetfunction and function(path)
+	return downloadFile(path, assetfunction)
 end or function(path)
 	return getcustomassets[path] or ''
 end
@@ -536,21 +421,11 @@ local function removeTags(str)
 	return str:gsub('<[^<>]->', '')
 end
 
-local function writeFont()
-	writefile('catrewrite/assets/new/minecraftfont.json', httpService:JSONEncode({
-		name = 'Minecraft',
-		faces = {
-			{style = 'normal', assetId = getcustomasset('catrewrite/regular.ttf'), name = 'Regular', weight = 400},		
-		}
-	}))
-	return getcustomasset('catrewrite/assets/new/minecraftfont.json')
-end
-
 do
 	local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
-	if res then 
+	if res then
 		uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
-		uipallet.Text = res.Main and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
+		uipallet.Text = res.Text and Color3.fromRGB(unpack(res.Text)) or uipallet.Text
 		uipallet.Font = res.Font and Font.new(
 			res.Font:find('rbxasset') and res.Font
 			or string.format('rbxasset://fonts/families/%s.json', res.Font)
@@ -598,6 +473,7 @@ do
 		tab = tab or self.tweens
 		if tab[obj] then
 			tab[obj]:Cancel()
+			tab[obj] = nil
 		end
 
 		if obj.Parent and obj.Visible then
@@ -630,8 +506,7 @@ mainapi.Libraries = {
 	getfontsize = getfontsize,
 	tween = tween,
 	uipallet = uipallet,
-	base64 = loadstring(downloadFile("catrewrite/libraries/base64.lua"), "base64")(),
-	spotify = loadstring(downloadFile("catrewrite/libraries/spotify.lua"), "spotify")()
+	base64 = loadstring(downloadFile('catrewrite/libraries/base64.lua'), 'base64')(),
 }
 
 local components
@@ -646,7 +521,7 @@ components = {
 		button.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		button.Text = ''
 		button.Parent = children
-		addTooltip(button, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(button, optionsettings.Tooltip)
 		local bkg = Instance.new('Frame')
 		bkg.Size = UDim2.fromOffset(200, 27)
 		bkg.Position = UDim2.fromOffset(10, 2)
@@ -785,13 +660,13 @@ components = {
 		slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		slider.Text = ''
 		slider.Parent = children
-		addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(slider, optionsettings.Tooltip)
 		local title = Instance.new('TextLabel')
 		title.Name = 'Title'
 		title.Size = UDim2.fromOffset(60, 30)
 		title.Position = UDim2.fromOffset(10, 2)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(optionsettings.Name, usedLanguage)
+		title.Text = optionsettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		title.TextSize = 11
@@ -842,7 +717,7 @@ components = {
 		local expandbutton = Instance.new('TextButton')
 		expandbutton.Name = 'Expand'
 		expandbutton.Size = UDim2.fromOffset(17, 13)
-		expandbutton.Position = UDim2.new(0, textService:GetTextSize(title.Text, title.TextSize, (title.Font ~= Enum.Font.Unknown and title.Font or Enum.Font.Arial), Vector2.new(1000, 1000)).X + 11, 0, 7)
+		expandbutton.Position = UDim2.new(0, textService:GetTextSize(title.Text, title.TextSize, title.Font, Vector2.new(1000, 1000)).X + 11, 0, 7)
 		expandbutton.BackgroundTransparency = 1
 		expandbutton.Text = ''
 		expandbutton.Parent = slider
@@ -921,9 +796,7 @@ components = {
 				self:Toggle()
 			end
 			if self.Hue ~= tab.Hue or self.Sat ~= tab.Sat or self.Value ~= tab.Value or self.Opacity ~= tab.Opacity then
-				pcall(function()
-					self:SetValue(tab.Hue, tab.Sat, tab.Value, tab.Opacity)
-				end)
+				self:SetValue(tab.Hue, tab.Sat, tab.Value, tab.Opacity)
 			end
 		end
 		
@@ -1108,7 +981,7 @@ components = {
 		dropdown.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		dropdown.Text = ''
 		dropdown.Parent = children
-		addTooltip(dropdown, translateTo(optionsettings.Tooltip, usedLanguage) or translateTo(optionsettings.Name, usedLanguage))
+		addTooltip(dropdown, optionsettings.Tooltip or optionsettings.Name)
 		local bkg = Instance.new('Frame')
 		bkg.Name = 'BKG'
 		bkg.Size = UDim2.new(1, -20, 1, -9)
@@ -1128,7 +1001,7 @@ components = {
 		title.Name = 'Title'
 		title.Size = UDim2.new(1, 0, 0, 29)
 		title.BackgroundTransparency = 1
-		title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..optionapi.Value
+		title.Text = '         '..optionsettings.Name..' - '..optionapi.Value
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		title.TextSize = 13
@@ -1167,7 +1040,7 @@ components = {
 		
 		function optionapi:SetValue(val, mouse)
 			self.Value = table.find(optionsettings.List, val) and val or optionsettings.List[1] or 'None'
-			title.Text = '         '..translateTo(optionsettings.Name, usedLanguage)..' - '..self.Value
+			title.Text = '         '..optionsettings.Name..' - '..self.Value
 			if dropdownchildren then
 				arrow.Rotation = 90
 				dropdownchildren:Destroy()
@@ -1312,13 +1185,13 @@ components = {
 		slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		slider.Text = ''
 		slider.Parent = children
-		addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(slider, optionsettings.Tooltip)
 		local title = Instance.new('TextLabel')
 		title.Name = 'Title'
 		title.Size = UDim2.fromOffset(60, 30)
 		title.Position = UDim2.fromOffset(10, 2)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(optionsettings.Name, usedLanguage)
+		title.Text = optionsettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		title.TextSize = 11
@@ -1329,9 +1202,7 @@ components = {
 		valuebutton.Size = UDim2.fromOffset(60, 15)
 		valuebutton.Position = UDim2.new(1, -69, 0, 9)
 		valuebutton.BackgroundTransparency = 1
-		pcall(function()
-			valuebutton.Text = optionapi.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(optionapi.Value) or optionsettings.Suffix) or '')
-		end)
+		valuebutton.Text = optionapi.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(optionapi.Value) or optionsettings.Suffix) or '')
 		valuebutton.TextXAlignment = Enum.TextXAlignment.Right
 		valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		valuebutton.TextSize = 11
@@ -1410,9 +1281,7 @@ components = {
 			})
 			valuebutton.Text = self.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(self.Value) or optionsettings.Suffix) or '')
 			if check or final then
-				pcall(function()
-					optionsettings.Function(value, final)
-				end)
+				optionsettings.Function(value, final)
 			end
 		end
 		
@@ -1726,7 +1595,7 @@ components = {
 		targetbutton.Text = ''
 		targetbutton.Parent = children
 		addCorner(targetbutton)
-		addTooltip(targetbutton, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(targetbutton, optionsettings.Tooltip)
 		local bkg = Instance.new('Frame')
 		bkg.Size = UDim2.new(1, -2, 1, -2)
 		bkg.Position = UDim2.fromOffset(1, 1)
@@ -1810,12 +1679,12 @@ components = {
 		textbox.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		textbox.Text = ''
 		textbox.Parent = children
-		addTooltip(textbox, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(textbox, optionsettings.Tooltip)
 		local title = Instance.new('TextLabel')
 		title.Size = UDim2.new(1, -10, 0, 20)
 		title.Position = UDim2.fromOffset(10, 3)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(optionsettings.Name, usedLanguage)
+		title.Text = optionsettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = uipallet.Text
 		title.TextSize = 12
@@ -1863,7 +1732,7 @@ components = {
 			box:CaptureFocus()
 		end)
 		box.FocusLost:Connect(function(enter)
-			optionapi:SetValue(box.Text, true)
+			optionapi:SetValue(box.Text, enter)
 		end)
 		box:GetPropertyChangedSignal('Text'):Connect(function()
 			optionapi:SetValue(box.Text)
@@ -1894,7 +1763,7 @@ components = {
 		textlist.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		textlist.Text = ''
 		textlist.Parent = children
-		addTooltip(textlist, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(textlist, optionsettings.Tooltip)
 		local bkg = Instance.new('Frame')
 		bkg.Name = 'BKG'
 		bkg.Size = UDim2.new(1, -20, 1, -9)
@@ -1922,7 +1791,7 @@ components = {
 		buttontitle.Size = UDim2.new(1, -35, 0, 15)
 		buttontitle.Position = UDim2.fromOffset(35, 6)
 		buttontitle.BackgroundTransparency = 1
-		buttontitle.Text = translateTo(optionsettings.Name, usedLanguage)
+		buttontitle.Text = optionsettings.Name
 		buttontitle.TextXAlignment = Enum.TextXAlignment.Left
 		buttontitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		buttontitle.TextSize = 15
@@ -1968,7 +1837,7 @@ components = {
 		title.Size = UDim2.new(1, -36, 0, 20)
 		title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 11)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(optionsettings.Name, usedLanguage)
+		title.Text = optionsettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = uipallet.Text
 		title.TextSize = 13
@@ -2044,7 +1913,7 @@ components = {
 				end
 			end
 		
-			task.spawn(optionsettings.Function, self.List)
+			optionsettings.Function(self.List)
 			for _, v in self.Objects do
 				v:Destroy()
 			end
@@ -2154,7 +2023,7 @@ components = {
 					end
 		
 					items.Text = enabledtext
-					task.spawn(optionsettings.Function)
+					optionsettings.Function()
 				end)
 		
 				table.insert(self.Objects, object)
@@ -2234,6 +2103,7 @@ components = {
 			Index = getTableSize(api.Options)
 		}
 		
+		local hovered = false
 		local toggle = Instance.new('TextButton')
 		toggle.Name = optionsettings.Name..'Toggle'
 		toggle.Size = UDim2.new(1, 0, 0, 30)
@@ -2241,13 +2111,13 @@ components = {
 		toggle.BorderSizePixel = 0
 		toggle.AutoButtonColor = false
 		toggle.Visible = optionsettings.Visible == nil or optionsettings.Visible
-		toggle.Text = '          '..translateTo(optionsettings.Name, usedLanguage)
+		toggle.Text = '          '..optionsettings.Name
 		toggle.TextXAlignment = Enum.TextXAlignment.Left
 		toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		toggle.TextSize = 14
 		toggle.FontFace = uipallet.Font
 		toggle.Parent = children
-		addTooltip(toggle, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(toggle, optionsettings.Tooltip)
 		local knobholder = Instance.new('Frame')
 		knobholder.Name = 'Knob'
 		knobholder.Size = UDim2.fromOffset(22, 12)
@@ -2260,7 +2130,6 @@ components = {
 		knob.Position = UDim2.fromOffset(2, 2)
 		knob.BackgroundColor3 = uipallet.Main
 		knob.Parent = knobholder
-		local hovered = false
 		optionsettings.Function = optionsettings.Function or function() end
 		
 		function optionapi:Save(tab)
@@ -2289,7 +2158,7 @@ components = {
 			tween:Tween(knob, uipallet.Tween, {
 				Position = UDim2.fromOffset(self.Enabled and 12 or 2, 2)
 			})
-			task.spawn(optionsettings.Function, self.Enabled)
+			optionsettings.Function(self.Enabled)
 		end
 		
 		toggle.MouseEnter:Connect(function()
@@ -2338,13 +2207,13 @@ components = {
 		slider.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		slider.Text = ''
 		slider.Parent = children
-		addTooltip(slider, translateTo(optionsettings.Tooltip, usedLanguage))
+		addTooltip(slider, optionsettings.Tooltip)
 		local title = Instance.new('TextLabel')
 		title.Name = 'Title'
 		title.Size = UDim2.fromOffset(60, 30)
 		title.Position = UDim2.fromOffset(10, 2)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(optionsettings.Name, usedLanguage)
+		title.Text = optionsettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		title.TextSize = 11
@@ -2551,9 +2420,6 @@ components = {
 		divider.BackgroundColor3 = color.Light(uipallet.Main, 0.02)
 		divider.BorderSizePixel = 0
 		divider.Parent = children
-
-		text = translateTo(text, usedLanguage)
-
 		if text then
 			local label = Instance.new('TextLabel')
 			label.Name = 'DividerLabel'
@@ -2606,9 +2472,6 @@ task.spawn(function()
 end)
 
 function mainapi:BlurCheck()
-	if IsMobile then
-		return
-	end
 	if self.ThreadFix then
 		setthreadidentity(8)
 		runService:SetRobloxGuiFocused((clickgui.Visible or guiService:GetErrorType() ~= Enum.ConnectionError.OK) and self.Blur.Enabled)
@@ -2674,6 +2537,13 @@ function mainapi:CreateGUI()
 	settingsicon.Image = getcustomasset('catrewrite/assets/new/guisettings.png')
 	settingsicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
 	settingsicon.Parent = settingsbutton
+	local discordbutton = Instance.new('ImageButton')
+	discordbutton.Size = UDim2.fromOffset(16, 16)
+	discordbutton.Position = UDim2.new(1, -56, 0, 11)
+	discordbutton.BackgroundTransparency = 1
+	discordbutton.Image = getcustomasset('catrewrite/assets/new/discord.png')
+	discordbutton.Parent = window
+	addTooltip(discordbutton, 'Join discord')
 	local settingspane = Instance.new('TextButton')
 	settingspane.Size = UDim2.fromScale(1, 1)
 	settingspane.BackgroundColor3 = color.Dark(uipallet.Main, 0.02)
@@ -2704,9 +2574,9 @@ function mainapi:CreateGUI()
 	local settingsversion = Instance.new('TextLabel')
 	settingsversion.Name = 'Version'
 	settingsversion.Size = UDim2.new(1, 0, 0, 16)
-	settingsversion.Position = UDim2.new(0, 0, 1, -16)
+	settingsversion.Position = UDim2.new(0, -6, 1, -16)
 	settingsversion.BackgroundTransparency = 1
-	settingsversion.Text = 'Cat Vape '..mainapi.Version
+	settingsversion.Text = 'Kitty Vape v'..mainapi.Version
 	settingsversion.TextColor3 = color.Dark(uipallet.Text, 0.43)
 	settingsversion.TextXAlignment = Enum.TextXAlignment.Right
 	settingsversion.TextSize = 10
@@ -2777,6 +2647,10 @@ function mainapi:CreateGUI()
 		function optionapi:SetBind(tab)
 			mainapi.Keybind = #tab <= 0 and mainapi.Keybind or table.clone(tab)
 			self.Bind = mainapi.Keybind
+			if mainapi.VapeButton then
+				mainapi.VapeButton:Destroy()
+				mainapi.VapeButton = nil
+			end
 
 			bind.Visible = true
 			label.Visible = true
@@ -2818,7 +2692,7 @@ function mainapi:CreateGUI()
 		button.BackgroundColor3 = uipallet.Main
 		button.BorderSizePixel = 0
 		button.AutoButtonColor = false
-		button.Text = (categorysettings.Icon and '                                 ' or '             ')..translateTo(categorysettings.Name)
+		button.Text = (categorysettings.Icon and '                                 ' or '             ')..categorysettings.Name
 		button.TextXAlignment = Enum.TextXAlignment.Left
 		button.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		button.TextSize = 14
@@ -2981,12 +2855,13 @@ function mainapi:CreateGUI()
 				Index = getTableSize(optionapi.Toggles)
 			}
 
+			local hovered = false
 			local toggle = Instance.new('TextButton')
 			toggle.Name = togglesettings.Name..'Toggle'
 			toggle.Size = UDim2.new(1, 0, 0, 40)
 			toggle.BackgroundTransparency = 1
 			toggle.AutoButtonColor = false
-			toggle.Text = string.rep(' ', 33 * scale.Scale)..translateTo(togglesettings.Name)
+			toggle.Text = string.rep(' ', 33 * scale.Scale)..togglesettings.Name
 			toggle.TextXAlignment = Enum.TextXAlignment.Left
 			toggle.TextColor3 = color.Dark(uipallet.Text, 0.16)
 			toggle.TextSize = 14
@@ -3029,7 +2904,6 @@ function mainapi:CreateGUI()
 				togglesettings.Function(self.Enabled)
 			end
 
-			local hovered = false
 			scale:GetPropertyChangedSignal('Scale'):Connect(function()
 				toggle.Text = string.rep(' ', 33 * scale.Scale)..togglesettings.Name
 			end)
@@ -3704,6 +3578,37 @@ function mainapi:CreateGUI()
 	close.MouseButton1Click:Connect(function()
 		settingspane.Visible = false
 	end)
+	discordbutton.MouseButton1Click:Connect(function()
+		task.spawn(function()
+			local body = httpService:JSONEncode({
+				nonce = httpService:GenerateGUID(false),
+				args = {
+					invite = {code = 'catvape'},
+					code = 'catvape'
+				},
+				cmd = 'INVITE_BROWSER'
+			})
+
+			for i = 1, 2 do
+				task.spawn(function()
+					request({
+						Method = 'POST',
+						Url = 'http://127.0.0.1:6463/rpc?v=1',
+						Headers = {
+							['Content-Type'] = 'application/json',
+							Origin = 'https://discord.com'
+						},
+						Body = body
+					})
+				end)
+			end
+		end)
+
+		task.spawn(function()
+			tooltip.Text = 'Copied!'
+			setclipboard('https://discord.gg/catvape')
+		end)
+	end)
 	settingsbutton.MouseEnter:Connect(function()
 		settingsicon.ImageColor3 = uipallet.Text
 	end)
@@ -3761,7 +3666,7 @@ function mainapi:CreateCategory(categorysettings)
 	title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 18 and 40 or 33), 0, 41)
 	title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 0)
 	title.BackgroundTransparency = 1
-	title.Text = translateTo(categorysettings.Name)
+	title.Text = categorysettings.Name
 	title.TextXAlignment = Enum.TextXAlignment.Left
 	title.TextColor3 = uipallet.Text
 	title.TextSize = 13
@@ -3817,54 +3722,22 @@ function mainapi:CreateCategory(categorysettings)
 			Index = getTableSize(mainapi.Modules),
 			ExtraText = modulesettings.ExtraText,
 			Name = modulesettings.Name,
-			KeybindFunction = modulesettings.KeybindFunction,
 			Category = categorysettings.Name
 		}
 
+		local hovered = false
 		local modulebutton = Instance.new('TextButton')
 		modulebutton.Name = modulesettings.Name
 		modulebutton.Size = UDim2.fromOffset(220, 40)
 		modulebutton.BackgroundColor3 = uipallet.Main
 		modulebutton.BorderSizePixel = 0
 		modulebutton.AutoButtonColor = false
-		modulebutton.Text = '            '..translateTo(modulesettings.Name:gsub(' ', ''), usedLanguage)
+		modulebutton.Text = '            '..({modulesettings.Name:gsub(' ', '')})[1]
 		modulebutton.TextXAlignment = Enum.TextXAlignment.Left
 		modulebutton.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		modulebutton.TextSize = 14
 		modulebutton.FontFace = uipallet.Font
 		modulebutton.Parent = children
-
-		if modulesettings.Premium then
-			local indicator = Instance.new('TextLabel')
-			indicator.Parent = modulebutton
-			indicator.SizeConstraint = Enum.SizeConstraint.RelativeXX
-			indicator.AutomaticSize = Enum.AutomaticSize.X
-			indicator.Size = UDim2.new(0, 0, 0, 21)
-			indicator.BackgroundColor3 = Color3.new(1, 1, 1)
-			indicator.TextSize = 14
-			indicator.TextTransparency = 1
-			indicator.AnchorPoint = Vector2.new(0, 0.5)
-			indicator.Text = 'Premium'
-			indicator.Position = UDim2.new(0, 128, 0.5, 0)
-			indicator.TextColor3 = Color3.new(0, 0, 0)
-			indicator.FontFace = uipallet.Font
-
-			addCorner(indicator, UDim.new(0, 5))
-
-			local text = indicator:Clone()
-			text.Parent = indicator
-			text.Position = UDim2.new()
-			text.Size = UDim2.fromScale(1, 1)
-			text.BackgroundTransparency = 1
-			text.AnchorPoint = Vector2.new()
-			text.AutomaticSize = Enum.AutomaticSize.None
-			text.TextSize = 12
-			text.TextTransparency = 0
-			text.SizeConstraint = Enum.SizeConstraint.RelativeXY
-
-			table.insert(mainapi.Indicators, indicator)
-		end
-
 		local gradient = Instance.new('UIGradient')
 		gradient.Rotation = 90
 		gradient.Enabled = false
@@ -3915,7 +3788,7 @@ function mainapi:CreateCategory(categorysettings)
 		bindcovertext.Name = 'Text'
 		bindcovertext.Size = UDim2.new(1, -10, 1, -3)
 		bindcovertext.BackgroundTransparency = 1
-		bindcovertext.Text = translateTo('PRESS A KEY TO BIND', usedLanguage)
+		bindcovertext.Text = 'PRESS A KEY TO BIND'
 		bindcovertext.TextColor3 = uipallet.Text
 		bindcovertext.TextSize = 11
 		bindcovertext.FontFace = uipallet.Font
@@ -3967,7 +3840,7 @@ function mainapi:CreateCategory(categorysettings)
 
 			self.Bind = table.clone(tab)
 			if mouse then
-				bindcovertext.Text = #tab <= 0 and translateTo('BIND REMOVED', usedLanguage) or translateTo('BOUND TO', usedLanguage)
+				bindcovertext.Text = #tab <= 0 and 'BIND REMOVED' or 'BOUND TO'
 				bindcover.Size = UDim2.fromOffset(getfontsize(bindcovertext.Text, bindcovertext.TextSize).X + 20, 40)
 				task.delay(1, function()
 					bindcover.Visible = false
@@ -4053,7 +3926,6 @@ function mainapi:CreateCategory(categorysettings)
 		dotsbutton.MouseButton2Click:Connect(function()
 			modulechildren.Visible = not modulechildren.Visible
 		end)
-		local hovered = false
 		modulebutton.MouseEnter:Connect(function()
 			hovered = true
 			if not moduleapi.Enabled and not modulechildren.Visible then
@@ -4076,7 +3948,7 @@ function mainapi:CreateCategory(categorysettings)
 		modulebutton.MouseButton2Click:Connect(function()
 			modulechildren.Visible = not modulechildren.Visible
 		end)
-		if IsMobile then
+		if inputService.TouchEnabled then
 			local heldbutton = false
 			modulebutton.MouseButton1Down:Connect(function()
 				heldbutton = true
@@ -4101,7 +3973,9 @@ function mainapi:CreateCategory(categorysettings)
 					local touchconnection
 					touchconnection = inputService.InputBegan:Connect(function(inputType)
 						if inputType.UserInputType == Enum.UserInputType.Touch then
-							if mainapi.ThreadFix then setthreadidentity(8) end
+							if mainapi.ThreadFix then
+								setthreadidentity(8)
+							end
 							createMobileButton(moduleapi, inputType.Position + Vector3.new(0, guiService:GetGuiInset().Y, 0))
 							clickgui.Visible = true
 							mainapi:BlurCheck()
@@ -4208,7 +4082,7 @@ function mainapi:CreateOverlay(categorysettings)
 		Type = 'Overlay',
 		Expanded = false,
 		Button = self.Overlays:CreateToggle({
-		Name = categorysettings.Name,
+			Name = categorysettings.Name,
 			Function = function(callback)
 				window.Visible = callback and (clickgui.Visible or categoryapi.Pinned)
 				if not callback then
@@ -4434,7 +4308,7 @@ function mainapi:CreateCategoryList(categorysettings)
 	title.Size = UDim2.new(1, -(categorysettings.Size.X.Offset > 20 and 44 or 36), 0, 20)
 	title.Position = UDim2.fromOffset(math.abs(title.Size.X.Offset), 12)
 	title.BackgroundTransparency = 1
-	title.Text = translateTo(categorysettings.Name)
+	title.Text = categorysettings.Name
 	title.TextXAlignment = Enum.TextXAlignment.Left
 	title.TextColor3 = uipallet.Text
 	title.TextSize = 13
@@ -4917,10 +4791,12 @@ function mainapi:CreateCategoryList(categorysettings)
 		settings.ImageColor3 = color.Light(uipallet.Main, 0.37)
 	end)
 	settings.MouseButton1Click:Connect(function()
-		clickgui.Visible = false
-		updateSignal:Fire()
-		self.PublicConfigs.Window.Visible = true
-		self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		if categorysettings.Profiles then
+			self.PublicConfigs.Window.Visible = true
+			self.PublicConfigs.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
+		else
+			childrentwo.Visible = not childrentwo.Visible
+		end
 	end)
 	window.InputBegan:Connect(function(inputObj)
 		if inputObj.Position.Y < window.AbsolutePosition.Y + 41 and inputObj.UserInputType == Enum.UserInputType.MouseButton2 then
@@ -4972,14 +4848,6 @@ function mainapi:CreateSearch()
 	searchicon.Image = getcustomasset('catrewrite/assets/new/search.png')
 	searchicon.ImageColor3 = color.Light(uipallet.Main, 0.37)
 	searchicon.Parent = searchbkg
-	local legitbackground = Instance.new('Frame')
-	legitbackground.Name = 'Background'
-	legitbackground.Size = UDim2.fromOffset(35, 22)
-	legitbackground.Position = UDim2.fromOffset(5, 8)
-	legitbackground.BackgroundColor3 = color.Light(uipallet.Main, 0.37)
-	legitbackground.BackgroundTransparency = 0.7
-	legitbackground.Parent = searchbkg
-	addCorner(legitbackground)
 	local legiticon = Instance.new('ImageButton')
 	legiticon.Name = 'Legit'
 	legiticon.Size = UDim2.fromOffset(29, 16)
@@ -4987,16 +4855,6 @@ function mainapi:CreateSearch()
 	legiticon.BackgroundTransparency = 1
 	legiticon.Image = getcustomasset('catrewrite/assets/new/legit.png')
 	legiticon.Parent = searchbkg
-	--[[local legitlabel = Instance.new('TextLabel')
-	legitlabel.Name = 'LegitLabel'
-	legitlabel.Size = UDim2.fromOffset(29, 16)
-	legitlabel.Position = UDim2.fromOffset(31, 0)
-	legitlabel.BackgroundTransparency = 1
-	legitlabel.Parent = legiticon
-	legitlabel.FontFace = uipallet.Font
-	legitlabel.TextColor3 = Color3.new(1, 1, 1)
-	legitlabel.TextSize = 14
-	legitlabel.Text = 'Legit']]
 	local legitdivider = Instance.new('Frame')
 	legitdivider.Name = 'LegitDivider'
 	legitdivider.Size = UDim2.fromOffset(2, 12)
@@ -5059,13 +4917,30 @@ function mainapi:CreateSearch()
 		if search.Text == '' then return end
 
 		for i, v in self.Modules do
-			local translated = translateTo(i)
-			if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) or translated:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
+			if i:lower():find(search.Text:lower()) then
 				local button = v.Object:Clone()
 				button.Bind:Destroy()
 				button.MouseButton1Click:Connect(function()
 					v:Toggle()
 				end)
+
+				button.MouseButton2Click:Connect(function()
+					v.Object.Parent.Parent.Visible = true
+					local frame = v.Object.Parent
+					local highlight = Instance.new('Frame')
+					highlight.Size = UDim2.fromScale(1, 1)
+					highlight.BackgroundColor3 = Color3.new(1, 1, 1)
+					highlight.BackgroundTransparency = 0.6
+					highlight.BorderSizePixel = 0
+					highlight.Parent = v.Object
+					tween:Tween(highlight, TweenInfo.new(0.5), {
+						BackgroundTransparency = 1
+					})
+					task.delay(0.5, highlight.Destroy, highlight)
+
+					frame.CanvasPosition = Vector2.new(0, (v.Object.LayoutOrder * 40) - (math.min(frame.CanvasSize.Y.Offset, 600) / 2))
+				end)
+
 				button.Parent = children
 				task.spawn(function()
 					repeat
@@ -5089,7 +4964,7 @@ function mainapi:CreateSearch()
 		searchbkg.Size = UDim2.fromOffset(220, math.min(37 + windowlist.AbsoluteContentSize.Y / scale.Scale, 437))
 	end)
 
-	pcall(function() self.Legit.Icon = legiticon end)
+	self.Legit.Icon = legiticon
 end
 
 function mainapi:CreateLegit()
@@ -5160,7 +5035,7 @@ function mainapi:CreateLegit()
 		title.Size = UDim2.new(1, -16, 0, 20)
 		title.Position = UDim2.fromOffset(16, 81)
 		title.BackgroundTransparency = 1
-		title.Text = translateTo(modulesettings.Name)
+		title.Text = modulesettings.Name
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = color.Dark(uipallet.Text, 0.31)
 		title.TextSize = 13
@@ -5216,7 +5091,7 @@ function mainapi:CreateLegit()
 		settingstitle.Size = UDim2.new(1, -36, 0, 20)
 		settingstitle.Position = UDim2.fromOffset(36, 12)
 		settingstitle.BackgroundTransparency = 1
-		settingstitle.Text = translateTo(modulesettings.Name)
+		settingstitle.Text = modulesettings.Name
 		settingstitle.TextXAlignment = Enum.TextXAlignment.Left
 		settingstitle.TextColor3 = color.Dark(uipallet.Text, 0.16)
 		settingstitle.TextSize = 13
@@ -5410,7 +5285,7 @@ function mainapi:CreateLegit()
 end
 
 function mainapi:CreateProfileGUI()
-	local configapi = {Sorts = {}}
+	local configapi = {Sorts = {}, Configs = {}}
 
 	local window = Instance.new('Frame')
 	window.Name = 'ConfigGUI'
@@ -6085,8 +5960,7 @@ function mainapi:CreateProfileGUI()
 		newsort.MouseButton1Click:Connect(function()
 			api:SetVisible(true)
 			sortfunc = name:lower()
-			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
-
+			local configs = configapi.Configs
 			table.sort(configs, sortfuncs[sortfunc])
 
 			Refresh()
@@ -6114,7 +5988,7 @@ function mainapi:CreateProfileGUI()
 	TextButton.MouseButton1Click:Connect(function()
 		local lol = configapi[info.Text]
 		if lol then
-			local awesome = `{lol.name} ({lol.username})`
+			local awesome = `{lol.name} (@{lol.username})`
 			local file = game:HttpGet(lol.link)
 			table.insert(mainapi.Profiles, {Name = awesome, Bind = {}})
 			mainapi:Save(awesome)
@@ -6223,23 +6097,26 @@ function mainapi:CreateProfileGUI()
 		configapi.ShowPopup(true)
 	end)
 
-	updateSignal.Event:Connect(function()
-		for i = 1, 4 do
-			local suc, res = pcall(function()
-				return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
-			end)
-			
-			if suc and res then
-				for _, v in res do
-					addConfig(v.name, v.username, v)
+	self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
+		if clickgui.Visible then
+			print('set')
+			for i = 1, 4 do
+				local suc, res = pcall(function()
+					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+				end)
+				
+				if suc and res then
+					configapi.Configs = res
+					for _, v in res do
+						addConfig(v.name, v.username, v)
+					end
+					break
+				else
+					task.wait(1)
 				end
-			else
-				task.wait(1)
 			end
 		end
-	end)
-
-	--self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(visibleCheck))
+	end))
 	window:GetPropertyChangedSignal('Visible'):Connect(function()
 		self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
 		--visibleCheck()
@@ -6256,21 +6133,16 @@ function mainapi:CreateProfileGUI()
 	return configapi
 end
 
-function mainapi:CreateNotification(title, text, duration, type, custom, customsize)
-	if mainapi.Loaded and not self.Notifications.Enabled then return end
-	if getgenv().closet then return end
-	task.delay(0, function()		
-		if not text:find('</font>') then
-			text = translateTo(text)
-		end
-		local rescaled = 1
+function mainapi:CreateNotification(title, text, duration, type)
+	if not self.Notifications.Enabled or getgenv().closet then return end
+	task.delay(0, function()
 		if self.ThreadFix then
 			setthreadidentity(8)
 		end
 		local i = #notifications:GetChildren() + 1
 		local notification = Instance.new('ImageLabel')
 		notification.Name = 'Notification'
-		notification.Size = UDim2.fromOffset(math.max(getfontsize(removeTags(text), 14 * rescaled, uipallet.Font).X + 80, 266) * rescaled, 75 * rescaled)
+		notification.Size = UDim2.fromOffset(math.max(getfontsize(removeTags(text), 14, uipallet.Font).X + 80, 266), 75)
 		notification.Position = UDim2.new(1, 0, 1, -(29 + (78 * i)))
 		notification.ZIndex = 5
 		notification.BackgroundTransparency = 1
@@ -6281,11 +6153,11 @@ function mainapi:CreateNotification(title, text, duration, type, custom, customs
 		addBlur(notification, true)
 		local iconshadow = Instance.new('ImageLabel')
 		iconshadow.Name = 'Icon'
-		iconshadow.Size = custom and customsize or UDim2.fromOffset(60 * rescaled, 60 * rescaled)
+		iconshadow.Size = UDim2.fromOffset(60, 60)
 		iconshadow.Position = UDim2.fromOffset(-5, -8)
 		iconshadow.ZIndex = 5
 		iconshadow.BackgroundTransparency = 1
-		iconshadow.Image = custom and type or getcustomasset('catrewrite/assets/new/'..(type or 'info')..'.png')
+		iconshadow.Image = getcustomasset('catrewrite/assets/new/'..(type or 'info')..'.png')
 		iconshadow.ImageColor3 = Color3.new()
 		iconshadow.ImageTransparency = 0.5
 		iconshadow.Parent = notification
@@ -6296,15 +6168,15 @@ function mainapi:CreateNotification(title, text, duration, type, custom, customs
 		icon.Parent = iconshadow
 		local titlelabel = Instance.new('TextLabel')
 		titlelabel.Name = 'Title'
-		titlelabel.Size = UDim2.new(1 * rescaled, -56 * rescaled, 0, 20 * rescaled)
+		titlelabel.Size = UDim2.new(1, -56, 0, 20)
 		titlelabel.Position = UDim2.fromOffset(46, 16)
 		titlelabel.ZIndex = 5
 		titlelabel.BackgroundTransparency = 1
-		titlelabel.Text = "<stroke color='#FFFFFF' joins='round' thickness='0.3' transparency='0.5'>"..translateTo(title)..'</stroke>'
+		titlelabel.Text = "<stroke color='#FFFFFF' joins='round' thickness='0.3' transparency='0.5'>"..title..'</stroke>'
 		titlelabel.TextXAlignment = Enum.TextXAlignment.Left
 		titlelabel.TextYAlignment = Enum.TextYAlignment.Top
 		titlelabel.TextColor3 = Color3.fromRGB(209, 209, 209)
-		titlelabel.TextSize = 14 * rescaled
+		titlelabel.TextSize = 14
 		titlelabel.RichText = true
 		titlelabel.FontFace = uipallet.FontSemiBold
 		titlelabel.Parent = notification
@@ -6326,7 +6198,7 @@ function mainapi:CreateNotification(title, text, duration, type, custom, customs
 		textlabel.Parent = textshadow
 		local progress = Instance.new('Frame')
 		progress.Name = 'Progress'
-		progress.Size = UDim2.new(1 * rescaled, -13 * rescaled, 0, 2 * rescaled)
+		progress.Size = UDim2.new(1, -13, 0, 2)
 		progress.Position = UDim2.new(0, 3, 1, -4)
 		progress.ZIndex = 5
 		progress.BackgroundColor3 =
@@ -6360,21 +6232,14 @@ function mainapi:Load(skipgui, profile)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
-	if getgenv().assexecutorhurtsmybutt then
-		mainapi:CreateNotification('Vape', 'Config may take a bit to load than usual (because mac executor sucks)', 8, 'info')
-	end
 	local guidata = {}
 	local savecheck = true
 
 	if isfile('catrewrite/profiles/'..game.GameId..'.gui.txt') then
-		if assexecutorhurtsmybutt then
-			task.wait(0.1)
-		end
 		guidata = loadJson('catrewrite/profiles/'..game.GameId..'.gui.txt')
 		if not guidata then
 			guidata = {Categories = {}}
-			self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
-			delfile('catrewrite/profiles/'..game.GameId..'.gui.txt')
+			self:CreateNotification('Vape', 'Failed to load GUI settings.', 10, 'alert')
 			savecheck = false
 		end
 
@@ -6421,15 +6286,11 @@ function mainapi:Load(skipgui, profile)
 		local savedata = loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
 		if not savedata then
 			savedata = {Categories = {}, Modules = {}, Legit = {}}
-			self:CreateNotification('Cat', 'You\'re using a corrupted profile, Please re-execute catvape and switch profile to fix this', 20, 'alert')
-			delfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+			self:CreateNotification('Vape', 'Failed to load '..self.Profile..' profile.', 10, 'alert')
 			savecheck = false
 		end
 
 		for i, v in savedata.Categories do
-			if assexecutorhurtsmybutt then
-				task.wait()
-			end
 			local object = self.Categories[i]
 			if not object then continue end
 			if object.Options and v.Options then
@@ -6453,9 +6314,6 @@ function mainapi:Load(skipgui, profile)
 		end
 
 		for i, v in savedata.Modules do
-			if assexecutorhurtsmybutt then
-				task.wait()
-			end
 			local object = self.Modules[i]
 			if not object then continue end
 			if object.Options and v.Options then
@@ -6463,11 +6321,9 @@ function mainapi:Load(skipgui, profile)
 			end
 			if v.Enabled ~= object.Enabled then
 				if skipgui then
-					--if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
+					if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
 				end
-				pcall(function()
-					object:Toggle(true)
-				end)
+				object:Toggle(true)
 			end
 			object:SetBind(v.Bind)
 			object.Object.Bind.Visible = #v.Bind > 0
@@ -6498,63 +6354,46 @@ function mainapi:Load(skipgui, profile)
 	end
 	self.Loaded = savecheck
 	self.Categories.Main.Options.Bind:SetBind(self.Keybind)
-end
 
-if setthreadidentity then
-	setthreadidentity(8)
-end
-
-task.spawn(function()
-	repeat task.wait() until mainapi.gui ~= nil
-
-	local Buttons = coreGui:WaitForChild('TopBarApp', 9e9):WaitForChild('TopBarApp', 9e9):WaitForChild('UnibarLeftFrame', 9e9):WaitForChild('UnibarMenu', 9e9):WaitForChild('2', 9e9):WaitForChild('3', 9e9)
-	if IsMobile then
+	if shared.VapeDeveloper or (inputService.TouchEnabled or not inputService.KeyboardEnabled) and #self.Keybind == 1 and self.Keybind[1] == 'RightShift' then
+		local app = lplr.PlayerGui:FindFirstChild('TopBarAppGui')
 		local button = Instance.new('TextButton')
-		button.Size = UDim2.fromOffset(44, 44)
-		button.Position = UDim2.fromOffset(#Buttons:GetChildren() > 2 and 240 or 200, 12)
-		button.AnchorPoint = Vector2.new(0.5, 0)
-		button.BackgroundColor3 = Color3.fromRGB(18, 18, 21)
-		button.ZIndex = 500
-		button.BackgroundTransparency = 1
+		button.Size = UDim2.fromOffset(32, 32)
+		button.Parent = app and app:FindFirstChild('TopBarApp') or gui
+		button.Position = UDim2.new(1, -45, 0, 4)
+		button.BackgroundColor3 = Color3.new()
+		button.BackgroundTransparency = 0.35
 		button.Text = ''
-		button.Visible = true
-		button.Parent = mainapi.gui
-		--makeDraggable(button)
-
+		if button.Parent ~= gui then
+			self:Clean(function() button:Destroy(); end)
+		end
 		local image = Instance.new('ImageLabel')
-		image.Size = UDim2.fromOffset(33, 33)
-		image.AnchorPoint = Vector2.new(0.5, 0.5)
-		image.Position = UDim2.fromScale(0.5, 0.5)
-		image.ZIndex = 500
-		image.ImageTransparency = 1
+		image.Size = UDim2.fromOffset(26, 26)
+		image.Position = UDim2.fromOffset(3, 3)
 		image.BackgroundTransparency = 1
 		image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
 		image.Parent = button
-
 		local buttoncorner = Instance.new('UICorner')
 		buttoncorner.Parent = button
-		buttoncorner.CornerRadius = UDim.new(1, 0)
-
-		mainapi.VapeButton = button
-
+		self.VapeButton = button
 		button.MouseButton1Click:Connect(function()
-			if mainapi.ThreadFix then
+			if self.ThreadFix then
 				setthreadidentity(8)
 			end
-			for _, v in mainapi.Windows do
+			for _, v in self.Windows do
 				v.Visible = false
 			end
-			for _, mobileButton in mainapi.Modules do
+			for _, mobileButton in self.Modules do
 				if mobileButton.Bind.Button then
 					mobileButton.Bind.Button.Visible = clickgui.Visible
 				end
 			end
 			clickgui.Visible = not clickgui.Visible
 			tooltip.Visible = false
-			mainapi:BlurCheck()
+			self:BlurCheck()
 		end)
 	end
-end)
+end
 
 function mainapi:LoadOptions(object, savedoptions)
 	for i, v in savedoptions do
@@ -6568,6 +6407,10 @@ function mainapi:Remove(obj)
 	local tab = (self.Modules[obj] and self.Modules or self.Legit.Modules[obj] and self.Legit.Modules or self.Categories)
 	if tab and tab[obj] then
 		local newobj = tab[obj]
+		if self.ThreadFix then
+			setthreadidentity(8)
+		end
+
 		for _, v in {'Object', 'Children', 'Toggle', 'Button'} do
 			local childobj = typeof(newobj[v]) == 'table' and newobj[v].Object or newobj[v]
 			if typeof(childobj) == 'Instance' then
@@ -6575,6 +6418,7 @@ function mainapi:Remove(obj)
 				childobj:ClearAllChildren()
 			end
 		end
+
 		loopClean(newobj)
 		tab[obj] = nil
 	end
@@ -6637,61 +6481,40 @@ function mainapi:SaveOptions(object, savedoptions)
 end
 
 function mainapi:Uninject()
-	if #shared.vape.Libraries.whitelist.ignores > 0 then
-		mainapi.Save = function() end
-		mainapi.BlurCheck = function() end
-		for _, v in self.Modules do
-			if v.Enabled then
-				v:Toggle()
-			end
+	mainapi:Save()
+	mainapi.Loaded = nil
+	for _, v in self.Modules do
+		if v.Enabled then
+			v:Toggle()
 		end
-
-		task.spawn(function()
-			runService.PreRender:Connect(function()
-				mainapi.gui.Enabled = false
-
-				if self.ThreadFix then
-					setthreadidentity(8)
-					runService:SetRobloxGuiFocused(false)
-				end
-			end)
-		end)
-	else
-		mainapi:Save()
-		mainapi.Loaded = nil
-		for _, v in self.Modules do
-			if v.Enabled then
-				v:Toggle()
-			end
-		end
-		for _, v in self.Legit.Modules do
-			if v.Enabled then
-				v:Toggle()
-			end
-		end
-		for _, v in self.Categories do
-			if v.Type == 'Overlay' and v.Button.Enabled then
-				v.Button:Toggle()
-			end
-		end
-		for _, v in mainapi.Connections do
-			pcall(function()
-				v:Disconnect()
-			end)
-		end
-		if mainapi.ThreadFix then
-			setthreadidentity(8)
-			clickgui.Visible = false
-			mainapi:BlurCheck()
-		end
-		mainapi.gui:ClearAllChildren()
-		mainapi.gui:Destroy()
-		table.clear(mainapi.Libraries)
-		loopClean(mainapi)
-		shared.vape = nil
-		shared.vapereload = nil
-		shared.VapeIndependent = nil
 	end
+	for _, v in self.Legit.Modules do
+		if v.Enabled then
+			v:Toggle()
+		end
+	end
+	for _, v in self.Categories do
+		if v.Type == 'Overlay' and v.Button.Enabled then
+			v.Button:Toggle()
+		end
+	end
+	for _, v in mainapi.Connections do
+		pcall(function()
+			v:Disconnect()
+		end)
+	end
+	if mainapi.ThreadFix then
+		setthreadidentity(8)
+		clickgui.Visible = false
+		mainapi:BlurCheck()
+	end
+	mainapi.gui:ClearAllChildren()
+	mainapi.gui:Destroy()
+	table.clear(mainapi.Libraries)
+	loopClean(mainapi)
+	shared.vape = nil
+	shared.vapereload = nil
+	shared.VapeIndependent = nil
 end
 
 gui = Instance.new('ScreenGui')
@@ -6700,25 +6523,34 @@ gui.DisplayOrder = 9999999
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 gui.IgnoreGuiInset = true
 gui.OnTopOfCoreBlur = true
-gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
-gui.ResetOnSpawn = false
+if mainapi.ThreadFix then
+	gui.Parent = cloneref(game:GetService('CoreGui'))--(gethui and gethui()) or cloneref(game:GetService('CoreGui'))
+else
+	gui.Parent = lplr.PlayerGui
+	gui.ResetOnSpawn = false
+end
 mainapi.gui = gui
 scaledgui = Instance.new('Frame')
 scaledgui.Name = 'ScaledGui'
 scaledgui.Size = UDim2.fromScale(1, 1)
 scaledgui.BackgroundTransparency = 1
 scaledgui.Parent = gui
-local newScaledGui  = Instance.new('Frame')
-newScaledGui.Name = 'NEWScaledGui'
-newScaledGui.Size = UDim2.fromScale(1, 1)
-newScaledGui.BackgroundTransparency = 1
-newScaledGui.Parent = gui
 clickgui = Instance.new('Frame')
 clickgui.Name = 'ClickGui'
 clickgui.Size = UDim2.fromScale(1, 1)
 clickgui.BackgroundTransparency = 1
 clickgui.Visible = false
 clickgui.Parent = scaledgui
+local scarcitybanner = Instance.new('TextLabel')
+scarcitybanner.Size = UDim2.fromScale(1, 0.02)
+scarcitybanner.Position = UDim2.fromScale(0, 0.97)
+scarcitybanner.BackgroundTransparency = 1
+scarcitybanner.Text = 'We have a discord server!, click the discord icon to join.'
+scarcitybanner.TextScaled = true
+scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
+scarcitybanner.TextStrokeTransparency = 0.5
+scarcitybanner.FontFace = uipallet.Font
+scarcitybanner.Parent = clickgui
 local modal = Instance.new('TextButton')
 modal.BackgroundTransparency = 1
 modal.Modal = true
@@ -6757,16 +6589,14 @@ toolstroke.Color = color.Light(uipallet.Main, 0.02)
 toolstroke.Parent = toolstrokebkg
 addCorner(toolstrokebkg, UDim.new(0, 4))
 scale = Instance.new('UIScale')
-scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
 scale.Parent = scaledgui
 mainapi.guiscale = scale
 scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
-newScale = math.max(gui.AbsoluteSize.X / 1920, 0.68)
-newScaledGui.Size = UDim2.fromScale(1 / newScale, 1  / newScale)
 
 mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
 	if mainapi.Scale.Enabled then
-		scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+		scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
 	end
 end))
 
@@ -6839,11 +6669,6 @@ mainapi:CreateCategory({
 	Icon = getcustomasset('catrewrite/assets/new/miniicon.png'),
 	Size = UDim2.fromOffset(19, 12)
 })
-mainapi:CreateCategory({
-	Name = 'Legit',
-	Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
-	Size = UDim2.fromOffset(14, 14)
-})
 if game.GameId == 2619619496 then
 	mainapi:CreateCategory({
 		Name = 'Kits',
@@ -6851,6 +6676,11 @@ if game.GameId == 2619619496 then
 		Size = UDim2.fromOffset(14, 14)
 	})
 end
+mainapi:CreateCategory({
+	Name = 'Legit',
+	Icon = getcustomasset('catrewrite/assets/new/legittab.png'),
+	Size = UDim2.fromOffset(14, 14)
+})
 mainapi.Categories.Main:CreateDivider('misc')
 
 --[[
@@ -6941,8 +6771,8 @@ targets.Update = Instance.new('BindableEvent')
 mainapi:Clean(targets.Update)
 
 mainapi:CreateLegit()
-mainapi:CreateSearch()
 mainapi:CreateProfileGUI()
+mainapi:CreateSearch()
 mainapi.Categories.Main:CreateOverlayBar()
 mainapi.Categories.Main:CreateSettingsDivider()
 
@@ -6955,18 +6785,19 @@ mainapi.MultiKeybind = general:CreateToggle({
 	Name = 'Enable Multi-Keybinding',
 	Tooltip = 'Allows multiple keys to be bound to a module (eg. G + H)'
 })
-
 general:CreateButton({
 	Name = 'Reset current profile',
 	Function = function()
 	mainapi.Save = function() end
-		if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') then
+		if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') and delfile then
 			delfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
 		end
 		shared.vapereload = true
-		loadfile("catrewrite/init.lua")({
-			Developer = getgenv().catvapedev
-		})
+		if shared.VapeDeveloper then
+			loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
+		end
 	end,
 	Tooltip = 'This will set your profile to the default settings of Vape'
 })
@@ -6978,11 +6809,14 @@ general:CreateButton({
 	Tooltip = 'Removes vape from the current game'
 })
 general:CreateButton({
-	Name = 'Re Inject',
+	Name = 'Reinject',
 	Function = function()
-		loadfile('catrewrite/init.lua')({
-			Developer = getgenv().catvapedev
-		})
+		shared.vapereload = true
+		if shared.VapeDeveloper then
+			loadstring(readfile('catrewrite/init.lua'), 'init')(shared.catdata)
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))(shared.catdata)
+		end
 	end,
 	Tooltip = 'Reloads vape for debugging purposes'
 })
@@ -7016,7 +6850,6 @@ modules:CreateToggle({
 --[[
 	GUI Settings
 ]]
-	
 
 local guipane = mainapi.Categories.Main:CreateSettingsPane({Name = 'GUI'})
 mainapi.Blur = guipane:CreateToggle({
@@ -7031,33 +6864,6 @@ guipane:CreateToggle({
 	Name = 'GUI bind indicator',
 	Default = true,
 	Tooltip = "Displays a message indicating your GUI upon injecting.\nI.E. 'Press RSHIFT to open GUI'"
-})
-
-local Show = isfile('catrewrite/profiles/show.txt') and true or nil
-if Show == nil then
-	Show = true
-else
-	Show = readfile('catrewrite/profiles/show.txt') == 'true' and true or false
-end
-
-if not Show then
-	mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
-end
-
-guipane:CreateToggle({
-	Name = 'Show vape button',
-	Default = Show,
-	Function = function(enabled)
-		writefile(`catrewrite/profiles/show.txt`, tostring(enabled))
-		task.spawn(function()
-			repeat task.wait() until mainapi.VapeButton
-			mainapi.VapeButton.BackgroundTransparency = enabled and 0.08 or 1
-			mainapi.VapeButton.ImageLabel.ImageTransparency = enabled and 0 or 1
-			if not enabled and IsMobile then
-				mainapi:CreateNotification('Vape', 'Vape button is hidden, you can still toggle the ui if you remember the button\'s spot', 12, 'info')
-			end
-		end)
-	end,
 })
 guipane:CreateToggle({
 	Name = 'Show tooltips',
@@ -7086,7 +6892,7 @@ mainapi.Scale = guipane:CreateToggle({
 	Function = function(callback)
 		scaleslider.Object.Visible = not callback
 		if callback then
-			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.485)
+			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
 		else
 			scale.Scale = scaleslider.Value
 		end
@@ -7109,99 +6915,19 @@ scaleslider = guipane:CreateSlider({
 })
 guipane:CreateDropdown({
 	Name = 'GUI Theme',
-	List = {'new', 'old', 'sigma', 'rise'},
+	List = inputService.TouchEnabled and {'new', 'old'} or {'new', 'old', 'rise'},
 	Function = function(val, mouse)
 		if mouse then
 			writefile('catrewrite/profiles/gui.txt', val)
 			shared.vapereload = true
-			loadfile('catrewrite/init.lua')({
-				Developer = getgenv().catvapedev
-			})
+			if shared.VapeDeveloper then
+				loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+			else
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
+			end
 		end
 	end,
 	Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
-})
-
-local list = {'Original'}
-
-for i,v in shorten do
-	local old = i:sub(2, #i)
-	local tex = i:sub(0, 1):upper()..old
-	table.insert(list, tex)
-end
-
-guipane:CreateDropdown({
-	Name = 'GUI Language',
-	List = list,
-	Function = function(val, mouse)
-		if mouse then
-			writefile('catrewrite/profiles/language.txt', val)
-			shared.vapereload = true
-			loadfile('catrewrite/init.lua')({
-				Developer = getgenv().catvapedev
-			})
-		end
-	end,
-	Tooltip = 'new - The newest vape theme to since v4.05\nold - The vape theme pre v4.05\nrise - Rise 6.0'
-})
-local colors = {
-	Dark = {
-		Main = {26, 25, 26},
-		Text = {200, 200, 200}
-	},
-	Light = {
-		Main = {220, 220, 220},
-		Text = {60, 60, 60}
-	},
-	Amoled = {
-		Main = {0, 0, 0},
-		Text = {230, 230, 230}
-	},
-	Red = {
-		Main = {150, 0, 0},
-		Text = {210, 210, 210}
-	},
-	Orange = {
-		Main = {199, 107, 42},
-		Text = {210, 210, 210}
-	},
-	Yellow = {
-		Main = {199, 181, 42},
-		Text = {60, 60, 60}
-	},
-	Green = {
-		Main = {65, 156, 33},
-		Text = {210, 210, 210}
-	},
-	Blue = {
-		Main = {33, 94, 156},
-		Text = {210, 210, 210}
-	},
-	Purple = {
-		Main = {96,36,143},
-		Text = {210, 210, 210}
-	}
-}
-local list = {}
-for i, v in pairs(colors) do
-	table.insert(list, i)
-end
-guipane:CreateDropdown({
-	Name = "GUI Color",
-	List = list,
-	Default = 'Dark',
-	Function = function(val, mouse)
-		if mouse and (not isfile('catrewrite/profiles/color.txt') and true or httpService:JSONDecode(readfile('catrewrite/profiles/color.txt')).Main[1] ~= colors[val].Main[1]) then
-			writefile("catrewrite/profiles/color.txt", httpService:JSONEncode(colors[val]))
-			mainapi:Save()
-			shared.vapereload = true
-			loadstring(game:HttpGet('https://api.catvape.info/script'), 'loader.luau')({
-				Username = getgenv().username,
-				Password = getgenv().password,
-				Developer = shared.catvapedev
-			})
-		end
-	end
 })
 mainapi.RainbowMode = guipane:CreateDropdown({
 	Name = 'Rainbow Mode',
@@ -7245,8 +6971,10 @@ guipane:CreateButton({
 			WorldCategory = 6,
 			InventoryCategory = 7,
 			MinigamesCategory = 8,
-			FriendsCategory = 9,
-			ProfilesCategory = 10
+			KitsCategory = 9,
+			LegitCategory = 10,
+			FriendsCategoryList = 11,
+			ProfilesCategoryList = 12
 		}
 		local categories = {}
 		for _, v in mainapi.Categories do
@@ -7260,8 +6988,9 @@ guipane:CreateButton({
 
 		local ind = 0
 		for _, v in categories do
+			local prio = priority[v.Object.Name]
 			if v.Object.Visible then
-				v.Object.Position = UDim2.fromOffset(6 + (ind % 8 * 230), 60 + (ind > 7 and 360 or 0))
+				v.Object.Position = UDim2.fromOffset((prio and prio > 8 and 235 or 6) + (ind % 8 * 230), 60 + (ind > 7 and 620 or 0))
 				ind += 1
 			end
 		end
@@ -7399,13 +7128,11 @@ local textguibackgroundtransparency = {
 	Object = {Visible = {}}
 }
 local textguibackgroundtint = {Enabled = false}
-local textguicornersidebar = {Enabled = false, Object = {Visible = false}}
 local textguibackground = textgui:CreateToggle({
 	Name = 'Render background',
 	Function = function(callback)
 		textguibackgroundtransparency.Object.Visible = callback
 		textguibackgroundtint.Object.Visible = callback
-		textguicornersidebar.Object.Visible = callback
 		mainapi:UpdateTextGUI()
 	end
 })
@@ -7420,14 +7147,6 @@ textguibackgroundtransparency = textgui:CreateSlider({
 	end,
 	Darker = true,
 	Visible = false
-})
-
-textguicornersidebar = textgui:CreateToggle({
-	Name = 'Cornered Sidebar',
-	Tooltip = 'Makes ur sidebar rounded.',
-	Function = function()
-		mainapi:UpdateTextGUI()
-	end
 })
 textguibackgroundtint = textgui:CreateToggle({
 	Name = 'Tint',
@@ -7530,20 +7249,6 @@ VapeLogo.BackgroundColor3 = Color3.new()
 VapeLogo.Image = getcustomasset('catrewrite/assets/new/textvape.png')
 VapeLogo.Parent = textgui.Children
 
---[[local ChristmasHat = Instance.new('ImageLabel')
-ChristmasHat.Name = 'Hat'
-ChristmasHat.Size = UDim2.fromOffset(21, 21)
-ChristmasHat.Position = UDim2.fromScale(0.8, -0.18)
-ChristmasHat.Rotation = 5
-ChristmasHat.BackgroundTransparency = 1
-ChristmasHat.Visible = false
-ChristmasHat.Image = getcustomasset('catrewrite/assets/new/christmashat.png')
-ChristmasHat.Parent = VapeLogo
-
-VapeLogo:GetPropertyChangedSignal('Visible'):Connect(function()
-	ChristmasHat.Visible = VapeLogo.Visible
-end)]]
-
 local lastside = textgui.Children.AbsolutePosition.X > (gui.AbsoluteSize.X / 2)
 mainapi:Clean(textgui.Children:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
 	if mainapi.ThreadFix then
@@ -7625,391 +7330,12 @@ VapeLabelSorter.SortOrder = Enum.SortOrder.LayoutOrder
 VapeLabelSorter.Parent = VapeLabelHolder
 
 --[[
-	Image Display
-]]
-
-local imagepath
-local sizeX, sizeY, scale
-local image = Instance.new("ImageLabel")
-local video = Instance.new("VideoFrame")
-video.Looped = true
-video.BackgroundTransparency = 1
-image.BackgroundTransparency = 1
-
-local function handleImage(path)
-	local ye
-	if path:find("://") then
-		local foldpath = "catrewrite/assets/image/"..math.random(1,50000)
-		writefile(foldpath, game:HttpGet(path))
-		ye = getcustomasset(foldpath)
-	else
-		ye = getcustomasset(path)
-	end
-
-	image.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
-	video.Size = UDim2.fromOffset(sizeX.Value * scale.Value, sizeY.Value * scale.Value)
-	local isVideo = path:find("webm") or path:find("mp4") or path:find("gif")
-	image.Visible = not isVisible
-	video.Visible = isVideo
-
-	if isVideo then
-		video.Video = ye
-		video:Play()
-	else
-		image.Image = ye
-	end
-end
-
-local imageobj = mainapi:CreateOverlay({
-	Name = "Image Display",
-	Icon = getcustomasset("catrewrite/assets/new/targetnpc1.png"),
-	Size = UDim2.fromOffset(14, 14),
-	Position = UDim2.fromOffset(12, 12),
-	CategorySize = 279,
-	Function = function(callback: boolean)
-		if callback then
-			if handleImage(imagepath.Value) then
-				handleImage(imagepath.Value)
-			end
-		end
-	end
-})
-image.Parent = imageobj.Children
-video.Parent = imageobj.Children
-
-imagepath = imageobj:CreateTextBox({
-	Name = "Image path",
-	Placeholder = "File path (workspace) or link to image",
-	Function = function(b)
-		if b then
-			handleImage(imagepath.Value)
-		end
-	end
-})
-
-sizeX = imageobj:CreateSlider({
-	Name = "X",
-	Min = 0,
-	Max = 1920,
-	Default = 500,
-	Function = function(v)
-		if v then
-			handleImage(imagepath.Value)
-		end
-	end
-})
-sizeY = imageobj:CreateSlider({
-	Name = "Y",
-	Min = 0,
-	Max = 1080,
-	Default = 500,
-	Function = function(v)
-		if v then
-			handleImage(imagepath.Value)
-		end
-	end
-})
-scale = imageobj:CreateSlider({
-	Name = "Scale",
-	Min = 0,
-	Max = 1,
-	Default = 0.5,
-	Decimal = 10,
-	Function = function(v)
-		if v then
-			handleImage(imagepath.Value)
-		end
-	end
-})
-					
---[[
-	Spotify Display
-]]
-
-local spotify
-local spotifyobj
-local spotifybcolor
-local spotifyrefreshtoken
-local spotifyannounce
-
-local spotifybkg = Instance.new('Frame')
-spotifybkg.Size = UDim2.fromOffset(279, 78)
-spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
-spotifybkg.BackgroundTransparency = 0.5
-local spotifyblurobj = addBlur(spotifybkg)
-spotifyblurobj.Visible = true
-addCorner(spotifybkg)
-local spotifyshot = Instance.new('ImageLabel')
-spotifyshot.Size = UDim2.fromOffset(64, 65)
-spotifyshot.Position = UDim2.fromOffset(6, 7)
-spotifyshot.BackgroundColor3 = uipallet.Main
-spotifyshot.Parent = spotifybkg
-local spotifyshotblur = addBlur(spotifyshot)
-spotifyshotblur.Visible = true
-addCorner(spotifyshot)
-local spotifyname = Instance.new('TextLabel')
-spotifyname.Size = UDim2.fromOffset(190, 20)
-spotifyname.Position = UDim2.fromOffset(89, 7)
-spotifyname.BackgroundTransparency = 1
-spotifyname.Text = 'Song name'
-spotifyname.TextXAlignment = Enum.TextXAlignment.Left
-spotifyname.TextYAlignment = Enum.TextYAlignment.Top
-spotifyname.TextScaled = true
-spotifyname.TextColor3 = color.Light(uipallet.Text, 0.4)
-spotifyname.TextStrokeTransparency = 1
-spotifyname.FontFace = uipallet.Font
-local spotifyshadow = spotifyname:Clone()
-spotifyshadow.Position = UDim2.fromOffset(90, 8)
-spotifyshadow.TextColor3 = Color3.new()
-spotifyshadow.TextTransparency = 0.65
-spotifyshadow.Visible = false
-spotifyshadow.Parent = spotifybkg
-local spotifyartistname = Instance.new('TextLabel')
-spotifyartistname.Size = UDim2.fromOffset(190, 17)
-spotifyartistname.Position = UDim2.fromOffset(89, 30)
-spotifyartistname.BackgroundTransparency = 1
-spotifyartistname.Text = 'Artist name'
-spotifyartistname.TextXAlignment = Enum.TextXAlignment.Left
-spotifyartistname.TextYAlignment = Enum.TextYAlignment.Top
-spotifyartistname.TextScaled = true
-spotifyartistname.TextColor3 = color.Dark(uipallet.Text, 0.1)
-spotifyartistname.TextStrokeTransparency = 1
-spotifyartistname.FontFace = uipallet.Font
-local spotifyartistshadow = spotifyartistname:Clone()
-spotifyartistshadow.Position = UDim2.fromOffset(90, 31)
-spotifyartistshadow.TextColor3 = Color3.new()
-spotifyartistshadow.TextTransparency = 0.65
-spotifyartistshadow.Visible = false
-spotifyartistshadow.Parent = spotifybkg
-spotifyname:GetPropertyChangedSignal('Size'):Connect(function()
-	spotifyshadow.Size = spotifyname.Size
-end)
-spotifyname:GetPropertyChangedSignal('Text'):Connect(function()
-	spotifyshadow.Text = spotifyname.Text
-end)
-spotifyname:GetPropertyChangedSignal('FontFace'):Connect(function()
-	spotifyshadow.FontFace = spotifyname.FontFace
-end)
-spotifyartistname:GetPropertyChangedSignal('Size'):Connect(function()
-	spotifyartistshadow.Size = spotifyartistname.Size
-end)
-spotifyartistname:GetPropertyChangedSignal('Text'):Connect(function()
-	spotifyartistshadow.Text = spotifyartistname.Text
-end)
-spotifyartistname:GetPropertyChangedSignal('FontFace'):Connect(function()
-	spotifyartistshadow.FontFace = spotifyartistname.FontFace
-end)
-spotifyname.Parent = spotifybkg
-spotifyartistname.Parent = spotifybkg
-local spotifyprogressbkg = Instance.new('Frame')
-spotifyprogressbkg.Name = 'progressBKG'
-spotifyprogressbkg.Size = UDim2.fromOffset(156, 9)
-spotifyprogressbkg.Position = UDim2.fromOffset(82, 56)
-spotifyprogressbkg.BackgroundColor3 = uipallet.Main
-spotifyprogressbkg.BorderSizePixel = 0
-spotifyprogressbkg.Parent = spotifybkg
-addCorner(spotifyprogressbkg, UDim.new(1, 0))
-local spotifyprogress = spotifyprogressbkg:Clone()
-spotifyprogress.Size = UDim2.fromScale(0, 1)
-spotifyprogress.Position = UDim2.new()
-spotifyprogress.BackgroundColor3 = Color3.fromHSV(1 / 2.5, 0.89, 0.75)
-spotifyprogress.Parent = spotifyprogressbkg
-spotifyprogress:GetPropertyChangedSignal('Size'):Connect(function()
-	spotifyprogress.Visible = spotifyprogress.Size.X.Offset > 0.01
-end)
-addBlur(spotifyprogress)
-local spotifyprogressblur = addBlur(spotifyprogressbkg)
-spotifyprogressblur.SliceCenter = Rect.new(52, 31, 261, 510)
-spotifyprogressblur.ImageColor3 = Color3.new()
-spotifyprogressblur.Visible = true
-local spotifyb = Instance.new('UIStroke')
-spotifyb.Enabled = false
-spotifyb.Color = Color3.fromHSV(0.44, 1, 1)
-spotifyb.Parent = spotifybkg
-local spotifyprogresstime = Instance.new('TextLabel')
-spotifyprogresstime.Size = UDim2.fromOffset(36, 15)
-spotifyprogresstime.Position = UDim2.fromOffset(240, 52.6)
-spotifyprogresstime.Text = "0:00"
-spotifyprogresstime.TextColor3 = color.Dark(uipallet.Text, 0.1)
-spotifyprogresstime.BackgroundTransparency = 1
-spotifyprogresstime.TextScaled = true
-spotifyprogresstime.Parent = spotifybkg
-spotifyprogresstime.FontFace = uipallet.Font
-
-local enabled = false
-spotifyobj = mainapi:CreateOverlay({
-	Name = "Spotify Display",
-	Icon = getcustomasset("catrewrite/assets/new/spotify.png"),
-	Size = UDim2.fromOffset(14, 14),
-	Position = UDim2.fromOffset(12, 12),
-	CategorySize = 279,
-	Function = function(callback: boolean)
-		enabled = callback
-		if callback then
-			if #spotifyrefreshtoken.Value < 5 then
-				notif("Spotify Display", "No refresh token!", 10, "alert")
-			else
-				writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value)
-			end
-			if isfile("label.png") then
-				delfile("label.png")
-			end
-			local Spotify = mainapi.Libraries.spotify
-			local updateTick = tick()
-			local TOKEN = ""
-			spotifyobj:Clean(runService.Heartbeat:Connect(function()
-				if updateTick < tick() then
-					updateTick = tick() + 1200
-					TOKEN = Spotify:UpdateToken(spotifyrefreshtoken.Value, "9814867a949d46e8a379fa64cfbc5026", "dd7bc97681aa48379795c5aaa54fb1f3")
-				end
-			end))
-			spotifyobj:Clean(Spotify.PlaybackUpdate.Event:Connect(function(artist, name, cover)
-				mainapi:CreateNotification("Now Playing", translateTo(artist.." - "..name), 10)
-				if spotifyannounce.Enabled then
-					local msg = "I'm listening to "..name.." - "..artist
-					if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-						textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(msg)
-					else
-						replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
-					end
-				end
-			end))
-			local song = ""
-			repeat
-				task.wait()
-				if TOKEN ~= "" then
-					local data = Spotify:GetData(TOKEN)
-					if data.song then
-					
-						spotifyname.Text = data.song.name
-						spotifyartistname.Text = data.song.artist
-						tweenService:Create(spotifyprogress, TweenInfo.new(0.16, Enum.EasingStyle.Linear), {Size = UDim2.new(0, spotifyprogressbkg.Size.X.Offset / (data.playback.total / data.playback.current), 0, spotifyprogressbkg.Size.Y.Offset)}):Play()
-						
-						spotifyprogresstime.Text = Spotify:ConvertTime(data.playback.current)
-						
-						if song ~= data.song.name then
-							song = data.song.name
-							local path = "catrewrite/assets/trash/"..data.song.name
-							path = path.." "..data.song.artist..".png"
-							makefolder("catrewrite/assets/trash")
-							writefile(path, game:HttpGet(data.song.cover))
-							spotifyshot.Image = getcustomasset(path)
-						end
-					end
-				end
-			until (not enabled)
-		end
-	end
-})
-spotifybkg.Parent = spotifyobj.Children
-
-spotifyrefreshtoken = spotifyobj:CreateTextBox({
-	Name = "Refresh Token",
-	Placeholder = "Spotify Refresh Token",
-	Default = isfile("catrewrite/profiles/spotify.txt") and readfile("catrewrite/profiles/spotify.txt") or nil,
-	Function = function(b)
-		if b then writefile("catrewrite/profiles/spotify.txt", spotifyrefreshtoken.Value) end
-		if spotifyobj.Enabled and b then
-			spotifyobj:Toggle()
-			spotifyobj:Toggle()
-		end
-	end
-})
-
-spotifyobj:CreateFont({
-	Name = 'Font',
-	Blacklist = 'Arial',
-	Function = function(val)
-		spotifyname.FontFace = val
-		spotifyartistname.FontFace = val
-		spotifyprogresstime.FontFace = val
-	end
-})
-local spotifybackgroundtransparency = {
-	Value = 0.5,
-	Object = {Visible = {}}
-}
-spotifyobj:CreateToggle({
-	Name = 'Render Background',
-	Function = function(callback)
-		spotifybkg.BackgroundTransparency = callback and spotifybackgroundtransparency.Value or 1
-		spotifyshadow.Visible = not callback
-		spotifyartistshadow.Visible = not callback
-		spotifyblurobj.Visible = callback
-		
-		spotifybackgroundtransparency.Object.Visible = callback
-	end,
-	Default = true
-})
-spotifybackgroundtransparency = spotifyobj:CreateSlider({
-	Name = 'Transparency',
-	Min = 0,
-	Max = 1,
-	Default = 0.5,
-	Decimal = 10,
-	Function = function(val)
-		spotifybkg.BackgroundTransparency = val
-	end,
-	Darker = true
-})
-local spotifycolor
-local spotifycolortoggle = spotifyobj:CreateToggle({
-	Name = 'Custom Color',
-	Function = function(callback)
-		spotifycolor.Object.Visible = callback
-		if callback then
-			spotifybkg.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, spotifycolor.Value)
-			spotifyshot.BackgroundColor3 = Color3.fromHSV(spotifycolor.Hue, spotifycolor.Sat, math.max(spotifycolor.Value - 0.1, 0.075))
-			spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
-		else
-			spotifybkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
-			spotifyshot.BackgroundColor3 = uipallet.Main
-			spotifyprogressbkg.BackgroundColor3 = uipallet.Main
-		end
-	end
-})
-spotifycolor = spotifyobj:CreateColorSlider({
-	Name = 'Color',
-	Function = function(hue, sat, val)
-		if spotifycolortoggle.Enabled then
-			spotifybkg.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
-			spotifyshot.BackgroundColor3 = Color3.fromHSV(hue, sat, math.max(val - 0.1, 0))
-			spotifyprogressbkg.BackgroundColor3 = spotifyshot.BackgroundColor3
-		end
-	end,
-	Darker = true,
-	Visible = false
-})
-spotifyobj:CreateToggle({
-	Name = 'Border',
-	Function = function(callback)
-		spotifyb.Enabled = callback
-		spotifybcolor.Object.Visible = callback
-	end
-})
-spotifybcolor = spotifyobj:CreateColorSlider({
-	Name = 'Border Color',
-	Function = function(hue, sat, val, opacity)
-		spotifyb.Color = Color3.fromHSV(hue, sat, val)
-		spotifyb.Transparency = 1 - opacity
-	end,
-	Darker = true,
-	Visible = false
-})
-spotifyannounce = spotifyobj:CreateToggle({
-	Name = "Announce Song",
-	Visible = true
-})
-
---[[
 	Target Info
 ]]
 
 local targetinfo
 local targetinfoobj
 local targetinfobcolor
-local targetinfobkg
-local targetinfofollow
 targetinfoobj = mainapi:CreateOverlay({
 	Name = 'Target Info',
 	Icon = getcustomasset('catrewrite/assets/new/targetinfoicon.png'),
@@ -8020,38 +7346,21 @@ targetinfoobj = mainapi:CreateOverlay({
 		if callback then
 			task.spawn(function()
 				repeat
-					local target = targetinfo:UpdateInfo()
-					if targetinfofollow and targetinfofollow.Enabled and target then
-						local vec, screen = workspace.CurrentCamera:WorldToScreenPoint(target.Position)
-						if screen then
-							targetinfobkg.Parent.Parent.Position = UDim2.fromOffset(vec.X, vec.Y)
-						end
-					end
-					task.wait(0)
+					targetinfo:UpdateInfo()
+					task.wait()
 				until not targetinfoobj.Button or not targetinfoobj.Button.Enabled
 			end)
 		end
 	end
 })
 
---[[
-	New
-]]
-
-local handler = Instance.new('Frame')
-handler.Size = UDim2.fromOffset(240, 89)
-handler.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
-handler.BackgroundTransparency = 1
-handler.Parent = targetinfoobj.Children
-
-targetinfobkg = Instance.new('Frame')
+local targetinfobkg = Instance.new('Frame')
 targetinfobkg.Size = UDim2.fromOffset(240, 89)
 targetinfobkg.BackgroundColor3 = color.Dark(uipallet.Main, 0.1)
 targetinfobkg.BackgroundTransparency = 0.5
-targetinfobkg.Parent = handler
-
+targetinfobkg.Parent = targetinfoobj.Children
 local targetinfoblurobj = addBlur(targetinfobkg)
-targetinfoblurobj.Visible = true
+targetinfoblurobj.Visible = false
 addCorner(targetinfobkg)
 local targetinfoshot = Instance.new('ImageLabel')
 targetinfoshot.Size = UDim2.fromOffset(26, 27)
@@ -8066,7 +7375,7 @@ targetinfoshotflash.BackgroundColor3 = Color3.new(1, 0, 0)
 targetinfoshotflash.Parent = targetinfoshot
 addCorner(targetinfoshotflash)
 local targetinfoshotblur = addBlur(targetinfoshot)
-targetinfoshotblur.Visible = true
+targetinfoshotblur.Visible = false
 addCorner(targetinfoshot)
 local targetinfoname = Instance.new('TextLabel')
 targetinfoname.Size = UDim2.fromOffset(145, 20)
@@ -8124,146 +7433,17 @@ end)
 local targetinfohealthblur = addBlur(targetinfohealthbkg)
 targetinfohealthblur.SliceCenter = Rect.new(52, 31, 261, 510)
 targetinfohealthblur.ImageColor3 = Color3.new()
-targetinfohealthblur.Visible = true
+targetinfohealthblur.Visible = false
 local targetinfob = Instance.new('UIStroke')
 targetinfob.Enabled = false
 targetinfob.Color = Color3.fromHSV(0.44, 1, 1)
 targetinfob.Parent = targetinfobkg
 
---[[
-	Old
-]]
-
-local TargetInfoMainFrame = Instance.new('Frame')
-TargetInfoMainFrame.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
-TargetInfoMainFrame.BorderSizePixel = 0
-TargetInfoMainFrame.BackgroundTransparency = 1
-TargetInfoMainFrame.Size = UDim2.new(0, 220, 0, 72)
-TargetInfoMainFrame.Position = UDim2.new(0, 0, 0, 5)
-TargetInfoMainFrame.Parent = targetinfoobj.Children
-TargetInfoMainFrame.Visible = false
-
-local TargetInfoFrameShadow = Instance.new('ImageLabel')
-TargetInfoFrameShadow.BackgroundTransparency = 1
-TargetInfoFrameShadow.Position = UDim2.fromScale(-0.041, -0.125)
-TargetInfoFrameShadow.Size = UDim2.fromOffset(237, 97)
-TargetInfoFrameShadow.ZIndex = -1
-TargetInfoFrameShadow.Image = 'rbxassetid://123343128195297'
-TargetInfoFrameShadow.Parent = TargetInfoMainFrame
-
-local TargetInfoMainInfo = Instance.new('Frame')
-TargetInfoMainInfo.BackgroundColor3 = Color3.fromRGB(31, 30, 31)
-TargetInfoMainInfo.Size = UDim2.new(0, 220, 0, 80)
-TargetInfoMainInfo.BackgroundTransparency = 0.5
-TargetInfoMainInfo.Position = UDim2.new(0, 0, 0, 0)
-TargetInfoMainInfo.Name = 'MainInfo'
-TargetInfoMainInfo.Parent = TargetInfoMainFrame
-local TargetInfoName = Instance.new('TextLabel')
-TargetInfoName.Font = Enum.Font.Arial
-TargetInfoName.TextColor3 = Color3.fromRGB(182, 182, 182)
-TargetInfoName.Position = UDim2.new(0, 70, 0, 13)
-TargetInfoName.TextStrokeTransparency = 1
-TargetInfoName.BackgroundTransparency = 1
-TargetInfoName.TextSize = 14
-TargetInfoName.Size = UDim2.new(0, 80, 0, 20)
-TargetInfoName.Text = 'None'
-TargetInfoName.ZIndex = 2
-TargetInfoName.TextXAlignment = Enum.TextXAlignment.Left
-TargetInfoName.TextYAlignment = Enum.TextYAlignment.Top
-TargetInfoName.Parent = TargetInfoMainInfo
-local TargetInfoNameShadow = TargetInfoName:Clone()
-TargetInfoNameShadow.Size = UDim2.new(1, 0, 1, 0)
-TargetInfoNameShadow.TextTransparency = 0.5
-TargetInfoNameShadow.TextColor3 = Color3.new()
-TargetInfoNameShadow.ZIndex = 1
-TargetInfoNameShadow.Position = UDim2.new(0, 1, 0, 1)
-TargetInfoName:GetPropertyChangedSignal('Text'):Connect(function()
-	TargetInfoNameShadow.Text = TargetInfoName.Text
-end)
-TargetInfoNameShadow.Parent = TargetInfoName
-local TargetInfoHealthBackground = Instance.new('Frame')
-TargetInfoHealthBackground.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
-TargetInfoHealthBackground.Size = UDim2.new(0, 140, 0, 4)
-TargetInfoHealthBackground.Position = UDim2.new(0, 71, 0, 35)
-TargetInfoHealthBackground.Parent = TargetInfoMainInfo
-local TargetInfoHealthBackgroundShadow = Instance.new('ImageLabel')
-TargetInfoHealthBackgroundShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-TargetInfoHealthBackgroundShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-TargetInfoHealthBackgroundShadow.Image = 'rbxassetid://13350795660'
-TargetInfoHealthBackgroundShadow.BackgroundTransparency = 1
-TargetInfoHealthBackgroundShadow.ImageTransparency = 0.6
-TargetInfoHealthBackgroundShadow.ZIndex = -1
-TargetInfoHealthBackgroundShadow.Size = UDim2.new(1, 6, 1, 6)
-TargetInfoHealthBackgroundShadow.ImageColor3 = Color3.new()
-TargetInfoHealthBackgroundShadow.ScaleType = Enum.ScaleType.Slice
-TargetInfoHealthBackgroundShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-TargetInfoHealthBackgroundShadow.Parent = TargetInfoHealthBackground
-local TargetInfoHealth = Instance.new('Frame')
-TargetInfoHealth.BackgroundColor3 = Color3.fromRGB(115, 255, 110)
-TargetInfoHealth.Size = UDim2.new(1, 0, 1, 0)
-TargetInfoHealth.ZIndex = 3
-TargetInfoHealth.BorderSizePixel = 0
-TargetInfoHealth.Parent = TargetInfoHealthBackground
-local TargetInfoHealthExtra = Instance.new('Frame')
-TargetInfoHealthExtra.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
-TargetInfoHealthExtra.Size = UDim2.new(0, 0, 1, 0)
-TargetInfoHealthExtra.ZIndex = 4
-TargetInfoHealthExtra.BorderSizePixel = 0
-TargetInfoHealthExtra.AnchorPoint = Vector2.new(1, 0)
-TargetInfoHealthExtra.Position = UDim2.new(1, 0, 0, 0)
-TargetInfoHealthExtra.Parent = TargetInfoHealth
-local TargetInfoImage = Instance.new('ImageLabel')
-TargetInfoImage.Size = UDim2.new(0, 50, 0, 50)
-TargetInfoImage.BackgroundTransparency = 0
-TargetInfoImage.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
-TargetInfoImage.Image = 'rbxthumb://type=AvatarHeadShot&id=1&w=420&h=420'
-TargetInfoImage.Position = UDim2.new(0, 10, 0, 16)
-
-local targetinfoshotflashold = Instance.new('Frame')
-targetinfoshotflashold.Size = UDim2.fromScale(1, 1)
-targetinfoshotflashold.BackgroundTransparency = 1
-targetinfoshotflashold.BackgroundColor3 = Color3.new(1, 0, 0)
-targetinfoshotflashold.Parent = TargetInfoImage
-addCorner(targetinfoshotflashold)
-
-TargetInfoImage.Parent = TargetInfoMainInfo
-local TargetInfoMainInfoCorner = Instance.new('UICorner')
-TargetInfoMainInfoCorner.CornerRadius = UDim.new(0, 6)
-TargetInfoMainInfoCorner.Parent = TargetInfoMainInfo
-local TargetInfoHealthBackgroundCorner = Instance.new('UICorner')
-TargetInfoHealthBackgroundCorner.CornerRadius = UDim.new(0, 2048)
-TargetInfoHealthBackgroundCorner.Parent = TargetInfoHealthBackground
-local TargetInfoHealthCorner = Instance.new('UICorner')
-TargetInfoHealthCorner.CornerRadius = UDim.new(0, 2048)
-TargetInfoHealthCorner.Parent = TargetInfoHealth
-local TargetInfoHealthCorner2 = Instance.new('UICorner')
-TargetInfoHealthCorner2.CornerRadius = UDim.new(0, 2048)
-TargetInfoHealthCorner2.Parent = TargetInfoHealthExtra
-local TargetInfoHealthExtraCorner = Instance.new('UICorner')
-TargetInfoHealthExtraCorner.CornerRadius = UDim.new(0, 8)
-TargetInfoHealthExtraCorner.Parent = TargetInfoImage
-
-local TargetInfoHud = isfile('catrewrite/profiles/hud.txt') and readfile('catrewrite/profiles/hud.txt') or 'new'
-targetinfoobj:CreateDropdown({
-	Name = 'Gui Mode',
-	List = {'old', 'new'},
-	Default = 'new',
-	Function = function(val)
-		TargetInfoHud = val
-		writefile('catrewrite/profiles/hud.txt', val)
-		TargetInfoMainFrame.Visible = val == 'old'
-		handler.Visible = val == 'new'
-	end
-})
-TargetInfoMainFrame.Visible = TargetInfoHud == 'old'
-handler.Visible = TargetInfoHud == 'new'
 targetinfoobj:CreateFont({
 	Name = 'Font',
 	Blacklist = 'Arial',
 	Function = function(val)
 		targetinfoname.FontFace = val
-		TargetInfoName.FontFace = val
-		TargetInfoNameShadow.FontFace = val
 	end
 })
 local targetinfobackgroundtransparency = {
@@ -8278,16 +7458,12 @@ targetinfoobj:CreateToggle({
 	Name = 'Render Background',
 	Function = function(callback)
 		targetinfobkg.BackgroundTransparency = callback and targetinfobackgroundtransparency.Value or 1
-		TargetInfoMainInfo.BackgroundTransparency = targetinfobkg.BackgroundTransparency
 		targetinfoshadow.Visible = not callback
 		targetinfoblurobj.Visible = callback
+		targetinfohealthblur.Visible = not callback
+		targetinfoshotblur.Visible = not callback
 		targetinfobackgroundtransparency.Object.Visible = callback
 	end,
-	Default = true
-})
-targetinfofollow = targetinfoobj:CreateToggle({
-	Name = 'Follow Player',
-	Function = function(callback) end,
 	Default = true
 })
 targetinfobackgroundtransparency = targetinfoobj:CreateSlider({
@@ -8351,18 +7527,17 @@ local lastmaxhealth = 0
 targetinfo = {
 	Targets = {},
 	Object = targetinfobkg,
-	oldparent = TargetInfoMainFrame,
 	UpdateInfo = function(self)
 		local entitylib = mainapi.Libraries
 		if not entitylib then return end
 
 		for i, v in self.Targets do
-			if v < os.clock() then
+			if v < tick() then
 				self.Targets[i] = nil
 			end
 		end
 
-		local v, highest = nil, os.clock()
+		local v, highest = nil, tick()
 		for i, check in self.Targets do
 			if check > highest then
 				v = i
@@ -8371,14 +7546,9 @@ targetinfo = {
 		end
 
 		targetinfobkg.Visible = v ~= nil or mainapi.gui.ScaledGui.ClickGui.Visible
-		TargetInfoMainInfo.Visible = targetinfobkg.Visible
-		TargetInfoFrameShadow.Visible = targetinfobkg.Visible
 		if v then
 			targetinfoname.Text = v.Player and (targetinfodisplay.Enabled and v.Player.DisplayName or v.Player.Name) or v.Character and v.Character.Name or targetinfoname.Text
-			TargetInfoName.Text = targetinfoname.Text
-			TargetInfoNameShadow.Text = targetinfoname.Text
 			targetinfoshot.Image = 'rbxthumb://type=AvatarHeadShot&id='..(v.Player and v.Player.UserId or 1)..'&w=420&h=420'
-			TargetInfoImage.Image = targetinfoshot.Image
 
 			if not v.Character then
 				v.Health = v.Health or 0
@@ -8386,41 +7556,28 @@ targetinfo = {
 			end
 
 			if v.Health ~= lasthealth or v.MaxHealth ~= lastmaxhealth then
-				task.spawn(function()
-					local percent = math.max(v.Health / v.MaxHealth, 0)
-					tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+				local percent = math.max(v.Health / v.MaxHealth, 0)
+				tween:Tween(targetinfohealth, TweenInfo.new(0.3), {
+					Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
+				})
+				tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
+					Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
+				})
+				if lasthealth > v.Health and self.LastTarget == v then
+					tween:Cancel(targetinfoshotflash)
+					targetinfoshotflash.BackgroundTransparency = 0.3
+					tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
+						BackgroundTransparency = 1
 					})
-					tween:Tween(targetinfohealthextra, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
-					})
-					tween:Tween(TargetInfoHealth, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.min(percent, 1), 1), BackgroundColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.89, 0.75)
-					})
-					tween:Tween(TargetInfoHealthExtra, TweenInfo.new(0.3), {
-						Size = UDim2.fromScale(math.clamp(percent - 1, 0, 0.8), 1)
-					})
-					if lasthealth > v.Health and self.LastTarget == v then
-						tween:Cancel(targetinfoshotflash)
-						tween:Cancel(targetinfoshotflashold)
-						targetinfoshotflash.BackgroundTransparency = 0.3
-						targetinfoshotflashold.BackgroundTransparency = 0.3
-						tween:Tween(targetinfoshotflash, TweenInfo.new(0.5), {
-							BackgroundTransparency = 1
-						})
-						tween:Tween(targetinfoshotflashold, TweenInfo.new(0.5), {
-							BackgroundTransparency = 1
-						})
-					end
-					lasthealth = v.Health
-					lastmaxhealth = v.MaxHealth
-				end)
+				end
+				lasthealth = v.Health
+				lastmaxhealth = v.MaxHealth
 			end
 
 			if not v.Character then table.clear(v) end
 			self.LastTarget = v
 		end
-		return v and v.Head
+		return v
 	end
 }
 mainapi.Libraries.targetinfo = targetinfo
@@ -8485,36 +7642,17 @@ function mainapi:UpdateTextGUI(afterload)
 					holderline2.Name = 'Line'
 					holderline2.Position = UDim2.new()
 					holderline2.Parent = holderbackground
-					if textguicornersidebar.Enabled then
-						holderline.Visible = false
-	
-						holderbackground.Position = UDim2.fromOffset(-5, 0)
-	
-						local cornerLine = Instance.new('ImageLabel', holderbackground)
-						cornerLine.ImageColor3 = Color3.fromRGB(47, 122, 229)
-						cornerLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
-						cornerLine.Size = UDim2.new(0, 4, 0.9, 0)
-						cornerLine.AnchorPoint = Vector2.new(0, 0.5)
-						cornerLine.Image = 'rbxassetid://73104725656509'
-						cornerLine.BackgroundTransparency = 1
-						cornerLine.Position = UDim2.new(1, 0, 0.5, 0)
-						cornerLine.ZIndex = -1
-						cornerLine.BorderSizePixel = 0
-						cornerLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-						holdercolorline = cornerLine
-					else
-						holdercolorline = Instance.new('Frame')
-						holdercolorline.Size = UDim2.new(0, 2, 1, 0)
-						holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
-						holdercolorline.BorderSizePixel = 0	
-						holdercolorline.Parent = holderbackground
-					end
+					holdercolorline = Instance.new('Frame')
+					holdercolorline.Size = UDim2.new(0, 2, 1, 0)
+					holdercolorline.Position = right and UDim2.new(1, -5, 0, 0) or UDim2.new()
+					holdercolorline.BorderSizePixel = 0
+					holdercolorline.Parent = holderbackground
 				end
 				local holdertext = Instance.new('TextLabel')
 				holdertext.Position = UDim2.fromOffset(right and 3 or 6, 2)
 				holdertext.BackgroundTransparency = 1
 				holdertext.BorderSizePixel = 0
-				holdertext.Text = translateTo(i)..(v.ExtraText and " <font color='#A8A8A8'>"..translateTo(v.ExtraText())..'</font>' or '')
+				holdertext.Text = i..(v.ExtraText and " <font color='#A8A8A8'>"..v.ExtraText()..'</font>' or '')
 				holdertext.TextSize = 15
 				holdertext.FontFace = textguifont.Value
 				holdertext.RichText = true
@@ -8595,9 +7733,6 @@ function mainapi:UpdateGUI(hue, sat, val, default)
 			v.Text.TextColor3 = customcolor or (mainapi.GUIColor.Rainbow and Color3.fromHSV(mainapi:Color((hue - ((textguigradient and i + 2 or i) * 0.025)) % 1)) or VapeLogoGradient.Color.Keypoints[2].Value)
 			if v.Color then
 				v.Color.BackgroundColor3 = v.Text.TextColor3
-				if v.Color:IsA('ImageLabel') then
-					v.Color.ImageColor3 = v.Text.TextColor3
-				end
 			end
 			if textguibackgroundtint.Enabled and v.Background then
 				v.Background.BackgroundColor3 = color.Dark(v.Text.TextColor3, 0.75)
@@ -8672,10 +7807,6 @@ function mainapi:UpdateGUI(hue, sat, val, default)
 		end
 	end
 
-	for i, v in mainapi.Indicators do
-		v.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (i * 0.075)) % 1)) or Color3.fromHSV(hue, sat, val)
-	end
-
 	if mainapi.Legit.Icon then
 		mainapi.Legit.Icon.ImageColor3 = Color3.fromHSV(hue, sat, val)
 	end
@@ -8706,12 +7837,8 @@ mainapi:Clean(notifications.ChildRemoved:Connect(function()
 	end
 end))
 
-local BlacklistedKeys = {
-	Enum.KeyCode.Escape
-}
-
 mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
-	if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+	if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown then
 		table.insert(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
 		if mainapi.Binding then return end
 
@@ -8732,13 +7859,9 @@ mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
 			if checkKeybinds(mainapi.HeldKeybinds, v.Bind, inputObj.KeyCode.Name) then
 				toggled = true
 				if mainapi.ToggleNotifications.Enabled then
-					mainapi:CreateNotification('Module Toggled', translateTo(i)..`<font color='#FFFFFF'> {translateTo('has been')} </font>`..(not v.Enabled and `<font color='#5AFF5A'>{translateTo('Enabled')}</font>` or `<font color='#FF5A5A'>{translateTo('Disabled')}</font>`).."<font color='#FFFFFF'>!</font>", 0.75)
+					mainapi:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(not v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75)
 				end
-				if typeof(v.KeybindFunction) == 'function' then
-					v:KeybindFunction()
-				else
-					v:Toggle(true)
-				end
+				v:Toggle(true)
 			end
 		end
 		if toggled then
@@ -8756,7 +7879,7 @@ mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
 end))
 
 mainapi:Clean(inputService.InputEnded:Connect(function(inputObj)
-	if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown and not table.find(BlacklistedKeys, inputObj.KeyCode) then
+	if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown then
 		if mainapi.Binding then
 			if not mainapi.MultiKeybind.Enabled then
 				mainapi.HeldKeybinds = {inputObj.KeyCode.Name}
@@ -8771,5 +7894,4 @@ mainapi:Clean(inputService.InputEnded:Connect(function(inputObj)
 		table.remove(mainapi.HeldKeybinds, ind)
 	end
 end))
-
 return mainapi

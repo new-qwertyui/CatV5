@@ -13,6 +13,8 @@ local license = ({...})[1] or {}
 local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
 
+shared.catdata = license
+
 local loadstring = function(...)
 	local res, err = loadstring(...)
 	if err then
@@ -415,6 +417,7 @@ getgenv().catvapedev = developer
 getgenv().closet = closet
 getgenv().makestage = makestage
 getgenv().canDebug = canDebug
+getgenv().getgenv().catpremium = license.Premium
 
 getgenv().username = license.Username or getgenv().username
 getgenv().password = license.Password or getgenv().password 
