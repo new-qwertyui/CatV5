@@ -1507,6 +1507,7 @@ getgenv().swapping = os.clock()
 run(function()
 	local AutoClicker
 	local CPS
+	local Block
 	local BlockCPS = {}
 	local Thread
 	
@@ -1519,7 +1520,7 @@ run(function()
 			repeat
 				if not bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
 					local blockPlacer = bedwars.BlockPlacementController.blockPlacer
-					if store.hand.toolType == 'block' and blockPlacer then
+					if store.hand.toolType == 'block' and blockPlacer and Block.Enabled then
 						if canDebug then
 							if inputService.TouchEnabled then
 								task.spawn(function()
@@ -1596,7 +1597,7 @@ run(function()
 		DefaultMin = 7,
 		DefaultMax = 7
 	})
-	AutoClicker:CreateToggle({
+	Block = AutoClicker:CreateToggle({
 		Name = 'Place Blocks',
 		Default = true,
 		Function = function(callback)
