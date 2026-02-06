@@ -1,3 +1,4 @@
+shared.maincat = true
 local vape
 local closet = getgenv().closet
 local makestage = getgenv().makestage or function() end
