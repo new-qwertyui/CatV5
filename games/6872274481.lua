@@ -5941,6 +5941,7 @@ run(function()
 	local UpdateRate
 	local Custom
 	local Bed
+	local Hive
 	local Tesla
 	local TeamCheck = {}
 	local LuckyBlock
@@ -6118,6 +6119,7 @@ run(function()
 				local beds = collection('bed', Breaker)
 				local luckyblock = collection('LuckyBlock', Breaker)
 				local ironores = collection('iron_ore_mesh_block', Breaker)
+				local hives = collection('beehive', Breaker)
 				local teslas = collection('tesla-trap', Breaker, function(tab, obj)
 					task.wait(0.1)
 					if not TeamCheck.Enabled or obj:GetAttribute('OwnerTeam') ~= lplr:GetAttribute('Team') then
@@ -6143,6 +6145,7 @@ run(function()
 						local localPosition = entitylib.character.RootPart.Position
 	
 						if attemptBreak(Bed.Enabled and beds, localPosition) then continue end
+						if attemptBreak(Hive.Enabled and hives, localPosition) then continue end
 						if attemptBreak(Tesla.Enabled and teslas, localPosition, true) then continue end
 						if attemptBreak(customlist, localPosition) then continue end
 						if attemptBreak(LuckyBlock.Enabled and luckyblock, localPosition) then continue end
@@ -6217,6 +6220,9 @@ run(function()
 	Bed = Breaker:CreateToggle({
 		Name = 'Break Bed',
 		Default = true
+	})
+	Hive = Breaker:CreateToggle({
+		Name = 'Break beehive'
 	})
 	Tesla = Breaker:CreateToggle({
 		Name = 'Break Tesla',
