@@ -142,7 +142,12 @@ if not shared.VapeIndependent then
 			end
 		end
 	end
-	loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
+	if identifyexecutor() == 'Hydrogen' then
+		vape:CreateNotification('Vape', 'Loading hydrogen catvape', 15, 'info')
+		loadstring(downloadFile('catrewrite/scripts/hydro.luau'), `hydro {game.PlaceId}`)(...)
+	else
+		loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
+	end
 	finishLoading()
 else
 	vape.Init = finishLoading
