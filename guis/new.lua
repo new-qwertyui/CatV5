@@ -342,7 +342,7 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 
-getcustomasset = function(path)
+getcustomasset = assetfunction and function(path)
 	return downloadFile(path, assetfunction)
 end or function(path)
 	return getcustomassets[path] or ''
@@ -6356,6 +6356,7 @@ function mainapi:Load(skipgui, profile)
 		local app = lplr.PlayerGui:FindFirstChild('TopBarAppGui')
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(32, 32)
+		button.LayoutOrder = 99
 		button.Parent = app and app:FindFirstChild('TopBarApp') or gui
 		button.Position = UDim2.new(1, -45, 0, 4)
 		button.BackgroundColor3 = Color3.new()
