@@ -12,7 +12,13 @@ local isfile = isfile or function(file)
 	end)
 	return suc and res ~= nil and res ~= ''
 end
-local run = function(func) pcall(func) end
+local run = function(func)
+	local suc, err = pcall(func)
+
+	if not suc then
+		task.spawn(error, err)
+	end
+end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
@@ -210,6 +216,9 @@ getgenv().updateVelocity = updateVelocity
 local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
 local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
 entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
+
+warn('??')
+setclipboard(hash.sha512('Jadegentless'..tostring(3526623946)..'SelfReport'))
 
 weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
 weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()

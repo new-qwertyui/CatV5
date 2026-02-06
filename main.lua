@@ -1,4 +1,3 @@
-shared.maincat = true
 local vape
 local closet = getgenv().closet
 local makestage = getgenv().makestage or function() end
@@ -30,25 +29,23 @@ if shared.vape then
 	shared.vape:Uninject()
 end
 
-print('ran latest ver')
-
 local function downloadFile(path: string, func): string?
-	print(path, select(1, path:gsub('catrewrite/', '')))
-	warn('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')))
+	local scr
+	
 	if not isfile(path) then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			warn(`Failed to download {path}: {res}`)
-			return ''
+			error(res)
 		end
 		if path:find('.lua') then
 			res = '\n'..res
 		end
+		scr = res
 		writefile(path, res)
 	end
-	return (func or readfile)(path)
+	return not func and scr or (func or readfile)(path)
 end
 
 local function finishLoading()
