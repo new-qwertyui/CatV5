@@ -374,6 +374,7 @@ if (not license.Developer and not shared.VapeDeveloper) then
 		wipeFolder('catrewrite')
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
+		wipeFolder('catrewrite/scripts')
 		wipeFolder('catrewrite/cache')
 		wipeFolder('catrewrite/libraries')
 	end
