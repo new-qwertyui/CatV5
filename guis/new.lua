@@ -6097,9 +6097,9 @@ function mainapi:CreateProfileGUI()
 		configapi.ShowPopup(true)
 	end)
 
-	self:Clean(clickgui:GetPropertyChangedSignal('Visible'):Connect(function()
-		if clickgui.Visible then
-			print('set')
+	window:GetPropertyChangedSignal('Visible'):Connect(function()
+		self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
+		if window.Visible then
 			for i = 1, 4 do
 				local suc, res = pcall(function()
 					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
@@ -6116,9 +6116,6 @@ function mainapi:CreateProfileGUI()
 				end
 			end
 		end
-	end))
-	window:GetPropertyChangedSignal('Visible'):Connect(function()
-		self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
 		--visibleCheck()
 	end)
 	gridlayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()

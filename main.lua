@@ -60,8 +60,12 @@ local function loadJson()
 	return suc and typeof(tab) == 'table' and tab.version or 'null'
 end
 
-local function compileTable()
-		
+local function compileTable(tab)
+	local json = '{'
+	for i, v in tab do
+		json = `{json}\n    {i} = {typeof(v) == 'string' and '"'.. v.. '"' or v},`
+	end
+	return `{json}\n}`
 end
 
 local version = loadJson()
@@ -82,12 +86,12 @@ local function finishLoading()
 			local teleportScript = [[
 				shared.vapereload = true
 				if shared.VapeDeveloper then
-					loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+					loadstring(readfile('catrewrite/init.lua'), 'loader')(scriptdata)
 				else
-					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true), 'loader')(data)
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/init.lua', true), 'loader')(scriptdata)
 				end
 			]]
-			teleportScript = teleportScript:gsub('data', compileTable(shared.catdata or {}))
+			teleportScript = teleportScript:gsub('scriptdata', compileTable(shared.catdata or {}))
 			if shared.VapeCustomProfile then
 				teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
 			end
@@ -99,7 +103,11 @@ local function finishLoading()
 	if not shared.vapereload then
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
+			if shared.maincat then
+				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
+			else
+				vape:CreateNotification('Cat', 'Your currently using an outdated loader of kittyvape, Please go to our discord server and get a new one', 120, 'warning')
+			end
 			local last = isfile('kitty_version') and readfile('kitty_version') or '5.49'
 			if last ~= version then
 				writefile('kitty_version', tostring(version))
