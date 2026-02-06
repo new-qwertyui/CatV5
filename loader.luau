@@ -7,7 +7,8 @@ until game:IsLoaded()
 if shared.vape then
 	shared.vape:Uninject()
 end
-
+getgenv().Websocket = nil
+getgenv().WebSocket = nil
 local license = ({...})[1] or {}
 local developer =  license.Developer or getgenv().catvapedev or false
 local closet = license.Closet or getgenv().closet or false
