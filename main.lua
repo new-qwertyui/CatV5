@@ -130,6 +130,7 @@ shared.vape = vape
 
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
+	loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
