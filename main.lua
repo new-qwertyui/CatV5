@@ -39,6 +39,10 @@ end
 local playersService = cloneref(game:GetService('Players'))
 local httpService = cloneref(game:GetService('HttpService'))
 
+local function run(func)
+	func()
+end
+
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
@@ -129,8 +133,12 @@ vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
 
 if not shared.VapeIndependent then
+	local fr = canDebug and task.spawn or run
+	fr(function()
+		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
+	end)
+	
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
