@@ -133,12 +133,12 @@ vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
 
 if not shared.VapeIndependent then
+	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	local fr = canDebug and task.spawn or run
 	fr(function()
 		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	end)
 	
-	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
