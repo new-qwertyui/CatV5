@@ -1,5 +1,6 @@
 local commit = select(2, ...)
 
+print('Great!')
 repeat
 	task.wait()
 until game:IsLoaded()
@@ -410,6 +411,7 @@ if (not license.Developer and not shared.VapeDeveloper) then
 	end
 end
 
+print('Yo!')
 writefile('catrewrite/profiles/commit.txt', commit)
 
 shared.VapeDeveloper = developer
@@ -428,8 +430,11 @@ if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 	getgenv().isnetworkowner = function() return true end
 end
 
+print('?')
 local success, err = pcall(function()
+	print('w')
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+	print('fr')
 end)
 
 createDownloader('')
