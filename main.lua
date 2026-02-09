@@ -1,5 +1,3 @@
-print('ran')
-
 if isnetworkowner then
 	if table.find({'Velocity', 'ChocoSploit'}, ({identifyexecutor()})[1]) then
 		getgenv().isnetworkowner = nil
@@ -66,7 +64,7 @@ end
 local function compileTable(tab)
 	local json = '{'
 	for i, v in tab do
-		json = `{json}\n    {i} = {typeof(v) == 'string' and '"'.. v.. '"' or v},`
+		json = `{json}\n					    {i} = {typeof(v) == 'string' and '"'.. v.. '"' or v},`
 	end
 	return `{json}\n}`
 end
@@ -82,7 +80,7 @@ local function finishLoading()
 		until not vape.Loaded
 	end)
 
-	local teleportedServers
+	local teleportedServers 
 	vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
 		if (not teleportedServers) and (not shared.VapeIndependent) then
 			teleportedServers = true
@@ -109,7 +107,7 @@ local function finishLoading()
 			if shared.maincat then
 				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
 			else
-				vape:CreateNotification('Cat', 'Your currently using an outdated loader of kittyvape, Please go to our discord server and get a new one', 120, 'warning')
+				vape:CreateNotification('Cat', 'Your currently using an outdated loader of catvape, Please go to our discord server and get a new one', 120, 'warning')
 			end
 			local last = isfile('kitty_version') and readfile('kitty_version') or '5.49'
 			if last ~= version then
@@ -138,6 +136,10 @@ if not shared.VapeIndependent then
 		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	end)
 	
+	if not canDebug then
+		vape:CreateNotification('Cat', 'This may take up to 3 minutes to load', 30, 'warning')
+	end
+
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else

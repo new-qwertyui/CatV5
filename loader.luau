@@ -1,6 +1,5 @@
 local commit = select(2, ...)
 
-print('Great!')
 repeat
 	task.wait()
 until game:IsLoaded()
@@ -98,7 +97,7 @@ local function addCallback(image : ImageLabel | ImageButton, ...): ()
 	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
-if not shared.catvapedebug and not developer and getconnections then
+if not developer and getconnections then
 	task.spawn(function()
 		repeat
 			for _, v in getconnections(game:GetService('LogService').MessageOut) do
@@ -376,12 +375,12 @@ if (not license.Developer and not shared.VapeDeveloper) then
 		wipeFolder('catrewrite/games')
 		wipeFolder('catrewrite/guis')
 		wipeFolder('catrewrite/scripts')
-		wipeFolder('catrewrite/cache')
+		--wipeFolder('catrewrite/cache')
 		wipeFolder('catrewrite/libraries')
 	end
 	
 	if #listfiles('catrewrite/profiles') <= 2 then
-		makestage(2, 'Downloading config, This may take up to 20s')
+		makestage(2, 'Downloading preset config, This may take up to 20s')
 
 		local preloaded = pcall(function()
 			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
@@ -411,7 +410,6 @@ if (not license.Developer and not shared.VapeDeveloper) then
 	end
 end
 
-print('Yo!')
 writefile('catrewrite/profiles/commit.txt', commit)
 
 shared.VapeDeveloper = developer
@@ -430,11 +428,8 @@ if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 	getgenv().isnetworkowner = function() return true end
 end
 
-print('?')
 local success, err = pcall(function()
-	print('w')
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
-	print('fr')
 end)
 
 createDownloader('')

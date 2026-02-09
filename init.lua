@@ -1,3 +1,8 @@
+if shared.catloading then
+	return
+end
+shared.catloading = true
+repeat task.wait() until game:IsLoaded()
 if not isfolder('catrewrite') then
     makefolder('catrewrite')
 end
@@ -5,13 +10,14 @@ end
 if shared.vape then
 	shared.vape:Uninject()
 end
+shared.start = tick()
 
 local arg = ... or {}
 
 local outdated = isfolder('catrewrite') and isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or ''
 
 local function downloadFile(path, comm, func)
-	if not arg.Developer or not isfile('catrewrite/loader.luau') then
+	if not arg.Developer and outdated ~= comm then
 		local suc, res = pcall(function()
 			return game:HttpGet(`https://raw.githubusercontent.com/new-qwertyui/CatV5/{comm}/{({path:gsub('catrewrite', '')})[1]}`, true)
 		end)
@@ -32,4 +38,5 @@ commit = commit and subbed:sub(commit + 13, commit + 52) or nil
 commit = commit and #commit == 40 and commit or 'main'
 commit = commit:sub(1, 7)
 
-return loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(arg, commit, nil, nil)
+loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(arg, commit, nil, nil)
+shared.catloading = false

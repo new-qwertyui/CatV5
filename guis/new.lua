@@ -4917,7 +4917,7 @@ function mainapi:CreateSearch()
 		if search.Text == '' then return end
 
 		for i, v in self.Modules do
-			if i:lower():find(search.Text:lower()) then
+			if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
 				local button = v.Object:Clone()
 				button.Bind:Destroy()
 				button.MouseButton1Click:Connect(function()
@@ -6225,6 +6225,7 @@ function mainapi:CreateNotification(title, text, duration, type)
 	end)
 end
 
+local guipane
 function mainapi:Load(skipgui, profile)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
@@ -6354,13 +6355,17 @@ function mainapi:Load(skipgui, profile)
 
 	if shared.VapeDeveloper or (inputService.TouchEnabled or not inputService.KeyboardEnabled) and #self.Keybind == 1 and self.Keybind[1] == 'RightShift' then
 		local app = lplr.PlayerGui:FindFirstChild('TopBarAppGui')
+		local hide = isfile('catrewrite/profiles/hide.txt') and readfile('catrewrite/profiles/hide.txt') or nil
+		if hide ~= nil then
+			hide = hide == 'true' and true or false
+		end
 		local button = Instance.new('TextButton')
 		button.Size = UDim2.fromOffset(32, 32)
-		button.LayoutOrder = 99
+		button.LayoutOrder = -1
 		button.Parent = app and app:FindFirstChild('TopBarApp') or gui
 		button.Position = UDim2.new(1, -45, 0, 4)
 		button.BackgroundColor3 = Color3.new()
-		button.BackgroundTransparency = 0.35
+		button.BackgroundTransparency = hide and 1 or 0.35
 		button.Text = ''
 		if button.Parent ~= gui then
 			self:Clean(function() button:Destroy(); end)
@@ -6369,6 +6374,7 @@ function mainapi:Load(skipgui, profile)
 		image.Size = UDim2.fromOffset(26, 26)
 		image.Position = UDim2.fromOffset(3, 3)
 		image.BackgroundTransparency = 1
+		image.ImageTransparency = hide and 1 or 0
 		image.Image = getcustomasset('catrewrite/assets/new/mascot.png')
 		image.Parent = button
 		local buttoncorner = Instance.new('UICorner')
@@ -6390,6 +6396,18 @@ function mainapi:Load(skipgui, profile)
 			tooltip.Visible = false
 			self:BlurCheck()
 		end)
+
+		if guipane then
+			guipane:CreateToggle({
+				Name = 'Hide catvape button',
+				Default = hide or false,
+				Function = function(call)
+					button.BackgroundTransparency = call and 1 or 0.35
+					image.ImageTransparency = call and 1 or 0
+					writefile('catrewrite/profiles/hide.txt', tostring(call))
+				end
+			})
+		end
 	end
 end
 
@@ -6849,7 +6867,7 @@ modules:CreateToggle({
 	GUI Settings
 ]]
 
-local guipane = mainapi.Categories.Main:CreateSettingsPane({Name = 'GUI'})
+guipane = mainapi.Categories.Main:CreateSettingsPane({Name = 'GUI'})
 mainapi.Blur = guipane:CreateToggle({
 	Name = 'Blur background',
 	Function = function()
@@ -6890,7 +6908,7 @@ mainapi.Scale = guipane:CreateToggle({
 	Function = function(callback)
 		scaleslider.Object.Visible = not callback
 		if callback then
-			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
+			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.45)
 		else
 			scale.Scale = scaleslider.Value
 		end
