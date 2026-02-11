@@ -131,20 +131,16 @@ shared.vape = vape
 
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	local fr = canDebug and task.spawn or run
-	fr(function()
-		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
-	end)
-	
 	if not canDebug then
 		vape:CreateNotification('Cat', 'This may take up to 3 minutes to load', 30, 'warning')
+		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	end
 
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
 		if not shared.VapeDeveloper then
-			local suc, res = pcall(function()
+			local suc, res = pcall(function()	
 				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
 			end)
 			if suc and res ~= '404: Not Found' then
@@ -152,9 +148,8 @@ if not shared.VapeIndependent then
 			end
 		end
 	end
-	if identifyexecutor() == 'Hydrogen' then
-		vape:CreateNotification('Vape', 'Loading hydrogen catvape', 15, 'info')
-		loadstring(downloadFile('catrewrite/scripts/hydro.luau'), `hydro {game.PlaceId}`)(...)
+	if table.find({'Xeno', 'Solara', 'Potassium', 'Velocity', 'Hydrogen'}, ({identifyexecutor()})[1]) then
+		loadstring(downloadFile('catrewrite/scripts/psmscript.luau'), `performance {game.PlaceId}`)(...)
 	else
 		loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
 	end
