@@ -148,11 +148,7 @@ if not shared.VapeIndependent then
 			end
 		end
 	end
-	if table.find({'Xeno', 'Solara', 'Potassium', 'Velocity', 'Hydrogen'}, ({identifyexecutor()})[1]) then
-		loadstring(downloadFile('catrewrite/scripts/psmscript.luau'), `performance {game.PlaceId}`)(...)
-	else
-		loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
-	end
+	loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
 	finishLoading()
 else
 	vape.Init = finishLoading

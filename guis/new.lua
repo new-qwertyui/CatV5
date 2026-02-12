@@ -6354,7 +6354,7 @@ function mainapi:Load(skipgui, profile)
 	self.Loaded = savecheck
 	self.Categories.Main.Options.Bind:SetBind(self.Keybind)
 
-	if shared.VapeDeveloper or (inputService.TouchEnabled or not inputService.KeyboardEnabled) and #self.Keybind == 1 and self.Keybind[1] == 'RightShift' then
+	if shared.VapeDeveloper or not inputService.KeyboardEnabled and #self.Keybind == 1 and self.Keybind[1] == 'RightShift' then
 		local app = lplr.PlayerGui:FindFirstChild('TopBarAppGui')
 		local hide = isfile('catrewrite/profiles/hide.txt') and readfile('catrewrite/profiles/hide.txt') or nil
 		if hide ~= nil then
