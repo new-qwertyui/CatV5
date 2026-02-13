@@ -53,8 +53,8 @@ local tween = {
 	tweenstwo = {}
 }
 local uipallet = {
-	Main = Color3.fromRGB(26, 25, 26),
-	Text = Color3.fromRGB(200, 200, 200),
+	Main = Color3.fromRGB(254, 140, 197),--26, 25, 26
+	Text = Color3.fromRGB(26, 25, 26),--200, 200, 200
 	Font = Font.fromEnum(Enum.Font.Arial),
 	FontSemiBold = Font.fromEnum(Enum.Font.Arial, Enum.FontWeight.SemiBold),
 	Tween = TweenInfo.new(0.16, Enum.EasingStyle.Linear)
@@ -432,7 +432,7 @@ local function removeTags(str)
 	return str:gsub('<[^<>]->', '')
 end
 
-do
+--[[do Fr Valentine!
 	local res = isfile('catrewrite/profiles/color.txt') and loadJson('catrewrite/profiles/color.txt')
 	if res then
 		uipallet.Main = res.Main and Color3.fromRGB(unpack(res.Main)) or uipallet.Main
@@ -444,7 +444,7 @@ do
 		uipallet.FontSemiBold = Font.new(uipallet.Font.Family, Enum.FontWeight.SemiBold)
 	end
 	fontsize.Font = uipallet.Font
-end
+end]]
 
 do
 	function color.Dark(col, num)
