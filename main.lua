@@ -42,6 +42,7 @@ end
 
 local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
+	print(path)
 	if not isfile(path) then
 		if not canDebug and downloader and downloader.Parent then
 			downloader.Text = `Downloading {path}`
