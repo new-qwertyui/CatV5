@@ -46,7 +46,7 @@ local function downloadFile(path, func)
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			error(res)
+			print(path, res)	
 		end
 		writefile(path, res)
 	end
@@ -104,11 +104,8 @@ local function finishLoading()
 	if not shared.vapereload then
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-			if shared.maincat then
-				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
-			else
-				vape:CreateNotification('Cat', 'Your currently using an outdated loader of catvape, Please go to our discord server and get a new one', 120, 'warning')
 			end
+			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
 			local last = isfile('kitty_version') and readfile('kitty_version') or '5.49'
 			if last ~= version then
 				writefile('kitty_version', tostring(version))
@@ -132,7 +129,6 @@ shared.vape = vape
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	if not canDebug then
-		vape:CreateNotification('Cat', 'This may take up to 3 minutes to load', 30, 'warning')
 		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
 	end
 

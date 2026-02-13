@@ -1552,6 +1552,7 @@ run(function()
 							bedwars.SwordController:swingSwordAtMouse(0.39)
 						else
 							mouse1click()
+							print()
 						end
 					end
 				end
@@ -2675,7 +2676,7 @@ run(function()
 					bedwars.StatefulEntityKnockbackController.lastImpulseTime = callback and math.huge or time()
 					if entitylib.isAlive then
 						if not Fly.Enabled and not (InfiniteFly or {}).Enabled and not LongJump.Enabled then
-							bedwars.SprintController:setSpeed(Value.Value)
+							bedwars.SprintController:setSpeed(Mode.Value == 'CFrame' and 20 or Value.Value)
 							if Mode.Value == 'CFrame' then
 								local state = entitylib.character.Humanoid:GetState()
 								if state == Enum.HumanoidStateType.Climbing then return end

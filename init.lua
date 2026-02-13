@@ -14,8 +14,6 @@ shared.start = tick()
 
 local arg = ... or {}
 
-local outdated = isfolder('catrewrite') and isfolder('catrewrite/profiles') and isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or ''
-
 local function downloadFile(path, comm, func)
 	if not arg.Developer or not isfile(path) then
 		local suc, res = pcall(function()
@@ -38,5 +36,7 @@ commit = commit and subbed:sub(commit + 13, commit + 52) or nil
 commit = commit and #commit == 40 and commit or 'main'
 commit = commit:sub(1, 7)
 
-loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(arg, commit, nil, nil)
+pcall(function()
+	loadstring(downloadFile('catrewrite/loader.luau', commit), 'loader.luau')(arg, commit, nil, nil)
+end)
 shared.catloading = false
