@@ -40,14 +40,19 @@ local function run(func)
 	func()
 end
 
+local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
 	if not isfile(path) then
+		if not canDebug and downloader and downloader.Parent then
+			downloader.Text = `Downloading {path}`
+		end
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			print(path, res)	
 		end
+		downloader.Text = ''
 		writefile(path, res)
 	end
 	return (func or readfile)(path)
