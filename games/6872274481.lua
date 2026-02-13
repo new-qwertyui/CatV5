@@ -744,7 +744,9 @@ if not canDebug then
 	end
 	getgenv().require = require
 
+	print('ce a')
 	libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
+	print('ce b')
 
 	task.wait(1.5)
 end
