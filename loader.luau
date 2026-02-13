@@ -51,6 +51,7 @@ local function createDownloader(text: string): ()
 		downloader.TextColor3 = Color3.new(1, 1, 1)
 		downloader.Font = Enum.Font.Arimo
 		downloader.Parent = gui
+		getgenv().catdownloader = downloader
 	end
 
 	if text == '' then
