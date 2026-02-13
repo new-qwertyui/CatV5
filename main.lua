@@ -104,7 +104,6 @@ local function finishLoading()
 	if not shared.vapereload then
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-			end
 			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
 			local last = isfile('kitty_version') and readfile('kitty_version') or '5.49'
 			if last ~= version then
