@@ -725,7 +725,9 @@ run(function()
 	end
 	vape:Clean(entitylib.Events.LocalAdded:Connect(updateVelocity))
 end)
+print('-a')
 entitylib.start()
+print('-?')
 
 local libraries = {}
 local require = require
@@ -743,28 +745,32 @@ if not canDebug then
 		return Result
 	end
 	getgenv().require = require
-
-	print('ce a')
 	libraries = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'libraries/cheatenginelib.luau')(vape, vapeEvents, entitylib, store, bedwars)
-	print('ce b')
 
 	task.wait(1.5)
 end
 
+print('-b')
+
 run(function()
+	print('-c')
 	local KnitInit, Knit
 	repeat
 		KnitInit, Knit = pcall(function()
-			return not canDebug and require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient or debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 9)
+			return require(replicatedStorage.rbxts_include.node_modules['@easy-games'].knit.src).KnitClient 
 		end)
 		if KnitInit then break end
 		task.wait()
 	until KnitInit
 
+	print('-d')
+
 	if canDebug and not debug.getupvalue(Knit.Start, 1) then
 		task.wait(1)
 		repeat task.wait() until debug.getupvalue(Knit.Start, 1)
 	end
+
+	print('-f')
 
 	local Flamework = require(replicatedStorage['rbxts_include']['node_modules']['@flamework'].core.out).Flamework
 	local InventoryUtil = require(replicatedStorage.TS.inventory['inventory-util']).InventoryUtil
@@ -1510,6 +1516,8 @@ run(function()
 	getgenv().bedwars = bedwars
 	getgenv().store = store
 end)
+
+print('it works')
 
 for _, v in {'Anti Ragdoll', 'Trigger Bot', 'Silent Aim', 'Auto Rejoin', 'Rejoin', 'Disabler', 'Timer', 'Server Hop', 'Mouse TP', 'Murder Mystery'} do
 	vape:Remove(v)
