@@ -176,7 +176,9 @@ end
 
 print('Loading main')
 local success, err = pcall(function()
-	return loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+	local res = downloadFile('catrewrite/main.lua')
+	print('??', res)
+	return loadstring(res, 'main')()
 end)
 
 print(success, err)
