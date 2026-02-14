@@ -14,7 +14,7 @@ local isfile = isfile or function(file)
 	return suc and res ~= nil and res ~= ''
 end
 local function downloadFile(path, func)
-	if not isfile(path) then
+	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function() 
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true) 
 		end)
@@ -29,16 +29,17 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 
-vape.Place = 6872274481
-if isfile('catrewrite/games/'..vape.Place..'.lua') then
-	loadstring(readfile('catrewrite/games/'..vape.Place..'.lua'), 'bedwars')()
+local Place = 6872274481
+vape.Place = Place
+if isfile('catrewrite/games/'..Place..'.lua') then
+	loadstring(readfile('catrewrite/games/'..Place..'.lua'), 'bedwars')()
 else
 	if not shared.VapeDeveloper then
 		local suc, res = pcall(function() 
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..vape.Place..'.lua', true) 
 		end)
 		if suc and res ~= '404: Not Found' then
-			loadstring(downloadFile('catrewrite/games/'..vape.Place..'.lua'), 'bedwars')()
+			loadstring(downloadFile('catrewrite/games/'..Place..'.lua'), 'bedwars')()
 		end
 	end
 end
