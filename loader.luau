@@ -89,8 +89,6 @@ local function downloadFile(path, func)
 			error(res)
 		end
 		writefile(path, res)
-		print('what', path)
-		warn(res)
 		createDownloader('')
 	end
 	return (func or readfile)(path)
@@ -107,7 +105,7 @@ local function wipeFolder(path)
 end 
 
 local writefile = writefile
-if writefile and not table.find({'Volt'}, Executor) then
+if writefile and not table.find({'Volt', 'Xeno'}, Executor) then
 	getgenv().writefile = newcclosure(function(dict, code)
 		local text, path = {}, dict:split('/')
 		for index, v in path do
@@ -174,14 +172,9 @@ if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 	getgenv().isnetworkowner = function() return true end
 end
 
-print('Loading main')
 local success, err = pcall(function()
-	local res = downloadFile('catrewrite/main.lua')
-	print('??', res)
-	return loadstring(res, 'main')()
+	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
-
-print(success, err)
 
 createDownloader('')
 

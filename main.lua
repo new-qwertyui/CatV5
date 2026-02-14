@@ -1,4 +1,3 @@
-print('whatt bro')
 if isnetworkowner then
 	if table.find({'Velocity', 'ChocoSploit'}, ({identifyexecutor()})[1]) then
 		getgenv().isnetworkowner = nil
@@ -43,7 +42,6 @@ end
 
 local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
-	print(path)
 	if not isfile(path) then
 		if downloader and downloader.Parent and shared.newcat then
 			downloader.Visible = true
@@ -127,20 +125,16 @@ local function finishLoading()
 	end
 end
 
-print('cat')
 if not isfile('catrewrite/profiles/gui.txt') then
 	writefile('catrewrite/profiles/gui.txt', 'new')
 end
 local gui = readfile('catrewrite/profiles/gui.txt')
 
-print('aw')
 if not isfolder('catrewrite/assets/'..gui) then
 	makefolder('catrewrite/assets/'..gui)
 end
-print(':O')
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
-print('W')
 repeat task.wait() until vape and typeof(vape) == 'table'
 
 local alias = {
