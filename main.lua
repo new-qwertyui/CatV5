@@ -43,6 +43,7 @@ end
 local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
 	print(path)
+	local custom = nil
 	if not isfile(path) then
 		if not canDebug and downloader and downloader.Parent then
 			downloader.Text = `Downloading {path}`
@@ -55,8 +56,10 @@ local function downloadFile(path, func)
 		end
 		downloader.Text = ''
 		writefile(path, res)
+		custom = res
 	end
-	return (func or readfile)(path)
+	local callback = (func or readfile)
+	return callback == readfile and custom or callback(path)
 end
 
 local function loadJson()
