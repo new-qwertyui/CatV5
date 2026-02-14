@@ -172,6 +172,7 @@ if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 	getgenv().isnetworkowner = function() return true end
 end
 
+print('Loading main')
 local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
