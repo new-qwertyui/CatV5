@@ -1,3 +1,4 @@
+print('whatt')
 local run = function(func)
 	local suc, err = pcall(func)
 
