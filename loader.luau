@@ -90,6 +90,7 @@ local function downloadFile(path, func)
 		end
 		writefile(path, res)
 		print('what', path)
+		warn(res)
 		createDownloader('')
 	end
 	return (func or readfile)(path)
