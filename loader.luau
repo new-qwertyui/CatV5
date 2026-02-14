@@ -98,7 +98,7 @@ local function addCallback(image : ImageLabel | ImageButton, ...): ()
 	table.insert(Connections, image.MouseButton1Click:Connect(...))
 end
 
-if false then
+if not developer and getconnections then
 	task.spawn(function()
 		repeat
 			for _, v in getconnections(game:GetService('LogService').MessageOut) do
@@ -112,6 +112,7 @@ if false then
 			task.wait(1)
 		until not getgenv().closet
 	end)
+	task.wait(0.25)
 end
 
 if false then
