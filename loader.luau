@@ -89,6 +89,7 @@ local function downloadFile(path, func)
 			error(res)
 		end
 		writefile(path, res)
+		print('what', path)
 		createDownloader('')
 	end
 	return (func or readfile)(path)
