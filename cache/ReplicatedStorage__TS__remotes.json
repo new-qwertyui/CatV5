@@ -1,1 +1,0 @@
-{"default":{"Client":{"configuration":{"ServerGlobalMiddleware":[null],"MicroprofileCallbacks":true},"namespace":"@","Get":null},"Server":{"globalMiddleware":[null],"config":{"ServerGlobalMiddleware":[null],"MicroprofileCallbacks":true},"namespace":"@"}}}

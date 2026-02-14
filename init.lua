@@ -1,12 +1,7 @@
-if shared.catloading then
-	return
-end
-shared.catloading = true
-local loaded = game:IsLoaded()
+if shared.catloading then return; end; shared.catloading = true
+
 repeat task.wait() until game:IsLoaded()
-if not loaded then
-	task.wait(5)
-end
+
 if not isfolder('catrewrite') then
     makefolder('catrewrite')
 end

@@ -20,6 +20,7 @@ type VapeModule = {
 
 declare Reach: VapeModule
 declare Backtrack: VapeModule
+declare FakeLag: VapeModule
 
 declare store: AnyTable
 declare bedwars: AnyTable

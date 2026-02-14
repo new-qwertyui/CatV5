@@ -42,24 +42,26 @@ end
 
 local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
-	print(path)
-	local custom = nil
 	if not isfile(path) then
-		if not canDebug and downloader and downloader.Parent then
+		if downloader and downloader.Parent and shared.newcat then
+			downloader.Visible = true
 			downloader.Text = `Downloading {path}`
 		end
+		
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			print(path, res)	
+			warn(path, res)	
+			return res
 		end
-		downloader.Text = ''
 		writefile(path, res)
-		custom = res
 	end
-	local callback = (func or readfile)
-	return callback == readfile and custom or callback(path)
+	if downloader and downloader.Parent then
+		downloader.Text = ''
+		downloader.Visible = false
+	end
+	return (func or readfile)(path)
 end
 
 local function loadJson()
@@ -133,24 +135,21 @@ if not isfolder('catrewrite/assets/'..gui) then
 end
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
+repeat task.wait() until vape and typeof(vape) == 'table'
+
+local alias = {
+	[8444591321] = 6872274481,
+	[8560631822] = 6872274481
+}
 
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	if not canDebug then
-		loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
-	end
-
-	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
-		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
-	else
-		if not shared.VapeDeveloper then
-			local suc, res = pcall(function()	
-				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
-			end)
-			if suc and res ~= '404: Not Found' then
-				loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
-			end
-		end
+	loadstring(downloadFile('catrewrite/libraries/login.lua'), 'login')()
+	local placeid = alias[game.PlaceId] or game.PlaceId
+	local res = downloadFile('catrewrite/games/'..placeid..'.lua')
+	if res and res ~= '404: Not Found' then
+		vape.Place = placeid
+		loadstring(res, tostring(placeid))(...)
 	end
 	loadstring(downloadFile('catrewrite/scripts/script.luau'), `script {game.PlaceId}`)(...)
 	finishLoading()

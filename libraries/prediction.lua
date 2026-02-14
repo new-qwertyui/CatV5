@@ -194,8 +194,6 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
 	--attemped gravity calculation, may return to it in the future.
 	if math.abs(q) > 0.01 and playerGravity and playerGravity > 0 then
 		local estTime = (disp.Magnitude / projectileSpeed)
-		local origq = q
-		local origj = j
 		for i = 1, 100 do
 			q -= (.5 * playerGravity) * estTime
 			local velo = targetVelocity * 0.016
@@ -235,6 +233,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
 			local f = (k + r*t)/t
 			return origin + Vector3.new(d, e, f)
 		end
+		return nil
 	elseif gravity == 0 then
 		local t = (disp.Magnitude / projectileSpeed)
 		local d = (h + p*t)/t
@@ -242,6 +241,7 @@ function module.SolveTrajectory(origin, projectileSpeed, gravity, targetPos, tar
 		local f = (k + r*t)/t
 		return origin + Vector3.new(d, e, f)
 	end
+	return nil
 end
 
 return module
