@@ -1,3 +1,4 @@
+print('whatt bro')
 if isnetworkowner then
 	if table.find({'Velocity', 'ChocoSploit'}, ({identifyexecutor()})[1]) then
 		getgenv().isnetworkowner = nil
