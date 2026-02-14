@@ -42,6 +42,7 @@ end
 
 local downloader = getgenv().catdownloader
 local function downloadFile(path, func)
+	print(path)
 	if not isfile(path) then
 		if downloader and downloader.Parent and shared.newcat then
 			downloader.Visible = true
