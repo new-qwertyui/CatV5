@@ -126,16 +126,20 @@ local function finishLoading()
 	end
 end
 
+print('cat')
 if not isfile('catrewrite/profiles/gui.txt') then
 	writefile('catrewrite/profiles/gui.txt', 'new')
 end
 local gui = readfile('catrewrite/profiles/gui.txt')
 
+print('aw')
 if not isfolder('catrewrite/assets/'..gui) then
 	makefolder('catrewrite/assets/'..gui)
 end
+print(':O')
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
+print('W')
 repeat task.wait() until vape and typeof(vape) == 'table'
 
 local alias = {
