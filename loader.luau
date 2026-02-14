@@ -173,7 +173,11 @@ if table.find({'Velocity', 'ChocoSploit'}, Executor) then
 end
 
 print('Loading main')
-loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+local success, err = pcall(function()
+	return loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+end)
+
+print(success, err)
 
 createDownloader('')
 
