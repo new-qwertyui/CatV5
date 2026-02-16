@@ -1,4 +1,5 @@
 local commit = select(2, ...)
+print(commit, 'LMFAO')
 
 repeat
 	task.wait()
