@@ -135,7 +135,6 @@ if not isfolder('catrewrite/assets/'..gui) then
 end
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')(version)
 shared.vape = vape
-repeat task.wait() until vape and typeof(vape) == 'table'
 
 local alias = {
 	[8444591321] = 6872274481,
