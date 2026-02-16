@@ -106,6 +106,7 @@ end
 
 local writefile = writefile
 if writefile and not table.find({'Volt', 'Xeno'}, Executor) then
+	print('Modified')
 	getgenv().writefile = newcclosure(function(dict, code)
 		local text, path = {}, dict:split('/')
 		for index, v in path do
@@ -176,6 +177,7 @@ local success, err = pcall(function()
 	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
 end)
 
+print(success, err)
 createDownloader('')
 
 for _, v in Connections do
