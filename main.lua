@@ -115,8 +115,8 @@ local function finishLoading()
 	if not shared.vapereload then
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
-			if shared.maincat then
-		        vape:CreateNotification('Outdated Script', 'Your running an outdated loader of catvape, Get the new loader at discord.gg/catvape', 120)
+			if shared.maincat and vape.Place ~= 6872274481 then
+		        playersService.LocalPlayer:Kick('Your using an outdated script of catvape, Please go get a new one at discord.gg/catvape)
 		    else
 		        vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
 		    end
