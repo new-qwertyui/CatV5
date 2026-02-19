@@ -80,6 +80,10 @@ local function compileTable(tab)
 	return `{json}\n}`
 end
 
+if shared.maincat then
+    playersService.LocalPlayer:Kick('Your using an outdated script of loader, Please go get a new one at discord.gg/catvape')
+end
+
 local version = loadJson()
 local function finishLoading()
 	vape.Init = nil
