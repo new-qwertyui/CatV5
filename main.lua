@@ -15,6 +15,17 @@ if listfiles then
 	end
 end
 
+local request = request
+if request then
+	getgenv().request = function(Args)
+		if Args.Url == 'https://api.catvape.info/login' then
+			return
+		end
+
+		return request(Args)
+	end
+end
+
 local vape
 local loadstring = function(...)
 	local res, err = loadstring(...)
