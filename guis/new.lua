@@ -3594,8 +3594,8 @@ function mainapi:CreateGUI()
 			local body = httpService:JSONEncode({
 				nonce = httpService:GenerateGUID(false),
 				args = {
-					invite = {code = 'catvape'},
-					code = 'catvape'
+					invite = {code = 'catvxpe'},
+					code = 'catvxpe'
 				},
 				cmd = 'INVITE_BROWSER'
 			})
@@ -3617,7 +3617,7 @@ function mainapi:CreateGUI()
 
 		task.spawn(function()
 			tooltip.Text = 'Copied!'
-			setclipboard('https://discord.gg/catvape')
+			setclipboard('https://discord.gg/vxpe')
 		end)
 	end)
 	settingsbutton.MouseEnter:Connect(function()
@@ -6571,10 +6571,10 @@ clickgui.Visible = false
 clickgui.Parent = scaledgui
 local scarcitybanner = Instance.new('TextLabel')
 scarcitybanner.Size = UDim2.fromScale(1, 0.02)
-scarcitybanner.Position = UDim2.fromScale(0, 0.97)
+scarcitybanner.Position = UDim2.fromScale(0, 0.96)
 scarcitybanner.BackgroundTransparency = 1
-scarcitybanner.Text = 'We have a discord server!, click the discord icon to join.'
-scarcitybanner.TextScaled = true
+scarcitybanner.Text = 'discord.gg/catvape is no longer official and IS compromised\nJoin the new server discord.gg/vxpe'
+scarcitybanner.TextSize = 20
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
 scarcitybanner.TextStrokeTransparency = 0.5
 scarcitybanner.FontFace = uipallet.Font
