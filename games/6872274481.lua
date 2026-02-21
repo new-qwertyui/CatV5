@@ -685,8 +685,10 @@ run(function()
 		end
 		getgenv().require = require
 
+		print('loading cheatengine lib')
 		vape.Libraries.cheatenginelib = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'))(vape, vapeEvents, entitylib, store, bedwars)
 				cheatenginelib = vape.Libraries.cheatenginelib
+		print('loaded')
 	end
 end)
 
