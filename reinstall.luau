@@ -11,3 +11,5 @@ cloneref(game:GetService('StarterGui')):SetCore('SendNotification', {
     Text = 'Successfully reinstalled Cat Vape',
     Duration = 20
 })
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')({})
