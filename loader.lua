@@ -1,5 +1,6 @@
 local Args = ... or {}
-shared.VapeDeveloper = shared.VapeDeveloper or Args.Developer
+shared.VapeDeveloper = Args.Developer or false
+print(Args.Developer)
 
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
