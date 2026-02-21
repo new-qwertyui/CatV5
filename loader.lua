@@ -49,6 +49,7 @@ local function wipeFolder(path)
 	for _, file in listfiles(path) do
 		if file:find('loader') or file:find('init') then continue end
 		if isfile(file) then
+			print('wiped')
 			delfile(file)
 		end
 	end
