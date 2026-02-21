@@ -144,6 +144,7 @@ local function collection(tags, module, customadd, customremove)
 	end
 	return objs, cleanFunc
 end
+getgenv().collection = collection
 
 local function getBestArmor(slot)
 	local closest, mag = nil, 0
