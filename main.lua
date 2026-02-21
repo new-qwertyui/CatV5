@@ -2,6 +2,7 @@ local license = ...
 repeat task.wait() until game:IsLoaded()
 if shared.vape then shared.vape:Uninject() end
 if shared.maincat then game:GetService('Players').LocalPlayer:Kick('Your currently using an outdated loader of catvape, Go get the updated loader at discord.gg/catv5') end
+print(shared.VapeDeveloper)
 
 if identifyexecutor then
 	if table.find({'Argon', 'Wave', 'Seliware'}, ({identifyexecutor()})[1]) then
@@ -45,6 +46,15 @@ local function downloadFile(path, func)
 	end
 	return (func or readfile)(path)
 end
+shared.catdata = license
+
+local function compileTable(tab)
+	local json = '{'
+	for i, v in tab do
+		json = `{json}\n					    {i} = {typeof(v) == 'string' and '"'.. v.. '"' or v},`
+	end
+	return `{json}\n					}`
+end
 
 local function finishLoading()
 	vape.Init = nil
@@ -63,9 +73,9 @@ local function finishLoading()
 			local teleportScript = [[
 				shared.vapereload = true
 				if shared.VapeDeveloper then
-					loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+					loadstring(readfile('catrewrite/loader.lua'), 'loader')(sharedData)
 				else
-					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true), 'loader')()
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true), 'loader')(sharedData)
 				end
 			]]
 			if shared.VapeDeveloper then
@@ -74,6 +84,7 @@ local function finishLoading()
 			if shared.VapeCustomProfile then
 				teleportScript = 'shared.VapeCustomProfile = "'..shared.VapeCustomProfile..'"\n'..teleportScript
 			end
+			teleportScript = teleportScript:gsub('sharedData', compileTable(license))
 			vape:Save()
 			queue_on_teleport(teleportScript)
 		end
@@ -106,7 +117,9 @@ local function finishLoading()
 		
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 			vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 5)
+			task.wait(0.1)
 			vape:CreateNotification('Cat', 'We have switched to a new discord server, discord.gg/vxpe', 30, 'info')
+			task.wait(0.1)
 			vape:CreateNotification('Cat', `Initalized as {getgenv().catname} with {getgenv().catrole}`, 5, 'info')
 		end
 	end

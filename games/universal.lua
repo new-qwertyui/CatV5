@@ -213,6 +213,9 @@ local hash = loadstring(downloadFile('catrewrite/libraries/hash.lua'), 'hash')()
 local prediction = loadstring(downloadFile('catrewrite/libraries/prediction.lua'), 'prediction')()
 entitylib = loadstring(downloadFile('catrewrite/libraries/entity.lua'), 'entity')()
 
+weatherlib.Lightning = loadstring(downloadFile('catrewrite/libraries/Weather/Lightning.lua'), 'Lightning')()
+weatherlib.Rain = loadstring(downloadFile('catrewrite/libraries/Weather/Rain.lua'), 'Lightning')()
+weatherlib.Snow = loadstring(downloadFile('catrewrite/libraries/Weather/Snow.lua'), 'Lightning')()
 
 local whitelist = {
 	alreadychecked = {},
@@ -264,6 +267,11 @@ vape.Libraries.auraanims = {
 		{CFrame = CFrame.new(-0.55, -0.59, -0.1) * CFrame.Angles(math.rad(-161), math.rad(54), math.rad(-6)), Time = 0.08},
 		{CFrame = CFrame.new(-0.62, -0.68, -0.07) * CFrame.Angles(math.rad(-167), math.rad(47), math.rad(-1)), Time = 0.03},
 		{CFrame = CFrame.new(-0.56, -0.86, 0.23) * CFrame.Angles(math.rad(-167), math.rad(49), math.rad(-1)), Time = 0.03}
+	},
+	Astral = {
+		{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
+		{CFrame = CFrame.new(0.7, -0.7, 0.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
+		{CFrame = CFrame.new(0.95, -1.06, -2.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
 	},
 	Random = {},
 	['Horizontal Spin'] = {

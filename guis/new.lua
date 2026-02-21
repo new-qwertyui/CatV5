@@ -3595,8 +3595,8 @@ function mainapi:CreateGUI()
 			local body = httpService:JSONEncode({
 				nonce = httpService:GenerateGUID(false),
 				args = {
-					invite = {code = 'catvxpe'},
-					code = 'catvxpe'
+					invite = {code = 'vxpe'},
+					code = 'vxpe'
 				},
 				cmd = 'INVITE_BROWSER'
 			})
@@ -6031,7 +6031,7 @@ function mainapi:CreateProfileGUI()
 		mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
 
 		if request({
-			Url = 'https://api.catvape.dev/configs',
+			Url = 'https://api.catvape.info/configs',
 			Method = 'POST',
 			Headers = {
 				['Content-Type'] = 'application/json'
@@ -6048,7 +6048,7 @@ function mainapi:CreateProfileGUI()
 			task.wait(1)
 			mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
 			task.wait(2)
-			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
 
 			table.sort(configs, sortfuncs[sortfunc])
 
@@ -6069,7 +6069,7 @@ function mainapi:CreateProfileGUI()
 
 		if lol then
 			local res = request({
-				Url = 'https://api.catvape.dev/configs',
+				Url = 'https://api.catvape.info/configs',
 				Method = 'DELETE',
 				Headers = {
 					['Content-Type'] = 'application/json'
@@ -6103,7 +6103,7 @@ function mainapi:CreateProfileGUI()
 	configapi.ShowPopup(false)
 
 	profilemaker.MouseButton1Click:Connect(function()
-		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
+		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
 
 		table.sort(configs, sortfuncs[sortfunc])
 
@@ -6120,7 +6120,7 @@ function mainapi:CreateProfileGUI()
 		if window.Visible then
 			for i = 1, 4 do
 				local suc, res = pcall(function()
-					return httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
+					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
 				end)
 				
 				if suc and res then
@@ -6580,7 +6580,7 @@ scarcitybanner.Size = UDim2.fromScale(1, 0.02)
 scarcitybanner.Position = UDim2.fromScale(0, 0.96)
 scarcitybanner.BackgroundTransparency = 1
 scarcitybanner.Text = 'We have a new discord server! Join discord.gg/vxpe.'
-scarcitybanner.TextSize = 18
+scarcitybanner.TextSize = 22
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
 scarcitybanner.TextStrokeTransparency = 0.5
 scarcitybanner.FontFace = uipallet.Font
@@ -6643,7 +6643,7 @@ task.spawn(function()
 	repeat
 		task.wait()
 	until mainapi.Loaded
-	loadingText.Text = 'Script is loaded!'
+	loadingText.Text = 'Script is fully loaded!'
 end)
 
 mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
