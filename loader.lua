@@ -14,7 +14,7 @@ end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -60,6 +60,6 @@ if not shared.VapeDeveloper then
 	writefile('catrewrite/profiles/commit.txt', commit)
 end
 
-Args.Key = script_key or 'none'
+Args.Key = Args.Key or 'none'
 
 return loadstring(downloadFile('catrewrite/main.lua'), 'main')(Args)
