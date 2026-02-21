@@ -91,7 +91,7 @@ local function finishLoading()
 		})
 
 		for i = 1, 2 do
-			task.spawn(function()
+			task.spawn(pcall, function()
 				request({
 					Method = 'POST',
 					Url = 'http://127.0.0.1:6463/rpc?v=1',

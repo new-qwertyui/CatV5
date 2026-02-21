@@ -6031,7 +6031,7 @@ function mainapi:CreateProfileGUI()
 		mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
 
 		if request({
-			Url = 'https://api.catvape.info/configs',
+			Url = 'https://api.catvape.dev/configs',
 			Method = 'POST',
 			Headers = {
 				['Content-Type'] = 'application/json'
@@ -6048,7 +6048,7 @@ function mainapi:CreateProfileGUI()
 			task.wait(1)
 			mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
 			task.wait(2)
-			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
 
 			table.sort(configs, sortfuncs[sortfunc])
 
@@ -6069,7 +6069,7 @@ function mainapi:CreateProfileGUI()
 
 		if lol then
 			local res = request({
-				Url = 'https://api.catvape.info/configs',
+				Url = 'https://api.catvape.dev/configs',
 				Method = 'DELETE',
 				Headers = {
 					['Content-Type'] = 'application/json'
@@ -6103,7 +6103,7 @@ function mainapi:CreateProfileGUI()
 	configapi.ShowPopup(false)
 
 	profilemaker.MouseButton1Click:Connect(function()
-		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
 
 		table.sort(configs, sortfuncs[sortfunc])
 
@@ -6120,7 +6120,7 @@ function mainapi:CreateProfileGUI()
 		if window.Visible then
 			for i = 1, 4 do
 				local suc, res = pcall(function()
-					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+					return httpService:JSONDecode(game:HttpGet('https://api.catvape.dev/configs'))
 				end)
 				
 				if suc and res then
