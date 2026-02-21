@@ -47,6 +47,7 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 shared.catdata = license
+getgenv().sortmethods = {}
 
 local function compileTable(tab)
 	local json = '{'
