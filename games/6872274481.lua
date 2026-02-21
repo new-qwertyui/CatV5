@@ -1114,7 +1114,9 @@ run(function()
 				local currentHand, toolType = new.Inventory.observedInventory.inventory.hand, ''
 				if currentHand then
 					local handData = bedwars.ItemMeta[currentHand.itemType]
-					toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
+					if handData then
+						toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
+					end
 				end
 
 				store.hand = {
@@ -1128,6 +1130,14 @@ run(function()
 
 	local storeChanged = bedwars.Store.changed:connect(updateStore)
 	updateStore(bedwars.Store:getState(), {})
+	if not canDebug then
+		task.spawn(function()
+			repeat
+				updateStore(bedwars.Store:getState(), {})
+				task.wait(1)
+			until false
+		end)
+	end
 
 	for _, event in {'MatchEndEvent', 'EntityDeathEvent', 'BedwarsBedBreak', 'BalloonPopped', 'AngelProgress', 'GrapplingHookFunctions'} do
 		if not vape.Connections then return end
