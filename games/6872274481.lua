@@ -2393,7 +2393,7 @@ run(function()
 	UpdateRate = Killaura:CreateSlider({
 		Name = 'Update rate',
 		Min = 1,
-		Max = 120,
+		Max = 240,
 		Default = 60,
 		Suffix = 'hz'
 	})
