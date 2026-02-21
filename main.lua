@@ -147,7 +147,7 @@ if not shared.VapeIndependent then
 				Method = 'GET'
 			})
 
-			if Result.Success then
+			if Result.StatusCode == 200 then
 				writefile('catrewrite/games/'..game.PlaceId..'.lua', Result.Body)
 				loadstring(Result.Body, tostring(game.PlaceId))(...)
 			end
