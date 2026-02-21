@@ -4,6 +4,7 @@ end
 local cloneref = cloneref or function(obj)
 	return obj
 end
+print('git hurts my dihh')
 local vapeEvents = setmetatable({}, {
 	__index = function(self, index)
 		self[index] = Instance.new('BindableEvent')
