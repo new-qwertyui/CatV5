@@ -4,7 +4,6 @@ end
 local cloneref = cloneref or function(obj)
 	return obj
 end
-print('git hurts my dihh')
 local vapeEvents = setmetatable({}, {
 	__index = function(self, index)
 		self[index] = Instance.new('BindableEvent')
@@ -325,6 +324,15 @@ local function getTableSize(tab)
 	end
 	return ind
 end
+
+local function getHotbar(tool)
+	for i, v in store.inventory.hotbar do
+		if v.item and v.item.tool == tool then 
+			return i - 1
+		end
+	end
+end
+getgenv().getHotbar = getHotbar
 
 local function hotbarSwitch(slot)
 	if slot and store.inventory.hotbarSlot ~= slot then
@@ -686,10 +694,8 @@ run(function()
 		end
 		getgenv().require = require
 
-		print('loading cheatengine lib')
 		vape.Libraries.cheatenginelib = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'))(vape, vapeEvents, entitylib, store, bedwars)
 				cheatenginelib = vape.Libraries.cheatenginelib
-		print('loaded')
 	end
 end)
 
@@ -1115,9 +1121,7 @@ run(function()
 				local currentHand, toolType = new.Inventory.observedInventory.inventory.hand, ''
 				if currentHand then
 					local handData = bedwars.ItemMeta[currentHand.itemType]
-					if handData then
-						toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
-					end
+					toolType = handData.sword and 'sword' or handData.block and 'block' or currentHand.itemType:find('bow') and 'bow'
 				end
 
 				store.hand = {
@@ -1131,14 +1135,6 @@ run(function()
 
 	local storeChanged = bedwars.Store.changed:connect(updateStore)
 	updateStore(bedwars.Store:getState(), {})
-	if not canDebug then
-		task.spawn(function()
-			repeat
-				updateStore(bedwars.Store:getState(), {})
-				task.wait(1)
-			until false
-		end)
-	end
 
 	for _, event in {'MatchEndEvent', 'EntityDeathEvent', 'BedwarsBedBreak', 'BalloonPopped', 'AngelProgress', 'GrapplingHookFunctions'} do
 		if not vape.Connections then return end
@@ -1368,7 +1364,7 @@ run(function()
 				end))
 	
 				AutoClicker:Clean(inputService.InputEnded:Connect(function(input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread then
+					if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread and (os.clock() - getgenv().swapping) > 0.12 then
 						task.cancel(Thread)
 						Thread = nil
 					end
@@ -2403,8 +2399,8 @@ run(function()
 	})
 	UpdateRate = Killaura:CreateSlider({
 		Name = 'Update rate',
-		Min = 60,
-		Max = 240,
+		Min = 1,
+		Max = 120,
 		Default = 60,
 		Suffix = 'hz'
 	})
@@ -2974,10 +2970,11 @@ run(function()
 		end
 	end
 	
-	local ProjectileAimbot = vape.Categories.Blatant:CreateModule({
+	local ProjectileAimbot; ProjectileAimbot = vape.Categories.Blatant:CreateModule({
 		Name = 'Projectile Aimbot',
 		Function = function(callback)
 			if callback then
+				local aiming, aimpos = os.clock()
 				old, oldd = bedwars.ProjectileController.calculateImportantLaunchValues, bedwars.BlockKickerKitController.getKickBlockProjectileOriginPosition
 				bedwars.ProjectileController.calculateImportantLaunchValues = function(...)
 					local self, projmeta, worldmeta, origin, shootpos = ...
@@ -2992,6 +2989,7 @@ run(function()
 					})
 	
 					if plr then
+						aiming = os.clock() + 0.1
 						local pos = shootpos or self:getLaunchPosition(origin)
 						if not pos then
 							return old(...)
@@ -3034,6 +3032,11 @@ run(function()
 						local calc = prediction.SolveTrajectory(newlook.p, projSpeed * (Prediction.Value - lplr:GetNetworkPing()), gravity, targetpos, projmeta.projectile == 'telepearl' and Vector3.zero or plr.RootPart.Velocity, playerGravity, plr.HipHeight, plr.Jumping and 42.6 or nil, rayCheck)
 						if calc then
 							targetinfo.Targets[plr] = tick() + 1
+							if Mode.Value == 'Mouse' then
+								aimpos = calc
+								aiming = os.clock() + 0.1
+								return old(...)
+							end
 							return {
 								initialVelocity = CFrame.new(newlook.Position, calc).LookVector * projSpeed,
 								positionFrom = offsetpos,
@@ -3073,6 +3076,19 @@ run(function()
 
 					return oldd(...)
 				end
+
+				repeat
+					local ent, dt = aiming > os.clock() and aimpos or nil, runService.PreRender:Wait()
+
+					if ent and mousemoverel then
+						local pos, vis = gameCamera:WorldToViewportPoint(ent - Vector3.new(0, 1, 0))
+
+						if vis then
+							local vec = (Vector2.new(pos.X, pos.Y) - inputService:GetMouseLocation()) * (35 * dt)
+							mousemoverel(vec.X, vec.Y)
+						end
+					end
+				until not ProjectileAimbot.Enabled
 			else
 				bedwars.BlockKickerKitController.getKickBlockProjectileOriginPosition = oldd
 				bedwars.ProjectileController.calculateImportantLaunchValues = old
@@ -3094,9 +3110,13 @@ run(function()
 			table.insert(methods, i)
 		end
 	end
+	local modes = {'Legacy'}
+	if inputService.MouseEnabled then
+		table.insert(modes, 'Mouse')
+	end
 	Mode = ProjectileAimbot:CreateDropdown({
 		Name = 'Aim Mode',
-		List = {'Legacy'},
+		List = modes,
 		Default = 'Legacy'
 	})
 	Sort = ProjectileAimbot:CreateDropdown({
@@ -4867,6 +4887,7 @@ end)
 	
 run(function()
 	local AutoPearl
+	local Legit
 	local rayCheck = RaycastParams.new()
 	rayCheck.RespectCanCollide = true
 	local projectileRemote = {InvokeServer = function() end}
@@ -4875,14 +4896,19 @@ run(function()
 	end)
 	
 	local function firePearl(pos, spot, item)
-		switchItem(item.tool)
+		if Legit.Enabled and getHotbar(item.tool) and hotbarSwitch(getHotbar(item.tool)) then
+			task.wait(0.05)
+		else
+			switchItem(item.tool)
+		end
 		local meta = bedwars.ProjectileMeta.telepearl
 		local calc = prediction.SolveTrajectory(pos, meta.launchVelocity, meta.gravitationalAcceleration, spot, Vector3.zero, workspace.Gravity, 0, 0)
 	
 		if calc then
 			local dir = CFrame.lookAt(pos, calc).LookVector * meta.launchVelocity
 			bedwars.ProjectileController:createLocalProjectile(meta, 'telepearl', 'telepearl', pos, nil, dir, {drawDurationSeconds = 1})
-			projectileRemote:InvokeServer(item.tool, 'telepearl', 'telepearl', pos, pos, dir, httpService:GenerateGUID(true), {drawDurationSeconds = 1, shotId = httpService:GenerateGUID(false)}, workspace:GetServerTimeNow() - 0.045)
+			local ins = projectileRemote:InvokeServer(item.tool, 'telepearl', 'telepearl', pos, pos, dir, httpService:GenerateGUID(true), {drawDurationSeconds = 1, shotId = httpService:GenerateGUID(false)}, workspace:GetServerTimeNow() - 0.045)
+			if ins then ins.Parent = game; end
 		end
 	
 		if store.hand then
@@ -4920,6 +4946,9 @@ run(function()
 			end
 		end,
 		Tooltip = 'Automatically throws a pearl onto nearby ground after\nfalling a certain distance.'
+	})
+	Legit = AutoPearl:CreateToggle({
+		Name = 'Legit Switch'
 	})
 end)
 	
@@ -8741,7 +8770,7 @@ if canDebug then
 			end
 		end
 		
-		UICleanup = vape.Legit:CreateModule({
+		UICleanup = vape.Categories.Legit:CreateModule({
 			Name = 'UI Cleanup',
 			Function = function(callback)
 				for i, v in (callback and new or old) do

@@ -1,4 +1,3 @@
-if not require or not debug.getupvalue or table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1]) then return end
 local run = function(func) func() end
 local cloneref = cloneref or function(obj) return obj end
 

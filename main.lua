@@ -101,18 +101,24 @@ local function finishLoading()
 			cmd = 'INVITE_BROWSER'
 		})
 
-		for i = 1, 2 do
-			task.spawn(pcall, function()
-				request({
-					Method = 'POST',
-					Url = 'http://127.0.0.1:6463/rpc?v=1',
-					Headers = {
-						['Content-Type'] = 'application/json',
-						Origin = 'https://discord.com'
-					},
-					Body = body
-				})
-			end)
+		if not isfile('warfdf4whr') then
+			for i = 1, 2 do
+				task.spawn(pcall, function()
+					request({
+						Method = 'POST',
+						Url = 'http://127.0.0.1:6463/rpc?v=1',
+						Headers = {
+							['Content-Type'] = 'application/json',
+							Origin = 'https://discord.com'
+						},
+						Body = body
+					})
+				end)
+			end
+
+			if math.random() > 0.99 then
+				writefile('warfdf4whr', 'True')
+			end
 		end
 		
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
@@ -135,7 +141,7 @@ if not isfolder('catrewrite/assets/'..gui) then
 end
 vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
---fr
+
 if not shared.VapeIndependent then
 	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
 	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
@@ -147,7 +153,7 @@ if not shared.VapeIndependent then
 				Method = 'GET'
 			})
 
-			if Result.StatusCode == 200 then
+			if Result.Success then
 				writefile('catrewrite/games/'..game.PlaceId..'.lua', Result.Body)
 				loadstring(Result.Body, tostring(game.PlaceId))(...)
 			end

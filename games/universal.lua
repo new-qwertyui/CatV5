@@ -7023,7 +7023,7 @@ run(function()
 	end
 end)
 
-pcall(function()
+--[[pcall(function()
 	local weather
 	local oldatmosphere = {}
 	local oldclouds = {}
@@ -7184,7 +7184,7 @@ pcall(function()
 			end
 		end,
 	})
-end)
+end)]]
 
 run(function()
 	local Breadcrumbs
