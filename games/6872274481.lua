@@ -7948,6 +7948,10 @@ run(function()
 	Animation = Breaker:CreateToggle({Name = 'Animation'})
 	SelfBreak = Breaker:CreateToggle({Name = 'Self Break'})
 	InstantBreak = Breaker:CreateToggle({Name = 'Instant Break'})
+	AutoTool = Breaker:CreateToggle({
+		Name = 'Auto Switch Tools',
+		Tooltip = 'Switches to the correct tool'
+	})
 	LimitItem = Breaker:CreateToggle({
 		Name = 'Limit to items',
 		Tooltip = 'Only breaks when tools are held'
