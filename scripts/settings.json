@@ -1,4 +1,0 @@
-{
-    "ignore_updates": true,
-    "custom_scripts": ["script.luau"]
-}

@@ -28,6 +28,7 @@ local cloneref = cloneref or function(obj)
 end
 
 local playersService = cloneref(game:GetService('Players'))
+local proximityPromptService = cloneref(game:GetService('ProximityPromptService'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local runService = cloneref(game:GetService('RunService'))
 local inputService = cloneref(game:GetService('UserInputService'))
@@ -619,12 +620,12 @@ run(function()
 	function whitelist:update(first)
 		local suc = pcall(function()
 			local _, subbed = pcall(function()
-				return game:HttpGet('https://github.com/7GrandDadPGN/whitelists')
+				return game:HttpGet('https://github.com/ah2r/whitelist')
 			end)
 			local commit = subbed:find('currentOid')
 			commit = commit and subbed:sub(commit + 13, commit + 52) or nil
 			commit = commit and #commit == 40 and commit or 'main'
-			whitelist.textdata = game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/whitelists/'..commit..'/PlayerWhitelist.json', true)
+			whitelist.textdata = game:HttpGet('https://raw.githubusercontent.com/ah2r/whitelist/'..commit..'/whitelist.json', true)
 		end)
 		if not suc or not hash or not whitelist.get then return true end
 		whitelist.loaded = true
@@ -664,18 +665,15 @@ run(function()
 
 			if whitelist.textdata ~= whitelist.olddata then
 				if whitelist.data.Announcement.expiretime > os.time() then
-					local targets = whitelist.data.Announcement.targets == 'all' and {tostring(lplr.UserId)} or targets:split(',')
+					local targets = whitelist.data.Announcement.targets == 'all' and {tostring(lplr.UserId)} or whitelist.data.Announcement.targets:split(',')
 					if table.find(targets, tostring(lplr.UserId)) then
 						local hint = Instance.new('Hint')
-						hint.Text = 'VAPE ANNOUNCEMENT: '..whitelist.data.Announcement.text
+						hint.Text = 'CAT ANNOUNCEMENT: '..whitelist.data.Announcement.text
 						hint.Parent = workspace
-						game:GetService('Debris'):AddItem(hint, 20)
+						cloneref(game:GetService('Debris')):AddItem(hint, 20)
 					end
 				end
 				whitelist.olddata = whitelist.textdata
-				pcall(function()
-					--writefile('catrewrite/profiles/whitelist.json', whitelist.textdata)
-				end)
 			end
 
 			if whitelist.data.KillVape then
@@ -7528,18 +7526,18 @@ run(function()
 	local Mode
 	local IDBox
 	local desc
-
+	
 	local function itemAdded(v, manual)
 		if (not v:GetAttribute('Disguise')) and ((v:IsA('Accessory') and (not v:GetAttribute('InvItem')) and (not v:GetAttribute('ArmorSlot'))) or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') or v:IsA('BodyColors') or manual) then
 			repeat
 				task.wait()
-				v.Parent = replicatedStorage
-			until v.Parent == replicatedStorage
+				v.Parent = game
+			until v.Parent == game
 			v:ClearAllChildren()
 			v:Destroy()
 		end
 	end
-
+	
 	local function characterAdded(char)
 		if Mode.Value == 'Character' then
 			task.wait(0.1)
@@ -7548,7 +7546,7 @@ run(function()
 			repeat
 				if pcall(function()
 					desc = playersService:GetHumanoidDescriptionFromUserId(IDBox.Value == '' and 239702688 or tonumber(IDBox.Value))
-				end) then break end
+				end) and desc then break end
 				task.wait(1)
 			until not Disguise.Enabled
 			if not Disguise.Enabled then
@@ -7561,8 +7559,8 @@ run(function()
 				end
 				return
 			end
-			clone.Parent = replicatedStorage
-
+			clone.Parent = game
+	
 			local originalDesc = char.Humanoid:WaitForChild('HumanoidDescription', 2) or {
 				HeightScale = 1,
 				SetEmotes = function() end,
@@ -7570,20 +7568,20 @@ run(function()
 			}
 			originalDesc.JumpAnimation = desc.JumpAnimation
 			desc.HeightScale = originalDesc.HeightScale
-
+	
 			for _, v in clone:GetChildren() do
 				if v:IsA('Accessory') or v:IsA('ShirtGraphic') or v:IsA('Shirt') or v:IsA('Pants') then
 					v:ClearAllChildren()
 					v:Destroy()
 				end
 			end
-
+	
 			clone.Humanoid:ApplyDescriptionClientServer(desc)
 			for _, v in char.Character:GetChildren() do
 				itemAdded(v)
 			end
 			Disguise:Clean(char.Character.ChildAdded:Connect(itemAdded))
-
+	
 			for _, v in clone:WaitForChild('Animate'):GetChildren() do
 				if not char.Character:FindFirstChild('Animate') then return end
 				local real = char.Character.Animate:FindFirstChild(v.Name)
@@ -7595,7 +7593,7 @@ run(function()
 					end
 				end
 			end
-
+	
 			for _, v in clone:GetChildren() do
 				v:SetAttribute('Disguise', true)
 				if v:IsA('Accessory') then
@@ -7611,7 +7609,7 @@ run(function()
 					char.Head.MeshId = v.MeshId
 				end
 			end
-
+	
 			local localface = char.Character:FindFirstChild('face', true)
 			local cloneface = clone:FindFirstChild('face', true)
 			if localface and cloneface then
@@ -7659,7 +7657,7 @@ run(function()
 			end
 		end
 	end
-
+	
 	Disguise = vape.Categories.Legit:CreateModule({
 		Name = 'Disguise',
 		Function = function(callback)
@@ -7699,7 +7697,7 @@ run(function()
 	local Value
 	local oldfov
 
-	FOV = vape.Categories.Legit:CreateModule({
+	FOV = vape.Legit:CreateModule({
 		Name = 'FOV',
 		Function = function(callback)
 			if callback then
@@ -8256,7 +8254,7 @@ end)
 
 run(function()
 	local FPSBoost
-	FPSBoost = vape.Categories.Legit:CreateModule({
+	FPSBoost = vape.Categories.Render:CreateModule({
 		Name = "FPS Boost",
 		Function = function(callback: boolean)
 			if callback then
@@ -8322,6 +8320,70 @@ run(function()
 end)
 
 run(function()
+	local ZoomUnlocker
+	local Distance
+
+	local old
+
+	ZoomUnlocker = vape.Categories.Render:CreateModule({
+		Name = 'Zoom Unlocker',
+		Tooltip = 'Changes max zoom distance',
+		Function = function(call)
+			if call then
+				old = lplr.CameraMaxZoomDistance
+				lplr.CameraMaxZoomDistance = Distance.Value
+			else
+				lplr.CameraMaxZoomDistance = old
+				old = nil
+			end
+		end
+	})
+
+	Distance = ZoomUnlocker:CreateSlider({
+		Name = 'Distance',
+		Min = (lplr.CameraMinZoomDistance or 0),
+		Max = 300,
+		Decimal = 5,
+		Default = (lplr.CameraMaxZoomDistance or 14),
+		Function = function(val)
+			if ZoomUnlocker.Enabled then
+				lplr.CameraMaxZoomDistance = val
+			end
+		end
+	})
+end)
+
+run(function()
+	local PromptDuration
+	local Duration
+
+	PromptDuration = vape.Categories.Utility:CreateModule({
+		Name = 'Prompt Duration',
+		Tooltip = 'Changes duration of proximity prompts',
+		Function = function(call)
+			if call then
+				PromptDuration:Clean(proximityPromptService.PromptButtonHoldBegan:Connect(function(prompt, player)
+					if player == lplr then
+						task.delay(Duration.Value, fireproximityprompt, prompt)
+					end
+				end))
+			end
+		end
+	})
+
+	Duration = PromptDuration:CreateSlider({
+		Name = 'Duration',
+		Min = 0,
+		Max = 2,
+		Default = 0,
+		Suffix = function(val)
+			return val > 1 and 'secs' or 'sec'
+		end,
+		Decimal = 100
+	})
+end)
+
+run(function()
 	local nofall = nil
 	local nofallinstant = nil
 	local nofallmode = nil
@@ -8331,8 +8393,6 @@ run(function()
 	local canceltick = tick()
 
 	local params = RaycastParams.new()
-
-	local should = false
 
 	nofall = vape.Categories.Blatant:CreateModule({
 		Name = 'No Fall',

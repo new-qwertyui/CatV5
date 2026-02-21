@@ -2508,8 +2508,12 @@ gui.DisplayOrder = 9999999
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.IgnoreGuiInset = true
 gui.OnTopOfCoreBlur = true
-gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
-gui.ResetOnSpawn = false
+if mainapi.ThreadFix then
+	gui.Parent = (gethui and gethui()) or cloneref(game:GetService('CoreGui'))
+else
+	gui.Parent = cloneref(game:GetService('Players')).LocalPlayer.PlayerGui
+	gui.ResetOnSpawn = false
+end
 mainapi.gui = gui
 scaledgui = Instance.new('Frame')
 scaledgui.Name = 'ScaledGui'

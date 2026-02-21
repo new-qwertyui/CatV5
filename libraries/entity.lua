@@ -1,4 +1,3 @@
-
 local entitylib = {
 	isAlive = false,
 	character = {},
@@ -93,7 +92,7 @@ entitylib.getUpdateConnections = function(ent)
 end
 
 entitylib.isVulnerable = function(ent)
-	return ent.Health > 0 and (not ent.Character.FindFirstChildWhichIsA(ent.Character, 'ForceField') or game.GameId == 7534782259)
+	return ent.Health > 0 and not ent.Character.FindFirstChildWhichIsA(ent.Character, 'ForceField')
 end
 
 entitylib.getEntityColor = function(ent)
@@ -132,7 +131,7 @@ entitylib.EntityMouse = function(entitysettings)
 			if not entitysettings.NPCs and v.NPC then continue end
 			if not v.Targetable then continue end
 			local position, vis = gameCamera.WorldToViewportPoint(gameCamera, v[entitysettings.Part].Position)
-			if not vis and not v.NPC then continue end
+			if not vis then continue end
 			local mag = (mouseLocation - Vector2.new(position.x, position.y)).Magnitude
 			if mag > entitysettings.Range then continue end
 			if entitylib.isVulnerable(v) then
@@ -181,10 +180,6 @@ entitylib.EntityPosition = function(entitysettings)
 			return a.Magnitude < b.Magnitude
 		end)
 
-		table.sort(sortingTable, function(a, b)
-			return shared.vape.hackerTable[a] and not shared.vape.hackerTable[b]
-		end)
-
 		for _, v in sortingTable do
 			if entitysettings.Wallcheck then
 				if entitylib.Wallcheck(localPosition, v.Entity[entitysettings.Part].Position, entitysettings.Wallcheck) then continue end
@@ -197,6 +192,7 @@ entitylib.EntityPosition = function(entitysettings)
 	end
 	table.clear(entitysettings)
 end
+
 entitylib.AllPosition = function(entitysettings)
 	local returned = {}
 	if entitylib.isAlive then
@@ -205,8 +201,7 @@ entitylib.AllPosition = function(entitysettings)
 			if not entitysettings.Players and v.Player then continue end
 			if not entitysettings.NPCs and v.NPC then continue end
 			if not v.Targetable then continue end
-			if v.Player and table.find(shared.vape.Libraries.whitelist.ignores, v.Player) then continue end
-			local mag = (Vector3.new(v[entitysettings.Part].Position.X, localPosition.Y, v[entitysettings.Part].Position.Z) - localPosition).Magnitude
+			local mag = (v[entitysettings.Part].Position - localPosition).Magnitude
 			if mag > entitysettings.Range then continue end
 			if entitylib.isVulnerable(v) then
 				table.insert(sortingTable, {Entity = v, Magnitude = v.Target and -1 or mag})
@@ -215,14 +210,6 @@ entitylib.AllPosition = function(entitysettings)
 
 		table.sort(sortingTable, entitysettings.Sort or function(a, b)
 			return a.Magnitude < b.Magnitude
-		end)
-
-		if entitysettings.Priority then
-			table.sort(sortingTable, entitysettings.Priority)
-		end
-
-		table.sort(sortingTable, function(a, b)
-			return shared.vape.hackerTable[a] and not shared.vape.hackerTable[b]
 		end)
 
 		for _, v in sortingTable do

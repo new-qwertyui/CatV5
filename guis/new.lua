@@ -296,6 +296,7 @@ local function createDownloader(text)
 end
 
 local function createMobileButton(buttonapi, position)
+	if inputService.KeyboardEnabled then return end
 	local heldbutton = false
 	local button = Instance.new('TextButton')
 	button.Size = UDim2.fromOffset(40, 40)
@@ -5297,7 +5298,7 @@ function mainapi:CreateLegit()
 end
 
 function mainapi:CreateProfileGUI()
-	local configapi = {Sorts = {}, Configs = {}}
+	local configapi = {Sorts = {}, Configs = {}, Backgrounds = {}}
 
 	local window = Instance.new('Frame')
 	window.Name = 'ConfigGUI'
@@ -5380,12 +5381,14 @@ function mainapi:CreateProfileGUI()
 	profilemaker.BackgroundColor3 = Color3.fromRGB(5, 133, 102)
 	profilemaker.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	profilemaker.BorderSizePixel = 0
+	profilemaker.Name = 'ProfileMaker'
 	profilemaker.Position = UDim2.new(0.0142857144, 0, 0.136246786, 0)
 	profilemaker.Size = UDim2.new(0, 167, 0, 30)
 	profilemaker.Font = Enum.Font.Arial
 	profilemaker.Text = ('create new'):upper()
 	profilemaker.TextColor3 = Color3.fromRGB(255, 255, 255)
 	profilemaker.TextSize = 12.000
+	table.insert(configapi.Backgrounds, profilemaker)
 
 	addCorner(profilemaker)
 
@@ -5561,6 +5564,7 @@ function mainapi:CreateProfileGUI()
 	TextButton.BorderSizePixel = 0;
 	TextButton.TextSize = 12;
 	TextButton.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+	table.insert(configapi.Backgrounds, TextButton)
 
 	addCorner(TextButton)
 
@@ -5759,6 +5763,7 @@ function mainapi:CreateProfileGUI()
 	configdatas.Size = UDim2.new(0, 151, 0, 248);
 	configdatas.BorderSizePixel = 0;
 	configdatas.BackgroundColor3 = Color3.fromRGB(5, 133, 102);
+	table.insert(configapi.Backgrounds, configdatas)
 
 	addCorner(configdatas)
 
@@ -5938,6 +5943,7 @@ function mainapi:CreateProfileGUI()
 		newsort.BorderSizePixel = 0
 		newsort.TextTransparency = 1
 		newsort.Size = size
+		table.insert(configapi.Backgrounds, newsort)
 		
 		local label = Instance.new('TextLabel')
 		label.Parent = newsort
@@ -6573,8 +6579,8 @@ local scarcitybanner = Instance.new('TextLabel')
 scarcitybanner.Size = UDim2.fromScale(1, 0.02)
 scarcitybanner.Position = UDim2.fromScale(0, 0.96)
 scarcitybanner.BackgroundTransparency = 1
-scarcitybanner.Text = 'discord.gg/catvape is no longer official and IS compromised\nJoin the new server discord.gg/vxpe'
-scarcitybanner.TextSize = 20
+scarcitybanner.Text = 'We have a new discord server! Join discord.gg/vxpe.'
+scarcitybanner.TextSize = 18
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
 scarcitybanner.TextStrokeTransparency = 0.5
 scarcitybanner.FontFace = uipallet.Font
@@ -6623,11 +6629,9 @@ mainapi.guiscale = scale
 scaledgui.Size = UDim2.fromScale(1 / scale.Scale, 1 / scale.Scale)
 
 task.spawn(function()
-	scarcitybanner.Visible = false
-	
 	local loadingText = Instance.new('TextLabel')
 	loadingText.Size = UDim2.fromScale(1, 0.025)
-	loadingText.Position = UDim2.fromScale(0, 0.5)
+	loadingText.Position = UDim2.fromScale(0, 0.7)
 	loadingText.BackgroundTransparency = 1
 	loadingText.Text = 'Script is still loading, Please wait for this to finish first!'
 	loadingText.TextScaled = true
@@ -6639,8 +6643,7 @@ task.spawn(function()
 	repeat
 		task.wait()
 	until mainapi.Loaded
-	scarcitybanner.Visible = true
-	loadingText:Destroy()
+	loadingText.Text = 'Script is loaded!'
 end)
 
 mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
@@ -7860,6 +7863,12 @@ function mainapi:UpdateGUI(hue, sat, val, default)
 		mainapi.Legit.Icon.ImageColor3 = Color3.fromHSV(hue, sat, val)
 	end
 
+	if mainapi.PublicConfigs.Window then
+		for _, v in mainapi.PublicConfigs.Backgrounds do
+			v.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+		end
+	end
+
 	if mainapi.Legit.Window.Visible then
 		for _, v in mainapi.Legit.Modules do
 			if v.Enabled then
@@ -7886,7 +7895,7 @@ mainapi:Clean(notifications.ChildRemoved:Connect(function()
 	end
 end))
 
-mainapi:Clean(inputService.InputBegan:Connect(function(inputObj)
+mainapi:Clean(inputService.InputBegan:Connect(function(inputObj, p)
 	if not inputService:GetFocusedTextBox() and inputObj.KeyCode ~= Enum.KeyCode.Unknown then
 		table.insert(mainapi.HeldKeybinds, inputObj.KeyCode.Name)
 		if mainapi.Binding then return end

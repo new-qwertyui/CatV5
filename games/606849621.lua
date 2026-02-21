@@ -285,7 +285,7 @@ run(function()
 		Draw = 'TaseReplicate',
 		Gun = 'PopTires',
 		LocalScript2 = 'LookAngle',
-		LocomotiveFront = 'SelfDamage',
+		LocalScript = 'SelfDamage',
 		onPressed = 'FlipVehicle',
 		OnJump = 'GetOut',
 		OnJump1 = 'GetOut',
@@ -305,6 +305,8 @@ run(function()
 		if rem ~= 'LookAngle' and rem ~= 'AimPosition' then
 			local called = getfenv(3)
 			called = called and called.script
+			if called and (not rem) then print(id, 'called with', called:GetFullName()) end
+			print(id, rem or id, ...)
 		end
 
 		return hook(self, id, ...)

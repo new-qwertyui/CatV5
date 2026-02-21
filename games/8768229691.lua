@@ -1754,7 +1754,7 @@ run(function()
 		end))
 	end
 	
-	Viewmodel = vape.Categories.Legit:CreateModule({
+	Viewmodel = vape.Legit:CreateModule({
 		Name = 'Viewmodel',
 		Function = function(callback)
 			if callback then 
