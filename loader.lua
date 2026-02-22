@@ -12,7 +12,17 @@ local delfile = delfile or function(file)
 end
 
 local cloneref = cloneref or function(ref) return ref end
-local httpService = cloneref(game:GetService('HttpService'))
+
+local listfiles = listfiles
+if listfiles then
+	getgenv().listfiles = function(...)
+		local res, new = listfiles(...), {}
+		for i, v in res do
+			new[i] = v:gsub('\\', '/')
+		end
+		return new
+	end
+end
 
 local downloader = Instance.new('TextLabel')
 downloader.Size = UDim2.new(1, 0, 0, 40)
