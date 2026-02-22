@@ -79,7 +79,7 @@ if not shared.VapeDeveloper then
 
 	writefile('catrewrite/profiles/commit.txt', commit)
 	
-	if new or #listfiles('catrewrite/profiles') <= 2 then
+	--[[if new or #listfiles('catrewrite/profiles') <= 2 then
 		local preloaded = pcall(function()
 			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
 
@@ -93,7 +93,7 @@ if not shared.VapeDeveloper then
 		if not preloaded then
 			task.wait(2)
 		end
-	end
+	end]]
 end
 
 return loadstring(downloadFile('catrewrite/main.lua'), 'main')(Args)
