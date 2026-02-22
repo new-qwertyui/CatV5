@@ -59,12 +59,12 @@ end
 local function finishLoading()
 	vape.Init = nil
 	vape:Load()
-	task.spawn(function()
+	vape:Clean(task.spawn(function()
 		repeat
-			vape:Save()
+			pcall(function() vape:Save() end)
 			task.wait(10)
-		until not vape.Loaded
-	end)
+		until false
+	end))
 
 	local teleportedServers
 	vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
@@ -146,14 +146,13 @@ if not shared.VapeIndependent then
 		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
 		if not shared.VapeDeveloper then
-			local Result = request({
-				Url = 'https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua',
-				Method = 'GET'
-			})
+			local success, result = pcall(function()
+				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua')
+			end)
 
-			if Result.Success then
-				writefile('catrewrite/games/'..game.PlaceId..'.lua', Result.Body)
-				loadstring(Result.Body, tostring(game.PlaceId))(...)
+			if success and result ~= '404: Not Found' then
+				writefile(`catrewrite/games/{game.PlaceId}.lua`, result)
+				loadstring(result, tostring(game.PlaceId))(...)
 			end
 		end
 	end

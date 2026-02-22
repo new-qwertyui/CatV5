@@ -774,7 +774,10 @@ run(function()
 		SoundList = require(replicatedStorage.TS.sound['game-sound']).GameSound,
 		SoundManager = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).SoundManager,
 		Store = require(lplr.PlayerScripts.TS.ui.store).ClientStore,
-		TeamUpgradeMeta = debug.getupvalue(require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).getTeamUpgradeMetaForQueue, 6),
+		TeamUpgradeMeta = canDebug and debug.getupvalue(require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).getTeamUpgradeMetaForQueue, 7) or require(replicatedStorage.TS.games.bedwars['team-upgrade']['team-upgrade-meta']).OGTeamUpgrades,
+		PyroUpgradeMeta = require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).FlamethrowerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.kit.kits.pyro['flamethrower-upgrade']).getFlamethrowerUpgradeMeta, 1),
+		AdetundeUpgradeMeta = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).FrostyHammerUpgradeMeta,--debug.getupvalue(require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-upgrades']).getFrostyHammerUpgradeMeta, 1),
+		AdetundeUtil = require(replicatedStorage.TS.games.bedwars.items['frosty-hammer']['frosty-hammer-util']).FrostyHammerUtil,
 		UILayers = require(replicatedStorage['rbxts_include']['node_modules']['@easy-games']['game-core'].out).UILayers,
 		VisualizerUtils = require(lplr.PlayerScripts.TS.lib.visualizer['visualizer-utils']).VisualizerUtils,
 		WeldTable = require(replicatedStorage.TS.util['weld-util']).WeldUtil,
@@ -1365,7 +1368,7 @@ run(function()
 				end))
 	
 				AutoClicker:Clean(inputService.InputEnded:Connect(function(input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread and (os.clock() - getgenv().swapping) > 0.12 then
+					if input.UserInputType == Enum.UserInputType.MouseButton1 and Thread then
 						task.cancel(Thread)
 						Thread = nil
 					end
@@ -2110,13 +2113,7 @@ run(function()
 		Premium = true,
 		Function = function(callback)
 			if callback then
-				if inputService.TouchEnabled then
-					pcall(function()
-						lplr.PlayerGui.MobileUI['2'].Visible = Limit.Enabled
-					end)
-				end
-
-				if Animation.Enabled and not (identifyexecutor and table.find({'Argon', 'Delta'}, ({identifyexecutor()})[1])) then
+				if Animation.Enabled then
 					local fake = {
 						Controllers = {
 							ViewmodelController = {
@@ -2250,7 +2247,7 @@ run(function()
 									bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
 									store.attackReach = (delta.Magnitude * 100) // 1 / 100
 									store.attackReachUpdate = tick() + 1
-									
+
 									if v.Humanoid.FloorMaterial ~= Enum.Material.Air or math.random(1, 100) < AirChance.Value then
 										AttackRemote:FireServer({
 											weapon = sword.tool,
@@ -9019,3 +9016,1445 @@ run(function()
 	})
 end)
 	
+-- aero
+
+run(function()
+	local StreamProof
+	local originalNames = {}
+	local nametagConnection = nil
+	
+	local function modifyPlayerName(element)
+		if element:IsA("TextLabel") and element.Name == "PlayerName" then
+			if element.Text:find(lplr.Name) or element.Text:find(lplr.DisplayName) then
+				if not originalNames[element] then
+					originalNames[element] = element.Text
+				end
+				element.Text = "Me"
+			end
+		end
+		
+		if element:IsA("TextLabel") and element.Name == "EntityName" then
+			if element.Text:find(lplr.Name) or element.Text:find(lplr.DisplayName) then
+				if not originalNames[element] then
+					originalNames[element] = element.Text
+				end
+				element.Text = "Me"
+			end
+		end
+		
+		if element:IsA("TextLabel") and element.Name == "DisplayName" then
+			if element.Text:find(lplr.Name) or element.Text:find(lplr.DisplayName) then
+				if not originalNames[element] then
+					originalNames[element] = element.Text
+				end
+				element.Text = "Me"
+			end
+		end
+	end
+	
+	local function restorePlayerName(element)
+		if originalNames[element] then
+			element.Text = originalNames[element]
+			originalNames[element] = nil
+		end
+	end
+	
+	local function processGui(gui)
+		for _, descendant in gui:GetDescendants() do
+			modifyPlayerName(descendant)
+		end
+	end
+	
+	local function modifyNametag(character)
+		if not character then return end
+		
+		local head = character:FindFirstChild("Head")
+		if not head then return end
+		
+		local nametag = head:FindFirstChild("Nametag")
+		if not nametag then return end
+		
+		local displayNameContainer = nametag:FindFirstChild("DisplayNameContainer")
+		if not displayNameContainer then return end
+		
+		local displayName = displayNameContainer:FindFirstChild("DisplayName")
+		if displayName and displayName:IsA("TextLabel") then
+			modifyPlayerName(displayName)
+		end
+	end
+	
+	local function restoreNametag(character)
+		if not character then return end
+		
+		local head = character:FindFirstChild("Head")
+		if not head then return end
+		
+		local nametag = head:FindFirstChild("Nametag")
+		if not nametag then return end
+		
+		local displayNameContainer = nametag:FindFirstChild("DisplayNameContainer")
+		if not displayNameContainer then return end
+		
+		local displayName = displayNameContainer:FindFirstChild("DisplayName")
+		if displayName and displayName:IsA("TextLabel") then
+			restorePlayerName(displayName)
+		end
+	end
+	
+	StreamProof = vape.Categories.Render:CreateModule({
+		Name = 'Stream Proof',
+		Function = function(callback)
+			if callback then
+				local existingTabList = lplr.PlayerGui:FindFirstChild("TabListScreenGui")
+				if existingTabList then
+					processGui(existingTabList)
+					
+					StreamProof:Clean(existingTabList.DescendantAdded:Connect(function(descendant)
+						modifyPlayerName(descendant)
+					end))
+				end
+				
+				local existingKillFeed = lplr.PlayerGui:FindFirstChild("KillFeedGui")
+				if existingKillFeed then
+					processGui(existingKillFeed)
+					
+					StreamProof:Clean(existingKillFeed.DescendantAdded:Connect(function(descendant)
+						modifyPlayerName(descendant)
+					end))
+				end
+				
+				StreamProof:Clean(lplr.PlayerGui.ChildAdded:Connect(function(gui)
+					if gui.Name == "TabListScreenGui" then
+						processGui(gui)
+						
+						StreamProof:Clean(gui.DescendantAdded:Connect(function(descendant)
+							modifyPlayerName(descendant)
+						end))
+					elseif gui.Name == "KillFeedGui" then
+						processGui(gui)
+						
+						StreamProof:Clean(gui.DescendantAdded:Connect(function(descendant)
+							modifyPlayerName(descendant)
+						end))
+					end
+				end))
+				
+				if lplr.Character then
+					modifyNametag(lplr.Character)
+				end
+				
+				StreamProof:Clean(lplr.CharacterAdded:Connect(function(character)
+					task.wait(0.5)
+					if StreamProof.Enabled then
+						modifyNametag(character)
+					end
+				end))
+				
+				nametagConnection = runService.RenderStepped:Connect(function()
+					if StreamProof.Enabled and lplr.Character then
+						pcall(function()
+							modifyNametag(lplr.Character)
+						end)
+					end
+				end)
+				
+			else
+				if nametagConnection then
+					nametagConnection:Disconnect()
+					nametagConnection = nil
+				end
+				
+				local existingTabList = lplr.PlayerGui:FindFirstChild("TabListScreenGui")
+				if existingTabList then
+					for _, descendant in existingTabList:GetDescendants() do
+						restorePlayerName(descendant)
+					end
+				end
+				
+				local existingKillFeed = lplr.PlayerGui:FindFirstChild("KillFeedGui")
+				if existingKillFeed then
+					for _, descendant in existingKillFeed:GetDescendants() do
+						restorePlayerName(descendant)
+					end
+				end
+				
+				if lplr.Character then
+					restoreNametag(lplr.Character)
+				end
+				
+				table.clear(originalNames)
+			end
+		end,
+		Tooltip = 'Hides your name as much as possible  in TabList, KillFeed, and Nametag'
+	})
+end)
+
+run(function()
+    local Grove
+    local NoSlow
+    local NoSlowOnAbility
+    local AutoWater
+    local AutoWaterRange
+    local AutoCollect
+    local CollectRange
+    local SpiritESP
+    local ESPNotify
+    local ESPBackground
+    local ESPColor
+    local DistanceCheck
+    local DistanceLimit
+    
+    local Folder = Instance.new('Folder')
+    Folder.Parent = vape.gui
+    local Reference = {}
+    local lastNotification = 0
+    local spawnQueue = {}
+    local notificationCooldown = 1
+    local noSlowActive = false
+    local autoWaterActive = false
+    local autoCollectActive = false
+    local originalDisableActionsOnCharge
+    local originalCheckForPickup
+    
+    local function sendNotification(count)
+        notif("Spirit ESP", string.format("%d spirit orbs spawned", count), 3)
+    end
+
+    local function processSpawnQueue()
+        if #spawnQueue > 0 then
+            local currentTime = tick()
+            if currentTime - lastNotification >= notificationCooldown then
+                sendNotification(#spawnQueue)
+                lastNotification = currentTime
+                spawnQueue = {}
+            else
+                task.delay(notificationCooldown - (currentTime - lastNotification), function()
+                    if #spawnQueue > 0 then
+                        sendNotification(#spawnQueue)
+                        spawnQueue = {}
+                    end
+                end)
+            end
+        end
+    end
+
+    local function getProperImage()
+        return bedwars.getIcon({itemType = 'spirit'}, true)
+    end
+
+    local function Added(v)
+        if Reference[v] then return end
+        
+        local billboard = Instance.new('BillboardGui')
+        billboard.Parent = Folder
+        billboard.Name = 'spirit-energy'
+        billboard.StudsOffsetWorldSpace = Vector3.new(0, 3, 0)
+        billboard.Size = UDim2.fromOffset(36, 36)
+        billboard.AlwaysOnTop = true
+        billboard.ClipsDescendants = false
+        billboard.Adornee = v
+        
+        local blur = addBlur(billboard)
+        blur.Visible = ESPBackground.Enabled
+        
+        local image = Instance.new('ImageLabel')
+        image.Size = UDim2.fromOffset(36, 36)
+        image.Position = UDim2.fromScale(0.5, 0.5)
+        image.AnchorPoint = Vector2.new(0.5, 0.5)
+        image.BackgroundColor3 = Color3.fromHSV(ESPColor.Hue, ESPColor.Sat, ESPColor.Value)
+        image.BackgroundTransparency = 1 - (ESPBackground.Enabled and ESPColor.Opacity or 0)
+        image.BorderSizePixel = 0
+        image.Image = getProperImage()
+        image.Parent = billboard
+        
+        local uicorner = Instance.new('UICorner')
+        uicorner.CornerRadius = UDim.new(0, 4)
+        uicorner.Parent = image
+        
+        Reference[v] = billboard
+        
+        if ESPNotify.Enabled then
+            table.insert(spawnQueue, {item = 'spirit', time = tick()})
+            processSpawnQueue()
+        end
+    end
+
+    local function Removed(v)
+        if Reference[v] then
+            Reference[v]:Destroy()
+            Reference[v] = nil
+        end
+    end
+
+    local function setupESP()
+        for _, v in workspace:GetChildren() do
+            if v.Name == "SpiritGardenerEnergy" and v:IsA("Model") and v.PrimaryPart then
+                Added(v.PrimaryPart)
+            end
+        end
+
+        Grove:Clean(workspace.ChildAdded:Connect(function(v)
+            if v.Name == "SpiritGardenerEnergy" and v:IsA("Model") then
+                task.wait(0.1)
+                if v.PrimaryPart then
+                    Added(v.PrimaryPart)
+                end
+            end
+        end))
+
+        Grove:Clean(workspace.ChildRemoved:Connect(function(v)
+            if v.Name == "SpiritGardenerEnergy" and v.PrimaryPart then
+                Removed(v.PrimaryPart)
+            end
+        end))
+
+        Grove:Clean(runService.RenderStepped:Connect(function()
+            if not SpiritESP.Enabled then return end
+            
+            for v, billboard in pairs(Reference) do
+                if not v or not v.Parent then
+                    Removed(v)
+                    continue
+                end
+
+                local shouldShow = true
+
+                if shouldShow and DistanceCheck.Enabled and entitylib.isAlive then
+                    local distance = (entitylib.character.RootPart.Position - v.Position).Magnitude
+                    if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+                        shouldShow = false
+                    end
+                end
+
+                billboard.Enabled = shouldShow
+            end
+        end))
+    end
+
+    local function getNearbyFlowers()
+        local flowers = {}
+        if not entitylib.isAlive then return flowers end
+        
+        local localPosition = entitylib.character.RootPart.Position
+        local range = AutoWaterRange.Value
+        
+        for _, v in collectionService:GetTagged('SpiritGardenerFlower') do
+            if v:IsA("Model") and v.PrimaryPart then
+                if v:GetAttribute("PlacedByUserId") == lplr.UserId then
+                    local needsEnergy = not v:GetAttribute("HasFullyGrown")
+                    if needsEnergy then
+                        local distance = (localPosition - v.PrimaryPart.Position).Magnitude
+                        if distance <= range then
+                            table.insert(flowers, v)
+                        end
+                    end
+                end
+            end
+        end
+        
+        return flowers
+    end
+
+    local function useWaterAbility()
+        local success = pcall(function()
+			bedwars.AbilityController:useAbility('spirit_gardener_water')
+        end)
+        return success
+    end
+
+    local function startAutoWater()
+        if autoWaterActive then return end
+        autoWaterActive = true
+        
+        task.spawn(function()
+            while Grove.Enabled and AutoWater.Enabled and autoWaterActive do
+                if not entitylib.isAlive then 
+                    task.wait(0.5)
+                    continue 
+                end
+                
+                local flowers = getNearbyFlowers()
+                
+                if #flowers > 0 then
+                    if useWaterAbility() then
+                        task.wait(0.6) 
+                    else
+                        task.wait(0.3)
+                    end
+                else
+                    task.wait(0.5)
+                end
+            end
+            
+            autoWaterActive = false
+        end)
+    end
+
+    local function stopAutoWater()
+        autoWaterActive = false
+    end
+
+    local function hookAutoCollect()
+        if not bedwars.SpiritGardenerSeedController then return end
+        
+        originalCheckForPickup = bedwars.SpiritGardenerSeedController.checkForPickup
+        
+        bedwars.SpiritGardenerSeedController.checkForPickup = function(self)
+            if not AutoCollect.Enabled then
+                return originalCheckForPickup(self)
+            end
+            
+            if not entitylib.isAlive then
+				return
+            end
+
+            local localPosition = lplr.Character.PrimaryPart.Position
+            local range = CollectRange.Value
+            
+            local validTypes = self:validCollectableEntityTypes()
+            
+            for _, collectableType in validTypes do
+                local tagged = collectionService:GetTagged(collectableType)
+                
+                for _, orb in tagged do
+                    local spawnTime = orb:GetAttribute("SpawnTime")
+                    if spawnTime and (workspace:GetServerTimeNow() - spawnTime) >= 1 then
+                        local orbPosition = orb:GetPivot().Position
+                        local distance = (localPosition - orbPosition).Magnitude
+                        
+                        if distance <= range then
+                            self:collectEntity(lplr, orb, collectableType)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local function unhookAutoCollect()
+        if originalCheckForPickup and bedwars.SpiritGardenerSeedController then
+            bedwars.SpiritGardenerSeedController.checkForPickup = originalCheckForPickup
+        end
+    end
+
+    local function startAutoCollect()
+        if autoCollectActive then return end
+        autoCollectActive = true
+        
+        hookAutoCollect()
+        
+        if bedwars.SpiritGardenerSeedController then
+            pcall(function()
+                bedwars.SpiritGardenerSeedController:listenToPickup()
+            end)
+        end
+    end
+
+    local function stopAutoCollect()
+        autoCollectActive = false
+        unhookAutoCollect()
+    end
+
+    local function hookNoSlow()
+        if not bedwars.SpiritGardenerController then return end
+        
+        originalDisableActionsOnCharge = bedwars.SpiritGardenerController.disableActionsOnCharge
+        
+        bedwars.SpiritGardenerController.disableActionsOnCharge = function(self, maid, character)
+            if not NoSlow.Enabled then
+                return originalDisableActionsOnCharge(self, maid, character)
+            end
+            
+            if NoSlowOnAbility.Enabled then
+                local isLocalPlayer = character == lplr.Character
+                if not isLocalPlayer then
+                    return originalDisableActionsOnCharge(self, maid, character)
+                end
+            end
+            
+            if character == lplr.Character then
+                local KnitClient = bedwars.KnitClient
+                
+                KnitClient.Controllers.SwordController:toggleSwordSwing(true)
+                KnitClient.Controllers.BlockPlacementController:disableBlockPlacer()
+                
+                local ClientSyncEvents = debug.getupvalue(originalDisableActionsOnCharge, 3)
+                local projectileConnection = ClientSyncEvents.BeginProjectileTargeting:connect(function(event)
+                    event:setCancelled(true)
+                    return nil
+                end)
+                
+                local jumpModifier = KnitClient.Controllers.JumpHeightController:getJumpModifier():addModifier({
+                    jumpHeightMultiplier = 0;
+                })
+                
+                maid:GiveTask(function()
+                    KnitClient.Controllers.SwordController:toggleSwordSwing(false)
+                    KnitClient.Controllers.BlockPlacementController:enableBlockPlacer()
+                    projectileConnection:Destroy()
+                    jumpModifier.Destroy()
+                end)
+            end
+        end
+    end
+
+    local function unhookNoSlow()
+        if originalDisableActionsOnCharge and bedwars.SpiritGardenerController then
+            bedwars.SpiritGardenerController.disableActionsOnCharge = originalDisableActionsOnCharge
+        end
+    end
+
+    Grove = vape.Categories.Kits:CreateModule({
+        Name = 'AutoGrove',
+        Function = function(callback)
+            if callback then
+                if SpiritESP.Enabled then 
+                    setupESP() 
+                end
+                
+                if NoSlow.Enabled then
+                    hookNoSlow()
+                end
+                
+                if AutoWater.Enabled then
+                    startAutoWater()
+                end
+                
+                if AutoCollect.Enabled then
+                    startAutoCollect()
+                end
+            else
+                stopAutoWater()
+                stopAutoCollect()
+                unhookNoSlow()
+                Folder:ClearAllChildren()
+                table.clear(Reference)
+                table.clear(spawnQueue)
+                lastNotification = 0
+            end
+        end,
+        Tooltip = 'Spirit Gardener kit features - NoSlow, Auto Water, Auto Collect, and Spirit ESP'
+    })
+    
+    NoSlow = Grove:CreateToggle({
+        Name = 'No Slow',
+        Default = false,
+        Tooltip = 'Remove movement lock when using water ability',
+        Function = function(callback)
+            if NoSlowOnAbility and NoSlowOnAbility.Object then 
+                NoSlowOnAbility.Object.Visible = callback 
+            end
+            
+            if Grove.Enabled then
+                if callback then
+                    hookNoSlow()
+                else
+                    unhookNoSlow()
+                end
+            end
+        end
+    })
+    
+    NoSlowOnAbility = Grove:CreateToggle({
+        Name = 'Only On Ability Use',
+        Default = false,
+        Tooltip = 'NoSlow only works when you manually use the ability'
+    })
+    
+    AutoWater = Grove:CreateToggle({
+        Name = 'Auto Water',
+        Default = false,
+        Tooltip = 'Automatically water nearby flowers that need energy',
+        Function = function(callback)
+            if AutoWaterRange and AutoWaterRange.Object then 
+                AutoWaterRange.Object.Visible = callback 
+            end
+            
+            if Grove.Enabled then
+                if callback then
+                    startAutoWater()
+                else
+                    stopAutoWater()
+                end
+            end
+        end
+    })
+    
+    AutoWaterRange = Grove:CreateSlider({
+        Name = 'Water Range',
+        Min = 1, 
+        Max = 30,
+        Default = 20,
+        Decimal = 1,
+        Suffix = ' studs',
+        Tooltip = 'Distance to auto water flowers'
+    })
+    
+    AutoCollect = Grove:CreateToggle({
+        Name = 'Auto Collect',
+        Default = false,
+        Tooltip = 'Automatically collect spirit energy orbs from extended range',
+        Function = function(callback)
+            if CollectRange and CollectRange.Object then 
+                CollectRange.Object.Visible = callback 
+            end
+            
+            if Grove.Enabled then
+                if callback then
+                    startAutoCollect()
+                else
+                    stopAutoCollect()
+                end
+            end
+        end
+    })
+    
+    CollectRange = Grove:CreateSlider({
+        Name = 'Collect Range',
+        Min = 5, 
+        Max = 12,
+        Default = 12,
+        Decimal = 10,
+        Suffix = ' studs',
+        Tooltip = 'Distance to auto collect spirit orbs (default: 5.5)'
+    })
+    
+    SpiritESP = Grove:CreateToggle({
+        Name = 'Spirit ESP',
+        Default = false,
+        Tooltip = 'Shows spirit energy orb locations',
+        Function = function(callback)
+            if ESPNotify and ESPNotify.Object then ESPNotify.Object.Visible = callback end
+            if ESPBackground and ESPBackground.Object then ESPBackground.Object.Visible = callback end
+            if ESPColor and ESPColor.Object then ESPColor.Object.Visible = callback end
+            if DistanceCheck and DistanceCheck.Object then DistanceCheck.Object.Visible = callback end
+            if DistanceLimit and DistanceLimit.Object then
+                DistanceLimit.Object.Visible = (callback and DistanceCheck.Enabled)
+            end
+            
+            if Grove.Enabled then
+                if callback then 
+                    setupESP() 
+                else
+                    Folder:ClearAllChildren()
+                    table.clear(Reference)
+                end
+            end
+        end
+    })
+    
+    ESPNotify = Grove:CreateToggle({
+        Name = 'Notify',
+        Default = false,
+        Tooltip = 'Get notifications when spirit orbs spawn'
+    })
+    
+    ESPBackground = Grove:CreateToggle({
+        Name = 'Background',
+        Default = true,
+        Function = function(callback)
+            if ESPColor and ESPColor.Object then ESPColor.Object.Visible = callback end
+            for _, v in Reference do
+                if v and v:FindFirstChild("ImageLabel") then
+                    local blur = v:FindFirstChild("BlurEffect")
+                    if blur then blur.Visible = callback end
+                    v.ImageLabel.BackgroundTransparency = 1 - (callback and ESPColor.Opacity or 0)
+                end
+            end
+        end
+    })
+    
+    ESPColor = Grove:CreateColorSlider({
+        Name = 'Background Color',
+        DefaultValue = 0.5,
+        DefaultOpacity = 0.5,
+        Function = function(hue, sat, val, opacity)
+            for _, v in Reference do
+                if v and v:FindFirstChild("ImageLabel") then
+                    v.ImageLabel.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+                    v.ImageLabel.BackgroundTransparency = 1 - opacity
+                end
+            end
+        end,
+        Darker = true
+    })
+    
+    DistanceCheck = Grove:CreateToggle({
+        Name = 'Distance Check',
+        Default = false,
+        Tooltip = 'Only show spirit orbs within distance range',
+        Function = function(callback)
+            if DistanceLimit and DistanceLimit.Object then
+                DistanceLimit.Object.Visible = callback
+            end
+        end
+    })
+    
+    DistanceLimit = Grove:CreateTwoSlider({
+        Name = 'Spirit Distance',
+        Min = 0,
+        Max = 256,
+        DefaultMin = 0,
+        DefaultMax = 64,
+        Darker = true,
+        Tooltip = 'Distance range for showing spirit orbs'
+    })
+end)
+
+run(function()
+	local CannonReskin
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local LocalPlayer = Players.LocalPlayer
+	
+	local CANNON_SKINS = {
+		Nightmare = "cannon_nightmare_victorious",
+		Diamond = "cannon_diamond_victorious",
+		Emerald = "cannon_emerald_victorious"
+	}
+	
+	local CANNON_SOUNDS = {
+		Nightmare = "CANNON_FIRE_VICTORIOUS_NIGHTMARE",
+		Diamond = "CANNON_FIRE_VICTORIOUS_DIAMOND",
+		Emerald = "CANNON_FIRE_VICTORIOUS_EMERALD"
+	}
+	
+	local CURRENT_SKIN = "Nightmare"
+	
+	local hooked = false
+	local oldFire
+	local oldLaunch
+	
+	local function getReskinSource()
+		return game.ReplicatedStorage
+			:WaitForChild("Assets")
+			:WaitForChild("Blocks")
+			:WaitForChild(CANNON_SKINS[CURRENT_SKIN])
+	end
+	
+	local TARGET_NAME = "cannon"
+	
+	local OFFSET_HELD = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+	local OFFSET_PLACED = CFrame.new(0, -2.0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+	
+	local tagged = setmetatable({}, { __mode = "k" })
+	local connections = {}
+	local renderConnections = {}
+	
+	local function firstBasePart(root)
+		for _, d in ipairs(root:GetDescendants()) do
+			if d:IsA("BasePart") then
+				return d
+			end
+		end
+		return nil
+	end
+	
+	local function makeLocalInvisible(root)
+		for _, d in ipairs(root:GetDescendants()) do
+			if d:IsA("BasePart") then
+				d.LocalTransparencyModifier = 1
+				d.Transparency = 1
+			elseif d:IsA("Decal") or d:IsA("Texture") then
+				d.Transparency = 1
+			end
+		end
+	end
+	
+	local function restoreVisibility(root)
+		for _, d in ipairs(root:GetDescendants()) do
+			if d:IsA("BasePart") then
+				d.LocalTransparencyModifier = 0
+				d.Transparency = 0
+			elseif d:IsA("Decal") or d:IsA("Texture") then
+				d.Transparency = 0
+			end
+		end
+	end
+	
+	local function setNoCollide(model)
+		for _, d in ipairs(model:GetDescendants()) do
+			if d:IsA("BasePart") then
+				d.CanCollide = false
+				d.CanTouch = false
+				d.CanQuery = false
+				d.Massless = true
+				d.Anchored = false
+			end
+		end
+	end
+	
+	local function weldAllToPrimary(model)
+		local primary = model.PrimaryPart
+		if not primary then return end
+		
+		for _, d in ipairs(model:GetDescendants()) do
+			if d:IsA("BasePart") and d ~= primary then
+				local wc = Instance.new("WeldConstraint")
+				wc.Part0 = primary
+				wc.Part1 = d
+				wc.Parent = primary
+			end
+		end
+	end
+	
+	local function weldModelToPart(model, targetPart)
+		if not model.PrimaryPart then
+			local p = firstBasePart(model)
+			if p then
+				pcall(function() model.PrimaryPart = p end)
+			end
+		end
+		if not model.PrimaryPart then return false end
+		
+		setNoCollide(model)
+		
+		pcall(function()
+			model:PivotTo(targetPart.CFrame * OFFSET_HELD)
+		end)
+		
+		weldAllToPrimary(model)
+		
+		local wc = Instance.new("WeldConstraint")
+		wc.Part0 = targetPart
+		wc.Part1 = model.PrimaryPart
+		wc.Parent = model.PrimaryPart
+		
+		return true
+	end
+	
+	local function attachReskinTo(targetRoot, offset)
+		if not targetRoot or tagged[targetRoot] then return end
+		tagged[targetRoot] = true
+		
+		local targetPart = targetRoot:FindFirstChild("Handle")
+		if not (targetPart and targetPart:IsA("BasePart")) then
+			targetPart = firstBasePart(targetRoot)
+		end
+		if not targetPart then
+			tagged[targetRoot] = nil
+			return
+		end
+		
+		makeLocalInvisible(targetRoot)
+		
+		local RESKIN_SOURCE = getReskinSource()
+		local clone = RESKIN_SOURCE:Clone()
+		clone.Name = "LOCAL_CANNON_RESKIN"
+		
+		if clone:IsA("Model") then
+			if not clone.PrimaryPart then
+				local p = firstBasePart(clone)
+				if p then
+					pcall(function() clone.PrimaryPart = p end)
+				end
+			end
+			if not clone.PrimaryPart then
+				clone:Destroy()
+				tagged[targetRoot] = nil
+				return
+			end
+			
+			setNoCollide(clone)
+			clone.Parent = targetRoot
+			
+			pcall(function()
+				clone:PivotTo(targetPart.CFrame * offset)
+			end)
+			
+			weldAllToPrimary(clone)
+			
+			local wcMain = Instance.new("WeldConstraint")
+			wcMain.Part0 = targetPart
+			wcMain.Part1 = clone.PrimaryPart
+			wcMain.Parent = clone.PrimaryPart
+		else
+			clone.Parent = targetRoot
+		end
+	end
+	
+	local function hookViewmodel()
+		local cam = workspace.CurrentCamera
+		if not cam then return end
+		
+		local function hookVM(vm)
+			for _, child in ipairs(vm:GetChildren()) do
+				if child.Name == TARGET_NAME then
+					attachReskinTo(child, OFFSET_HELD)
+				end
+			end
+			
+			local conn = vm.ChildAdded:Connect(function(child)
+				if child.Name == TARGET_NAME then
+					task.wait()
+					attachReskinTo(child, OFFSET_HELD)
+				end
+			end)
+			table.insert(connections, conn)
+		end
+		
+		local vm = cam:FindFirstChild("Viewmodel")
+		if vm then hookVM(vm) end
+		
+		local conn = cam.ChildAdded:Connect(function(child)
+			if child.Name == "Viewmodel" then
+				task.wait()
+				hookVM(child)
+			end
+		end)
+		table.insert(connections, conn)
+	end
+	
+	local function hookThirdPersonInHand(character)
+		local function onChildAdded(child)
+			if child:IsA("Tool") and child.Name == TARGET_NAME then
+				task.wait()
+				
+				local handle = child:FindFirstChild("Handle")
+				if not (handle and handle:IsA("BasePart")) then
+					handle = firstBasePart(child)
+				end
+				if not handle then return end
+				
+				local existing = child:FindFirstChild("LOCAL_CANNON_RESKIN")
+				if existing then
+					existing:Destroy()
+				end
+				
+				local RESKIN_SOURCE = getReskinSource()
+				local reskin = RESKIN_SOURCE:Clone()
+				reskin.Name = "LOCAL_CANNON_RESKIN"
+				reskin.Parent = child
+				
+				if reskin:IsA("Model") then
+					weldModelToPart(reskin, handle)
+				end
+				
+				local start = time()
+				local conn
+				conn = RunService.RenderStepped:Connect(function()
+					if not child.Parent then
+						conn:Disconnect()
+						return
+					end
+					
+					makeLocalInvisible(child)
+					
+					if reskin and reskin.Parent and reskin:IsA("Model") and reskin.PrimaryPart then
+						pcall(function()
+							reskin:PivotTo(handle.CFrame * OFFSET_HELD)
+						end)
+					end
+					
+					if time() - start > 2 then
+						conn:Disconnect()
+					end
+				end)
+				table.insert(renderConnections, conn)
+			end
+		end
+		
+		for _, c in ipairs(character:GetChildren()) do
+			onChildAdded(c)
+		end
+		
+		local conn = character.ChildAdded:Connect(onChildAdded)
+		table.insert(connections, conn)
+	end
+	
+	local function hookTools(container)
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("Tool") and child.Name == TARGET_NAME then
+				attachReskinTo(child, OFFSET_HELD)
+			end
+		end
+		
+		local conn = container.ChildAdded:Connect(function(child)
+			if child:IsA("Tool") and child.Name == TARGET_NAME then
+				task.wait()
+				attachReskinTo(child, OFFSET_HELD)
+			end
+		end)
+		table.insert(connections, conn)
+	end
+	
+	local function hookBlocksFolder(blocksFolder)
+		for _, child in ipairs(blocksFolder:GetChildren()) do
+			if child.Name == TARGET_NAME then
+				attachReskinTo(child, OFFSET_PLACED)
+			end
+		end
+		
+		local conn = blocksFolder.ChildAdded:Connect(function(child)
+			if child.Name == TARGET_NAME then
+				task.wait()
+				attachReskinTo(child, OFFSET_PLACED)
+				task.wait()
+				local skin = child:FindFirstChild("LOCAL_CANNON_RESKIN")
+				if not (skin and skin:IsA("Model") and skin.PrimaryPart) then return end
+				local baseCF = skin.PrimaryPart.CFrame
+				local y = baseCF.Position.Y
+				local snappedY = math.floor(y)
+				local KUSH = snappedY - 1
+				local New = KUSH + 0.99
+				skin:PivotTo(CFrame.new(Vector3.new(baseCF.Position.X, New, baseCF.Position.Z)))
+			end
+		end)
+		table.insert(connections, conn)
+	end
+	
+	local function hookAllWorldBlocks()
+		local map = workspace:FindFirstChild("Map")
+		if not map then return end
+		
+		local worlds = map:FindFirstChild("Worlds")
+		if not worlds then return end
+		
+		for _, world in ipairs(worlds:GetChildren()) do
+			local blocks = world:FindFirstChild("Blocks")
+			if blocks then
+				hookBlocksFolder(blocks)
+			end
+		end
+		
+		local conn = worlds.ChildAdded:Connect(function(world)
+			task.wait()
+			local blocks = world:FindFirstChild("Blocks")
+			if blocks then
+				hookBlocksFolder(blocks)
+			end
+		end)
+		table.insert(connections, conn)
+	end
+	
+	local function onCharacterAdded(character)
+		task.wait(0.2)
+		hookTools(LocalPlayer.Backpack)
+		hookTools(character)
+		hookThirdPersonInHand(character)
+	end
+	
+	local function hookSounds()
+		if hooked then return end
+		hooked = true
+		
+		oldFire = bedwars.CannonHandController.fireCannon
+		oldLaunch = bedwars.CannonHandController.launchSelf
+		
+		bedwars.CannonHandController.fireCannon = function(...)
+			for _, v in ipairs(workspace.SoundPool:GetChildren()) do
+				if v:IsA("Sound") and v.SoundId == "rbxassetid://7121064180" then
+					v:Destroy()
+				end
+			end
+			
+			bedwars.SoundManager:playSound(bedwars.SoundList[CANNON_SOUNDS[CURRENT_SKIN]])
+			return oldFire(...)
+		end
+		
+		bedwars.CannonHandController.launchSelf = function(...)
+			for _, v in ipairs(workspace.SoundPool:GetChildren()) do
+				if v:IsA("Sound") and v.SoundId == "rbxassetid://7121064180" then
+					v:Destroy()
+				end
+			end
+			
+			bedwars.SoundManager:playSound(bedwars.SoundList[CANNON_SOUNDS[CURRENT_SKIN]])
+			return oldLaunch(...)
+		end
+	end
+	
+	local function unhookSounds()
+		if hooked then
+			bedwars.CannonHandController.fireCannon = oldFire
+			bedwars.CannonHandController.launchSelf = oldLaunch
+			oldFire = nil
+			oldLaunch = nil
+			hooked = false
+		end
+	end
+	
+	local function cleanup()
+		for _, conn in pairs(connections) do
+			pcall(function() conn:Disconnect() end)
+		end
+		for _, conn in pairs(renderConnections) do
+			pcall(function() conn:Disconnect() end)
+		end
+		table.clear(connections)
+		table.clear(renderConnections)
+		
+		for targetRoot, _ in pairs(tagged) do
+			if targetRoot and targetRoot.Parent then
+				local reskin = targetRoot:FindFirstChild("LOCAL_CANNON_RESKIN")
+				if reskin then
+					reskin:Destroy()
+				end
+				restoreVisibility(targetRoot)
+			end
+		end
+		table.clear(tagged)
+		
+		local map = workspace:FindFirstChild("Map")
+		if map then
+			local worlds = map:FindFirstChild("Worlds")
+			if worlds then
+				for _, world in ipairs(worlds:GetChildren()) do
+					local blocks = world:FindFirstChild("Blocks")
+					if blocks then
+						for _, child in ipairs(blocks:GetChildren()) do
+							if child.Name == TARGET_NAME then
+								local reskin = child:FindFirstChild("LOCAL_CANNON_RESKIN")
+								if reskin then
+									reskin:Destroy()
+								end
+								restoreVisibility(child)
+							end
+						end
+					end
+				end
+			end
+		end
+		
+		unhookSounds()
+	end
+	
+	CannonReskin = vape.Categories.Render:CreateModule({
+		Name = 'CannonReskin',
+		Function = function(callback)
+			if callback then		
+				hookViewmodel()
+				hookAllWorldBlocks()
+				hookSounds()
+				
+				if LocalPlayer.Character then
+					onCharacterAdded(LocalPlayer.Character)
+				end
+				
+				local charConn = LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+				table.insert(connections, charConn)
+			else
+				cleanup()
+			end
+		end,
+		Tooltip = 'Reskins cannons with victorious skins (credit to soryed and koli for help!)'
+	})
+	
+	CannonReskin:CreateDropdown({
+		Name = 'Skin',
+		List = {'Nightmare', 'Diamond', 'Emerald'},
+		Function = function(val)
+			CURRENT_SKIN = val
+			if CannonReskin.Enabled then
+				CannonReskin:Toggle()
+				CannonReskin:Toggle()
+			end
+		end
+	})
+end)
+
+run(function() 
+    local MatchHistory
+    
+    MatchHistory = vape.Categories.Utility:CreateModule({
+        Name = "ClearMatchHistory",
+        Tooltip = "Resets ur match history",
+        Function = function(callback)
+            
+            if callback then 
+                MatchHistory:Toggle(false)
+                cloneref(game:GetService("TeleportService")):Teleport(game.PlaceId, lplr, cloneref(game:GetService("TeleportService")):GetLocalPlayerTeleportData())
+            end
+        end,
+    }) 
+end)
+
+run(function()
+	local KaidaKillaura
+	local Targets
+	local AttackRange
+	local UpdateRate
+	local MouseDown
+	local GUICheck
+	local ShowAnimation
+	local PerfectAbility
+	local AbilityDistance
+	local SwingDuringAbility
+	local lastAttackTime = 0
+	local lastAbilityTime = 0
+	local attackCooldown = 0.65
+	local abilityCooldown = 22
+	local isChargingAbility = false
+	local abilityStartTime = 0
+	
+	local function getPlayerClawLevel()
+		local handItem = lplr.Character and lplr.Character:FindFirstChild('HandInvItem')
+		if handItem and handItem.Value then
+			local itemType = handItem.Value.Name
+			if itemType == 'summoner_claw_1' then return 1 end
+			if itemType == 'summoner_claw_2' then return 2 end
+			if itemType == 'summoner_claw_3' then return 3 end
+			if itemType == 'summoner_claw_4' then return 4 end
+		end
+		
+		if store and store.inventory and store.inventory.hotbar then
+			for _, v in pairs(store.inventory.hotbar) do
+				if v.item then
+					local itemType = v.item.itemType
+					if itemType == 'summoner_claw_1' then return 1 end
+					if itemType == 'summoner_claw_2' then return 2 end
+					if itemType == 'summoner_claw_3' then return 3 end
+					if itemType == 'summoner_claw_4' then return 4 end
+				end
+			end
+		end
+		
+		return 1 
+	end
+	
+	KaidaKillaura = vape.Categories.Blatant:CreateModule({
+		Name = 'Auto Kaida',
+		Function = function(callback)
+			
+			if callback then
+				if store.equippedKit ~= 'summoner' then
+					notif('AutoKaida', 'You need to be using Summoner kit!', 3, 'alert')
+					KaidaKillaura:Toggle()
+					return
+				end
+				
+				lastAttackTime = 0
+				lastAbilityTime = 0
+				isChargingAbility = false
+				
+				repeat
+					if not entitylib.isAlive then
+						task.wait(0.1)
+						continue
+					end
+					
+					if GUICheck.Enabled then
+						if bedwars.AppController:isLayerOpen(bedwars.UILayers.MAIN) then
+							task.wait(0.1)
+							continue
+						end
+					end
+					
+					local handItem = lplr.Character:FindFirstChild('HandInvItem')
+					local hasClaw = false
+					if handItem and handItem.Value then
+						local itemType = handItem.Value.Name
+						hasClaw = itemType:find('summoner_claw')
+					end
+					
+					if not hasClaw then
+						task.wait(0.1)
+						continue
+					end
+					
+					if MouseDown.Enabled then
+						local mousePressed = inputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
+						if not mousePressed then
+							task.wait(1.2)
+							continue
+						end
+					end
+					
+					local plr = entitylib.EntityPosition({
+						Range = AttackRange.Value,
+						Part = 'RootPart',
+						Players = Targets.Players.Enabled,
+						NPCs = Targets.NPCs.Enabled,
+						Wallcheck = Targets.Walls.Enabled or nil
+					})
+					
+					if plr then
+						local localPosition = entitylib.character.RootPart.Position
+						local targetDistance = (localPosition - plr.RootPart.Position).Magnitude
+						local currentTime = workspace:GetServerTimeNow()
+						
+						if PerfectAbility.Enabled and targetDistance <= AbilityDistance.Value then
+							if (currentTime - lastAbilityTime) >= abilityCooldown then
+								if not isChargingAbility then
+									pcall(function()
+										game:GetService("ReplicatedStorage")
+											:WaitForChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events")
+											:WaitForChild("useAbility"):FireServer("summoner_start_charging")
+									end)
+									isChargingAbility = true
+									abilityStartTime = currentTime
+								end
+								
+								local chargeTime = currentTime - abilityStartTime
+								if chargeTime >= 0.5 then
+									pcall(function()
+										game:GetService("ReplicatedStorage")
+											:WaitForChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events")
+											:WaitForChild("useAbility"):FireServer("summoner_finish_charging")
+									end)
+									isChargingAbility = false
+									lastAbilityTime = currentTime
+								end
+							end
+						else
+							if isChargingAbility then
+								isChargingAbility = false
+							end
+						end
+						if (currentTime - lastAttackTime) >= attackCooldown then
+							if isChargingAbility and not SwingDuringAbility.Enabled then
+								task.wait(0.05)
+								continue
+							end
+							
+							local shootDir = CFrame.lookAt(localPosition, plr.RootPart.Position).LookVector
+							localPosition += shootDir * math.max((localPosition - plr.RootPart.Position).Magnitude - 16, 0)
+							lastAttackTime = currentTime
+							if ShowAnimation.Enabled then
+								task.spawn(function()
+									pcall(function()
+										local clawLevel = getPlayerClawLevel()
+										bedwars.AnimationUtil:playAnimation(lplr, bedwars.GameAnimationUtil:getAssetId(bedwars.AnimationType.SUMMONER_CHARACTER_SWIPE), {
+											looped = false
+										})
+										local clawModel = replicatedStorage.Assets.Misc.Kaida.Summoner_DragonClaw:Clone()
+										local clawColors = {
+											Color3.fromRGB(75, 75, 75), 
+											Color3.fromRGB(255, 255, 255), 
+											Color3.fromRGB(43, 229, 229),  
+											Color3.fromRGB(49, 229, 94)   
+										}
+										local nailMesh = clawModel:FindFirstChild("dragon_claw_nail_mesh")
+										if nailMesh and nailMesh:IsA("MeshPart") then
+											nailMesh.Color = clawColors[clawLevel] or clawColors[1]
+										end
+										if bedwars.KnightClient and bedwars.KnightClient.Controllers.SummonerKitSkinController then
+											if bedwars.KnightClient.Controllers.SummonerKitSkinController:isPrismaticSkin(lplr) then
+												bedwars.KnightClient.Controllers.SummonerKitSkinController:applyClawRGB(clawModel)
+											end
+										end
+										clawModel.Parent = workspace
+										local camera = workspace.CurrentCamera
+										if camera and camera.CFrame.Position and (camera.CFrame.Position - entitylib.character.RootPart.Position).Magnitude < 1 then
+											for _, part in clawModel:GetDescendants() do
+												if part:IsA('MeshPart') then
+													part.Transparency = 0.6
+												end
+											end
+										end
+										local rootPart = entitylib.character.RootPart
+										local Unit = Vector3.new(shootDir.X, 0, shootDir.Z).Unit
+										local startPos = rootPart.Position + Unit:Cross(Vector3.new(0, 1, 0)).Unit * -1 * 5 + Unit * 6
+										local direction = (startPos + shootDir * 13 - startPos).Unit
+										local cframe = CFrame.new(startPos, startPos + direction)
+										clawModel:PivotTo(cframe)
+										clawModel.PrimaryPart.Anchored = true
+										if clawModel:FindFirstChild('AnimationController') then
+											local animator = clawModel.AnimationController:FindFirstChildOfClass('Animator')
+											if animator then
+												bedwars.AnimationUtil:playAnimation(animator, bedwars.GameAnimationUtil:getAssetId(bedwars.AnimationType.SUMMONER_CLAW_ATTACK), {
+													looped = false,
+													speed = 1
+												})
+											end
+										end
+										pcall(function()
+											local sounds = {
+												bedwars.SoundList.SUMMONER_CLAW_ATTACK_1,
+												bedwars.SoundList.SUMMONER_CLAW_ATTACK_2,
+												bedwars.SoundList.SUMMONER_CLAW_ATTACK_3,
+												bedwars.SoundList.SUMMONER_CLAW_ATTACK_4
+											}
+											bedwars.SoundManager:playSound(sounds[math.random(1, #sounds)], {
+												position = rootPart.Position
+											})
+										end)
+										task.wait(0.75)
+										clawModel:Destroy()
+									end)
+								end)
+							end
+							bedwars.Client:Get(remotes.SummonerClawAttack):SendToServer({
+								position = localPosition,
+								direction = shootDir,
+								clientTime = currentTime
+							})
+						end
+					else
+						if isChargingAbility then
+							isChargingAbility = false
+						end
+					end
+					
+					task.wait(1 / UpdateRate.Value)
+				until not KaidaKillaura.Enabled
+			end
+		end,
+		Tooltip = 'Auto attacks with Summoner claw'
+	})
+	
+	Targets = KaidaKillaura:CreateTargets({
+		Players = true,
+		NPCs = true,
+		Walls = true
+	})
+	
+	AttackRange = KaidaKillaura:CreateSlider({
+		Name = 'Attack Range',
+		Min = 1,
+		Max = 32,
+		Default = 22,
+		Suffix = function(val)
+			return val == 1 and 'stud' or 'studs'
+		end
+	})
+	
+	UpdateRate = KaidaKillaura:CreateSlider({
+		Name = 'Update Rate',
+		Min = 1,
+		Max = 120,
+		Default = 60,
+		Suffix = 'hz'
+	})
+	
+	MouseDown = KaidaKillaura:CreateToggle({
+		Name = 'Require Mouse Down',
+		Tooltip = 'Only attacks while holding left click'
+	})
+	
+	GUICheck = KaidaKillaura:CreateToggle({
+		Name = 'GUI Check'
+	})
+	
+	ShowAnimation = KaidaKillaura:CreateToggle({
+		Name = 'Show Animation',
+		Default = true
+	})
+	
+	SwingDuringAbility = KaidaKillaura:CreateToggle({
+		Name = 'Swing During Ability',
+		Default = true,
+		Tooltip = 'Continue claw attacks while charging ability (disable for legit gameplay)'
+	})
+	
+	PerfectAbility = KaidaKillaura:CreateToggle({
+		Name = 'Perfect Ability',
+		Default = false,
+		Tooltip = 'Uses ability with minimum 0.5s charge when enemy is close',
+		Function = function(callback)
+			AbilityDistance.Object.Visible = callback
+		end
+	})
+	
+	AbilityDistance = KaidaKillaura:CreateSlider({
+		Name = 'Ability Distance',
+		Min = 3,
+		Max = 15,
+		Default = 6,
+		Visible = false,
+		Tooltip = 'Distance to trigger ability (in studs, 3 studs = 1 block)',
+		Suffix = function(val)
+			return val == 1 and 'stud' or 'studs'
+		end
+	})
+end)
