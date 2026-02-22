@@ -116,9 +116,7 @@ local function finishLoading()
 				end)
 			end
 
-			if math.random() > 0.99 then
-				writefile('warfdf4whr', 'True')
-			end
+			writefile('warfdf4whr', 'True')
 		end
 		
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
