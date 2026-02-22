@@ -5413,10 +5413,10 @@ function mainapi:CreateProfileGUI()
 
 	local sortfuncs = {
 		oldest = function(a, b)
-			return a.edited > b.edited
+			return a.uploaded_at > b.uploaded_at
 		end,
 		newest = function(a, b)
-			return a.edited < b.edited
+			return a.uploaded_at < b.uploaded_at
 		end
 	}
 
@@ -5894,7 +5894,7 @@ function mainapi:CreateProfileGUI()
 		label.TextYAlignment = Enum.TextYAlignment.Top
 
 		config.MouseButton1Click:Connect(function()
-			local time = (os.time() - cfginfo.edited) / 86400 
+			local time = (cfginfo.uploaded_at - os.time()) 
 
 			if time < 1 then
 				time = 'Today'
@@ -5984,7 +5984,8 @@ function mainapi:CreateProfileGUI()
 			Refresh()
 
 			for _, v in configs do
-				addConfig(v.name, v.username, v)
+				print(v.metadata.username)
+				addConfig(v.metadata.config_name, v.metadata.discord_username, v.metadata)
 			end
 		end)
 
@@ -6006,13 +6007,13 @@ function mainapi:CreateProfileGUI()
 	TextButton.MouseButton1Click:Connect(function()
 		local lol = configapi[info.Text]
 		if lol then
-			local awesome = `{lol.name} (@{lol.username})`
-			local file = game:HttpGet(lol.link)
+			local awesome = `{lol.config_name} (@{lol.discord_username})`
+			local file = lol.content
 			table.insert(mainapi.Profiles, {Name = awesome, Bind = {}})
 			mainapi:Save(awesome)
 			writefile('catrewrite/profiles/'..awesome..mainapi.Place..'.txt', file)
 			mainapi:Load(true, awesome)
-			mainapi:CreateNotification('Vape', `Downloaded "{info.Text}" by {lol.username}`, 5, 'info')
+			mainapi:CreateNotification('Vape', `Downloaded "{info.Text}" by {lol.discord_username}`, 5, 'info')
 		else
 			mainapi:CreateNotification('Vape', `Failed to fetch config ({info.Text})`, 10, 'warning')
 		end
@@ -6030,32 +6031,44 @@ function mainapi:CreateProfileGUI()
 
 		mainapi:CreateNotification('Vape', `Publishing`, 5, 'info')
 
-		if request({
-			Url = 'https://api.catvape.info/configs',
-			Method = 'POST',
-			Headers = {
-				['Content-Type'] = 'application/json'
-			},
-			Body = httpService:JSONEncode({
-				username = getgenv().username,
-				password = getgenv().password,
-				config_name = confignbox.Text,
-				config = readfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt'),
-				description = configdbox.Text
-			})
-		}).Body == '"Success"' then
+		local success, res = pcall(function()
+			return httpService:JSONDecode(httpService:JSONDecode(request({
+				Url = 'https://api.catvape.dev/configs/set',
+				Method = 'POST',
+				Headers = {
+					['Content-Type'] = 'application/json'
+				},
+				Body = httpService:JSONEncode({
+					key = shared.catdata.Key or 'niggerkey',
+					config_name = confignbox.Text,
+					config = readfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt'),
+					description = configdbox.Text
+				})
+			}).Body).response)
+		end)
+
+		if success and res then
 			mainapi:CreateNotification('Vape', `Published "{omgreal}" config`, 15, 'info')
 			task.wait(1)
 			mainapi:CreateNotification('Vape', 'Refreshing configs in 2s', 2, 'info')
 			task.wait(2)
-			local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+			local suc, configs = pcall(function()
+				return httpService:JSONDecode(httpService:JSONDecode(request({
+					Url = 'https://api.catvape.dev/configs/get',
+					Method = 'POST'
+				}).Body).response).configs
+			end)
+
+			if not suc then
+				configs = {}
+			end
 
 			table.sort(configs, sortfuncs[sortfunc])
 
 			Refresh()
 
 			for _, v in configs do
-				addConfig(v.name, v.username, v)
+				addConfig(v.metadata.config_name, v.metadata.discord_username, v.metadata)
 			end
 		else
 			mainapi:CreateNotification('Vape', `Failed to publish config`, 15, 'info')
@@ -6068,20 +6081,19 @@ function mainapi:CreateProfileGUI()
 		local lol = configapi[info.Text]
 
 		if lol then
-			local res = request({
-				Url = 'https://api.catvape.info/configs',
-				Method = 'DELETE',
+			local res = httpService:JSONDecode(httpService:JSONDecode(request({
+				Url = 'https://api.catvape.dev/configs/delete',
+				Method = 'POST',
 				Headers = {
 					['Content-Type'] = 'application/json'
 				},
 				Body = httpService:JSONEncode({
-					username = getgenv().username,
-					password = getgenv().password,
-					config = info.Text
+					key = shared.catdata.Key,
+					config_name = info.Text
 				})
-			}).Body
+			}).Body).response)
 
-			if res == '"success"' then
+			if res.success then
 				mainapi:CreateNotification('Vape', `Deleted ({info.Text}) config from public profiles`, 10, 'info')
 			else
 				mainapi:CreateNotification('Vape', `Failed to delete config ({info.Text})`, 10, 'warning')
@@ -6103,36 +6115,53 @@ function mainapi:CreateProfileGUI()
 	configapi.ShowPopup(false)
 
 	profilemaker.MouseButton1Click:Connect(function()
-		local configs = httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+		local suc, configs = pcall(function()
+			return httpService:JSONDecode(httpService:JSONDecode(request({
+				Url = 'https://api.catvape.dev/configs/get',
+				Method = 'POST'
+			}).Body).response).configs
+		end)
+
+		if not suc then
+			configs = {}
+		end
 
 		table.sort(configs, sortfuncs[sortfunc])
 
 		Refresh()
 
 		for _, v in configs do
-			addConfig(v.name, v.username, v)
+			addConfig(v.metadata.config_name, v.metadata.discord_username, v.metadata)
 		end
 		configapi.ShowPopup(true)
 	end)
 
+	local fr = false
 	window:GetPropertyChangedSignal('Visible'):Connect(function()
 		self:UpdateGUI(self.GUIColor.Hue, self.GUIColor.Sat, self.GUIColor.Value)
-		if window.Visible then
+		if window.Visible and not fr then
+			fr = true
 			for i = 1, 4 do
+				Refresh()
+
 				local suc, res = pcall(function()
-					return httpService:JSONDecode(game:HttpGet('https://api.catvape.info/configs'))
+					return httpService:JSONDecode(httpService:JSONDecode(request({
+						Url = 'https://api.catvape.dev/configs/get',
+						Method = 'POST'
+					}).Body).response).configs
 				end)
-				
+
 				if suc and res then
 					configapi.Configs = res
 					for _, v in res do
-						addConfig(v.name, v.username, v)
+						task.spawn(addConfig, v.metadata.config_name, v.metadata.discord_username, v.metadata)
 					end
 					break
 				else
 					task.wait(1)
 				end
 			end
+			fr = false
 		end
 		--visibleCheck()
 	end)
