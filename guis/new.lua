@@ -1,5 +1,6 @@
 local mainapi = {
 	Categories = {},
+	Indicators = {},
 	GUIColor = {
 		Hue = 0.46,
 		Sat = 0.96,
@@ -530,6 +531,7 @@ components = {
 		button.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
 		button.BorderSizePixel = 0
 		button.AutoButtonColor = false
+		button.BackgroundTransparency = 1
 		button.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		button.Text = ''
 		button.Parent = children
@@ -581,6 +583,7 @@ components = {
 			slider.Size = UDim2.new(1, 0, 0, 50)
 			slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
 			slider.BorderSizePixel = 0
+			slider.BackgroundTransparency = 1
 			slider.AutoButtonColor = false
 			slider.Visible = false
 			slider.Text = ''
@@ -666,6 +669,7 @@ components = {
 		local slider = Instance.new('TextButton')
 		slider.Name = optionsettings.Name..'Slider'
 		slider.Size = UDim2.new(1, 0, 0, 50)
+		slider.BackgroundTransparency = 1
 		slider.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
 		slider.BorderSizePixel = 0
 		slider.AutoButtonColor = false
@@ -2122,6 +2126,7 @@ components = {
 		toggle.BackgroundColor3 = color.Dark(children.BackgroundColor3, optionsettings.Darker and 0.02 or 0)
 		toggle.BorderSizePixel = 0
 		toggle.AutoButtonColor = false
+		toggle.BackgroundTransparency = 1
 		toggle.Visible = optionsettings.Visible == nil or optionsettings.Visible
 		toggle.Text = '          '..optionsettings.Name
 		toggle.TextXAlignment = Enum.TextXAlignment.Left
@@ -3731,6 +3736,8 @@ function mainapi:CreateCategory(categorysettings)
 			Enabled = false,
 			Options = {},
 			Bind = {},
+			Tags = {},
+			Alias = modulesettings.Alias or {},
 			Index = getTableSize(mainapi.Modules),
 			ExtraText = modulesettings.ExtraText,
 			Name = modulesettings.Name,
@@ -3750,6 +3757,66 @@ function mainapi:CreateCategory(categorysettings)
 		modulebutton.TextSize = 14
 		modulebutton.FontFace = uipallet.Font
 		modulebutton.Parent = children
+
+		local indicatorholder = Instance.new('Frame')
+		indicatorholder.Parent = modulebutton
+		indicatorholder.Size = UDim2.fromOffset(0, 21)
+		indicatorholder.AnchorPoint = Vector2.new(0, 0.5)
+		indicatorholder.Name = 'Indicators'
+		indicatorholder.BackgroundTransparency = 1
+		indicatorholder.Position = UDim2.fromScale(0.85, 0.5)
+
+		do
+			local layout = Instance.new('UIListLayout')
+			layout.Parent = indicatorholder
+			layout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+			layout.VerticalAlignment = Enum.VerticalAlignment.Center
+			layout.FillDirection = Enum.FillDirection.Horizontal
+			layout.Padding = UDim.new(0, 5)
+		end
+
+		modulesettings.Tags = modulesettings.Tags or {}
+		table.insert(modulesettings.Tags, 'matched')
+		
+		if modulesettings.Tags and typeof(modulesettings.Tags) then
+			for i, tag in modulesettings.Tags do
+				tag = tag:upper()
+				if tag:find('PREM') then
+					table.insert(moduleapi.Alias, 'premium')
+				end
+
+				local size = getfontsize(removeTags(tag), 12, uipallet.Font, Vector2.new(100000, 100000))
+				local indicator = Instance.new('TextLabel')
+				indicator.LayoutOrder = i - 1
+				indicator.Parent = indicatorholder
+				indicator.Size = UDim2.new(0, size.X + 4, 0, 21)
+				indicator.BackgroundColor3 = Color3.new(1, 1, 1)
+				indicator.TextSize = 14
+				indicator.TextTransparency = 1
+				indicator.Text = tag
+				indicator.Name = tag
+				indicator.Position = UDim2.new()
+				indicator.TextColor3 = Color3.new(0, 0, 0)
+				indicator.FontFace = uipallet.Font
+
+				addCorner(indicator, UDim.new(0, 5))
+
+				local text = indicator:Clone()
+				text.Parent = indicator
+				text.Position = UDim2.new()
+				text.Size = UDim2.fromScale(1, 1)
+				text.BackgroundTransparency = 1
+				text.Name = 'Text'
+				text.AnchorPoint = Vector2.new()
+				text.TextSize = 12
+				text.ZIndex = 500
+				text.TextTransparency = 0
+				table.insert(moduleapi.Tags, indicator)
+
+				indicator.Visible = tag ~= 'MATCHED'
+			end
+		end
+		
 		local gradient = Instance.new('UIGradient')
 		gradient.Rotation = 90
 		gradient.Enabled = false
@@ -3875,6 +3942,11 @@ function mainapi:CreateCategory(categorysettings)
 		function moduleapi:Toggle(multiple)
 			if mainapi.ThreadFix then
 				setthreadidentity(8)
+			end
+			if isfolder('cvtest') then
+				if not isfile('cvtest/'..modulesettings.Name) then
+					writefile('cvtest/'..modulesettings.Name, tostring(os.time() + 3600))
+				end
 			end
 			self.Enabled = not self.Enabled
 			divider.Visible = self.Enabled
@@ -4015,20 +4087,25 @@ function mainapi:CreateCategory(categorysettings)
 		moduleapi.Object = modulebutton
 		mainapi.Modules[modulesettings.Name] = moduleapi
 
-		local sorting = {}
-		for _, v in mainapi.Modules do
-			sorting[v.Category] = sorting[v.Category] or {}
-			table.insert(sorting[v.Category], v.Name)
-		end
+		local caller = (table.find({'Xeno', 'Solara'}, ({identifyexecutor()})[1])) and task.spawn or function(f) return f() end
 
-		for _, sort in sorting do
-			table.sort(sort)
-			for i, v in sort do
-				mainapi.Modules[v].Index = i
-				mainapi.Modules[v].Object.LayoutOrder = i
-				mainapi.Modules[v].Children.LayoutOrder = i
+		caller(function()
+			local sorting = {}
+			for _, v in mainapi.Modules do
+				sorting[v.Category] = sorting[v.Category] or {}
+				table.insert(sorting[v.Category], v.Name)
 			end
-		end
+
+			for _, sort in sorting do
+				table.sort(sort)
+				for i, v in sort do
+					mainapi.Modules[v].Index = i
+					mainapi.Modules[v].Object.LayoutOrder = i
+					mainapi.Modules[v].Children.LayoutOrder = i
+				end
+			end
+		end)
+
 
 		return moduleapi
 	end
@@ -4749,7 +4826,7 @@ function mainapi:CreateCategoryList(categorysettings)
 
 	for i, v in components do
 		categoryapi['Create'..i] = function(self, optionsettings)
-			return v(optionsettings, childrentwo, categoryapi)
+			return v(optionsettings, children, categoryapi)
 		end
 	end
 
@@ -4921,6 +4998,14 @@ function mainapi:CreateSearch()
 		self.Legit.Window.Visible = true
 		self.Legit.Window.Position = UDim2.new(0.5, -350, 0.5, -194)
 	end)
+	local function hasAlias(alias, text)
+		for _, v in alias do
+			if text:lower():gsub(' ', ''):find(({v:lower():gsub(' ', '')})[1]) or v:lower():gsub(' ', ''):find(({text:lower():gsub(' ', '')})[1]) then
+				return true
+			end
+		end
+		return false
+	end
 	search:GetPropertyChangedSignal('Text'):Connect(function()
 		for _, v in children:GetChildren() do
 			if v:IsA('TextButton') then
@@ -4930,11 +5015,32 @@ function mainapi:CreateSearch()
 		if search.Text == '' then return end
 
 		for i, v in self.Modules do
-			if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) then
+			local hasAlias = hasAlias(v.Alias, search.Text)
+			if i:lower():gsub(' ', ''):find(search.Text:lower():gsub(' ', '')) or hasAlias then
 				local button = v.Object:Clone()
+				for _, v in button.Indicators:GetChildren() do
+					if v:IsA('TextLabel') and v.Name ~= 'MATCHED' then
+						v.Visible = false
+					end
+				end
 				button.Bind:Destroy()
+				button.Indicators.MATCHED.Visible = hasAlias
 				button.MouseButton1Click:Connect(function()
 					v:Toggle()
+					v.Object.Parent.Parent.Visible = true
+					local frame = v.Object.Parent
+					local highlight = Instance.new('Frame')
+					highlight.Size = UDim2.fromScale(1, 1)
+					highlight.BackgroundColor3 = Color3.new(1, 1, 1)
+					highlight.BackgroundTransparency = 0.6
+					highlight.BorderSizePixel = 0
+					highlight.Parent = v.Object
+					tween:Tween(highlight, TweenInfo.new(0.5), {
+						BackgroundTransparency = 1
+					})
+					task.delay(0.5, highlight.Destroy, highlight)
+
+					frame.CanvasPosition = Vector2.new(0, (v.Object.LayoutOrder * 40) - (math.min(frame.CanvasSize.Y.Offset, 600) / 2))
 				end)
 
 				button.MouseButton2Click:Connect(function()
@@ -6273,7 +6379,7 @@ function mainapi:CreateNotification(title, text, duration, type)
 end
 
 local guipane
-function mainapi:Load(skipgui, profile)
+function mainapi:Load(skipgui, profile, profiledata)
 	if not skipgui then
 		self.GUIColor:SetValue(nil, nil, nil, 4)
 	end
@@ -6328,63 +6434,69 @@ function mainapi:Load(skipgui, profile)
 	end
 
 	if isfile('catrewrite/profiles/'..self.Profile..self.Place..'.txt') then
-		local savedata = loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
+		local savedata = profiledata or loadJson('catrewrite/profiles/'..self.Profile..self.Place..'.txt')
 		if not savedata then
 			savedata = {Categories = {}, Modules = {}, Legit = {}}
 			self:CreateNotification('Vape', 'Failed to load '..self.Profile..' profile.', 10, 'alert')
 			savecheck = false
 		end
 
-		for i, v in savedata.Categories do
-			local object = self.Categories[i]
-			if not object then continue end
-			if object.Options and v.Options then
-				self:LoadOptions(object, v.Options)
-			end
-			if v.Pinned ~= object.Pinned then
-				object:Pin()
-			end
-			if v.Expanded ~= nil and v.Expanded ~= object.Expanded then
-				object:Expand()
-			end
-			if object.Button and (v.Enabled or false) ~= object.Button.Enabled then
-				object.Button:Toggle()
-			end
-			if v.List and (#object.List > 0 or #v.List > 0) then
-				object.List = v.List or {}
-				object.ListEnabled = v.ListEnabled or {}
-				object:ChangeValue()
-			end
-			object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
-		end
-
-		for i, v in savedata.Modules do
-			local object = self.Modules[i]
-			if not object then continue end
-			if object.Options and v.Options then
-				self:LoadOptions(object, v.Options)
-			end
-			if v.Enabled ~= object.Enabled then
-				if skipgui then
-					if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
+		if savedata.Categories then
+			for i, v in savedata.Categories do
+				local object = self.Categories[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
 				end
-				object:Toggle(true)
+				if v.Pinned ~= object.Pinned then
+					object:Pin()
+				end
+				if v.Expanded ~= nil and v.Expanded ~= object.Expanded then
+					object:Expand()
+				end
+				if object.Button and (v.Enabled or false) ~= object.Button.Enabled then
+					object.Button:Toggle()
+				end
+				if v.List and (#object.List > 0 or #v.List > 0) then
+					object.List = v.List or {}
+					object.ListEnabled = v.ListEnabled or {}
+					object:ChangeValue()
+				end
+				object.Object.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
 			end
-			object:SetBind(v.Bind)
-			object.Object.Bind.Visible = #v.Bind > 0
 		end
 
-		for i, v in savedata.Legit do
-			local object = self.Legit.Modules[i]
-			if not object then continue end
-			if object.Options and v.Options then
-				self:LoadOptions(object, v.Options)
+		if savedata.Modules then
+			for i, v in savedata.Modules do
+				local object = self.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if v.Enabled ~= object.Enabled then
+					if skipgui then
+						if self.ToggleNotifications.Enabled then self:CreateNotification('Module Toggled', i.."<font color='#FFFFFF'> has been </font>"..(v.Enabled and "<font color='#5AFF5A'>Enabled</font>" or "<font color='#FF5A5A'>Disabled</font>").."<font color='#FFFFFF'>!</font>", 0.75) end
+					end
+					object:Toggle(true)
+				end
+				object:SetBind(v.Bind)
+				object.Object.Bind.Visible = #v.Bind > 0
 			end
-			if object.Enabled ~= v.Enabled then
-				object:Toggle()
-			end
-			if v.Position and object.Children then
-				object.Children.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+		end
+
+		if savedata.Legit then
+			for i, v in savedata.Legit do
+				local object = self.Legit.Modules[i]
+				if not object then continue end
+				if object.Options and v.Options then
+					self:LoadOptions(object, v.Options)
+				end
+				if object.Enabled ~= v.Enabled then
+					object:Toggle()
+				end
+				if v.Position and object.Children then
+					object.Children.Position = UDim2.fromOffset(v.Position.X, v.Position.Y)
+				end
 			end
 		end
 
@@ -6826,13 +6938,43 @@ mainapi:Clean(friends.ColorUpdate)
 --[[
 	Profiles
 ]]
-mainapi:CreateCategoryList({
+local Profiles = mainapi:CreateCategoryList({
 	Name = 'Profiles',
 	Icon = getcustomasset('catrewrite/assets/new/profilesicon.png'),
 	Size = UDim2.fromOffset(17, 10),
 	Position = UDim2.fromOffset(12, 16),
 	Placeholder = 'Type name',
 	Profiles = true
+})
+Profiles:CreateButton({
+	Name = 'Sync to "default" profile',
+	Function = function()
+		mainapi:Save('default')
+		local newval = nil
+		for i, v in mainapi.Profiles do
+			if v.Name == mainapi.Profile then
+				newval = v
+				break
+			end
+		end
+		newval.Name = 'default'
+		mainapi:Load(true, 'default', newval)
+	end
+})
+Profiles:CreateButton({
+	Name = 'Reset current profile',
+	Function = function()
+		mainapi.Save = function() end
+		if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') and delfile then
+			delfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
+		end
+		shared.vapereload = true
+		if shared.VapeDeveloper then
+			loadstring(readfile('catrewrite/loader.lua'), 'loader')(shared.catdata)
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))(shared.catdata)
+		end
+	end
 })
 
 --[[
@@ -6866,18 +7008,23 @@ mainapi.MultiKeybind = general:CreateToggle({
 	Name = 'Enable Multi-Keybinding',
 	Tooltip = 'Allows multiple keys to be bound to a module (eg. G + H)'
 })
+mainapi.AutoTeleport = general:CreateToggle({
+	Name = 'Auto Execute',
+	Default = true,
+	Tooltip = 'Automatically re-executes the script on teleport\n(might not work on some executors)'
+})
 general:CreateButton({
 	Name = 'Reset current profile',
 	Function = function()
-	mainapi.Save = function() end
+		mainapi.Save = function() end
 		if isfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt') and delfile then
 			delfile('catrewrite/profiles/'..mainapi.Profile..mainapi.Place..'.txt')
 		end
 		shared.vapereload = true
 		if shared.VapeDeveloper then
-			loadstring(readfile('catrewrite/loader.lua'), 'loader')()
+			loadstring(readfile('catrewrite/loader.lua'), 'loader')(shared.catdata)
 		else
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))(shared.catdata)
 		end
 	end,
 	Tooltip = 'This will set your profile to the default settings of Vape'
@@ -7872,6 +8019,12 @@ function mainapi:UpdateGUI(hue, sat, val, default)
 			button.Object.Bind.Icon.ImageColor3 = button.Object.TextColor3
 			button.Object.Bind.TextLabel.TextColor3 = button.Object.TextColor3
 			button.Object.Dots.Dots.ImageColor3 = button.Object.TextColor3
+		end
+
+		for _, v in button.Tags do
+			v.BackgroundColor3 = rainbow and Color3.fromHSV(mainapi:Color((hue - (button.Index * 0.025)) % 1)) or button.Enabled and Color3.new(1, 1, 1) or Color3.fromHSV(hue, sat, val)
+			v.BackgroundTransparency = (rainbow or not button.Enabled) and 0 or 0.85
+			v:FindFirstChild('Text').TextColor3 = mainapi.GUIColor.Rainbow and Color3.new(0.19, 0.19, 0.19) or mainapi:TextColor(hue, sat, val)
 		end
 
 		for _, option in button.Options do

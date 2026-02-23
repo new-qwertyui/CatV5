@@ -1,11 +1,11 @@
 local license = ...
 repeat task.wait() until game:IsLoaded()
 if shared.vape then shared.vape:Uninject() end
-if shared.maincat then game:GetService('Players').LocalPlayer:Kick('Your currently using an outdated loader of catvape, Go get the updated loader at discord.gg/catv5') end
+if shared.maincat then game:GetService('Players').LocalPlayer:Kick('Your using an outdated loader of catvape\nYou may be getting ip logged. Please change ur loader now') end
 print(shared.VapeDeveloper)
 
 if identifyexecutor then
-	if table.find({'Argon', 'Wave', 'Seliware'}, ({identifyexecutor()})[1]) then
+	if table.find({'Argon', 'Wave', 'Seliware', 'Volt'}, ({identifyexecutor()})[1]) then
 		getgenv().setthreadidentity = nil
 	end
 end
@@ -17,7 +17,7 @@ local loadstring = function(...)
 		vape:CreateNotification('Vape', 'Failed to load : '..err, 30, 'alert')
 	end
 	return res
-end--[[]]
+end
 local queue_on_teleport = queue_on_teleport or function() end
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
@@ -68,7 +68,7 @@ local function finishLoading()
 
 	local teleportedServers
 	vape:Clean(playersService.LocalPlayer.OnTeleport:Connect(function()
-		if (not teleportedServers) and (not shared.VapeIndependent) then
+		if (not teleportedServers) and (not shared.VapeIndependent) and vape.AutoTeleport.Enabled then
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
