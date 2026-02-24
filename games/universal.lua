@@ -8452,3 +8452,341 @@ run(function()
 		Default = 'Workspace'
 	})
 end)
+
+run(function()
+	local AnimationChanger
+	local AnimFreeze = {Enabled = false}
+	local AnimRun = {Value = 'Robot'}
+	local AnimWalk = {Value = 'Robot'}
+	local AnimJump = {Value = 'Robot'}
+	local AnimFall = {Value = 'Robot'}
+    local AnimClimb = {Value = 'Robot'}
+	local AnimIdle = {Value = 'Robot'}
+	local AnimIdleB = {Value = 'Robot'}
+	local Animate
+	local RunAnimations = {}
+	local WalkAnimations = {}
+	local FallAnimations = {}
+	local JumpAnimations = {}
+    local ClimbAnimations = {}
+	local IdleAnimations = {}
+	local IdleAnimationsB = {}
+	local AnimList = {
+		RunAnim = {
+		    ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921082452',
+		    ['Levitation'] = 'http://www.roblox.com/asset/?id=10921135644',
+		    ['Robot'] = 'http://www.roblox.com/asset/?id=10921250460',
+		    ['Stylish'] = 'http://www.roblox.com/asset/?id=10921276116',
+		    ['Superhero'] = 'http://www.roblox.com/asset/?id=10921291831',
+		    ['Zombie'] = 'http://www.roblox.com/asset/?id=616163682',
+		    ['Ninja'] = 'http://www.roblox.com/asset/?id=10921157929',
+		    ['Knight'] = 'http://www.roblox.com/asset/?id=10921121197',
+		    ['Mage'] = 'http://www.roblox.com/asset/?id=10921148209',
+		    ['Pirate'] = 'http://www.roblox.com/asset/?id=750783738',
+		    ['Elder'] = 'http://www.roblox.com/asset/?id=10921104374',
+		    ['Toy'] = 'http://www.roblox.com/asset/?id=10921306285',
+	    	['Bubbly'] = 'http://www.roblox.com/asset/?id=10921057244',
+	    	['Astronaut'] = 'http://www.roblox.com/asset/?id=10921039308',
+	    	['Vampire'] = 'http://www.roblox.com/asset/?id=10921320299',
+	    	['Werewolf'] = 'http://www.roblox.com/asset/?id=10921336997',
+	    	['Rthro'] = 'http://www.roblox.com/asset/?id=10921261968',
+	    	['Oldschool'] = 'http://www.roblox.com/asset/?id=10921240218',
+	    	['Toilet'] = 'http://www.roblox.com/asset/?id=4417979645',
+		    ['Rthro Heavy Run'] = 'http://www.roblox.com/asset/?id=3236836670',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921157929',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=4417979645',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921306285'
+	    },
+	    WalkAnim = {
+	    	['Cartoony'] = 'http://www.roblox.com/asset/?id=10921082452',
+    		['Levitation'] = 'http://www.roblox.com/asset/?id=10921140719',
+		    ['Robot'] = 'http://www.roblox.com/asset/?id=10921255446',
+		    ['Stylish'] = 'http://www.roblox.com/asset/?id=10921283326',
+		    ['Superhero'] = 'http://www.roblox.com/asset/?id=10921298616',
+		    ['Zombie'] = 'http://www.roblox.com/asset/?id=10921355261',
+		    ['Ninja'] = 'http://www.roblox.com/asset/?id=10921162768',
+		    ['Knight'] = 'http://www.roblox.com/asset/?id=10921127095',
+		    ['Mage'] = 'http://www.roblox.com/asset/?id=10921152678',
+		    ['Pirate'] = 'http://www.roblox.com/asset/?id=750785693',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921111375',
+    		['Toy'] = 'http://www.roblox.com/asset/?id=10921312010',
+    		['Bubbly'] = 'http://www.roblox.com/asset/?id=10980888364',
+    		['Astronaut'] = 'http://www.roblox.com/asset/?id=10921046031',
+    		['Vampire'] = 'http://www.roblox.com/asset/?id=10921326949',
+    	  	['Werewolf'] = 'http://www.roblox.com/asset/?id=10921342074',
+    		['Rthro'] = 'http://www.roblox.com/asset/?id=10921269718',
+    		['Oldschool'] = 'http://www.roblox.com/asset/?id=10921244891',
+		    ['Ud\'zal'] = 'http://www.roblox.com/asset/?id=3303162967',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921162768',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=10921162768',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921312010'
+	    },
+        FallAnim = {
+            ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921077030',
+            ['Levitation'] = 'http://www.roblox.com/asset/?id=10921136539',
+            ['Robot'] = 'http://www.roblox.com/asset/?id=10921251156',
+            ['Stylish'] = 'http://www.roblox.com/asset/?id=10921278648',
+            ['Superhero'] = 'http://www.roblox.com/asset/?id=10921293373',
+            ['Zombie'] = 'http://www.roblox.com/asset/?id=10921350320',
+            ['Ninja'] = 'http://www.roblox.com/asset/?id=10921159222',
+            ['Knight'] = 'http://www.roblox.com/asset/?id=10921122579',
+            ['Mage'] = 'http://www.roblox.com/asset/?id=10921148939',
+            ['Pirate'] = 'http://www.roblox.com/asset/?id=750780242',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921105765',
+            ['Toy'] = 'http://www.roblox.com/asset/?id=10921307241',
+            ['Bubbly'] = 'http://www.roblox.com/asset/?id=10921061530',
+            ['Astronaut'] = 'http://www.roblox.com/asset/?id=10921040576',
+            ['Vampire'] = 'http://www.roblox.com/asset/?id=10921321317',
+            ['Werewolf'] = 'http://www.roblox.com/asset/?id=10921337907',
+            ['Rthro'] = 'http://www.roblox.com/asset/?id=10921262864',
+            ['Oldschool'] = 'http://www.roblox.com/asset/?id=10921241244',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921136539',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=10921136539',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921136539'
+        },
+        JumpAnim = {
+            ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921078135',
+            ['Levitation'] = 'http://www.roblox.com/asset/?id=10921137402',
+            ['Robot'] = 'http://www.roblox.com/asset/?id=10921252123',
+            ['Stylish'] = 'http://www.roblox.com/asset/?id=10921279832',
+            ['Superhero'] = 'http://www.roblox.com/asset/?id=10921294559',
+            ['Zombie'] = 'http://www.roblox.com/asset/?id=10921351278',
+            ['Ninja'] = 'http://www.roblox.com/asset/?id=10921160088',
+            ['Knight'] = 'http://www.roblox.com/asset/?id=10921123517',
+            ['Mage'] = 'http://www.roblox.com/asset/?id=10921149743',
+            ['Pirate'] = 'http://www.roblox.com/asset/?id=750782230',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921107367',
+            ['Toy'] = 'http://www.roblox.com/asset/?id=10921308158',
+            ['Bubbly'] = 'http://www.roblox.com/asset/?id=10921062673',
+            ['Astronaut'] = 'http://www.roblox.com/asset/?id=10921042494',
+            ['Vampire'] = 'http://www.roblox.com/asset/?id=10921322186',
+            ['Werewolf'] = 'http://www.roblox.com/asset/?id=1083218792',
+            ['Rthro'] = 'http://www.roblox.com/asset/?id=10921263860',
+            ['Oldschool'] = 'http://www.roblox.com/asset/?id=10921242013',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921137402',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=10921137402',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921242013'
+        },
+        ClimbAnim = {
+            ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921070953',
+            ['Levitation'] = 'http://www.roblox.com/asset/?id=10921132092',
+            ['Robot'] = 'http://www.roblox.com/asset/?id=10921245669',
+            ['Stylish'] = 'http://www.roblox.com/asset/?id=10921525854',
+            ['Superhero'] = 'http://www.roblox.com/asset/?id=10921346417',
+            ['Zombie'] = 'http://www.roblox.com/asset/?id=10921469135',
+            ['Ninja'] = 'http://www.roblox.com/asset/?id=10920908048',
+            ['Knight'] = 'http://www.roblox.com/asset/?id=10921116196',
+            ['Mage'] = 'http://www.roblox.com/asset/?id=10921143404',
+            ['Pirate'] = 'http://www.roblox.com/asset/?id=750779899',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921100400',
+            ['Toy'] = 'http://www.roblox.com/asset/?id=10921300839',
+            ['Bubbly'] = 'http://www.roblox.com/asset/?id=10921053544',
+            ['Astronaut'] = 'http://www.roblox.com/asset/?id=10921032124',
+            ['Vampire'] = 'http://www.roblox.com/asset/?id=10921314188',
+            ['Werewolf'] = 'http://www.roblox.com/asset/?id=10921329322',
+            ['Rthro'] = 'http://www.roblox.com/asset/?id=10921257536',
+            ['Oldschool'] = 'http://www.roblox.com/asset/?id=10921229866'
+        },
+        Animation1 = {
+            ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921071918',
+            ['Levitation'] = 'http://www.roblox.com/asset/?id=10921132962',
+            ['Robot'] = 'http://www.roblox.com/asset/?id=10921248039',
+            ['Stylish'] = 'http://www.roblox.com/asset/?id=10921272275',
+            ['Superhero'] = 'http://www.roblox.com/asset/?id=10921288909',
+            ['Zombie'] = 'http://www.roblox.com/asset/?id=10921344533',
+            ['Ninja'] = 'http://www.roblox.com/asset/?id=10921155160',
+            ['Knight'] = 'http://www.roblox.com/asset/?id=10921117521',
+            ['Mage'] = 'http://www.roblox.com/asset/?id=10921144709',
+            ['Pirate'] = 'http://www.roblox.com/asset/?id=750781874',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921101664',
+            ['Toy'] = 'http://www.roblox.com/asset/?id=10921301576',
+            ['Bubbly'] = 'http://www.roblox.com/asset/?id=10921054344',
+            ['Astronaut'] = 'http://www.roblox.com/asset/?id=10921034824',
+            ['Vampire'] = 'http://www.roblox.com/asset/?id=10921315373',
+            ['Werewolf'] = 'http://www.roblox.com/asset/?id=10921330408',
+            ['Rthro'] = 'http://www.roblox.com/asset/?id=10921258489',
+            ['Oldschool'] = 'http://www.roblox.com/asset/?id=10921230744',
+            ['Toilet'] = 'http://www.roblox.com/asset/?id=4417977954',
+            ['Ud\'zal'] = 'http://www.roblox.com/asset/?id=3303162274',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921301576',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=4417977954',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921034824'
+        },
+        Animation2 = {
+            ['Cartoony'] = 'http://www.roblox.com/asset/?id=10921072875',
+            ['Levitation'] = 'http://www.roblox.com/asset/?id=10921133721',
+            ['Robot'] = 'http://www.roblox.com/asset/?id=10921248831',
+            ['Stylish'] = 'http://www.roblox.com/asset/?id=10921273958',
+            ['Superhero'] = 'http://www.roblox.com/asset/?id=10921290167',
+            ['Zombie'] = 'http://www.roblox.com/asset/?id=10921345304',
+            ['Ninja'] = 'http://www.roblox.com/asset/?id=10921155867',
+            ['Knight'] = 'http://www.roblox.com/asset/?id=10921118894',
+            ['Mage'] = 'http://www.roblox.com/asset/?id=10921145797',
+            ['Pirate'] = 'http://www.roblox.com/asset/?id=750782770',
+            ['Elder'] = 'http://www.roblox.com/asset/?id=10921102574',
+            ['Toy'] = 'http://www.roblox.com/asset/?id=10921302207',
+            ['Bubbly'] = 'http://www.roblox.com/asset/?id=10921055107',
+            ['Astronaut'] = 'http://www.roblox.com/asset/?id=10921036806',
+            ['Vampire'] = 'http://www.roblox.com/asset/?id=10921316709',
+            ['Werewolf'] = 'http://www.roblox.com/asset/?id=10921333667',
+            ['Rthro'] = 'http://www.roblox.com/asset/?id=10921259953',
+            ['Oldschool'] = 'http://www.roblox.com/asset/?id=10921232093',
+            ['Toilet'] = 'http://www.roblox.com/asset/?id=4417978624',
+            ['Ud\'zal'] = 'http://www.roblox.com/asset/?id=3303162549',
+            ['Tryhard'] = 'http://www.roblox.com/asset/?id=10921302207',
+            ['Goofy'] = 'http://www.roblox.com/asset/?id=4417978624',
+            ['Tamar'] = 'http://www.roblox.com/asset/?id=10921036806'
+        }
+    }
+    local function AnimateCharacter()
+        local animate = lplr.Character:FindFirstChild('Animate') 
+        if AnimFreeze.Enabled then
+            animate.Enabled = false
+        end
+        animate.run.RunAnim.AnimationId = AnimList.RunAnim[AnimRun.Value]
+        animate.walk.WalkAnim.AnimationId = AnimList.WalkAnim[AnimWalk.Value]
+        animate.fall.FallAnim.AnimationId = AnimList.FallAnim[AnimFall.Value]
+        animate.jump.JumpAnim.AnimationId = AnimList.JumpAnim[AnimJump.Value]
+        animate.climb.ClimbAnim.AnimationId = AnimList.Animation1[AnimClimb.Value]
+        animate.idle.Animation1.AnimationId = AnimList.Animation1[AnimIdle.Value]
+        animate.idle.Animation2.AnimationId = AnimList.Animation2[AnimIdleB.Value]
+    end
+	AnimationChanger = vape.Categories.Utility:CreateModule({
+		Name = 'Animation Changer',
+		Function = function(callback)
+			if callback then
+				AnimationChanger:Clean(lplr.CharacterAppearanceLoaded:Connect(function()
+                    task.delay(2, AnimateCharacter)
+				end))
+
+                if entitylib.isAlive then
+                    AnimateCharacter()
+                end
+			else
+				pcall(function() Animate.Enabled = true end)
+				Animate = nil
+			end
+		end
+	})
+	for i,v in AnimList.RunAnim do table.insert(RunAnimations, i) end
+	for i,v in AnimList.WalkAnim do table.insert(WalkAnimations, i) end
+	for i,v in AnimList.FallAnim do table.insert(FallAnimations, i) end
+	for i,v in AnimList.JumpAnim do table.insert(JumpAnimations, i) end
+	for i,v in AnimList.ClimbAnim do table.insert(ClimbAnimations, i) end
+	for i,v in AnimList.Animation1 do table.insert(IdleAnimations, i) end
+	for i,v in AnimList.Animation2 do table.insert(IdleAnimationsB, i) end
+	AnimRun = AnimationChanger:CreateDropdown({
+		Name = 'Run',
+		List = RunAnimations,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimWalk = AnimationChanger:CreateDropdown({
+		Name = 'Walk',
+		List = WalkAnimations,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimFall = AnimationChanger:CreateDropdown({
+		Name = 'Fall',
+		List = FallAnimations,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimJump = AnimationChanger:CreateDropdown({
+		Name = 'Jump',
+		List = JumpAnimations,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimIdle = AnimationChanger:CreateDropdown({
+		Name = 'Idle',
+		List = IdleAnimations,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimIdleB = AnimationChanger:CreateDropdown({
+		Name = 'Idle 2',
+		List = IdleAnimationsB,
+		Function = function() 
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+	AnimFreeze = AnimationChanger:CreateToggle({
+		Name = 'Freeze',
+		Tooltip = 'Freezes all your animations',
+		Function = function(callback)
+			if AnimationChanger.Enabled then
+				AnimationChanger:Toggle(false)
+				AnimationChanger:Toggle(false)
+			end
+		end
+	})
+end)
+
+if setfflag then
+    run(function()
+        local FFlag
+        local Flags
+
+        local function ChangeFFlag(suc)
+            if not suc or not FFlag.Enabled then return end
+            local success, json = pcall(function()
+                return httpService:JSONDecode(Flags.Value)
+            end)
+
+            if not success or typeof(json) ~= 'table' then
+                notif('Vape', 'Invalid json format for fflag', 12, 'warning')
+                return
+            end
+
+            for i, v in json do
+                i = i:gsub('DFInt', ''):gsub('DFFlag', ''):gsub('FFlag', ''):gsub('FInt', ''):gsub('DFString', ''):gsub('FString', '')
+
+                pcall(setfflag, i, tostring(v))
+            end
+
+            notif('Vape', 'FFlags applied, Go in a new game to take effect', 12, 'info')
+        end
+
+        FFlag = vape.Categories.Legit:CreateModule({
+            Name = 'FFlag Editor',
+            Function = function(call)
+                if call then
+                    ChangeFFlag(true)
+                else
+                    notif('Vape', 'Inorder to disable fflags you have applied, You need to restart roblox', 20, 'info')
+                end
+            end
+        })
+
+        Flags = FFlag:CreateTextBox({
+            Name = 'FFlags',
+            Placeholder = 'json format only',
+            Function = ChangeFFlag
+        })
+    end)
+end

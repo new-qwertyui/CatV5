@@ -906,7 +906,7 @@ run(function()
 			return call
 		end
 	end
-	
+
 	local cache, blockhealthbar = {}, {blockHealth = -1, breakingBlockPosition = Vector3.zero}
 	if canDebug then
 		store.blockPlacer = bedwars.BlockPlacer.new(bedwars.BlockEngine, 'wool_white')
@@ -7266,6 +7266,7 @@ run(function()
 	local Mode
 	local Range
 	local BreakSpeed
+	local Angle
 	local UpdateRate
 	local Custom
 	local Bed
@@ -7398,7 +7399,7 @@ run(function()
 				if LimitItem.Enabled and not (store.hand.tool and bedwars.ItemMeta[store.hand.tool.Name].breakBlock) then continue end
 	
 				hit += 1
-				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, InstantBreak.Enabled, AutoTool.Enabled, Mode.Value)
+				local target, path, endpos = bedwars.breakBlock(v, Effect.Enabled, Animation.Enabled, CustomHealth.Enabled and customHealthbar or nil, InstantBreak.Enabled, AutoTool.Enabled, Mode.Value, Angle.Value)
 				if path then
 					local currentnode = target
 					for _, part in parts do
@@ -7475,6 +7476,7 @@ run(function()
 	
 						if attemptBreak(Tesla.Enabled and teslas, localPosition) then continue end
 						if attemptBreak(Bed.Enabled and beds, localPosition) then continue end
+						if attemptBreak(Hive.Enabled and hives, localPosition) then continue end
 						if attemptBreak(customlist, localPosition) then continue end
 						if attemptBreak(LuckyBlock.Enabled and luckyblock, localPosition) then continue end
 						if attemptBreak(IronOre.Enabled and ironores, localPosition) then continue end
@@ -7517,6 +7519,12 @@ run(function()
 		Decimal = 100,
 		Suffix = 'seconds'
 	})
+	Angle = Breaker:CreateSlider({
+		Name = 'Max angle',
+		Min = 1,
+		Max = 360,
+		Default = 360,	
+	})
 	UpdateRate = Breaker:CreateSlider({
 		Name = 'Update rate',
 		Min = 1,
@@ -7542,6 +7550,10 @@ run(function()
 	})
 	Tesla = Breaker:CreateToggle({
 		Name = 'Break Tesla',
+		Default = true
+	})
+	Hive = Breaker:CreateToggle({
+		Name = 'Break Hive',
 		Default = true
 	})
 	LuckyBlock = Breaker:CreateToggle({
