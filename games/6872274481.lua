@@ -7387,11 +7387,7 @@ run(function()
 	
 	local function attemptBreak(tab, localPosition)
 		if not tab then return end
-		if #tab > 1 then
-			table.sort(tab, function(a, b)
-				return (localPosition - a.Position).Magnitude <= (localPosition - b.Position).Magnitude
-			end)
-		end
+
 		for _, v in tab do
 			if (v.Position - localPosition).Magnitude < Range.Value and bedwars.BlockController:isBlockBreakable({blockPosition = v.Position / 3}, lplr) then
 				if not SelfBreak.Enabled and v:GetAttribute('PlacedByUserId') == lplr.UserId then continue end
