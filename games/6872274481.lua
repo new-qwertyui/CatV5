@@ -1180,8 +1180,8 @@ run(function()
 		end))
 	end
 
-	store.blocks = collection('block', gui)
-	store.shop = collection({'BedwarsItemShop', 'TeamUpgradeShopkeeper'}, gui, function(tab, obj)
+	store.blocks = collection('block', vape)
+	store.shop = collection({'BedwarsItemShop', 'TeamUpgradeShopkeeper'}, vape, function(tab, obj)
 		table.insert(tab, {
 			Id = obj.Name,
 			RootPart = obj,
@@ -1189,7 +1189,7 @@ run(function()
 			Upgrades = obj:HasTag('TeamUpgradeShopkeeper')
 		})
 	end)
-	store.enchant = collection({'enchant-table', 'broken-enchant-table'}, gui, nil, function(tab, obj, tag)
+	store.enchant = collection({'enchant-table', 'broken-enchant-table'}, vape, nil, function(tab, obj, tag)
 		if obj:HasTag('enchant-table') and tag == 'broken-enchant-table' then return end
 		obj = table.find(tab, obj)
 		if obj then
@@ -7387,7 +7387,11 @@ run(function()
 	
 	local function attemptBreak(tab, localPosition)
 		if not tab then return end
-
+		if #tab > 1 then
+			table.sort(tab, function(a, b)
+				return (localPosition - a.Position).Magnitude <= (localPosition - b.Position).Magnitude
+			end)
+		end
 		for _, v in tab do
 			if (v.Position - localPosition).Magnitude < Range.Value and bedwars.BlockController:isBlockBreakable({blockPosition = v.Position / 3}, lplr) then
 				if not SelfBreak.Enabled and v:GetAttribute('PlacedByUserId') == lplr.UserId then continue end
