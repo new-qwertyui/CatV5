@@ -1,1 +1,2 @@
+shared.maincat = true;
 return loadstring(game:HttpGet('https://raw.githubusercontent.com/Maxlasertech/CatV6/main/init.lua'))(...)
